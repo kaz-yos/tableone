@@ -4,13 +4,14 @@
 CreateContTable <- function(vars,       # vector of characters
                             strata,     # single element character vector
                             data,       # data frame
-                            func.names = c(
+                            func.names = c(     # can pick a subset of them
                                 "n","miss",
                                 "mean","sd",
                                 "median","q25","q75","min","max",
                                 "skew","kurt"
                                 ),
-                            func.additional) {
+                            func.additional     # named list of additional functions
+                            ) {
 
     ## Extract necessary variables
     dat <- data[c(vars)]
@@ -35,7 +36,7 @@ CreateContTable <- function(vars,       # vector of characters
     ## Check if all the variables are continuous, and stop if not
     if(!all(sapply(dat, is.numeric))) {stop("Can only be run on numeric variables")}
 
-    ## Create indexes for default variables by partial string matching with the func.names argument
+    ## Create indexes for default functions by partial string matching with the func.names argument
     func.indexes <- pmatch(func.names, c("n","miss",
                                          "mean","sd",
                                          "median","q25","q75","min","max",

@@ -1,92 +1,111 @@
 ## Print method for a continuous table
-print.ContTable <- function(ContTable, missing = FALSE, digits = 2, nonnormal) {
+print.ContTable <- function(ContTable, missing = FALSE, digits = 2, nonnormal = FALSE) {
 
     ## nonnormal: indicator vector for nonnormality.
-    
-    if (length(ContTable) > 1) {
-        ## Stratification
-        
+    if (nonnormal == FALSE) {
 
-        ## Loop over elements
-        LIST <- lapply(ContTable,
-                       function(MAT) {
-                           
-                           ## mean (sd) version
-                           fmt <- paste0("%.",digits,"f"," (%.",digits,"f",")")
-                           VEC <- sprintf(fmt = fmt,
-                                          MAT[, "mean"],
-                                          MAT[, "sd"]
-                                          )
+        ## If the result is stratified
+        if (length(ContTable) > 1) {
+            
+            ## Loop over strata
+            LIST <- lapply(ContTable,
+                           function(MAT) {
+                               
+                               ## mean (sd) version
+                               fmt <- paste0("%.",digits,"f"," (%.",digits,"f",")")
+                               VEC <- sprintf(fmt = fmt,
+                                              MAT[, "mean"],
+                                              MAT[, "sd"]
+                                              )
 
-                           ## Name variables
-                           names(VEC) <- rownames(MAT)
+                               ## Name variables
+                               names(VEC) <- rownames(MAT)
 
-                           ## Return as a vector
-                           VEC
-                       })
+                               ## Return as a vector
+                               VEC
+                           })
 
-        out <- do.call(cbind, LIST)
+            ## Combine as columns to form a matrix
+            out <- do.call(cbind, LIST)
 
-        ## out <- data.frame(out)
+            ## Show with quotes
+            print(out, quote = FALSE)
 
-        print(out, quote = FALSE)
-        
-    } else {
-        ## No stratification
-        MAT <- ContTable[[1]]
-        
-        ## mean (sd) version
-        fmt <- paste0("%.",digits,"f"," (%.",digits,"f",")")
-        VEC <- sprintf(fmt = fmt,
-                       MAT[, "mean"],
-                       MAT[, "sd"]
-                       )
+            
+            ## If the result is NOT stratified
+        } else if (length(ContTable) == 1) {
 
-        ## Name variables
-        names(VEC) <- rownames(MAT)
-        
-        out <- data.frame(Overall = VEC)
+            MAT <- ContTable[[1]]
+            
+            ## mean (sd) version
+            fmt <- paste0("%.",digits,"f"," (%.",digits,"f",")")
+            VEC <- sprintf(fmt = fmt,
+                           MAT[, "mean"],
+                           MAT[, "sd"]
+                           )
 
-        print(out)
-    }
-}
+            ## Name variables
+            names(VEC) <- rownames(MAT)
+            
+            out <- data.frame(Overall = VEC)
 
+            print(out)
+        }
 
 ################################################################################
-DisplayDescTab <-
-    function(listDescTab, missing = FALSE, digits = 2) {
 
-        matDescTab <-
-            sapply(listDescTab,
-                   FUN = function(MAT) {
+        ## nonormal case
+    } else if (nonnormal == TRUE) {
 
-                       if (missing ==  TRUE) {
-                           ## Format median [p25, p75] (missing%)
-                           fmt <- paste0("%.",digits,"f [%.",digits,"f, %.",digits,"f] (%.",digits,"f)")
-                           VEC <- sprintf(fmt = fmt,
-                                          MAT[, "Median"],
-                                          MAT[, "25th Percentile"],
-                                          MAT[, "75th Percentile"],
-                                          1 - (MAT[, "Valid N"] / MAT[, "length"])
-                                          )
-                           
-                       } else if (missing ==  FALSE) {
-                           ## Format median [p25, p75]
-                           fmt <- paste0("%.",digits,"f [%.",digits,"f, %.",digits,"f]")
-                           VEC <- sprintf(fmt = fmt,
-                                          MAT[, "Median"],
-                                          MAT[, "25th Percentile"],
-                                          MAT[, "75th Percentile"]
-                                          )
-                       }
+        ## If the result is stratified
+        if (length(ContTable) > 1) {
+            
+            ## Loop over elements
+            LIST <- lapply(ContTable,
+                           function(MAT) {
+                               ## Format median [p25, p75]
+                               fmt <- paste0("%.",digits,"f [%.",digits,"f, %.",digits,"f]")
+                               VEC <- sprintf(fmt = fmt,
+                                              MAT[, "median"],
+                                              MAT[, "q25"],
+                                              MAT[, "q75"]
+                                              )
 
-                       ## Name
-                       names(VEC) <- row.names(MAT)
+                               ## Name variables
+                               names(VEC) <- rownames(MAT)
 
-                       ## Return results
-                       VEC
-                   })
-        
-        matDescTab
-    }
+                               ## Return as a vector
+                               VEC
+                           })
 
+            ## Combine as columns to form a matrix
+            out <- do.call(cbind, LIST)
+
+            ## Show with quotes
+            print(out, quote = FALSE)
+
+
+            ## If the result is NOT stratified
+        } else (length(ContTable) == 1) {
+            
+            MAT <- ContTable[[1]]
+            
+            ## Format median [p25, p75]
+            fmt <- paste0("%.",digits,"f [%.",digits,"f, %.",digits,"f]")
+            VEC <- sprintf(fmt = fmt,
+                           MAT[, "median"],
+                           MAT[, "q25"],
+                           MAT[, "q75"]
+                           )
+
+            ## Name variables
+            names(VEC) <- rownames(MAT)
+            
+            out <- data.frame(Overall = VEC)
+
+            print(out)
+        } else {stop("Neither stratified or non-stratified!?")}
+
+    } else {stop("Neither nonnormal or normal!?")} ## nonnormal conditions end here
+    
+}
