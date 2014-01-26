@@ -4,7 +4,7 @@
 CreateContTable <- function(vars,       # vector of characters
                             strata,     # single element character vector
                             data,       # data frame
-                            nonnormal = FALSE, # nonnormality indicator
+                            ## nonnormal = FALSE, # nonnormality indicator (better in print?)
                             func.names = c(     # can pick a subset of them
                                 "n","miss",
                                 "mean","sd",
@@ -32,22 +32,17 @@ CreateContTable <- function(vars,       # vector of characters
     ## Abort if variables exist at this point
     if (length(vars) < 1) {stop("No valid variables.")}
 
-
-    ## Check strata variable
-    if (!strata %in% names(data)) {
-        stop(strata, "does not exist in the data.")
-    }
+    ## ## Check the nonnormal argument is either logical or character
+    ## if (!is.logical(nonnormal) & !is.character(nonnormal)) {
+    ##     stop("nonnormal argument has to be FALSE/TRUE or character.")
+    ## }
+    ## ## Convert to a logical vector if it is a character vector
+    ## if (is.character(nonnormal)) {
+    ##     nonnormal <- vars %in% nonnormal
+    ## }
     
-
     ## Extract necessary variables
     dat <- data[c(vars)]
-
-    ## Handle non-numeric elements
-    if(any(!sapply(dat, is.numeric))){
-        ## If there is any non-numeric variables
-        dat <- dat[sapply(dat, is.numeric)]
-        warning("Non-numeric variables dropped")
-    }
 
     ## Condition on the presence/absence of the strata
     if(missing(strata)){
@@ -55,8 +50,21 @@ CreateContTable <- function(vars,       # vector of characters
         strata <- rep("Overall", dim(dat)[1])
 
     } else {
+
+        ## Check strata variable
+        if (!strata %in% names(data)) {
+            stop(strata, " does not exist in the data.")
+        }
+
         ## Extract the stratifying variable vector
         strata <- data[c(strata)]
+    }    
+
+    ## Handle non-numeric elements
+    if(any(!sapply(dat, is.numeric))){
+        ## If there is any non-numeric variables
+        dat <- dat[sapply(dat, is.numeric)]
+        warning("Non-numeric variables dropped")
     }
 
     ## Check if all the variables are continuous, and stop if not
@@ -119,14 +127,12 @@ CreateContTable <- function(vars,       # vector of characters
                             })
                  })
 
-    ## Not sure what this does.
-    ## clean out nulls
-    ## Drop strata with any null values?
-    ## result <- result[!sapply(result, # loop on strata
-    ##                          function(x) {all(sapply(x, function(x) {all(is.null(x))}))})]
-
     ## Give an S3 class
     class(result) <- "ContTable"
+
+    ## Add nonnormal attributes
+    ## attributes(result) <- c(attributes(result), nonnormal = list(nonnormal))
+    ## attributes(result) <- list(nonrmal = nonnormal)
 
     ## Return
     return(result)
