@@ -4,6 +4,7 @@
 CreateContTable <- function(vars,       # vector of characters
                             strata,     # single element character vector
                             data,       # data frame
+                            nonnormal = FALSE, # nonnormality indicator
                             func.names = c(     # can pick a subset of them
                                 "n","miss",
                                 "mean","sd",
@@ -12,6 +13,31 @@ CreateContTable <- function(vars,       # vector of characters
                                 ),
                             func.additional     # named list of additional functions
                             ) {
+    ## Require dependencies
+    require(e1071)
+
+    ## Check the dataframe
+    if (is.data.frame(data) == FALSE) {
+        stop("The data argument needs to be a data frame (no quote).")
+    }
+
+    ## Check variables
+    varsNotInData <- setdiff(vars, names(data))
+    if (length(varsNotInData) > 0) {
+        warning("The dataset does not have ", varsNotInData, ". Dropping them.")
+        ## Only keep variables that exist
+        vars <- intersect(vars, names(data))
+    }
+
+    ## Abort if variables exist at this point
+    if (length(vars) < 1) {stop("No valid variables.")}
+
+
+    ## Check strata variable
+    if (!strata %in% names(data)) {
+        stop(strata, "does not exist in the data.")
+    }
+    
 
     ## Extract necessary variables
     dat <- data[c(vars)]
@@ -27,7 +53,7 @@ CreateContTable <- function(vars,       # vector of characters
     if(missing(strata)){
         ## If there is no strata, name the list "Overall"
         strata <- rep("Overall", dim(dat)[1])
-        
+
     } else {
         ## Extract the stratifying variable vector
         strata <- data[c(strata)]
@@ -43,7 +69,7 @@ CreateContTable <- function(vars,       # vector of characters
                                          "skew","kurt"))
     ## Remove NA
     func.indexes <- func.indexes[!is.na(func.indexes)]
-    
+
 
     ## Create a list of default functions
     functions <- c("n"      = function(x) length(x),
@@ -58,7 +84,7 @@ CreateContTable <- function(vars,       # vector of characters
                    "skew"   = function(x) skewness(x, na.rm = TRUE, type = 2),     # type 2 as in SAS and SPSS
                    "kurt"   = function(x) kurtosis(x, na.rm = TRUE, type = 2)      # type 2 as in SAS and SPSS
                    )
-    
+
     ## Keep only functions in use
     functions <- functions[func.indexes]
 
@@ -75,7 +101,7 @@ CreateContTable <- function(vars,       # vector of characters
         func.names <- c(func.names, names(func.additional))
     }
 
-    
+
     ## strata-functions-variable structure alternative 2014-01-22
 
     ## Devide by strata
