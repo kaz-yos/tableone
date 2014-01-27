@@ -1,34 +1,65 @@
 ## Print method for a continuous table
-print.ContTable <- function(ContTable, missing = FALSE, digits = 2, nonnormal = FALSE, quote = FALSE) {
+print.ContTable <- function(ContTable, missing = FALSE,
+                            digits = 2, nonnormal = NULL, quote = TRUE,
+                            test = TRUE, pDigits = 3,
+                            explain = TRUE
+                            ) {
+
+    ## ContTable is a multidimensional array.
 
     ## Save variable names
+    ## This will not work if the first element is NULL
     varNames <- rownames(ContTable[[1]])
     ## Check the number of rows
     nRows <- length(varNames)
 
-    ## Check the nonnormal argument
-    if (!is.logical(nonnormal) & !is.character(nonnormal)) {
-        stop("nonnormal argument has to be FALSE/TRUE or character.")
-    }
-    ## Extend if it is a logitcal vector with one element.
-    if (is.logical(nonnormal)) {
+    ## If null, use the one from the object
+    if (is.null(nonnormal)) {
+        nonnormal <- attr(ContTable, "nonnormal")
 
-        if (length(nonnormal) != 1) {
-            stop("nonormal has to be a logical vector of length 1")
+    } else {
+        ## If not null, it needs checking.
+
+        ## Check the nonnormal argument
+        if (!is.logical(nonnormal) & !is.character(nonnormal)) {
+            stop("nonnormal argument has to be FALSE/TRUE or character.")
         }
-        
-        nonnormal <- rep(nonnormal, nRows)
+        ## Extend if it is a logitcal vector with one element.
+        if (is.logical(nonnormal)) {
+
+            if (length(nonnormal) != 1) {
+                stop("nonormal has to be a logical vector of length 1")
+            }
+
+            nonnormal <- rep(nonnormal, nRows)
+        }
+        ## Convert to a logical vector if it is a character vector
+        if (is.character(nonnormal)) {
+            nonnormal <- vars %in% nonnormal
+        }
+        ## Convert to numeric (1 for normal, 2 for nonnormal)
+        nonnormal <- as.numeric(nonnormal) + 1
+
+        ## When tests are requested, nonnormality cannot be overrideen
+        if (test == TRUE & !is.null(attr(ContTable, "pValues"))) {
+            nonnormal <- attr(ContTable, "nonnormal")
+            warning("The nonnormality specifications from the object are used when tests are requested.")
+        }
     }
-    ## Convert to a logical vector if it is a character vector
-    if (is.character(nonnormal)) {
-        nonnormal <- vars %in% nonnormal
+
+    ## Check the statistics. If necessary statistics are lacking abort
+    statNames <- colnames(ContTable[[1]])
+    funcDefault <- c("n","miss","mean","sd","median","q25","q75")
+    if (any(!funcDefault %in% statNames)) {
+
+        summary(ContTable)
+        stop("The object does not contain all necessary statistics. Use summary() method.")
     }
 
 
 ################################################################################
 
     ## These should be moved to separate files later.
-
     ## Define a function for a normal variable
     ConvertNormal <- function(rowMat) {
         fmt <- paste0("%.",digits,"f"," (%.",digits,"f",")")
@@ -52,158 +83,81 @@ print.ContTable <- function(ContTable, missing = FALSE, digits = 2, nonnormal = 
         return(out)
     }
 
-    ## Create a list
+################################################################################
+
+    ## Create a list of these functions
     listOfFunctions <- list(normal = ConvertNormal, nonnormal = ConvertNonNormal)
 
-    ## Convert to 1 for normal, 2 for nonnormal
-    nonnormal <- as.numeric(nonnormal) + 1
-
-    ## Take functions
+    ## Take functions from the 2-element list, and create an nRows-length list
     listOfFunctions <- listOfFunctions[nonnormal]
 
-    ## ## Create a function to actually apply these functions
-    ## ApplyFunction <- function(fun = ConvertNormal, rowMat) {
-
-    ##     fun(rowMat)
-    ## }
-
-
     ## Loop over strata (may be just one)
-    out1 <- sapply(ContTable,
-                   FUN = function(stratum) {
+    out <- sapply(ContTable,
+                  FUN = function(stratum) {
 
-                       ## Apply row by row within each stratum
-                       out2 <- sapply(seq_len(nRows),
-                                      FUN = function(i) {
+                      ## In an empty stratum, return empty
+                      if (is.null(stratum)) {
+                          out2 <- rep("empty", nRows)
+                          
+                      } else {
 
-                                          fun <- listOfFunctions[[i]]
-                                          fun(stratum[i, , drop = FALSE])
-                                      },
-                                      simplify = TRUE)
-                       ## Return
-                       out2
-                   },
-                   simplify = TRUE)
-
+                          ## Apply row by row within each non-empty stratum
+                          out2 <- sapply(seq_len(nRows),
+                                         FUN = function(i) {
+                                             
+                                             fun <- listOfFunctions[[i]]
+                                             fun(stratum[i, , drop = FALSE])
+                                         },
+                                         simplify = TRUE)
+                      }
+                      
+                      ## Return
+                      out2
+                  },
+                  simplify = TRUE)
 
     ## Put the variables names back (looping over rows can solve this)
-    rownames(out1) <- varNames
+    rownames(out) <- varNames
 
-    ## Return
-    ## return(out1)
+    ## Add column names if multivariable stratification is used.
+    if (length(attr(ContTable, "dimnames")) > 1) {
 
-    ## Print
-    print(out1, quote = quote)
+        colnames(out) <-
+            ## Create all combinations and collapse as strings
+            apply(expand.grid(attr(ContTable, "dimnames")),
+                  MARGIN = 1,
+                  paste0, collapse = ":")
+    }
 
-    
-## ################################################################################
+    ## Add p-values when requested and available
+    if (test == TRUE & !is.null(attr(ContTable, "pValues"))) {
+        ## Format
+        fmt <- paste0("%.",pDigits,"f")
+        p <- sprintf(fmt = fmt, attr(ContTable, "pValues"))
+        ## Column combine with the output
+        out <- cbind(out, p = p)
+    }
 
-##     ## nonnormal: indicator vector for nonnormality.
-##     if (nonnormal == FALSE) {
+    ## Add mean (sd) or median [IQR] explanation if requested
+    if (explain) {
+        what <- c(" (mean (sd))"," (median [IQR])")[nonnormal]
+        rownames(out) <- paste0(rownames(out), what)
+    }
 
-##         ## If the result is stratified
-##         if (length(ContTable) > 1) {
+    ## Add quotes for names if requested
+    if (quote) {
+        rownames(out) <- paste0('"', rownames(out), '"')
+        colnames(out) <- paste0('"', colnames(out), '"')
+    }
 
-##             ## Loop over strata
-##             LIST <- lapply(ContTable,
-##                            function(MAT) {
+    ## Print stratification
+    if (length(ContTable) > 1 ) {
+        cat(paste0("Stratified by ",
+                   ## names(attr(ContTable, "dimnames")),
+                   paste0(names(attr(ContTable, "dimnames")), collapse = ":"),
+                   "\n"))
+    }
 
-##                                ## mean (sd) version
-##                                fmt <- paste0("%.",digits,"f"," (%.",digits,"f",")")
-##                                VEC <- sprintf(fmt = fmt,
-##                                               MAT[, "mean"],
-##                                               MAT[, "sd"]
-##                                               )
-
-##                                ## Name variables
-##                                names(VEC) <- rownames(MAT)
-
-##                                ## Return as a vector
-##                                VEC
-##                            })
-
-##             ## Combine as columns to form a matrix
-##             out <- do.call(cbind, LIST)
-
-##             ## Show with quotes
-##             print(out, quote = FALSE)
-##             ## return(out)
-
-
-##             ## If the result is NOT stratified
-##         } else if (length(ContTable) == 1) {
-
-##             MAT <- ContTable[[1]]
-
-##             ## mean (sd) version
-##             fmt <- paste0("%.",digits,"f"," (%.",digits,"f",")")
-##             VEC <- sprintf(fmt = fmt,
-##                            MAT[, "mean"],
-##                            MAT[, "sd"]
-##                            )
-
-##             ## Name variables
-##             names(VEC) <- rownames(MAT)
-
-##             out <- data.frame(Overall = VEC)
-
-##             print(out)
-##         }
-
-## ################################################################################
-
-##         ## nonormal case
-##     } else if (nonnormal == TRUE) {
-
-##         ## If the result is stratified
-##         if (length(ContTable) > 1) {
-
-##             ## Loop over elements
-##             LIST <- lapply(ContTable,
-##                            function(MAT) {
-##                                ## Format median [p25, p75]
-##                                fmt <- paste0("%.",digits,"f [%.",digits,"f, %.",digits,"f]")
-##                                VEC <- sprintf(fmt = fmt,
-##                                               MAT[, "median"],
-##                                               MAT[, "q25"],
-##                                               MAT[, "q75"]
-##                                               )
-
-##                                ## Name variables
-##                                names(VEC) <- rownames(MAT)
-
-##                                ## Return as a vector
-##                                VEC
-##                            })
-
-##             ## Combine as columns to form a matrix
-##             out <- do.call(cbind, LIST)
-
-##             ## Show with quotes
-##             print(out, quote = FALSE)
-
-
-##             ## If the result is NOT stratified
-##         } else if (length(ContTable) == 1) {
-
-##             MAT <- ContTable[[1]]
-
-##             ## Format median [p25, p75]
-##             fmt <- paste0("%.",digits,"f [%.",digits,"f, %.",digits,"f]")
-##             VEC <- sprintf(fmt = fmt,
-##                            MAT[, "median"],
-##                            MAT[, "q25"],
-##                            MAT[, "q75"]
-##                            )
-
-##             ## Name variables
-##             names(VEC) <- rownames(MAT)
-
-##             out <- data.frame(Overall = VEC)
-
-##             print(out)
-##         } else {stop("Neither stratified or non-stratified!?")}
-
-##     } else {stop("Neither nonnormal or normal!?")} ## nonnormal conditions end here
-
+    ## Print the results
+    print(out, quote = quote)
 }
