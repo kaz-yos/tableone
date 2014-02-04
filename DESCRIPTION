@@ -6,4 +6,4 @@ Date: 2014-01-26
 Author: Kazuki Yoshida (based on Deducer by Ian Fellows)
 Maintainer: Kazuki Yoshida <kazukiyoshida@mail.harvard.edu>
 Description: For some reasons, there are no good functions to create the "Table 1", i.e., description of baseline characteristics in R although it is essential in every medical research. The package was insipired by descriptive statistics functions in Deducer, Java-based GUI package. This package does not require GUI or Java, and intended for CUI users.
-License: BSD license
+License: BSD License
