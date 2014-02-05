@@ -1,71 +1,80 @@
-summary.CatTable <- function(CatTable, digits = 2) {
+summary.CatTable <- function(CatTable, digits = 1) {
+
+    ## Create format
+    fmt <- paste0("%.", digits, "f")
 
     ## Obtain collpased result
-    CatTableCollapsed <- sapply(X = CatTable,   # Loop over strata
-                              function(LIST) {
+    CatTableCollapsed <-
+        sapply(X = CatTable,   # Loop over strata
+               FUN = function(LIST) {
 
-                                  LIST <- sapply(X = LIST, # Loop over variables
-                                                 FUN = function(DF) {
+                   LIST <- sapply(X = seq_along(LIST), # Loop over variables
+                                  FUN = function(i) {
 
-                                                     ## ## Check number of rows (levels)
-                                                     nRow <- nrow(DF)
+                                      ## Extract the data frame
+                                      DF <- LIST[[i]]
 
-                                                     ## Delete n and miss except in the first row
-                                                     DF[-1, c("n","miss")] <- ""
+                                      ## Extract the variable name
+                                      varName <- names(LIST)[i]
 
-                                                     ## row bind an empty row
-                                                     DF <- rbind(DF, rep("", ncol(DF)))
+                                      ## Check number of rows (levels)
+                                      nRow <- nrow(DF)
 
-                                                     ## ## Erase row name for empty line
-                                                     rownames(DF)[nRow + 1] <- "_"
+                                      ## Add a variable name to the left as a character vector
+                                      DF <- cbind(var = rep(varName, nRow),
+                                                  DF)
 
-                                                     ## ## Give a new class
-                                                     ## class(DF) <- c("CatTableStratum", class(DF))
+                                      ## Format percent and cum.percent
+                                      DF[c("percent","cum.percent")] <-
+                                          lapply(X = DF[c("percent","cum.percent")],
+                                                 FUN = sprintf,
+                                                 fmt = fmt)
 
-                                                     DF
-                                                 },
-                                                 simplify = FALSE)
+                                      ## Make var and level a string
+                                      DF[c("var","level")] <-
+                                          lapply(X = DF[c("var","level")],
+                                                 FUN = as.character)
+                                      
+                                      ## Delete n and miss except in the first row
+                                      DF[-1, c("var","n","miss")] <- ""
 
-                                   ## Collapse DFs within each stratum
-                                  DF <- do.call(rbind, LIST)
+                                      ## row bind an empty row
+                                      DF <- rbind(DF,
+                                                  rep("", ncol(DF)))
+                                      
+                                      ## Return a data frame
+                                      DF
+                                  },
+                                  simplify = FALSE)
 
-                                  ## ## Check the empty rows
-                                  ## posBlankRows <- which(DF$freq == "")
-                                  ## ## Erase row names
-                                  ## rownames(DF)[posBlankRows] <- "-"
-                                  
-                                  ## Return a data frame
-                                  DF
-                              }, simplify = FALSE)
+                   ## Collapse DFs within each stratum
+                   DF <- do.call(rbind, LIST)
+                   
+                   ## Return a data frame
+                   DF
+               }, simplify = FALSE)
 
     ## Restore the dimnames through attributes()
     attributes(CatTableCollapsed) <- c(attributes(CatTableCollapsed), attributes(CatTable))
 
-    ## Print forcing the print.by method
-    print.by(CatTableCollapsed, digits = digits)
+    ## Print forcing the print.by method. Do not show row names.
+    print.by(CatTableCollapsed, digits = digits, row.names = FALSE)
 }
 
-## Does not work
 
-## ## print method for the data frame object within each stratum
-## print.CatTableStratum <- function(CatTableStratum, digits = digits) {
 
-##     ## Check the number of rows
-##     nRow <- nrow(CatTableStratum)
 
-##     ## Check the positions of non-empty n
-##     posOfNonEmptyN <- which(!CatTableStratum$n == "")
-##     ## drop the first one, no need for preceding a blank line
-##     posOfNonEmptyN <- tail(posOfNonEmptyN, n = -1)
 
-##     ## Print
-##     for (i in seq_len(nRow)) {
-##         if (i %in% posOfNonEmptyN) {
-##             ## Insert a preceding blank line
-##             cat("\n")
-##         }
 
-##         ## Show data
-##         cat(CatTableStratum[[1]][, i, drop = FALSE], "\n")
-##     }
-## }
+
+
+
+
+
+
+
+
+
+
+
+
