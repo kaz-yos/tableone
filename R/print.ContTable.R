@@ -5,17 +5,19 @@ print.ContTable <- function(ContTable, missing = FALSE,
                             explain = TRUE
                             ) {
 
-    ## ContTable is a multidimensional array.
+### Check data structure first
 
+    ## ContTable is a multidimensional array.
     ## Save variable names
     ## This will not work if the first element is NULL
     varNames <- rownames(ContTable[[1]])
     ## Check the number of rows
     nRows <- length(varNames)
 
-    ## If null, use the one from the object
+    ## If null, do normal
     if (is.null(nonnormal)) {
-        nonnormal <- attr(ContTable, "nonnormal")
+        ## nonnormal <- attr(ContTable, "nonnormal")
+        nonnormal <- rep(1, nRows)
 
     } else {
         ## If not null, it needs checking.
@@ -40,11 +42,12 @@ print.ContTable <- function(ContTable, missing = FALSE,
         ## Convert to numeric (1 for normal, 2 for nonnormal)
         nonnormal <- as.numeric(nonnormal) + 1
 
-        ## When tests are requested, nonnormality cannot be overrideen
-        if (test == TRUE & !is.null(attr(ContTable, "pValues"))) {
-            nonnormal <- attr(ContTable, "nonnormal")
-            warning("The nonnormality specifications from the object are used when tests are requested.")
-        }
+        ## No longer true. not necessary. 2014-02-05
+        ## ## When tests are requested, nonnormality cannot be overrideen
+        ## if (test == TRUE & !is.null(attr(ContTable, "pValues"))) {
+        ##     nonnormal <- attr(ContTable, "nonnormal")
+        ##     warning("The nonnormality specifications from the object are used when tests are requested.")
+        ## }
     }
 
     ## Check the statistics. If necessary statistics are lacking abort
@@ -57,10 +60,10 @@ print.ContTable <- function(ContTable, missing = FALSE,
     }
 
 
-################################################################################
+### Conversion of data for printing
 
-    ## These should be moved to separate files later.
-    ## Define a function for a normal variable
+    ## These may want to be moved to separate files later.
+    ## Define a function to print a normal variable
     ConvertNormal <- function(rowMat) {
         fmt <- paste0("%.",digits,"f"," (%.",digits,"f",")")
 
@@ -70,8 +73,7 @@ print.ContTable <- function(ContTable, missing = FALSE,
 
         return(out)
     }
-
-    ## Define a function for a nonnormal variable
+    ## Define a function to print a nonnormal variable
     ConvertNonNormal <- function(rowMat) {
         fmt <- paste0("%.",digits,"f [%.",digits,"f, %.",digits,"f]")
 
@@ -83,34 +85,33 @@ print.ContTable <- function(ContTable, missing = FALSE,
         return(out)
     }
 
-################################################################################
 
-    ## Create a list of these functions
+    ## Create a list of these two functions
     listOfFunctions <- list(normal = ConvertNormal, nonnormal = ConvertNonNormal)
 
-    ## Take functions from the 2-element list, and create an nRows-length list
+    ## Take functions from the 2-element list, and convert to an nRows-length list
     listOfFunctions <- listOfFunctions[nonnormal]
 
-    ## Loop over strata (may be just one)
+    ## Loop over strata (There may be just one)
     out <- sapply(ContTable,
                   FUN = function(stratum) {
 
                       ## In an empty stratum, return empty
                       if (is.null(stratum)) {
                           out2 <- rep("empty", nRows)
-                          
+
                       } else {
 
                           ## Apply row by row within each non-empty stratum
                           out2 <- sapply(seq_len(nRows),
                                          FUN = function(i) {
-                                             
+
                                              fun <- listOfFunctions[[i]]
                                              fun(stratum[i, , drop = FALSE])
                                          },
                                          simplify = TRUE)
                       }
-                      
+
                       ## Return
                       out2
                   },
@@ -131,9 +132,22 @@ print.ContTable <- function(ContTable, missing = FALSE,
 
     ## Add p-values when requested and available
     if (test == TRUE & !is.null(attr(ContTable, "pValues"))) {
+
+        ## 2 (pNormal,pNonNormal) x nVariables matrix
+        pValues <- attr(ContTable, "pValues")
+
+        ## Pick ones specified in nonnormal (a vector with 1s(normal) and 2s(nonnormal))
+        pValues <- sapply(seq_along(nonnormal),    # loop over nonnormal
+                          FUN = function(i) {
+                              ## Pick from a matrix i-th row, nonnormal[i]-th column
+                              ## Logical NA must be converted to a numeric
+                              as.numeric(pValues[i, nonnormal[i]])
+                          },
+                          simplify = TRUE)
+
         ## Format
         fmt <- paste0("%.",pDigits,"f")
-        p <- sprintf(fmt = fmt, attr(ContTable, "pValues"))
+        p   <- sprintf(fmt = fmt, pValues)
         ## Column combine with the output
         out <- cbind(out, p = p)
     }

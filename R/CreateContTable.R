@@ -1,30 +1,30 @@
 ## A function to create a table for continuous variables
 ## Modification of "descriptive.table.R" in Deducer version 0.7-6.1 published on 2013-10-28 by Ian Fellows et al.
 
-CreateContTable <- function(vars,       # vector of characters
-                            strata,     # single element character vector
-                            data,       # data frame
-                            func.names = c(     # can pick a subset of them
+CreateContTable <- function(vars,                         # vector of characters
+                            strata,                       # single element character vector
+                            data,                         # data frame
+                            func.names = c(               # can pick a subset of them
                                 "n","miss",
                                 "mean","sd",
                                 "median","q25","q75","min","max",
                                 "skew","kurt"
                                 ),
-                            func.additional,     # named list of additional functions
-                            nonnormal = FALSE,  # Nonormal flag for testing
-                            test = FALSE,       # Whether to put p-values
-                            testNormal = oneway.test,           # 
-                            testNonNormal = kruskal.test        # 
+                            func.additional,              # named list of additional functions
+                            ## nonnormal = FALSE,         # Nonormal flag for testing
+                            test = TRUE,                  # Whether to put p-values
+                            testNormal = oneway.test,     # test for normally distributed variables
+                            testNonNormal = kruskal.test  # test for nonnormally distributed variables
                             ) {
     ## Require dependencies
-    require(e1071)
+    require(e1071)      # for skewness and kurtosis
 
-    ## Check the dataframe
+    ## Check if the data given is a dataframe
     if (is.data.frame(data) == FALSE) {
         stop("The data argument needs to be a data frame (no quote).")
     }
 
-    ## Check variables
+    ## Check if variables exist. Drop them if not.
     varsNotInData <- setdiff(vars, names(data))
     if (length(varsNotInData) > 0) {
         warning("The data frame does not have ",
@@ -33,11 +33,12 @@ CreateContTable <- function(vars,       # vector of characters
         vars <- intersect(vars, names(data))
     }
 
-    ## Abort if variables exist at this point
+    ## Abort if no variables exist at this point
     if (length(vars) < 1) {stop("No valid variables.")}
 
     ## Extract necessary variables
     dat <- data[c(vars)]
+
 
     ## Condition on the presence/absence of the strata
     if(missing(strata)){
@@ -47,12 +48,7 @@ CreateContTable <- function(vars,       # vector of characters
         test <- FALSE
     } else {
 
-        ## Check strata variable
-        ## if (!strata %in% names(data)) {
-        ##     stop("The stratifying variable ", strata, " does not exist in the data.")
-        ## }
-
-        ## Check presence of strata
+        ## Check presence of strata variables in the data frame (multivariable support)
         presenceOfStrata <- strata %in% names(data)
         strata <- strata[presenceOfStrata]
 
@@ -60,9 +56,10 @@ CreateContTable <- function(vars,       # vector of characters
             stop("None of the stratifying variables are present in the data frame")
         }
 
-        ## Extract the stratifying variable vector
+        ## Extract the stratifying variables as a data frame (by() can use it directly)
         strata <- data[c(strata)]
     }
+
 
     ## Handle non-numeric elements
     if(any(!sapply(dat, is.numeric))){
@@ -74,36 +71,6 @@ CreateContTable <- function(vars,       # vector of characters
     ## Check if all the variables are continuous, and stop if not
     if(!all(sapply(dat, is.numeric))) {stop("Can only be run on numeric variables")}
 
-    
-    ## This part is duplicated in the print method (better here? 2014-01-26)
-    ## Check the nonnormal argument
-    if (!is.logical(nonnormal) & !is.character(nonnormal)) {
-        stop("nonnormal argument has to be FALSE/TRUE or character.")
-    }
-    ## Extend if it is a logitcal vector with one element.
-    if (is.logical(nonnormal)) {
-
-        if (length(nonnormal) != 1) {
-            stop("nonormal has to be a logical vector of length 1")
-        }
-        
-        nonnormal <- rep(nonnormal, ncol(dat))
-    }
-    ## Convert to a logical vector if it is a character vector
-    if (is.character(nonnormal)) {
-        nonnormal <- vars %in% nonnormal
-    }
-
-    ## Convert to numeric (1 for normal, 2 for nonnormal)
-    nonnormal <- as.numeric(nonnormal) + 1
-
-    ## Create a list of these functions
-    listOfTests <- list(testNormal, testNonNormal)
-
-    ## Take functions from the 2-element list, and create an n-length list
-    listOfTests <- listOfTests[nonnormal]
-    
-
 
     ## Create indexes for default functions by partial string matching with the func.names argument
     func.indexes <- pmatch(func.names, c("n","miss",
@@ -113,7 +80,7 @@ CreateContTable <- function(vars,       # vector of characters
     ## Remove NA
     func.indexes <- func.indexes[!is.na(func.indexes)]
 
-    ## Define special skewness and kurtosis that do not fail (SAS definitions)
+    ## Define special skewness and kurtosis functions that do not fail (SAS definitions)
     tryCatch.W.E <- function(expr) { # Taken from demo(error.catching)
         W <- NULL
         w.handler <- function(w){ # warning handler
@@ -126,13 +93,13 @@ CreateContTable <- function(vars,       # vector of characters
     }
     sasSkewness <- function(x) {
         ## tryCatch.W.E
-        out <- tryCatch.W.E(skewness(x, na.rm = TRUE, type = 2))
+        out <- tryCatch.W.E(e1071::skewness(x, na.rm = TRUE, type = 2))
         ## If it returns a numeric value, return it. Otherwise, return NaN.
         ifelse(is.numeric(out$value), out$value, NaN)
     }
     sasKurtosis <- function(x) {
         ## tryCatch.W.E
-        out <- tryCatch.W.E(kurtosis(x, na.rm = TRUE, type = 2))
+        out <- tryCatch.W.E(e1071::kurtosis(x, na.rm = TRUE, type = 2))
         ## If it returns a numeric value, return it. Otherwise, return NaN.
         ifelse(is.numeric(out$value), out$value, NaN)
     }
@@ -168,9 +135,10 @@ CreateContTable <- function(vars,       # vector of characters
     }
 
 
+### Actual descriptive statistics are calculated here.
     ## strata-functions-variable structure alternative 2014-01-22
     ## Devide by strata
-    result <- by(data = dat, INDICES = strata,
+    result <- by(data = dat, INDICES = strata,  # INDICES can be a multi-column data frame
 
                  ## Work on each stratum
                  FUN = function(strataDat) { # strataDat should be a data frame
@@ -184,31 +152,53 @@ CreateContTable <- function(vars,       # vector of characters
                             })
                  })
 
-    
+
     ## Perform tests when necessary
-    ## Initialize
+    ## Initialize to avoid error when it does not exist at the attribute assignment
     pValues <- NULL
 
+### This part performs between group tests
     ## Only when test is asked for
     if (test == TRUE) {
 
-        ## Loop for variables
-        resTests <- sapply(seq_len(ncol(dat)),
-                           FUN = function(i) {
+        ## Define special test functions that do not fail, and return p-values or NA
+        tryTestNormal <- function(formula) {
 
-                               ## Test function
-                               test <- listOfTests[[i]]
-                               ## Outcome variable
-                               var <- dat[,i]
-                               ## Perform test
-                               ## Need fixing when extending to multi-var strata
-                               test(var ~ strata[[1]])
-                           },
-                           simplify = FALSE)
+            out <- tryCatch.W.E(testNormal(formula)$p.value)
+            ## If it returns a numeric value, return it. Otherwise, return NA.
+            ifelse(is.numeric(out$value), out$value, NA)
+        }
+        tryTestNonNormal <- function(formula) {
 
-        pValues <- sapply(resTests, getElement, "p.value")
+            out <- tryCatch.W.E(testNonNormal(formula)$p.value)
+            ## If it returns a numeric value, return it. Otherwise, return NA.
+            ifelse(is.numeric(out$value), out$value, NA)
+        }
+
+
+        ## Create a single variable representing all strata
+        strataVec                   <- apply(X = strata, MARGIN = 1, FUN = paste0, collapse = ":")
+
+        ## Give NA if any of the variables are missing
+        strataVecAnyMiss            <- apply(X = is.na(strata), MARGIN = 1, FUN = sum) > 0
+        strataVec[strataVecAnyMiss] <- NA
+        ## Make it a factor (kruskal.test requires it)
+        strataVec                   <- factor(strataVec)
+
+        ## Loop over variables in dat, and obtain p values for two tests
+        pValues <- sapply(X = dat,
+                          FUN = function(var) {
+                              ## Perform tests and return the result as 1x2 DF
+                              data.frame(
+                                  pNormal    = tryTestNormal(var ~ strataVec),
+                                  pNonNormal = tryTestNonNormal(var ~ strataVec)
+                                  )
+                          },
+                          simplify = FALSE)
+
+        ## Create a single data frame (n x 2 (normal,nonormal))
+        pValues <- do.call(rbind, pValues)
     }
-    
 
     ## Return object
     ## Give an S3 class
@@ -216,8 +206,7 @@ CreateContTable <- function(vars,       # vector of characters
 
     ## Give additional attributes
     attributes(result) <- c(attributes(result),
-                            list(nonnormal = nonnormal,
-                                 pValues = pValues))
+                            list(pValues = pValues))
 
     ## Return
     return(result)
