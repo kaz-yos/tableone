@@ -31,6 +31,12 @@ CreateCatTable <- function(vars,          # vector of characters
     ## Extract necessary variables
     dat <- data[c(vars)]
 
+    ## Convert to a factor if it is not a factor already.
+    ## Not done on factors, to avoid dropping zero levels.
+    datNotFactor <- sapply(dat, class) != "factor"
+    dat[datNotFactor] <- lapply(dat[datNotFactor], factor)
+    
+
     ## Condition on the presence/absence of the strata
     if(missing(strata)){
         ## If there is no strata, name the list "Overall"
@@ -84,70 +90,78 @@ CreateCatTable <- function(vars,          # vector of characters
 
     ## Take functions from the 2-element list, and create an n-length list
     listOfTests <- listOfTests[exact]
+
     
-
-
-    ## ## Create indexes for default functions by partial string matching with the func.names argument
-    ## func.indexes <- pmatch(func.names, c("n","miss",
-    ##                                      "mean","sd",
-    ##                                      "median","q25","q75","min","max",
-    ##                                      "skew","kurt"))
-    ## ## Remove NA
-    ## func.indexes <- func.indexes[!is.na(func.indexes)]
-
     ## Define special skewness and kurtosis that do not fail (SAS definitions)
-    ## tryCatch.W.E <- function(expr) { # Taken from demo(error.catching)
-    ##     W <- NULL
-    ##     w.handler <- function(w){ # warning handler
-    ##         W <<- w
-    ##         invokeRestart("muffleWarning")
-    ##     }
-    ##     list(value = withCallingHandlers(tryCatch(expr, error = function(e) e),
-    ##              warning = w.handler),
-    ##          warning = W)
-    ## }
-
-    ## Create a list of default functions
-    functions <- c("n"      = function(x) length(x),
-                   "miss"   = function(x) sum(is.na(x)),
-                   "table"  = function(x) table(x),
-                   "summary" = function(x) summary.factor(x)
-                   )
-
-    ## ## Keep only functions in use
-    ## functions <- functions[func.indexes]
-
-    ## ## Check for additional functions
-    ## if(!missing(func.additional)){
-    ##     ## When additional functions are given
-    ##     if(!is.list(func.additional) || is.null(names(func.additional))) {
-    ##         ## Stop if not a named list
-    ##         stop("func.additional must be a named list of functions")
-    ##     }
-
-    ##     ## If a named list is given, add to the vector of functions and their names
-    ##     functions  <- c(functions, unlist(func.additional))
-    ##     func.names <- c(func.names, names(func.additional))
-    ## }
+    tryCatch.W.E <- function(expr) { # Taken from demo(error.catching)
+        W <- NULL
+        w.handler <- function(w){ # warning handler
+            W <<- w
+            invokeRestart("muffleWarning")
+        }
+        list(value = withCallingHandlers(tryCatch(expr, error = function(e) e),
+                 warning = w.handler),
+             warning = W)
+    }
 
 
-    ## strata-functions-variable structure alternative 2014-01-22
+    ## Taken from Deducer::frequencies()
+    CreateTableForOneVar <- function(x) {
+
+        ## Create a one dimensional table
+        freqRaw          <- table(x)
+
+        ## Level names
+        freq <- data.frame(level = names(freqRaw))
+
+        ## Total n (duplicated as many times as there are levels)
+        freq$n <- length(x)
+
+        ## Total missing n (duplicated as many times as there are levels)
+        freq$miss        <- sum(is.na(x))
+        
+        ## Category frequency
+        freq$freq        <- freqRaw
+
+        ## Category percent
+        freq$percent     <- freqRaw / sum(freqRaw) * 100
+        
+        ## 
+        freq$cum.percent <- cumsum(freqRaw) / sum(freqRaw) * 100
+        
+        ## Return result as a data frame
+        return(freq)
+    }
+
+    ## Example output data frame
+    ## CreateTableForOneVar(pbc$status)
+    ##     n miss freq   percent cum.percent
+    ## 1 418    0  232 55.502392    55.50239
+    ## 2 418    0   25  5.980861    61.48325
+    ## 3 418    0  161 38.516746   100.00000
+        
+
+    ## strata--variable-helperFunction structure
     ## Devide by strata
     result <- by(data = dat, INDICES = strata,
 
                  ## Work on each stratum
                  FUN = function(strataDat) { # strataDat should be a data frame
 
-                     ## Loop for functions
-                     sapply(functions,
-                            FUN = function(fun) {
+                     ## Loop for variables
+                     sapply(strataDat,
+                            FUN = CreateTableForOneVar,
+                            simplify = FALSE)
+                     
+                 }, simplify = FALSE)
 
-                                ## Loop for variables
-                                sapply(strataDat, fun)
-                            })
-                 })
-
-    
+    ## Obtain collpased result
+    resultCollapsed <- lapply(result,   # Loop over strata
+                              function(LIST) {
+                                  ## Collapse DFs within each stratum
+                                  do.call(rbind, LIST)
+                              })
+        
     ## Perform tests when necessary
     ## Initialize
     pValues <- NULL
@@ -156,7 +170,7 @@ CreateCatTable <- function(vars,          # vector of characters
     if (test == TRUE) {
 
         ## Loop for variables
-        resTests <- sapply(seq_len(ncol(dat)),
+        listXtabs <- sapply(seq_len(ncol(dat)),
                            FUN = function(i) {
 
                                ## Test function
@@ -164,12 +178,21 @@ CreateCatTable <- function(vars,          # vector of characters
                                ## Outcome variable
                                var <- dat[,i]
                                ## Perform test
-                               ## Need fixing when extending to multi-var strata
-                               test(var ~ strata[[1]])
+
+
+                               ## This part need modification to adjust to xtabs
+                               xtabs(~ var + strata[[1]])
+                               ## test(var ~ strata[[1]])
                            },
                            simplify = FALSE)
 
-        pValues <- sapply(resTests, getElement, "p.value")
+        ## Perform tests                                # Need error handling
+        resApprox <- lapply(listXtabs, testApprox)
+        resExact  <- lapply(listXtabs, testExact)
+
+        ## Obtain p-values
+        pApprox <- sapply(resApprox, getElement, "p.value")
+        pExact  <- sapply(resExact, getElement, "p.value")
     }
     
 
@@ -179,8 +202,8 @@ CreateCatTable <- function(vars,          # vector of characters
 
     ## Give additional attributes
     attributes(result) <- c(attributes(result),
-                            list(exact = exact,
-                                 pValues = pValues))
+                            list(pApprox = pApprox,
+                                 pExact  = pExact))
 
     ## Return
     return(result)
