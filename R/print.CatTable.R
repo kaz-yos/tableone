@@ -1,7 +1,7 @@
 ## Print method for a continuous table
 print.CatTable <- function(CatTable, missing = FALSE,
                            format = c("fp","f","p","pf")[1], # Format f_requency and/or p_ercent
-                           digits = 1, exact = NULL, quote = TRUE,
+                           digits = 1, exact = NULL, quote = FALSE,
                            test = TRUE, pDigits = 3,
                            showAllLevels = FALSE,
                            explain = TRUE) {
@@ -18,9 +18,9 @@ print.CatTable <- function(CatTable, missing = FALSE,
 
     ## If null, do approx
     if (is.null(exact)) {
-        
+
         exact <- rep(1, nVar)
-        
+
     } else {
         ## If not null, it needs checking.
 
@@ -53,7 +53,7 @@ print.CatTable <- function(CatTable, missing = FALSE,
 
 
 ### Formatting for printing
-    
+
     ## Create format for percent used in the loop
     fmt1 <- paste0("%.", digits, "f")
 
@@ -71,7 +71,7 @@ print.CatTable <- function(CatTable, missing = FALSE,
                    LIST <- sapply(X = seq_along(LIST), # Loop over variables (list element is DF)
                                   FUN = function(i) {
 
-                                      
+
                                       ## Extract the data frame (list element)
                                       DF <- LIST[[i]]
 
@@ -112,15 +112,17 @@ print.CatTable <- function(CatTable, missing = FALSE,
                                           ## If showAllLevels is FALSE AND there are only ONE levels,
                                           ## change variable name to "var = level"
                                           DF$var <- with(DF, paste0(var, " = ", level))
+                                          ## Add first row indicator (used to add (%))
                                           DF[1,"firstRowInd"] <- "first"
-                                          
+
                                       } else if (!showAllLevels & nRow == 2) {
                                           ## If showAllLevels is FALSE AND there are only TWO levels,
                                           ## change variable name, and delete the first level.
                                           DF$var <- with(DF, paste0(var, " = ", level))
                                           DF <- DF[-1, , drop = FALSE]
-                                          DF[1,"firstRowInd"] <- "first"                                          
-                                          
+                                          ## Add first row indicator (used to add (%))
+                                          DF[1,"firstRowInd"] <- "first"
+
                                       } else if (!showAllLevels & nRow > 2) {
                                           ## If showAllLevels is FALSE AND there are MORE THAN two levels,
                                           ## add an empty row and put the var name, then levels below.
@@ -128,15 +130,19 @@ print.CatTable <- function(CatTable, missing = FALSE,
                                                       DF)
                                           ## Add variable name in the first row
                                           DF[1,"var"] <- DF[2,"var"]
+
                                           ## 2nd to last have level names. (nrow has changed by +1)
                                           secondToLastRows <- seq(from = 2,to = nrow(DF), by = 1)
                                           DF[secondToLastRows, "var"] <-
-                                              DF[secondToLastRows, "level"]
+                                              ## DF[secondToLastRows, "level"]
+                                              paste0("  ", DF[secondToLastRows, "level"]) # 2 spaces
+                                          ## Add first row indicator (used to add (%))
                                           DF[1,"firstRowInd"] <- "first"
-                                          
+
                                       } else if (showAllLevels) {
                                           ## If showAllLevels is TRUE clear names
                                           DF[-1, c("var","n","miss")] <- ""
+                                          ## Add first row indicator (used to add (%))
                                           DF[1,"firstRowInd"] <- "first"
                                       }
 
@@ -168,7 +174,7 @@ print.CatTable <- function(CatTable, missing = FALSE,
                                                var <- rep("empty", length(var))
                                            })
     }
-    
+
 
     ## Choose the column name for the right format
     nameResCol <- c("freqPer","freq","percent","perFreq")[format == c("fp","f","p","pf")]
