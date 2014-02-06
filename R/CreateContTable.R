@@ -42,7 +42,7 @@ CreateContTable <- function(vars,                         # vector of characters
 
     ## Condition on the presence/absence of the strata
     if(missing(strata)){
-        ## If there is no strata, name the list "Overall"
+        ## If there is no strata, give "Overall" to every subject
         strata <- rep("Overall", dim(dat)[1])
         ## test cannot be performed
         test <- FALSE
@@ -139,17 +139,20 @@ CreateContTable <- function(vars,                         # vector of characters
     ## strata-functions-variable structure alternative 2014-01-22
     ## Devide by strata
     result <- by(data = dat, INDICES = strata,  # INDICES can be a multi-column data frame
-
-                 ## Work on each stratum
-                 FUN = function(strataDat) { # strataDat should be a data frame
+                 FUN = function(strataDat) { # Work on each stratum through by()
 
                      ## Loop for functions
-                     sapply(functions,
-                            FUN = function(fun) {
+                     out <- sapply(X = functions,
+                                   FUN = function(fun) {
 
-                                ## Loop for variables
-                                sapply(strataDat, fun)
-                            })
+                                       ## Loop for variables
+                                       sapply(X = strataDat, FUN = fun, simplify = TRUE)
+                                       
+                                   }, simplify = FALSE)
+
+                     ## The 2nd-level loop does not simplify to avoid oversimplification
+                     ## when there is only one variable.
+                     do.call(cbind, out)
                  })
 
 

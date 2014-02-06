@@ -7,16 +7,17 @@ print.ContTable <- function(ContTable, missing = FALSE,
 
 ### Check data structure first
 
-    ## ContTable is a multidimensional array.
-    ## Save variable names
-    ## This will not work if the first element is NULL
-    varNames <- rownames(ContTable[[1]])
+    ## ContTable is by() object
+    ## Get the position of the first non-null element
+    posFirstNonNullElement <- which(!sapply(ContTable, is.null))[1]
+    ## Save variable names using the first non-null element
+    varNames <- rownames(ContTable[[posFirstNonNullElement]])
     ## Check the number of rows
     nRows <- length(varNames)
 
-    ## If null, do normal
+    ## If null, do normal print/test
     if (is.null(nonnormal)) {
-        ## nonnormal <- attr(ContTable, "nonnormal")
+        ##  Give one as many as there are rows
         nonnormal <- rep(1, nRows)
 
     } else {
@@ -44,7 +45,7 @@ print.ContTable <- function(ContTable, missing = FALSE,
     }
 
     ## Check the statistics. If necessary statistics are lacking abort
-    statNames <- colnames(ContTable[[1]])
+    statNames <- colnames(ContTable[[posFirstNonNullElement]])
     funcDefault <- c("n","miss","mean","sd","median","q25","q75")
     if (any(!funcDefault %in% statNames)) {
 
@@ -108,7 +109,9 @@ print.ContTable <- function(ContTable, missing = FALSE,
                       ## Return
                       out2
                   },
-                  simplify = TRUE)
+                  simplify = FALSE)
+    ## The outer sapply should not simplify to avoid a vector
+    out <- do.call(cbind, out)
 
     ## Put the variables names back (looping over rows can solve this)
     rownames(out) <- varNames
