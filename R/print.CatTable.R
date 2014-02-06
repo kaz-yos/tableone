@@ -104,15 +104,41 @@ print.CatTable <- function(CatTable, missing = FALSE,
                                                             DF$percent,
                                                             DF$freq)
 
-                                      ## If there are only TWO levels and showAllLevels is FALSE,
-                                      ## delete the first
-                                      if (nRow == 2 & !showAllLevels) {
+                                      ## Add first row indicator column
+                                      DF$firstRowInd <- ""
 
+                                      ## When showAllLevels is FALSE, simplify
+                                      if (!showAllLevels & nRow == 1) {
+                                          ## If showAllLevels is FALSE AND there are only ONE levels,
+                                          ## change variable name to "var = level"
+                                          DF$var <- with(DF, paste0(var, " = ", level))
+                                          DF[1,"firstRowInd"] <- "first"
+                                          
+                                      } else if (!showAllLevels & nRow == 2) {
+                                          ## If showAllLevels is FALSE AND there are only TWO levels,
+                                          ## change variable name, and delete the first level.
+                                          DF$var <- with(DF, paste0(var, " = ", level))
                                           DF <- DF[-1, , drop = FALSE]
+                                          DF[1,"firstRowInd"] <- "first"                                          
+                                          
+                                      } else if (!showAllLevels & nRow > 2) {
+                                          ## If showAllLevels is FALSE AND there are MORE THAN two levels,
+                                          ## add an empty row and put the var name, then levels below.
+                                          DF <- rbind(rep("", ncol(DF)),
+                                                      DF)
+                                          ## Add variable name in the first row
+                                          DF[1,"var"] <- DF[2,"var"]
+                                          ## 2nd to last have level names. (nrow has changed by +1)
+                                          secondToLastRows <- seq(from = 2,to = nrow(DF), by = 1)
+                                          DF[secondToLastRows, "var"] <-
+                                              DF[secondToLastRows, "level"]
+                                          DF[1,"firstRowInd"] <- "first"
+                                          
+                                      } else if (showAllLevels) {
+                                          ## If showAllLevels is TRUE clear names
+                                          DF[-1, c("var","n","miss")] <- ""
+                                          DF[1,"firstRowInd"] <- "first"
                                       }
-
-                                      ## Delete n and miss except in the first row
-                                      DF[-1, c("var","n","miss")] <- ""
 
                                       ## Return a data frame
                                       DF
@@ -150,14 +176,18 @@ print.CatTable <- function(CatTable, missing = FALSE,
 
     ## Create output matrix without variable names with the right format
     out <- do.call(cbind, lapply(CatTableCollapsed, getElement, nameResCol))
-    out <- cbind(CatTableCollapsed[[posFirstNonNullElement]]["level"],
-                 out)
+    ## Add level names if showAllLevels is TRUE
+    if (showAllLevels) {
+        out <- cbind(CatTableCollapsed[[posFirstNonNullElement]]["level"],
+                     out)
+    }
     out <- as.matrix(out)
 
     ## Set the variables names
-    rownames(out) <- CatTableCollapsed[[1]][,"var"]
-    ## Get positions of non-emptyenv row names
-    posNonEmptyRowNames <- !rownames(out) == ""
+    rownames(out) <- CatTableCollapsed[[posFirstNonNullElement]][,"var"]
+    ## Get positions of non-emptyenv row names as a logical vector
+    ## posNonEmptyRowNames <- rownames(out) != ""
+    posNonEmptyRowNames <- CatTableCollapsed[[posFirstNonNullElement]][, "firstRowInd"] != ""
 
     ## Add column names if multivariable stratification is used.
     if (length(attr(CatTable, "dimnames")) > 1) {
