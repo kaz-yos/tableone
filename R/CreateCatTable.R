@@ -1,22 +1,21 @@
 ## A function to create a table for categorical variables
 ## Modification of "descriptive.table.R" in Deducer version 0.7-6.1 published on 2013-10-28 by Ian Fellows et al.
 
-CreateCatTable <- function(vars,          # vector of characters
-                           strata,        # single element character vector
-                           data,          # data frame
-                           exact = FALSE, # Whether to use the exact test
-                           test  = FALSE, # Whether to put p-values
-                           testApprox = chisq.test,
-                           testExact  = fisher.test
+CreateCatTable <- function(vars,                    # vector of characters
+                           strata,                  # single element character vector
+                           data,                    # data frame
+                           test  = TRUE,            # Whether to put p-values
+                           testApprox = chisq.test, # approximation test
+                           testExact  = fisher.test # exact test
                            ) {
 
 ### Data check
-    ## Check the dataframe
+    ## Check if the data given is a dataframe.
     if (is.data.frame(data) == FALSE) {
         stop("The data argument needs to be a data frame (no quote).")
     }
 
-    ## Check variables
+    ## Check if variables exist in the data frame. If not, drop them.
     varsNotInData <- setdiff(vars, names(data))
     if (length(varsNotInData) > 0) {
         warning("The data frame does not have ",
@@ -25,74 +24,44 @@ CreateCatTable <- function(vars,          # vector of characters
         vars <- intersect(vars, names(data))
     }
 
-    ## Abort if variables exist at this point
+    ## Abort if no variables exist at this point
     if (length(vars) < 1) {stop("No valid variables.")}
 
-    ## Extract necessary variables
+    ## Extract necessary variables (unused variables are not included in dat)
     dat <- data[c(vars)]
 
-    ## Convert to a factor if it is not a factor already.
+    ## Convert to a factor if it is not a factor already. (categorical version only)
     ## Not done on factors, to avoid dropping zero levels.
     datNotFactor <- sapply(dat, class) != "factor"
     dat[datNotFactor] <- lapply(dat[datNotFactor], factor)
-    
+
 
     ## Condition on the presence/absence of the strata
     if(missing(strata)){
         ## If there is no strata, name the list "Overall"
-        strata <- rep("Overall", dim(dat)[1])
+        strata <- rep("Overall", dim(dat)[1])                           # Check if dim(dat)[[1]] is correct.
         ## test cannot be performed
         test <- FALSE
     } else {
 
-        ## Check strata variable
-        ## if (!strata %in% names(data)) {
-        ##     stop("The stratifying variable ", strata, " does not exist in the data.")
-        ## }
-
-        ## Check presence of strata
+        ## Check presence of strata variables in the data frame  (multivariable support)
         presenceOfStrata <- strata %in% names(data)
+        ## Delete variables that do not exist in the data frame
         strata <- strata[presenceOfStrata]
 
         if (length(strata) == 0) {
             stop("None of the stratifying variables are present in the data frame")
         }
 
-        ## Extract the stratifying variable vector
+        ## Extract the stratifying variable vector (strata is a data frame)
         strata <- data[c(strata)]
     }
 
-    
-    ## This part is duplicated in the print method (better here? 2014-01-26) # just perform both tests
-    ## Check the exact argument
-    if (!is.logical(exact) & !is.character(exact)) {
-        stop("exact argument has to be FALSE/TRUE or character.")
-    }
-    ## Extend if it is a logitcal vector with one element.
-    if (is.logical(exact)) {
 
-        if (length(exact) != 1) {
-            stop("exact has to be a logical vector of length 1")
-        }
-        
-        exact <- rep(exact, ncol(dat))
-    }
-    ## Convert to a logical vector if it is a character vector
-    if (is.character(exact)) {
-        exact <- vars %in% exact
-    }
 
-    ## Convert to numeric (1 for normal, 2 for exact)
-    exact <- as.numeric(exact) + 1
+### Perform descriptive analysis
 
-    ## Create a list of these functions
-    listOfTests <- list(testApprox, testExact)
-
-    ## Take functions from the 2-element list, and create an n-length list
-    listOfTests <- listOfTests[exact]
-
-    
-    ## Define special skewness and kurtosis that do not fail (SAS definitions)
+    ## Used to define non-failing functions, that return NA when there is an error
     tryCatch.W.E <- function(expr) { # Taken from demo(error.catching)
         W <- NULL
         w.handler <- function(w){ # warning handler
@@ -108,7 +77,7 @@ CreateCatTable <- function(vars,          # vector of characters
     ## Taken from Deducer::frequencies()
     CreateTableForOneVar <- function(x) {
 
-        ## Create a one dimensional table
+        ## Create a one dimensional table (NA is intentionally dropped)
         freqRaw          <- table(x)
 
         ## Level names
@@ -119,82 +88,87 @@ CreateCatTable <- function(vars,          # vector of characters
 
         ## Total missing n (duplicated as many times as there are levels)
         freq$miss        <- sum(is.na(x))
-        
+
         ## Category frequency
         freq$freq        <- freqRaw
 
         ## Category percent
         freq$percent     <- freqRaw / sum(freqRaw) * 100
-        
-        ## 
+
+        ## Category percent (cumulative)
         freq$cum.percent <- cumsum(freqRaw) / sum(freqRaw) * 100
-        
+
+        ## Reorder variables
+        freq <- freq[c("n","miss","level","freq","percent","cum.percent")]
+
         ## Return result as a data frame
         return(freq)
     }
 
-    ## Example output data frame
-    ## CreateTableForOneVar(pbc$status)
-    ##     n miss freq   percent cum.percent
-    ## 1 418    0  232 55.502392    55.50239
-    ## 2 418    0   25  5.980861    61.48325
-    ## 3 418    0  161 38.516746   100.00000
-        
-
-    ## strata--variable-helperFunction structure
+    ## strata--variable-CreateTableForOneVar structure
     ## Devide by strata
     result <- by(data = dat, INDICES = strata,
 
                  ## Work on each stratum
-                 FUN = function(strataDat) { # strataDat should be a data frame
+                 FUN = function(dfStrataDat) { # dfStrataDat should be a data frame
 
                      ## Loop for variables
-                     sapply(strataDat,
+                     sapply(dfStrataDat,
                             FUN = CreateTableForOneVar,
                             simplify = FALSE)
-                     
+
                  }, simplify = FALSE)
 
-    ## Obtain collpased result
-    resultCollapsed <- lapply(result,   # Loop over strata
-                              function(LIST) {
-                                  ## Collapse DFs within each stratum
-                                  do.call(rbind, LIST)
-                              })
-        
-    ## Perform tests when necessary
+    
+### Perform tests when necessary
     ## Initialize
     pValues <- NULL
 
     ## Only when test is asked for
     if (test == TRUE) {
 
-        ## Loop for variables
-        listXtabs <- sapply(seq_len(ncol(dat)),
-                           FUN = function(i) {
+        ## Define special test functions that do not fail, and return p-values or NA
+        tryTestApprox <- function(mat) {
 
-                               ## Test function
-                               test <- listOfTests[[i]]
-                               ## Outcome variable
-                               var <- dat[,i]
-                               ## Perform test
+            out <- tryCatch.W.E(testApprox(mat)$p.value)
+            ## If it returns a numeric value, return it. Otherwise, return NA.
+            ifelse(is.numeric(out$value), out$value, NA)
+        }
+        tryTestExact <- function(mat) {
 
+            out <- tryCatch.W.E(testExact(mat)$p.value)
+            ## If it returns a numeric value, return it. Otherwise, return NA.
+            ifelse(is.numeric(out$value), out$value, NA)
+        }
 
-                               ## This part need modification to adjust to xtabs
-                               xtabs(~ var + strata[[1]])
-                               ## test(var ~ strata[[1]])
-                           },
-                           simplify = FALSE)
+        
+        ## Create a single variable representing all strata
+        strataVec                   <- apply(X = strata, MARGIN = 1, FUN = paste0, collapse = ":")
+        ## Give NA if any of the variables are missing
+        strataVecAnyMiss            <- apply(X = is.na(strata), MARGIN = 1, FUN = sum) > 0
+        strataVec[strataVecAnyMiss] <- NA
+        ## Make it a factor (kruskal.test requires it)
+        strataVec                   <- factor(strataVec)
 
-        ## Perform tests                                # Need error handling
-        resApprox <- lapply(listXtabs, testApprox)
-        resExact  <- lapply(listXtabs, testExact)
+        
+        ## Loop over variables in dat, and obtain p values for two tests
+        pValues <- sapply(X = dat,
+                            FUN = function(var) {
+                                ## Create a 2-dimensional table
+                                resXtabs <- xtabs(~ var + strataVec)
+                                
+                                ## Perform tests and return the result as 1x2 DF
+                                data.frame(
+                                    pApprox = tryTestApprox(resXtabs),
+                                    pExact  = tryTestExact(resXtabs)
+                                    )
+                            },
+                            simplify = FALSE)
 
-        ## Obtain p-values
-        pApprox <- sapply(resApprox, getElement, "p.value")
-        pExact  <- sapply(resExact, getElement, "p.value")
+        ## Create a single data frame (n x 2 (normal,nonormal))
+        pValues <- do.call(rbind, pValues)
     }
-    
+
 
     ## Return object
     ## Give an S3 class
@@ -202,8 +176,7 @@ CreateCatTable <- function(vars,          # vector of characters
 
     ## Give additional attributes
     attributes(result) <- c(attributes(result),
-                            list(pApprox = pApprox,
-                                 pExact  = pExact))
+                            list(pValues  = pValues))
 
     ## Return
     return(result)
