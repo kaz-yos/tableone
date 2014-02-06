@@ -3,6 +3,7 @@ print.CatTable <- function(CatTable, missing = FALSE,
                            format = c("fp","f","p","pf")[1], # Format f_requency and/or p_ercent
                            digits = 1, exact = NULL, quote = TRUE,
                            test = TRUE, pDigits = 3,
+                           showAllLevels = FALSE,
                            explain = TRUE) {
 
 ### Check the data structure first
@@ -104,8 +105,9 @@ print.CatTable <- function(CatTable, missing = FALSE,
                                                             DF$percent,
                                                             DF$freq)
 
-                                      ## If there are only TWO rows, delete the first
-                                      if (nRow == 2) {
+                                      ## If there are only TWO levels and showAllLevels is FALSE,
+                                      ## delete the first
+                                      if (nRow == 2 & !showAllLevels) {
 
                                           DF <- DF[-1, , drop = FALSE]
                                       }

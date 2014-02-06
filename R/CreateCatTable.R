@@ -38,7 +38,7 @@ CreateCatTable <- function(vars,                    # vector of characters
 
     ## Condition on the presence/absence of the strata
     if(missing(strata)){
-        ## If there is no strata, name the list "Overall"
+        ## If there is no strata, give "Overall" to every subject
         strata <- rep("Overall", dim(dat)[1])                           # Check if dim(dat)[[1]] is correct.
         ## test cannot be performed
         test <- FALSE
