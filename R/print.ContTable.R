@@ -1,6 +1,6 @@
 ## Print method for a continuous table
 print.ContTable <- function(ContTable, missing = FALSE,
-                            digits = 2, nonnormal = NULL, quote = TRUE,
+                            digits = 2, nonnormal = NULL, quote = FALSE,
                             test = TRUE, pDigits = 3,
                             explain = TRUE
                             ) {
