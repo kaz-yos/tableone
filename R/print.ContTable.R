@@ -41,13 +41,6 @@ print.ContTable <- function(ContTable, missing = FALSE,
         }
         ## Convert to numeric (1 for normal, 2 for nonnormal)
         nonnormal <- as.numeric(nonnormal) + 1
-
-        ## No longer true. not necessary. 2014-02-05
-        ## ## When tests are requested, nonnormality cannot be overrideen
-        ## if (test == TRUE & !is.null(attr(ContTable, "pValues"))) {
-        ##     nonnormal <- attr(ContTable, "nonnormal")
-        ##     warning("The nonnormality specifications from the object are used when tests are requested.")
-        ## }
     }
 
     ## Check the statistics. If necessary statistics are lacking abort
@@ -130,10 +123,11 @@ print.ContTable <- function(ContTable, missing = FALSE,
                   paste0, collapse = ":")
     }
 
+    
     ## Add p-values when requested and available
     if (test == TRUE & !is.null(attr(ContTable, "pValues"))) {
 
-        ## 2 (pNormal,pNonNormal) x nVariables matrix
+        ## nVariables x 2 (pNormal,pNonNormal) data frame
         pValues <- attr(ContTable, "pValues")
 
         ## Pick ones specified in nonnormal (a vector with 1s(normal) and 2s(nonnormal))
@@ -146,12 +140,13 @@ print.ContTable <- function(ContTable, missing = FALSE,
                           simplify = TRUE)
 
         ## Format
-        fmt <- paste0("%.",pDigits,"f")
+        fmt <- paste0("%.", pDigits, "f")
         p   <- sprintf(fmt = fmt, pValues)
         ## Column combine with the output
         out <- cbind(out, p = p)
     }
 
+    
     ## Add mean (sd) or median [IQR] explanation if requested
     if (explain) {
         what <- c(" (mean (sd))"," (median [IQR])")[nonnormal]

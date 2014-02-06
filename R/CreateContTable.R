@@ -178,12 +178,12 @@ CreateContTable <- function(vars,                         # vector of characters
 
         ## Create a single variable representing all strata
         strataVec                   <- apply(X = strata, MARGIN = 1, FUN = paste0, collapse = ":")
-
         ## Give NA if any of the variables are missing
         strataVecAnyMiss            <- apply(X = is.na(strata), MARGIN = 1, FUN = sum) > 0
         strataVec[strataVecAnyMiss] <- NA
         ## Make it a factor (kruskal.test requires it)
         strataVec                   <- factor(strataVec)
+
 
         ## Loop over variables in dat, and obtain p values for two tests
         pValues <- sapply(X = dat,
@@ -199,6 +199,7 @@ CreateContTable <- function(vars,                         # vector of characters
         ## Create a single data frame (n x 2 (normal,nonormal))
         pValues <- do.call(rbind, pValues)
     }
+
 
     ## Return object
     ## Give an S3 class
