@@ -9,13 +9,12 @@ print.CatTable <- function(CatTable, missing = FALSE,
 ### Check the data structure first
 
     ## CatTable has a strata(list)-variable(list)-table(dataframe) structure
-
-    ## Save variable names
-    ## This will not work if the first element is NULL
-    varNames <- names(CatTable[[1]])
-    ## Check the number of variables
+    ## Get the position of the first non-null element
+    posFirstNonNullElement <- which(!sapply(CatTable, is.null))[1]
+    ## Save variable names using the first non-null element
+    varNames <- names(CatTable[[posFirstNonNullElement]])
+    ## Check the number of variables (list length)
     nVar <- length(varNames)
-
 
     ## If null, do approx
     if (is.null(exact)) {
@@ -123,9 +122,6 @@ print.CatTable <- function(CatTable, missing = FALSE,
                    ## Collapse DFs within each stratum
                    DF <- do.call(rbind, LIST)
 
-                   ## ## Keep only necessary columns
-                   ## DF <- DF[c("var","freqPer")]
-
                    ## Return a data frame
                    DF
                }, simplify = FALSE)
@@ -134,8 +130,8 @@ print.CatTable <- function(CatTable, missing = FALSE,
 ### This part is a very messy hack to fix null list element. 2014-02-05. Come back and fix.
     ## Get the positions of the null elements
     posNullElement <- sapply(CatTableCollapsed, is.null)
-    ## Get the positions of the first non-null element
-    posFirstNonNullElement <- which(!posNullElement)[1]
+    ## ## Get the positions of the first non-null element
+    ## posFirstNonNullElement <- which(!posNullElement)[1]
     CatTableCollapsed[posNullElement] <- CatTableCollapsed[posFirstNonNullElement]
     ## Access as a data frame that should be empty and erase
     for (i in which(posNullElement)) {
@@ -154,6 +150,8 @@ print.CatTable <- function(CatTable, missing = FALSE,
 
     ## Create output matrix without variable names with the right format
     out <- do.call(cbind, lapply(CatTableCollapsed, getElement, nameResCol))
+    out <- cbind(CatTableCollapsed[[posFirstNonNullElement]]["level"],
+                 out)
     out <- as.matrix(out)
 
     ## Set the variables names
