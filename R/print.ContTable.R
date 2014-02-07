@@ -165,6 +165,12 @@ print.ContTable <- function(ContTable, missing = FALSE,
         ## Format
         fmt <- paste0("%.", pDigits, "f")
         p   <- sprintf(fmt = fmt, pValues)
+
+        ## Create a string like <0.001 
+        smallPString <- paste0("<0.", paste0(rep("0", pDigits - 1), collapse = ""), "1")
+        ## Put the string where it is all zero like 0.000
+        p[grepl("^0\\.0*$", p)] <- smallPString
+        
         ## Column combine with the output
         out <- cbind(out, p = p)
 
@@ -206,22 +212,3 @@ print.ContTable <- function(ContTable, missing = FALSE,
     ## Return invisibly
     return(invisible(out))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

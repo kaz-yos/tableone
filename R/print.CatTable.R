@@ -244,6 +244,12 @@ print.CatTable <- function(CatTable, missing = FALSE,
         ## Format
         fmt <- paste0("%.", pDigits, "f")
         p   <- sprintf(fmt = fmt, pValues)
+
+        ## Create a string like <0.001 
+        smallPString <- paste0("<0.", paste0(rep("0", pDigits - 1), collapse = ""), "1")
+        ## Put the string where it is all zero like 0.000
+        p[grepl("^0\\.0*$", p)] <- smallPString
+        
         ## Create an empty p-value column
         out <- cbind(out, p = rep("", nrow(out)))
         ## Put the values at the non-empty positions
@@ -291,22 +297,3 @@ print.CatTable <- function(CatTable, missing = FALSE,
     ## Return invisibly
     return(invisible(out))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
