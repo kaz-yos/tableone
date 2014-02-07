@@ -7,7 +7,7 @@ CreateContTable <- function(vars,                         # vector of characters
                             func.names = c(               # can pick a subset of them
                                 "n","miss",
                                 "mean","sd",
-                                "median","q25","q75","min","max",
+                                "median","p25","p75","min","max",
                                 "skew","kurt"
                                 ),
                             func.additional,              # named list of additional functions
@@ -75,7 +75,7 @@ CreateContTable <- function(vars,                         # vector of characters
     ## Create indexes for default functions by partial string matching with the func.names argument
     func.indexes <- pmatch(func.names, c("n","miss",
                                          "mean","sd",
-                                         "median","q25","q75","min","max",
+                                         "median","p25","p75","min","max",
                                          "skew","kurt"))
     ## Remove NA
     func.indexes <- func.indexes[!is.na(func.indexes)]
@@ -110,8 +110,8 @@ CreateContTable <- function(vars,                         # vector of characters
                    "mean"   = function(x) mean(x, na.rm = TRUE),
                    "sd"     = function(x) sd(x, na.rm = TRUE),
                    "median" = function(x) median(x, na.rm = TRUE),
-                   "q25"    = function(x) quantile(x, probs = 0.25, na.rm = TRUE),
-                   "q75"    = function(x) quantile(x, probs = 0.75, na.rm = TRUE),
+                   "p25"    = function(x) quantile(x, probs = 0.25, na.rm = TRUE),
+                   "p75"    = function(x) quantile(x, probs = 0.75, na.rm = TRUE),
                    "min"    = function(x) min(x, na.rm = TRUE),
                    "max"    = function(x) max(x, na.rm = TRUE),
                    "skew"   = function(x) sasSkewness(x),

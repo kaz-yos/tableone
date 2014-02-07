@@ -46,10 +46,10 @@ print.ContTable <- function(ContTable, missing = FALSE,
 
     ## Check the statistics. If necessary statistics are lacking abort
     statNames <- colnames(ContTable[[posFirstNonNullElement]])
-    funcDefault <- c("n","miss","mean","sd","median","q25","q75")
+    funcDefault <- c("n","miss","mean","sd","median","p25","p75")
     if (any(!funcDefault %in% statNames)) {
 
-        summary(ContTable)
+        ## summary(ContTable)
         stop("The object does not contain all necessary statistics. Use summary() method.")
     }
 
@@ -73,8 +73,8 @@ print.ContTable <- function(ContTable, missing = FALSE,
 
         out <- sprintf(fmt = fmt,
                        rowMat[, "median"],
-                       rowMat[, "q25"],
-                       rowMat[, "q75"])
+                       rowMat[, "p25"],
+                       rowMat[, "p75"])
 
         return(out)
     }
