@@ -51,17 +51,23 @@ print.CatTable <- function(CatTable, missing = FALSE,
         format <- "fp"
     }
 
-    ## Obtain the strata sizes in a vector. This has to be obtained from the original data
+    ## Obtain the strata sizes in a character vector. This has to be obtained from the original data
     ## Added as the top row later
     strataN <- sapply(CatTable,
-                      FUN = function(stratum) {
+                      FUN = function(stratum) { # loop over strata
                           ## Just the first available element may be enough.
-                          ## obtain n from all variables and all levels, and get the mean
-                          n <- mean(unlist(sapply(stratum, getElement, "n")), na.rm = TRUE)
+                          ## Obtain n from all variables and all levels, and get the mean
+                          n <- unlist(sapply(stratum, getElement, "n"))
+                          ## Pick the first non-null element
+                          n[!is.null(n)][1]
                           ## Convert NULL to N
-                          ifelse(is.null(n), NA, n)
+                          ifelse(is.null(n), "0", as.character(n))
                       },
                       simplify = TRUE)
+
+    ## Provide indicators to show
+    wasLevelColumnAdded  <- FALSE
+    wasPValueColumnAdded <- FALSE
 
 
 ### Formatting for printing
@@ -170,7 +176,7 @@ print.CatTable <- function(CatTable, missing = FALSE,
                    DF
                }, simplify = FALSE)
 
-    
+
 ### Handling of NULL element
 ### This part is a very messy hack to fix null list element. 2014-02-05. Come back and fix.
     ## Get the positions of the null elements
@@ -184,7 +190,7 @@ print.CatTable <- function(CatTable, missing = FALSE,
         CatTableCollapsed[[i]][] <- lapply(CatTableCollapsed[[i]][],
                                            function(var) {
 
-                                               var <- rep("empty", length(var))
+                                               var <- rep("-", length(var))
                                            })
     }
 
@@ -199,6 +205,8 @@ print.CatTable <- function(CatTable, missing = FALSE,
     if (showAllLevels) {
         out <- cbind(CatTableCollapsed[[posFirstNonNullElement]]["level"],
                      out)
+        ## Changed the indicator
+        wasLevelColumnAdded  <- TRUE
     }
     out <- as.matrix(out)
 
@@ -240,9 +248,12 @@ print.CatTable <- function(CatTable, missing = FALSE,
         out <- cbind(out, p = rep("", nrow(out)))
         ## Put the values at the non-empty positions
         out[posNonEmptyRowNames,"p"] <- p
+
+        ## Change the indicator
+        wasPValueColumnAdded <- TRUE
     }
 
-    
+
     ## Add freq () explanation if requested
     if (explain) {
         ## Choose the format of the explanation string
@@ -251,7 +262,14 @@ print.CatTable <- function(CatTable, missing = FALSE,
         rownames(out)[posNonEmptyRowNames] <- paste0(rownames(out)[posNonEmptyRowNames],
                                                      explainString)
     }
-    
+
+    ## Add n at the correct location depending on the number of columns added (level and/or p)
+    out <- rbind(n = c(rep("", wasLevelColumnAdded),    # Add "" padding if the level column was added
+                     strataN,
+                     rep("", wasPValueColumnAdded)      # Add "" padding if the p-value column was added
+                     ),
+                 out)
+
 
     ## Add quotes for names if requested
     if (quote) {
