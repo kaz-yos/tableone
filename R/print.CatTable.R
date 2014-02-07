@@ -247,8 +247,12 @@ print.CatTable <- function(CatTable, missing = FALSE,
 
         ## Create a string like <0.001 
         smallPString <- paste0("<0.", paste0(rep("0", pDigits - 1), collapse = ""), "1")
+        ## Check positions where it is all zero like 0.000
+        posAllZeros <- grepl("^0\\.0*$", p)
         ## Put the string where it is all zero like 0.000
-        p[grepl("^0\\.0*$", p)] <- smallPString
+        p[posAllZeros] <- smallPString
+        ## Put a preceding space where it is not like 0.000
+        p[!posAllZeros] <- paste0(" ", p[!posAllZeros])
         
         ## Create an empty p-value column
         out <- cbind(out, p = rep("", nrow(out)))

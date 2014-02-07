@@ -71,7 +71,7 @@ print.ContTable <- function(ContTable, missing = FALSE,
     ## Provide indicators to show
     ## wasLevelColumnAdded  <- FALSE    # No equivalent in continuous variables
     wasPValueColumnAdded <- FALSE
-    
+
 
 
 ### Conversion of data for printing
@@ -146,7 +146,7 @@ print.ContTable <- function(ContTable, missing = FALSE,
                   paste0, collapse = ":")
     }
 
-    
+
     ## Add p-values when requested and available
     if (test == TRUE & !is.null(attr(ContTable, "pValues"))) {
 
@@ -166,11 +166,15 @@ print.ContTable <- function(ContTable, missing = FALSE,
         fmt <- paste0("%.", pDigits, "f")
         p   <- sprintf(fmt = fmt, pValues)
 
-        ## Create a string like <0.001 
+        ## Create a string like <0.001
         smallPString <- paste0("<0.", paste0(rep("0", pDigits - 1), collapse = ""), "1")
+        ## Check positions where it is all zero like 0.000
+        posAllZeros <- grepl("^0\\.0*$", p)
         ## Put the string where it is all zero like 0.000
-        p[grepl("^0\\.0*$", p)] <- smallPString
-        
+        p[posAllZeros] <- smallPString
+        ## Put a preceding space where it is not like 0.000
+        p[!posAllZeros] <- paste0(" ", p[!posAllZeros])
+
         ## Column combine with the output
         out <- cbind(out, p = p)
 
@@ -178,7 +182,7 @@ print.ContTable <- function(ContTable, missing = FALSE,
         wasPValueColumnAdded <- TRUE
     }
 
-    
+
     ## Add mean (sd) or median [IQR] explanation if requested
     if (explain) {
         what <- c(" (mean (sd))"," (median [IQR])")[nonnormal]
@@ -190,7 +194,7 @@ print.ContTable <- function(ContTable, missing = FALSE,
                      p = rep("", wasPValueColumnAdded) # Add "" padding if p-value added
                      ),
                  out)
-    
+
 
     ## Add quotes for names if requested
     if (quote) {
