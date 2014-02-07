@@ -54,6 +54,26 @@ print.ContTable <- function(ContTable, missing = FALSE,
     }
 
 
+    ## Obtain the strata sizes in a character vector. This has to be obtained from the original data
+    ## Added as the top row later
+    strataN <- sapply(ContTable,
+                      FUN = function(stratum) { # loop over strata
+                          ## Just the first available element may be enough.
+                          ## Obtain n from all variables and all levels, and get the mean
+                          n <- stratum[,"n"]
+                          ## Pick the first non-null element
+                          n[!is.null(n)][1]
+                          ## Convert NULL to N
+                          ifelse(is.null(n), "0", as.character(n))
+                      },
+                      simplify = TRUE)
+
+    ## Provide indicators to show
+    ## wasLevelColumnAdded  <- FALSE    # No equivalent in continuous variables
+    wasPValueColumnAdded <- FALSE
+    
+
+
 ### Conversion of data for printing
 
     ## These may want to be moved to separate files later.
@@ -92,7 +112,7 @@ print.ContTable <- function(ContTable, missing = FALSE,
 
                       ## In an empty stratum, return empty
                       if (is.null(stratum)) {
-                          out2 <- rep("empty", nRows)
+                          out2 <- rep("-", nRows)
 
                       } else {
 
@@ -147,6 +167,9 @@ print.ContTable <- function(ContTable, missing = FALSE,
         p   <- sprintf(fmt = fmt, pValues)
         ## Column combine with the output
         out <- cbind(out, p = p)
+
+        ## Change the indicator
+        wasPValueColumnAdded <- TRUE
     }
 
     
@@ -155,6 +178,13 @@ print.ContTable <- function(ContTable, missing = FALSE,
         what <- c(" (mean (sd))"," (median [IQR])")[nonnormal]
         rownames(out) <- paste0(rownames(out), what)
     }
+
+    ## Add n at the correct location depending on the number of columns added (level and/or p)
+    out <- rbind(n = c(strataN,
+                     p = rep("", wasPValueColumnAdded) # Add "" padding if p-value added
+                     ),
+                 out)
+    
 
     ## Add quotes for names if requested
     if (quote) {

@@ -264,9 +264,9 @@ print.CatTable <- function(CatTable, missing = FALSE,
     }
 
     ## Add n at the correct location depending on the number of columns added (level and/or p)
-    out <- rbind(n = c(rep("", wasLevelColumnAdded),    # Add "" padding if the level column was added
+    out <- rbind(n = c(level = rep("", wasLevelColumnAdded), # Add "" padding if level added
                      strataN,
-                     rep("", wasPValueColumnAdded)      # Add "" padding if the p-value column was added
+                     p = rep("", wasPValueColumnAdded)       # Add "" padding if p-value added
                      ),
                  out)
 
