@@ -3,7 +3,7 @@ summary.CatTable <- function(CatTable, digits = 1) {
     ## Create format
     fmt <- paste0("%.", digits, "f")
 
-    ## Obtain collpased result
+    ## Obtain collpased result within each stratum
     CatTableCollapsed <-
         sapply(X = CatTable,   # Loop over strata
                FUN = function(LIST) {
@@ -60,21 +60,3 @@ summary.CatTable <- function(CatTable, digits = 1) {
     ## Print forcing the print.by method. Do not show row names.
     print.by(CatTableCollapsed, digits = digits, row.names = FALSE)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

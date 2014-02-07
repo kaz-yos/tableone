@@ -189,25 +189,31 @@ print.ContTable <- function(ContTable, missing = FALSE,
         rownames(out) <- paste0(rownames(out), what)
     }
 
+    ## Keep column names (strataN does not have correct names if stratification is by multiple variables)
+    outColNames <- colnames(out)
     ## Add n at the correct location depending on the number of columns added (level and/or p)
     out <- rbind(n = c(strataN,
                      p = rep("", wasPValueColumnAdded) # Add "" padding if p-value added
                      ),
                  out)
+    ## Put back the column names (overkill for non-multivariable cases)
+    colnames(out) <- outColNames
+    
+    ## Add stratification information to the column header
+    if (length(ContTable) > 1 ) {
+        ## Create strata string
+        strataString <- paste0("Stratified by ",
+                               paste0(names(attr(ContTable, "dimnames")), collapse = ":"))
 
+        ## Name the row dimension with it. 1st dimension name should be empty.
+        names(dimnames(out)) <- c("", strataString)
+    }
 
     ## Add quotes for names if requested
     if (quote) {
         rownames(out) <- paste0('"', rownames(out), '"')
         colnames(out) <- paste0('"', colnames(out), '"')
-    }
-
-    ## Print stratification
-    if (length(ContTable) > 1 ) {
-        cat(paste0("Stratified by ",
-                   ## names(attr(ContTable, "dimnames")),
-                   paste0(names(attr(ContTable, "dimnames")), collapse = ":"),
-                   "\n"))
+        names(dimnames(out)) <- paste0('"', names(dimnames(out)), '"')
     }
 
     ## Print the results
