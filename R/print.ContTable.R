@@ -38,7 +38,7 @@ print.ContTable <- function(ContTable, missing = FALSE,
         }
         ## Convert to a logical vector if it is a character vector
         if (is.character(nonnormal)) {
-            nonnormal <- vars %in% nonnormal
+            nonnormal <- varNames %in% nonnormal
         }
         ## Convert to numeric (1 for normal, 2 for nonnormal)
         nonnormal <- as.numeric(nonnormal) + 1
