@@ -287,4 +287,26 @@ print.CatTable <- function(CatTable, missing = FALSE,
 
     ## Print the results
     print(out, quote = quote)
+    
+    ## Return invisibly
+    return(invisible(out))
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

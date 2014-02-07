@@ -202,4 +202,26 @@ print.ContTable <- function(ContTable, missing = FALSE,
 
     ## Print the results
     print(out, quote = quote)
+
+    ## Return invisibly
+    return(invisible(out))
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
