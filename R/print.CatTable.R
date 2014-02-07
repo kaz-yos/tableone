@@ -39,7 +39,7 @@ print.CatTable <- function(CatTable, missing = FALSE,
         }
         ## Convert to a logical vector if it is a character vector
         if (is.character(exact)) {
-            exact <- vars %in% exact
+            exact <- varNames %in% exact
         }
         ## Convert to numeric (1 for approx, 2 for exact)
         exact <- as.numeric(exact) + 1
