@@ -51,6 +51,18 @@ print.CatTable <- function(CatTable, missing = FALSE,
         format <- "fp"
     }
 
+    ## Obtain the strata sizes in a vector. This has to be obtained from the original data
+    ## Added as the top row later
+    strataN <- sapply(CatTable,
+                      FUN = function(stratum) {
+                          ## Just the first available element may be enough.
+                          ## obtain n from all variables and all levels, and get the mean
+                          n <- mean(unlist(sapply(stratum, getElement, "n")), na.rm = TRUE)
+                          ## Convert NULL to N
+                          ifelse(is.null(n), NA, n)
+                      },
+                      simplify = TRUE)
+
 
 ### Formatting for printing
 
@@ -107,7 +119,7 @@ print.CatTable <- function(CatTable, missing = FALSE,
                                       ## Add first row indicator column
                                       DF$firstRowInd <- ""
 
-                                      ## When showAllLevels is FALSE, simplify
+                                      ## Format based on the number of levels
                                       if (!showAllLevels & nRow == 1) {
                                           ## If showAllLevels is FALSE AND there are only ONE levels,
                                           ## change variable name to "var = level"
@@ -158,7 +170,8 @@ print.CatTable <- function(CatTable, missing = FALSE,
                    DF
                }, simplify = FALSE)
 
-
+    
+### Handling of NULL element
 ### This part is a very messy hack to fix null list element. 2014-02-05. Come back and fix.
     ## Get the positions of the null elements
     posNullElement <- sapply(CatTableCollapsed, is.null)
@@ -205,7 +218,6 @@ print.CatTable <- function(CatTable, missing = FALSE,
                   paste0, collapse = ":")
     }
 
-
     ## Add p-values when requested and available
     if (test == TRUE & !is.null(attr(CatTable, "pValues"))) {
 
@@ -230,7 +242,7 @@ print.CatTable <- function(CatTable, missing = FALSE,
         out[posNonEmptyRowNames,"p"] <- p
     }
 
-
+    
     ## Add freq () explanation if requested
     if (explain) {
         ## Choose the format of the explanation string
@@ -239,6 +251,7 @@ print.CatTable <- function(CatTable, missing = FALSE,
         rownames(out)[posNonEmptyRowNames] <- paste0(rownames(out)[posNonEmptyRowNames],
                                                      explainString)
     }
+    
 
     ## Add quotes for names if requested
     if (quote) {
