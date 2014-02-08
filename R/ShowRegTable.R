@@ -1,31 +1,30 @@
 ShowRegTable <- function(model, exp = TRUE, digits = 2, pDigits = 3, quote = FALSE) {
 
-    ## Create format
+    ## Create formats
     fmt1 <- paste0("%.",  digits, "f")
     fmt2 <- paste0("%.", pDigits, "f")
 
-    ## model must have summary and confint methods
-    modelCoef <- coef(model)
-    modelConfInt <- confint(model)
-
+    ## Obtain necessary data
+    ## The model must have summary and confint methods
+    modelCoef       <- coef(model)
+    modelConfInt    <- confint(model)
     modelSummaryMat <- coef(summary(model))
-    modelP <- modelSummaryMat[,ncol(modelSummaryMat)]
+    modelP          <- modelSummaryMat[,ncol(modelSummaryMat)]
 
-
-    ##
+    ## Create the result matrix with beta and two columns of confidence interval
     resMat <- cbind(beta = modelCoef,
                     modelConfInt)
 
+    ## exponentiate if requested
     if (exp) {
-        ## exponentiate if requested
         resMat <- exp(resMat)
     }
 
     ## Format
     resString <- sprintf(fmt = paste0(fmt1, " [", fmt1, ", ", fmt1 ,"]"),
-                         resMat[,1],
-                         resMat[,2],
-                         resMat[,3]
+                         resMat[,1],    # point estimate
+                         resMat[,2],    # lower
+                         resMat[,3]     # upper
                          )
 
     ## Format p-values
@@ -41,28 +40,30 @@ ShowRegTable <- function(model, exp = TRUE, digits = 2, pDigits = 3, quote = FAL
     pString[!posAllZeros] <- paste0(" ", pString[!posAllZeros])
 
     
-    ## Combine with the result column
+    ## Combine with the result column. (Need to be after exponentiation)
     outMat <- cbind(resString,
                     "p" = pString)
 
     ## Add row names
     rownames(outMat) <- names(modelCoef)
 
-
+    ## Change column names depending on the exponentiation status
     if (exp) {
         colnames(outMat)[1] <- "exp(beta) [confint]"
     } else if (!exp) {
         colnames(outMat)[1] <- "beta [confint]"        
     }
 
+    ## Add quotes if requested
     if (quote) {
         rownames(outMat) <- paste0('"', rownames(outMat), '"')
         colnames(outMat) <- paste0('"', colnames(outMat), '"')                
     }
 
-    
+
+    ## Print the result
     print(outMat, quote = quote)
 
-    
+    ## Invisibly return for capture as an object
     return(invisible(outMat))
 }
