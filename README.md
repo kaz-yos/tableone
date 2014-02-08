@@ -1,12 +1,13 @@
 tableone
-========
+===============================================================================
 
 An R package to create "Table 1", description of baseline characteristics
 
 For some reasons, there are no good functions to create the "Table 1", i.e., description of baseline characteristics in R although it is essential in every medical research. The package was insipired by descriptive statistics functions in Deducer, Java-based GUI package. This package does not require GUI or Java, and intended for CUI users.
 
 Examples
-------
+-------------------------------------------------------------------------------
+
 **Continuous variables**
 
 You can specifiy which variables you  handle as nonnormal variables. The corresponding p-values will be from nonparametric tests.
@@ -51,3 +52,34 @@ For categorical variables, levels are handled in decent ways. For two-level vari
      3             97 (42.2)  10 (40.0)   48 (30.6)              
      4             50 (21.7)  10 (40.0)   84 (53.5)              
 ```
+
+Installation
+-------------------------------------------------------------------------------
+
+This is a piece of software in active development. Please do not rely on this in a production environment.
+
+Your contribution is appreciated. Please report bugs, request feasures, and send improvement suggestions.
+
+
+The source tar.gz file for the point release is available at:
+
+https://github.com/kaz-yos/tableone/releases
+
+On Mac (and Linux system?), you can then do the following in the Terminal.
+```
+R CMD INSTALL tableone_ver.tar.gz
+```
+
+Alternatively, you can use the devtools to install from github directly. 
+```r
+## Install devtools (if you do not have it already)
+install.packages("devtools")
+## Load devtools
+library(devtools)
+## Install directly from github
+install_github(repo = "kaz-yos/tableone")
+## Load 
+library(tableone)
+```
+Using devtools require some preparation, please see the following.
+http://www.rstudio.com/projects/devtools/
