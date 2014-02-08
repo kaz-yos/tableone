@@ -2,39 +2,59 @@
 \alias{print.ContTable}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-%%  ~~function to do ... ~~
+  %%  ~~function to do ... ~~
+  Format and print the ‘ContTable’ class objects
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+  %%  ~~ A concise (1-5 lines) description of what the function does. ~~
+  This is the print method for the ContTable class objects created by
+  CreateContTable function.   
 }
 \usage{
-print.ContTable(ContTable, missing = FALSE, digits = 2, nonnormal = NULL, quote = TRUE, test = TRUE, pDigits = 3, explain = TRUE)
+print.ContTable(ContTable, missing = FALSE, digits = 2,
+                nonnormal = NULL, quote = TRUE, test = TRUE,
+                pDigits = 3, explain = TRUE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{ContTable}{
-%%     ~~Describe \code{ContTable} here~~
+    %%     ~~Describe \code{ContTable} here~~
+    The result of a call to the ‘CreateContTable’ function.
 }
   \item{missing}{
-%%     ~~Describe \code{missing} here~~
+    %%     ~~Describe \code{missing} here~~
+    Whether to show missing data information (not implemented
+    yet, placeholder)
 }
   \item{digits}{
-%%     ~~Describe \code{digits} here~~
+    %%     ~~Describe \code{digits} here~~
+        Number of digits to print in the table.
 }
   \item{nonnormal}{
-%%     ~~Describe \code{nonnormal} here~~
+    %%     ~~Describe \code{nonnormal} here~~
+    A character vector to specify the variables for which the p-values
+    should be those of nonparametric tests. By default all p-values are from
+    normal assumption-based tests (oneway.test).
 }
   \item{quote}{
-%%     ~~Describe \code{quote} here~~
+    %%     ~~Describe \code{quote} here~~
+    Whether to show everything in quotes. The default is FALSE. If TRUE,
+    everything including the row and column names are quoted so that you
+    can copy it to Excel easily.
 }
   \item{test}{
-%%     ~~Describe \code{test} here~~
+    %%     ~~Describe \code{test} here~~
+    Whether to show the p-values. TRUE by default. If FALSE, only the
+    numerical summaries are shown.    
 }
   \item{pDigits}{
-%%     ~~Describe \code{pDigits} here~~
+    %%     ~~Describe \code{pDigits} here~~
+    Number of digits to print for p-values.    
 }
   \item{explain}{
-%%     ~~Describe \code{explain} here~~
+    %%     ~~Describe \code{explain} here~~
+    Whether to add explanation to the variable names, i.e., (mean (sd)
+    or median [IQR]) is added to the variable names.
 }
 }
 \details{
@@ -46,114 +66,79 @@ print.ContTable(ContTable, missing = FALSE, digits = 2, nonnormal = NULL, quote 
 %%  \item{comp1 }{Description of 'comp1'}
 %%  \item{comp2 }{Description of 'comp2'}
 %% ...
+It is mainly for printing the result. But this function does return a
+matrix containing what you see in the output invisibly. You can assign
+it to an object to save it.
 }
 \references{
 %% ~put references to the literature/web site here ~
 }
 \author{
-%%  ~~who you are~~
+  %%  ~~who you are~~
+  Kazuki YOSHIDA
 }
 \note{
-%%  ~~further notes~~
+  %%  ~~further notes~~
+  Special Thanks:
+
+  This package was inspired by and based on the Deducer package
+  
+  Developmental repository is on github. Your contributions are
+  appreciated.
+  
+  https://github.com/kaz-yos/tableone  
 }
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
+  %% ~~objects to See Also as \code{\link{help}}, ~~~
+  CreateContTable, summary.ContTable, CreateCatTable, print.CatTable, summary.CatTable
 }
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
+## Load Mayo Clinic Primary Biliary Cirrhosis Data
+library(survival)
+data(pbc)
+## Check variables
+head(pbc)
 
-## The function is currently defined as
-function (ContTable, missing = FALSE, digits = 2, nonnormal = NULL, 
-    quote = TRUE, test = TRUE, pDigits = 3, explain = TRUE) 
-{
-    varNames <- rownames(ContTable[[1]])
-    nRows <- length(varNames)
-    if (is.null(nonnormal)) {
-        nonnormal <- attr(ContTable, "nonnormal")
-    }
-    else {
-        if (!is.logical(nonnormal) & !is.character(nonnormal)) {
-            stop("nonnormal argument has to be FALSE/TRUE or character.")
-        }
-        if (is.logical(nonnormal)) {
-            if (length(nonnormal) != 1) {
-                stop("nonormal has to be a logical vector of length 1")
-            }
-            nonnormal <- rep(nonnormal, nRows)
-        }
-        if (is.character(nonnormal)) {
-            nonnormal <- vars \%in\% nonnormal
-        }
-        nonnormal <- as.numeric(nonnormal) + 1
-        if (test == TRUE & !is.null(attr(ContTable, "pValues"))) {
-            nonnormal <- attr(ContTable, "nonnormal")
-            warning("The nonnormality specifications from the object are used when tests are requested.")
-        }
-    }
-    statNames <- colnames(ContTable[[1]])
-    funcDefault <- c("n", "miss", "mean", "sd", "median", "q25", 
-        "q75")
-    if (any(!funcDefault \%in\% statNames)) {
-        summary(ContTable)
-        stop("The object does not contain all necessary statistics. Use summary() method.")
-    }
-    ConvertNormal <- function(rowMat) {
-        fmt <- paste0("\%.", digits, "f", " (\%.", digits, "f", 
-            ")")
-        out <- sprintf(fmt = fmt, rowMat[, "mean"], rowMat[, 
-            "sd"])
-        return(out)
-    }
-    ConvertNonNormal <- function(rowMat) {
-        fmt <- paste0("\%.", digits, "f [\%.", digits, "f, \%.", 
-            digits, "f]")
-        out <- sprintf(fmt = fmt, rowMat[, "median"], rowMat[, 
-            "q25"], rowMat[, "q75"])
-        return(out)
-    }
-    listOfFunctions <- list(normal = ConvertNormal, nonnormal = ConvertNonNormal)
-    listOfFunctions <- listOfFunctions[nonnormal]
-    out <- sapply(ContTable, FUN = function(stratum) {
-        if (is.null(stratum)) {
-            out2 <- rep("empty", nRows)
-        }
-        else {
-            out2 <- sapply(seq_len(nRows), FUN = function(i) {
-                fun <- listOfFunctions[[i]]
-                fun(stratum[i, , drop = FALSE])
-            }, simplify = TRUE)
-        }
-        out2
-    }, simplify = TRUE)
-    rownames(out) <- varNames
-    if (length(attr(ContTable, "dimnames")) > 1) {
-        colnames(out) <- apply(expand.grid(attr(ContTable, "dimnames")), 
-            MARGIN = 1, paste0, collapse = ":")
-    }
-    if (test == TRUE & !is.null(attr(ContTable, "pValues"))) {
-        fmt <- paste0("\%.", pDigits, "f")
-        p <- sprintf(fmt = fmt, attr(ContTable, "pValues"))
-        out <- cbind(out, p = p)
-    }
-    if (explain) {
-        what <- c(" (mean (sd))", " (median [IQR])")[nonnormal]
-        rownames(out) <- paste0(rownames(out), what)
-    }
-    if (quote) {
-        rownames(out) <- paste0("\"", rownames(out), "\"")
-        colnames(out) <- paste0("\"", colnames(out), "\"")
-    }
-    if (length(ContTable) > 1) {
-        cat(paste0("Stratified by ", paste0(names(attr(ContTable, 
-            "dimnames")), collapse = ":"), "\n"))
-    }
-    print(out, quote = quote)
-  }
+## Create an overall table for continuous variables
+contVars <- c("time","age","bili","chol","albumin","copper","alk.phos","ast","trig","platelet","protime")
+contTableOverall <- CreateContTable(vars = contVars, data = pbc)
+
+## Simply typing the object name will invoke the print.ContTable method,
+## which will show the sample size, means and standard deviations.
+contTableOverall
+
+## To further examine the variables, use the summary.ContTable method,
+## which will show more details.
+summary(contTableOverall)
+
+## c("age","chol","copper","alk.phos","trig","protime") appear highly skewed.
+## Specify them in the nonnormal argument, and the display changes to the median,
+## and the [25th, 75th] percentile.
+nonNormalVars <- c("age","chol","copper","alk.phos","trig","protime")
+print(contTableOverall, nonnormal = nonNormalVars)
+
+## The table can be stratified by one or more variables
+contTableBySexTrt <- CreateContTable(vars = contVars, strata = c("sex","trt"), data = pbc)
+
+## print now includes p-values which are by default calculated by oneway.test (t-test
+## equivalent in the two group case). It is formatted at the decimal place specified
+## by the pDigits argument (3 by default). It does <0.001 for you.
+contTableBySexTrt
+
+## The nonnormal argument will toggle the p-values to the nonparametric result from
+## kruskal.test (wilcox.test equivalent for the two group case).
+print(contTableBySexTrt, nonnormal = nonNormalVars)
+
+## summary now includes both types of p-values
+summary(contTableBySexTrt)
+
+## If your work flow includes copying to Excel and Word when writing manuscripts,
+## you may benefit from the quote argument. This will quote everything so that
+## Excel does not mess up the cells.
+print(contTableBySexTrt, nonnormal = nonNormalVars, quote = TRUE)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

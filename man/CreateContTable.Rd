@@ -12,7 +12,11 @@
   statistical tests. The object gives a table that is easy to use in medical research papers.
 }
 \usage{
-CreateContTable(vars, strata, data, func.names = c("n", "miss", "mean", "sd", "median", "p25", "p75", "min", "max", "skew", "kurt"), func.additional, nonnormal = FALSE, test = FALSE, testNormal = oneway.test, testNonNormal = kruskal.test)
+CreateContTable(vars, strata, data, func.names = c("n", "miss", "mean",
+                "sd", "median", "p25", "p75", "min", "max", "skew",
+                "kurt"), func.additional, nonnormal = FALSE,
+                test = FALSE, testNormal = oneway.test,
+                testNonNormal = kruskal.test)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -88,8 +92,13 @@ rows representing variables, and columns representing summary statistics.
 \note{
   %%  ~~further notes~~
   Special Thanks:
-  This package was inspired by and heavily based on the Deducer package
+  
+  This package was inspired by and based on the Deducer package
   (descriptive.table function).
+
+  Developmental repository is on github. Your contributions are appreciated.
+  
+  https://github.com/kaz-yos/tableone
 }
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
@@ -99,10 +108,6 @@ rows representing variables, and columns representing summary statistics.
   print.ContTable, summary.ContTable, CreateCatTable, print.CatTable, summary.CatTable
 }
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
-
 ## Load Mayo Clinic Primary Biliary Cirrhosis Data
 library(survival)
 data(pbc)

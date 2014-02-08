@@ -14,7 +14,8 @@
   
 }
 \usage{
-CreateCatTable(vars, strata, data, test = TRUE, testApprox = chisq.test, testExact = fisher.test)
+CreateCatTable(vars, strata, data, test = TRUE, testApprox = chisq.test,
+               testExact = fisher.test)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -76,8 +77,14 @@ rows representing variables, and columns representing summary statistics.
 \note{
   %%  ~~further notes~~
   Special Thanks:
-  This package was inspired by and heavily based on the Deducer package
+  
+  This package was inspired by and based on the Deducer package
   (frequencies function).
+  
+  Developmental repository is on github. Your contributions are
+  appreciated.
+  
+  https://github.com/kaz-yos/tableone
 }
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
@@ -87,10 +94,6 @@ rows representing variables, and columns representing summary statistics.
     print.CatTable, summary.CatTable, CreateContTable, print.ContTable, summary.ContTable
 }
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
-
 ## Load Mayo Clinic Primary Biliary Cirrhosis Data
 library(survival)
 data(pbc)
@@ -137,8 +140,6 @@ summary(catTableBySexTrt)
 ## you may benefit from the quote argument. This will quote everything so that
 ## Excel does not mess up the cells.
 print(catTableBySexTrt, exact = "ascites", quote = TRUE)
-
-
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
