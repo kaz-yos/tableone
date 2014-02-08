@@ -288,10 +288,10 @@ print.CatTable <- function(CatTable, missing = FALSE,
         if (any(exact == 2)) {
             ## Create an empty test type column
             out <- cbind(out,
-                         exact = rep("", nrow(out))) # Column for test types
+                         test = rep("", nrow(out))) # Column for test types
 
             ## Put the test types  at the non-empty positions
-            out[posNonEmptyRowNames,"exact"] <- testTypes
+            out[posNonEmptyRowNames,"test"] <- testTypes
 
             ## Change the indicator
             wasExactColumnAdded <- TRUE
@@ -314,7 +314,7 @@ print.CatTable <- function(CatTable, missing = FALSE,
     out <- rbind(n = c(level = rep("", wasLevelColumnAdded), # Add "" padding if level added
                      strataN,
                      p       = rep("", wasPValueColumnAdded), # Add "" padding if p-value added
-                     exact   = rep("", wasExactColumnAdded)   # Add "" padding if exact test used
+                     test    = rep("", wasExactColumnAdded)   # Add "" padding if exact test used
                      ),
                  out)
     ## Put back the column names (overkill for non-multivariable cases)
