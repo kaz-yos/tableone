@@ -86,6 +86,17 @@ print.ContTable <- function(ContTable, missing = FALSE,
                        rowMat[, "sd"])
 
         return(out)
+
+        ## This does not work if the operation is row by row.
+        ## fmt <- paste0("%.", digits, "f")
+        ## meanString <- sprintf(fmt = fmt, rowMat[, "mean"])
+        ## meanString <- format(meanString, justify = "right")
+        ## out <- sprintf(fmt = paste0("%s (", fmt, ")"),
+        ##                meanString,
+        ##                rowMat[, "sd"]
+        ##                )
+        ## out <- format(out, justify = "left")
+        ## return(out)
     }
     ## Define a function to print a nonnormal variable
     ConvertNonNormal <- function(rowMat) {
@@ -117,6 +128,7 @@ print.ContTable <- function(ContTable, missing = FALSE,
                       } else {
 
                           ## Apply row by row within each non-empty stratum
+                          ## This row-by-row operation is necessary to handle mean (sd) and median [IQR]
                           out2 <- sapply(seq_len(nRows),
                                          FUN = function(i) {
 
@@ -198,7 +210,7 @@ print.ContTable <- function(ContTable, missing = FALSE,
                  out)
     ## Put back the column names (overkill for non-multivariable cases)
     colnames(out) <- outColNames
-    
+
     ## Add stratification information to the column header
     if (length(ContTable) > 1 ) {
         ## Create strata string
