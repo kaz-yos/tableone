@@ -9,8 +9,12 @@ print.CatTable <- function(CatTable, missing = FALSE,
 ### Check the data structure first
 
     ## CatTable has a strata(list)-variable(list)-table(dataframe) structure
-    ## Get the position of the first non-null element
-    posFirstNonNullElement <- which(!sapply(CatTable, is.null))[1]
+    ## Get the position of the non-null element
+    logiNonNullElement <- !sapply(CatTable, is.null)
+    ## Stop if all elements are null.
+    if (sum(logiNonNullElement) == 0) {stop("All strata are null strata. Check data.")}
+    ## Get the first non-null position
+    posFirstNonNullElement <- which(logiNonNullElement)[1]
     ## Save variable names using the first non-null element
     varNames <- names(CatTable[[posFirstNonNullElement]])
     ## Check the number of variables (list length)
@@ -87,11 +91,6 @@ print.CatTable <- function(CatTable, missing = FALSE,
                        ## Returns an empty list if the stratum is null (empty).
                        LIST <- sapply(X = seq_along(LIST), # Loop over variables (list element is DF)
                                       FUN = function(i) {
-
-                                          if (is.null(LIST)) {
-                                              browser()
-                                          }
-
 
                                           ## Extract the data frame (list element)
                                           DF <- LIST[[i]]
@@ -194,16 +193,11 @@ print.CatTable <- function(CatTable, missing = FALSE,
                }, simplify = FALSE)
 
 
-### Handling of NULL element
-### This part is a very messy hack to fix null list element. 2014-02-05. Come back and fix.
-    ## Get the positions of the null elements
-    posNullElement <- sapply(CatTableCollapsed, is.null)
-    ## ## Get the positions of the first non-null element
-    ## posFirstNonNullElement <- which(!posNullElement)[1]
-    CatTableCollapsed[posNullElement] <- CatTableCollapsed[posFirstNonNullElement]
-    ## Access as a data frame that should be empty and erase
-    for (i in which(posNullElement)) {
-
+    ## Fill the null element using the first non-null element's dimension (Make sure to erase data)
+    CatTableCollapsed[!logiNonNullElement] <- CatTableCollapsed[posFirstNonNullElement]
+    ## Access the filled-in data frames, and erase them with place holders.
+    for (i in which(!logiNonNullElement)) {
+        ## Replace all elements with a place holder variable by variable
         CatTableCollapsed[[i]][] <- lapply(CatTableCollapsed[[i]][],
                                            function(var) {
 
