@@ -8,6 +8,7 @@ For some reasons, there are no good functions to create the "Table 1", i.e., des
 Examples
 ------
 **Continuous variables**
+
 You can specifiy which variables you  handle as nonnormal variables. The corresponding p-values will be from nonparametric tests.
 ```
 > print(contTable2, nonnormal = nonNormalVars)
@@ -28,6 +29,7 @@ You can specifiy which variables you  handle as nonnormal variables. The corresp
 ```
 
 **Categorical variables**
+
 For categorical variables, levels are handled in decent ways. For two-level variables, only the upper level is shown to avoid redundant information (change factor level to reverse). For multi-category variables, the level names come under the variable name for easy viewing. Frequency and/or percentage can be chosen for format.
 ```
 > print(catTable2, exact = exactVars)
