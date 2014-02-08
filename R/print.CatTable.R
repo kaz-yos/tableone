@@ -68,6 +68,7 @@ print.CatTable <- function(CatTable, missing = FALSE,
     ## Provide indicators to show what columns were added.
     wasLevelColumnAdded  <- FALSE
     wasPValueColumnAdded <- FALSE
+    wasExactColumnAdded  <- FALSE
 
 
 ### Formatting for printing
@@ -90,7 +91,7 @@ print.CatTable <- function(CatTable, missing = FALSE,
                                           if (is.null(LIST)) {
                                               browser()
                                           }
-                                          
+
 
                                           ## Extract the data frame (list element)
                                           DF <- LIST[[i]]
@@ -161,19 +162,19 @@ print.CatTable <- function(CatTable, missing = FALSE,
                                       },
                                       simplify = FALSE)
 
-                       
+
                        ## Collapse DFs within each stratum
                        DF <- do.call(rbind, LIST)
 
                        ## Justification should happen here after combining variable DFs into a stratum DF.
                        ## Check non-empty rows
                        posNonEmptyRows <- DF$freq != ""
-                       
+
                        ## Right justify frequency
                        DF$freq <- format(DF$freq, justify = "right")
                        ## Right justify percent
                        DF$percent <- format(DF$percent, justify = "right")
-                       
+
                        ## Add freq (percent) column (only in non-empty rows)
                        DF$freqPer <- ""
                        DF[posNonEmptyRows,]$freqPer <- sprintf(fmt = "%s (%s)",
@@ -257,7 +258,10 @@ print.CatTable <- function(CatTable, missing = FALSE,
                           },
                           simplify = TRUE)
 
-        ## Format
+        ## Pick test types used
+        testTypes <- c("","exact")[exact]
+
+        ## Format p value
         fmt <- paste0("%.", pDigits, "f")
         p   <- sprintf(fmt = fmt, pValues)
 
@@ -270,13 +274,28 @@ print.CatTable <- function(CatTable, missing = FALSE,
         ## Put a preceding space where it is not like 0.000
         p[!posAllZeros] <- paste0(" ", p[!posAllZeros])
 
-        ## Create an empty p-value column
-        out <- cbind(out, p = rep("", nrow(out)))
+        ## Create an empty p-value column and test column
+        out <- cbind(out,
+                     p     = rep("", nrow(out))) # Column for p-values
         ## Put the values at the non-empty positions
         out[posNonEmptyRowNames,"p"] <- p
 
         ## Change the indicator
         wasPValueColumnAdded <- TRUE
+
+
+        ## If exact test is used at least onece, add a test type indicator.
+        if (any(exact == 2)) {
+            ## Create an empty test type column
+            out <- cbind(out,
+                         exact = rep("", nrow(out))) # Column for test types
+
+            ## Put the test types  at the non-empty positions
+            out[posNonEmptyRowNames,"exact"] <- testTypes
+
+            ## Change the indicator
+            wasExactColumnAdded <- TRUE
+        }
     }
 
 
@@ -294,7 +313,8 @@ print.CatTable <- function(CatTable, missing = FALSE,
     ## Add n at the correct location depending on the number of columns added (level and/or p)
     out <- rbind(n = c(level = rep("", wasLevelColumnAdded), # Add "" padding if level added
                      strataN,
-                     p = rep("", wasPValueColumnAdded)       # Add "" padding if p-value added
+                     p       = rep("", wasPValueColumnAdded), # Add "" padding if p-value added
+                     exact   = rep("", wasExactColumnAdded)   # Add "" padding if exact test used
                      ),
                  out)
     ## Put back the column names (overkill for non-multivariable cases)
