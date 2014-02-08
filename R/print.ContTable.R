@@ -68,8 +68,7 @@ print.ContTable <- function(ContTable, missing = FALSE,
                       },
                       simplify = TRUE)
 
-    ## Provide indicators to show
-    ## wasLevelColumnAdded  <- FALSE    # No equivalent in continuous variables
+    ## Provide indicators to show what columns were added.
     wasPValueColumnAdded <- FALSE
 
 
@@ -79,35 +78,24 @@ print.ContTable <- function(ContTable, missing = FALSE,
     ## These may want to be moved to separate files later.
     ## Define a function to print a normal variable
     ConvertNormal <- function(rowMat) {
-        fmt <- paste0("%.",digits,"f"," (%.",digits,"f",")")
 
-        out <- sprintf(fmt = fmt,
-                       rowMat[, "mean"],
-                       rowMat[, "sd"])
+        ## Format for SD
+        fmt <- paste0(" (%.", digits,"f",")")
 
-        return(out)
-
-        ## This does not work if the operation is row by row.
-        ## fmt <- paste0("%.", digits, "f")
-        ## meanString <- sprintf(fmt = fmt, rowMat[, "mean"])
-        ## meanString <- format(meanString, justify = "right")
-        ## out <- sprintf(fmt = paste0("%s (", fmt, ")"),
-        ##                meanString,
-        ##                rowMat[, "sd"]
-        ##                )
-        ## out <- format(out, justify = "left")
-        ## return(out)
+        ## Create a DF with numeric mean column and character (SD) column
+        data.frame(col1 = rowMat[,"mean"],
+                   col2 = sprintf(fmt = fmt, rowMat[,"sd"]),
+                   stringsAsFactors = FALSE)
     }
     ## Define a function to print a nonnormal variable
     ConvertNonNormal <- function(rowMat) {
-        fmt <- paste0("%.",digits,"f [%.",digits,"f, %.",digits,"f]")
+        ## Format for [p25, p75]
+        fmt <- paste0(" [%.", digits,"f, %.",digits,"f]")
 
-        out <- sprintf(fmt = fmt,
-                       rowMat[, "median"],
-                       rowMat[, "p25"],
-                       rowMat[, "p75"])
-
-        return(out)
+        ## Create a DF with numeric median column and character [p25, p75] column
+        data.frame(col1 = rowMat[,"median"],
+                   col2 = sprintf(fmt = fmt, rowMat[,"p25"], rowMat[,"p75"]),
+                   stringsAsFactors = FALSE)
     }
 
 
@@ -132,10 +120,26 @@ print.ContTable <- function(ContTable, missing = FALSE,
                           out2 <- sapply(seq_len(nRows),
                                          FUN = function(i) {
 
+                                             ## Choose between normal or nonnormal function
                                              fun <- listOfFunctions[[i]]
+                                             ## Convert a row matrix to 1x2 df (numeric, character)
                                              fun(stratum[i, , drop = FALSE])
+
+                                             ## Create a 1-row DF (numeric, character)
                                          },
-                                         simplify = TRUE)
+                                         simplify = FALSE)
+
+                          ## nx2 data frame by row binding multiple 1-row data frames
+                          out2 <- do.call(rbind, out2)
+
+                          ## Format for decimals
+                          out2$col1 <- sprintf(fmt = paste0("%.", digits, "f"), out2$col1)
+
+                          ## right justify by adding spaces (to align at the decimal point of mean/median)
+                          out2$col1 <- format(out2$col1, justify = "right")
+
+                          ## Create mean (SD) or median [p25, p75] as a character vector
+                          out2 <- do.call(paste0, out2)
                       }
 
                       ## Return
@@ -143,6 +147,7 @@ print.ContTable <- function(ContTable, missing = FALSE,
                   },
                   simplify = FALSE)
     ## The outer sapply should not simplify to avoid a vector
+    ## Column-bind to create variables x strata matrix
     out <- do.call(cbind, out)
 
     ## Put the variables names back (looping over rows can solve this)
