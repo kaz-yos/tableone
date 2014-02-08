@@ -130,7 +130,7 @@ CreateCatTable <- function(vars,                    # vector of characters
                                 list(strataVarName = strataVarName))
     }
     
-    
+
 ### Perform tests when necessary
     ## Initialize
     pValues <- NULL
@@ -161,10 +161,15 @@ CreateCatTable <- function(vars,                    # vector of characters
                               MARGIN = 1,
                               FUN    = paste0, collapse = ":")
         ## Create the actual variable from the observed levels
-        strataVar                   <- apply(X = strata, MARGIN = 1, FUN = paste0, collapse = ":")
-        ## Give NA if any of the variables are missing
-        strataVarAnyMiss            <- apply(X = is.na(strata), MARGIN = 1, FUN = sum) > 0
-        strataVar[strataVarAnyMiss] <- NA
+        strataVar <- as.character(interaction(strata, sep = ":"))
+
+        ## obsolete
+        ## ## Create the actual variable from the observed levels
+        ## strataVar                   <- apply(X = strata, MARGIN = 1, FUN = paste0, collapse = ":")
+        ## ## Give NA if any of the variables are missing
+        ## strataVarAnyMiss            <- apply(X = is.na(strata), MARGIN = 1, FUN = sum) > 0
+        ## strataVar[strataVarAnyMiss] <- NA
+        
         ## Make it a factor (kruskal.test requires it). Use levels not to drop defined nonexisting levels.
         strataVar                   <- factor(strataVar, levels = strataLevels)
         
