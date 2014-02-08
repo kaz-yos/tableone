@@ -4,7 +4,8 @@ print.CatTable <- function(CatTable, missing = FALSE,
                            digits = 1, exact = NULL, quote = FALSE,
                            test = TRUE, pDigits = 3,
                            showAllLevels = FALSE,
-                           explain = TRUE) {
+                           explain = TRUE,
+                           CrossTable = FALSE) {
 
 ### Check the data structure first
 
@@ -176,13 +177,13 @@ print.CatTable <- function(CatTable, missing = FALSE,
 
                        ## Add freq (percent) column (only in non-empty rows)
                        DF$freqPer <- ""
-                       DF[posNonEmptyRows,]$freqPer <- sprintf(fmt = "%s (%s)",
+                       DF[posNonEmptyRows,]$freqPer <- sprintf(fmt = "%s (%s) ",
                                                                DF[posNonEmptyRows,]$freq,
                                                                DF[posNonEmptyRows,]$percent)
 
                        ## Add percent (freq) column  (only in non-empty rows)
                        DF$perFreq <- ""
-                       DF[posNonEmptyRows,]$perFreq <- sprintf(fmt = "%s (%s)",
+                       DF[posNonEmptyRows,]$perFreq <- sprintf(fmt = "%s (%s) ",
                                                                DF[posNonEmptyRows,]$percent,
                                                                DF[posNonEmptyRows,]$freq)
 
@@ -314,14 +315,22 @@ print.CatTable <- function(CatTable, missing = FALSE,
     ## Put back the column names (overkill for non-multivariable cases)
     colnames(out) <- outColNames
 
-    ## Add stratification information to the column header
+    ## Add stratification information to the column header (This is also in the constructor)
     if (length(CatTable) > 1 ) {
+        ## Combine variable names with : in between
+        strataVarName <- paste0(names(attr(CatTable, "dimnames")), collapse = ":")
+        
         ## Create strata string
-        strataString <- paste0("Stratified by ",
-                               paste0(names(attr(CatTable, "dimnames")), collapse = ":"))
+        strataString <- paste0("Stratified by ", strataVarName)
 
         ## Name the row dimension with it. 1st dimension name should be empty.
         names(dimnames(out)) <- c("", strataString)
+
+        ## Rename the second dimension of the xtabs with the newly create name.
+        for (i in seq_along(attributes(CatTable)$xtabs)) {
+            
+            names(dimnames(attributes(CatTable)$xtabs[[i]]))[2] <- strataVarName
+        }
     }
 
     ## Add quotes for names if requested
@@ -333,6 +342,13 @@ print.CatTable <- function(CatTable, missing = FALSE,
 
     ## Print the results
     print(out, quote = quote)
+
+    ## Print CrossTable() if requested
+    if (CrossTable) {
+        require(gmodels)
+
+        junk <- lapply(attributes(CatTable)$xtabs, CrossTable)
+    }
 
     ## Return invisibly
     return(invisible(out))
