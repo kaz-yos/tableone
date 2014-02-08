@@ -120,6 +120,17 @@ CreateCatTable <- function(vars,                    # vector of characters
                  }, simplify = FALSE)
 
     
+    ## Added from the print method. Delete the one in print method once ready
+    ## Add stratification information to the column header
+    if (length(result) > 1 ) {
+        ## Combine variable names with : in between
+        strataVarName <- paste0(names(attr(result, "dimnames")), collapse = ":")
+        ## Add an attribute for the stratifying variable name
+        attributes(result) <- c(attributes(result),
+                                list(strataVarName = strataVarName))
+    }
+    
+    
 ### Perform tests when necessary
     ## Initialize
     pValues <- NULL
@@ -163,6 +174,12 @@ CreateCatTable <- function(vars,                    # vector of characters
                                 xtabs(formula = formula, data = dat)
                             },
                             simplify = FALSE)
+
+        ## Rename the second dimension of the xtabs with the newly create name.
+        for (i in seq_along(listXtabs)) {
+            
+            names(dimnames(listXtabs[[i]]))[2] <- strataVarName
+        }        
         
         ## Loop over xtabs, and create p-values
         pValues <- sapply(X = listXtabs,
@@ -192,9 +209,3 @@ CreateCatTable <- function(vars,                    # vector of characters
     ## Return
     return(result)
 }
-
-
-
-
-
-
