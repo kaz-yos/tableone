@@ -80,11 +80,6 @@ print.CatTable <- function(CatTable, missing = FALSE,
         sapply(X = CatTable,   # Loop over strata
                FUN = function(LIST) {
 
-                   ## if (is.null(LIST)) {
-                   ##     ## If the stratum is empty.
-                   ##     browser()
-                   ## }
-
                    ## Returns an empty list if the stratum is null (empty).
                    LIST <- sapply(X = seq_along(LIST), # Loop over variables (list element is DF)
                                   FUN = function(i) {
@@ -109,8 +104,15 @@ print.CatTable <- function(CatTable, missing = FALSE,
                                                  FUN = sprintf,
                                                  fmt = fmt1)
 
-                                      ## Make all variables strings
+
+                                      ## Make all variables strings (freq is an integer, so direct convert ok)
                                       DF[] <- lapply(X = DF, FUN = as.character)
+
+                                      ## This does not fully function.
+                                      ## ## Right justify frequency
+                                      ## DF$freq <- format(DF$freq, justify = "right")
+                                      ## ## Right justify percent
+                                      ## DF$percent <- format(DF$percent, justify = "right")
 
                                       ## Add freq (percent) column
                                       DF$freqPer <- sprintf(fmt = "%s (%s)",
@@ -171,6 +173,9 @@ print.CatTable <- function(CatTable, missing = FALSE,
 
                    ## Collapse DFs within each stratum
                    DF <- do.call(rbind, LIST)
+
+                   ## Justification should happen here.
+                   ## But handling of 2-level case will be difficult.
 
                    ## Return a data frame
                    DF
@@ -245,7 +250,7 @@ print.CatTable <- function(CatTable, missing = FALSE,
         fmt <- paste0("%.", pDigits, "f")
         p   <- sprintf(fmt = fmt, pValues)
 
-        ## Create a string like <0.001 
+        ## Create a string like <0.001
         smallPString <- paste0("<0.", paste0(rep("0", pDigits - 1), collapse = ""), "1")
         ## Check positions where it is all zero like 0.000
         posAllZeros <- grepl("^0\\.0*$", p)
@@ -253,7 +258,7 @@ print.CatTable <- function(CatTable, missing = FALSE,
         p[posAllZeros] <- smallPString
         ## Put a preceding space where it is not like 0.000
         p[!posAllZeros] <- paste0(" ", p[!posAllZeros])
-        
+
         ## Create an empty p-value column
         out <- cbind(out, p = rep("", nrow(out)))
         ## Put the values at the non-empty positions
@@ -274,7 +279,7 @@ print.CatTable <- function(CatTable, missing = FALSE,
     }
 
     ## Keep column names (strataN does not have correct names if stratification is by multiple variables)
-    outColNames <- colnames(out)    
+    outColNames <- colnames(out)
     ## Add n at the correct location depending on the number of columns added (level and/or p)
     out <- rbind(n = c(level = rep("", wasLevelColumnAdded), # Add "" padding if level added
                      strataN,
@@ -283,7 +288,7 @@ print.CatTable <- function(CatTable, missing = FALSE,
                  out)
     ## Put back the column names (overkill for non-multivariable cases)
     colnames(out) <- outColNames
-    
+
     ## Add stratification information to the column header
     if (length(CatTable) > 1 ) {
         ## Create strata string
@@ -298,12 +303,12 @@ print.CatTable <- function(CatTable, missing = FALSE,
     if (quote) {
         rownames(out) <- paste0('"', rownames(out), '"')
         colnames(out) <- paste0('"', colnames(out), '"')
-        names(dimnames(out)) <- paste0('"', names(dimnames(out)), '"')        
-    }    
+        names(dimnames(out)) <- paste0('"', names(dimnames(out)), '"')
+    }
 
     ## Print the results
     print(out, quote = quote)
-    
+
     ## Return invisibly
     return(invisible(out))
 }
