@@ -123,6 +123,7 @@ CreateCatTable <- function(vars,                    # vector of characters
 ### Perform tests when necessary
     ## Initialize
     pValues <- NULL
+    listXtabs <- list()
 
     ## Only when test is asked for
     if (test == TRUE) {
@@ -143,31 +144,40 @@ CreateCatTable <- function(vars,                    # vector of characters
 
         
         ## Create a single variable representing all strata
-        strataVec                   <- apply(X = strata, MARGIN = 1, FUN = paste0, collapse = ":")
+        strataVar                   <- apply(X = strata, MARGIN = 1, FUN = paste0, collapse = ":")
         ## Give NA if any of the variables are missing
-        strataVecAnyMiss            <- apply(X = is.na(strata), MARGIN = 1, FUN = sum) > 0
-        strataVec[strataVecAnyMiss] <- NA
+        strataVarAnyMiss            <- apply(X = is.na(strata), MARGIN = 1, FUN = sum) > 0
+        strataVar[strataVarAnyMiss] <- NA
         ## Make it a factor (kruskal.test requires it)
-        strataVec                   <- factor(strataVec)
+        strataVar                   <- factor(strataVar)
 
         
-        ## Loop over variables in dat, and obtain p values for two tests
-        pValues <- sapply(X = dat,
+        ## Loop over variables in dat, and create a list of xtabs
+        listXtabs <- sapply(X = names(dat),
                             FUN = function(var) {
-                                ## Create a 2-dimensional table
-                                resXtabs <- xtabs(~ var + strataVec)
+                                ## Create a formula
+                                formula <- paste0("~ ", var, " + ", "strataVar")
+                                formula <- as.formula(formula)
                                 
-                                ## Perform tests and return the result as 1x2 DF
-                                data.frame(
-                                    pApprox = tryTestApprox(resXtabs),
-                                    pExact  = tryTestExact(resXtabs)
-                                    )
+                                ## Create a 2-dimensional crosstable
+                                xtabs(formula = formula, data = dat)
                             },
                             simplify = FALSE)
+        
+        ## Loop over xtabs, and create p-values
+        pValues <- sapply(X = listXtabs,
+                          FUN = function(xtabs) {
+                              ## Perform tests and return the result as 1x2 DF
+                              data.frame(
+                                  pApprox = tryTestApprox(xtabs),
+                                  pExact  = tryTestExact(xtabs)
+                                  )
+                          },
+                          simplify = FALSE)        
 
         ## Create a single data frame (n x 2 (normal,nonormal))
         pValues <- do.call(rbind, pValues)
-    }
+    } # Conditional for test == TRUE ends here.
 
 
     ## Return object
@@ -176,8 +186,15 @@ CreateCatTable <- function(vars,                    # vector of characters
 
     ## Give additional attributes
     attributes(result) <- c(attributes(result),
-                            list(pValues  = pValues))
+                            list(pValues = pValues),
+                            list(xtabs   = listXtabs))
 
     ## Return
     return(result)
 }
+
+
+
+
+
+
