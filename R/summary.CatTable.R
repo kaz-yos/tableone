@@ -59,4 +59,10 @@ summary.CatTable <- function(CatTable, digits = 1) {
 
     ## Print forcing the print.by method. Do not show row names.
     print.by(CatTableCollapsed, digits = digits, row.names = FALSE)
+
+    ## Print p-values if it exist
+    if (!is.null(attributes(CatTable)$pValues)) {
+        cat("\np-values\n")
+        print(attributes(CatTable)$pValues)
+    }
 }
