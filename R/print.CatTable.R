@@ -65,7 +65,7 @@ print.CatTable <- function(CatTable, missing = FALSE,
                       },
                       simplify = TRUE)
 
-    ## Provide indicators to show
+    ## Provide indicators to show what columns were added.
     wasLevelColumnAdded  <- FALSE
     wasPValueColumnAdded <- FALSE
 
