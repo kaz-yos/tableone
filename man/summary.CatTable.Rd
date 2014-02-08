@@ -1,25 +1,24 @@
-\name{summary.ContTable}
-\alias{summary.ContTable}
+\name{summary.CatTable}
+\alias{summary.CatTable}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-  %%  ~~function to do ... ~~
-  summary method for the ‘ContTable’ class object
+%%  ~~function to do ... ~~
 }
 \description{
   %%  ~~ A concise (1-5 lines) description of what the function does. ~~
-  This method shows all the data the ContTable class object has. This
+  This method shows all the data the CatTable class object has. This
   includes the (optionally stratified) part with summary statistics and
   p-values from the approximation method test (chisq.test by default)
   and exact method test (fisher.test by default).
+
 }
 \usage{
-summary.ContTable(ContTable, digits = 2)
+summary.CatTable(CatTable, digits = 2)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{ContTable}{
-    %%     ~~Describe \code{ContTable} here~~
-    Give an object that has the ‘ContTable’ class
+  \item{CatTable}{
+%%     ~~Describe \code{CatTable} here~~
 }
   \item{digits}{
 %%     ~~Describe \code{digits} here~~
@@ -56,9 +55,9 @@ summary.ContTable(ContTable, digits = 2)
 ##--	or do  help(data=index)  for the standard data sets.
 
 ## The function is currently defined as
-function (ContTable, digits = 2) 
+function (CatTable, digits = 2) 
 {
-    print.by(ContTable, digits = digits)
+    print.by(CatTable, digits = digits)
   }
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

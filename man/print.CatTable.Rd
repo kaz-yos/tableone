@@ -1,0 +1,119 @@
+\name{print.CatTable}
+\alias{print.CatTable}
+%- Also NEED an '\alias' for EACH other topic documented here.
+\title{
+  %%  ~~function to do ... ~~
+  Format and print the CatTable class objects
+}
+\description{
+  %%  ~~ A concise (1-5 lines) description of what the function does. ~~
+  This is the print method for the CatTable class objects created by
+  CreateCatTable function. 
+}
+\usage{
+     ## S3 method for class 'CatTable'
+print.CatTable(CatTable, missing = FALSE, format = c("fp", "f", "p", "pf")[1], digits = 1, exact = NULL, quote = FALSE, test = TRUE, pDigits = 3, showAllLevels = FALSE, explain = TRUE, CrossTable = FALSE)
+}
+%- maybe also 'usage' for other objects documented here.
+\arguments{
+  \item{CatTable}{
+    %%     ~~Describe \code{CatTable} here~~
+    The result of a call to the ‘CreateCatTable’ function.
+}
+  \item{missing}{
+    %%     ~~Describe \code{missing} here~~
+    Whether to show missing data information (not implemented
+    yet, placeholder)
+}
+  \item{format}{
+    %%     ~~Describe \code{format} here~~
+    The default is "fp" frequency (percentage). You can also choose from
+    "f" frequency only, "p" percentage only, and "pf" percentage (frequency).
+}
+  \item{digits}{
+    %%     ~~Describe \code{digits} here~~
+    Number of digits to print in the table.
+}
+  \item{exact}{
+    %%     ~~Describe \code{exact} here~~
+    A character vector to specify the variables for which the p-values
+    should be those of exact tests. By default all p-values are from
+    large sample approximation tests (chisq.test).
+}
+  \item{quote}{
+    %%     ~~Describe \code{quote} here~~
+    Whether to show everything in quotes. The default is FALSE. If TRUE,
+    everything including the row and column names are quoted so that you
+    can copy it to Excel easily.
+}
+  \item{test}{
+    %%     ~~Describe \code{test} here~~
+    Whether to show the p-values. TRUE by default. If FALSE, only the
+    numerical summaries are shown.
+}
+  \item{pDigits}{
+    %%     ~~Describe \code{pDigits} here~~
+    Number of digits to print for p-values.    
+}
+  \item{showAllLevels}{
+    %%     ~~Describe \code{showAllLevels} here~~
+    Whether to show all levels. FALSE by default, i.e., for 2-level
+    categorical variables, only the higher level is shown to avoid  
+}
+  \item{explain}{
+    %%     ~~Describe \code{explain} here~~
+    Whether to add explanation to the variable names, i.e., (\%) is
+    added to the variable names when percentage is shown.
+}
+  \item{CrossTable}{
+    %%     ~~Describe \code{CrossTable} here~~
+    Whether to show the cross table objects held internally using
+    gmodels::CrossTable function. This will give an output similar to
+    the PROC FREQ in SAS.
+}
+}
+\details{
+%%  ~~ If necessary, more details than the description above ~~
+}
+\value{
+%%  ~Describe the value returned
+%%  If it is a LIST, use
+%%  \item{comp1 }{Description of 'comp1'}
+%%  \item{comp2 }{Description of 'comp2'}
+%% ...
+It is mainly for printing the result. But this function does return a
+matrix containing what you see in the output invisibly. You can assign
+it to an object to save it.
+}
+\references{
+%% ~put references to the literature/web site here ~
+}
+\author{
+  %%  ~~who you are~~
+  Kazuki YOSHIDA
+}
+\note{
+  %%  ~~further notes~~
+  Special Thanks:
+  This package was inspired by and heavily based on the Deducer package
+  (frequencies function).
+}
+
+%% ~Make other sections like Warning with \section{Warning }{....} ~
+
+\seealso{
+  %% ~~objects to See Also as \code{\link{help}}, ~~~
+    CreateCatTable, summary.CatTable, CreateContTable, print.ContTable, summary.ContTable
+}
+\examples{
+##---- Should be DIRECTLY executable !! ----
+##-- ==>  Define data, use random,
+##--	or do  help(data=index)  for the standard data sets.
+
+
+
+}
+% Add one or more standard keywords, see file 'KEYWORDS' in the
+% R documentation directory.
+\keyword{ ~kwd1 }
+\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
