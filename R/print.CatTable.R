@@ -276,7 +276,7 @@ print.CatTable <- function(CatTable, missing = FALSE,
         out <- cbind(out,
                      p     = rep("", nrow(out))) # Column for p-values
         ## Put the values at the non-empty positions
-        out[posNonEmptyRowNames,"p"] <- p
+        out[logiNonEmptyRowNames,"p"] <- p
 
         ## Change the indicator
         wasPValueColumnAdded <- TRUE
@@ -289,7 +289,7 @@ print.CatTable <- function(CatTable, missing = FALSE,
                          test = rep("", nrow(out))) # Column for test types
 
             ## Put the test types  at the non-empty positions
-            out[posNonEmptyRowNames,"test"] <- testTypes
+            out[logiNonEmptyRowNames,"test"] <- testTypes
 
             ## Change the indicator
             wasExactColumnAdded <- TRUE
@@ -302,7 +302,7 @@ print.CatTable <- function(CatTable, missing = FALSE,
         ## Choose the format of the explanation string
         explainString <- c(" (%)", "", " (%)", " % (freq)")[format == c("fp","f","p","pf")]
         ## Only for rows with row names
-        rownames(out)[posNonEmptyRowNames] <- paste0(rownames(out)[posNonEmptyRowNames],
+        rownames(out)[logiNonEmptyRowNames] <- paste0(rownames(out)[logiNonEmptyRowNames],
                                                      explainString)
     }
 
