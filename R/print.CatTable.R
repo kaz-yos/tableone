@@ -213,30 +213,33 @@ print.CatTable <- function(CatTable, missing = FALSE,
 
     ## Create output matrix without variable names with the right format
     out <- do.call(cbind, lapply(CatTableCollapsed, getElement, nameResCol))
-    ## Add level names if showAllLevels is TRUE
-    if (showAllLevels) {
-        out <- cbind(CatTableCollapsed[[posFirstNonNullElement]]["level"],
-                     out)
-        ## Changed the indicator
-        wasLevelColumnAdded  <- TRUE
-    }
     out <- as.matrix(out)
 
-    ## Set the variables names
-    rownames(out) <- CatTableCollapsed[[posFirstNonNullElement]][,"var"]
-    ## Get positions of non-emptyenv row names as a logical vector
-    ## posNonEmptyRowNames <- rownames(out) != ""
-    posNonEmptyRowNames <- CatTableCollapsed[[posFirstNonNullElement]][, "firstRowInd"] != ""
-
-    ## Add column names if multivariable stratification is used.
+    ## Add column names if multivariable stratification is used. (No column names added automatically)
     if (length(attr(CatTable, "dimnames")) > 1) {
 
         colnames(out) <-
-            ## Create all combinations and collapse as strings
+            ## Create all combinations and collapse as strings. 1st variable cycles fastest.
             apply(expand.grid(attr(CatTable, "dimnames")),
                   MARGIN = 1,
                   paste0, collapse = ":")
     }
+
+    ## Set the variables names
+    rownames(out) <- CatTableCollapsed[[posFirstNonNullElement]][,"var"]
+    ## Get positions of rows with variable names
+    logiNonEmptyRowNames <- CatTableCollapsed[[posFirstNonNullElement]][, "firstRowInd"] != ""
+
+
+
+    ## Add level names if showAllLevels is TRUE. This adds the level column. Need come after column naming.
+    if (showAllLevels) {
+        out <- cbind(level = CatTableCollapsed[[posFirstNonNullElement]][,"level"], # Cannot be DF
+                     out)
+        ## Changed the indicator
+        wasLevelColumnAdded  <- TRUE
+    }
+
 
     ## Add p-values when requested and available
     if (test == TRUE & !is.null(attr(CatTable, "pValues"))) {
