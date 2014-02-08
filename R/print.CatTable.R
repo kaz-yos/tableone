@@ -80,105 +80,116 @@ print.CatTable <- function(CatTable, missing = FALSE,
         sapply(X = CatTable,   # Loop over strata
                FUN = function(LIST) {
 
-                   ## Returns an empty list if the stratum is null (empty).
-                   LIST <- sapply(X = seq_along(LIST), # Loop over variables (list element is DF)
-                                  FUN = function(i) {
+                   ## Do the following formatting only if the stratum is non-null. Do nothing if null.
+                   if (!is.null(LIST)) {
 
+                       ## Returns an empty list if the stratum is null (empty).
+                       LIST <- sapply(X = seq_along(LIST), # Loop over variables (list element is DF)
+                                      FUN = function(i) {
 
-                                      ## Extract the data frame (list element)
-                                      DF <- LIST[[i]]
+                                          if (is.null(LIST)) {
+                                              browser()
+                                          }
+                                          
 
-                                      ## Extract the variable name
-                                      varName <- names(LIST)[i]
+                                          ## Extract the data frame (list element)
+                                          DF <- LIST[[i]]
 
-                                      ## Check number of rows (levels)
-                                      nRow <- nrow(DF)
+                                          ## Extract the variable name
+                                          varName <- names(LIST)[i]
 
-                                      ## Add a variable name to the left as a character vector
-                                      DF <- cbind(var = rep(varName, nRow),
-                                                  DF)
+                                          ## Check number of rows (levels)
+                                          nRow <- nrow(DF)
 
-                                      ## Format percent and cum.percent as strings
-                                      DF[c("percent","cum.percent")] <-
-                                          lapply(X = DF[c("percent","cum.percent")],
-                                                 FUN = sprintf,
-                                                 fmt = fmt1)
-
-
-                                      ## Make all variables strings (freq is an integer, so direct convert ok)
-                                      DF[] <- lapply(X = DF, FUN = as.character)
-
-                                      ## This does not fully function.
-                                      ## ## Right justify frequency
-                                      ## DF$freq <- format(DF$freq, justify = "right")
-                                      ## ## Right justify percent
-                                      ## DF$percent <- format(DF$percent, justify = "right")
-
-                                      ## Add freq (percent) column
-                                      DF$freqPer <- sprintf(fmt = "%s (%s)",
-                                                            DF$freq,
-                                                            DF$percent)
-
-                                      ## Add percent (freq) column
-                                      DF$perFreq <- sprintf(fmt = "%s (%s)",
-                                                            DF$percent,
-                                                            DF$freq)
-
-                                      ## Add first row indicator column
-                                      DF$firstRowInd <- ""
-
-                                      ## Format based on the number of levels
-                                      if (!showAllLevels & nRow == 1) {
-                                          ## If showAllLevels is FALSE AND there are only ONE levels,
-                                          ## change variable name to "var = level"
-                                          DF$var <- with(DF, paste0(var, " = ", level))
-                                          ## Add first row indicator (used to add (%))
-                                          DF[1,"firstRowInd"] <- "first"
-
-                                      } else if (!showAllLevels & nRow == 2) {
-                                          ## If showAllLevels is FALSE AND there are only TWO levels,
-                                          ## change variable name, and delete the first level.
-                                          DF$var <- with(DF, paste0(var, " = ", level))
-                                          DF <- DF[-1, , drop = FALSE]
-                                          ## Add first row indicator (used to add (%))
-                                          DF[1,"firstRowInd"] <- "first"
-
-                                      } else if (!showAllLevels & nRow > 2) {
-                                          ## If showAllLevels is FALSE AND there are MORE THAN two levels,
-                                          ## add an empty row and put the var name, then levels below.
-                                          DF <- rbind(rep("", ncol(DF)),
+                                          ## Add a variable name to the left as a character vector
+                                          DF <- cbind(var = rep(varName, nRow),
                                                       DF)
-                                          ## Add variable name in the first row
-                                          DF[1,"var"] <- DF[2,"var"]
 
-                                          ## 2nd to last have level names. (nrow has changed by +1)
-                                          secondToLastRows <- seq(from = 2,to = nrow(DF), by = 1)
-                                          DF[secondToLastRows, "var"] <-
-                                              ## DF[secondToLastRows, "level"]
-                                              paste0("  ", DF[secondToLastRows, "level"]) # 2 spaces
-                                          ## Add first row indicator (used to add (%))
-                                          DF[1,"firstRowInd"] <- "first"
+                                          ## Format percent and cum.percent as strings
+                                          DF[c("percent","cum.percent")] <-
+                                              lapply(X = DF[c("percent","cum.percent")],
+                                                     FUN = sprintf,
+                                                     fmt = fmt1)
 
-                                      } else if (showAllLevels) {
-                                          ## If showAllLevels is TRUE clear names
-                                          DF[-1, c("var","n","miss")] <- ""
-                                          ## Add first row indicator (used to add (%))
-                                          DF[1,"firstRowInd"] <- "first"
-                                      }
 
-                                      ## Return a data frame
-                                      DF
-                                  },
-                                  simplify = FALSE)
+                                          ## Make all variables strings (freq is an integer, so direct convert ok)
+                                          DF[] <- lapply(X = DF, FUN = as.character)
 
-                   ## Collapse DFs within each stratum
-                   DF <- do.call(rbind, LIST)
+                                          ## Add first row indicator column
+                                          DF$firstRowInd <- ""
 
-                   ## Justification should happen here.
-                   ## But handling of 2-level case will be difficult.
+                                          ## Format based on the number of levels
+                                          if (!showAllLevels & nRow == 1) {
+                                              ## If showAllLevels is FALSE AND there are only ONE levels,
+                                              ## change variable name to "var = level"
+                                              DF$var <- with(DF, paste0(var, " = ", level))
+                                              ## Add first row indicator (used to add (%))
+                                              DF[1,"firstRowInd"] <- "first"
 
-                   ## Return a data frame
-                   DF
+                                          } else if (!showAllLevels & nRow == 2) {
+                                              ## If showAllLevels is FALSE AND there are only TWO levels,
+                                              ## change variable name, and delete the first level.
+                                              DF$var <- with(DF, paste0(var, " = ", level))
+                                              DF <- DF[-1, , drop = FALSE]
+                                              ## Add first row indicator (used to add (%))
+                                              DF[1,"firstRowInd"] <- "first"
+
+                                          } else if (!showAllLevels & nRow > 2) {
+                                              ## If showAllLevels is FALSE AND there are MORE THAN two levels,
+                                              ## add an empty row and put the var name, then levels below.
+                                              DF <- rbind(rep("", ncol(DF)),
+                                                          DF)
+                                              ## Add variable name in the first row
+                                              DF[1,"var"] <- DF[2,"var"]
+
+                                              ## 2nd to last have level names. (nrow has changed by +1)
+                                              secondToLastRows <- seq(from = 2,to = nrow(DF), by = 1)
+                                              DF[secondToLastRows, "var"] <-
+                                                  paste0("   ", DF[secondToLastRows, "level"]) # preceding spaces
+                                              ## Add first row indicator (used to add (%))
+                                              DF[1,"firstRowInd"] <- "first"
+
+                                          } else if (showAllLevels) {
+                                              ## If showAllLevels is TRUE clear names
+                                              DF[-1, c("var","n","miss")] <- ""
+                                              ## Add first row indicator (used to add (%))
+                                              DF[1,"firstRowInd"] <- "first"
+                                          }
+
+                                          ## Return a data frame
+                                          DF
+                                      },
+                                      simplify = FALSE)
+
+                       
+                       ## Collapse DFs within each stratum
+                       DF <- do.call(rbind, LIST)
+
+                       ## Justification should happen here after combining variable DFs into a stratum DF.
+                       ## Check non-empty rows
+                       posNonEmptyRows <- DF$freq != ""
+                       
+                       ## Right justify frequency
+                       DF$freq <- format(DF$freq, justify = "right")
+                       ## Right justify percent
+                       DF$percent <- format(DF$percent, justify = "right")
+                       
+                       ## Add freq (percent) column (only in non-empty rows)
+                       DF$freqPer <- ""
+                       DF[posNonEmptyRows,]$freqPer <- sprintf(fmt = "%s (%s)",
+                                                               DF[posNonEmptyRows,]$freq,
+                                                               DF[posNonEmptyRows,]$percent)
+
+                       ## Add percent (freq) column  (only in non-empty rows)
+                       DF$perFreq <- ""
+                       DF[posNonEmptyRows,]$perFreq <- sprintf(fmt = "%s (%s)",
+                                                               DF[posNonEmptyRows,]$percent,
+                                                               DF[posNonEmptyRows,]$freq)
+
+                       ## Return a data frame
+                       DF
+                   } # end of non-null condition (Null strata skip all this. No action.)
+
                }, simplify = FALSE)
 
 
