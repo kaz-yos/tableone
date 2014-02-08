@@ -321,19 +321,13 @@ print.CatTable <- function(CatTable, missing = FALSE,
     ## Add stratification information to the column header (This is also in the constructor)
     if (length(CatTable) > 1 ) {
         ## Combine variable names with : in between
-        strataVarName <- paste0(names(attr(CatTable, "dimnames")), collapse = ":")
-        
+        strataVarName <- attributes(CatTable)$strataVarName
+
         ## Create strata string
         strataString <- paste0("Stratified by ", strataVarName)
 
         ## Name the row dimension with it. 1st dimension name should be empty.
         names(dimnames(out)) <- c("", strataString)
-
-        ## Rename the second dimension of the xtabs with the newly create name.
-        for (i in seq_along(attributes(CatTable)$xtabs)) {
-            
-            names(dimnames(attributes(CatTable)$xtabs[[i]]))[2] <- strataVarName
-        }
     }
 
     ## Add quotes for names if requested
