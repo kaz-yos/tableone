@@ -136,7 +136,7 @@ CreateCatTable <- function(vars,                    # vector of characters
     pValues <- NULL
     listXtabs <- list()
 
-    ## Only when test is asked for
+    ## Only when test is asked for              # Should always do this?
     if (test == TRUE) {
 
         ## Define special test functions that do not fail, and return p-values or NA
@@ -154,14 +154,19 @@ CreateCatTable <- function(vars,                    # vector of characters
         }
 
         
-        ## Create a single variable representing all strata
+        ## Create all combinations of strata levels and collapse as a vector for level combinations.
+        dfStrataLevels <- expand.grid(attr(result, "dimnames")) # 1st var cycles fastest, consistent with by()
+        ## Create a single variable representing all strata        
+        strataLevels <- apply(X      = dfStrataLevels,
+                              MARGIN = 1,
+                              FUN    = paste0, collapse = ":")
+        ## Create the actual variable from the observed levels
         strataVar                   <- apply(X = strata, MARGIN = 1, FUN = paste0, collapse = ":")
         ## Give NA if any of the variables are missing
         strataVarAnyMiss            <- apply(X = is.na(strata), MARGIN = 1, FUN = sum) > 0
         strataVar[strataVarAnyMiss] <- NA
-        ## Make it a factor (kruskal.test requires it)
-        strataVar                   <- factor(strataVar)
-
+        ## Make it a factor (kruskal.test requires it). Use levels not to drop defined nonexisting levels.
+        strataVar                   <- factor(strataVar, levels = strataLevels)
         
         ## Loop over variables in dat, and create a list of xtabs
         listXtabs <- sapply(X = names(dat),
