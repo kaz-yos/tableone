@@ -21,8 +21,13 @@ ShowRegTable <- function(model, exp = TRUE, digits = 2, pDigits = 3, quote = FAL
     }
 
     ## Format
-    resString <- sprintf(fmt = paste0(fmt1, " [", fmt1, ", ", fmt1 ,"]"),
-                         resMat[,1],    # point estimate
+    pointEstimates <- sprintf(fmt = fmt1,
+                              resMat[,1])
+    pointEstimates <- format(pointEstimates, justify = "right")
+    
+    resString <- sprintf(fmt = paste0("%s", " [", fmt1, ", ", fmt1 ,"]"),
+                         ## resMat[,1],    # point estimate
+                         pointEstimates,
                          resMat[,2],    # lower
                          resMat[,3]     # upper
                          )
