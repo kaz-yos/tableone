@@ -9,8 +9,7 @@
 ## @usage summary.ContTable(ContTable, digits = 2)
 ##' @param object An object that has the \code{ContTable} class to be shown.
 ##' @param digits Number of digits to print.
-##' @param ... Additional arguments. Required for the generic summary(object, ...).
-##' (not implemented yet, placeholder)
+##' @param ... For compatibility with generic. Ignored.
 ##' @return It will print the results.
 ##' @note Special Thanks:
 ##'

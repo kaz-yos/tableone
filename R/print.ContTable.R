@@ -21,8 +21,7 @@
 ##' @param pDigits Number of digits to print for p-values.
 ##' @param explain Whether to add explanation to the variable names, i.e.,
 ##' (mean (sd) or median [IQR]) is added to the variable names.
-##' @param ... Additional arguments. Required for the generic print(x, ...).
-##' (not implemented yet, placeholder)
+##' @param ... For compatibility with generic. Ignored.
 ##' @return It is mainly for printing the result. But this function does return
 ##' a matrix containing what you see in the output invisibly. You can assign it
 ##' to an object to save it.

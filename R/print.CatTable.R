@@ -31,8 +31,7 @@
 ##' @param CrossTable Whether to show the cross table objects held internally
 ##' using gmodels::CrossTable function. This will give an output similar to the
 ##' PROC FREQ in SAS.
-##' @param ... Additional arguments. Required for the generic print(x, ...).
-##' (not implemented yet, placeholder)
+##' @param ... For compatibility with generic. Ignored.
 ##' @return It is mainly for printing the result. But this function does return
 ##' a matrix containing what you see in the output invisibly. You can assign it
 ##' to an object to save it.
