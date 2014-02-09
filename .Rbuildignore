@@ -1,3 +1,5 @@
 \.git/*
 .DS_Store
 README.md
+clean_comments.sh
+
