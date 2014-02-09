@@ -1,89 +1,75 @@
 \name{print.CatTable}
 \alias{print.CatTable}
-\title{
-  Format and print the ‘CatTable’ class objects
-}
-\description{
-  This is the print method for the CatTable class objects created by
-  CreateCatTable function. 
-}
+\title{Format and print the \code{CatTable} class objects}
 \usage{
-     ## S3 method for class 'CatTable'
-print.CatTable(CatTable, missing = FALSE, format = c("fp", "f", "p", "pf")[1], digits = 1, exact = NULL, quote = FALSE, test = TRUE, pDigits = 3, showAllLevels = FALSE, explain = TRUE, CrossTable = FALSE)
+\method{print}{CatTable}(x, missing = FALSE, format = c("fp", "f", "p",
+  "pf")[1], digits = 1, exact = NULL, quote = FALSE, test = TRUE,
+  pDigits = 3, showAllLevels = FALSE, explain = TRUE,
+  CrossTable = FALSE, ...)
 }
 \arguments{
-  \item{CatTable}{
-    The result of a call to the ‘CreateCatTable’ function.
-}
-  \item{missing}{
-    Whether to show missing data information (not implemented
-    yet, placeholder)
-}
-  \item{format}{
-    The default is "fp" frequency (percentage). You can also choose from
-    "f" frequency only, "p" percentage only, and "pf" percentage (frequency).
-}
-  \item{digits}{
-    Number of digits to print in the table.
-}
-  \item{exact}{
-    A character vector to specify the variables for which the p-values
-    should be those of exact tests. By default all p-values are from
-    large sample approximation tests (chisq.test).
-}
-  \item{quote}{
-    Whether to show everything in quotes. The default is FALSE. If TRUE,
-    everything including the row and column names are quoted so that you
-    can copy it to Excel easily.
-}
-  \item{test}{
-    Whether to show the p-values. TRUE by default. If FALSE, only the
-    numerical summaries are shown.
-}
-  \item{pDigits}{
-    Number of digits to print for p-values.    
-}
-  \item{showAllLevels}{
-    Whether to show all levels. FALSE by default, i.e., for 2-level
-    categorical variables, only the higher level is shown to avoid  
-}
-  \item{explain}{
-    Whether to add explanation to the variable names, i.e., (\%) is
-    added to the variable names when percentage is shown.
-}
-  \item{CrossTable}{
-    Whether to show the cross table objects held internally using
-    gmodels::CrossTable function. This will give an output similar to
-    the PROC FREQ in SAS.
-}
-}
-\details{
+  \item{x}{The result of a call to the
+  \code{\link{CreateCatTable}} function.}
+
+  \item{missing}{Whether to show missing data information
+  (not implemented yet, placeholder)}
+
+  \item{format}{The default is "fp" frequency (percentage).
+  You can also choose from "f" frequency only, "p"
+  percentage only, and "pf" percentage (frequency).}
+
+  \item{digits}{Number of digits to print in the table.}
+
+  \item{exact}{A character vector to specify the variables
+  for which the p-values should be those of exact tests. By
+  default all p-values are from large sample approximation
+  tests (chisq.test).}
+
+  \item{quote}{Whether to show everything in quotes. The
+  default is FALSE. If TRUE, everything including the row
+  and column names are quoted so that you can copy it to
+  Excel easily.}
+
+  \item{test}{Whether to show the p-values. TRUE by
+  default. If FALSE, only the numerical summaries are
+  shown.}
+
+  \item{pDigits}{Number of digits to print for p-values.}
+
+  \item{showAllLevels}{Whether to show all levels. FALSE by
+  default, i.e., for 2-level categorical variables, only
+  the higher level is shown to avoid}
+
+  \item{explain}{Whether to add explanation to the variable
+  names, i.e., (\%) is added to the variable names when
+  percentage is shown.}
+
+  \item{CrossTable}{Whether to show the cross table objects
+  held internally using gmodels::CrossTable function. This
+  will give an output similar to the PROC FREQ in SAS.}
+
+  \item{...}{Additional arguments. Required for the generic
+  print(x, ...). (not implemented yet, placeholder)}
 }
 \value{
-It is mainly for printing the result. But this function does return a
-matrix containing what you see in the output invisibly. You can assign
-it to an object to save it.
+It is mainly for printing the result. But this function
+does return a matrix containing what you see in the output
+invisibly. You can assign it to an object to save it.
 }
-\references{
-}
-\author{
-  Kazuki YOSHIDA
+\description{
+This is the print method for the CatTable class objects
+created by CreateCatTable function.
 }
 \note{
-  Special Thanks:
-  
-  This package was inspired by and based on the Deducer package
-  (frequencies function).
-  
-  Developmental repository is on github. Your contributions are
-  appreciated.
-  
-  https://github.com/kaz-yos/tableone
-}
+Special Thanks:
 
+This package was inspired by and based on the Deducer
+package (frequencies function).
 
-\seealso{
-    CreateCatTable, summary.CatTable, CreateContTable, print.ContTable, summary.ContTable
+Developmental repository is on github. Your contributions
+are appreciated.
+
+https://github.com/kaz-yos/tableone
 }
 \examples{
 ## Load
@@ -136,5 +122,11 @@ summary(catTableBySexTrt)
 ## Excel does not mess up the cells.
 print(catTableBySexTrt, exact = "ascites", quote = TRUE)
 }
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+\author{
+Kazuki YOSHIDA
+}
+\seealso{
+CreateCatTable, summary.CatTable, CreateContTable,
+print.ContTable, summary.ContTable
+}
+

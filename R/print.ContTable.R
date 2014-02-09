@@ -1,4 +1,4 @@
-##' Format and print the ‘ContTable’ class objects
+##' Format and print the \code{ContTable} class objects
 ##' 
 ##' This is the print method for the ContTable class objects created by
 ##' CreateContTable function.
@@ -6,7 +6,7 @@
 ##' 
 ## @usage print.ContTable(ContTable, missing = FALSE, digits = 2, nonnormal =
 ## NULL, quote = FALSE, test = TRUE, pDigits = 3, explain = TRUE)
-##' @param ContTable The result of a call to the ‘CreateContTable’ function.
+##' @param x The result of a call to the \code{\link{CreateContTable}} function.
 ##' @param missing Whether to show missing data information (not implemented
 ##' yet, placeholder)
 ##' @param digits Number of digits to print in the table.
@@ -21,6 +21,8 @@
 ##' @param pDigits Number of digits to print for p-values.
 ##' @param explain Whether to add explanation to the variable names, i.e.,
 ##' (mean (sd) or median [IQR]) is added to the variable names.
+##' @param ... Additional arguments. Required for the generic print(x, ...).
+##' (not implemented yet, placeholder)
 ##' @return It is mainly for printing the result. But this function does return
 ##' a matrix containing what you see in the output invisibly. You can assign it
 ##' to an object to save it.
@@ -88,12 +90,14 @@
 ##' print(contTableBySexTrt, nonnormal = nonNormalVars, quote = TRUE)
 ##' 
 ##' @export print.ContTable
-print.ContTable <- function(ContTable, missing = FALSE,
+print.ContTable <- function(x, missing = FALSE,
                             digits = 2, nonnormal = NULL, quote = FALSE,
                             test = TRUE, pDigits = 3,
-                            explain = TRUE
-                            ) {
+                            explain = TRUE, ...) {
 
+    ## x and ... required to be consistent with generic print(x, ...)
+    ContTable <- x
+    
 ### Check data structure first
 
     ## ContTable is by() object

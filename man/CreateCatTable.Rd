@@ -1,77 +1,64 @@
 \name{CreateCatTable}
 \alias{CreateCatTable}
-\title{
-  Create an object summarizing categorical variables  
-}
-\description{
-  Create an object summarizing categorical variables optionally
-  stratifying by one or more startifying variables and performing
-  statistical tests. The object gives a table that is easy to use in
-  medical research papers. See also print.CatTable and summary.CatTable.
-  
-}
+\title{Create an object summarizing categorical variables}
 \usage{
 CreateCatTable(vars, strata, data, test = TRUE, testApprox = chisq.test,
-               testExact = fisher.test)
+  testExact = fisher.test)
 }
 \arguments{
-  \item{vars}{
-    Variable(s) to be summarized given as a character vector.    
-}
-  \item{strata}{
-    Stratifying (grouping) variable name(s) given as a character
-    vector. If omitted, the overall results are returned.    
-}
-  \item{data}{
-    A data frame in which these variables exist. All variables (both
-    vars and strata) must be in this data frame.
-}
-  \item{test}{
-    If TRUE, as in the default and there are more than two groups,
-    groupwise comparisons are performed. Both tests that require the
-    large sample approximation and exact tests are performed. Either one
-    of the result can be obtained from the print method.    
-}
-  \item{testApprox}{
-    A function used to perform the large sample approximation based
-    tests. The default is chisq.test. This is not recommended when some
-    of the cell have small counts like fewer than 5.
-}
-  \item{testExact}{
-    A function used to perform the exact tests. The default is
-    fisher.test. If the cells have large numbers, it will fail because
-    of memory limitation. In this situation, the large sample
-    approximation based should suffice.
-}
-}
-\details{
+  \item{vars}{Variable(s) to be summarized given as a
+  character vector.}
+
+  \item{strata}{Stratifying (grouping) variable name(s)
+  given as a character vector. If omitted, the overall
+  results are returned.}
+
+  \item{data}{A data frame in which these variables exist.
+  All variables (both vars and strata) must be in this data
+  frame.}
+
+  \item{test}{If TRUE, as in the default and there are more
+  than two groups, groupwise comparisons are performed.
+  Both tests that require the large sample approximation
+  and exact tests are performed. Either one of the result
+  can be obtained from the print method.}
+
+  \item{testApprox}{A function used to perform the large
+  sample approximation based tests. The default is
+  chisq.test. This is not recommended when some of the cell
+  have small counts like fewer than 5.}
+
+  \item{testExact}{A function used to perform the exact
+  tests. The default is fisher.test. If the cells have
+  large numbers, it will fail because of memory limitation.
+  In this situation, the large sample approximation based
+  should suffice.}
 }
 \value{
-An object of class ‘CatTable’, which really is a ‘by’ object with
-additional attributes. Each element of the ‘by’ part is a matrix with
-rows representing variables, and columns representing summary statistics.
+An object of class \code{CatTable}, which really is a
+\code{\link{by}} object with additional attributes. Each
+element of the \code{\link{by}} part is a matrix with rows
+representing variables, and columns representing summary
+statistics.
 }
-\references{
-}
-\author{
-  Kazuki YOSHIDA
+\description{
+Create an object summarizing categorical variables
+optionally stratifying by one or more startifying variables
+and performing statistical tests. The object gives a table
+that is easy to use in medical research papers. See also
+\code{\link{print.CatTable}} and
+\code{\link{summary.CatTable}}.
 }
 \note{
-  Special Thanks:
-  
-  This package was inspired by and based on the Deducer package
-  (frequencies function).
-  
-  Developmental repository is on github. Your contributions are
-  appreciated.
-  
-  https://github.com/kaz-yos/tableone
-}
+Special Thanks:
 
+This package was inspired by and based on the Deducer
+package (frequencies function).
 
-\seealso{
-    print.CatTable, summary.CatTable, CreateContTable, print.ContTable,
-    summary.ContTable    
+Developmental repository is on github. Your contributions
+are appreciated.
+
+https://github.com/kaz-yos/tableone
 }
 \examples{
 ## Load
@@ -126,5 +113,11 @@ summary(catTableBySexTrt)
 ## Excel does not mess up the cells.
 print(catTableBySexTrt, exact = "ascites", quote = TRUE)
 }
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+\author{
+Kazuki YOSHIDA
+}
+\seealso{
+print.CatTable, summary.CatTable, CreateContTable,
+print.ContTable, summary.ContTable
+}
+

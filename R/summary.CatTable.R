@@ -1,4 +1,4 @@
-##' Shows all results in a ‘CatTable’ class object
+##' Shows all results in a \code{CatTable} class object
 ##'
 ##' This method shows all the data a CatTable class object has. This includes
 ##' the (optionally stratified) part with summary statistics and p-values from
@@ -7,8 +7,10 @@
 ##'
 ##'
 ## @usage summary.CatTable(CatTable, digits = 1)
-##' @param CatTable An object that has the ‘CatTable’ class to be shown.
+##' @param object An object that has the \code{CatTable} class to be shown.
 ##' @param digits Number of digits to print.
+##' @param ... Additional arguments. Required for the generic summary(object, ...).
+##' (not implemented yet, placeholder)
 ##' @return It will print the results.
 ##' @note Special Thanks:
 ##'
@@ -48,8 +50,11 @@
 ##' summary(catTableOverall)
 ##'
 ##' @export summary.CatTable
-summary.CatTable <- function(CatTable, digits = 1) {
+summary.CatTable <- function(object, digits = 1, ...) {
 
+    ## object and ... required to be consistent with generic summary(object, ...)
+    CatTable <- object
+    
     ## Create format
     fmt <- paste0("%.", digits, "f")
 

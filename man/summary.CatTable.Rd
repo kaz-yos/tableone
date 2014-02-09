@@ -1,53 +1,38 @@
 \name{summary.CatTable}
 \alias{summary.CatTable}
-\title{
-  Shows all results in a ‘CatTable’ class object
-}
-\description{
-  This method shows all the data a CatTable class object has. This
-  includes the (optionally stratified) part with summary statistics and
-  p-values from the approximation method test (chisq.test by default)
-  and exact method test (fisher.test by default).
-
-}
+\title{Shows all results in a \code{CatTable} class object}
 \usage{
-summary.CatTable(CatTable, digits = 1)
+\method{summary}{CatTable}(object, digits = 1, ...)
 }
 \arguments{
-  \item{CatTable}{
-    An object that has the ‘CatTable’ class to be shown.
-}
-  \item{digits}{
-    Number of digits to print.
-}
-}
-\details{
+  \item{object}{An object that has the \code{CatTable}
+  class to be shown.}
+
+  \item{digits}{Number of digits to print.}
+
+  \item{...}{Additional arguments. Required for the generic
+  summary(object, ...). (not implemented yet, placeholder)}
 }
 \value{
 It will print the results.
 }
-\references{
-}
-\author{
-    Kazuki YOSHIDA
+\description{
+This method shows all the data a CatTable class object has.
+This includes the (optionally stratified) part with summary
+statistics and p-values from the approximation method test
+(chisq.test by default) and exact method test (fisher.test
+by default).
 }
 \note{
-  Special Thanks:
-  
-  This package was inspired by and based on the Deducer package
-  (frequencies function).
-  
-  Developmental repository is on github. Your contributions are
-  appreciated.
-  
-  https://github.com/kaz-yos/tableone
-}
+Special Thanks:
 
+This package was inspired by and based on the Deducer
+package (frequencies function).
 
-\seealso{
-  CreateCatTable, print.CatTable, CreateContTable, print.ContTable,
-  summary.ContTable
-  
+Developmental repository is on github. Your contributions
+are appreciated.
+
+https://github.com/kaz-yos/tableone
 }
 \examples{
 ## Load
@@ -72,5 +57,11 @@ catTableOverall
 ## which will show more details.
 summary(catTableOverall)
 }
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+\author{
+Kazuki YOSHIDA
+}
+\seealso{
+CreateCatTable, print.CatTable, CreateContTable,
+print.ContTable, summary.ContTable
+}
+

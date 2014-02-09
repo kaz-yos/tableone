@@ -1,51 +1,38 @@
 \name{summary.ContTable}
 \alias{summary.ContTable}
-\title{
-  Shows all results in a ‘ContTable’ class object
-}
-\description{
-  This method shows all the data a ContTable class object has. This
-  includes the (optionally stratified) part with summary statistics and
-  p-values from the normal assupmtion-based test (oneway.test by default)
-  and nonparametric test (kruskal.test by default).
-}
+\title{Shows all results in a \code{ContTable} class object}
 \usage{
-summary.ContTable(ContTable, digits = 2)
+\method{summary}{ContTable}(object, digits = 2, ...)
 }
 \arguments{
-  \item{ContTable}{
-    An object that has the ‘ContTable’ class to be shown.
-}
-  \item{digits}{
-    Number of digits to print.
-}
-}
-\details{
+  \item{object}{An object that has the \code{ContTable}
+  class to be shown.}
+
+  \item{digits}{Number of digits to print.}
+
+  \item{...}{Additional arguments. Required for the generic
+  summary(object, ...). (not implemented yet, placeholder)}
 }
 \value{
 It will print the results.
 }
-\references{
-}
-\author{
-  Kazuki YOSHIDA
+\description{
+This method shows all the data a \code{ContTable} class
+object has. This includes the (optionally stratified) part
+with summary statistics and p-values from the normal
+assupmtion-based test (oneway.test by default) and
+nonparametric test (kruskal.test by default).
 }
 \note{
-  Special Thanks:
-  
-  This package was inspired by and based on the Deducer package
-  (descriptive.table function).
-  
-  Developmental repository is on github. Your contributions are
-  appreciated.
-  
-  https://github.com/kaz-yos/tableone  
-}
+Special Thanks:
 
+This package was inspired by and based on the Deducer
+package (descriptive.table function).
 
-\seealso{
-  CreateContTable, print.ContTable, CreateCatTable, print.CatTable,
-  summary.CatTable  
+Developmental repository is on github. Your contributions
+are appreciated.
+
+https://github.com/kaz-yos/tableone
 }
 \examples{
 ## Load
@@ -70,5 +57,11 @@ contTableOverall
 ## which will show more details.
 summary(contTableOverall)
 }
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+\author{
+Kazuki YOSHIDA
+}
+\seealso{
+CreateContTable, print.ContTable, CreateCatTable,
+print.CatTable, summary.CatTable
+}
+

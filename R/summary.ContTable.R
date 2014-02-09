@@ -1,14 +1,16 @@
-##' Shows all results in a ‘ContTable’ class object
+##' Shows all results in a \code{ContTable} class object
 ##'
-##' This method shows all the data a ‘ContTable’ class object has. This includes
+##' This method shows all the data a \code{ContTable} class object has. This includes
 ##' the (optionally stratified) part with summary statistics and p-values from
 ##' the normal assupmtion-based test (oneway.test by default) and nonparametric
 ##' test (kruskal.test by default).
 ##'
 ##'
 ## @usage summary.ContTable(ContTable, digits = 2)
-##' @param ContTable An object that has the ‘ContTable’ class to be shown.
+##' @param object An object that has the \code{ContTable} class to be shown.
 ##' @param digits Number of digits to print.
+##' @param ... Additional arguments. Required for the generic summary(object, ...).
+##' (not implemented yet, placeholder)
 ##' @return It will print the results.
 ##' @note Special Thanks:
 ##'
@@ -48,14 +50,14 @@
 ##' summary(contTableOverall)
 ##'
 ##' @export summary.ContTable
-summary.ContTable <- function(ContTable, digits = 2) {
+summary.ContTable <- function(object, digits = 2, ...) {
 
     ## Just call print.by
-    print.by(ContTable, digits = digits)
+    print.by(object, digits = digits)
 
     ## Print p-values if it exist
-    if (!is.null(attributes(ContTable)$pValues)) {
+    if (!is.null(attributes(object)$pValues)) {
         cat("\np-values\n")
-        print(attributes(ContTable)$pValues)
+        print(attributes(object)$pValues)
     }
 }

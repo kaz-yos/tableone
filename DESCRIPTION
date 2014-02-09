@@ -3,9 +3,9 @@ Type: Package
 Title: Create the "Table 1" to describe baseline characteristics
 Version: 0.1.1
 Date: 2014-02-09
-Author: Kazuki Yoshida (based on Deducer by Ian Fellows)
+Author: Kazuki Yoshida
 Maintainer: Kazuki Yoshida <kazukiyoshida@mail.harvard.edu>
-Description: For some reasons, there are no good functions to create the "Table
+Description: This package creates create the "Table
     1", i.e., description of baseline characteristics in R although it is
     essential in every medical research. The package was insipired by
     descriptive statistics functions in Deducer, Java-based GUI package. This
@@ -13,4 +13,6 @@ Description: For some reasons, there are no good functions to create the "Table
 License: GPL-2
 Depends:
     e1071,
-    gmodels
+    gmodels,
+    survival
+URL: https://github.com/kaz-yos/tableone

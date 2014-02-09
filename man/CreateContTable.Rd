@@ -1,89 +1,75 @@
 \name{CreateContTable}
 \alias{CreateContTable}
-\title{
-  Create an object summarizing continous variables
-}
-\description{
-  Create an object summarizing continous variables optionally
-  stratifying by one or more startifying variables and performing
-  statistical tests. The object gives a table that is easy to use in
-  medical research papers.
-}
+\title{Create an object summarizing continous variables}
 \usage{
-CreateContTable(vars, strata, data, func.names = c("n", "miss", "mean",
-                "sd", "median", "p25", "p75", "min", "max", "skew",
-                "kurt"), func.additional, test = TRUE,
-                testNormal = oneway.test, testNonNormal = kruskal.test)
+CreateContTable(vars, strata, data, func.names = c("n", "miss", "mean", "sd",
+  "median", "p25", "p75", "min", "max", "skew", "kurt"), func.additional,
+  test = TRUE, testNormal = oneway.test, testNonNormal = kruskal.test)
 }
 \arguments{
-  \item{vars}{
-    Variable(s) to be summarized given as a character vector.
-}
-  \item{strata}{
-    Stratifying (grouping) variable name(s) given as a character
-    vector. If omitted, the overall results are returned.
-}
-  \item{data}{
-    A data frame in which these variables exist. All variables (both
-    vars and strata) must be in this data frame.
-}
-  \item{func.names}{
-    The functions to give the group size, number with missing values,
-    mean, standard deviations, median, 25th percentile, 75th percentile,
-    minimum, maximum, skewness (same definition as in SAS), kurtosis
-    (same definition as in SAS). All of them can be seen in the summary
-    method output. The print method uses subset of these. You can choose
-    subset of them or reorder them. They are all configure to omit NA
-    values (na.rm = TRUE).
-}
-  \item{func.additional}{
-    Additional functions can be given as a named list. For example,
-    list(sum = sum). 
-}
-  \item{test}{
-    If TRUE, as in the default and there are more than two groups,
-    groupwise comparisons are performed. Both tests that assume normality
-    and tests that do not are performed. Either one of the result can be
-    obtained from the print method.
-}
-  \item{testNormal}{
-    A function used to perform the normal assumption based tests. The
-    default is oneway.test. This is equivalent of the t-test with
-    unequal variance when there are only two groups.
-}
-  \item{testNonNormal}{
-    A function used to perform the nonparametric tests. The default is
-    kruskal.test (Kruskal-Wallis Rank Sum Test). This is equivalent of
-    the  wilcox.test (Man-Whitney U test) when there are only two groups.
-}
-}
-\details{
+  \item{vars}{Variable(s) to be summarized given as a
+  character vector.}
+
+  \item{strata}{Stratifying (grouping) variable name(s)
+  given as a character vector. If omitted, the overall
+  results are returned.}
+
+  \item{data}{A data frame in which these variables exist.
+  All variables (both vars and strata) must be in this data
+  frame.}
+
+  \item{func.names}{The functions to give the group size,
+  number with missing values, mean, standard deviations,
+  median, 25th percentile, 75th percentile, minimum,
+  maximum, skewness (same definition as in SAS), kurtosis
+  (same definition as in SAS). All of them can be seen in
+  the summary method output. The print method uses subset
+  of these. You can choose subset of them or reorder them.
+  They are all configure to omit NA values (na.rm = TRUE).}
+
+  \item{func.additional}{Additional functions can be given
+  as a named list. For example, list(sum = sum).}
+
+  \item{test}{If TRUE, as in the default and there are more
+  than two groups, groupwise comparisons are performed.
+  Both tests that assume normality and tests that do not
+  are performed. Either one of the result can be obtained
+  from the print method.}
+
+  \item{testNormal}{A function used to perform the normal
+  assumption based tests. The default is oneway.test. This
+  is equivalent of the t-test with unequal variance when
+  there are only two groups.}
+
+  \item{testNonNormal}{A function used to perform the
+  nonparametric tests. The default is kruskal.test
+  (Kruskal-Wallis Rank Sum Test). This is equivalent of the
+  wilcox.test (Man-Whitney U test) when there are only two
+  groups.}
 }
 \value{
-An object of class ‘ContTable’, which really is a ‘by’ object with
-additional attributes. Each element of the ‘by’ part is a matrix with
-rows representing variables, and columns representing summary statistics.
+An object of class \code{ContTable}, which really is a
+\code{\link{by}} object with additional attributes. Each
+element of the \code{\link{by}} part is a matrix with rows
+representing variables, and columns representing summary
+statistics.
 }
-\references{
-}
-\author{
-  Kazuki YOSHIDA
+\description{
+Create an object summarizing continous variables optionally
+stratifying by one or more startifying variables and
+performing statistical tests. The object gives a table that
+is easy to use in medical research papers.
 }
 \note{
-  Special Thanks:
-  
-  This package was inspired by and based on the Deducer package
-  (descriptive.table function).
+Special Thanks:
 
-  Developmental repository is on github. Your contributions are appreciated.
-  
-  https://github.com/kaz-yos/tableone
-}
+This package was inspired by and based on the Deducer
+package (descriptive.table function).
 
+Developmental repository is on github. Your contributions
+are appreciated.
 
-\seealso{
-  print.ContTable, summary.ContTable, CreateCatTable, print.CatTable,
-  summary.CatTable
+https://github.com/kaz-yos/tableone
 }
 \examples{
 ## Load
@@ -136,5 +122,11 @@ summary(contTableBySexTrt)
 ## Excel does not mess up the cells.
 print(contTableBySexTrt, nonnormal = nonNormalVars, quote = TRUE)
 }
-\keyword{ ~kwd1 } 
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+\author{
+Kazuki YOSHIDA
+}
+\seealso{
+print.ContTable, summary.ContTable, CreateCatTable,
+print.CatTable, summary.CatTable
+}
+

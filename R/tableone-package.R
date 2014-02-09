@@ -1,13 +1,14 @@
-##' Create the Table 1 to describe baseline characteristics
+##' Create "Table 1" to describe baseline characteristics
 ##' 
-##' For some reasons, there are no good functions to create the Table 1, i.e.,
-##' description of baseline characteristics in R although it is essential in
-##' every medical research. The package was insipired by descriptive statistics
+##' Table 1, i.e., description of baseline patient characteristics is essential
+##' every medical research. This package provides functions to create such
+##' summaries for continuous and categorical variables, optionally with subgroups
+##' and groupwise comparison. The package was insipired by descriptive statistics
 ##' functions in Deducer, Java-based GUI package. This package does not require
 ##' GUI or Java, and intended for CUI users.
 ##' 
 ##' \tabular{ll}{ Package: \tab tableone\cr Type: \tab Package\cr Version: \tab
-##' 0.1.0\cr Date: \tab 2014-02-08\cr License: \tab GPL-2\cr } Create an object
+##' 0.1.1\cr Date: \tab 2014-02-08\cr License: \tab GPL-2\cr } Create an object
 ##' summarizing continous and categorical variables optionally stratifying by
 ##' one or more startifying variables and performing statistical tests. The
 ##' object gives a table that is easy to use in medical research papers.

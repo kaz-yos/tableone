@@ -34,8 +34,8 @@
 ##' The default is kruskal.test (Kruskal-Wallis Rank Sum Test). This is
 ##' equivalent of the wilcox.test (Man-Whitney U test) when there are only two
 ##' groups.
-##' @return An object of class ‘ContTable’, which really is a ‘by’ object with
-##' additional attributes. Each element of the ‘by’ part is a matrix with rows
+##' @return An object of class \code{ContTable}, which really is a \code{\link{by}} object with
+##' additional attributes. Each element of the \code{\link{by}} part is a matrix with rows
 ##' representing variables, and columns representing summary statistics.
 ##' @note Special Thanks:
 ##' 
@@ -119,7 +119,7 @@ CreateContTable <- function(vars,                         # vector of characters
                             testNonNormal = kruskal.test  # test for nonnormally distributed variables
                             ) {
     ## Require dependencies (DELETE before CRAN release. Use Depends in DESCRIPTION)
-    require(e1071)      # for skewness and kurtosis
+    ## require(e1071)      # for skewness and kurtosis
 
     ## Check if the data given is a dataframe
     if (is.data.frame(data) == FALSE) {

@@ -1,4 +1,4 @@
-##' Format and print the ‘CatTable’ class objects
+##' Format and print the \code{CatTable} class objects
 ##' 
 ##' This is the print method for the CatTable class objects created by
 ##' CreateCatTable function.
@@ -8,7 +8,7 @@
 ## FALSE, format = c("fp", "f", "p", "pf")[1], digits = 1, exact = NULL, quote
 ## = FALSE, test = TRUE, pDigits = 3, showAllLevels = FALSE, explain = TRUE,
 ## CrossTable = FALSE)
-##' @param CatTable The result of a call to the ‘CreateCatTable’ function.
+##' @param x The result of a call to the \code{\link{CreateCatTable}} function.
 ##' @param missing Whether to show missing data information (not implemented
 ##' yet, placeholder)
 ##' @param format The default is "fp" frequency (percentage). You can also
@@ -31,6 +31,8 @@
 ##' @param CrossTable Whether to show the cross table objects held internally
 ##' using gmodels::CrossTable function. This will give an output similar to the
 ##' PROC FREQ in SAS.
+##' @param ... Additional arguments. Required for the generic print(x, ...).
+##' (not implemented yet, placeholder)
 ##' @return It is mainly for printing the result. But this function does return
 ##' a matrix containing what you see in the output invisibly. You can assign it
 ##' to an object to save it.
@@ -100,14 +102,17 @@
 ##' print(catTableBySexTrt, exact = "ascites", quote = TRUE)
 ##' 
 ##' @export print.CatTable
-print.CatTable <- function(CatTable, missing = FALSE,
+print.CatTable <- function(x, missing = FALSE,
                            format = c("fp","f","p","pf")[1], # Format f_requency and/or p_ercent
                            digits = 1, exact = NULL, quote = FALSE,
                            test = TRUE, pDigits = 3,
                            showAllLevels = FALSE,
                            explain = TRUE,
-                           CrossTable = FALSE) {
+                           CrossTable = FALSE, ...) {
 
+    ## x and ... required to be consistent with generic print(x, ...)
+    CatTable <- x
+    
 ### Check the data structure first
 
     ## CatTable has a strata(list)-variable(list)-table(dataframe) structure
@@ -445,7 +450,7 @@ print.CatTable <- function(CatTable, missing = FALSE,
     if (CrossTable) {
 
         ## DELETE before CRAN release (Use Depends in DESCRIPTION instead)
-        require(gmodels)
+        ## require(gmodels)
 
         junk <- lapply(attributes(CatTable)$xtabs, CrossTable)
     }

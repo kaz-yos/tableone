@@ -1,77 +1,62 @@
 \name{print.ContTable}
 \alias{print.ContTable}
-\title{
-  Format and print the ‘ContTable’ class objects
-}
-\description{
-  This is the print method for the ContTable class objects created by
-  CreateContTable function.   
-}
+\title{Format and print the \code{ContTable} class objects}
 \usage{
-print.ContTable(ContTable, missing = FALSE, digits = 2,
-                nonnormal = NULL, quote = FALSE, test = TRUE,
-                pDigits = 3, explain = TRUE)
+\method{print}{ContTable}(x, missing = FALSE, digits = 2,
+  nonnormal = NULL, quote = FALSE, test = TRUE, pDigits = 3,
+  explain = TRUE, ...)
 }
 \arguments{
-  \item{ContTable}{
-    The result of a call to the ‘CreateContTable’ function.
-}
-  \item{missing}{
-    Whether to show missing data information (not implemented
-    yet, placeholder)
-}
-  \item{digits}{
-        Number of digits to print in the table.
-}
-  \item{nonnormal}{
-    A character vector to specify the variables for which the p-values
-    should be those of nonparametric tests. By default all p-values are from
-    normal assumption-based tests (oneway.test).
-}
-  \item{quote}{
-    Whether to show everything in quotes. The default is FALSE. If TRUE,
-    everything including the row and column names are quoted so that you
-    can copy it to Excel easily.
-}
-  \item{test}{
-    Whether to show the p-values. TRUE by default. If FALSE, only the
-    numerical summaries are shown.    
-}
-  \item{pDigits}{
-    Number of digits to print for p-values.    
-}
-  \item{explain}{
-    Whether to add explanation to the variable names, i.e., (mean (sd)
-    or median [IQR]) is added to the variable names.
-}
-}
-\details{
+  \item{x}{The result of a call to the
+  \code{\link{CreateContTable}} function.}
+
+  \item{missing}{Whether to show missing data information
+  (not implemented yet, placeholder)}
+
+  \item{digits}{Number of digits to print in the table.}
+
+  \item{nonnormal}{A character vector to specify the
+  variables for which the p-values should be those of
+  nonparametric tests. By default all p-values are from
+  normal assumption-based tests (oneway.test).}
+
+  \item{quote}{Whether to show everything in quotes. The
+  default is FALSE. If TRUE, everything including the row
+  and column names are quoted so that you can copy it to
+  Excel easily.}
+
+  \item{test}{Whether to show the p-values. TRUE by
+  default. If FALSE, only the numerical summaries are
+  shown.}
+
+  \item{pDigits}{Number of digits to print for p-values.}
+
+  \item{explain}{Whether to add explanation to the variable
+  names, i.e., (mean (sd) or median [IQR]) is added to the
+  variable names.}
+
+  \item{...}{Additional arguments. Required for the generic
+  print(x, ...). (not implemented yet, placeholder)}
 }
 \value{
-It is mainly for printing the result. But this function does return a
-matrix containing what you see in the output invisibly. You can assign
-it to an object to save it.
+It is mainly for printing the result. But this function
+does return a matrix containing what you see in the output
+invisibly. You can assign it to an object to save it.
 }
-\references{
-}
-\author{
-  Kazuki YOSHIDA
+\description{
+This is the print method for the ContTable class objects
+created by CreateContTable function.
 }
 \note{
-  Special Thanks:
+Special Thanks:
 
-  This package was inspired by and based on the Deducer package
-  
-  Developmental repository is on github. Your contributions are
-  appreciated.
-  
-  https://github.com/kaz-yos/tableone  
-}
+This package was inspired by and based on the Deducer
+package
 
+Developmental repository is on github. Your contributions
+are appreciated.
 
-\seealso{
-  CreateContTable, summary.ContTable, CreateCatTable, print.CatTable,
-  summary.CatTable  
+https://github.com/kaz-yos/tableone
 }
 \examples{
 ## Load
@@ -123,5 +108,11 @@ summary(contTableBySexTrt)
 ## Excel does not mess up the cells.
 print(contTableBySexTrt, nonnormal = nonNormalVars, quote = TRUE)
 }
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+\author{
+Kazuki YOSHIDA
+}
+\seealso{
+CreateContTable, summary.ContTable, CreateCatTable,
+print.CatTable, summary.CatTable
+}
+

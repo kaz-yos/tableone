@@ -6,8 +6,8 @@
 ##' also \code{\link{print.CatTable}} and \code{\link{summary.CatTable}}.
 ##' 
 ##' 
-##' @usage CreateCatTable(vars, strata, data, test = TRUE, testApprox =
-##' chisq.test, testExact = fisher.test)
+## @usage CreateCatTable(vars, strata, data, test = TRUE, testApprox =
+## chisq.test, testExact = fisher.test)
 ##' @param vars Variable(s) to be summarized given as a character vector.
 ##' @param strata Stratifying (grouping) variable name(s) given as a character
 ##' vector. If omitted, the overall results are returned.
@@ -24,8 +24,8 @@
 ##' fisher.test. If the cells have large numbers, it will fail because of
 ##' memory limitation. In this situation, the large sample approximation based
 ##' should suffice.
-##' @return An object of class ‘CatTable’, which really is a ‘by’ object with
-##' additional attributes. Each element of the ‘by’ part is a matrix with rows
+##' @return An object of class \code{CatTable}, which really is a \code{\link{by}} object with
+##' additional attributes. Each element of the \code{\link{by}} part is a matrix with rows
 ##' representing variables, and columns representing summary statistics.
 ##' @note Special Thanks:
 ##' 
