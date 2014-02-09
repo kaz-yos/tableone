@@ -1,3 +1,53 @@
+##' Shows all results in a ‘CatTable’ class object
+##'
+##' This method shows all the data a CatTable class object has. This includes
+##' the (optionally stratified) part with summary statistics and p-values from
+##' the approximation method test (chisq.test by default) and exact method test
+##' (fisher.test by default).
+##'
+##'
+##' @usage summary.CatTable(CatTable, digits = 1)
+##' @param CatTable An object that has the ‘CatTable’ class to be shown.
+##' @param digits Number of digits to print.
+##' @return It will print the results.
+##' @note Special Thanks:
+##'
+##' This package was inspired by and based on the Deducer package (frequencies
+##' function).
+##'
+##' Developmental repository is on github. Your contributions are appreciated.
+##'
+##' https://github.com/kaz-yos/tableone
+##' @author Kazuki YOSHIDA
+##' @seealso CreateCatTable, print.CatTable, CreateContTable, print.ContTable,
+##' summary.ContTable
+##' @references
+##' @keywords ~kwd1 ~kwd2
+##' @examples
+##'
+##' ## Load
+##' library(tableone)
+##'
+##' ## Load Mayo Clinic Primary Biliary Cirrhosis Data
+##' library(survival)
+##' data(pbc)
+##' ## Check variables
+##' head(pbc)
+##'
+##' ## Create an overall table for categorical variables
+##' catVars <- c("status","ascites","hepato","spiders","edema","stage")
+##' catTableOverall <- CreateCatTable(vars = catVars, data = pbc)
+##'
+##' ## Simply typing the object name will invoke the print.CatTable method,
+##' ## which will show the sample size, frequencies and percentages.
+##' ## For 2-level variables, only the higher level is shown for simplicity.
+##' catTableOverall
+##'
+##' ## To further examine the variables, use the summary.CatTable method,
+##' ## which will show more details.
+##' summary(catTableOverall)
+##'
+##' @export summary.CatTable
 summary.CatTable <- function(CatTable, digits = 1) {
 
     ## Create format
@@ -34,14 +84,14 @@ summary.CatTable <- function(CatTable, digits = 1) {
                                       DF[c("var","level")] <-
                                           lapply(X = DF[c("var","level")],
                                                  FUN = as.character)
-                                      
+
                                       ## Delete n and miss except in the first row
                                       DF[-1, c("var","n","miss")] <- ""
 
                                       ## row bind an empty row
                                       DF <- rbind(DF,
                                                   rep("", ncol(DF)))
-                                      
+
                                       ## Return a data frame
                                       DF
                                   },
@@ -49,7 +99,7 @@ summary.CatTable <- function(CatTable, digits = 1) {
 
                    ## Collapse DFs within each stratum
                    DF <- do.call(rbind, LIST)
-                   
+
                    ## Return a data frame
                    DF
                }, simplify = FALSE)

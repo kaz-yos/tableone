@@ -1,3 +1,55 @@
+##' Format regression results in medically decent format
+##' 
+##' It shows the regression result in the HR [95\% CI] p-value format, which is
+##' usually the form used in medical research papers.
+##' 
+##' 
+##' @usage ShowRegTable(model, exp = TRUE, digits = 2, pDigits = 3, quote =
+##' FALSE)
+##' @param model Regression model result objects that have the summary and
+##' confint methods.
+##' @param exp TRUE by default. You need to specify exp = FALSE if your model
+##' is has the indentity link function (linear regression, etc).
+##' @param digits Number of digits to print for the main part.
+##' @param pDigits Number of digits to print for the p-values.
+##' @param quote Whether to show everything in quotes. The default is FALSE. If
+##' TRUE, everything including the row and column names are quoted so that you
+##' can copy it to Excel easily.
+##' @return A matrix containing what you see is returned invisibly. You can
+##' capture it by assignment to an object.
+##' @note Developmental repository is on github. Your contributions are
+##' appreciated.
+##' 
+##' https://github.com/kaz-yos/tableone
+##' @author Kazuki Yoshida
+##' @seealso CreateContTable, print.ContTable, summary.ContTable,
+##' CreateCatTable, print.CatTable, summary.CatTable
+##' @references
+##' @keywords ~kwd1 ~kwd2
+##' @examples
+##' 
+##' ## Load
+##' library(tableone)
+##' 
+##' ## Load Mayo Clinic Primary Biliary Cirrhosis Data
+##' library(survival)
+##' data(pbc)
+##' ## Check variables
+##' head(pbc)
+##' 
+##' ## Fit a Cox regression model
+##' objCoxph <-
+##'     coxph(formula = Surv(time, status == 2) ~ trt + age + albumin + ascites,
+##'           data    = pbc,
+##'           ties    = c("efron","breslow","exact")[1])
+##' 
+##' ## Show the simple table
+##' ShowRegTable(objCoxph)
+##' 
+##' ## Show with quote to ease copy and paste
+##' ShowRegTable(objCoxph, quote = TRUE)
+##' 
+##' @export ShowRegTable
 ShowRegTable <- function(model, exp = TRUE, digits = 2, pDigits = 3, quote = FALSE) {
 
     ## Create formats

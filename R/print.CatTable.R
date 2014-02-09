@@ -1,4 +1,105 @@
-## Print method for a continuous table
+##' Format and print the ‘CatTable’ class objects
+##' 
+##' This is the print method for the CatTable class objects created by
+##' CreateCatTable function.
+##' 
+##' 
+##' @usage ## S3 method for class 'CatTable' print.CatTable(CatTable, missing =
+##' FALSE, format = c("fp", "f", "p", "pf")[1], digits = 1, exact = NULL, quote
+##' = FALSE, test = TRUE, pDigits = 3, showAllLevels = FALSE, explain = TRUE,
+##' CrossTable = FALSE)
+##' @param CatTable The result of a call to the ‘CreateCatTable’ function.
+##' @param missing Whether to show missing data information (not implemented
+##' yet, placeholder)
+##' @param format The default is "fp" frequency (percentage). You can also
+##' choose from "f" frequency only, "p" percentage only, and "pf" percentage
+##' (frequency).
+##' @param digits Number of digits to print in the table.
+##' @param exact A character vector to specify the variables for which the
+##' p-values should be those of exact tests. By default all p-values are from
+##' large sample approximation tests (chisq.test).
+##' @param quote Whether to show everything in quotes. The default is FALSE. If
+##' TRUE, everything including the row and column names are quoted so that you
+##' can copy it to Excel easily.
+##' @param test Whether to show the p-values. TRUE by default. If FALSE, only
+##' the numerical summaries are shown.
+##' @param pDigits Number of digits to print for p-values.
+##' @param showAllLevels Whether to show all levels. FALSE by default, i.e.,
+##' for 2-level categorical variables, only the higher level is shown to avoid
+##' @param explain Whether to add explanation to the variable names, i.e., (\%)
+##' is added to the variable names when percentage is shown.
+##' @param CrossTable Whether to show the cross table objects held internally
+##' using gmodels::CrossTable function. This will give an output similar to the
+##' PROC FREQ in SAS.
+##' @return It is mainly for printing the result. But this function does return
+##' a matrix containing what you see in the output invisibly. You can assign it
+##' to an object to save it.
+##' @note Special Thanks:
+##' 
+##' This package was inspired by and based on the Deducer package (frequencies
+##' function).
+##' 
+##' Developmental repository is on github. Your contributions are appreciated.
+##' 
+##' https://github.com/kaz-yos/tableone
+##' @author Kazuki YOSHIDA
+##' @seealso CreateCatTable, summary.CatTable, CreateContTable,
+##' print.ContTable, summary.ContTable
+##' @references
+##' @keywords ~kwd1 ~kwd2
+##' @examples
+##' 
+##' ## Load
+##' library(tableone)
+##' 
+##' ## Load Mayo Clinic Primary Biliary Cirrhosis Data
+##' library(survival)
+##' data(pbc)
+##' ## Check variables
+##' head(pbc)
+##' 
+##' ## Create an overall table for categorical variables
+##' catVars <- c("status","ascites","hepato","spiders","edema","stage")
+##' catTableOverall <- CreateCatTable(vars = catVars, data = pbc)
+##' 
+##' ## Simply typing the object name will invoke the print.CatTable method,
+##' ## which will show the sample size, frequencies and percentages.
+##' ## For 2-level variables, only the higher level is shown for simplicity.
+##' catTableOverall
+##' 
+##' ## Use the showAllLevels argument to see all levels for all variables.
+##' print(catTableOverall, showAllLevels = TRUE)
+##' 
+##' ## You can choose form frequencies ("f") and/or percentages ("p") or both.
+##' ## "fp" frequency (percentage) is the default. Row names change accordingly.
+##' print(catTableOverall, format = "f")
+##' print(catTableOverall, format = "p")
+##' 
+##' ## To further examine the variables, use the summary.CatTable method,
+##' ## which will show more details.
+##' summary(catTableOverall)
+##' 
+##' ## The table can be stratified by one or more variables
+##' catTableBySexTrt <- CreateCatTable(vars = catVars, strata = c("sex","trt"), data = pbc)
+##' 
+##' ## print now includes p-values which are by default calculated by chisq.test.
+##' ## It is formatted at the decimal place specified by the pDigits argument
+##' ## (3 by default). It does <0.001 for you.
+##' catTableBySexTrt
+##' 
+##' ## The exact argument will toggle the p-values to the example test result from
+##' ## fisher.test. It will show which ones are from exact tests.
+##' print(catTableBySexTrt, exact = "ascites")
+##' 
+##' ## summary now includes both types of p-values
+##' summary(catTableBySexTrt)
+##' 
+##' ## If your work flow includes copying to Excel and Word when writing manuscripts,
+##' ## you may benefit from the quote argument. This will quote everything so that
+##' ## Excel does not mess up the cells.
+##' print(catTableBySexTrt, exact = "ascites", quote = TRUE)
+##' 
+##' @export print.CatTable
 print.CatTable <- function(CatTable, missing = FALSE,
                            format = c("fp","f","p","pf")[1], # Format f_requency and/or p_ercent
                            digits = 1, exact = NULL, quote = FALSE,
