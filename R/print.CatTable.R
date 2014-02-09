@@ -342,6 +342,8 @@ print.CatTable <- function(CatTable, missing = FALSE,
 
     ## Print CrossTable() if requested
     if (CrossTable) {
+
+        ## DELETE before CRAN release (Use Depends in DESCRIPTION instead)
         require(gmodels)
 
         junk <- lapply(attributes(CatTable)$xtabs, CrossTable)

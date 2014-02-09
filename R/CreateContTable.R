@@ -16,7 +16,7 @@ CreateContTable <- function(vars,                         # vector of characters
                             testNormal = oneway.test,     # test for normally distributed variables
                             testNonNormal = kruskal.test  # test for nonnormally distributed variables
                             ) {
-    ## Require dependencies
+    ## Require dependencies (DELETE before CRAN release. Use Depends in DESCRIPTION)
     require(e1071)      # for skewness and kurtosis
 
     ## Check if the data given is a dataframe
