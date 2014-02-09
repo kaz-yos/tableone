@@ -6,7 +6,12 @@
   Create the Table 1 to describe baseline characteristics
 }
 \description{
-For some reasons, there are no good functions to create the Table 1, i.e., description of baseline characteristics in R although it is essential in every medical research. The package was insipired by descriptive statistics functions in Deducer, Java-based GUI package. This package does not require GUI or Java, and intended for CUI users.
+For some reasons, there are no good functions to create the Table 1,
+i.e., description of baseline characteristics in R although it is
+essential in every medical research. The package was insipired by
+descriptive statistics functions in Deducer, Java-based GUI
+package. This package does not require GUI or Java, and intended for CUI
+users.
 }
 \details{
 \tabular{ll}{
@@ -16,7 +21,6 @@ Version: \tab 0.1.0\cr
 Date: \tab 2014-02-08\cr
 License: \tab GPL-2\cr
 }
-%%~~ An overview of how to use the package, including the most important functions ~~
   Create an object summarizing continous and categorical variables
   optionally stratifying by one or more startifying variables and
   performing statistical tests. The object gives a table that is easy to
@@ -31,7 +35,6 @@ Maintainer: Kazuki Yoshida <kazukiyoshida@mail.harvard.edu>
 
 }
 \note{
-  %%  ~~further notes~~
   Special Thanks:
   
   This package was inspired by and based on the Deducer package.
@@ -46,8 +49,6 @@ Maintainer: Kazuki Yoshida <kazukiyoshida@mail.harvard.edu>
 }
 \keyword{ package }
 \seealso{
-%% ~~ Optional links to other man pages, e.g. ~~
-%% ~~ \code{\link[<pkg>:<pkg>-package]{<pkg>}} ~~
 }
 \examples{
 ## Load
@@ -69,7 +70,8 @@ catTableOverall <- CreateCatTable(vars = catVars, data = pbc)
 catTableOverall
 
 ## Create an overall table for continuous variables
-contVars <- c("time","age","bili","chol","albumin","copper","alk.phos","ast","trig","platelet","protime")
+contVars <- c("time","age","bili","chol","albumin","copper","alk.phos","ast",
+              "trig","platelet","protime")
 contTableOverall <- CreateContTable(vars = contVars, data = pbc)
 
 ## Simply typing the object name will invoke the print.ContTable method,
