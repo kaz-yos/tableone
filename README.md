@@ -81,5 +81,6 @@ install_github(repo = "kaz-yos/tableone")
 ## Load 
 library(tableone)
 ```
-Using devtools require some preparation, please see the following.
+Using devtools requires some preparation, please see the following link for information.
+
 http://www.rstudio.com/projects/devtools/
