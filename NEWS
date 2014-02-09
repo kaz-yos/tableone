@@ -1,0 +1,19 @@
+tableone 0.1.1
+----------------------------------------------------------------
+BUG FIXES
+
+* This version is to better conform to the CRAN standards.
+
+* Documents are now included in 
+
+
+tableone 0.1.0
+----------------------------------------------------------------
+FIRST DEVELOPMENTAL VERSION
+
+* This is the first developmental version to be made public.
+
+* tableone makes creation of "Table 1", description of baseline characteristics
+  common in medical research papers easy.
+
+################################################################################
