@@ -39,7 +39,7 @@
 ##' @seealso print.CatTable, summary.CatTable, CreateContTable,
 ##' print.ContTable, summary.ContTable
 ## @references
-##' @keywords ~kwd1 ~kwd2
+## @keywords ~kwd1 ~kwd2
 ##' @examples
 ##' 
 ##' ## Load

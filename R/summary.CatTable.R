@@ -6,7 +6,7 @@
 ##' (fisher.test by default).
 ##'
 ##'
-##' @usage summary.CatTable(CatTable, digits = 1)
+## @usage summary.CatTable(CatTable, digits = 1)
 ##' @param CatTable An object that has the ‘CatTable’ class to be shown.
 ##' @param digits Number of digits to print.
 ##' @return It will print the results.
@@ -22,7 +22,7 @@
 ##' @seealso CreateCatTable, print.CatTable, CreateContTable, print.ContTable,
 ##' summary.ContTable
 ## @references
-##' @keywords ~kwd1 ~kwd2
+## @keywords ~kwd1 ~kwd2
 ##' @examples
 ##'
 ##' ## Load

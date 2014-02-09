@@ -5,10 +5,10 @@
 ##' object gives a table that is easy to use in medical research papers.
 ##' 
 ##' 
-##' @usage CreateContTable(vars, strata, data, func.names = c("n", "miss",
-##' "mean", "sd", "median", "p25", "p75", "min", "max", "skew", "kurt"),
-##' func.additional, test = TRUE, testNormal = oneway.test, testNonNormal =
-##' kruskal.test)
+## @usage CreateContTable(vars, strata, data, func.names = c("n", "miss",
+## "mean", "sd", "median", "p25", "p75", "min", "max", "skew", "kurt"),
+## func.additional, test = TRUE, testNormal = oneway.test, testNonNormal =
+## kruskal.test)
 ##' @param vars Variable(s) to be summarized given as a character vector.
 ##' @param strata Stratifying (grouping) variable name(s) given as a character
 ##' vector. If omitted, the overall results are returned.
@@ -49,7 +49,7 @@
 ##' @seealso print.ContTable, summary.ContTable, CreateCatTable,
 ##' print.CatTable, summary.CatTable
 ## @references
-##' @keywords ~kwd1 ~kwd2
+## @keywords ~kwd1 ~kwd2
 ##' @examples
 ##' 
 ##' ## Load

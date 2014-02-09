@@ -4,8 +4,8 @@
 ##' usually the form used in medical research papers.
 ##' 
 ##' 
-##' @usage ShowRegTable(model, exp = TRUE, digits = 2, pDigits = 3, quote =
-##' FALSE)
+## @usage ShowRegTable(model, exp = TRUE, digits = 2, pDigits = 3, quote =
+## FALSE)
 ##' @param model Regression model result objects that have the summary and
 ##' confint methods.
 ##' @param exp TRUE by default. You need to specify exp = FALSE if your model
@@ -25,7 +25,7 @@
 ##' @seealso CreateContTable, print.ContTable, summary.ContTable,
 ##' CreateCatTable, print.CatTable, summary.CatTable
 ## @references
-##' @keywords ~kwd1 ~kwd2
+## @keywords ~kwd1 ~kwd2
 ##' @examples
 ##' 
 ##' ## Load

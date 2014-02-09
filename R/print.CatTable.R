@@ -4,10 +4,10 @@
 ##' CreateCatTable function.
 ##' 
 ##' 
-##' @usage ## S3 method for class 'CatTable' print.CatTable(CatTable, missing =
-##' FALSE, format = c("fp", "f", "p", "pf")[1], digits = 1, exact = NULL, quote
-##' = FALSE, test = TRUE, pDigits = 3, showAllLevels = FALSE, explain = TRUE,
-##' CrossTable = FALSE)
+## @usage ## S3 method for class 'CatTable' print.CatTable(CatTable, missing =
+## FALSE, format = c("fp", "f", "p", "pf")[1], digits = 1, exact = NULL, quote
+## = FALSE, test = TRUE, pDigits = 3, showAllLevels = FALSE, explain = TRUE,
+## CrossTable = FALSE)
 ##' @param CatTable The result of a call to the ‘CreateCatTable’ function.
 ##' @param missing Whether to show missing data information (not implemented
 ##' yet, placeholder)
@@ -46,7 +46,7 @@
 ##' @seealso CreateCatTable, summary.CatTable, CreateContTable,
 ##' print.ContTable, summary.ContTable
 ## @references
-##' @keywords ~kwd1 ~kwd2
+## @keywords ~kwd1 ~kwd2
 ##' @examples
 ##' 
 ##' ## Load

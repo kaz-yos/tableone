@@ -29,7 +29,7 @@
 ##' Maintainer: Kazuki Yoshida <kazukiyoshida@@mail.harvard.edu>
 ## @seealso
 ## @references
-##' @keywords package
+## @keywords package
 ##' @examples
 ##' 
 ##' ## Load

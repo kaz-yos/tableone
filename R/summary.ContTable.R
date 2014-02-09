@@ -6,7 +6,7 @@
 ##' test (kruskal.test by default).
 ##'
 ##'
-##' @usage summary.ContTable(ContTable, digits = 2)
+## @usage summary.ContTable(ContTable, digits = 2)
 ##' @param ContTable An object that has the ‘ContTable’ class to be shown.
 ##' @param digits Number of digits to print.
 ##' @return It will print the results.
@@ -22,7 +22,7 @@
 ##' @seealso CreateContTable, print.ContTable, CreateCatTable, print.CatTable,
 ##' summary.CatTable
 ## @references
-##' @keywords ~kwd1 ~kwd2
+## @keywords ~kwd1 ~kwd2
 ##' @examples
 ##'
 ##' ## Load

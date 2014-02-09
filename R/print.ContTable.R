@@ -4,8 +4,8 @@
 ##' CreateContTable function.
 ##' 
 ##' 
-##' @usage print.ContTable(ContTable, missing = FALSE, digits = 2, nonnormal =
-##' NULL, quote = FALSE, test = TRUE, pDigits = 3, explain = TRUE)
+## @usage print.ContTable(ContTable, missing = FALSE, digits = 2, nonnormal =
+## NULL, quote = FALSE, test = TRUE, pDigits = 3, explain = TRUE)
 ##' @param ContTable The result of a call to the ‘CreateContTable’ function.
 ##' @param missing Whether to show missing data information (not implemented
 ##' yet, placeholder)
@@ -35,7 +35,7 @@
 ##' @seealso CreateContTable, summary.ContTable, CreateCatTable,
 ##' print.CatTable, summary.CatTable
 ## @references
-##' @keywords ~kwd1 ~kwd2
+## @keywords ~kwd1 ~kwd2
 ##' @examples
 ##' 
 ##' ## Load
