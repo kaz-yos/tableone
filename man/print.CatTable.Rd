@@ -112,6 +112,9 @@ it to an object to save it.
     CreateCatTable, summary.CatTable, CreateContTable, print.ContTable, summary.ContTable
 }
 \examples{
+## Load
+library(tableone)
+
 ## Load Mayo Clinic Primary Biliary Cirrhosis Data
 library(survival)
 data(pbc)

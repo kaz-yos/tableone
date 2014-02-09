@@ -14,7 +14,7 @@
 
 }
 \usage{
-summary.CatTable(CatTable, digits = 2)
+summary.CatTable(CatTable, digits = 1)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -65,6 +65,9 @@ It will print the results.
   CreateCatTable, print.CatTable, CreateContTable, print.ContTable, summary.ContTable
 }
 \examples{
+## Load
+library(tableone)
+
 ## Load Mayo Clinic Primary Biliary Cirrhosis Data
 library(survival)
 data(pbc)

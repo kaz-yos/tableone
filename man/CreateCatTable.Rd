@@ -94,6 +94,9 @@ rows representing variables, and columns representing summary statistics.
     print.CatTable, summary.CatTable, CreateContTable, print.ContTable, summary.ContTable
 }
 \examples{
+## Load
+library(tableone)
+
 ## Load Mayo Clinic Primary Biliary Cirrhosis Data
 library(survival)
 data(pbc)

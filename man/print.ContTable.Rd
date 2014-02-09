@@ -12,7 +12,7 @@
 }
 \usage{
 print.ContTable(ContTable, missing = FALSE, digits = 2,
-                nonnormal = NULL, quote = TRUE, test = TRUE,
+                nonnormal = NULL, quote = FALSE, test = TRUE,
                 pDigits = 3, explain = TRUE)
 }
 %- maybe also 'usage' for other objects documented here.
@@ -96,6 +96,9 @@ it to an object to save it.
   CreateContTable, summary.ContTable, CreateCatTable, print.CatTable, summary.CatTable
 }
 \examples{
+## Load
+library(tableone)
+
 ## Load Mayo Clinic Primary Biliary Cirrhosis Data
 library(survival)
 data(pbc)

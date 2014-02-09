@@ -50,6 +50,9 @@ Maintainer: Kazuki Yoshida <kazukiyoshida@mail.harvard.edu>
 %% ~~ \code{\link[<pkg>:<pkg>-package]{<pkg>}} ~~
 }
 \examples{
+## Load
+library(tableone)
+
 ## Load Mayo Clinic Primary Biliary Cirrhosis Data
 library(survival)
 data(pbc)

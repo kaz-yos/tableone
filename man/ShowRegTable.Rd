@@ -74,6 +74,9 @@ it by assignment to an object.
   print.CatTable, summary.CatTable
 }
 \examples{
+## Load
+library(tableone)
+
 ## Load Mayo Clinic Primary Biliary Cirrhosis Data
 library(survival)
 data(pbc)

@@ -14,9 +14,8 @@
 \usage{
 CreateContTable(vars, strata, data, func.names = c("n", "miss", "mean",
                 "sd", "median", "p25", "p75", "min", "max", "skew",
-                "kurt"), func.additional, nonnormal = FALSE,
-                test = FALSE, testNormal = oneway.test,
-                testNonNormal = kruskal.test)
+                "kurt"), func.additional, test = TRUE,
+                testNormal = oneway.test, testNonNormal = kruskal.test)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -108,6 +107,9 @@ rows representing variables, and columns representing summary statistics.
   print.ContTable, summary.ContTable, CreateCatTable, print.CatTable, summary.CatTable
 }
 \examples{
+## Load
+library(tableone)
+
 ## Load Mayo Clinic Primary Biliary Cirrhosis Data
 library(survival)
 data(pbc)
