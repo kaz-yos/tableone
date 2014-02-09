@@ -6,8 +6,6 @@
 ##' also \code{\link{print.CatTable}} and \code{\link{summary.CatTable}}.
 ##' 
 ##' 
-## @usage CreateCatTable(vars, strata, data, test = TRUE, testApprox =
-## chisq.test, testExact = fisher.test)
 ##' @param vars Variable(s) to be summarized given as a character vector.
 ##' @param strata Stratifying (grouping) variable name(s) given as a character
 ##' vector. If omitted, the overall results are returned.
@@ -38,8 +36,6 @@
 ##' @author Kazuki YOSHIDA
 ##' @seealso print.CatTable, summary.CatTable, CreateContTable,
 ##' print.ContTable, summary.ContTable
-## @references
-## @keywords ~kwd1 ~kwd2
 ##' @examples
 ##' 
 ##' ## Load

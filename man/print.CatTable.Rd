@@ -48,8 +48,7 @@
   held internally using gmodels::CrossTable function. This
   will give an output similar to the PROC FREQ in SAS.}
 
-  \item{...}{Additional arguments. Required for the generic
-  print(x, ...). (not implemented yet, placeholder)}
+  \item{...}{For compatibility with generic. Ignored.}
 }
 \value{
 It is mainly for printing the result. But this function

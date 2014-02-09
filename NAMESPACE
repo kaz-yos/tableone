@@ -1,3 +1,7 @@
+S3method(print,CatTable)
+S3method(print,ContTable)
+S3method(summary,CatTable)
+S3method(summary,ContTable)
 export(CreateCatTable)
 export(CreateContTable)
 export(ShowRegTable)

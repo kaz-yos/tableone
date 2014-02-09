@@ -8,7 +8,7 @@
 ##' GUI or Java, and intended for CUI users.
 ##' 
 ##' \tabular{ll}{ Package: \tab tableone\cr Type: \tab Package\cr Version: \tab
-##' 0.1.1\cr Date: \tab 2014-02-08\cr License: \tab GPL-2\cr } Create an object
+##' 0.1.2\cr Date: \tab 2014-02-08\cr License: \tab GPL-2\cr } Create an object
 ##' summarizing continous and categorical variables optionally stratifying by
 ##' one or more startifying variables and performing statistical tests. The
 ##' object gives a table that is easy to use in medical research papers.

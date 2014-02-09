@@ -4,10 +4,6 @@
 ##' CreateCatTable function.
 ##' 
 ##' 
-## @usage ## S3 method for class 'CatTable' print.CatTable(CatTable, missing =
-## FALSE, format = c("fp", "f", "p", "pf")[1], digits = 1, exact = NULL, quote
-## = FALSE, test = TRUE, pDigits = 3, showAllLevels = FALSE, explain = TRUE,
-## CrossTable = FALSE)
 ##' @param x The result of a call to the \code{\link{CreateCatTable}} function.
 ##' @param missing Whether to show missing data information (not implemented
 ##' yet, placeholder)
@@ -46,8 +42,6 @@
 ##' @author Kazuki YOSHIDA
 ##' @seealso CreateCatTable, summary.CatTable, CreateContTable,
 ##' print.ContTable, summary.ContTable
-## @references
-## @keywords ~kwd1 ~kwd2
 ##' @examples
 ##' 
 ##' ## Load
@@ -100,6 +94,7 @@
 ##' ## Excel does not mess up the cells.
 ##' print(catTableBySexTrt, exact = "ascites", quote = TRUE)
 ##' 
+##' @S3method print CatTable
 ##' @export print.CatTable
 print.CatTable <- function(x, missing = FALSE,
                            format = c("fp","f","p","pf")[1], # Format f_requency and/or p_ercent

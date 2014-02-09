@@ -35,8 +35,7 @@
   names, i.e., (mean (sd) or median [IQR]) is added to the
   variable names.}
 
-  \item{...}{Additional arguments. Required for the generic
-  print(x, ...). (not implemented yet, placeholder)}
+  \item{...}{For compatibility with generic. Ignored.}
 }
 \value{
 It is mainly for printing the result. But this function

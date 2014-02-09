@@ -6,7 +6,6 @@
 ##' test (kruskal.test by default).
 ##'
 ##'
-## @usage summary.ContTable(ContTable, digits = 2)
 ##' @param object An object that has the \code{ContTable} class to be shown.
 ##' @param digits Number of digits to print.
 ##' @param ... For compatibility with generic. Ignored.
@@ -22,8 +21,6 @@
 ##' @author Kazuki YOSHIDA
 ##' @seealso CreateContTable, print.ContTable, CreateCatTable, print.CatTable,
 ##' summary.CatTable
-## @references
-## @keywords ~kwd1 ~kwd2
 ##' @examples
 ##'
 ##' ## Load
@@ -48,6 +45,7 @@
 ##' ## which will show more details.
 ##' summary(contTableOverall)
 ##'
+##' @S3method summary ContTable
 ##' @export summary.ContTable
 summary.ContTable <- function(object, digits = 2, ...) {
 

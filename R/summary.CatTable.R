@@ -6,7 +6,6 @@
 ##' (fisher.test by default).
 ##'
 ##'
-## @usage summary.CatTable(CatTable, digits = 1)
 ##' @param object An object that has the \code{CatTable} class to be shown.
 ##' @param digits Number of digits to print.
 ##' @param ... For compatibility with generic. Ignored.
@@ -22,8 +21,6 @@
 ##' @author Kazuki YOSHIDA
 ##' @seealso CreateCatTable, print.CatTable, CreateContTable, print.ContTable,
 ##' summary.ContTable
-## @references
-## @keywords ~kwd1 ~kwd2
 ##' @examples
 ##'
 ##' ## Load
@@ -48,12 +45,13 @@
 ##' ## which will show more details.
 ##' summary(catTableOverall)
 ##'
+##' @S3method summary CatTable
 ##' @export summary.CatTable
 summary.CatTable <- function(object, digits = 1, ...) {
 
     ## object and ... required to be consistent with generic summary(object, ...)
     CatTable <- object
-    
+
     ## Create format
     fmt <- paste0("%.", digits, "f")
 

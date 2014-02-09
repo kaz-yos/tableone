@@ -4,8 +4,6 @@
 ##' CreateContTable function.
 ##' 
 ##' 
-## @usage print.ContTable(ContTable, missing = FALSE, digits = 2, nonnormal =
-## NULL, quote = FALSE, test = TRUE, pDigits = 3, explain = TRUE)
 ##' @param x The result of a call to the \code{\link{CreateContTable}} function.
 ##' @param missing Whether to show missing data information (not implemented
 ##' yet, placeholder)
@@ -35,8 +33,6 @@
 ##' @author Kazuki YOSHIDA
 ##' @seealso CreateContTable, summary.ContTable, CreateCatTable,
 ##' print.CatTable, summary.CatTable
-## @references
-## @keywords ~kwd1 ~kwd2
 ##' @examples
 ##' 
 ##' ## Load
@@ -88,6 +84,7 @@
 ##' ## Excel does not mess up the cells.
 ##' print(contTableBySexTrt, nonnormal = nonNormalVars, quote = TRUE)
 ##' 
+##' @S3method print ContTable
 ##' @export print.ContTable
 print.ContTable <- function(x, missing = FALSE,
                             digits = 2, nonnormal = NULL, quote = FALSE,

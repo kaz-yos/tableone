@@ -10,8 +10,7 @@
 
   \item{digits}{Number of digits to print.}
 
-  \item{...}{Additional arguments. Required for the generic
-  summary(object, ...). (not implemented yet, placeholder)}
+  \item{...}{For compatibility with generic. Ignored.}
 }
 \value{
 It will print the results.
