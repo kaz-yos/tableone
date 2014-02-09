@@ -21,7 +21,7 @@
 ##' @author Kazuki YOSHIDA
 ##' @seealso CreateCatTable, print.CatTable, CreateContTable, print.ContTable,
 ##' summary.ContTable
-##' @references
+## @references
 ##' @keywords ~kwd1 ~kwd2
 ##' @examples
 ##'

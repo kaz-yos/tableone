@@ -3,7 +3,7 @@
 ##' Create an object summarizing categorical variables optionally stratifying
 ##' by one or more startifying variables and performing statistical tests. The
 ##' object gives a table that is easy to use in medical research papers. See
-##' also print.CatTable and summary.CatTable.
+##' also \code{\link{print.CatTable}} and \code{\link{summary.CatTable}}.
 ##' 
 ##' 
 ##' @usage CreateCatTable(vars, strata, data, test = TRUE, testApprox =
@@ -38,7 +38,7 @@
 ##' @author Kazuki YOSHIDA
 ##' @seealso print.CatTable, summary.CatTable, CreateContTable,
 ##' print.ContTable, summary.ContTable
-##' @references
+## @references
 ##' @keywords ~kwd1 ~kwd2
 ##' @examples
 ##' 

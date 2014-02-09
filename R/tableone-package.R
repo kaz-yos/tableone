@@ -27,8 +27,8 @@
 ##' @author Kazuki Yoshida
 ##' 
 ##' Maintainer: Kazuki Yoshida <kazukiyoshida@@mail.harvard.edu>
-##' @seealso
-##' @references
+## @seealso
+## @references
 ##' @keywords package
 ##' @examples
 ##' 
