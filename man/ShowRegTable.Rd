@@ -32,12 +32,6 @@ It shows the regression result in the HR [95\% CI] p-value
 format, which is usually the form used in medical research
 papers.
 }
-\note{
-Developmental repository is on github. Your contributions
-are appreciated.
-
-https://github.com/kaz-yos/tableone
-}
 \examples{
 ## Load
 library(tableone)
@@ -64,7 +58,9 @@ ShowRegTable(objCoxph, quote = TRUE)
 Kazuki Yoshida
 }
 \seealso{
-CreateContTable, print.ContTable, summary.ContTable,
-CreateCatTable, print.CatTable, summary.CatTable
+CreateContTable, \code{\link{print.ContTable}},
+\code{\link{summary.ContTable}},
+\code{\link{CreateCatTable}}, \code{\link{print.CatTable}},
+\code{\link{summary.CatTable}}
 }
 

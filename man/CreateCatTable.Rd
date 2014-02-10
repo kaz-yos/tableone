@@ -49,17 +49,6 @@ that is easy to use in medical research papers. See also
 \code{\link{print.CatTable}} and
 \code{\link{summary.CatTable}}.
 }
-\note{
-Special Thanks:
-
-This package was inspired by and based on the Deducer
-package (frequencies function).
-
-Developmental repository is on github. Your contributions
-are appreciated.
-
-https://github.com/kaz-yos/tableone
-}
 \examples{
 ## Load
 library(tableone)
@@ -114,10 +103,13 @@ summary(catTableBySexTrt)
 print(catTableBySexTrt, exact = "ascites", quote = TRUE)
 }
 \author{
-Kazuki YOSHIDA
+Kazuki Yoshida
 }
 \seealso{
-print.CatTable, summary.CatTable, CreateContTable,
-print.ContTable, summary.ContTable
+\code{\link{print.CatTable}},
+\code{\link{summary.CatTable}},
+\code{\link{CreateContTable}},
+\code{\link{print.ContTable}},
+\code{\link{summary.ContTable}}
 }
 

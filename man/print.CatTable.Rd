@@ -59,17 +59,6 @@ invisibly. You can assign it to an object to save it.
 This is the print method for the CatTable class objects
 created by CreateCatTable function.
 }
-\note{
-Special Thanks:
-
-This package was inspired by and based on the Deducer
-package (frequencies function).
-
-Developmental repository is on github. Your contributions
-are appreciated.
-
-https://github.com/kaz-yos/tableone
-}
 \examples{
 ## Load
 library(tableone)
@@ -122,7 +111,7 @@ summary(catTableBySexTrt)
 print(catTableBySexTrt, exact = "ascites", quote = TRUE)
 }
 \author{
-Kazuki YOSHIDA
+Kazuki Yoshida
 }
 \seealso{
 CreateCatTable, summary.CatTable, CreateContTable,

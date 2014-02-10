@@ -46,17 +46,6 @@ invisibly. You can assign it to an object to save it.
 This is the print method for the ContTable class objects
 created by CreateContTable function.
 }
-\note{
-Special Thanks:
-
-This package was inspired by and based on the Deducer
-package
-
-Developmental repository is on github. Your contributions
-are appreciated.
-
-https://github.com/kaz-yos/tableone
-}
 \examples{
 ## Load
 library(tableone)
@@ -108,7 +97,7 @@ summary(contTableBySexTrt)
 print(contTableBySexTrt, nonnormal = nonNormalVars, quote = TRUE)
 }
 \author{
-Kazuki YOSHIDA
+Kazuki Yoshida
 }
 \seealso{
 CreateContTable, summary.ContTable, CreateCatTable,

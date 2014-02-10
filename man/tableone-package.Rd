@@ -15,7 +15,7 @@ or Java, and intended for CUI users.
 }
 \details{
 \tabular{ll}{ Package: \tab tableone\cr Type: \tab
-Package\cr Version: \tab 0.1.2\cr Date: \tab 2014-02-08\cr
+Package\cr Version: \tab 0.1.3\cr Date: \tab 2014-02-08\cr
 License: \tab GPL-2\cr } Create an object summarizing
 continous and categorical variables optionally stratifying
 by one or more startifying variables and performing
@@ -25,15 +25,13 @@ handled by CreateContTable, and categorical variables are
 handled by CreateCatTable.
 }
 \note{
-Special Thanks:
-
-This package was inspired by and based on the Deducer
-package.
+Special Thanks: Ian Fellows for developing the Deducer
+package, which this package is based on. Hadley Wickham for
+packaging advice and for creating tools this package was
+made with.
 
 Developmental repository is on github. Your contributions
-are appreciated.
-
-https://github.com/kaz-yos/tableone
+are appreciated. https://github.com/kaz-yos/tableone
 }
 \examples{
 ## Load
@@ -64,7 +62,7 @@ contTableOverall <- CreateContTable(vars = contVars, data = pbc)
 contTableOverall
 }
 \author{
-Kazuki Yoshida
+Kazuki Yoshida, Justin Bohn
 
 Maintainer: Kazuki Yoshida <kazukiyoshida@mail.harvard.edu>
 }

@@ -58,18 +58,9 @@ statistics.
 Create an object summarizing continous variables optionally
 stratifying by one or more startifying variables and
 performing statistical tests. The object gives a table that
-is easy to use in medical research papers.
-}
-\note{
-Special Thanks:
-
-This package was inspired by and based on the Deducer
-package (descriptive.table function).
-
-Developmental repository is on github. Your contributions
-are appreciated.
-
-https://github.com/kaz-yos/tableone
+is easy to use in medical research papers. See also
+\code{\link{print.ContTable}} and
+\code{\link{summary.ContTable}}.
 }
 \examples{
 ## Load
@@ -123,10 +114,12 @@ summary(contTableBySexTrt)
 print(contTableBySexTrt, nonnormal = nonNormalVars, quote = TRUE)
 }
 \author{
-Kazuki YOSHIDA
+Kazuki Yoshida
 }
 \seealso{
-print.ContTable, summary.ContTable, CreateCatTable,
-print.CatTable, summary.CatTable
+\code{\link{print.ContTable}},
+\code{\link{summary.ContTable}},
+\code{\link{CreateCatTable}}, \code{\link{print.CatTable}},
+\code{\link{summary.CatTable}}
 }
 

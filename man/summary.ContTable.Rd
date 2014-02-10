@@ -22,17 +22,6 @@ with summary statistics and p-values from the normal
 assupmtion-based test (oneway.test by default) and
 nonparametric test (kruskal.test by default).
 }
-\note{
-Special Thanks:
-
-This package was inspired by and based on the Deducer
-package (descriptive.table function).
-
-Developmental repository is on github. Your contributions
-are appreciated.
-
-https://github.com/kaz-yos/tableone
-}
 \examples{
 ## Load
 library(tableone)
@@ -57,7 +46,7 @@ contTableOverall
 summary(contTableOverall)
 }
 \author{
-Kazuki YOSHIDA
+Kazuki Yoshida
 }
 \seealso{
 CreateContTable, print.ContTable, CreateCatTable,

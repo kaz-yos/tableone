@@ -22,17 +22,6 @@ statistics and p-values from the approximation method test
 (chisq.test by default) and exact method test (fisher.test
 by default).
 }
-\note{
-Special Thanks:
-
-This package was inspired by and based on the Deducer
-package (frequencies function).
-
-Developmental repository is on github. Your contributions
-are appreciated.
-
-https://github.com/kaz-yos/tableone
-}
 \examples{
 ## Load
 library(tableone)
@@ -57,7 +46,7 @@ catTableOverall
 summary(catTableOverall)
 }
 \author{
-Kazuki YOSHIDA
+Kazuki Yoshida
 }
 \seealso{
 CreateCatTable, print.CatTable, CreateContTable,
