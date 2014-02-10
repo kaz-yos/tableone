@@ -2,8 +2,8 @@
 ##' 
 ##' Create an object summarizing continous variables optionally stratifying by
 ##' one or more startifying variables and performing statistical tests. The
-##' object gives a table that is easy to use in medical research papers.
-##' 
+##' object gives a table that is easy to use in medical research papers. See
+##' also \code{\link{print.ContTable}} and \code{\link{summary.ContTable}}.
 ##' 
 ##' @param vars Variable(s) to be summarized given as a character vector.
 ##' @param strata Stratifying (grouping) variable name(s) given as a character
@@ -33,17 +33,9 @@
 ##' @return An object of class \code{ContTable}, which really is a \code{\link{by}} object with
 ##' additional attributes. Each element of the \code{\link{by}} part is a matrix with rows
 ##' representing variables, and columns representing summary statistics.
-##' @note Special Thanks:
-##' 
-##' This package was inspired by and based on the Deducer package
-##' (descriptive.table function).
-##' 
-##' Developmental repository is on github. Your contributions are appreciated.
-##' 
-##' https://github.com/kaz-yos/tableone
-##' @author Kazuki YOSHIDA
-##' @seealso print.ContTable, summary.ContTable, CreateCatTable,
-##' print.CatTable, summary.CatTable
+##' @author Kazuki Yoshida
+##' @seealso \code{\link{print.ContTable}}, \code{\link{summary.ContTable}}, \code{\link{CreateCatTable}},
+##' \code{\link{print.CatTable}}, \code{\link{summary.CatTable}}
 ##' @examples
 ##' 
 ##' ## Load

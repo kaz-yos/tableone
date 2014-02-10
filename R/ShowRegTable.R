@@ -15,13 +15,9 @@
 ##' can copy it to Excel easily.
 ##' @return A matrix containing what you see is returned invisibly. You can
 ##' capture it by assignment to an object.
-##' @note Developmental repository is on github. Your contributions are
-##' appreciated.
-##' 
-##' https://github.com/kaz-yos/tableone
 ##' @author Kazuki Yoshida
-##' @seealso CreateContTable, print.ContTable, summary.ContTable,
-##' CreateCatTable, print.CatTable, summary.CatTable
+##' @seealso CreateContTable, \code{\link{print.ContTable}}, \code{\link{summary.ContTable}},
+##' \code{\link{CreateCatTable}}, \code{\link{print.CatTable}}, \code{\link{summary.CatTable}}
 ##' @examples
 ##' 
 ##' ## Load

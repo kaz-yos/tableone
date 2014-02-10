@@ -23,14 +23,7 @@
 ##' @return It is mainly for printing the result. But this function does return
 ##' a matrix containing what you see in the output invisibly. You can assign it
 ##' to an object to save it.
-##' @note Special Thanks:
-##' 
-##' This package was inspired by and based on the Deducer package
-##' 
-##' Developmental repository is on github. Your contributions are appreciated.
-##' 
-##' https://github.com/kaz-yos/tableone
-##' @author Kazuki YOSHIDA
+##' @author Kazuki Yoshida
 ##' @seealso CreateContTable, summary.ContTable, CreateCatTable,
 ##' print.CatTable, summary.CatTable
 ##' @examples

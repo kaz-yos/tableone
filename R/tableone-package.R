@@ -19,13 +19,13 @@
 ##' @aliases tableone-package tableone
 ##' @docType package
 ##' @note Special Thanks:
-##' 
-##' This package was inspired by and based on the Deducer package.
+##' Ian Fellows for developing the Deducer package, which this package is based on.
+##' Hadley Wickham for packaging advice and for creating tools this package was made with.
 ##' 
 ##' Developmental repository is on github. Your contributions are appreciated.
-##' 
 ##' https://github.com/kaz-yos/tableone
-##' @author Kazuki Yoshida
+##' 
+##' @author Kazuki Yoshida, Justin Bohn
 ##' 
 ##' Maintainer: Kazuki Yoshida <kazukiyoshida@@mail.harvard.edu>
 ## @seealso
@@ -61,6 +61,3 @@
 ##' contTableOverall
 ##' 
 NULL
-
-
-

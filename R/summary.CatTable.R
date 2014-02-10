@@ -10,15 +10,7 @@
 ##' @param digits Number of digits to print.
 ##' @param ... For compatibility with generic. Ignored.
 ##' @return It will print the results.
-##' @note Special Thanks:
-##'
-##' This package was inspired by and based on the Deducer package (frequencies
-##' function).
-##'
-##' Developmental repository is on github. Your contributions are appreciated.
-##'
-##' https://github.com/kaz-yos/tableone
-##' @author Kazuki YOSHIDA
+##' @author Kazuki Yoshida
 ##' @seealso CreateCatTable, print.CatTable, CreateContTable, print.ContTable,
 ##' summary.ContTable
 ##' @examples

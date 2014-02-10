@@ -5,7 +5,6 @@
 ##' object gives a table that is easy to use in medical research papers. See
 ##' also \code{\link{print.CatTable}} and \code{\link{summary.CatTable}}.
 ##' 
-##' 
 ##' @param vars Variable(s) to be summarized given as a character vector.
 ##' @param strata Stratifying (grouping) variable name(s) given as a character
 ##' vector. If omitted, the overall results are returned.
@@ -25,17 +24,9 @@
 ##' @return An object of class \code{CatTable}, which really is a \code{\link{by}} object with
 ##' additional attributes. Each element of the \code{\link{by}} part is a matrix with rows
 ##' representing variables, and columns representing summary statistics.
-##' @note Special Thanks:
-##' 
-##' This package was inspired by and based on the Deducer package (frequencies
-##' function).
-##' 
-##' Developmental repository is on github. Your contributions are appreciated.
-##' 
-##' https://github.com/kaz-yos/tableone
-##' @author Kazuki YOSHIDA
-##' @seealso print.CatTable, summary.CatTable, CreateContTable,
-##' print.ContTable, summary.ContTable
+##' @author Kazuki Yoshida
+##' @seealso \code{\link{print.CatTable}}, \code{\link{summary.CatTable}}, \code{\link{CreateContTable}},
+##' \code{\link{print.ContTable}}, \code{\link{summary.ContTable}}
 ##' @examples
 ##' 
 ##' ## Load
