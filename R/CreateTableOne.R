@@ -16,7 +16,11 @@
 ##' additional attributes. These correspond to structures holding results for 
 ##' @author Justin Bohn, Kazuki Yoshida
 ##' @seealso \code{\link{print.TableOne}}
-##' @examples 
+##' @examples
+##' library(tableone)
+##' library(survival)
+##' data(pbc)
+##' 
 CreateTableOne <- function(vars, strata, data, ...) {
     
     ## get the classes of the variables
