@@ -1,9 +1,9 @@
 ##' Format and print the \code{CatTable} class objects
-##' 
+##'
 ##' This is the print method for the CatTable class objects created by
 ##' CreateCatTable function.
-##' 
-##' 
+##'
+##'
 ##' @param x The result of a call to the \code{\link{CreateCatTable}} function.
 ##' @param missing Whether to show missing data information (not implemented
 ##' yet, placeholder)
@@ -35,57 +35,57 @@
 ##' @seealso CreateCatTable, summary.CatTable, CreateContTable,
 ##' print.ContTable, summary.ContTable
 ##' @examples
-##' 
+##'
 ##' ## Load
 ##' library(tableone)
-##' 
+##'
 ##' ## Load Mayo Clinic Primary Biliary Cirrhosis Data
 ##' library(survival)
 ##' data(pbc)
 ##' ## Check variables
 ##' head(pbc)
-##' 
+##'
 ##' ## Create an overall table for categorical variables
 ##' catVars <- c("status","ascites","hepato","spiders","edema","stage")
 ##' catTableOverall <- CreateCatTable(vars = catVars, data = pbc)
-##' 
+##'
 ##' ## Simply typing the object name will invoke the print.CatTable method,
 ##' ## which will show the sample size, frequencies and percentages.
 ##' ## For 2-level variables, only the higher level is shown for simplicity.
 ##' catTableOverall
-##' 
+##'
 ##' ## Use the showAllLevels argument to see all levels for all variables.
 ##' print(catTableOverall, showAllLevels = TRUE)
-##' 
+##'
 ##' ## You can choose form frequencies ("f") and/or percentages ("p") or both.
 ##' ## "fp" frequency (percentage) is the default. Row names change accordingly.
 ##' print(catTableOverall, format = "f")
 ##' print(catTableOverall, format = "p")
-##' 
+##'
 ##' ## To further examine the variables, use the summary.CatTable method,
 ##' ## which will show more details.
 ##' summary(catTableOverall)
-##' 
+##'
 ##' ## The table can be stratified by one or more variables
 ##' catTableBySexTrt <- CreateCatTable(vars = catVars, strata = c("sex","trt"), data = pbc)
-##' 
+##'
 ##' ## print now includes p-values which are by default calculated by chisq.test.
 ##' ## It is formatted at the decimal place specified by the pDigits argument
 ##' ## (3 by default). It does <0.001 for you.
 ##' catTableBySexTrt
-##' 
+##'
 ##' ## The exact argument will toggle the p-values to the example test result from
 ##' ## fisher.test. It will show which ones are from exact tests.
 ##' print(catTableBySexTrt, exact = "ascites")
-##' 
+##'
 ##' ## summary now includes both types of p-values
 ##' summary(catTableBySexTrt)
-##' 
+##'
 ##' ## If your work flow includes copying to Excel and Word when writing manuscripts,
 ##' ## you may benefit from the quote argument. This will quote everything so that
 ##' ## Excel does not mess up the cells.
 ##' print(catTableBySexTrt, exact = "ascites", quote = TRUE)
-##' 
+##'
 ##' @S3method print CatTable
 ##' @export print.CatTable
 print.CatTable <- function(x, missing = FALSE,
@@ -98,7 +98,7 @@ print.CatTable <- function(x, missing = FALSE,
 
     ## x and ... required to be consistent with generic print(x, ...)
     CatTable <- x
-    
+
 ### Check the data structure first
 
     ## CatTable has a strata(list)-variable(list)-table(dataframe) structure
@@ -422,15 +422,8 @@ print.CatTable <- function(x, missing = FALSE,
         names(dimnames(out)) <- c("", strataString)
     }
 
-    ## Add quotes for names if requested
-    if (quote) {
-        rownames(out) <- paste0('"', rownames(out), '"')
-        colnames(out) <- paste0('"', colnames(out), '"')
-        names(dimnames(out)) <- paste0('"', names(dimnames(out)), '"')
-    }
-
-    ## Print the results
-    print(out, quote = quote)
+    ## (module) Takes an matrix object format, print, and invisibly return it
+    ModuleQuoteAndPrintMat(matObj = out, quote = quote)
 
     ## Print CrossTable() if requested
     if (CrossTable) {
@@ -440,7 +433,4 @@ print.CatTable <- function(x, missing = FALSE,
 
         junk <- lapply(attributes(CatTable)$xtabs, CrossTable)
     }
-
-    ## Return invisibly
-    return(invisible(out))
 }
