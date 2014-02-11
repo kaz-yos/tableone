@@ -12,7 +12,7 @@
 ##' @return It will print the results.
 ##' @author Kazuki Yoshida
 ##' @seealso \code{\link{CreateCatTable}}, \code{\link{print.CatTable}}, \code{\link{CreateContTable}},
-##' \code{\link{print.ContTable}}, \code{\link{summary.ContTable
+##' \code{\link{print.ContTable}}, \code{\link{summary.ContTable}}
 ##' @examples
 ##'
 ##' ## Load
