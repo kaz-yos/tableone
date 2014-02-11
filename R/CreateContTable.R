@@ -168,30 +168,6 @@ CreateContTable <- function(vars,                         # vector of characters
     ## Remove NA
     func.indexes <- func.indexes[!is.na(func.indexes)]
 
-    ## Define special skewness and kurtosis functions that do not fail (SAS definitions)
-    tryCatch.W.E <- function(expr) { # Taken from demo(error.catching)
-        W <- NULL
-        w.handler <- function(w){ # warning handler
-            W <<- w
-            invokeRestart("muffleWarning")
-        }
-        list(value = withCallingHandlers(tryCatch(expr, error = function(e) e),
-                 warning = w.handler),
-             warning = W)
-    }
-    sasSkewness <- function(x) {
-        ## tryCatch.W.E
-        out <- tryCatch.W.E(e1071::skewness(x, na.rm = TRUE, type = 2))
-        ## If it returns a numeric value, return it. Otherwise, return NaN.
-        ifelse(is.numeric(out$value), out$value, NaN)
-    }
-    sasKurtosis <- function(x) {
-        ## tryCatch.W.E
-        out <- tryCatch.W.E(e1071::kurtosis(x, na.rm = TRUE, type = 2))
-        ## If it returns a numeric value, return it. Otherwise, return NaN.
-        ifelse(is.numeric(out$value), out$value, NaN)
-    }
-
     ## Create a list of default functions
     functions <- c("n"      = function(x) length(x),
                    "miss"   = function(x) sum(is.na(x)),
@@ -243,29 +219,23 @@ CreateContTable <- function(vars,                         # vector of characters
                      do.call(cbind, out)
                  })
 
+    ## Add stratification information to the column header
+    if (length(result) > 1 ) {
+        ## strataVarName from dimension headers
+        strataVarName <- ModuleCreateStrataVarName(result)
+        ## Add an attribute for the stratifying variable name
+        attributes(result) <- c(attributes(result),
+                                list(strataVarName = strataVarName))
+    }
 
-    ## Perform tests when necessary
+    
+### Perform tests when necessary
     ## Initialize to avoid error when it does not exist at the attribute assignment
     pValues <- NULL
 
 ### This part performs between group tests
     ## Only when test is asked for
     if (test == TRUE) {
-
-        ## Define special test functions that do not fail, and return p-values or NA
-        tryTestNormal <- function(formula) {
-
-            out <- tryCatch.W.E(testNormal(formula)$p.value)
-            ## If it returns a numeric value, return it. Otherwise, return NA.
-            ifelse(is.numeric(out$value), out$value, NA)
-        }
-        tryTestNonNormal <- function(formula) {
-
-            out <- tryCatch.W.E(testNonNormal(formula)$p.value)
-            ## If it returns a numeric value, return it. Otherwise, return NA.
-            ifelse(is.numeric(out$value), out$value, NA)
-        }
-
 
         ## Create a single variable representing all strata
         strataVec                   <- apply(X = strata, MARGIN = 1, FUN = paste0, collapse = ":")
@@ -281,8 +251,8 @@ CreateContTable <- function(vars,                         # vector of characters
                           FUN = function(var) {
                               ## Perform tests and return the result as 1x2 DF
                               data.frame(
-                                  pNormal    = tryTestNormal(var ~ strataVec),
-                                  pNonNormal = tryTestNonNormal(var ~ strataVec)
+                                  pNormal    = ModuleTestSafe(var ~ strataVec, testNormal),
+                                  pNonNormal = ModuleTestSafe(var ~ strataVec, testNonNormal)
                                   )
                           },
                           simplify = FALSE)

@@ -142,19 +142,6 @@ CreateCatTable <- function(vars,                    # vector of characters
 
 ### Perform descriptive analysis
 
-    ## Used to define non-failing functions, that return NA when there is an error
-    tryCatch.W.E <- function(expr) { # Taken from demo(error.catching)
-        W <- NULL
-        w.handler <- function(w){ # warning handler
-            W <<- w
-            invokeRestart("muffleWarning")
-        }
-        list(value = withCallingHandlers(tryCatch(expr, error = function(e) e),
-                 warning = w.handler),
-             warning = W)
-    }
-
-
     ## Taken from Deducer::frequencies()
     CreateTableForOneVar <- function(x) {
 
@@ -201,11 +188,10 @@ CreateCatTable <- function(vars,                    # vector of characters
                  }, simplify = FALSE)
 
     
-    ## Added from the print method. Delete the one in print method once ready
     ## Add stratification information to the column header
     if (length(result) > 1 ) {
-        ## Combine variable names with : in between
-        strataVarName <- paste0(names(attr(result, "dimnames")), collapse = ":")
+        ## strataVarName from dimension headers
+        strataVarName <- ModuleCreateStrataVarName(result)
         ## Add an attribute for the stratifying variable name
         attributes(result) <- c(attributes(result),
                                 list(strataVarName = strataVarName))
@@ -220,21 +206,6 @@ CreateCatTable <- function(vars,                    # vector of characters
     ## Only when test is asked for              # Should always do this?
     if (test == TRUE) {
 
-        ## Define special test functions that do not fail, and return p-values or NA
-        tryTestApprox <- function(mat) {
-
-            out <- tryCatch.W.E(testApprox(mat)$p.value)
-            ## If it returns a numeric value, return it. Otherwise, return NA.
-            ifelse(is.numeric(out$value), out$value, NA)
-        }
-        tryTestExact <- function(mat) {
-
-            out <- tryCatch.W.E(testExact(mat)$p.value)
-            ## If it returns a numeric value, return it. Otherwise, return NA.
-            ifelse(is.numeric(out$value), out$value, NA)
-        }
-
-        
         ## Create all combinations of strata levels and collapse as a vector for level combinations.
         dfStrataLevels <- expand.grid(attr(result, "dimnames")) # 1st var cycles fastest, consistent with by()
         ## Create a single variable representing all strata        
@@ -244,12 +215,6 @@ CreateCatTable <- function(vars,                    # vector of characters
         ## Create the actual variable from the observed levels
         strataVar <- as.character(interaction(strata, sep = ":"))
 
-        ## obsolete
-        ## ## Create the actual variable from the observed levels
-        ## strataVar                   <- apply(X = strata, MARGIN = 1, FUN = paste0, collapse = ":")
-        ## ## Give NA if any of the variables are missing
-        ## strataVarAnyMiss            <- apply(X = is.na(strata), MARGIN = 1, FUN = sum) > 0
-        ## strataVar[strataVarAnyMiss] <- NA
         
         ## Make it a factor (kruskal.test requires it). Use levels not to drop defined nonexisting levels.
         strataVar                   <- factor(strataVar, levels = strataLevels)
@@ -277,8 +242,8 @@ CreateCatTable <- function(vars,                    # vector of characters
                           FUN = function(xtabs) {
                               ## Perform tests and return the result as 1x2 DF
                               data.frame(
-                                  pApprox = tryTestApprox(xtabs),
-                                  pExact  = tryTestExact(xtabs)
+                                  pApprox = ModuleTestSafe(xtabs, testApprox),
+                                  pExact  = ModuleTestSafe(xtabs, testExact)
                                   )
                           },
                           simplify = FALSE)        
