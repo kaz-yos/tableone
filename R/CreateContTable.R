@@ -27,7 +27,7 @@
 ##' tests. The default is \code{\link{oneway.test}}. This is equivalent of the t-test when there are only two groups.
 ##' @param argsNormal A named list of arguments passed to the function specified in \code{testNormal}. The default is \code{list(var.equal = TRUE)}, which makes it the ordinary ANOVA that assumes equal variance across groups.
 ##' @param testNonNormal A function used to perform the nonparametric tests.
-##' The default is kruskal.test (Kruskal-Wallis Rank Sum Test). This is
+##' The default is \code{kruskal.test} (Kruskal-Wallis Rank Sum Test). This is
 ##' equivalent of the wilcox.test (Man-Whitney U test) when there are only two
 ##' groups.
 ##' @param argsNonNormal A named list of arguments passed to the function specified in \code{testNonNormal}. The default is \code{list(NULL)}, which is just a placeholder. 
@@ -35,8 +35,10 @@
 ##' additional attributes. Each element of the \code{\link{by}} part is a matrix with rows
 ##' representing variables, and columns representing summary statistics.
 ##' @author Kazuki Yoshida
-##' @seealso \code{\link{print.ContTable}}, \code{\link{summary.ContTable}}, \code{\link{CreateCatTable}},
-##' \code{\link{print.CatTable}}, \code{\link{summary.CatTable}}
+##' @seealso
+##' \code{\link{CreateContTable}}, \code{\link{print.ContTable}}, \code{\link{summary.ContTable}},
+##' \code{\link{CreateCatTable}}, \code{\link{print.CatTable}}, \code{\link{summary.CatTable}},
+##' \code{\link{CreateTableOne}}, \code{\link{print.TableOne}}, \code{\link{summary.TableOne}}
 ##' @examples
 ##'
 ##' ## Load

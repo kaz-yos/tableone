@@ -11,8 +11,10 @@
 ##' @param ... For compatibility with generic. Ignored.
 ##' @return It will print the results.
 ##' @author Kazuki Yoshida
-##' @seealso \code{\link{CreateCatTable}}, \code{\link{print.CatTable}}, \code{\link{CreateContTable}},
-##' \code{\link{print.ContTable}}, \code{\link{summary.ContTable}}
+##' @seealso
+##' \code{\link{CreateCatTable}}, \code{\link{print.CatTable}}, \code{\link{summary.CatTable}},
+##' \code{\link{CreateContTable}}, \code{\link{print.ContTable}}, \code{\link{summary.ContTable}},
+##' \code{\link{CreateTableOne}}, \code{\link{print.TableOne}}, \code{\link{summary.TableOne}}
 ##' @examples
 ##'
 ##' ## Load

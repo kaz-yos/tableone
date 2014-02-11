@@ -12,8 +12,10 @@
 ##' @param ... For compatibility with generic. Ignored.
 ##' @return It will print the results.
 ##' @author Kazuki Yoshida
-##' @seealso \code{\link{CreateCatTable}}, \code{\link{print.CatTable}}, \code{\link{CreateContTable}},
-##' \code{\link{print.ContTable}}, \code{\link{summary.ContTable}}
+##' @seealso
+##' \code{\link{CreateTableOne}}, \code{\link{print.TableOne}}, \code{\link{summary.TableOne}},
+##' \code{\link{CreateContTable}}, \code{\link{print.ContTable}}, \code{\link{summary.ContTable}},
+##' \code{\link{CreateCatTable}}, \code{\link{print.CatTable}}, \code{\link{summary.CatTable}}
 ##' @examples
 ##'
 ##' ## Load
@@ -24,19 +26,6 @@
 ##' data(pbc)
 ##' ## Check variables
 ##' head(pbc)
-##'
-##' ## Create an overall table for categorical variables
-##' catVars <- c("status","ascites","hepato","spiders","edema","stage")
-##' catTableOverall <- CreateTableOne(vars = catVars, data = pbc)
-##'
-##' ## Simply typing the object name will invoke the print.TableOne method,
-##' ## which will show the sample size, frequencies and percentages.
-##' ## For 2-level variables, only the higher level is shown for simplicity.
-##' catTableOverall
-##'
-##' ## To further examine the variables, use the summary.TableOne method,
-##' ## which will show more details.
-##' summary(catTableOverall)
 ##'
 ##' @export
 summary.TableOne <- function(object, digits = 1, ...) {

@@ -27,8 +27,10 @@
 ##' additional attributes. Each element of the \code{\link{by}} part is a matrix with rows
 ##' representing variables, and columns representing summary statistics.
 ##' @author Kazuki Yoshida
-##' @seealso \code{\link{print.CatTable}}, \code{\link{summary.CatTable}}, \code{\link{CreateContTable}},
-##' \code{\link{print.ContTable}}, \code{\link{summary.ContTable}}
+##' @seealso
+##' \code{\link{CreateCatTable}}, \code{\link{print.CatTable}}, \code{\link{summary.CatTable}},
+##' \code{\link{CreateContTable}}, \code{\link{print.ContTable}}, \code{\link{summary.ContTable}},
+##' \code{\link{CreateTableOne}}, \code{\link{print.TableOne}}, \code{\link{summary.TableOne}}
 ##' @examples
 ##' 
 ##' ## Load

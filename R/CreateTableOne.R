@@ -16,15 +16,16 @@
 ##' @return An object of class \code{TableOne}, which really is a list of two \code{\link{by}} objects with
 ##' additional attributes. These correspond to structures holding results for 
 ##' @author Justin Bohn, Kazuki Yoshida
-##' @seealso \code{\link{CreateCatTable}}, \code{\link{print.CatTable}},
-##' \code{\link{summary.CatTable}}, \code{\link{CreateContTable}}, \code{\link{print.ContTable}},
-##' \code{\link{summary.ContTable}}
+##' @seealso
+##' \code{\link{CreateTableOne}}, \code{\link{print.TableOne}}, \code{\link{summary.TableOne}},
+##' \code{\link{CreateCatTable}}, \code{\link{print.CatTable}}, \code{\link{summary.CatTable}},
+##' \code{\link{CreateContTable}}, \code{\link{print.ContTable}}, \code{\link{summary.ContTable}}
 ##' @examples
 ##' library(tableone)
 ##' library(survival)
 ##' data(pbc)
 ##'
-## @export
+##' @export
 CreateTableOne <- function(vars, strata, data, ...) {
     
     ## get the classes of the variables
