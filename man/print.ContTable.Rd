@@ -4,7 +4,7 @@
 \usage{
 \method{print}{ContTable}(x, missing = FALSE, digits = 2,
   nonnormal = NULL, quote = FALSE, test = TRUE, pDigits = 3,
-  explain = TRUE, ...)
+  explain = TRUE, printToggle = TRUE, ...)
 }
 \arguments{
   \item{x}{The result of a call to the
@@ -34,6 +34,9 @@
   \item{explain}{Whether to add explanation to the variable
   names, i.e., (mean (sd) or median [IQR]) is added to the
   variable names.}
+
+  \item{printToggle}{Whether to print the output. If FLASE,
+  no output is created, and a matrix is invisibly returned}
 
   \item{...}{For compatibility with generic. Ignored.}
 }

@@ -27,6 +27,8 @@
 ##' @param CrossTable Whether to show the cross table objects held internally
 ##' using gmodels::CrossTable function. This will give an output similar to the
 ##' PROC FREQ in SAS.
+##' @param printToggle Whether to print the output. If FLASE, no output is
+##' created, and a matrix is invisibly returned.
 ##' @param ... For compatibility with generic. Ignored.
 ##' @return It is mainly for printing the result. But this function does return
 ##' a matrix containing what you see in the output invisibly. You can assign it

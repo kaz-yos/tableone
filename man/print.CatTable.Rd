@@ -5,7 +5,7 @@
 \method{print}{CatTable}(x, missing = FALSE, format = c("fp", "f", "p",
   "pf")[1], digits = 1, exact = NULL, quote = FALSE, test = TRUE,
   pDigits = 3, showAllLevels = FALSE, explain = TRUE,
-  CrossTable = FALSE, ...)
+  CrossTable = FALSE, printToggle = TRUE, ...)
 }
 \arguments{
   \item{x}{The result of a call to the
@@ -47,6 +47,9 @@
   \item{CrossTable}{Whether to show the cross table objects
   held internally using gmodels::CrossTable function. This
   will give an output similar to the PROC FREQ in SAS.}
+
+  \item{printToggle}{Whether to print the output. If FLASE,
+  no output is created, and a matrix is invisibly returned}
 
   \item{...}{For compatibility with generic. Ignored.}
 }
