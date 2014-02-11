@@ -87,7 +87,7 @@
 ##' print(catTableBySexTrt, exact = "ascites", quote = TRUE)
 ##' 
 ##' @S3method print CatTable
-##' @export print.CatTable
+##' @export
 print.CatTable <- function(x, missing = FALSE,
                            format = c("fp","f","p","pf")[1], # Format f_requency and/or p_ercent
                            digits = 1, exact = NULL, quote = FALSE,

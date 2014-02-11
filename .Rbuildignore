@@ -2,4 +2,5 @@
 .DS_Store
 README.md
 clean_comments.sh
-
+man_create.R
+man/Rd2roxygen.R

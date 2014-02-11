@@ -78,7 +78,7 @@
 ##' print(contTableBySexTrt, nonnormal = nonNormalVars, quote = TRUE)
 ##' 
 ##' @S3method print ContTable
-##' @export print.ContTable
+##' @export
 print.ContTable <- function(x, missing = FALSE,
                             digits = 2, nonnormal = NULL, quote = FALSE,
                             test = TRUE, pDigits = 3,
