@@ -107,46 +107,24 @@ CreateContTable <- function(vars,                         # vector of characters
     ## Require dependencies (DELETE before CRAN release. Use Depends in DESCRIPTION)
     ## require(e1071)      # for skewness and kurtosis
 
+### Data check
     ## Check if the data given is a dataframe
-    if (is.data.frame(data) == FALSE) {
-        stop("The data argument needs to be a data frame (no quote).")
-    }
-
+    ModuleStopIfNotDataFrame(data)
+    
     ## Check if variables exist. Drop them if not.
-    varsNotInData <- setdiff(vars, names(data))
-    if (length(varsNotInData) > 0) {
-        warning("The data frame does not have ",
-                paste0(varsNotInData, sep = " "), ". Dropping them.")
-        ## Only keep variables that exist
-        vars <- intersect(vars, names(data))
-    }
+    vars <- ModuleReturnVarsExist(vars, data)
 
     ## Abort if no variables exist at this point
-    if (length(vars) < 1) {stop("No valid variables.")}
+    ModuleStopIfNoVarsLeft(vars)
 
     ## Extract necessary variables
     dat <- data[c(vars)]
 
+    ## Toggle test FALSE if no strata
+    test <- ModuleReturnFalseIfNoStrata(strata, test)
 
-    ## Condition on the presence/absence of the strata
-    if(missing(strata)){
-        ## If there is no strata, give "Overall" to every subject
-        strata <- rep("Overall", dim(dat)[1])
-        ## test cannot be performed
-        test <- FALSE
-    } else {
-
-        ## Check presence of strata variables in the data frame (multivariable support)
-        presenceOfStrata <- strata %in% names(data)
-        strata <- strata[presenceOfStrata]
-
-        if (length(strata) == 0) {
-            stop("None of the stratifying variables are present in the data frame")
-        }
-
-        ## Extract the stratifying variables as a data frame (by() can use it directly)
-        strata <- data[c(strata)]
-    }
+    ## Create strata data frame (data frame with only strata variables)
+    strata <- ModuleReturnStrata(strata, data, dat)
 
 
     ## Handle non-numeric elements

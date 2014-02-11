@@ -91,23 +91,15 @@ CreateCatTable <- function(vars,                    # vector of characters
                            ) {
 
 ### Data check
-    ## Check if the data given is a dataframe.
-    if (is.data.frame(data) == FALSE) {
-        stop("The data argument needs to be a data frame (no quote).")
-    }
-
-    ## Check if variables exist in the data frame. If not, drop them.
-    varsNotInData <- setdiff(vars, names(data))
-    if (length(varsNotInData) > 0) {
-        warning("The data frame does not have ",
-                paste0(varsNotInData, sep = " "), ". Dropping them.")
-        ## Only keep variables that exist
-        vars <- intersect(vars, names(data))
-    }
+    ## Check if the data given is a dataframe
+    ModuleStopIfNotDataFrame(data)
+    
+    ## Check if variables exist. Drop them if not.
+    vars <- ModuleReturnVarsExist(vars, data)
 
     ## Abort if no variables exist at this point
-    if (length(vars) < 1) {stop("No valid variables.")}
-
+    ModuleStopIfNoVarsLeft(vars)
+    
     ## Extract necessary variables (unused variables are not included in dat)
     dat <- data[c(vars)]
 
@@ -116,62 +108,14 @@ CreateCatTable <- function(vars,                    # vector of characters
     datNotFactor <- sapply(dat, class) != "factor"
     dat[datNotFactor] <- lapply(dat[datNotFactor], factor)
 
+    ## Toggle test FALSE if no strata
+    test <- ModuleReturnFalseIfNoStrata(strata, test)
 
-    ## Condition on the presence/absence of the strata
-    if(missing(strata)){
-        ## If there is no strata, give "Overall" to every subject
-        strata <- rep("Overall", dim(dat)[1])                           # Check if dim(dat)[[1]] is correct.
-        ## test cannot be performed
-        test <- FALSE
-    } else {
-
-        ## Check presence of strata variables in the data frame  (multivariable support)
-        presenceOfStrata <- strata %in% names(data)
-        ## Delete variables that do not exist in the data frame
-        strata <- strata[presenceOfStrata]
-
-        if (length(strata) == 0) {
-            stop("None of the stratifying variables are present in the data frame")
-        }
-
-        ## Extract the stratifying variable vector (strata is a data frame)
-        strata <- data[c(strata)]
-    }
-
+    ## Create strata data frame (data frame with only strata variables)
+    strata <- ModuleReturnStrata(strata, data, dat)
 
 
 ### Perform descriptive analysis
-
-    ## Taken from Deducer::frequencies()
-    CreateTableForOneVar <- function(x) {
-
-        ## Create a one dimensional table (NA is intentionally dropped)
-        freqRaw          <- table(x)
-
-        ## Level names
-        freq <- data.frame(level = names(freqRaw))
-
-        ## Total n (duplicated as many times as there are levels)
-        freq$n <- length(x)
-
-        ## Total missing n (duplicated as many times as there are levels)
-        freq$miss        <- sum(is.na(x))
-
-        ## Category frequency
-        freq$freq        <- freqRaw
-
-        ## Category percent
-        freq$percent     <- freqRaw / sum(freqRaw) * 100
-
-        ## Category percent (cumulative)
-        freq$cum.percent <- cumsum(freqRaw) / sum(freqRaw) * 100
-
-        ## Reorder variables
-        freq <- freq[c("n","miss","level","freq","percent","cum.percent")]
-
-        ## Return result as a data frame
-        return(freq)
-    }
 
     ## strata--variable-CreateTableForOneVar structure
     ## Devide by strata
@@ -182,7 +126,7 @@ CreateCatTable <- function(vars,                    # vector of characters
 
                      ## Loop for variables
                      sapply(dfStrataDat,
-                            FUN = CreateTableForOneVar,
+                            FUN = ModuleCreateTableForOneVar,
                             simplify = FALSE)
 
                  }, simplify = FALSE)
