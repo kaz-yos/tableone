@@ -34,8 +34,8 @@
 ##' a matrix containing what you see in the output invisibly. You can assign it
 ##' to an object to save it.
 ##' @author Kazuki Yoshida
-##' @seealso CreateCatTable, summary.CatTable, CreateContTable,
-##' print.ContTable, summary.ContTable
+##' @seealso \code{\link{CreateCatTable}}, \code{\link{summary.CatTable}}, \code{\link{CreateContTable}},
+##' \code{\link{print.ContTable}}, \code{\link{summary.ContTable}}
 ##' @examples
 ##' 
 ##' ## Load

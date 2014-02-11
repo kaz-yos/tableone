@@ -28,7 +28,9 @@
 ##' @author Kazuki Yoshida, Justin Bohn
 ##' 
 ##' Maintainer: Kazuki Yoshida <kazukiyoshida@@mail.harvard.edu>
-## @seealso
+##' @seealso \code{\link{CreateCatTable}}, \code{\link{print.CatTable}},
+##' \code{\link{summary.CatTable}}, \code{\link{CreateContTable}}, \code{\link{print.ContTable}},
+##' \code{\link{summary.ContTable}}
 ## @references
 ## @keywords package
 ##' @examples

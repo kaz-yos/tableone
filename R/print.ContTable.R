@@ -26,8 +26,8 @@
 ##' a matrix containing what you see in the output invisibly. You can assign it
 ##' to an object to save it.
 ##' @author Kazuki Yoshida
-##' @seealso CreateContTable, summary.ContTable, CreateCatTable,
-##' print.CatTable, summary.CatTable
+##' @seealso \code{\link{CreateContTable}}, \code{\link{summary.ContTable}}, \code{\link{CreateCatTable}},
+##' \code{\link{print.CatTable}}, \code{\link{summary.CatTable}}
 ##' @examples
 ##'
 ##' ## Load

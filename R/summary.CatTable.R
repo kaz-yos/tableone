@@ -11,8 +11,8 @@
 ##' @param ... For compatibility with generic. Ignored.
 ##' @return It will print the results.
 ##' @author Kazuki Yoshida
-##' @seealso CreateCatTable, print.CatTable, CreateContTable, print.ContTable,
-##' summary.ContTable
+##' @seealso \code{\link{CreateCatTable}}, \code{\link{print.CatTable}}, \code{\link{CreateContTable}},
+##' \code{\link{print.ContTable}}, \code{\link{summary.ContTable
 ##' @examples
 ##'
 ##' ## Load
