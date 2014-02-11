@@ -1,9 +1,9 @@
 ##' Format and print the \code{ContTable} class objects
-##' 
+##'
 ##' This is the print method for the ContTable class objects created by
 ##' CreateContTable function.
-##' 
-##' 
+##'
+##'
 ##' @param x The result of a call to the \code{\link{CreateContTable}} function.
 ##' @param missing Whether to show missing data information (not implemented
 ##' yet, placeholder)
@@ -19,59 +19,61 @@
 ##' @param pDigits Number of digits to print for p-values.
 ##' @param explain Whether to add explanation to the variable names, i.e.,
 ##' (mean (sd) or median [IQR]) is added to the variable names.
+##' @param printToggle Whether to print the output. If FLASE, no output is
+##' created, and a matrix is invisibly returned.
 ##' @param ... For compatibility with generic. Ignored.
 ##' @return It is mainly for printing the result. But this function does return
 ##' a matrix containing what you see in the output invisibly. You can assign it
 ##' to an object to save it.
 ##' @author Kazuki Yoshida
-##' @seealso CreateContTable, summary.ContTable, CreateCatTable,
-##' print.CatTable, summary.CatTable
+##' @seealso \code{\link{CreateContTable}}, \code{\link{summary.ContTable}}, \code{\link{CreateCatTable}},
+##' \code{\link{print.CatTable}}, \code{\link{summary.CatTable}}
 ##' @examples
-##' 
+##'
 ##' ## Load
 ##' library(tableone)
-##' 
+##'
 ##' ## Load Mayo Clinic Primary Biliary Cirrhosis Data
 ##' library(survival)
 ##' data(pbc)
 ##' ## Check variables
 ##' head(pbc)
-##' 
+##'
 ##' ## Create an overall table for continuous variables
 ##' contVars <- c("time","age","bili","chol","albumin","copper",
 ##'               "alk.phos","ast","trig","platelet","protime")
 ##' contTableOverall <- CreateContTable(vars = contVars, data = pbc)
-##' 
+##'
 ##' ## Simply typing the object name will invoke the print.ContTable method,
 ##' ## which will show the sample size, means and standard deviations.
 ##' contTableOverall
-##' 
+##'
 ##' ## To further examine the variables, use the summary.ContTable method,
 ##' ## which will show more details.
 ##' summary(contTableOverall)
-##' 
+##'
 ##' ## c("age","chol","copper","alk.phos","trig","protime") appear highly skewed.
 ##' ## Specify them in the nonnormal argument, and the display changes to the median,
 ##' ## and the [25th, 75th] percentile.
 ##' nonNormalVars <- c("age","chol","copper","alk.phos","trig","protime")
 ##' print(contTableOverall, nonnormal = nonNormalVars)
-##' 
+##'
 ##' ## The table can be stratified by one or more variables
 ##' contTableBySexTrt <- CreateContTable(vars = contVars,
 ##'                                      strata = c("sex","trt"), data = pbc)
-##' 
+##'
 ##' ## print now includes p-values which are by default calculated by oneway.test (t-test
 ##' ## equivalent in the two group case). It is formatted at the decimal place specified
 ##' ## by the pDigits argument (3 by default). It does <0.001 for you.
 ##' contTableBySexTrt
-##' 
+##'
 ##' ## The nonnormal argument will toggle the p-values to the nonparametric result from
 ##' ## kruskal.test (wilcox.test equivalent for the two group case).
 ##' print(contTableBySexTrt, nonnormal = nonNormalVars)
-##' 
+##'
 ##' ## summary now includes both types of p-values
 ##' summary(contTableBySexTrt)
-##' 
+##'
 ##' ## If your work flow includes copying to Excel and Word when writing manuscripts,
 ##' ## you may benefit from the quote argument. This will quote everything so that
 ##' ## Excel does not mess up the cells.
@@ -81,11 +83,13 @@
 print.ContTable <- function(x, missing = FALSE,
                             digits = 2, nonnormal = NULL, quote = FALSE,
                             test = TRUE, pDigits = 3,
-                            explain = TRUE, ...) {
+                            explain = TRUE,
+                            printToggle = TRUE,
+                            ...) {
 
     ## x and ... required to be consistent with generic print(x, ...)
     ContTable <- x
-    
+
 ### Check data structure first
 
     ## ContTable is by() object
@@ -307,16 +311,10 @@ print.ContTable <- function(x, missing = FALSE,
         names(dimnames(out)) <- c("", strataString)
     }
 
-    ## Add quotes for names if requested
-    if (quote) {
-        rownames(out) <- paste0('"', rownames(out), '"')
-        colnames(out) <- paste0('"', colnames(out), '"')
-        names(dimnames(out)) <- paste0('"', names(dimnames(out)), '"')
-    }
+    
+    ## (module) Takes an matrix object format, print if requested
+    out <- ModuleQuoteAndPrintMat(matObj = out, quote = quote, printToggle = printToggle)
 
-    ## Print the results
-    print(out, quote = quote)
-
-    ## Return invisibly
+    ## return a matrix invisibly
     return(invisible(out))
 }

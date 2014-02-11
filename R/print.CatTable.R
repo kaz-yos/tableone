@@ -27,13 +27,15 @@
 ##' @param CrossTable Whether to show the cross table objects held internally
 ##' using gmodels::CrossTable function. This will give an output similar to the
 ##' PROC FREQ in SAS.
+##' @param printToggle Whether to print the output. If FLASE, no output is
+##' created, and a matrix is invisibly returned.
 ##' @param ... For compatibility with generic. Ignored.
 ##' @return It is mainly for printing the result. But this function does return
 ##' a matrix containing what you see in the output invisibly. You can assign it
 ##' to an object to save it.
 ##' @author Kazuki Yoshida
-##' @seealso CreateCatTable, summary.CatTable, CreateContTable,
-##' print.ContTable, summary.ContTable
+##' @seealso \code{\link{CreateCatTable}}, \code{\link{summary.CatTable}}, \code{\link{CreateContTable}},
+##' \code{\link{print.ContTable}}, \code{\link{summary.ContTable}}
 ##' @examples
 ##' 
 ##' ## Load
@@ -93,7 +95,9 @@ print.CatTable <- function(x, missing = FALSE,
                            test = TRUE, pDigits = 3,
                            showAllLevels = FALSE,
                            explain = TRUE,
-                           CrossTable = FALSE, ...) {
+                           CrossTable = FALSE,
+                           printToggle = TRUE,
+                           ...) {
 
     ## x and ... required to be consistent with generic print(x, ...)
     CatTable <- x
@@ -421,25 +425,16 @@ print.CatTable <- function(x, missing = FALSE,
         names(dimnames(out)) <- c("", strataString)
     }
 
-    ## Add quotes for names if requested
-    if (quote) {
-        rownames(out) <- paste0('"', rownames(out), '"')
-        colnames(out) <- paste0('"', colnames(out), '"')
-        names(dimnames(out)) <- paste0('"', names(dimnames(out)), '"')
-    }
-
-    ## Print the results
-    print(out, quote = quote)
+    
+    ## Modular version of quote/print toggle.
+    out <- ModuleQuoteAndPrintMat(matObj = out, quote = quote, printToggle = printToggle)
 
     ## Print CrossTable() if requested
     if (CrossTable) {
 
-        ## DELETE before CRAN release (Use Depends in DESCRIPTION instead)
-        ## require(gmodels)
-
         junk <- lapply(attributes(CatTable)$xtabs, CrossTable)
     }
 
-    ## Return invisibly
+    ## return a matrix invisibly
     return(invisible(out))
 }
