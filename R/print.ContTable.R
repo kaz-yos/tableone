@@ -81,7 +81,9 @@
 print.ContTable <- function(x, missing = FALSE,
                             digits = 2, nonnormal = NULL, quote = FALSE,
                             test = TRUE, pDigits = 3,
-                            explain = TRUE, ...) {
+                            explain = TRUE,
+                            printToggle = TRUE,
+                            ...) {
 
     ## x and ... required to be consistent with generic print(x, ...)
     ContTable <- x
@@ -307,6 +309,10 @@ print.ContTable <- function(x, missing = FALSE,
         names(dimnames(out)) <- c("", strataString)
     }
 
-    ## (module) Takes an matrix object format, print, and invisibly return it
-    ModuleQuoteAndPrintMat(matObj = out, quote = quote)
+    
+    ## (module) Takes an matrix object format, print if requested
+    out <- ModuleQuoteAndPrintMat(matObj = out, quote = quote, printToggle = printToggle)
+
+    ## return a matrix invisibly
+    return(invisible(out))
 }
