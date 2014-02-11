@@ -37,8 +37,7 @@
 ##' ## which will show more details.
 ##' summary(contTableOverall)
 ##'
-##' @S3method summary ContTable
-##' @export summary.ContTable
+##' @export
 summary.ContTable <- function(object, digits = 2, ...) {
 
     ## Just call print.by

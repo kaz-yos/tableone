@@ -81,7 +81,7 @@
 ##' ## Excel does not mess up the cells.
 ##' print(catTableBySexTrt, exact = "ascites", quote = TRUE)
 ##' 
-##' @export CreateCatTable
+##' @export
 CreateCatTable <- function(vars,                    # vector of characters
                            strata,                  # single element character vector
                            data,                    # data frame

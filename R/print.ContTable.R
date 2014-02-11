@@ -76,9 +76,8 @@
 ##' ## you may benefit from the quote argument. This will quote everything so that
 ##' ## Excel does not mess up the cells.
 ##' print(contTableBySexTrt, nonnormal = nonNormalVars, quote = TRUE)
-##'
-##' @S3method print ContTable
-##' @export print.ContTable
+##' 
+##' @export
 print.ContTable <- function(x, missing = FALSE,
                             digits = 2, nonnormal = NULL, quote = FALSE,
                             test = TRUE, pDigits = 3,

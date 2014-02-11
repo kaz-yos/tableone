@@ -85,9 +85,14 @@
 ##' ## you may benefit from the quote argument. This will quote everything so that
 ##' ## Excel does not mess up the cells.
 ##' print(catTableBySexTrt, exact = "ascites", quote = TRUE)
+<<<<<<< HEAD
 ##'
 ##' @S3method print CatTable
 ##' @export print.CatTable
+=======
+##' 
+##' @export
+>>>>>>> origin-master
 print.CatTable <- function(x, missing = FALSE,
                            format = c("fp","f","p","pf")[1], # Format f_requency and/or p_ercent
                            digits = 1, exact = NULL, quote = FALSE,

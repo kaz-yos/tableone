@@ -88,7 +88,7 @@
 ##' ## Excel does not mess up the cells.
 ##' print(contTableBySexTrt, nonnormal = nonNormalVars, quote = TRUE)
 ##' 
-##' @export CreateContTable
+##' @export
 CreateContTable <- function(vars,                         # vector of characters
                             strata,                       # single element character vector
                             data,                         # data frame

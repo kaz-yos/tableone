@@ -41,7 +41,7 @@
 ##' ## Show with quote to ease copy and paste
 ##' ShowRegTable(objCoxph, quote = TRUE)
 ##' 
-##' @export ShowRegTable
+##' @export
 ShowRegTable <- function(model, exp = TRUE, digits = 2, pDigits = 3, quote = FALSE) {
 
     ## Create formats
