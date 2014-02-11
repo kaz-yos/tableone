@@ -1,13 +1,19 @@
-\.git/*
+## Avoid Mac files
 .DS_Store
 
-## Avoid 
+## Avoid git(hub) related
+\.git/*
 README.md
+
+## Avoid these temporary scripts
 clean_comments.sh
 man_create.R
 man/Rd2roxygen.R
 
 ## Exclude TableOne related functions
+R/CreateTableOne.R
+R/summary.TableOne.R
+R/print.TableOne.R
 man/CreateTableOne.Rd
 man/summary.TableOne.Rd
 man/print.TableOne.Rd
