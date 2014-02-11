@@ -7,6 +7,98 @@
 
 ### Modules intended for the constructors
 ################################################################################
+ModuleStopIfNotDataFrame <- function(data) {
+
+    if (is.data.frame(data) == FALSE) {
+        stop("The data argument needs to be a data frame (no quote).")
+    }
+}
+## Extract variables that exist in the data frame
+ModuleReturnVarsExist <- function(vars, data) {
+    
+    ## Check if variables exist. Drop them if not.
+    varsNotInData <- setdiff(vars, names(data))
+    
+    if (length(varsNotInData) > 0) {
+        warning("The data frame does not have ",
+                paste0(varsNotInData, sep = " "), " Dropped")
+        ## Only keep variables that exist
+        vars <- intersect(vars, names(data))
+    }
+    ## Return existing variables
+    return(vars)
+}
+## Stop if not vars are left
+ModuleStopIfNoVarsLeft <- function(vars) {
+    if (length(vars) < 1) {stop("No valid variables.")}
+}
+##
+ModuleReturnFalseIfNoStrata <- function(strata, test) { # Give strata variable names
+
+    if(missing(strata)){
+        ## test cannot be performed if no strata
+        test <- FALSE
+    }
+    return(test)
+}
+## Check statra variables and conditionally create
+ModuleReturnStrata <- function(strata, data, dat) {     # Give strata variable names
+    
+    if(missing(strata)){
+        ## If there is no strata, give "Overall" to every subject
+        strata <- rep("Overall", dim(dat)[1])                           # Check if dim(dat)[[1]] is correct.
+    } else {
+
+        ## Check presence of strata variables in the data frame  (multivariable support)
+        presenceOfStrata <- strata %in% names(data)
+        ## Delete variables that do not exist in the data frame
+        strata <- strata[presenceOfStrata]
+
+        if (length(strata) == 0) {
+            stop("None of the stratifying variables are present in the data frame")
+        }
+
+        ## Extract the stratifying variable vector (strata is a data frame)
+        strata <- data[c(strata)]
+    }
+
+    ## return DF with strata variable(s)
+    return(strata)
+}
+## Module to create a table for one categorical variable
+## Taken from Deducer::frequencies()
+ModuleCreateTableForOneVar <- function(x) { # Give a vector
+
+    ## Create a one dimensional table (NA is intentionally dropped)
+    freqRaw          <- table(x)
+
+    ## Level names
+    freq <- data.frame(level = names(freqRaw))
+
+    ## Total n (duplicated as many times as there are levels)
+    freq$n <- length(x)
+
+    ## Total missing n (duplicated as many times as there are levels)
+    freq$miss        <- sum(is.na(x))
+
+    ## Category frequency
+    freq$freq        <- freqRaw
+
+    ## Category percent
+    freq$percent     <- freqRaw / sum(freqRaw) * 100
+
+    ## Category percent (cumulative)
+    freq$cum.percent <- cumsum(freqRaw) / sum(freqRaw) * 100
+
+    ## Reorder variables
+    freq <- freq[c("n","miss","level","freq","percent","cum.percent")]
+
+    ## Return result as a data frame
+    return(freq)
+}
+
+
+
 ## Create StrataVarName from multiple dimension headers
 ModuleCreateStrataVarName <- function(obj) {
     ## Combine variable names with : in between
