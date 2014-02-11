@@ -17,7 +17,7 @@ library(devtools)
 ### Prepare docs
 ################################################################################
 
-## Create .Rd
+## Create .Rd (clean = TRUE erase non-.Rd files!)
 devtools::document("~/Documents/statistics/package_development/tableone/")
 ## Check
 devtools::check_doc("~/Documents/statistics/package_development/tableone/")

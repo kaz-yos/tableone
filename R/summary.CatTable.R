@@ -37,7 +37,6 @@
 ##' ## which will show more details.
 ##' summary(catTableOverall)
 ##'
-##' @S3method summary CatTable
 ##' @export
 summary.CatTable <- function(object, digits = 1, ...) {
 
