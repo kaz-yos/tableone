@@ -1,3 +1,27 @@
+tableone 0.1.3 (not released yet)
+----------------------------------------------------------------
+NEW FEATURES
+
+* The print method can suppress printing by printToggle option.
+
+* (CreateTableOne and related print and summary methods are introduced).
+
+BUG FIXES
+
+* In the Roxygen part of the code, only at_export followed by nothing is used.
+
+
+tableone 0.1.2
+----------------------------------------------------------------
+BUG FIXES
+
+* Fixed incorrect specification of S3 method export.
+
+* To make an object an S3 method and export it both at_S3method and at_export tags are needed in the Roxygen part of the code.
+
+* Passed all the default tests by R CMD check file.tar.gz
+
+
 tableone 0.1.1
 ----------------------------------------------------------------
 BUG FIXES

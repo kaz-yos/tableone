@@ -1,6 +1,13 @@
 \.git/*
 .DS_Store
+
+## Avoid 
 README.md
 clean_comments.sh
 man_create.R
 man/Rd2roxygen.R
+
+## Exclude TableOne related functions
+man/CreateTableOne.Rd
+man/summary.TableOne.Rd
+man/print.TableOne.Rd
