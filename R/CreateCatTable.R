@@ -15,12 +15,14 @@
 ##' sample approximation and exact tests are performed. Either one of the
 ##' result can be obtained from the print method.
 ##' @param testApprox A function used to perform the large sample approximation
-##' based tests. The default is chisq.test. This is not recommended when some
+##' based tests. The default is \code{\link{chisq.test}}. This is not recommended when some
 ##' of the cell have small counts like fewer than 5.
+##' @param argsApprox A named list of arguments passed to the function specified in testApprox. The default is \code{list(correct = TRUE)}, which turns on the continuity correction for \code{\link{chisq.test}}.
 ##' @param testExact A function used to perform the exact tests. The default is
 ##' fisher.test. If the cells have large numbers, it will fail because of
 ##' memory limitation. In this situation, the large sample approximation based
 ##' should suffice.
+##' @param argsExact A named list of arguments passed to the function specified in testExact. The default is \code{list(workspace = 2*10^5)}, which specifies the memory space allocated for \code{\link{fisher.test}}.
 ##' @return An object of class \code{CatTable}, which really is a \code{\link{by}} object with
 ##' additional attributes. Each element of the \code{\link{by}} part is a matrix with rows
 ##' representing variables, and columns representing summary statistics.
@@ -82,13 +84,16 @@
 ##' print(catTableBySexTrt, exact = "ascites", quote = TRUE)
 ##' 
 ##' @export
-CreateCatTable <- function(vars,                    # vector of characters
-                           strata,                  # single element character vector
-                           data,                    # data frame
-                           test  = TRUE,            # Whether to put p-values
-                           testApprox = chisq.test, # approximation test
-                           testExact  = fisher.test # exact test
-                           ) {
+CreateCatTable <-
+    function(vars,                                 # character vector of variable names
+             strata,                               # character vector of variable names
+             data,                                 # data frame
+             test  = TRUE,                         # whether to put p-values
+             testApprox = chisq.test,              # function for approximation test
+             argsApprox = list(correct = TRUE),   # arguments passed to testApprox
+             testExact  = fisher.test,             # function for exact test
+             argsExact  = list(workspace = 2*10^5) # arguments passed to testExact
+             ) {
 
 ### Data check
     ## Check if the data given is a dataframe
@@ -186,8 +191,8 @@ CreateCatTable <- function(vars,                    # vector of characters
                           FUN = function(xtabs) {
                               ## Perform tests and return the result as 1x2 DF
                               data.frame(
-                                  pApprox = ModuleTestSafe(xtabs, testApprox),
-                                  pExact  = ModuleTestSafe(xtabs, testExact)
+                                  pApprox = ModuleTestSafe(xtabs, testApprox, argsApprox),
+                                  pExact  = ModuleTestSafe(xtabs, testExact,  argsExact)
                                   )
                           },
                           simplify = FALSE)        

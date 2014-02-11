@@ -97,8 +97,6 @@ ModuleCreateTableForOneVar <- function(x) { # Give a vector
     return(freq)
 }
 
-
-
 ## Create StrataVarName from multiple dimension headers
 ModuleCreateStrataVarName <- function(obj) {
     ## Combine variable names with : in between
@@ -121,9 +119,9 @@ tryCatch.W.E <- function(expr) {
 ## Function to perform non-failing tests (obj should be xtabs or formula)
 ## Function has to have $p.value element
 ## Consider additional options by do.call()
-ModuleTestSafe <- function(obj, testFunction) {
+ModuleTestSafe <- function(obj, testFunction, testArgs = NULL) {
 
-    out <- tryCatch.W.E(testFunction(obj)$p.value)
+    out <- tryCatch.W.E(do.call(testFunction, args = c(list(obj), testArgs))$p.value)
     ## If it returns a numeric value, return it. Otherwise, return NA.
     ifelse(is.numeric(out$value), out$value, NA)
 }
