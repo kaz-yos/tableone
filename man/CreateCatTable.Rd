@@ -3,7 +3,8 @@
 \title{Create an object summarizing categorical variables}
 \usage{
 CreateCatTable(vars, strata, data, test = TRUE, testApprox = chisq.test,
-  testExact = fisher.test)
+  argsApprox = list(correct = TRUE), testExact = fisher.test,
+  argsExact = list(workspace = 2 * 10^5))
 }
 \arguments{
   \item{vars}{Variable(s) to be summarized given as a
@@ -25,14 +26,24 @@ CreateCatTable(vars, strata, data, test = TRUE, testApprox = chisq.test,
 
   \item{testApprox}{A function used to perform the large
   sample approximation based tests. The default is
-  chisq.test. This is not recommended when some of the cell
-  have small counts like fewer than 5.}
+  \code{\link{chisq.test}}. This is not recommended when
+  some of the cell have small counts like fewer than 5.}
+
+  \item{argsApprox}{A named list of arguments passed to the
+  function specified in testApprox. The default is
+  \code{list(correct = TRUE)}, which turns on the
+  continuity correction for \code{\link{chisq.test}}.}
 
   \item{testExact}{A function used to perform the exact
   tests. The default is fisher.test. If the cells have
   large numbers, it will fail because of memory limitation.
   In this situation, the large sample approximation based
   should suffice.}
+
+  \item{argsExact}{A named list of arguments passed to the
+  function specified in testExact. The default is
+  \code{list(workspace = 2*10^5)}, which specifies the
+  memory space allocated for \code{\link{fisher.test}}.}
 }
 \value{
 An object of class \code{CatTable}, which really is a
@@ -106,10 +117,12 @@ print(catTableBySexTrt, exact = "ascites", quote = TRUE)
 Kazuki Yoshida
 }
 \seealso{
-\code{\link{print.CatTable}},
+\code{\link{CreateCatTable}}, \code{\link{print.CatTable}},
 \code{\link{summary.CatTable}},
 \code{\link{CreateContTable}},
 \code{\link{print.ContTable}},
-\code{\link{summary.ContTable}}
+\code{\link{summary.ContTable}},
+\code{\link{CreateTableOne}}, \code{\link{print.TableOne}},
+\code{\link{summary.TableOne}}
 }
 

@@ -36,7 +36,8 @@
   variable names.}
 
   \item{printToggle}{Whether to print the output. If FLASE,
-  no output is created, and a matrix is invisibly returned}
+  no output is created, and a matrix is invisibly
+  returned.}
 
   \item{...}{For compatibility with generic. Ignored.}
 }
@@ -103,7 +104,12 @@ print(contTableBySexTrt, nonnormal = nonNormalVars, quote = TRUE)
 Kazuki Yoshida
 }
 \seealso{
-CreateContTable, summary.ContTable, CreateCatTable,
-print.CatTable, summary.CatTable
+\code{\link{CreateCatTable}}, \code{\link{print.CatTable}},
+\code{\link{summary.CatTable}},
+\code{\link{CreateContTable}},
+\code{\link{print.ContTable}},
+\code{\link{summary.ContTable}},
+\code{\link{CreateTableOne}}, \code{\link{print.TableOne}},
+\code{\link{summary.TableOne}}
 }
 

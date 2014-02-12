@@ -1,0 +1,47 @@
+\name{summary.TableOne}
+\alias{summary.TableOne}
+\title{Shows all results in a \code{TableOne} class object}
+\usage{
+\method{summary}{TableOne}(object, digits = 1, ...)
+}
+\arguments{
+  \item{object}{An object that has the \code{CatTable}
+  class to be shown.}
+
+  \item{digits}{Number of digits to print.}
+
+  \item{...}{For compatibility with generic. Ignored.}
+}
+\value{
+It will print the results.
+}
+\description{
+This method shows all the data a CatTable class object has.
+This includes the (optionally stratified) part with summary
+statistics and p-values from the approximation method test
+(chisq.test by default) and exact method test (fisher.test
+by default).
+}
+\examples{
+## Load
+library(tableone)
+
+## Load Mayo Clinic Primary Biliary Cirrhosis Data
+library(survival)
+data(pbc)
+## Check variables
+head(pbc)
+}
+\author{
+Kazuki Yoshida
+}
+\seealso{
+\code{\link{CreateTableOne}}, \code{\link{print.TableOne}},
+\code{\link{summary.TableOne}},
+\code{\link{CreateContTable}},
+\code{\link{print.ContTable}},
+\code{\link{summary.ContTable}},
+\code{\link{CreateCatTable}}, \code{\link{print.CatTable}},
+\code{\link{summary.CatTable}}
+}
+

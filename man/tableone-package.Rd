@@ -66,4 +66,13 @@ Kazuki Yoshida, Justin Bohn
 
 Maintainer: Kazuki Yoshida <kazukiyoshida@mail.harvard.edu>
 }
+\seealso{
+\code{\link{CreateTableOne}}, \code{\link{print.TableOne}},
+\code{\link{summary.TableOne}},
+\code{\link{CreateContTable}},
+\code{\link{print.ContTable}},
+\code{\link{summary.ContTable}},
+\code{\link{CreateCatTable}}, \code{\link{print.CatTable}},
+\code{\link{summary.CatTable}}, \code{\link{ShowRegTable}}
+}
 

@@ -49,7 +49,12 @@ summary(contTableOverall)
 Kazuki Yoshida
 }
 \seealso{
-CreateContTable, print.ContTable, CreateCatTable,
-print.CatTable, summary.CatTable
+\code{\link{CreateContTable}},
+\code{\link{print.ContTable}},
+\code{\link{summary.ContTable}},
+\code{\link{CreateCatTable}}, \code{\link{print.CatTable}},
+\code{\link{summary.CatTable}},
+\code{\link{CreateTableOne}}, \code{\link{print.TableOne}},
+\code{\link{summary.TableOne}}
 }
 

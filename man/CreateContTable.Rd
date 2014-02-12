@@ -4,7 +4,8 @@
 \usage{
 CreateContTable(vars, strata, data, func.names = c("n", "miss", "mean", "sd",
   "median", "p25", "p75", "min", "max", "skew", "kurt"), func.additional,
-  test = TRUE, testNormal = oneway.test, testNonNormal = kruskal.test)
+  test = TRUE, testNormal = oneway.test, argsNormal = list(var.equal =
+  TRUE), testNonNormal = kruskal.test, argsNonNormal = list(NULL))
 }
 \arguments{
   \item{vars}{Variable(s) to be summarized given as a
@@ -37,15 +38,26 @@ CreateContTable(vars, strata, data, func.names = c("n", "miss", "mean", "sd",
   from the print method.}
 
   \item{testNormal}{A function used to perform the normal
-  assumption based tests. The default is oneway.test. This
-  is equivalent of the t-test with unequal variance when
-  there are only two groups.}
+  assumption based tests. The default is
+  \code{\link{oneway.test}}. This is equivalent of the
+  t-test when there are only two groups.}
+
+  \item{argsNormal}{A named list of arguments passed to the
+  function specified in \code{testNormal}. The default is
+  \code{list(var.equal = TRUE)}, which makes it the
+  ordinary ANOVA that assumes equal variance across
+  groups.}
 
   \item{testNonNormal}{A function used to perform the
-  nonparametric tests. The default is kruskal.test
+  nonparametric tests. The default is \code{kruskal.test}
   (Kruskal-Wallis Rank Sum Test). This is equivalent of the
   wilcox.test (Man-Whitney U test) when there are only two
   groups.}
+
+  \item{argsNonNormal}{A named list of arguments passed to
+  the function specified in \code{testNonNormal}. The
+  default is \code{list(NULL)}, which is just a
+  placeholder.}
 }
 \value{
 An object of class \code{ContTable}, which really is a
@@ -117,9 +129,12 @@ print(contTableBySexTrt, nonnormal = nonNormalVars, quote = TRUE)
 Kazuki Yoshida
 }
 \seealso{
+\code{\link{CreateContTable}},
 \code{\link{print.ContTable}},
 \code{\link{summary.ContTable}},
 \code{\link{CreateCatTable}}, \code{\link{print.CatTable}},
-\code{\link{summary.CatTable}}
+\code{\link{summary.CatTable}},
+\code{\link{CreateTableOne}}, \code{\link{print.TableOne}},
+\code{\link{summary.TableOne}}
 }
 
