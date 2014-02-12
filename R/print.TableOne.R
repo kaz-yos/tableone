@@ -1,11 +1,11 @@
 ### Place holder empty
 
 ##' Format and print the \code{TableOne} class objects
-##' 
+##'
 ##' This is the print method for the TableOne class objects created by
 ##' CreateTableOne function.
-##' 
-##' 
+##'
+##'
 ##' @param x The result of a call to the \code{\link{CreateTableOne}} function.
 ##' @param missing Whether to show missing data information (not implemented
 ##' yet, placeholder)
@@ -31,29 +31,62 @@
 ##' \code{\link{CreateCatTable}}, \code{\link{print.CatTable}}, \code{\link{summary.CatTable}},
 ##' \code{\link{CreateContTable}}, \code{\link{print.ContTable}}, \code{\link{summary.ContTable}}
 ##' @examples
-##' 
+##'
 ##' ## Load
 ##' library(tableone)
-##' 
+##'
 ##' ## Load Mayo Clinic Primary Biliary Cirrhosis Data
 ##' library(survival)
 ##' data(pbc)
 ##' ## Check variables
 ##' head(pbc)
-##' 
-##' 
+##'
+##'
 ##' @export
 print.TableOne <- function(x, missing = FALSE,
                            quote = FALSE,
                            test = TRUE, pDigits = 3,
+
+                           ## Categorical options
+                           exact = NULL,
+                           format = c("fp","f","p","pf")[1], # Format f_requency and/or p_ercent
                            showAllLevels = FALSE,
+
+                           ## Continuous options
+                           nonnormal = NULL,
+
+                           ## Common options
                            explain = TRUE,
                            printToggle = TRUE,
                            ...) {
 
-    ## x and ... required to be consistent with generic print(x, ...)
-    TableOne <- x
-    
-    ## return a matrix invisibly
-    ## return(invisible(out))
+    ## first some prep (convert to matrix)
+    ## is there a better way to retrieve the matrix format than below?
+    ## this way works, but you can't suppress the printing
+
+    matCatTable  <- print(CatTable,
+                          test = test, pDigits = pDigits,
+                          ## Categorical options
+                          exact = exact,
+                          format = format,
+                          showAllLevels = showAllLevels,
+                          ## Common options
+                          explain = explain,
+                          printToggle = FALSE) # Turn off printing, and return values
+
+    matContTable <- print(ContTable,
+                          test = test, pDigits = pDigits,
+                          ## Continuous options
+                          nonnormal = NULL,
+                          ## Common options
+                          explain = explain,
+                          printToggle = FALSE) # Turn off printing, and return values
+
+
+    ## rbind and delete the duplicated row
+    matCatContTable <- rbind(matCatTable,
+                             matContTable[, -1, drop = FALSE]) # Drop n row
+
+    ##
+    return(matCatContTable)
 }

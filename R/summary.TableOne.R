@@ -31,20 +31,13 @@
 summary.TableOne <- function(object, digits = 1, ...) {
 
     ## object and ... required to be consistent with generic summary(object, ...)
-    TableOne <- object
+    listCatContTables <- object
 
-    ## Create format
-    fmt <- paste0("%.", digits, "f")
-
-    ## Restore the dimnames through attributes()
-    attributes(TableOneCollapsed) <- c(attributes(TableOneCollapsed), attributes(TableOne))
-
-    ## Print forcing the print.by method. Do not show row names.
-    print.by(TableOneCollapsed, digits = digits, row.names = FALSE)
-
-    ## Print p-values if it exist
-    if (!is.null(attributes(TableOne)$pValues)) {
-        cat("\np-values\n")
-        print(attributes(TableOne)$pValues)
-    }
+    ## Categorical
+    cat("Summary of categorical variables.\n\n")
+    summary(listCatContTables$CatTable, digits = digits)
+    
+    ## Continuous
+    cat("Summary of continuous variables.\n\n")    
+    summary(listCatContTables$CatTable, digits = digits)    
 }
