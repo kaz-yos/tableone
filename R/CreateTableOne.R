@@ -67,11 +67,11 @@ CreateTableOne <-
     ## Condition on the absence of
     if(length(varFactors) == 0) {
         cat('NOTE: no factor variables supplied, using CreateContTable()\n')
-        CreateContTable(vars = numerics, strata = strata, data = data, ...)
+        CreateContTable(vars = varNumerics, strata = strata, data = data)
     }
     if(length(varNumerics) == 0) {
         cat('NOTE: no numeric/integer variables supplied, using CreateCatTable()\n')
-        CreateCatTable(vars = factors, strata = strata, data = data, ...)
+        CreateCatTable(vars = varFactors, strata = strata, data = data)
     }
 
     ## Create the table for categorical variables

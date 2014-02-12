@@ -1,4 +1,3 @@
-### Placeholder
 ##' Shows all results in a \code{TableOne} class object
 ##'
 ##' This method shows all the data a CatTable class object has. This includes
@@ -33,11 +32,14 @@ summary.TableOne <- function(object, digits = 1, ...) {
     ## object and ... required to be consistent with generic summary(object, ...)
     listCatContTables <- object
 
-    ## Categorical
-    cat("Summary of categorical variables.\n\n")
+    ## Categorical    
+    cat("\nSummary of categorical variables.\n\n")
     summary(listCatContTables$CatTable, digits = digits)
+
+    ## Separator
+    cat("\n=======================================================================================\n")
     
     ## Continuous
-    cat("Summary of continuous variables.\n\n")    
-    summary(listCatContTables$CatTable, digits = digits)    
+    cat("\nSummary of continuous variables.\n\n")    
+    summary(listCatContTables$ContTable, digits = digits)    
 }

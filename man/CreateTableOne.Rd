@@ -2,7 +2,11 @@
 \alias{CreateTableOne}
 \title{Create an object|output summarizing both categorical and continuous variables}
 \usage{
-CreateTableOne(vars, strata, data, ...)
+CreateTableOne(vars, strata, data, test = TRUE, testApprox = chisq.test,
+  argsApprox = list(correct = TRUE), testExact = fisher.test,
+  argsExact = list(workspace = 2 * 10^5), testNormal = oneway.test,
+  argsNormal = list(var.equal = TRUE), testNonNormal = kruskal.test,
+  argsNonNormal = list(NULL))
 }
 \arguments{
   \item{vars}{Variables to be summarized given as a
@@ -18,8 +22,51 @@ CreateTableOne(vars, strata, data, ...)
   All variables (both vars and strata) must be in this data
   frame.}
 
-  \item{...}{placeholder for now (FIX: common to both types
-  of variables)}
+  \item{test}{If TRUE, as in the default and there are more
+  than two groups, groupwise comparisons are performed.}
+
+  \item{testNormal}{A function used to perform the normal
+  assumption based tests. The default is
+  \code{\link{oneway.test}}. This is equivalent of the
+  t-test when there are only two groups.}
+
+  \item{argsNormal}{A named list of arguments passed to the
+  function specified in \code{testNormal}. The default is
+  \code{list(var.equal = TRUE)}, which makes it the
+  ordinary ANOVA that assumes equal variance across
+  groups.}
+
+  \item{testNonNormal}{A function used to perform the
+  nonparametric tests. The default is \code{kruskal.test}
+  (Kruskal-Wallis Rank Sum Test). This is equivalent of the
+  wilcox.test (Man-Whitney U test) when there are only two
+  groups.}
+
+  \item{argsNonNormal}{A named list of arguments passed to
+  the function specified in \code{testNonNormal}. The
+  default is \code{list(NULL)}, which is just a
+  placeholder.}
+
+  \item{testApprox}{A function used to perform the large
+  sample approximation based tests. The default is
+  \code{\link{chisq.test}}. This is not recommended when
+  some of the cell have small counts like fewer than 5.}
+
+  \item{argsApprox}{A named list of arguments passed to the
+  function specified in testApprox. The default is
+  \code{list(correct = TRUE)}, which turns on the
+  continuity correction for \code{\link{chisq.test}}.}
+
+  \item{testExact}{A function used to perform the exact
+  tests. The default is fisher.test. If the cells have
+  large numbers, it will fail because of memory limitation.
+  In this situation, the large sample approximation based
+  should suffice.}
+
+  \item{argsExact}{A named list of arguments passed to the
+  function specified in testExact. The default is
+  \code{list(workspace = 2*10^5)}, which specifies the
+  memory space allocated for \code{\link{fisher.test}}.}
 }
 \value{
 An object of class \code{TableOne}, which really is a list

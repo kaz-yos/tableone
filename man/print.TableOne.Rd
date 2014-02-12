@@ -3,7 +3,8 @@
 \title{Format and print the \code{TableOne} class objects}
 \usage{
 \method{print}{TableOne}(x, missing = FALSE, quote = FALSE, test = TRUE,
-  pDigits = 3, showAllLevels = FALSE, explain = TRUE,
+  pDigits = 3, format = c("fp", "f", "p", "pf")[1], exact = NULL,
+  showAllLevels = FALSE, nonnormal = NULL, explain = TRUE,
   printToggle = TRUE, ...)
 }
 \arguments{
@@ -24,9 +25,23 @@
 
   \item{pDigits}{Number of digits to print for p-values.}
 
+  \item{format}{The default is "fp" frequency (percentage).
+  You can also choose from "f" frequency only, "p"
+  percentage only, and "pf" percentage (frequency).}
+
+  \item{exact}{A character vector to specify the variables
+  for which the p-values should be those of exact tests. By
+  default all p-values are from large sample approximation
+  tests (chisq.test).}
+
   \item{showAllLevels}{Whether to show all levels. FALSE by
   default, i.e., for 2-level categorical variables, only
-  the higher level is shown to avoid}
+  the higher level is shown to avoid.}
+
+  \item{nonnormal}{A character vector to specify the
+  variables for which the p-values should be those of
+  nonparametric tests. By default all p-values are from
+  normal assumption-based tests (oneway.test).}
 
   \item{explain}{Whether to add explanation to the variable
   names, i.e., (\%) is added to the variable names when
