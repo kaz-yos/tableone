@@ -67,70 +67,75 @@ print.TableOne <- function(x, missing = FALSE,
                            printToggle = TRUE,
                            ...) {
 
-    ## first some prep (convert to matrix)
-    ## is there a better way to retrieve the matrix format than below?
-    ## this way works, but you can't suppress the printing
 
-    matCatTable  <- print(x$CatTable,
-                          test = test, pDigits = pDigits,
-                          ## Categorical options
-                          exact = exact,
-                          format = format,
-                          showAllLevels = showAllLevels,
-                          ## Common options
-                          explain = explain,
-                          printToggle = FALSE) # Turn off printing, and return values
+    ## Get the formatted tables
+    formattedTables <- sapply(x,
+                              FUN = function(tableObj) {
+                                  
+                                  print(tableObj, printTo = FALSE)  # Method dispatch at work
+                              },
+                              simplify = FALSE)
 
-    matContTable <- print(x$ContTable,
-                          test = test, pDigits = pDigits,
-                          ## Continuous options
-                          nonnormal = nonnormal,
-                          ## Common options
-                          explain = explain,
-                          printToggle = FALSE) # Turn off printing, and return values
+    ## Get the column width information (strata x vars format)
+    columnWidthInfo <- sapply(formattedTables,
+                              FUN = function(matObj) {
+                                  
+                                  attributes(matObj)$vecColWidths
+                              },
+                              simplify = TRUE)
 
-### Realign columns
-    ## Get the column widths
-    matCatTableColWidths  <- attributes(matCatTable)$vecColWidths
-    matContTableColWidths <- attributes(matContTable)$vecColWidths
-    ## Get the difference
-    vecCatMinusCont <- (matCatTableColWidths - matContTableColWidths)
-    vecContMinusCat <- -1 * vecCatMinusCont     # change sign
-    ## Keep negatives only, and change the sign
-    vecCatMinusCont <- vecCatMinusCont * (vecCatMinusCont <= 0) * -1
-    vecContMinusCat <- vecContMinusCat * (vecContMinusCat <= 0) * -1
+    ## Get the max values for each stratum
+    vecMaxValues <- apply(columnWidthInfo, MARGIN = 1, FUN = max, na.rm = TRUE)
 
-    ## Fix matrix by adding preceeding spaces (unless NA)
-    for (i in seq_along(vecCatMinusCont)) {
+    ## Get the difference (value - max. Must be negated)
+    nSpacesToAdd <- sweep(x      = columnWidthInfo,
+                          MARGIN = 1,
+                          STATS  = vecMaxValues,
+                          FUN    = "-"
+                          )
+    nSpacesToAdd <- -1 * nSpacesToAdd
 
-        if(!is.na(vecCatMinusCont[i])) {
-            ## Realign categorical tables
-            matCatTable[,i] <- paste0(paste0(rep(" ", vecCatMinusCont[i]), collapse = ""),
-                                      matCatTable[,i])
-        }
 
-        if(!is.na(vecContMinusCat[i])) {
+    ## For each matrix, add spaces
+    spaceFormattedTables <- sapply(seq_along(formattedTables),
+                                   FUN = function(i) {
 
-            matCatTable[,i] <- paste0(paste0(rep(" ", vecContMinusCat[i]), collapse = ""),
-                                      matCatTable[,i])
-        }        
-    }
+                                       ## For i-th variable
+                                       matObj <- formattedTables[[i]]
+                                       nSpaces <- nSpacesToAdd[, i]
 
-    
-    ## Clean the first row
-    matContTable[1, ] <- rep("", length(matContTable[1, ]))
-    rownames(matContTable)[1] <- ""
+                                       ## For j-th stratum (column). Be aware of the p-value column
+                                       for (j in seq_along(nSpaces)) {
 
-    ## rbind together
-    matCatContTable <- rbind(matCatTable,
-                             matContTable)
+                                           matObj[, j] <- paste0(paste0(rep(" ", nSpaces[j]), collapse = ""),
+                                                                 matObj[, j])
+                                       }
+
+                                       ## Return the adjusted table
+                                       matObj
+                                   },
+                                   simplify = FALSE)
+
+    ## Set aside the n row (stratum sizes). 1st element, 1st row
+    stratumSizesRow <- spaceFormattedTables[[1]][1, , drop = FALSE]
+
+    ## Remove 1st rows from each table (stratum sizes)
+    spaceFormattedTables <- sapply(spaceFormattedTables,
+                                   FUN = function(matObj) {
+                                       
+                                       matObj[-1, , drop = FALSE]
+                                   },
+                                   simplify = FALSE)
+
+    ## Row-combin n and all variables
+    out <- do.call(rbind, c(list(stratumSizesRow), spaceFormattedTables))
 
     ## Modular version of quote/print toggle.
-    matCatContTable <- ModuleQuoteAndPrintMat(matObj = matCatContTable,
-                                              quote = quote, printToggle = printToggle)
+    out <- ModuleQuoteAndPrintMat(matObj = out,
+                                  quote = quote, printToggle = printToggle)
 
     ## Return the result
-    return(invisible(matCatContTable))
+    return(invisible(out))
 }
 
 
