@@ -134,6 +134,10 @@ CreateTableOne <-
                                                args = args)
                                    },
                                    simplify = FALSE)
+
+            ## Give variable names
+            names(listOfTables) <- vars
+            
             ## Give a class
             class(listOfTables) <- "TableOne"
 
