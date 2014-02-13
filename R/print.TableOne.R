@@ -52,12 +52,12 @@
 ##' @export
 print.TableOne <- function(x, missing = FALSE,
                            quote = FALSE,
-                           test = TRUE, pDigits = 3,
+                           test = TRUE, catDigits = 1, contDigits = 2, pDigits = 3,
 
                            ## Categorical options
                            format = c("fp","f","p","pf")[1], # Format f_requency and/or p_ercent
                            exact = NULL,
-                           showAllLevels = FALSE,
+                           ## showAllLevels = FALSE,    # Cannot be used
 
                            ## Continuous options
                            nonnormal = NULL,
@@ -71,14 +71,16 @@ print.TableOne <- function(x, missing = FALSE,
     TableOne <- x$TableOne
 
     ## Get the Cont/Cat status (1st of classes)
-    classOfTables <- sapply(TableOne, class)[,1]
+    classOfTables <- sapply(TableOne, class)[1,]
     digits <- c(CatTable = catDigits, ContTable = contDigits)[classOfTables]
 
+
     ## Get the formatted tables
-    formattedTables <- sapply(TableOne,
-                              FUN = function(tableObj) {
+    formattedTables <- sapply(seq_along(TableOne),
+                              FUN = function(i) {
                                   
-                                  print(tableObj, printToggle = FALSE, test = test, explain = explain,
+                                  print(TableOne[[i]], printToggle = FALSE, test = test, explain = explain,
+                                        digits = digits[i],
                                         ## print.CatTable arguments
                                         format = format, exact = exact, showAllLevels = FALSE,
                                         ## print.ContTable argument
