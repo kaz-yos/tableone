@@ -60,83 +60,78 @@ CreateTableOne <-
              ) {
 
 ### Data check
-    ## Check if the data given is a dataframe
-    ModuleStopIfNotDataFrame(data)
+        ## Check if the data given is a dataframe
+        ModuleStopIfNotDataFrame(data)
 
-    ## Check if variables exist. Drop them if not.
-    vars <- ModuleReturnVarsExist(vars, data)
+        ## Check if variables exist. Drop them if not.
+        vars <- ModuleReturnVarsExist(vars, data)
 
-    ## Abort if no variables exist at this point
-    ModuleStopIfNoVarsLeft(vars)
+        ## Abort if no variables exist at this point
+        ModuleStopIfNoVarsLeft(vars)
 
         ## Get the classes of the variables
         varClasses  <- sapply(data[vars], class)
         varFactors  <- names(varClasses[varClasses == "factor"])
         varNumerics <- names(varClasses[varClasses == "numeric" | varClasses == "integer"])
 
+        ## Create a logical vector indicator for factors
+        logiFactors <- sapply(data[vars], is.factor)
+
+        ## Create lists of arguments
+        argsCreateContTable <- list(strata = strata, data = data,
+                                    test       = test,
+                                    testNormal = testNormal,
+                                    argsNormal = argsNormal,
+                                    testNonNormal = testNonNormal,
+                                    argsNonNormal = argsNonNormal
+                                    )
+        argsCreateCatTable <- list(strata = strata, data = data,
+                                   test       = test,
+                                   testApprox = testApprox,
+                                   argsApprox = argsApprox,
+                                   testExact  = testExact,
+                                   argsExact  = argsExact
+                                   )
+
+
         ## Condition on the absence of factor/numeric
-        if (length(varFactors) == 0) {
-            ## No factors
-            cat('NOTE: no factor variables supplied, using CreateContTable()\n')
-            ContTable <-
-                CreateContTable(vars = varNumerics, strata = strata, data = data,
-                                test       = test,
-                                testNormal = testNormal,
-                                argsNormal = argsNormal,
-                                testNonNormal = testNonNormal,
-                                argsNonNormal = argsNonNormal
-                                )
-            return(ContTable)
-        } else if (length(varNumerics) == 0) {
+        if (length(varNumerics) == 0) {
             ## No numerics
             cat('NOTE: no numeric/integer variables supplied, using CreateCatTable()\n')
-            CatTable <-
-                CreateCatTable(vars = varFactors, strata = strata, data = data,
-                               test       = test,
-                               testApprox = testApprox,
-                               argsApprox = argsApprox,
-                               testExact  = testExact,
-                               argsExact  = argsExact
-                               )
+            CatTable <- do.call(CreateCatTable,
+                                args = c(list(vars = varFactors), argsCreateCatTable))
             return(CatTable)
-        }
+            
+        } else if (length(varFactors) == 0) {
+            ## No factors
+            cat('NOTE: no factor variables supplied, using CreateContTable()\n')
+            ContTable <- do.call(CreateContTable,
+                                 args = c(list(vars = varNumerics), argsCreateContTable))
+            return(ContTable)
 
-    
 ### Proceed if both types of variables are present (both factors and numerics)
-    if ((length(varFactors) > 0) & (length(varNumerics) > 0)) {
-        
-        ## Create the table for categorical variables
-        CatTable <-
-            CreateCatTable(vars = varFactors, strata = strata, data = data,
-                           test       = test,
-                           testApprox = testApprox,
-                           argsApprox = argsApprox,
-                           testExact  = testExact,
-                           argsExact  = argsExact
-                           )
+        } else if ((length(varFactors) > 0) & (length(varNumerics) > 0)) {
 
-        ## Create the table for continuous variables
-        ContTable <-
-            CreateContTable(vars = varNumerics, strata = strata, data = data,
-                            test       = test,
-                            testNormal = testNormal,
-                            argsNormal = argsNormal,
-                            testNonNormal = testNonNormal,
-                            argsNonNormal = argsNonNormal
-                            )
+            ## Create the table for categorical variables
+            CatTable <- do.call(CreateCatTable,
+                                args = c(list(vars = varFactors), argsCreateCatTable))
 
-        ## save in a list (currently has no use, but maybe it would be desirable
-        ## to be able to capure the individual objects separately too)
-        listCatContTables <- list(CatTable  = CatTable,
-                                  ContTable = ContTable)
+            ## Create the table for continuous variables
+            ContTable <- do.call(CreateContTable,
+                                 args = c(list(vars = varNumerics), argsCreateContTable))
 
-        ## Give a class
-        class(listCatContTables) <- "TableOne"
+            ## save in a list (currently has no use, but maybe it would be desirable
+            ## to be able to capure the individual objects separately too)
+            listCatContTables <- list(CatTable  = CatTable,
+                                      ContTable = ContTable)
 
-        ## Return the object
-        return(listCatContTables)
+            ## Give a class
+            class(listCatContTables) <- "TableOne"
+
+            ## Return the object
+            return(listCatContTables)
+        }
     }
-}
 
 ## ideas/comments (Justin):
 ##   1. smartly process variables based on their class
