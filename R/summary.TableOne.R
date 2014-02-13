@@ -32,14 +32,14 @@ summary.TableOne <- function(object, digits = 1, ...) {
     ## object and ... required to be consistent with generic summary(object, ...)
     listCatContTables <- object
 
-    ## Categorical    
-    cat("\nSummary of categorical variables.\n\n")
-    summary(listCatContTables$CatTable, digits = digits)
+    ## Continuous
+    cat("\nSummary of continuous variables.\n\n")    
+    summary(listCatContTables$ContTable, digits = digits)    
 
     ## Separator
     cat("\n=======================================================================================\n")
     
-    ## Continuous
-    cat("\nSummary of continuous variables.\n\n")    
-    summary(listCatContTables$ContTable, digits = digits)    
+    ## Categorical    
+    cat("\nSummary of categorical variables.\n\n")
+    summary(listCatContTables$CatTable, digits = digits)
 }

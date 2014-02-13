@@ -67,9 +67,11 @@ print.TableOne <- function(x, missing = FALSE,
                            printToggle = TRUE,
                            ...) {
 
+    ## Get the mixed element only
+    TableOne <- x$TableOne
 
     ## Get the formatted tables
-    formattedTables <- sapply(x,
+    formattedTables <- sapply(TableOne,
                               FUN = function(tableObj) {
                                   
                                   print(tableObj, printTo = FALSE)  # Method dispatch at work
