@@ -101,7 +101,7 @@ CreateTableOne <-
             CatTable <- do.call(CreateCatTable,
                                 args = c(list(vars = varFactors), argsCreateCatTable))
             return(CatTable)
-            
+
         } else if (length(varFactors) == 0) {
             ## No factors
             cat('NOTE: no factor variables supplied, using CreateContTable()\n')
@@ -112,24 +112,33 @@ CreateTableOne <-
 ### Proceed if both types of variables are present (both factors and numerics)
         } else if ((length(varFactors) > 0) & (length(varNumerics) > 0)) {
 
-            ## Create the table for categorical variables
-            CatTable <- do.call(CreateCatTable,
-                                args = c(list(vars = varFactors), argsCreateCatTable))
+            ## Create a list of constructors
+            listOfConstructors <- list(CreateContTable = CreateContTable,
+                                       CreateCatTable  = CreateCatTable)
+            ## CreateCatTable for categorical. CreateContTable for continuous.
+            listOfConstructors <- listOfConstructors[logiFactors + 1]
+            ## Create a list of arguments
+            listOfArgs <- list(argsCreateContTable = argsCreateContTable,
+                               argsCreateCatTable  = argsCreateCatTable)
+            ## argsCreateCatTable for categorical. argsCreateContTable for continuous.
+            listOfArgs <- listOfArgs[logiFactors + 1]
 
-            ## Create the table for continuous variables
-            ContTable <- do.call(CreateContTable,
-                                 args = c(list(vars = varNumerics), argsCreateContTable))
+            ## Create a list of tables
+            listOfTables <- sapply(seq_along(listOfConstructors),
+                                   FUN = function(i) {
 
-            ## save in a list (currently has no use, but maybe it would be desirable
-            ## to be able to capure the individual objects separately too)
-            listCatContTables <- list(CatTable  = CatTable,
-                                      ContTable = ContTable)
+                                       args <- c(list(vars = vars[i]),  # vector element
+                                                 listOfArgs[[i]])       # list element
 
+                                       do.call(listOfConstructors[[i]], # list element
+                                               args = args)
+                                   },
+                                   simplify = FALSE)
             ## Give a class
-            class(listCatContTables) <- "TableOne"
+            class(listOfTables) <- "TableOne"
 
             ## Return the object
-            return(listCatContTables)
+            return(listOfTables)
         }
     }
 
