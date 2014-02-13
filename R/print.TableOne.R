@@ -19,8 +19,8 @@
 ##' @param exact A character vector to specify the variables for which the
 ##' p-values should be those of exact tests. By default all p-values are from
 ##' large sample approximation tests (chisq.test).
-##' @param showAllLevels Whether to show all levels. FALSE by default, i.e.,
-##' for 2-level categorical variables, only the higher level is shown to avoid.
+## @param showAllLevels Whether to show all levels. FALSE by default, i.e., 
+## for 2-level categorical variables, only the higher level is shown to avoid.
 ##' @param nonnormal A character vector to specify the variables for which the
 ##' p-values should be those of nonparametric tests. By default all p-values
 ##' are from normal assumption-based tests (oneway.test).
@@ -70,11 +70,20 @@ print.TableOne <- function(x, missing = FALSE,
     ## Get the mixed element only
     TableOne <- x$TableOne
 
+    ## Get the Cont/Cat status (1st of classes)
+    classOfTables <- sapply(TableOne, class)[,1]
+    digits <- c(CatTable = catDigits, ContTable = contDigits)[classOfTables]
+
     ## Get the formatted tables
     formattedTables <- sapply(TableOne,
                               FUN = function(tableObj) {
                                   
-                                  print(tableObj, printToggle = FALSE)  # Method dispatch at work
+                                  print(tableObj, printToggle = FALSE, test = test, explain = explain,
+                                        ## print.CatTable arguments
+                                        format = format, exact = exact, showAllLevels = FALSE,
+                                        ## print.ContTable argument
+                                        nonnormal = nonnormal
+                                        )  # Method dispatch at work
                               },
                               simplify = FALSE)
 
