@@ -198,13 +198,14 @@ print.ContTable <- function(x, missing = FALSE,
 
                       ## In an empty stratum, return empty
                       if (is.null(stratum)) {
-                          out2 <- rep("-", nRows)
-
+                          out <- rep("-", nRows)
+                          ## Give NA to the width of the mean/median column in characters
+                          nCharMeanOrMedian <- NA
                       } else {
 
                           ## Apply row by row within each non-empty stratum
                           ## This row-by-row operation is necessary to handle mean (sd) and median [IQR]
-                          out2 <- sapply(seq_len(nRows),
+                          out <- sapply(seq_len(nRows),
                                          FUN = function(i) {
 
                                              ## Choose between normal or nonnormal function
@@ -217,22 +218,40 @@ print.ContTable <- function(x, missing = FALSE,
                                          simplify = FALSE)
 
                           ## nx2 data frame by row binding multiple 1-row data frames
-                          out2 <- do.call(rbind, out2)
+                          out <- do.call(rbind, out)
 
                           ## Format for decimals
-                          out2$col1 <- sprintf(fmt = paste0("%.", digits, "f"), out2$col1)
+                          out$col1 <- sprintf(fmt = paste0("%.", digits, "f"), out$col1)
 
                           ## right justify by adding spaces (to align at the decimal point of mean/median)
-                          out2$col1 <- format(out2$col1, justify = "right")
+                          out$col1 <- format(out$col1, justify = "right")
+
+                          ## Obtain the width of the mean/median column in characters
+                          nCharMeanOrMedian <- nchar(out$col1[1])
 
                           ## Create mean (SD) or median [p25, p75] as a character vector
-                          out2 <- do.call(paste0, out2)
+                          out <- do.call(paste0, out)
                       }
 
+                      ## Add attributes
+                      attributes(out) <- c(attributes(out),
+                                           list(nCharMeanOrMedian = nCharMeanOrMedian))
+
                       ## Return
-                      out2
+                      out
                   },
                   simplify = FALSE)
+    
+### Obtain the original column width in characters for alignment in print.TableOne
+    vecColWidths <- sapply(out,
+                           FUN = function(LIST) {
+
+                               ## Get the width of the column
+                               attributes(LIST)$nCharMeanOrMedian
+                           },
+                           simplify = TRUE)
+
+    
     ## The outer sapply should not simplify to avoid a vector
     ## Column-bind to create variables x strata matrix
     out <- do.call(cbind, out)
@@ -316,6 +335,10 @@ print.ContTable <- function(x, missing = FALSE,
     
     ## (module) Takes an matrix object format, print if requested
     out <- ModuleQuoteAndPrintMat(matObj = out, quote = quote, printToggle = printToggle)
+
+    ## Add attributes for column widths in characters
+    attributes(out) <- c(attributes(out),
+                         list(vecColWidths = vecColWidths))
 
     ## return a matrix invisibly
     return(invisible(out))
