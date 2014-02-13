@@ -156,7 +156,7 @@ print.ContTable <- function(x, missing = FALSE,
                       simplify = TRUE)
 
     ## Provide indicators to show what columns were added.
-    wasPValueColumnAdded <- FALSE
+    wasPValueColumnAdded     <- FALSE
     wasNonNormalColumnAdded  <- FALSE
 
 
@@ -286,7 +286,7 @@ print.ContTable <- function(x, missing = FALSE,
                           simplify = TRUE)
 
         ## Pick test types used
-        testTypes <- c("","nonnormal")[nonnormal]
+        testTypes <- c("","nonnorm")[nonnormal]
 
         ## Format
         fmt <- paste0("%.", pDigits, "f")
@@ -319,7 +319,7 @@ print.ContTable <- function(x, missing = FALSE,
             out[ ,"test"] <- testTypes
 
             ## Change the indicator
-            wasNoNormalColumnAdded <- TRUE
+            wasNonNormalColumnAdded <- TRUE
         }
     }
 
@@ -334,8 +334,8 @@ print.ContTable <- function(x, missing = FALSE,
     outColNames <- colnames(out)
     ## Add n at the correct location depending on the number of columns added (level and/or p)
     out <- rbind(n = c(strataN,
-                     p    = rep("", wasPValueColumnAdded),  # Add "" padding if p-value added
-                     test = rep("", wasNoNormalColumnAdded) # Add "" padding if nonnormal test used
+                     p    = rep("", wasPValueColumnAdded),   # Add "" padding if p-value added
+                     test = rep("", wasNonNormalColumnAdded) # Add "" padding if nonnormal test used
                      ),
                  out)
     ## Put back the column names (overkill for non-multivariable cases)

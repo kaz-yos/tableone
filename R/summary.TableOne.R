@@ -33,13 +33,13 @@ summary.TableOne <- function(object, digits = 1, ...) {
     listCatContTables <- object
 
     ## Continuous
-    cat("\nSummary of continuous variables.\n\n")    
+    cat("\n     ### Summary of continuous variables ###\n\n")    
     summary(listCatContTables$ContTable, digits = digits)    
 
     ## Separator
     cat("\n=======================================================================================\n")
     
     ## Categorical    
-    cat("\nSummary of categorical variables.\n\n")
+    cat("\n     ### Summary of categorical variables ### \n\n")
     summary(listCatContTables$CatTable, digits = digits)
 }

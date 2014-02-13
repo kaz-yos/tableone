@@ -74,7 +74,7 @@ print.TableOne <- function(x, missing = FALSE,
     formattedTables <- sapply(TableOne,
                               FUN = function(tableObj) {
                                   
-                                  print(tableObj, printTo = FALSE)  # Method dispatch at work
+                                  print(tableObj, printToggle = FALSE)  # Method dispatch at work
                               },
                               simplify = FALSE)
 
