@@ -124,20 +124,35 @@ CreateTableOne <-
             listOfArgs <- listOfArgs[logiFactors + 1]
 
             ## Create a list of tables
-            listOfTables <- sapply(seq_along(listOfConstructors),
-                                   FUN = function(i) {
+            TableOne <- sapply(seq_along(listOfConstructors),
+                               FUN = function(i) {
 
-                                       args <- c(list(vars = vars[i]),  # vector element
-                                                 listOfArgs[[i]])       # list element
+                                   args <- c(list(vars = vars[i]),  # vector element
+                                             listOfArgs[[i]])       # list element
 
-                                       do.call(listOfConstructors[[i]], # list element
-                                               args = args)
-                                   },
-                                   simplify = FALSE)
+                                   do.call(listOfConstructors[[i]], # list element
+                                           args = args)
+                               },
+                               simplify = FALSE)
 
             ## Give variable names
-            names(listOfTables) <- vars
-            
+            names(TableOne) <- vars
+
+
+            ## Create ContTable and CatTable objects (this is redundant)
+            ## Aggregated ContTable
+            ContTable <- do.call(CreateContTable,
+                                 args = c(list(vars = varNumerics), argsCreateContTable))
+            ## Aggregated CatTable
+            CatTable <- do.call(CreateCatTable,
+                                args = c(list(vars = varFactors), argsCreateCatTable))
+
+            ## Create a list
+            listOfTables <- list(TableOne  = TableOne,
+                                 ContTable = ContTable,
+                                 CatTable  = CatTable
+                                 )
+
             ## Give a class
             class(listOfTables) <- "TableOne"
 
@@ -145,13 +160,3 @@ CreateTableOne <-
             return(listOfTables)
         }
     }
-
-## ideas/comments (Justin):
-##   1. smartly process variables based on their class
-##      (i.e. do not make user specify which vars are continuous vs categorical)
-##   2. figure out a good print method
-##   3. if user specifies additional func.names for CreateContTable,
-##      the dimensions will be wrong and rbind will not work. Could consider
-##      extra functions creating extra rows instead of extra columns.
-##   4. it looks like your print method does some kind of alignment with spaces
-##      that might lead to strange formatting after rbind()
