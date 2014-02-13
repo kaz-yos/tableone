@@ -269,8 +269,13 @@ print.CatTable <- function(x, missing = FALSE,
 
                        ## Right justify frequency
                        DF$freq <- format(DF$freq, justify = "right")
+                       ## Obtain the width of characters
+                       nCharFreq <- nchar(DF$freq[1])
+
                        ## Right justify percent
                        DF$percent <- format(DF$percent, justify = "right")
+                       ## Obtain the width of characters
+                       nCharPercent <- nchar(DF$percent[1])
 
                        ## Add freq (percent) column (only in non-empty rows)
                        DF$freqPer <- ""
@@ -284,11 +289,36 @@ print.CatTable <- function(x, missing = FALSE,
                                                                DF[posNonEmptyRows,]$percent,
                                                                DF[posNonEmptyRows,]$freq)
 
-                       ## Return a data frame
+                       ## Add aditional attributes
+                       attributes(DF) <- c(attributes(DF),
+                                           list(nCharFreq    = nCharFreq,
+                                                nCharPercent = nCharPercent)
+                                           )
+
+                       ## Return a data frame (2014-02-12 sapply breaks attributes?)
                        DF
                    } # end of non-null condition (Null strata skip all this. No action.)
 
                }, simplify = FALSE)
+
+    ## browser()
+
+### Obtain the original column width in characters for alignment in print.TableOne
+    ## Name of the column to keep
+    widthCol <- c("nCharFreq","nCharFreq","nCharPercent","nCharPercent")[format == c("fp","f","p","pf")]
+    vecColWidths <- sapply(CatTableCollapsed,
+                            FUN = function(LIST) {
+
+                                ## Get the width of the column (freq or percent, whichever comes left)
+                                out <- attributes(LIST)[widthCol]
+                                ## Return NA if null
+                                if (is.null(out)) {
+                                    return(NA)
+                                } else {
+                                    return(as.numeric(out))
+                                }
+                            },
+                            simplify = TRUE)
 
 
     ## Fill the null element using the first non-null element's dimension (Make sure to erase data)
@@ -302,7 +332,6 @@ print.CatTable <- function(x, missing = FALSE,
                                                var <- rep("-", length(var))
                                            })
     }
-
 
     ## Choose the column name for the right format
     nameResCol <- c("freqPer","freq","percent","perFreq")[format == c("fp","f","p","pf")]
@@ -400,7 +429,7 @@ print.CatTable <- function(x, missing = FALSE,
         explainString <- c(" (%)", "", " (%)", " % (freq)")[format == c("fp","f","p","pf")]
         ## Only for rows with row names
         rownames(out)[logiNonEmptyRowNames] <- paste0(rownames(out)[logiNonEmptyRowNames],
-                                                     explainString)
+                                                      explainString)
     }
 
     ## Keep column names (strataN does not have correct names if stratification is by multiple variables)
@@ -436,6 +465,10 @@ print.CatTable <- function(x, missing = FALSE,
 
         junk <- lapply(attributes(CatTable)$xtabs, CrossTable)
     }
+
+    ## Add attributes for column widths in characters
+    attributes(out) <- c(attributes(out),
+                         list(vecColWidths = vecColWidths))
 
     ## return a matrix invisibly
     return(invisible(out))
