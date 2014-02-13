@@ -80,7 +80,7 @@
 ##' ## you may benefit from the quote argument. This will quote everything so that
 ##' ## Excel does not mess up the cells.
 ##' print(contTableBySexTrt, nonnormal = nonNormalVars, quote = TRUE)
-##' 
+##'
 ##' @export
 print.ContTable <- function(x, missing = FALSE,
                             digits = 2, nonnormal = NULL, quote = FALSE,
@@ -157,7 +157,7 @@ print.ContTable <- function(x, missing = FALSE,
 
     ## Provide indicators to show what columns were added.
     wasPValueColumnAdded <- FALSE
-
+    wasNonNormalColumnAdded  <- FALSE
 
 
 ### Conversion of data for printing
@@ -241,7 +241,7 @@ print.ContTable <- function(x, missing = FALSE,
                       out
                   },
                   simplify = FALSE)
-    
+
 ### Obtain the original column width in characters for alignment in print.TableOne
     vecColWidths <- sapply(out,
                            FUN = function(LIST) {
@@ -251,7 +251,7 @@ print.ContTable <- function(x, missing = FALSE,
                            },
                            simplify = TRUE)
 
-    
+
     ## The outer sapply should not simplify to avoid a vector
     ## Column-bind to create variables x strata matrix
     out <- do.call(cbind, out)
@@ -285,6 +285,9 @@ print.ContTable <- function(x, missing = FALSE,
                           },
                           simplify = TRUE)
 
+        ## Pick test types used
+        testTypes <- c("","nonnormal")[nonnormal]
+
         ## Format
         fmt <- paste0("%.", pDigits, "f")
         p   <- sprintf(fmt = fmt, pValues)
@@ -303,6 +306,21 @@ print.ContTable <- function(x, missing = FALSE,
 
         ## Change the indicator
         wasPValueColumnAdded <- TRUE
+
+
+        ## If nonormal test is used at least onece, add a test type indicator.
+        ## if (any(nonormal == 2)) {
+        if (TRUE) {
+            ## Create an empty test type column
+            out <- cbind(out,
+                         test = rep("", nrow(out))) # Column for test types
+
+            ## Put the test types  at the non-empty positions (all rows in continuous!)
+            out[ ,"test"] <- testTypes
+
+            ## Change the indicator
+            wasNoNormalColumnAdded <- TRUE
+        }
     }
 
 
@@ -316,7 +334,8 @@ print.ContTable <- function(x, missing = FALSE,
     outColNames <- colnames(out)
     ## Add n at the correct location depending on the number of columns added (level and/or p)
     out <- rbind(n = c(strataN,
-                     p = rep("", wasPValueColumnAdded) # Add "" padding if p-value added
+                     p    = rep("", wasPValueColumnAdded),  # Add "" padding if p-value added
+                     test = rep("", wasNoNormalColumnAdded) # Add "" padding if nonnormal test used
                      ),
                  out)
     ## Put back the column names (overkill for non-multivariable cases)
@@ -332,7 +351,7 @@ print.ContTable <- function(x, missing = FALSE,
         names(dimnames(out)) <- c("", strataString)
     }
 
-    
+
     ## (module) Takes an matrix object format, print if requested
     out <- ModuleQuoteAndPrintMat(matObj = out, quote = quote, printToggle = printToggle)
 

@@ -409,7 +409,8 @@ print.CatTable <- function(x, missing = FALSE,
 
 
         ## If exact test is used at least onece, add a test type indicator.
-        if (any(exact == 2)) {
+        ## if (any(exact == 2)) {
+        if (TRUE) {            
             ## Create an empty test type column
             out <- cbind(out,
                          test = rep("", nrow(out))) # Column for test types
