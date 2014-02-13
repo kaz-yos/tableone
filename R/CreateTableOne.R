@@ -59,51 +59,83 @@ CreateTableOne <-
              argsNonNormal = list(NULL)                 # arguments passed to testNonNormal
              ) {
 
-    ## Get the classes of the variables
-    varClasses  <- sapply(data[,vars], class)
-    varFactors  <- names(varClasses[varClasses == "factor"])
-    varNumerics <- names(varClasses[varClasses == "numeric" | varClasses == "integer"])
+### Data check
+    ## Check if the data given is a dataframe
+    ModuleStopIfNotDataFrame(data)
 
-    ## Condition on the absence of
-    if(length(varFactors) == 0) {
-        cat('NOTE: no factor variables supplied, using CreateContTable()\n')
-        CreateContTable(vars = varNumerics, strata = strata, data = data)
+    ## Check if variables exist. Drop them if not.
+    vars <- ModuleReturnVarsExist(vars, data)
+
+    ## Abort if no variables exist at this point
+    ModuleStopIfNoVarsLeft(vars)
+
+        ## Get the classes of the variables
+        varClasses  <- sapply(data[vars], class)
+        varFactors  <- names(varClasses[varClasses == "factor"])
+        varNumerics <- names(varClasses[varClasses == "numeric" | varClasses == "integer"])
+
+        ## Condition on the absence of factor/numeric
+        if (length(varFactors) == 0) {
+            ## No factors
+            cat('NOTE: no factor variables supplied, using CreateContTable()\n')
+            ContTable <-
+                CreateContTable(vars = varNumerics, strata = strata, data = data,
+                                test       = test,
+                                testNormal = testNormal,
+                                argsNormal = argsNormal,
+                                testNonNormal = testNonNormal,
+                                argsNonNormal = argsNonNormal
+                                )
+            return(ContTable)
+        } else if (length(varNumerics) == 0) {
+            ## No numerics
+            cat('NOTE: no numeric/integer variables supplied, using CreateCatTable()\n')
+            CatTable <-
+                CreateCatTable(vars = varFactors, strata = strata, data = data,
+                               test       = test,
+                               testApprox = testApprox,
+                               argsApprox = argsApprox,
+                               testExact  = testExact,
+                               argsExact  = argsExact
+                               )
+            return(CatTable)
+        }
+
+    
+### Proceed if both types of variables are present (both factors and numerics)
+    if ((length(varFactors) > 0) & (length(varNumerics) > 0)) {
+        
+        ## Create the table for categorical variables
+        CatTable <-
+            CreateCatTable(vars = varFactors, strata = strata, data = data,
+                           test       = test,
+                           testApprox = testApprox,
+                           argsApprox = argsApprox,
+                           testExact  = testExact,
+                           argsExact  = argsExact
+                           )
+
+        ## Create the table for continuous variables
+        ContTable <-
+            CreateContTable(vars = varNumerics, strata = strata, data = data,
+                            test       = test,
+                            testNormal = testNormal,
+                            argsNormal = argsNormal,
+                            testNonNormal = testNonNormal,
+                            argsNonNormal = argsNonNormal
+                            )
+
+        ## save in a list (currently has no use, but maybe it would be desirable
+        ## to be able to capure the individual objects separately too)
+        listCatContTables <- list(CatTable  = CatTable,
+                                  ContTable = ContTable)
+
+        ## Give a class
+        class(listCatContTables) <- "TableOne"
+
+        ## Return the object
+        return(listCatContTables)
     }
-    if(length(varNumerics) == 0) {
-        cat('NOTE: no numeric/integer variables supplied, using CreateCatTable()\n')
-        CreateCatTable(vars = varFactors, strata = strata, data = data)
-    }
-
-    ## Create the table for categorical variables
-    CatTable <-
-        CreateCatTable(vars = varFactors, strata = strata, data = data,
-                       test       = test,
-                       testApprox = chisq.test,
-                       argsApprox = list(correct = TRUE),
-                       testExact  = fisher.test,
-                       argsExact  = list(workspace = 2*10^5)
-                       )
-
-    ## Create the table for continuous variables
-    ContTable <-
-        CreateContTable(vars = varNumerics, strata = strata, data = data,
-                        test       = test,
-                        testNormal = oneway.test,
-                        argsNormal = list(var.equal = TRUE),
-                        testNonNormal = kruskal.test,
-                        argsNonNormal = list(NULL)
-                        )
-
-    ## save in a list (currently has no use, but maybe it would be desirable
-    ## to be able to capure the individual objects separately too)
-    listCatContTables <- list(CatTable  = CatTable,
-                              ContTable = ContTable)
-
-    ## Give a class
-    class(listCatContTables) <- "TableOne"
-
-    ## Return the object
-    return(listCatContTables)
 }
 
 ## ideas/comments (Justin):
