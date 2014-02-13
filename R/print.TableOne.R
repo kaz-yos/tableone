@@ -89,16 +89,48 @@ print.TableOne <- function(x, missing = FALSE,
                           explain = explain,
                           printToggle = FALSE) # Turn off printing, and return values
 
+### Realign columns
+    ## Get the column widths
+    matCatTableColWidths  <- attributes(matCatTable)$vecColWidths
+    matContTableColWidths <- attributes(matContTable)$vecColWidths
+    ## Get the difference
+    vecCatMinusCont <- (matCatTableColWidths - matContTableColWidths)
+    vecContMinusCat <- -1 * vecCatMinusCont     # change sign
+    ## Keep negatives only, and change the sign
+    vecCatMinusCont <- vecCatMinusCont * (vecCatMinusCont <= 0) * -1
+    vecContMinusCat <- vecContMinusCat * (vecContMinusCat <= 0) * -1
+
+    ## Fix matrix by adding preceeding spaces (unless NA)
+    for (i in seq_along(vecCatMinusCont)) {
+
+        if(!is.na(vecCatMinusCont[i])) {
+            ## Realign categorical tables
+            matCatTable[,i] <- paste0(paste0(rep(" ", vecCatMinusCont[i]), collapse = ""),
+                                      matCatTable[,i])
+        }
+
+        if(!is.na(vecContMinusCat[i])) {
+
+            matCatTable[,i] <- paste0(paste0(rep(" ", vecContMinusCat[i]), collapse = ""),
+                                      matCatTable[,i])
+        }        
+    }
+
+    
     ## Clean the first row
     matContTable[1, ] <- rep("", length(matContTable[1, ]))
     rownames(matContTable)[1] <- ""
 
-    ## rbind and delete the duplicated row
+    ## rbind together
     matCatContTable <- rbind(matCatTable,
                              matContTable)
 
+    ## Modular version of quote/print toggle.
+    matCatContTable <- ModuleQuoteAndPrintMat(matObj = matCatContTable,
+                                              quote = quote, printToggle = printToggle)
+
     ## Return the result
-    return(matCatContTable)
+    return(invisible(matCatContTable))
 }
 
 
