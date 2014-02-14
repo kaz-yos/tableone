@@ -70,8 +70,18 @@ CreateTableOne(vars, strata, data, test = TRUE, testApprox = chisq.test,
 }
 \value{
 An object of class \code{TableOne}, which really is a list
-of two \code{\link{by}} objects with additional attributes.
-These correspond to structures holding results for
+of three objects. The first object named
+\code{object$TableOne} is the categorical-continuous
+mixture table formatted and printed by the
+\code{\link{print.TableOne}} method. The second object
+named \code{object$ContTable} is the table object
+containing continuous variables only. The third object
+named \code{object$CatTable} is the table object containing
+categorical variables only. The second and third objects
+can be then be examined with the \code{print} and
+\{summary} method, for example,
+\code{summary(object$CatTable)} to examine the categorical
+variables in detail.
 }
 \description{
 Create an object summarizing categorical variables
