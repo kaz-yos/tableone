@@ -76,10 +76,10 @@ Alternatively, you can use the devtools to install from github directly.
 install.packages("devtools")
 ## Load devtools
 library(devtools)
-## Install directly from github (master branch)
+## Install directly from github (master (stable) branch)
 install_github(repo = "kaz-yos/tableone")
-## Install directly from github (rc0.2.0 branch)
-install_github(repo = "kaz-yos/tableone", ref = "rc0.2.0")
+## Install directly from github (develop branch)
+install_github(repo = "kaz-yos/tableone", ref = "develop")
 ## Load 
 library(tableone)
 ```
