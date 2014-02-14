@@ -1,6 +1,6 @@
 ##' Create "Table 1" to describe baseline characteristics
 ##'
-##' This package creates "Table 1", i.e., description of baseline patient characteristics, which is essential every medical research. This package provides functions to create such summaries for continuous and categorical variables, optionally with subgroups and groupwise comparison. The package was insipired by descriptive statistics functions in Deducer by Ian Fellows, Java-based GUI package. This package does not require GUI or Java, and intended for CUI users.
+##' This package creates "Table 1", i.e., description of baseline patient characteristics, which is essential every medical research. This package provides functions to create such summaries for continuous and categorical variables, optionally with subgroups and groupwise comparison. The package was insipired by and based on descriptive statistics functions in Deducer, a Java-based GUI package by Ian Fellows. This package does not require GUI or Java, and intended for CUI users.
 ##'
 ##' @name tableone-package
 ##' @aliases tableone-package tableone

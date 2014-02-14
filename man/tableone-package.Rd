@@ -9,10 +9,10 @@ baseline patient characteristics, which is essential every
 medical research. This package provides functions to create
 such summaries for continuous and categorical variables,
 optionally with subgroups and groupwise comparison. The
-package was insipired by descriptive statistics functions
-in Deducer by Ian Fellows, Java-based GUI package. This
-package does not require GUI or Java, and intended for CUI
-users.
+package was insipired by and based on descriptive
+statistics functions in Deducer by Ian Fellows, Java-based
+GUI package. This package does not require GUI or Java, and
+intended for CUI users.
 }
 \note{
 Special Thanks:
@@ -21,7 +21,7 @@ Ian Fellows for developing the Deducer package, which this
 package is based on.
 
 Hadley Wickham for packaging advice and for creating tools
-this package was made with (roxygens, devtools, testthat).
+this package was made with (roxygen2, devtools, testthat).
 
 Developmental repository is on github. Your contributions
 are appreciated.
