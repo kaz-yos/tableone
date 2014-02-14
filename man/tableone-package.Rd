@@ -4,34 +4,29 @@
 \alias{tableone-package}
 \title{Create "Table 1" to describe baseline characteristics}
 \description{
-Table 1, i.e., description of baseline patient
-characteristics is essential every medical research. This
-package provides functions to create such summaries for
-continuous and categorical variables, optionally with
-subgroups and groupwise comparison. The package was
-insipired by descriptive statistics functions in Deducer,
-Java-based GUI package. This package does not require GUI
-or Java, and intended for CUI users.
-}
-\details{
-\tabular{ll}{ Package: \tab tableone\cr Type: \tab
-Package\cr Version: \tab 0.1.3\cr Date: \tab 2014-02-08\cr
-License: \tab GPL-2\cr } Create an object summarizing
-continous and categorical variables optionally stratifying
-by one or more startifying variables and performing
-statistical tests. The object gives a table that is easy to
-use in medical research papers. Continuous variables are
-handled by CreateContTable, and categorical variables are
-handled by CreateCatTable.
+This package creates "Table 1", i.e., description of
+baseline patient characteristics, which is essential every
+medical research. This package provides functions to create
+such summaries for continuous and categorical variables,
+optionally with subgroups and groupwise comparison. The
+package was insipired by descriptive statistics functions
+in Deducer by Ian Fellows, Java-based GUI package. This
+package does not require GUI or Java, and intended for CUI
+users.
 }
 \note{
-Special Thanks: Ian Fellows for developing the Deducer
-package, which this package is based on. Hadley Wickham for
-packaging advice and for creating tools this package was
-made with.
+Special Thanks:
+
+Ian Fellows for developing the Deducer package, which this
+package is based on.
+
+Hadley Wickham for packaging advice and for creating tools
+this package was made with (roxygens, devtools, testthat).
 
 Developmental repository is on github. Your contributions
-are appreciated. https://github.com/kaz-yos/tableone
+are appreciated.
+
+https://github.com/kaz-yos/tableone
 }
 \examples{
 ## Load
@@ -43,23 +38,27 @@ data(pbc)
 ## Check variables
 head(pbc)
 
-## Create an overall table for categorical variables
-catVars <- c("status","ascites","hepato","spiders","edema","stage")
-catTableOverall <- CreateCatTable(vars = catVars, data = pbc)
+## Make categorical variables factors
+varsToFactor <- c("status","trt","ascites","hepato","spiders","edema","stage")
+pbc[varsToFactor] <- lapply(pbc[varsToFactor], factor)
 
-## Simply typing the object name will invoke the print.CatTable method,
-## which will show the sample size, frequencies and percentages.
-## For 2-level variables, only the higher level is shown for simplicity.
-catTableOverall
+## Create Table 1 stratified by sex and trt
+tableOne <- CreateTableOne(vars = c("time","status","age","ascites","hepato",
+                                    "spiders","edema","bili","chol","albumin",
+                                    "copper","alk.phos","ast","trig","platelet",
+                                    "protime","stage"),
+                           strata = c("sex","trt"), data = pbc)
 
-## Create an overall table for continuous variables
-contVars <- c("time","age","bili","chol","albumin","copper","alk.phos","ast",
-              "trig","platelet","protime")
-contTableOverall <- CreateContTable(vars = contVars, data = pbc)
+## Just typing the object name will invoke the print.TableOne method
+tableOne
 
-## Simply typing the object name will invoke the print.ContTable method,
-## which will show the sample size, means and standard deviations.
-contTableOverall
+## Specifying nonnormal variables will show the variables appropriately,
+## and show nonparametric test p-values. Specify variables in the exact
+## argument to obtain the exact test p-values.
+print(tableOne, nonnormal = c("time"), exact = c("ascites"))
+
+## Use the summary.TableOne method for depth summary
+summary(tableOne)
 }
 \author{
 Kazuki Yoshida, Justin Bohn
