@@ -67,7 +67,7 @@
 ##' ## argument to obtain the exact test p-values.
 ##' print(tableOne, nonnormal = c("time"), exact = c("ascites"))
 ##'
-##' ## Use the summary.TableOne method for depth summary
+##' ## Use the summary.TableOne method for detailed summary
 ##' summary(tableOne)
 ##'
 ##' @export
@@ -163,6 +163,21 @@ print.TableOne <- function(x, missing = FALSE,
     ## Row-combin n and all variables
     out <- do.call(rbind, c(list(stratumSizesRow), spaceFormattedTables))
 
+    ## Add stratification information to the column header (This is also in the constructor)
+    if (length(TableOne[[1]]) > 1 ) {
+        ## Combine variable names with : in between
+        strataVarName <- attributes(TableOne[[1]])$strataVarName
+
+        ## Create strata string
+        strataString <- paste0("Stratified by ", strataVarName)
+
+        ## Name the row dimension with it. 1st dimension name should be empty.
+        names(dimnames(out)) <- c("", strataString)
+    } else {
+
+        names(dimnames(out)) <- c("", "")
+    }
+
     ## Modular version of quote/print toggle.
     out <- ModuleQuoteAndPrintMat(matObj = out,
                                   quote = quote, printToggle = printToggle)
@@ -170,21 +185,3 @@ print.TableOne <- function(x, missing = FALSE,
     ## Return the result
     return(invisible(out))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

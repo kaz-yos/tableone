@@ -456,11 +456,15 @@ print.CatTable <- function(x, missing = FALSE,
 
         ## Name the row dimension with it. 1st dimension name should be empty.
         names(dimnames(out)) <- c("", strataString)
+    } else {
+
+        names(dimnames(out)) <- c("", "")
     }
 
 
     ## Modular version of quote/print toggle.
-    out <- ModuleQuoteAndPrintMat(matObj = out, quote = quote, printToggle = printToggle)
+    out <- ModuleQuoteAndPrintMat(matObj = out,
+                                  quote = quote, printToggle = printToggle)
 
     ## Print CrossTable() if requested
     if (CrossTable) {
