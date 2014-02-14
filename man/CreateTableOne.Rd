@@ -1,6 +1,6 @@
 \name{CreateTableOne}
 \alias{CreateTableOne}
-\title{Create an object|output summarizing both categorical and continuous variables}
+\title{Create an object summarizing both categorical and continuous variables}
 \usage{
 CreateTableOne(vars, strata, data, test = TRUE, testApprox = chisq.test,
   argsApprox = list(correct = TRUE), testExact = fisher.test,
@@ -74,10 +74,12 @@ of two \code{\link{by}} objects with additional attributes.
 These correspond to structures holding results for
 }
 \description{
-Create an object|output summarizing categorical variables
+Create an object summarizing categorical variables
 optionally stratifying by one or more startifying variables
 and performing statistical tests. The object gives a table
-that is easy to use in medical research papers.
+that is easy to use in medical research papers. See also
+\code{\link{print.TableOne}} and
+\code{\link{summary.TableOne}}.
 }
 \examples{
 ## Load

@@ -1,10 +1,9 @@
-### 2014-02-09 Unifying function suggested by Justin Bohn
+##' Create an object summarizing both categorical and continuous variables
 ##'
-##' Create an object|output summarizing both categorical and continuous variables
-##'
-##' Create an object|output summarizing categorical variables optionally stratifying
+##' Create an object summarizing categorical variables optionally stratifying
 ##' by one or more startifying variables and performing statistical tests. The
-##' object gives a table that is easy to use in medical research papers.
+##' object gives a table that is easy to use in medical research papers. See also \code{\link{print.TableOne}} and \code{\link{summary.TableOne}}.
+##' 
 ##'
 ##' @param vars Variables to be summarized given as a character vector. Factors are
 ##' handled as categorical variables, whereas numeric variables are handled as continuous variables.
