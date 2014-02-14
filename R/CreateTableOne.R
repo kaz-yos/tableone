@@ -4,7 +4,6 @@
 ##' by one or more startifying variables and performing statistical tests. The
 ##' object gives a table that is easy to use in medical research papers. See also \code{\link{print.TableOne}} and \code{\link{summary.TableOne}}.
 ##' 
-##'
 ##' @param vars Variables to be summarized given as a character vector. Factors are
 ##' handled as categorical variables, whereas numeric variables are handled as continuous variables.
 ##' @param strata Stratifying (grouping) variable name(s) given as a character
@@ -30,7 +29,7 @@
 ##' memory limitation. In this situation, the large sample approximation based
 ##' should suffice.
 ##' @param argsExact A named list of arguments passed to the function specified in testExact. The default is \code{list(workspace = 2*10^5)}, which specifies the memory space allocated for \code{\link{fisher.test}}.
-##' @return An object of class \code{TableOne}, which really is a list of three objects. The first object named \code{object$TableOne} is the categorical-continuous mixture table formatted and printed by the \code{\link{print.TableOne}} method. The second object named \code{object$ContTable} is the table object containing continuous variables only. The third object named \code{object$CatTable} is the table object containing categorical variables only. The second and third objects can be then be examined with the \code{print} and \{summary} method, for example, \code{summary(object$CatTable)} to examine the categorical variables in detail.
+##' @return An object of class \code{TableOne}, which really is a list of three objects. The first object named \code{object$TableOne} is the categorical-continuous mixture table formatted and printed by the \code{\link{print.TableOne}} method. The second object named \code{object$ContTable} is the table object containing continuous variables only. The third object named \code{object$CatTable} is the table object containing categorical variables only. The second and third objects can be then be examined with the \code{print} and \code{summary} method, for example, \code{summary(object$CatTable)} to examine the categorical variables in detail.
 ##' @author Justin Bohn, Kazuki Yoshida
 ##' @seealso
 ##' \code{\link{CreateTableOne}}, \code{\link{print.TableOne}}, \code{\link{summary.TableOne}},
@@ -51,12 +50,15 @@
 ##' varsToFactor <- c("status","trt","ascites","hepato","spiders","edema","stage")
 ##' pbc[varsToFactor] <- lapply(pbc[varsToFactor], factor)
 ##'
-##' ## Create Table 1 stratified by sex and trt
-##' tableOne <- CreateTableOne(vars = c("time","status","age","ascites","hepato",
-##'                                     "spiders","edema","bili","chol","albumin",
-##'                                     "copper","alk.phos","ast","trig","platelet",
-##'                                     "protime","stage"),
-##'                            strata = c("sex","trt"), data = pbc)
+##' ## Create a variable list
+##' dput(names(pbc))
+##' vars <- c("time","status","age","sex","ascites","hepato",
+##'           "spiders","edema","bili","chol","albumin",
+##'           "copper","alk.phos","ast","trig","platelet",
+##'           "protime","stage")
+##'
+##' ## Create Table 1 stratified by trt
+##' tableOne <- CreateTableOne(vars = vars, strata = c("trt"), data = pbc)
 ##'
 ##' ## Just typing the object name will invoke the print.TableOne method
 ##' tableOne
@@ -66,8 +68,14 @@
 ##' ## argument to obtain the exact test p-values.
 ##' print(tableOne, nonnormal = c("time"), exact = c("ascites"))
 ##'
-##' ## Use the summary.TableOne method for depth summary
+##' ## Use the summary.TableOne method for detailed summary
 ##' summary(tableOne)
+##'
+##' ## See the categorical part only using $ operator
+##' tableOne$CatTable
+##'
+##' ## See the continuous part only using $ operator
+##' tableOne$ContTable
 ##'
 ##' @export
 CreateTableOne <-

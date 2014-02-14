@@ -42,12 +42,15 @@ head(pbc)
 varsToFactor <- c("status","trt","ascites","hepato","spiders","edema","stage")
 pbc[varsToFactor] <- lapply(pbc[varsToFactor], factor)
 
-## Create Table 1 stratified by sex and trt
-tableOne <- CreateTableOne(vars = c("time","status","age","ascites","hepato",
-                                    "spiders","edema","bili","chol","albumin",
-                                    "copper","alk.phos","ast","trig","platelet",
-                                    "protime","stage"),
-                           strata = c("sex","trt"), data = pbc)
+## Create a variable list
+dput(names(pbc))
+vars <- c("time","status","age","sex","ascites","hepato",
+          "spiders","edema","bili","chol","albumin",
+          "copper","alk.phos","ast","trig","platelet",
+          "protime","stage")
+
+## Create Table 1 stratified by trt
+tableOne <- CreateTableOne(vars = vars, strata = c("trt"), data = pbc)
 
 ## Just typing the object name will invoke the print.TableOne method
 tableOne
@@ -57,8 +60,14 @@ tableOne
 ## argument to obtain the exact test p-values.
 print(tableOne, nonnormal = c("time"), exact = c("ascites"))
 
-## Use the summary.TableOne method for depth summary
+## Use the summary.TableOne method for detailed summary
 summary(tableOne)
+
+## See the categorical part only using $ operator
+tableOne$CatTable
+
+## See the continuous part only using $ operator
+tableOne$ContTable
 }
 \author{
 Kazuki Yoshida, Justin Bohn
