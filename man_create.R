@@ -1,3 +1,4 @@
+## !/usr/bin/Rscript
 ################################################################################
 ### .Rd creater 
 ## Creates .Rd from in-source Roxygen2 docs in .R files

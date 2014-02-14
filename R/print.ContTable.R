@@ -349,11 +349,15 @@ print.ContTable <- function(x, missing = FALSE,
 
         ## Name the row dimension with it. 1st dimension name should be empty.
         names(dimnames(out)) <- c("", strataString)
+    }  else {
+
+        names(dimnames(out)) <- c("", "")
     }
 
 
     ## (module) Takes an matrix object format, print if requested
-    out <- ModuleQuoteAndPrintMat(matObj = out, quote = quote, printToggle = printToggle)
+    out <- ModuleQuoteAndPrintMat(matObj = out,
+                                  quote = quote, printToggle = printToggle)
 
     ## Add attributes for column widths in characters
     attributes(out) <- c(attributes(out),

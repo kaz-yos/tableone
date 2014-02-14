@@ -1,11 +1,9 @@
-### 2014-02-09 Unifying function suggested by Justin Bohn
+##' Create an object summarizing both categorical and continuous variables
 ##'
-##' Create an object|output summarizing both categorical and continuous variables
-##'
-##' Create an object|output summarizing categorical variables optionally stratifying
+##' Create an object summarizing categorical variables optionally stratifying
 ##' by one or more startifying variables and performing statistical tests. The
-##' object gives a table that is easy to use in medical research papers.
-##'
+##' object gives a table that is easy to use in medical research papers. See also \code{\link{print.TableOne}} and \code{\link{summary.TableOne}}.
+##' 
 ##' @param vars Variables to be summarized given as a character vector. Factors are
 ##' handled as categorical variables, whereas numeric variables are handled as continuous variables.
 ##' @param strata Stratifying (grouping) variable name(s) given as a character
@@ -31,8 +29,7 @@
 ##' memory limitation. In this situation, the large sample approximation based
 ##' should suffice.
 ##' @param argsExact A named list of arguments passed to the function specified in testExact. The default is \code{list(workspace = 2*10^5)}, which specifies the memory space allocated for \code{\link{fisher.test}}.
-##' @return An object of class \code{TableOne}, which really is a list of two \code{\link{by}} objects with
-##' additional attributes. These correspond to structures holding results for
+##' @return An object of class \code{TableOne}, which really is a list of three objects. The first object named \code{object$TableOne} is the categorical-continuous mixture table formatted and printed by the \code{\link{print.TableOne}} method. The second object named \code{object$ContTable} is the table object containing continuous variables only. The third object named \code{object$CatTable} is the table object containing categorical variables only. The second and third objects can be then be examined with the \code{print} and \code{summary} method, for example, \code{summary(object$CatTable)} to examine the categorical variables in detail.
 ##' @author Justin Bohn, Kazuki Yoshida
 ##' @seealso
 ##' \code{\link{CreateTableOne}}, \code{\link{print.TableOne}}, \code{\link{summary.TableOne}},
@@ -53,12 +50,15 @@
 ##' varsToFactor <- c("status","trt","ascites","hepato","spiders","edema","stage")
 ##' pbc[varsToFactor] <- lapply(pbc[varsToFactor], factor)
 ##'
-##' ## Create Table 1 stratified by sex and trt
-##' tableOne <- CreateTableOne(vars = c("time","status","age","ascites","hepato",
-##'                                     "spiders","edema","bili","chol","albumin",
-##'                                     "copper","alk.phos","ast","trig","platelet",
-##'                                     "protime","stage"),
-##'                            strata = c("sex","trt"), data = pbc)
+##' ## Create a variable list
+##' dput(names(pbc))
+##' vars <- c("time","status","age","sex","ascites","hepato",
+##'           "spiders","edema","bili","chol","albumin",
+##'           "copper","alk.phos","ast","trig","platelet",
+##'           "protime","stage")
+##'
+##' ## Create Table 1 stratified by trt
+##' tableOne <- CreateTableOne(vars = vars, strata = c("trt"), data = pbc)
 ##'
 ##' ## Just typing the object name will invoke the print.TableOne method
 ##' tableOne
@@ -68,12 +68,20 @@
 ##' ## argument to obtain the exact test p-values.
 ##' print(tableOne, nonnormal = c("time"), exact = c("ascites"))
 ##'
-##' ## Use the summary.TableOne method for depth summary
+##' ## Use the summary.TableOne method for detailed summary
 ##' summary(tableOne)
+##'
+##' ## See the categorical part only using $ operator
+##' tableOne$CatTable
+##'
+##' ## See the continuous part only using $ operator
+##' tableOne$ContTable
 ##'
 ##' @export
 CreateTableOne <-
-    function(vars, strata, data,
+    function(vars,                                      # character vector of variable names
+             strata,                                    # character vector of variable names
+             data,                                      # data frame
              test          = TRUE,                      # whether to put p-values
              ## Test configuration for categorical data
              testApprox    = chisq.test,                # function for approximation test
@@ -97,6 +105,9 @@ CreateTableOne <-
         ## Abort if no variables exist at this point
         ModuleStopIfNoVarsLeft(vars)
 
+        ## Toggle test FALSE if no strata is given
+        test <- ModuleReturnFalseIfNoStrata(strata, test)
+
         ## Get the classes of the variables
         varClasses  <- sapply(data[vars], class)
         varFactors  <- names(varClasses[varClasses == "factor"])
@@ -106,20 +117,26 @@ CreateTableOne <-
         logiFactors <- sapply(data[vars], is.factor)
 
         ## Create lists of arguments
-        argsCreateContTable <- list(strata = strata, data = data,
-                                    test       = test,
-                                    testNormal = testNormal,
-                                    argsNormal = argsNormal,
+        argsCreateContTable <- list(data          = data,
+                                    test          = test,
+                                    testNormal    = testNormal,
+                                    argsNormal    = argsNormal,
                                     testNonNormal = testNonNormal,
                                     argsNonNormal = argsNonNormal
                                     )
-        argsCreateCatTable <- list(strata = strata, data = data,
-                                   test       = test,
-                                   testApprox = testApprox,
-                                   argsApprox = argsApprox,
-                                   testExact  = testExact,
-                                   argsExact  = argsExact
+        argsCreateCatTable <- list(data           = data,
+                                   test           = test,
+                                   testApprox     = testApprox,
+                                   argsApprox     = argsApprox,
+                                   testExact      = testExact,
+                                   argsExact      = argsExact
                                    )
+        ## Add strata = strata for argument only if strata is given
+        if(!missing(strata)) {
+
+            argsCreateContTable <- c(list(strata = strata), argsCreateContTable)
+            argsCreateCatTable  <- c(list(strata = strata), argsCreateCatTable)
+        }
 
 
         ## Condition on the absence of factor/numeric
@@ -172,8 +189,8 @@ CreateTableOne <-
             ContTable <- do.call(CreateContTable,
                                  args = c(list(vars = varNumerics), argsCreateContTable))
             ## Aggregated CatTable
-            CatTable <- do.call(CreateCatTable,
-                                args = c(list(vars = varFactors), argsCreateCatTable))
+            CatTable  <- do.call(CreateCatTable,
+                                 args = c(list(vars = varFactors),  argsCreateCatTable))
 
             ## Create a list
             listOfTables <- list(TableOne  = TableOne,

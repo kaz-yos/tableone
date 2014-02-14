@@ -1,6 +1,6 @@
 \name{CreateTableOne}
 \alias{CreateTableOne}
-\title{Create an object|output summarizing both categorical and continuous variables}
+\title{Create an object summarizing both categorical and continuous variables}
 \usage{
 CreateTableOne(vars, strata, data, test = TRUE, testApprox = chisq.test,
   argsApprox = list(correct = TRUE), testExact = fisher.test,
@@ -70,14 +70,26 @@ CreateTableOne(vars, strata, data, test = TRUE, testApprox = chisq.test,
 }
 \value{
 An object of class \code{TableOne}, which really is a list
-of two \code{\link{by}} objects with additional attributes.
-These correspond to structures holding results for
+of three objects. The first object named
+\code{object$TableOne} is the categorical-continuous
+mixture table formatted and printed by the
+\code{\link{print.TableOne}} method. The second object
+named \code{object$ContTable} is the table object
+containing continuous variables only. The third object
+named \code{object$CatTable} is the table object containing
+categorical variables only. The second and third objects
+can be then be examined with the \code{print} and
+\code{summary} method, for example,
+\code{summary(object$CatTable)} to examine the categorical
+variables in detail.
 }
 \description{
-Create an object|output summarizing categorical variables
+Create an object summarizing categorical variables
 optionally stratifying by one or more startifying variables
 and performing statistical tests. The object gives a table
-that is easy to use in medical research papers.
+that is easy to use in medical research papers. See also
+\code{\link{print.TableOne}} and
+\code{\link{summary.TableOne}}.
 }
 \examples{
 ## Load
@@ -93,12 +105,15 @@ head(pbc)
 varsToFactor <- c("status","trt","ascites","hepato","spiders","edema","stage")
 pbc[varsToFactor] <- lapply(pbc[varsToFactor], factor)
 
-## Create Table 1 stratified by sex and trt
-tableOne <- CreateTableOne(vars = c("time","status","age","ascites","hepato",
-                                    "spiders","edema","bili","chol","albumin",
-                                    "copper","alk.phos","ast","trig","platelet",
-                                    "protime","stage"),
-                           strata = c("sex","trt"), data = pbc)
+## Create a variable list
+dput(names(pbc))
+vars <- c("time","status","age","sex","ascites","hepato",
+          "spiders","edema","bili","chol","albumin",
+          "copper","alk.phos","ast","trig","platelet",
+          "protime","stage")
+
+## Create Table 1 stratified by trt
+tableOne <- CreateTableOne(vars = vars, strata = c("trt"), data = pbc)
 
 ## Just typing the object name will invoke the print.TableOne method
 tableOne
@@ -108,8 +123,14 @@ tableOne
 ## argument to obtain the exact test p-values.
 print(tableOne, nonnormal = c("time"), exact = c("ascites"))
 
-## Use the summary.TableOne method for depth summary
+## Use the summary.TableOne method for detailed summary
 summary(tableOne)
+
+## See the categorical part only using $ operator
+tableOne$CatTable
+
+## See the continuous part only using $ operator
+tableOne$ContTable
 }
 \author{
 Justin Bohn, Kazuki Yoshida

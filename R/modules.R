@@ -35,7 +35,7 @@ ModuleStopIfNoVarsLeft <- function(vars) {
 ##
 ModuleReturnFalseIfNoStrata <- function(strata, test) { # Give strata variable names
 
-    if(missing(strata)){
+    if(missing(strata)) {
         ## test cannot be performed if no strata
         test <- FALSE
     }
@@ -44,7 +44,7 @@ ModuleReturnFalseIfNoStrata <- function(strata, test) { # Give strata variable n
 ## Check statra variables and conditionally create
 ModuleReturnStrata <- function(strata, data, dat) {     # Give strata variable names
     
-    if(missing(strata)){
+    if(missing(strata)) {
         ## If there is no strata, give "Overall" to every subject
         strata <- rep("Overall", dim(dat)[1])                           # Check if dim(dat)[[1]] is correct.
     } else {
@@ -107,7 +107,7 @@ ModuleCreateStrataVarName <- function(obj) {
 ## Used to define non-failing functions, that return NA when there is an error
 tryCatch.W.E <- function(expr) { 
     W <- NULL
-    w.handler <- function(w){ # warning handler
+    w.handler <- function(w) { # warning handler
         W <<- w
         invokeRestart("muffleWarning")
     }

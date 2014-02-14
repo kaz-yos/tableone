@@ -45,7 +45,7 @@
 ##' ## argument to obtain the exact test p-values.
 ##' print(tableOne, nonnormal = c("time"), exact = c("ascites"))
 ##'
-##' ## Use the summary.TableOne method for depth summary
+##' ## Use the summary.TableOne method for detailed summary
 ##' summary(tableOne)
 ##'
 ##' @export
