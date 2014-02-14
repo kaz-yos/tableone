@@ -3,8 +3,8 @@
 \title{Format and print the \code{TableOne} class objects}
 \usage{
 \method{print}{TableOne}(x, missing = FALSE, quote = FALSE, test = TRUE,
-  pDigits = 3, format = c("fp", "f", "p", "pf")[1], exact = NULL,
-  showAllLevels = FALSE, nonnormal = NULL, explain = TRUE,
+  catDigits = 1, contDigits = 2, pDigits = 3, format = c("fp", "f", "p",
+  "pf")[1], exact = NULL, nonnormal = NULL, explain = TRUE,
   printToggle = TRUE, ...)
 }
 \arguments{
@@ -23,7 +23,14 @@
   default. If FALSE, only the numerical summaries are
   shown.}
 
-  \item{pDigits}{Number of digits to print for p-values.}
+  \item{catDigits}{Number of digits to print for
+  proportions. Default 1.}
+
+  \item{contDigits}{Number of digits to print for
+  continuous variables. Default 2.}
+
+  \item{pDigits}{Number of digits to print for p-values.
+  Default 3.}
 
   \item{format}{The default is "fp" frequency (percentage).
   You can also choose from "f" frequency only, "p"
@@ -33,10 +40,6 @@
   for which the p-values should be those of exact tests. By
   default all p-values are from large sample approximation
   tests (chisq.test).}
-
-  \item{showAllLevels}{Whether to show all levels. FALSE by
-  default, i.e., for 2-level categorical variables, only
-  the higher level is shown to avoid.}
 
   \item{nonnormal}{A character vector to specify the
   variables for which the p-values should be those of
@@ -71,6 +74,28 @@ library(survival)
 data(pbc)
 ## Check variables
 head(pbc)
+
+## Make categorical variables factors
+varsToFactor <- c("status","trt","ascites","hepato","spiders","edema","stage")
+pbc[varsToFactor] <- lapply(pbc[varsToFactor], factor)
+
+## Create Table 1 stratified by sex and trt
+tableOne <- CreateTableOne(vars = c("time","status","age","ascites","hepato",
+                                    "spiders","edema","bili","chol","albumin",
+                                    "copper","alk.phos","ast","trig","platelet",
+                                    "protime","stage"),
+                           strata = c("sex","trt"), data = pbc)
+
+## Just typing the object name will invoke the print.TableOne method
+tableOne
+
+## Specifying nonnormal variables will show the variables appropriately,
+## and show nonparametric test p-values. Specify variables in the exact
+## argument to obtain the exact test p-values.
+print(tableOne, nonnormal = c("time"), exact = c("ascites"))
+
+## Use the summary.TableOne method for depth summary
+summary(tableOne)
 }
 \author{
 Kazuki Yoshida, Justin Bohn

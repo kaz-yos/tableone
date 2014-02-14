@@ -67,7 +67,6 @@
 ##' catTableBySexTrt <- CreateCatTable(vars = catVars,
 ##'                                    strata = c("sex","trt"), data = pbc)
 ##' 
-##' 
 ##' ## print now includes p-values which are by default calculated by chisq.test.
 ##' ## It is formatted at the decimal place specified by the pDigits argument
 ##' ## (3 by default). It does <0.001 for you.

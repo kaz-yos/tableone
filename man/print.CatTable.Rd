@@ -95,7 +95,8 @@ print(catTableOverall, format = "p")
 summary(catTableOverall)
 
 ## The table can be stratified by one or more variables
-catTableBySexTrt <- CreateCatTable(vars = catVars, strata = c("sex","trt"), data = pbc)
+catTableBySexTrt <- CreateCatTable(vars = catVars,
+                                   strata = c("sex","trt"), data = pbc)
 
 ## print now includes p-values which are by default calculated by chisq.test.
 ## It is formatted at the decimal place specified by the pDigits argument

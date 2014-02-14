@@ -26,6 +26,28 @@
 ##' ## Check variables
 ##' head(pbc)
 ##'
+##' ## Make categorical variables factors
+##' varsToFactor <- c("status","trt","ascites","hepato","spiders","edema","stage")
+##' pbc[varsToFactor] <- lapply(pbc[varsToFactor], factor)
+##'
+##' ## Create Table 1 stratified by sex and trt
+##' tableOne <- CreateTableOne(vars = c("time","status","age","ascites","hepato",
+##'                                     "spiders","edema","bili","chol","albumin",
+##'                                     "copper","alk.phos","ast","trig","platelet",
+##'                                     "protime","stage"),
+##'                            strata = c("sex","trt"), data = pbc)
+##'
+##' ## Just typing the object name will invoke the print.TableOne method
+##' tableOne
+##'
+##' ## Specifying nonnormal variables will show the variables appropriately,
+##' ## and show nonparametric test p-values. Specify variables in the exact
+##' ## argument to obtain the exact test p-values.
+##' print(tableOne, nonnormal = c("time"), exact = c("ascites"))
+##'
+##' ## Use the summary.TableOne method for depth summary
+##' summary(tableOne)
+##'
 ##' @export
 summary.TableOne <- function(object, digits = 1, ...) {
 

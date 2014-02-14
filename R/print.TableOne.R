@@ -12,15 +12,15 @@
 ##' can copy it to Excel easily.
 ##' @param test Whether to show the p-values. TRUE by default. If FALSE, only
 ##' the numerical summaries are shown.
-##' @param pDigits Number of digits to print for p-values.
+##' @param catDigits Number of digits to print for proportions. Default 1.
+##' @param contDigits Number of digits to print for continuous variables. Default 2.
+##' @param pDigits Number of digits to print for p-values. Default 3.
 ##' @param format The default is "fp" frequency (percentage). You can also
 ##' choose from "f" frequency only, "p" percentage only, and "pf" percentage
 ##' (frequency).
 ##' @param exact A character vector to specify the variables for which the
 ##' p-values should be those of exact tests. By default all p-values are from
 ##' large sample approximation tests (chisq.test).
-## @param showAllLevels Whether to show all levels. FALSE by default, i.e., 
-## for 2-level categorical variables, only the higher level is shown to avoid.
 ##' @param nonnormal A character vector to specify the variables for which the
 ##' p-values should be those of nonparametric tests. By default all p-values
 ##' are from normal assumption-based tests (oneway.test).
@@ -48,6 +48,27 @@
 ##' ## Check variables
 ##' head(pbc)
 ##'
+##' ## Make categorical variables factors
+##' varsToFactor <- c("status","trt","ascites","hepato","spiders","edema","stage")
+##' pbc[varsToFactor] <- lapply(pbc[varsToFactor], factor)
+##'
+##' ## Create Table 1 stratified by sex and trt
+##' tableOne <- CreateTableOne(vars = c("time","status","age","ascites","hepato",
+##'                                     "spiders","edema","bili","chol","albumin",
+##'                                     "copper","alk.phos","ast","trig","platelet",
+##'                                     "protime","stage"),
+##'                            strata = c("sex","trt"), data = pbc)
+##'
+##' ## Just typing the object name will invoke the print.TableOne method
+##' tableOne
+##'
+##' ## Specifying nonnormal variables will show the variables appropriately,
+##' ## and show nonparametric test p-values. Specify variables in the exact
+##' ## argument to obtain the exact test p-values.
+##' print(tableOne, nonnormal = c("time"), exact = c("ascites"))
+##'
+##' ## Use the summary.TableOne method for depth summary
+##' summary(tableOne)
 ##'
 ##' @export
 print.TableOne <- function(x, missing = FALSE,
@@ -57,7 +78,6 @@ print.TableOne <- function(x, missing = FALSE,
                            ## Categorical options
                            format = c("fp","f","p","pf")[1], # Format f_requency and/or p_ercent
                            exact = NULL,
-                           ## showAllLevels = FALSE,    # Cannot be used
 
                            ## Continuous options
                            nonnormal = NULL,
