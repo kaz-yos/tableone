@@ -79,7 +79,9 @@
 ##'
 ##' @export
 CreateTableOne <-
-    function(vars, strata, data,
+    function(vars,                                      # character vector of variable names
+             strata,                                    # character vector of variable names
+             data,                                      # data frame
              test          = TRUE,                      # whether to put p-values
              ## Test configuration for categorical data
              testApprox    = chisq.test,                # function for approximation test
@@ -103,6 +105,9 @@ CreateTableOne <-
         ## Abort if no variables exist at this point
         ModuleStopIfNoVarsLeft(vars)
 
+        ## Toggle test FALSE if no strata is given
+        test <- ModuleReturnFalseIfNoStrata(strata, test)
+
         ## Get the classes of the variables
         varClasses  <- sapply(data[vars], class)
         varFactors  <- names(varClasses[varClasses == "factor"])
@@ -112,20 +117,26 @@ CreateTableOne <-
         logiFactors <- sapply(data[vars], is.factor)
 
         ## Create lists of arguments
-        argsCreateContTable <- list(strata = strata, data = data,
-                                    test       = test,
-                                    testNormal = testNormal,
-                                    argsNormal = argsNormal,
+        argsCreateContTable <- list(data          = data,
+                                    test          = test,
+                                    testNormal    = testNormal,
+                                    argsNormal    = argsNormal,
                                     testNonNormal = testNonNormal,
                                     argsNonNormal = argsNonNormal
                                     )
-        argsCreateCatTable <- list(strata = strata, data = data,
-                                   test       = test,
-                                   testApprox = testApprox,
-                                   argsApprox = argsApprox,
-                                   testExact  = testExact,
-                                   argsExact  = argsExact
+        argsCreateCatTable <- list(data           = data,
+                                   test           = test,
+                                   testApprox     = testApprox,
+                                   argsApprox     = argsApprox,
+                                   testExact      = testExact,
+                                   argsExact      = argsExact
                                    )
+        ## Add strata = strata for argument only if strata is given
+        if(!missing(strata)) {
+
+            argsCreateContTable <- c(list(strata = strata), argsCreateContTable)
+            argsCreateCatTable  <- c(list(strata = strata), argsCreateCatTable)
+        }
 
 
         ## Condition on the absence of factor/numeric
@@ -178,8 +189,8 @@ CreateTableOne <-
             ContTable <- do.call(CreateContTable,
                                  args = c(list(vars = varNumerics), argsCreateContTable))
             ## Aggregated CatTable
-            CatTable <- do.call(CreateCatTable,
-                                args = c(list(vars = varFactors), argsCreateCatTable))
+            CatTable  <- do.call(CreateCatTable,
+                                 args = c(list(vars = varFactors),  argsCreateCatTable))
 
             ## Create a list
             listOfTables <- list(TableOne  = TableOne,
