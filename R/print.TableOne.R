@@ -115,7 +115,8 @@ print.TableOne <- function(x, missing = FALSE,
                                   
                                   attributes(matObj)$vecColWidths
                               },
-                              simplify = TRUE)
+                              simplify = FALSE)
+    columnWidthInfo <- do.call(cbind, columnWidthInfo)
 
     ## Get the max values for each stratum
     vecMaxValues <- apply(columnWidthInfo, MARGIN = 1, FUN = max, na.rm = TRUE)
