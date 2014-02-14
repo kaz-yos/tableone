@@ -1,4 +1,14 @@
-tableone 0.1.3 (not released yet)
+tableone 0.2.0
+----------------------------------------------------------------
+NEW FEATURES
+
+* CreateTableOne and related print/summary methods were added.
+
+* CreateTableOne can crate a table with both categorical and
+   continuous variables.
+
+
+tableone 0.1.3
 ----------------------------------------------------------------
 NEW FEATURES
 
@@ -17,7 +27,8 @@ BUG FIXES
 
 * Fixed incorrect specification of S3 method export.
 
-* To make an object an S3 method and export it both at_S3method and at_export tags are needed in the Roxygen part of the code.
+* To make an object an S3 method and export it both at_S3method and at_export
+  tags are needed in the Roxygen part of the code.
 
 * Passed all the default tests by R CMD check file.tar.gz
 

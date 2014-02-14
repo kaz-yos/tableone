@@ -1,14 +1,9 @@
 ##' Create "Table 1" to describe baseline characteristics
 ##'
-##' Table 1, i.e., description of baseline patient characteristics is essential
-##' every medical research. This package provides functions to create such
-##' summaries for continuous and categorical variables, optionally with subgroups
-##' and groupwise comparison. The package was insipired by descriptive statistics
-##' functions in Deducer, Java-based GUI package. This package does not require
-##' GUI or Java, and intended for CUI users.
+##' This package creates "Table 1", i.e., description of baseline patient characteristics, which is essential every medical research. This package provides functions to create such summaries for continuous and categorical variables, optionally with subgroups and groupwise comparison. The package was insipired by descriptive statistics functions in Deducerby Ian Fellows, Java-based GUI package. This package does not require GUI or Java, and intended for CUI users.
 ##'
 ##' \tabular{ll}{ Package: \tab tableone\cr Type: \tab Package\cr Version: \tab
-##' 0.1.3\cr Date: \tab 2014-02-08\cr License: \tab GPL-2\cr } Create an object
+##' 0.2.0\cr Date: \tab 2014-02-13\cr License: \tab GPL-2\cr } Create an object
 ##' summarizing continous and categorical variables optionally stratifying by
 ##' one or more startifying variables and performing statistical tests. The
 ##' object gives a table that is easy to use in medical research papers.
@@ -20,9 +15,11 @@
 ##' @docType package
 ##' @note Special Thanks:
 ##' Ian Fellows for developing the Deducer package, which this package is based on.
-##' Hadley Wickham for packaging advice and for creating tools this package was made with.
+##' 
+##' Hadley Wickham for packaging advice and for creating tools this package was made with (roxygens, devtools, testthat).
 ##'
 ##' Developmental repository is on github. Your contributions are appreciated.
+##' 
 ##' https://github.com/kaz-yos/tableone
 ##'
 ##' @author Kazuki Yoshida, Justin Bohn
