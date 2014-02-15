@@ -1,8 +1,6 @@
 ##' Format and print the \code{CatTable} class objects
 ##'
-##' This is the print method for the CatTable class objects created by
-##' CreateCatTable function.
-##'
+##' This is the \code{print} method for the \code{CatTable} class objects created by \code{\link{CreateCatTable}} function.
 ##'
 ##' @param x The result of a call to the \code{\link{CreateCatTable}} function.
 ##' @param missing Whether to show missing data information (not implemented

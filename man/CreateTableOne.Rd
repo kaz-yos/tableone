@@ -70,21 +70,25 @@ CreateTableOne(vars, strata, data, test = TRUE, testApprox = chisq.test,
 }
 \value{
 An object of class \code{TableOne}, which really is a list
-of three objects. The first object named
-\code{object$TableOne} is the categorical-continuous
-mixture table formatted and printed by the
-\code{\link{print.TableOne}} method. The second object
-named \code{object$ContTable} is the table object
-containing continuous variables only. The third object
-named \code{object$CatTable} is the table object containing
-categorical variables only. The second and third objects
-can be then be examined with the \code{print} and
-\code{summary} method, for example,
+of three objects.
+
+\item{TableOne}{a categorical-continuous mixture data
+formatted and printed by the \code{\link{print.TableOne}}
+method}
+
+\item{ContTable}{an object of class \code{ContTable},
+containing continuous variables only}
+
+\item{CatTable}{ an object of class \code{CatTable},
+containing categorical variables only}
+
+The second and third objects can be then be examined with
+the \code{print} and \code{summary} method, for example,
 \code{summary(object$CatTable)} to examine the categorical
 variables in detail.
 }
 \description{
-Create an object summarizing categorical variables
+Create an object summarizing all baseline variables
 optionally stratifying by one or more startifying variables
 and performing statistical tests. The object gives a table
 that is easy to use in medical research papers. See also
@@ -121,16 +125,25 @@ tableOne
 ## Specifying nonnormal variables will show the variables appropriately,
 ## and show nonparametric test p-values. Specify variables in the exact
 ## argument to obtain the exact test p-values.
-print(tableOne, nonnormal = c("time"), exact = c("ascites"))
+print(tableOne, nonnormal = c("bili","chol","copper","alk.phos","trig"),
+      exact = c("status","stage"))
 
 ## Use the summary.TableOne method for detailed summary
 summary(tableOne)
 
 ## See the categorical part only using $ operator
 tableOne$CatTable
+summary(tableOne$CatTable)
 
 ## See the continuous part only using $ operator
 tableOne$ContTable
+summary(tableOne$ContTable)
+
+## If your work flow includes copying to Excel and Word when writing manuscripts,
+## you may benefit from the quote argument. This will quote everything so that
+## Excel does not mess up the cells.
+print(tableOne, nonnormal = c("bili","chol","copper","alk.phos","trig"),
+      exact = c("status","stage"), quote = TRUE)
 }
 \author{
 Justin Bohn, Kazuki Yoshida

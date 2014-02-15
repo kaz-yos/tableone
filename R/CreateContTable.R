@@ -16,9 +16,8 @@
 ##' kurtosis (same definition as in SAS). All of them can be seen in the
 ##' summary method output. The print method uses subset of these. You can
 ##' choose subset of them or reorder them. They are all configure to omit NA
-##' values (na.rm = TRUE).
-##' @param func.additional Additional functions can be given as a named list.
-##' For example, list(sum = sum).
+##' values (\code{na.rm = TRUE}).
+##' @param func.additional Additional functions can be given as a named list. For example, \code{list(sum = sum)}.
 ##' @param test If TRUE, as in the default and there are more than two groups,
 ##' groupwise comparisons are performed. Both tests that assume normality and
 ##' tests that do not are performed. Either one of the result can be obtained
@@ -27,14 +26,14 @@
 ##' tests. The default is \code{\link{oneway.test}}. This is equivalent of the t-test when there are only two groups.
 ##' @param argsNormal A named list of arguments passed to the function specified in \code{testNormal}. The default is \code{list(var.equal = TRUE)}, which makes it the ordinary ANOVA that assumes equal variance across groups.
 ##' @param testNonNormal A function used to perform the nonparametric tests.
-##' The default is \code{kruskal.test} (Kruskal-Wallis Rank Sum Test). This is
+##' The default is \code{kruskal.test} (Kruskal-Wallis rank sum test). This is
 ##' equivalent of the wilcox.test (Man-Whitney U test) when there are only two
 ##' groups.
 ##' @param argsNonNormal A named list of arguments passed to the function specified in \code{testNonNormal}. The default is \code{list(NULL)}, which is just a placeholder. 
 ##' @return An object of class \code{ContTable}, which really is a \code{\link{by}} object with
 ##' additional attributes. Each element of the \code{\link{by}} part is a matrix with rows
 ##' representing variables, and columns representing summary statistics.
-##' @author Kazuki Yoshida
+##' @author Kazuki Yoshida (based on \code{Deducer::descriptive.table()})
 ##' @seealso
 ##' \code{\link{CreateContTable}}, \code{\link{print.ContTable}}, \code{\link{summary.ContTable}},
 ##' \code{\link{CreateCatTable}}, \code{\link{print.CatTable}}, \code{\link{summary.CatTable}},
@@ -53,7 +52,6 @@
 ##' ## Create an overall table for continuous variables
 ##' contVars <- c("time","age","bili","chol","albumin","copper",
 ##'               "alk.phos","ast","trig","platelet","protime")
-##'
 ##' contTableOverall <- CreateContTable(vars = contVars, data = pbc)
 ##'
 ##' ## Simply typing the object name will invoke the print.ContTable method,

@@ -1,10 +1,6 @@
 ##' Shows all results in a \code{CatTable} class object
 ##'
-##' This method shows all the data a CatTable class object has. This includes
-##' the (optionally stratified) part with summary statistics and p-values from
-##' the approximation method test (chisq.test by default) and exact method test
-##' (fisher.test by default).
-##'
+##' This method shows all the data a \code{CatTable} class object has. This includes the (optionally stratified) part with summary statistics and , if available, p-values from the approximation method test (\code{\link{chisq.test}} by default) and exact method test (\code{\link{fisher.test}} by default).
 ##'
 ##' @param object An object that has the \code{CatTable} class to be shown.
 ##' @param digits Number of digits to print.
