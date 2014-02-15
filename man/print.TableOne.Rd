@@ -62,8 +62,9 @@ does return a matrix containing what you see in the output
 invisibly. You can assign it to an object to save it.
 }
 \description{
-This is the print method for the TableOne class objects
-created by CreateTableOne function.
+This is the \code{print} method for the \code{TableOne}
+class objects created by \code{\link{CreateTableOne}}
+function.
 }
 \examples{
 ## Load
@@ -92,10 +93,19 @@ tableOne
 ## Specifying nonnormal variables will show the variables appropriately,
 ## and show nonparametric test p-values. Specify variables in the exact
 ## argument to obtain the exact test p-values.
-print(tableOne, nonnormal = c("time"), exact = c("ascites"))
+print(tableOne, nonnormal = c("bili","chol","copper","alk.phos","trig"),
+      exact = c("status","stage"))
 
 ## Use the summary.TableOne method for detailed summary
 summary(tableOne)
+
+## See the categorical part only using $ operator
+tableOne$CatTable
+summary(tableOne$CatTable)
+
+## See the continuous part only using $ operator
+tableOne$ContTable
+summary(tableOne$ContTable)
 }
 \author{
 Kazuki Yoshida, Justin Bohn

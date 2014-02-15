@@ -1,9 +1,7 @@
 ##' Create an object summarizing both categorical and continuous variables
 ##'
-##' Create an object summarizing categorical variables optionally stratifying
-##' by one or more startifying variables and performing statistical tests. The
-##' object gives a table that is easy to use in medical research papers. See also \code{\link{print.TableOne}} and \code{\link{summary.TableOne}}.
-##' 
+##' Create an object summarizing all baseline variables optionally stratifying by one or more startifying variables and performing statistical tests. The object gives a table that is easy to use in medical research papers. See also \code{\link{print.TableOne}} and \code{\link{summary.TableOne}}.
+##'
 ##' @param vars Variables to be summarized given as a character vector. Factors are
 ##' handled as categorical variables, whereas numeric variables are handled as continuous variables.
 ##' @param strata Stratifying (grouping) variable name(s) given as a character
@@ -29,19 +27,19 @@
 ##' memory limitation. In this situation, the large sample approximation based
 ##' should suffice.
 ##' @param argsExact A named list of arguments passed to the function specified in testExact. The default is \code{list(workspace = 2*10^5)}, which specifies the memory space allocated for \code{\link{fisher.test}}.
-##' @return An object of class \code{TableOne}, which really is a list of three objects. 
+##' @return An object of class \code{TableOne}, which really is a list of three objects.
 ##' @return \item{TableOne}{a categorical-continuous mixture data formatted and printed by the \code{\link{print.TableOne}} method}
 ##' @return \item{ContTable}{an object of class \code{ContTable}, containing continuous variables only}
 ##' @return \item{CatTable}{ an object of class \code{CatTable}, containing categorical variables only}
 ##' @return The second and third objects can be then be examined with the \code{print} and \code{summary} method, for example, \code{summary(object$CatTable)} to examine the categorical variables in detail.
-##' 
+##'
 ##' @author Justin Bohn, Kazuki Yoshida
 ##' @seealso
 ##' \code{\link{CreateTableOne}}, \code{\link{print.TableOne}}, \code{\link{summary.TableOne}},
 ##' \code{\link{CreateCatTable}}, \code{\link{print.CatTable}}, \code{\link{summary.CatTable}},
 ##' \code{\link{CreateContTable}}, \code{\link{print.ContTable}}, \code{\link{summary.ContTable}}
 ##' @examples
-##' 
+##'
 ##' ## Load
 ##' library(tableone)
 ##'
@@ -71,7 +69,8 @@
 ##' ## Specifying nonnormal variables will show the variables appropriately,
 ##' ## and show nonparametric test p-values. Specify variables in the exact
 ##' ## argument to obtain the exact test p-values.
-##' print(tableOne, nonnormal = c("time"), exact = c("ascites"))
+##' print(tableOne, nonnormal = c("bili","chol","copper","alk.phos","trig"),
+##'       exact = c("status","stage"))
 ##'
 ##' ## Use the summary.TableOne method for detailed summary
 ##' summary(tableOne)
@@ -83,6 +82,12 @@
 ##' ## See the continuous part only using $ operator
 ##' tableOne$ContTable
 ##' summary(tableOne$ContTable)
+##'
+##' ## If your work flow includes copying to Excel and Word when writing manuscripts,
+##' ## you may benefit from the quote argument. This will quote everything so that
+##' ## Excel does not mess up the cells.
+##' print(tableOne, nonnormal = c("bili","chol","copper","alk.phos","trig"),
+##'       exact = c("status","stage"), quote = TRUE)
 ##'
 ##' @export
 CreateTableOne <-

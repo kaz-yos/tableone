@@ -88,7 +88,7 @@ the \code{print} and \code{summary} method, for example,
 variables in detail.
 }
 \description{
-Create an object summarizing categorical variables
+Create an object summarizing all baseline variables
 optionally stratifying by one or more startifying variables
 and performing statistical tests. The object gives a table
 that is easy to use in medical research papers. See also
@@ -125,7 +125,8 @@ tableOne
 ## Specifying nonnormal variables will show the variables appropriately,
 ## and show nonparametric test p-values. Specify variables in the exact
 ## argument to obtain the exact test p-values.
-print(tableOne, nonnormal = c("time"), exact = c("ascites"))
+print(tableOne, nonnormal = c("bili","chol","copper","alk.phos","trig"),
+      exact = c("status","stage"))
 
 ## Use the summary.TableOne method for detailed summary
 summary(tableOne)
@@ -137,6 +138,12 @@ summary(tableOne$CatTable)
 ## See the continuous part only using $ operator
 tableOne$ContTable
 summary(tableOne$ContTable)
+
+## If your work flow includes copying to Excel and Word when writing manuscripts,
+## you may benefit from the quote argument. This will quote everything so that
+## Excel does not mess up the cells.
+print(tableOne, nonnormal = c("bili","chol","copper","alk.phos","trig"),
+      exact = c("status","stage"), quote = TRUE)
 }
 \author{
 Justin Bohn, Kazuki Yoshida

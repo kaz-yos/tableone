@@ -26,10 +26,11 @@ CreateContTable(vars, strata, data, func.names = c("n", "miss", "mean", "sd",
   (same definition as in SAS). All of them can be seen in
   the summary method output. The print method uses subset
   of these. You can choose subset of them or reorder them.
-  They are all configure to omit NA values (na.rm = TRUE).}
+  They are all configure to omit NA values (\code{na.rm =
+  TRUE}).}
 
   \item{func.additional}{Additional functions can be given
-  as a named list. For example, list(sum = sum).}
+  as a named list. For example, \code{list(sum = sum)}.}
 
   \item{test}{If TRUE, as in the default and there are more
   than two groups, groupwise comparisons are performed.
@@ -50,7 +51,7 @@ CreateContTable(vars, strata, data, func.names = c("n", "miss", "mean", "sd",
 
   \item{testNonNormal}{A function used to perform the
   nonparametric tests. The default is \code{kruskal.test}
-  (Kruskal-Wallis Rank Sum Test). This is equivalent of the
+  (Kruskal-Wallis rank sum test). This is equivalent of the
   wilcox.test (Man-Whitney U test) when there are only two
   groups.}
 
@@ -87,7 +88,6 @@ head(pbc)
 ## Create an overall table for continuous variables
 contVars <- c("time","age","bili","chol","albumin","copper",
               "alk.phos","ast","trig","platelet","protime")
-
 contTableOverall <- CreateContTable(vars = contVars, data = pbc)
 
 ## Simply typing the object name will invoke the print.ContTable method,
