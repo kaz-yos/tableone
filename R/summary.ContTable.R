@@ -1,10 +1,6 @@
 ##' Shows all results in a \code{ContTable} class object
 ##'
-##' This method shows all the data a \code{ContTable} class object has. This includes
-##' the (optionally stratified) part with summary statistics and p-values from
-##' the normal assupmtion-based test (oneway.test by default) and nonparametric
-##' test (kruskal.test by default).
-##'
+##' This method shows all the data a \code{ContTable} class object has. This includes the (optionally stratified) part with summary statistics and , if available, p-values from the normal assupmtion-based test (\code{\link{oneway.test}} by default) and nonparametric test (\code{\link{kruskal.test}} by default).
 ##'
 ##' @param object An object that has the \code{ContTable} class to be shown.
 ##' @param digits Number of digits to print.

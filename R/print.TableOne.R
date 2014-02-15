@@ -1,8 +1,6 @@
 ##' Format and print the \code{TableOne} class objects
 ##'
-##' This is the print method for the TableOne class objects created by
-##' CreateTableOne function.
-##'
+##' This is the \code{print} method for the \code{TableOne} class objects created by \code{\link{CreateTableOne}} function.
 ##'
 ##' @param x The result of a call to the \code{\link{CreateTableOne}} function.
 ##' @param missing Whether to show missing data information (not implemented
@@ -65,10 +63,19 @@
 ##' ## Specifying nonnormal variables will show the variables appropriately,
 ##' ## and show nonparametric test p-values. Specify variables in the exact
 ##' ## argument to obtain the exact test p-values.
-##' print(tableOne, nonnormal = c("time"), exact = c("ascites"))
+##' print(tableOne, nonnormal = c("bili","chol","copper","alk.phos","trig"),
+##'       exact = c("status","stage"))
 ##'
 ##' ## Use the summary.TableOne method for detailed summary
 ##' summary(tableOne)
+##' 
+##' ## See the categorical part only using $ operator
+##' tableOne$CatTable
+##' summary(tableOne$CatTable)
+##'
+##' ## See the continuous part only using $ operator
+##' tableOne$ContTable
+##' summary(tableOne$ContTable)
 ##'
 ##' @export
 print.TableOne <- function(x, missing = FALSE,

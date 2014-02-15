@@ -47,8 +47,9 @@ does return a matrix containing what you see in the output
 invisibly. You can assign it to an object to save it.
 }
 \description{
-This is the print method for the ContTable class objects
-created by CreateContTable function.
+This is the \code{print} method for the \code{ContTable}
+class objects created by \code{\link{CreateContTable}}
+function.
 }
 \examples{
 ## Load

@@ -1,8 +1,6 @@
 ##' Format and print the \code{ContTable} class objects
 ##'
-##' This is the print method for the ContTable class objects created by
-##' CreateContTable function.
-##'
+##' This is the \code{print} method for the \code{ContTable} class objects created by \code{\link{CreateContTable}} function.
 ##'
 ##' @param x The result of a call to the \code{\link{CreateContTable}} function.
 ##' @param missing Whether to show missing data information (not implemented
