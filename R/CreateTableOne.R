@@ -29,7 +29,14 @@
 ##' memory limitation. In this situation, the large sample approximation based
 ##' should suffice.
 ##' @param argsExact A named list of arguments passed to the function specified in testExact. The default is \code{list(workspace = 2*10^5)}, which specifies the memory space allocated for \code{\link{fisher.test}}.
-##' @return An object of class \code{TableOne}, which really is a list of three objects. The first object named \code{object$TableOne} is the categorical-continuous mixture table formatted and printed by the \code{\link{print.TableOne}} method. The second object named \code{object$ContTable} is the table object containing continuous variables only. The third object named \code{object$CatTable} is the table object containing categorical variables only. The second and third objects can be then be examined with the \code{print} and \code{summary} method, for example, \code{summary(object$CatTable)} to examine the categorical variables in detail.
+##' @return An object of class \code{TableOne}, which really is a list of three objects. 
+##' \itemize{
+##'   \item{TableOne}{a categorical-continuous mixture data formatted and printed by the \code{\link{print.TableOne}} method}
+##'   \item{ContTable}{an object of class \code{ContTable}, containing continuous variables only}
+##'   \item{CatTable}{ an object of class \code{CattTable}, containing categorical variables only}
+##' }
+##' The second and third objects can be then be examined with the \code{print} and \code{summary} method, for example, \code{summary(object$CatTable)} to examine the categorical variables in detail.
+##' 
 ##' @author Justin Bohn, Kazuki Yoshida
 ##' @seealso
 ##' \code{\link{CreateTableOne}}, \code{\link{print.TableOne}}, \code{\link{summary.TableOne}},

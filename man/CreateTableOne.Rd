@@ -70,18 +70,16 @@ CreateTableOne(vars, strata, data, test = TRUE, testApprox = chisq.test,
 }
 \value{
 An object of class \code{TableOne}, which really is a list
-of three objects. The first object named
-\code{object$TableOne} is the categorical-continuous
-mixture table formatted and printed by the
-\code{\link{print.TableOne}} method. The second object
-named \code{object$ContTable} is the table object
-containing continuous variables only. The third object
-named \code{object$CatTable} is the table object containing
-categorical variables only. The second and third objects
-can be then be examined with the \code{print} and
-\code{summary} method, for example,
-\code{summary(object$CatTable)} to examine the categorical
-variables in detail.
+of three objects. \itemize{ \item{TableOne}{a
+categorical-continuous mixture data formatted and printed
+by the \code{\link{print.TableOne}} method}
+\item{ContTable}{an object of class \code{ContTable},
+containing continuous variables only} \item{CatTable}{ an
+object of class \code{CattTable}, containing categorical
+variables only} } The second and third objects can be then
+be examined with the \code{print} and \code{summary}
+method, for example, \code{summary(object$CatTable)} to
+examine the categorical variables in detail.
 }
 \description{
 Create an object summarizing categorical variables
