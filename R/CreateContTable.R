@@ -34,7 +34,7 @@
 ##' @return An object of class \code{ContTable}, which really is a \code{\link{by}} object with
 ##' additional attributes. Each element of the \code{\link{by}} part is a matrix with rows
 ##' representing variables, and columns representing summary statistics.
-##' @author Kazuki Yoshida
+##' @author Kazuki Yoshida (based on \code{Deducer::descriptive.table()})
 ##' @seealso
 ##' \code{\link{CreateContTable}}, \code{\link{print.ContTable}}, \code{\link{summary.ContTable}},
 ##' \code{\link{CreateCatTable}}, \code{\link{print.CatTable}}, \code{\link{summary.CatTable}},

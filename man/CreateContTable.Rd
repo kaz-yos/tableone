@@ -126,7 +126,8 @@ summary(contTableBySexTrt)
 print(contTableBySexTrt, nonnormal = nonNormalVars, quote = TRUE)
 }
 \author{
-Kazuki Yoshida
+Kazuki Yoshida (based on
+\code{Deducer::descriptive.table()})
 }
 \seealso{
 \code{\link{CreateContTable}},
