@@ -3,26 +3,17 @@
 ##' This is the \code{print} method for the \code{ContTable} class objects created by \code{\link{CreateContTable}} function.
 ##'
 ##' @param x The result of a call to the \code{\link{CreateContTable}} function.
-##' @param missing Whether to show missing data information (not implemented
-##' yet, placeholder)
+##' @param missing Whether to show missing data information (not implemented yet, placeholder)
 ##' @param digits Number of digits to print in the table.
-##' @param nonnormal A character vector to specify the variables for which the
-##' p-values should be those of nonparametric tests. By default all p-values
-##' are from normal assumption-based tests (oneway.test).
-##' @param quote Whether to show everything in quotes. The default is FALSE. If
-##' TRUE, everything including the row and column names are quoted so that you
-##' can copy it to Excel easily.
-##' @param test Whether to show the p-values. TRUE by default. If FALSE, only
-##' the numerical summaries are shown.
+##' @param nonnormal A character vector to specify the variables for which the p-values should be those of nonparametric tests. By default all p-values are from normal assumption-based tests (oneway.test).
+##' @param minMax Whether to use [min,max] instead of [p25,p75] for nonnormal variables. The default is FALSE.
+##' @param quote Whether to show everything in quotes. The default is FALSE. If TRUE, everything including the row and column names are quoted so that you can copy it to Excel easily.
+##' @param test Whether to show the p-values. TRUE by default. If FALSE, only the numerical summaries are shown.
 ##' @param pDigits Number of digits to print for p-values.
-##' @param explain Whether to add explanation to the variable names, i.e.,
-##' (mean (sd) or median [IQR]) is added to the variable names.
-##' @param printToggle Whether to print the output. If FLASE, no output is
-##' created, and a matrix is invisibly returned.
+##' @param explain Whether to add explanation to the variable names, i.e., (mean (sd) or median [IQR]) is added to the variable names.
+##' @param printToggle Whether to print the output. If FLASE, no output is created, and a matrix is invisibly returned.
 ##' @param ... For compatibility with generic. Ignored.
-##' @return It is mainly for printing the result. But this function does return
-##' a matrix containing what you see in the output invisibly. You can assign it
-##' to an object to save it.
+##' @return It is mainly for printing the result. But this function does return a matrix containing what you see in the output invisibly. You can assign it to an object to save it.
 ##' @author Kazuki Yoshida
 ##' @seealso
 ##' \code{\link{CreateCatTable}}, \code{\link{print.CatTable}}, \code{\link{summary.CatTable}},
@@ -81,7 +72,7 @@
 ##'
 ##' @export
 print.ContTable <- function(x, missing = FALSE,
-                            digits = 2, nonnormal = NULL, quote = FALSE,
+                            digits = 2, nonnormal = NULL, minMax = FALSE, quote = FALSE,
                             test = TRUE, pDigits = 3,
                             explain = TRUE,
                             printToggle = TRUE,
@@ -160,29 +151,16 @@ print.ContTable <- function(x, missing = FALSE,
 
 ### Conversion of data for printing
 
-    ## These may want to be moved to separate files later.
-    ## Define a function to print a normal variable
+    ## Define the nonnormal formatter depending on the minMax status
     ConvertNormal <- function(rowMat) {
-
-        ## Format for SD
-        fmt <- paste0(" (%.", digits,"f",")")
-
-        ## Create a DF with numeric mean column and character (SD) column
-        data.frame(col1 = rowMat[,"mean"],
-                   col2 = sprintf(fmt = fmt, rowMat[,"sd"]),
-                   stringsAsFactors = FALSE)
+        ## Take minMax value from outside (NOT A STANDALONE FUNCTION!!)
+        ModuleConvertNormal(rowMat, digits)
     }
-    ## Define a function to print a nonnormal variable
+    ## Define the nonnormal formatter depending on the minMax status
     ConvertNonNormal <- function(rowMat) {
-        ## Format for [p25, p75]
-        fmt <- paste0(" [%.", digits,"f, %.",digits,"f]")
-
-        ## Create a DF with numeric median column and character [p25, p75] column
-        data.frame(col1 = rowMat[,"median"],
-                   col2 = sprintf(fmt = fmt, rowMat[,"p25"], rowMat[,"p75"]),
-                   stringsAsFactors = FALSE)
+        ## Take minMax value from outside (NOT A STANDALONE FUNCTION!!)
+        ModuleConvertNonNormal(rowMat, digits, minMax = minMax)
     }
-
 
     ## Create a list of these two functions
     listOfFunctions <- list(normal = ConvertNormal, nonnormal = ConvertNonNormal)
@@ -322,9 +300,16 @@ print.ContTable <- function(x, missing = FALSE,
     }
 
 
-    ## Add mean (sd) or median [IQR] explanation if requested
+    ## Add mean (sd) or median [IQR]/median [range] explanation if requested
     if (explain) {
-        what <- c(" (mean (sd))"," (median [IQR])")[nonnormal]
+
+        ## Create a vector of explanations to be pasted
+        if (minMax == FALSE) {
+            what <- c(" (mean (sd))"," (median [IQR])")[nonnormal]
+        } else if (minMax == TRUE) {
+            what <- c(" (mean (sd))"," (median [range])")[nonnormal]
+        }
+        ## Paste to the rownames
         rownames(out) <- paste0(rownames(out), what)
     }
 
