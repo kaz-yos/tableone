@@ -30,12 +30,10 @@
 ##' should suffice.
 ##' @param argsExact A named list of arguments passed to the function specified in testExact. The default is \code{list(workspace = 2*10^5)}, which specifies the memory space allocated for \code{\link{fisher.test}}.
 ##' @return An object of class \code{TableOne}, which really is a list of three objects. 
-##' \itemize{
-##'   \item{TableOne}{a categorical-continuous mixture data formatted and printed by the \code{\link{print.TableOne}} method}
-##'   \item{ContTable}{an object of class \code{ContTable}, containing continuous variables only}
-##'   \item{CatTable}{ an object of class \code{CattTable}, containing categorical variables only}
-##' }
-##' The second and third objects can be then be examined with the \code{print} and \code{summary} method, for example, \code{summary(object$CatTable)} to examine the categorical variables in detail.
+##' @return \item{TableOne}{a categorical-continuous mixture data formatted and printed by the \code{\link{print.TableOne}} method}
+##' @return \item{ContTable}{an object of class \code{ContTable}, containing continuous variables only}
+##' @return \item{CatTable}{ an object of class \code{CatTable}, containing categorical variables only}
+##' @return The second and third objects can be then be examined with the \code{print} and \code{summary} method, for example, \code{summary(object$CatTable)} to examine the categorical variables in detail.
 ##' 
 ##' @author Justin Bohn, Kazuki Yoshida
 ##' @seealso
@@ -80,9 +78,11 @@
 ##'
 ##' ## See the categorical part only using $ operator
 ##' tableOne$CatTable
+##' summary(tableOne$CatTable)
 ##'
 ##' ## See the continuous part only using $ operator
 ##' tableOne$ContTable
+##' summary(tableOne$ContTable)
 ##'
 ##' @export
 CreateTableOne <-

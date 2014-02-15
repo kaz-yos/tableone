@@ -61,8 +61,10 @@
 ##' 
 ##' ## See the categorical part only using $ operator
 ##' tableOne$CatTable
+##' summary(tableOne$CatTable)
 ##'
 ##' ## See the continuous part only using $ operator
 ##' tableOne$ContTable
+##' summary(tableOne$ContTable)
 ##'
 NULL
