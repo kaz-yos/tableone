@@ -58,9 +58,12 @@
 ##' ## by the pDigits argument (3 by default). It does <0.001 for you.
 ##' contTableBySexTrt
 ##'
-##' ## The nonnormal argument will toggle the p-values to the nonparametric result from
+##' ## The nonnormal argument toggles the p-values to the nonparametric result from
 ##' ## kruskal.test (wilcox.test equivalent for the two group case).
 ##' print(contTableBySexTrt, nonnormal = nonNormalVars)
+##'
+##' ## The minMax argument toggles whether to show median [range]
+##' print(contTableBySexTrt, nonnormal = nonNormalVars, minMax = TRUE)
 ##'
 ##' ## summary now includes both types of p-values
 ##' summary(contTableBySexTrt)
