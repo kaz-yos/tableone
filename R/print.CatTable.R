@@ -3,35 +3,20 @@
 ##' This is the \code{print} method for the \code{CatTable} class objects created by \code{\link{CreateCatTable}} function.
 ##'
 ##' @param x The result of a call to the \code{\link{CreateCatTable}} function.
-##' @param missing Whether to show missing data information (not implemented
-##' yet, placeholder)
-##' @param format The default is "fp" frequency (percentage). You can also
-##' choose from "f" frequency only, "p" percentage only, and "pf" percentage
-##' (frequency).
 ##' @param digits Number of digits to print in the table.
-##' @param exact A character vector to specify the variables for which the
-##' p-values should be those of exact tests. By default all p-values are from
-##' large sample approximation tests (chisq.test).
-##' @param quote Whether to show everything in quotes. The default is FALSE. If
-##' TRUE, everything including the row and column names are quoted so that you
-##' can copy it to Excel easily.
-##' @param test Whether to show the p-values. TRUE by default. If FALSE, only
-##' the numerical summaries are shown.
 ##' @param pDigits Number of digits to print for p-values.
-##' @param showAllLevels Whether to show all levels. FALSE by default, i.e.,
-##' for 2-level categorical variables, only the higher level is shown to avoid
-##' @param cramVars A character vector to specify the two-level categorical variables, for which both levels should be shown in one row.
-##' @param explain Whether to add explanation to the variable names, i.e., (\%)
-##' is added to the variable names when percentage is shown.
-##' @param CrossTable Whether to show the cross table objects held internally
-##' using gmodels::CrossTable function. This will give an output similar to the
-##' PROC FREQ in SAS.
-##' @param printToggle Whether to print the output. If FLASE, no output is
-##' created, and a matrix is invisibly returned.
+##' @param quote Whether to show everything in quotes. The default is FALSE. If TRUE, everything including the row and column names are quoted so that you can copy it to Excel easily.
+##' @param missing Whether to show missing data information (not implemented yet, placeholder)
+##' @param explain Whether to add explanation to the variable names, i.e., (\%) is added to the variable names when percentage is shown.
+##' @param printToggle Whether to print the output. If FLASE, no output is created, and a matrix is invisibly returned.
+##' @param format The default is "fp" frequency (percentage). You can also choose from "f" frequency only, "p" percentage only, and "pf" percentage (frequency).
+##' @param showAllLevels Whether to show all levels. FALSE by default, i.e., for 2-level categorical variables, only the higher level is shown to avoid
+##' @param cramVars A character vector to specify the two-level categorical variables, for which both levels should be shown in one row. This should be used via \code{\link{print.TableOne}}.
+##' @param test Whether to show the p-values. TRUE by default. If FALSE, only the numerical summaries are shown.
+##' @param exact A character vector to specify the variables for which the p-values should be those of exact tests. By default all p-values are from large sample approximation tests (chisq.test).
+##' @param CrossTable Whether to show the cross table objects held internally using gmodels::CrossTable function. This will give an output similar to the PROC FREQ in SAS.
 ##' @param ... For compatibility with generic. Ignored.
-##' @return It is mainly for printing the result. But this function does return
-##' a matrix containing what you see in the output invisibly. You can assign it
-##' to an object to save it.
+##' @return It is mainly for printing the result. But this function does return a matrix containing what you see in the output invisibly. You can assign it to an object to save it.
 ##' @author Kazuki Yoshida
 ##' @seealso
 ##' \code{\link{CreateCatTable}}, \code{\link{print.CatTable}}, \code{\link{summary.CatTable}},
@@ -91,15 +76,23 @@
 ##' print(catTableBySexTrt, exact = "ascites", quote = TRUE)
 ##'
 ##' @export
-print.CatTable <- function(x, missing = FALSE,
-                           format = c("fp","f","p","pf")[1], # Format f_requency and/or p_ercent
-                           digits = 1, exact = NULL, quote = FALSE,
-                           test = TRUE, pDigits = 3,
+print.CatTable <- function(x,                        # CatTable object
+                           digits = 1, pDigits = 3,  # Number of digits to show
+                           quote         = FALSE,    # Whether to show quotes
+
+                           missing       = FALSE,    # Show missing values (not implemented yet)
+                           explain       = TRUE,     # Whether to show explanation in variable names
+                           printToggle   = TRUE,     # Whether to print the result visibly
+
+                           format        = c("fp","f","p","pf")[1], # Format f_requency and/or p_ercent
                            showAllLevels = FALSE,
-                           cramVars = NULL, # variables to be crammed into one row
-                           explain = TRUE,
-                           CrossTable = FALSE,
-                           printToggle = TRUE,
+                           cramVars      = NULL,     # variables to be crammed into one row
+
+                           test          = TRUE,     # Whether to add p-values
+                           exact         = NULL,     # Which variables should be tested with exact tests
+
+                           CrossTable    = FALSE,    # Whether to show gmodels::CrossTable
+
                            ...) {
 
     ## x and ... required to be consistent with generic print(x, ...)
@@ -293,7 +286,7 @@ print.CatTable <- function(x, missing = FALSE,
                            format(DF[DF$crammedRowInd == "crammed","freq"], justify = "right")
                        DF[DF$crammedRowInd == "","freq"] <-
                            format(DF[DF$crammedRowInd == "","freq"], justify = "right")
-                       
+
                        ## Obtain the max width of characters
                        nCharFreq <- max(nchar(DF$freq))
 

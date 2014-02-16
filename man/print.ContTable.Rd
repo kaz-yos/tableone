@@ -2,18 +2,33 @@
 \alias{print.ContTable}
 \title{Format and print the \code{ContTable} class objects}
 \usage{
-\method{print}{ContTable}(x, missing = FALSE, digits = 2,
-  nonnormal = NULL, minMax = FALSE, quote = FALSE, test = TRUE,
-  pDigits = 3, explain = TRUE, printToggle = TRUE, ...)
+\method{print}{ContTable}(x, digits = 2, pDigits = 3, quote = FALSE,
+  missing = FALSE, explain = TRUE, printToggle = TRUE, nonnormal = NULL,
+  minMax = FALSE, test = TRUE, ...)
 }
 \arguments{
   \item{x}{The result of a call to the
   \code{\link{CreateContTable}} function.}
 
+  \item{digits}{Number of digits to print in the table.}
+
+  \item{pDigits}{Number of digits to print for p-values.}
+
+  \item{quote}{Whether to show everything in quotes. The
+  default is FALSE. If TRUE, everything including the row
+  and column names are quoted so that you can copy it to
+  Excel easily.}
+
   \item{missing}{Whether to show missing data information
   (not implemented yet, placeholder)}
 
-  \item{digits}{Number of digits to print in the table.}
+  \item{explain}{Whether to add explanation to the variable
+  names, i.e., (mean (sd) or median [IQR]) is added to the
+  variable names.}
+
+  \item{printToggle}{Whether to print the output. If FLASE,
+  no output is created, and a matrix is invisibly
+  returned.}
 
   \item{nonnormal}{A character vector to specify the
   variables for which the p-values should be those of
@@ -23,24 +38,9 @@
   \item{minMax}{Whether to use [min,max] instead of
   [p25,p75] for nonnormal variables. The default is FALSE.}
 
-  \item{quote}{Whether to show everything in quotes. The
-  default is FALSE. If TRUE, everything including the row
-  and column names are quoted so that you can copy it to
-  Excel easily.}
-
   \item{test}{Whether to show the p-values. TRUE by
   default. If FALSE, only the numerical summaries are
   shown.}
-
-  \item{pDigits}{Number of digits to print for p-values.}
-
-  \item{explain}{Whether to add explanation to the variable
-  names, i.e., (mean (sd) or median [IQR]) is added to the
-  variable names.}
-
-  \item{printToggle}{Whether to print the output. If FLASE,
-  no output is created, and a matrix is invisibly
-  returned.}
 
   \item{...}{For compatibility with generic. Ignored.}
 }

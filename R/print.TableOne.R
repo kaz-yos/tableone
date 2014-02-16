@@ -3,19 +3,19 @@
 ##' This is the \code{print} method for the \code{TableOne} class objects created by \code{\link{CreateTableOne}} function.
 ##'
 ##' @param x The result of a call to the \code{\link{CreateTableOne}} function.
-##' @param missing Whether to show missing data information (not implemented yet, placeholder)
-##' @param quote Whether to show everything in quotes. The default is FALSE. If TRUE, everything including the row and column names are quoted so that you can copy it to Excel easily.
-##' @param test Whether to show the p-values. TRUE by default. If FALSE, only the numerical summaries are shown.
 ##' @param catDigits Number of digits to print for proportions. Default 1.
 ##' @param contDigits Number of digits to print for continuous variables. Default 2.
 ##' @param pDigits Number of digits to print for p-values. Default 3.
-##' @param format The default is "fp" frequency (percentage). You can also choose from "f" frequency only, "p" percentage only, and "pf" percentage (frequency).
-##' @param exact A character vector to specify the variables for which the p-values should be those of exact tests. By default all p-values are from large sample approximation tests (chisq.test).
-##' @param cramVars A character vector to specify the two-level categorical variables, for which both levels should be shown in one row.
-##' @param nonnormal A character vector to specify the variables for which the p-values should be those of nonparametric tests. By default all p-values are from normal assumption-based tests (oneway.test).
-##' @param minMax Whether to use [min,max] instead of [p25,p75] for nonnormal variables. The default is FALSE.
+##' @param quote Whether to show everything in quotes. The default is FALSE. If TRUE, everything including the row and column names are quoted so that you can copy it to Excel easily.
+##' @param missing Whether to show missing data information (not implemented yet, placeholder)
 ##' @param explain Whether to add explanation to the variable names, i.e., (\%) is added to the variable names when percentage is shown.
 ##' @param printToggle Whether to print the output. If FLASE, no output is created, and a matrix is invisibly returned.
+##' @param test Whether to show the p-values. TRUE by default. If FALSE, only the numerical summaries are shown.
+##' @param format The default is "fp" frequency (percentage). You can also choose from "f" frequency only, "p" percentage only, and "pf" percentage (frequency).
+##' @param cramVars A character vector to specify the two-level categorical variables, for which both levels should be shown in one row.
+##' @param exact A character vector to specify the variables for which the p-values should be those of exact tests. By default all p-values are from large sample approximation tests (chisq.test).
+##' @param nonnormal A character vector to specify the variables for which the p-values should be those of nonparametric tests. By default all p-values are from normal assumption-based tests (oneway.test).
+##' @param minMax Whether to use [min,max] instead of [p25,p75] for nonnormal variables. The default is FALSE.
 ##' @param ... For compatibility with generic. Ignored.
 ##' @return It is mainly for printing the result. But this function does return a matrix containing what you see in the output invisibly. You can assign it to an object to save it.
 ##' @author Kazuki Yoshida, Justin Bohn
@@ -56,7 +56,7 @@
 ##'
 ##' ## Use the summary.TableOne method for detailed summary
 ##' summary(tableOne)
-##' 
+##'
 ##' ## See the categorical part only using $ operator
 ##' tableOne$CatTable
 ##' summary(tableOne$CatTable)
@@ -66,22 +66,25 @@
 ##' summary(tableOne$ContTable)
 ##'
 ##' @export
-print.TableOne <- function(x, missing = FALSE,
-                           quote = FALSE,
-                           test = TRUE, catDigits = 1, contDigits = 2, pDigits = 3,
-
-                           ## Categorical options
-                           format = c("fp","f","p","pf")[1], # Format f_requency and/or p_ercent
-                           exact = NULL,
-                           cramVars = NULL,
-
-                           ## Continuous options
-                           nonnormal = NULL,
-                           minMax = FALSE,
+print.TableOne <- function(x,                   # TableOne object
+                           catDigits = 1, contDigits = 2, pDigits = 3, # Number of digits to show
+                           quote = FALSE,       # Whether to show quotes
 
                            ## Common options
-                           explain = TRUE,
-                           printToggle = TRUE,
+                           missing     = FALSE, # Not implemented yet
+                           explain     = TRUE,  # Whether to show explanation in variable names
+                           printToggle = TRUE,  # Whether to print the result visibly
+                           test        = TRUE,  # Whether to add p-values
+
+                           ## Categorical options
+                           format      = c("fp","f","p","pf")[1], # Format f_requency and/or p_ercent
+                           cramVars    = NULL,  # Which 2-level variables to show both levels in one row
+                           exact       = NULL,  # Which variables should be tested with exact tests
+
+                           ## Continuous options
+                           nonnormal   = NULL,  # Which variables should be treated as nonnormal
+                           minMax      = FALSE, # Whether to show median
+                           
                            ...) {
 
     ## Get the mixed element only
@@ -95,7 +98,7 @@ print.TableOne <- function(x, missing = FALSE,
     ## Get the formatted tables
     formattedTables <- sapply(seq_along(TableOne),
                               FUN = function(i) {
-                                  
+
                                   print(TableOne[[i]], printToggle = FALSE, test = test, explain = explain,
                                         digits = digits[i],
                                         ## print.CatTable arguments
@@ -111,7 +114,7 @@ print.TableOne <- function(x, missing = FALSE,
     ## Get the column width information (strata x vars format)
     columnWidthInfo <- sapply(formattedTables,
                               FUN = function(matObj) {
-                                  
+
                                   attributes(matObj)$vecColWidths
                               },
                               simplify = FALSE)
@@ -155,7 +158,7 @@ print.TableOne <- function(x, missing = FALSE,
     ## Remove 1st rows from each table (stratum sizes)
     spaceFormattedTables <- sapply(spaceFormattedTables,
                                    FUN = function(matObj) {
-                                       
+
                                        matObj[-1, , drop = FALSE]
                                    },
                                    simplify = FALSE)
