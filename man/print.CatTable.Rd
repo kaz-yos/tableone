@@ -4,7 +4,7 @@
 \usage{
 \method{print}{CatTable}(x, missing = FALSE, format = c("fp", "f", "p",
   "pf")[1], digits = 1, exact = NULL, quote = FALSE, test = TRUE,
-  pDigits = 3, showAllLevels = FALSE, explain = TRUE,
+  pDigits = 3, showAllLevels = FALSE, cramVars = NULL, explain = TRUE,
   CrossTable = FALSE, printToggle = TRUE, ...)
 }
 \arguments{
@@ -39,6 +39,10 @@
   \item{showAllLevels}{Whether to show all levels. FALSE by
   default, i.e., for 2-level categorical variables, only
   the higher level is shown to avoid}
+
+  \item{cramVars}{A character vector to specify the
+  two-level categorical variables, for which both levels
+  should be shown in one row.}
 
   \item{explain}{Whether to add explanation to the variable
   names, i.e., (\%) is added to the variable names when

@@ -4,8 +4,8 @@
 \usage{
 \method{print}{TableOne}(x, missing = FALSE, quote = FALSE, test = TRUE,
   catDigits = 1, contDigits = 2, pDigits = 3, format = c("fp", "f", "p",
-  "pf")[1], exact = NULL, nonnormal = NULL, minMax = FALSE,
-  explain = TRUE, printToggle = TRUE, ...)
+  "pf")[1], exact = NULL, cramVars = NULL, nonnormal = NULL,
+  minMax = FALSE, explain = TRUE, printToggle = TRUE, ...)
 }
 \arguments{
   \item{x}{The result of a call to the
@@ -40,6 +40,10 @@
   for which the p-values should be those of exact tests. By
   default all p-values are from large sample approximation
   tests (chisq.test).}
+
+  \item{cramVars}{A character vector to specify the
+  two-level categorical variables, for which both levels
+  should be shown in one row.}
 
   \item{nonnormal}{A character vector to specify the
   variables for which the p-values should be those of
