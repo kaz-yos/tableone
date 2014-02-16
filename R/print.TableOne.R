@@ -11,6 +11,7 @@
 ##' @param pDigits Number of digits to print for p-values. Default 3.
 ##' @param format The default is "fp" frequency (percentage). You can also choose from "f" frequency only, "p" percentage only, and "pf" percentage (frequency).
 ##' @param exact A character vector to specify the variables for which the p-values should be those of exact tests. By default all p-values are from large sample approximation tests (chisq.test).
+##' @param cramVars A character vector to specify the two-level categorical variables, for which both levels should be shown in one row.
 ##' @param nonnormal A character vector to specify the variables for which the p-values should be those of nonparametric tests. By default all p-values are from normal assumption-based tests (oneway.test).
 ##' @param minMax Whether to use [min,max] instead of [p25,p75] for nonnormal variables. The default is FALSE.
 ##' @param explain Whether to add explanation to the variable names, i.e., (\%) is added to the variable names when percentage is shown.
@@ -72,6 +73,7 @@ print.TableOne <- function(x, missing = FALSE,
                            ## Categorical options
                            format = c("fp","f","p","pf")[1], # Format f_requency and/or p_ercent
                            exact = NULL,
+                           cramVars = NULL,
 
                            ## Continuous options
                            nonnormal = NULL,
@@ -99,6 +101,7 @@ print.TableOne <- function(x, missing = FALSE,
                                         ## print.CatTable arguments
                                         format = format, exact = exact,
                                         showAllLevels = FALSE,  # must be FALSE to get same column counts
+                                        cramVars = cramVars,
                                         ## print.ContTable argument
                                         nonnormal = nonnormal, minMax = minMax
                                         )  # Method dispatch at work

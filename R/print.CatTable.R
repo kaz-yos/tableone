@@ -20,6 +20,7 @@
 ##' @param pDigits Number of digits to print for p-values.
 ##' @param showAllLevels Whether to show all levels. FALSE by default, i.e.,
 ##' for 2-level categorical variables, only the higher level is shown to avoid
+##' @param cramVars A character vector to specify the two-level categorical variables, for which both levels should be shown in one row.
 ##' @param explain Whether to add explanation to the variable names, i.e., (\%)
 ##' is added to the variable names when percentage is shown.
 ##' @param CrossTable Whether to show the cross table objects held internally
@@ -95,6 +96,7 @@ print.CatTable <- function(x, missing = FALSE,
                            digits = 1, exact = NULL, quote = FALSE,
                            test = TRUE, pDigits = 3,
                            showAllLevels = FALSE,
+                           cramVars = NULL, # variables to be crammed into one row
                            explain = TRUE,
                            CrossTable = FALSE,
                            printToggle = TRUE,
@@ -214,6 +216,8 @@ print.CatTable <- function(x, missing = FALSE,
 
                                           ## Add first row indicator column
                                           DF$firstRowInd <- ""
+                                          ## Add crammed row indicator column
+                                          DF$crammedRowInd <- ""
 
                                           ## Format based on the number of levels
                                           if (!showAllLevels & nRow == 1) {
@@ -224,12 +228,30 @@ print.CatTable <- function(x, missing = FALSE,
                                               DF[1,"firstRowInd"] <- "first"
 
                                           } else if (!showAllLevels & nRow == 2) {
-                                              ## If showAllLevels is FALSE AND there are only TWO levels,
-                                              ## change variable name, and delete the first level.
-                                              DF$var <- with(DF, paste0(var, " = ", level))
-                                              DF <- DF[-1, , drop = FALSE]
-                                              ## Add first row indicator (used to add (%))
-                                              DF[1,"firstRowInd"] <- "first"
+
+                                              ## cram results in one row if requested
+                                              if (unique(DF$var)  %in% cramVars) {
+                                                  ## If cramVars is true. Cram in one line
+                                                  ## Cram two freq and count with / in between
+                                                  DF$freq    <- paste0(DF$freq,    collapse = "/")
+                                                  DF$percent <- paste0(DF$percent, collapse = "/")
+                                                  DF$var     <- paste0(DF$var, " = ",
+                                                                       paste0(DF$level, collapse = "/"))
+                                                  ## Delete the first row
+                                                  DF <- DF[-1, , drop = FALSE]
+                                                  ## Add first row indicator (used to add (%))
+                                                  DF[1,"firstRowInd"]   <- "first"
+                                                  DF[1,"crammedRowInd"] <- "crammed"
+
+                                              } else {
+                                                  ## Otherwise, keep the second level only
+                                                  ## If showAllLevels is FALSE AND there are only TWO levels,
+                                                  ## change variable name, and delete the first level.
+                                                  DF$var <- with(DF, paste0(var, " = ", level))
+                                                  DF <- DF[-1, , drop = FALSE]
+                                                  ## Add first row indicator (used to add (%))
+                                                  DF[1,"firstRowInd"] <- "first"
+                                              }
 
                                           } else if (!showAllLevels & nRow > 2) {
                                               ## If showAllLevels is FALSE AND there are MORE THAN two levels,
@@ -266,15 +288,22 @@ print.CatTable <- function(x, missing = FALSE,
                        ## Check non-empty rows
                        posNonEmptyRows <- DF$freq != ""
 
-                       ## Right justify frequency
-                       DF$freq <- format(DF$freq, justify = "right")
-                       ## Obtain the width of characters
-                       nCharFreq <- nchar(DF$freq[1])
+                       ## Right justify frequency (crammed and non crammed separately)
+                       DF[DF$crammedRowInd == "crammed","freq"] <-
+                           format(DF[DF$crammedRowInd == "crammed","freq"], justify = "right")
+                       DF[DF$crammedRowInd == "","freq"] <-
+                           format(DF[DF$crammedRowInd == "","freq"], justify = "right")
+                       
+                       ## Obtain the max width of characters
+                       nCharFreq <- max(nchar(DF$freq))
 
                        ## Right justify percent
-                       DF$percent <- format(DF$percent, justify = "right")
-                       ## Obtain the width of characters
-                       nCharPercent <- nchar(DF$percent[1])
+                       DF[DF$crammedRowInd == "crammed","percent"] <-
+                           format(DF[DF$crammedRowInd == "crammed","percent"], justify = "right")
+                       DF[DF$crammedRowInd == "","percent"] <-
+                           format(DF[DF$crammedRowInd == "","percent"], justify = "right")
+                       ## Obtain the max width of characters
+                       nCharPercent <- max(nchar(DF$percent))
 
                        ## Add freq (percent) column (only in non-empty rows)
                        DF$freqPer <- ""
@@ -409,7 +438,7 @@ print.CatTable <- function(x, missing = FALSE,
 
         ## If exact test is used at least onece, add a test type indicator.
         ## if (any(exact == 2)) {
-        if (TRUE) {            
+        if (TRUE) {
             ## Create an empty test type column
             out <- cbind(out,
                          test = rep("", nrow(out))) # Column for test types
