@@ -20,7 +20,7 @@
 ##' @param pDigits Number of digits to print for p-values.
 ##' @param showAllLevels Whether to show all levels. FALSE by default, i.e.,
 ##' for 2-level categorical variables, only the higher level is shown to avoid
-##' @param cramLevels For two level factors, cram them together in one row.
+##' @param cramVars For two level factors, cram them together in one row.
 ##' @param explain Whether to add explanation to the variable names, i.e., (\%)
 ##' is added to the variable names when percentage is shown.
 ##' @param CrossTable Whether to show the cross table objects held internally
@@ -96,7 +96,7 @@ print.CatTable <- function(x, missing = FALSE,
                            digits = 1, exact = NULL, quote = FALSE,
                            test = TRUE, pDigits = 3,
                            showAllLevels = FALSE,
-                           cramLevels = TRUE,   # TRUE for testing
+                           cramVars = NULL, # variables to be crammed into one row
                            explain = TRUE,
                            CrossTable = FALSE,
                            printToggle = TRUE,
@@ -229,8 +229,9 @@ print.CatTable <- function(x, missing = FALSE,
 
                                           } else if (!showAllLevels & nRow == 2) {
 
-                                              if (cramLevels) {
-                                                  ## If cramLevels is true. Cram in one line
+                                              ## cram results in one row if requested
+                                              if (unique(DF$var)  %in% cramVars) {
+                                                  ## If cramVars is true. Cram in one line
                                                   ## Cram two freq and count with / in between
                                                   DF$freq    <- paste0(DF$freq,    collapse = "/")
                                                   DF$percent <- paste0(DF$percent, collapse = "/")
