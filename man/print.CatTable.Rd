@@ -2,39 +2,38 @@
 \alias{print.CatTable}
 \title{Format and print the \code{CatTable} class objects}
 \usage{
-\method{print}{CatTable}(x, missing = FALSE, format = c("fp", "f", "p",
-  "pf")[1], digits = 1, exact = NULL, quote = FALSE, test = TRUE,
-  pDigits = 3, showAllLevels = FALSE, cramVars = NULL, explain = TRUE,
-  CrossTable = FALSE, printToggle = TRUE, ...)
+\method{print}{CatTable}(x, digits = 1, pDigits = 3, quote = FALSE,
+  missing = FALSE, explain = TRUE, printToggle = TRUE, format = c("fp",
+  "f", "p", "pf")[1], showAllLevels = FALSE, cramVars = NULL, test = TRUE,
+  exact = NULL, CrossTable = FALSE, ...)
 }
 \arguments{
   \item{x}{The result of a call to the
   \code{\link{CreateCatTable}} function.}
 
-  \item{missing}{Whether to show missing data information
-  (not implemented yet, placeholder)}
-
-  \item{format}{The default is "fp" frequency (percentage).
-  You can also choose from "f" frequency only, "p"
-  percentage only, and "pf" percentage (frequency).}
-
   \item{digits}{Number of digits to print in the table.}
 
-  \item{exact}{A character vector to specify the variables
-  for which the p-values should be those of exact tests. By
-  default all p-values are from large sample approximation
-  tests (chisq.test).}
+  \item{pDigits}{Number of digits to print for p-values.}
 
   \item{quote}{Whether to show everything in quotes. The
   default is FALSE. If TRUE, everything including the row
   and column names are quoted so that you can copy it to
   Excel easily.}
 
-  \item{test}{Whether to show the p-values. TRUE by
-  default. If FALSE, only the numerical summaries are
-  shown.}
+  \item{missing}{Whether to show missing data information
+  (not implemented yet, placeholder)}
 
-  \item{pDigits}{Number of digits to print for p-values.}
+  \item{explain}{Whether to add explanation to the variable
+  names, i.e., (\%) is added to the variable names when
+  percentage is shown.}
+
+  \item{printToggle}{Whether to print the output. If FLASE,
+  no output is created, and a matrix is invisibly
+  returned.}
+
+  \item{format}{The default is "fp" frequency (percentage).
+  You can also choose from "f" frequency only, "p"
+  percentage only, and "pf" percentage (frequency).}
 
   \item{showAllLevels}{Whether to show all levels. FALSE by
   default, i.e., for 2-level categorical variables, only
@@ -42,19 +41,21 @@
 
   \item{cramVars}{A character vector to specify the
   two-level categorical variables, for which both levels
-  should be shown in one row.}
+  should be shown in one row. This should be used via
+  \code{\link{print.TableOne}}.}
 
-  \item{explain}{Whether to add explanation to the variable
-  names, i.e., (\%) is added to the variable names when
-  percentage is shown.}
+  \item{test}{Whether to show the p-values. TRUE by
+  default. If FALSE, only the numerical summaries are
+  shown.}
+
+  \item{exact}{A character vector to specify the variables
+  for which the p-values should be those of exact tests. By
+  default all p-values are from large sample approximation
+  tests (chisq.test).}
 
   \item{CrossTable}{Whether to show the cross table objects
   held internally using gmodels::CrossTable function. This
   will give an output similar to the PROC FREQ in SAS.}
-
-  \item{printToggle}{Whether to print the output. If FLASE,
-  no output is created, and a matrix is invisibly
-  returned.}
 
   \item{...}{For compatibility with generic. Ignored.}
 }

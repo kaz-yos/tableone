@@ -23,9 +23,7 @@
 ##' memory limitation. In this situation, the large sample approximation based
 ##' should suffice.
 ##' @param argsExact A named list of arguments passed to the function specified in testExact. The default is \code{list(workspace = 2*10^5)}, which specifies the memory space allocated for \code{\link{fisher.test}}.
-##' @return An object of class \code{CatTable}, which really is a \code{\link{by}} object with
-##' additional attributes. Each element of the \code{\link{by}} part is a matrix with rows
-##' representing variables, and columns representing summary statistics.
+##' @return An object of class \code{CatTable}, which really is a \code{\link{by}} object with additional attributes. Each element of the \code{\link{by}} part is a matrix with rows representing variables, and columns representing summary statistics.
 ##' @author Kazuki Yoshida (based on \code{Deducer::frequencies()})
 ##' @seealso
 ##' \code{\link{CreateCatTable}}, \code{\link{print.CatTable}}, \code{\link{summary.CatTable}},
@@ -48,7 +46,8 @@
 ##' 
 ##' ## Simply typing the object name will invoke the print.CatTable method,
 ##' ## which will show the sample size, frequencies and percentages.
-##' ## For 2-level variables, only the higher level is shown for simplicity.
+##' ## For 2-level variables, only the higher level is shown for simplicity
+##' ## unless the variables are specified in the cramVars argument.
 ##' catTableOverall
 ##' 
 ##' ## Use the showAllLevels argument to see all levels for all variables.

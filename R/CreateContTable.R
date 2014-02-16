@@ -68,6 +68,9 @@
 ##' nonNormalVars <- c("age","chol","copper","alk.phos","trig","protime")
 ##' print(contTableOverall, nonnormal = nonNormalVars)
 ##'
+##' ## To show median [min,max] for nonnormal variables, use minMax = TRUE
+##' print(contTableOverall, nonnormal = nonNormalVars, minMax = TRUE)
+##'
 ##' ## The table can be stratified by one or more variables
 ##' contTableBySexTrt <- CreateContTable(vars = contVars,
 ##'                                      strata = c("sex","trt"), data = pbc)
@@ -91,21 +94,21 @@
 ##'
 ##' @export
 CreateContTable <-
-    function(vars,                                # character vector of variable names
-             strata,                              # character vector of variable names
-             data,                                # data frame
-             func.names = c(                      # can pick a subset of them
+    function(vars,                                   # character vector of variable names
+             strata,                                 # character vector of variable names
+             data,                                   # data frame
+             func.names    = c(                      # can pick a subset of them
                  "n","miss",
                  "mean","sd",
                  "median","p25","p75","min","max",
                  "skew","kurt"
                  ),
-             func.additional,                     # named list of additional functions
-             test = TRUE,                         # Whether to put p-values
-             testNormal = oneway.test,            # test for normally distributed variables
-             argsNormal = list(var.equal = TRUE), # arguments passed to testNormal
-             testNonNormal = kruskal.test,        # test for nonnormally distributed variables
-             argsNonNormal = list(NULL)           # arguments passed to testNonNormal
+             func.additional,                        # named list of additional functions
+             test          = TRUE,                   # Whether to put p-values
+             testNormal    = oneway.test,            # test for normally distributed variables
+             argsNormal    = list(var.equal = TRUE), # arguments passed to testNormal
+             testNonNormal = kruskal.test,           # test for nonnormally distributed variables
+             argsNonNormal = list(NULL)              # arguments passed to testNonNormal
              ) {
 
     ## Require dependencies (DELETE before CRAN release. Use Depends in DESCRIPTION)

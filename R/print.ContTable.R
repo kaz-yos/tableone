@@ -3,15 +3,15 @@
 ##' This is the \code{print} method for the \code{ContTable} class objects created by \code{\link{CreateContTable}} function.
 ##'
 ##' @param x The result of a call to the \code{\link{CreateContTable}} function.
-##' @param missing Whether to show missing data information (not implemented yet, placeholder)
 ##' @param digits Number of digits to print in the table.
-##' @param nonnormal A character vector to specify the variables for which the p-values should be those of nonparametric tests. By default all p-values are from normal assumption-based tests (oneway.test).
-##' @param minMax Whether to use [min,max] instead of [p25,p75] for nonnormal variables. The default is FALSE.
-##' @param quote Whether to show everything in quotes. The default is FALSE. If TRUE, everything including the row and column names are quoted so that you can copy it to Excel easily.
-##' @param test Whether to show the p-values. TRUE by default. If FALSE, only the numerical summaries are shown.
 ##' @param pDigits Number of digits to print for p-values.
+##' @param quote Whether to show everything in quotes. The default is FALSE. If TRUE, everything including the row and column names are quoted so that you can copy it to Excel easily.
+##' @param missing Whether to show missing data information (not implemented yet, placeholder)
 ##' @param explain Whether to add explanation to the variable names, i.e., (mean (sd) or median [IQR]) is added to the variable names.
 ##' @param printToggle Whether to print the output. If FLASE, no output is created, and a matrix is invisibly returned.
+##' @param nonnormal A character vector to specify the variables for which the p-values should be those of nonparametric tests. By default all p-values are from normal assumption-based tests (oneway.test).
+##' @param minMax Whether to use [min,max] instead of [p25,p75] for nonnormal variables. The default is FALSE.
+##' @param test Whether to show the p-values. TRUE by default. If FALSE, only the numerical summaries are shown.
 ##' @param ... For compatibility with generic. Ignored.
 ##' @return It is mainly for printing the result. But this function does return a matrix containing what you see in the output invisibly. You can assign it to an object to save it.
 ##' @author Kazuki Yoshida
@@ -49,6 +49,9 @@
 ##' nonNormalVars <- c("age","chol","copper","alk.phos","trig","protime")
 ##' print(contTableOverall, nonnormal = nonNormalVars)
 ##'
+##' ## To show median [min,max] for nonnormal variables, use minMax = TRUE
+##' print(contTableOverall, nonnormal = nonNormalVars, minMax = TRUE)
+##'
 ##' ## The table can be stratified by one or more variables
 ##' contTableBySexTrt <- CreateContTable(vars = contVars,
 ##'                                      strata = c("sex","trt"), data = pbc)
@@ -74,11 +77,19 @@
 ##' print(contTableBySexTrt, nonnormal = nonNormalVars, quote = TRUE)
 ##'
 ##' @export
-print.ContTable <- function(x, missing = FALSE,
-                            digits = 2, nonnormal = NULL, minMax = FALSE, quote = FALSE,
-                            test = TRUE, pDigits = 3,
-                            explain = TRUE,
-                            printToggle = TRUE,
+print.ContTable <- function(x,                        # ContTable object
+                            digits = 2, pDigits = 3,  # Number of digits to show
+                            quote       = FALSE,      # Whether to show quotes
+
+                            missing     = FALSE,      # show missing values (not implemented yet)
+                            explain     = TRUE,       # Whether to show explanation in variable names
+                            printToggle = TRUE,       # Whether to print the result visibly
+
+                            nonnormal   = NULL,       # Which variables should be treated as nonnormal
+                            minMax      = FALSE,      # median [range] instead of median [IQR]
+
+                            test        = TRUE,       # Whether to add p-values
+
                             ...) {
 
     ## x and ... required to be consistent with generic print(x, ...)
