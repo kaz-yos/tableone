@@ -1,37 +1,22 @@
 ##' Format and print the \code{TableOne} class objects
 ##'
-##' This is the print method for the TableOne class objects created by
-##' CreateTableOne function.
-##'
+##' This is the \code{print} method for the \code{TableOne} class objects created by \code{\link{CreateTableOne}} function.
 ##'
 ##' @param x The result of a call to the \code{\link{CreateTableOne}} function.
-##' @param missing Whether to show missing data information (not implemented
-##' yet, placeholder)
-##' @param quote Whether to show everything in quotes. The default is FALSE. If
-##' TRUE, everything including the row and column names are quoted so that you
-##' can copy it to Excel easily.
-##' @param test Whether to show the p-values. TRUE by default. If FALSE, only
-##' the numerical summaries are shown.
+##' @param missing Whether to show missing data information (not implemented yet, placeholder)
+##' @param quote Whether to show everything in quotes. The default is FALSE. If TRUE, everything including the row and column names are quoted so that you can copy it to Excel easily.
+##' @param test Whether to show the p-values. TRUE by default. If FALSE, only the numerical summaries are shown.
 ##' @param catDigits Number of digits to print for proportions. Default 1.
 ##' @param contDigits Number of digits to print for continuous variables. Default 2.
 ##' @param pDigits Number of digits to print for p-values. Default 3.
-##' @param format The default is "fp" frequency (percentage). You can also
-##' choose from "f" frequency only, "p" percentage only, and "pf" percentage
-##' (frequency).
-##' @param exact A character vector to specify the variables for which the
-##' p-values should be those of exact tests. By default all p-values are from
-##' large sample approximation tests (chisq.test).
-##' @param nonnormal A character vector to specify the variables for which the
-##' p-values should be those of nonparametric tests. By default all p-values
-##' are from normal assumption-based tests (oneway.test).
-##' @param explain Whether to add explanation to the variable names, i.e., (\%)
-##' is added to the variable names when percentage is shown.
-##' @param printToggle Whether to print the output. If FLASE, no output is
-##' created, and a matrix is invisibly returned.
+##' @param format The default is "fp" frequency (percentage). You can also choose from "f" frequency only, "p" percentage only, and "pf" percentage (frequency).
+##' @param exact A character vector to specify the variables for which the p-values should be those of exact tests. By default all p-values are from large sample approximation tests (chisq.test).
+##' @param nonnormal A character vector to specify the variables for which the p-values should be those of nonparametric tests. By default all p-values are from normal assumption-based tests (oneway.test).
+##' @param minMax Whether to use [min,max] instead of [p25,p75] for nonnormal variables. The default is FALSE.
+##' @param explain Whether to add explanation to the variable names, i.e., (\%) is added to the variable names when percentage is shown.
+##' @param printToggle Whether to print the output. If FLASE, no output is created, and a matrix is invisibly returned.
 ##' @param ... For compatibility with generic. Ignored.
-##' @return It is mainly for printing the result. But this function does return
-##' a matrix containing what you see in the output invisibly. You can assign it
-##' to an object to save it.
+##' @return It is mainly for printing the result. But this function does return a matrix containing what you see in the output invisibly. You can assign it to an object to save it.
 ##' @author Kazuki Yoshida, Justin Bohn
 ##' @seealso
 ##' \code{\link{CreateTableOne}}, \code{\link{print.TableOne}}, \code{\link{summary.TableOne}},
@@ -65,10 +50,19 @@
 ##' ## Specifying nonnormal variables will show the variables appropriately,
 ##' ## and show nonparametric test p-values. Specify variables in the exact
 ##' ## argument to obtain the exact test p-values.
-##' print(tableOne, nonnormal = c("time"), exact = c("ascites"))
+##' print(tableOne, nonnormal = c("bili","chol","copper","alk.phos","trig"),
+##'       exact = c("status","stage"))
 ##'
 ##' ## Use the summary.TableOne method for detailed summary
 ##' summary(tableOne)
+##' 
+##' ## See the categorical part only using $ operator
+##' tableOne$CatTable
+##' summary(tableOne$CatTable)
+##'
+##' ## See the continuous part only using $ operator
+##' tableOne$ContTable
+##' summary(tableOne$ContTable)
 ##'
 ##' @export
 print.TableOne <- function(x, missing = FALSE,
@@ -81,6 +75,7 @@ print.TableOne <- function(x, missing = FALSE,
 
                            ## Continuous options
                            nonnormal = NULL,
+                           minMax = FALSE,
 
                            ## Common options
                            explain = TRUE,
@@ -102,9 +97,10 @@ print.TableOne <- function(x, missing = FALSE,
                                   print(TableOne[[i]], printToggle = FALSE, test = test, explain = explain,
                                         digits = digits[i],
                                         ## print.CatTable arguments
-                                        format = format, exact = exact, showAllLevels = FALSE,
+                                        format = format, exact = exact,
+                                        showAllLevels = FALSE,  # must be FALSE to get same column counts
                                         ## print.ContTable argument
-                                        nonnormal = nonnormal
+                                        nonnormal = nonnormal, minMax = minMax
                                         )  # Method dispatch at work
                               },
                               simplify = FALSE)

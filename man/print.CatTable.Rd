@@ -60,8 +60,9 @@ does return a matrix containing what you see in the output
 invisibly. You can assign it to an object to save it.
 }
 \description{
-This is the print method for the CatTable class objects
-created by CreateCatTable function.
+This is the \code{print} method for the \code{CatTable}
+class objects created by \code{\link{CreateCatTable}}
+function.
 }
 \examples{
 ## Load

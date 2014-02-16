@@ -113,7 +113,7 @@ summary(catTableBySexTrt)
 print(catTableBySexTrt, exact = "ascites", quote = TRUE)
 }
 \author{
-Kazuki Yoshida
+Kazuki Yoshida (based on \code{Deducer::frequencies()})
 }
 \seealso{
 \code{\link{CreateCatTable}}, \code{\link{print.CatTable}},

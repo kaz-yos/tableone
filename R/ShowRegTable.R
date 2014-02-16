@@ -1,23 +1,15 @@
 ##' Format regression results in medically decent format
 ##' 
-##' It shows the regression result in the HR [95\% CI] p-value format, which is
-##' usually the form used in medical research papers.
+##' It shows the regression result in the HR [95\% CI] p-value format, which is usually the form used in medical research papers.
 ##' 
 ##' 
-##' @param model Regression model result objects that have the summary and
-##' confint methods.
-##' @param exp TRUE by default. You need to specify exp = FALSE if your model
-##' is has the indentity link function (linear regression, etc).
+##' @param model Regression model result objects that have the summary and confint methods.
+##' @param exp TRUE by default. You need to specify exp = FALSE if your model is has the indentity link function (linear regression, etc).
 ##' @param digits Number of digits to print for the main part.
 ##' @param pDigits Number of digits to print for the p-values.
-##' @param quote Whether to show everything in quotes. The default is FALSE. If
-##' TRUE, everything including the row and column names are quoted so that you
-##' can copy it to Excel easily.
-##' @return A matrix containing what you see is returned invisibly. You can
-##' capture it by assignment to an object.
+##' @param quote Whether to show everything in quotes. The default is FALSE. If TRUE, everything including the row and column names are quoted so that you can copy it to Excel easily.
+##' @return A matrix containing what you see is returned invisibly. You can capture it by assignment to an object.
 ##' @author Kazuki Yoshida
-##' @seealso CreateContTable, \code{\link{print.ContTable}}, \code{\link{summary.ContTable}},
-##' \code{\link{CreateCatTable}}, \code{\link{print.CatTable}}, \code{\link{summary.CatTable}}
 ##' @examples
 ##' 
 ##' ## Load
@@ -30,10 +22,8 @@
 ##' head(pbc)
 ##' 
 ##' ## Fit a Cox regression model
-##' objCoxph <-
-##'     coxph(formula = Surv(time, status == 2) ~ trt + age + albumin + ascites,
-##'           data    = pbc,
-##'           ties    = c("efron","breslow","exact")[1])
+##' objCoxph <- coxph(formula = Surv(time, status == 2) ~ trt + age + albumin + ascites,
+##'                   data    = pbc)
 ##' 
 ##' ## Show the simple table
 ##' ShowRegTable(objCoxph)

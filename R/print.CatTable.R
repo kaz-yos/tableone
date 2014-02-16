@@ -1,8 +1,6 @@
 ##' Format and print the \code{CatTable} class objects
 ##'
-##' This is the print method for the CatTable class objects created by
-##' CreateCatTable function.
-##'
+##' This is the \code{print} method for the \code{CatTable} class objects created by \code{\link{CreateCatTable}} function.
 ##'
 ##' @param x The result of a call to the \code{\link{CreateCatTable}} function.
 ##' @param missing Whether to show missing data information (not implemented
@@ -79,7 +77,7 @@
 ##' ## (3 by default). It does <0.001 for you.
 ##' catTableBySexTrt
 ##'
-##' ## The exact argument will toggle the p-values to the example test result from
+##' ## The exact argument toggles the p-values to the exact test result from
 ##' ## fisher.test. It will show which ones are from exact tests.
 ##' print(catTableBySexTrt, exact = "ascites")
 ##'
