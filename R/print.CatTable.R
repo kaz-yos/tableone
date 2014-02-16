@@ -20,7 +20,7 @@
 ##' @param pDigits Number of digits to print for p-values.
 ##' @param showAllLevels Whether to show all levels. FALSE by default, i.e.,
 ##' for 2-level categorical variables, only the higher level is shown to avoid
-##' @param cramVars For two level factors, cram them together in one row.
+##' @param cramVars A character vector to specify the two-level categorical variables, for which both levels should be shown in one row.
 ##' @param explain Whether to add explanation to the variable names, i.e., (\%)
 ##' is added to the variable names when percentage is shown.
 ##' @param CrossTable Whether to show the cross table objects held internally
