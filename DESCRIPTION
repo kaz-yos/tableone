@@ -6,7 +6,7 @@ Date: 2014-02-16
 Author: Kazuki Yoshida, Justin Bohn
 Maintainer: Kazuki Yoshida <kazukiyoshida@mail.harvard.edu>
 Description: This package creates "Table 1", i.e., description of baseline
-    patient characteristics, which is essential every medical research. This
+    patient characteristics, which is essential in every medical research. This
     package provides functions to create such summaries for continuous and
     categorical variables, optionally with subgroups comparisons. The package
     was insipired by and based on descriptive statistics functions in Deducer,

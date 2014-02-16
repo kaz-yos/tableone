@@ -83,6 +83,9 @@ summary(contTableOverall)
 nonNormalVars <- c("age","chol","copper","alk.phos","trig","protime")
 print(contTableOverall, nonnormal = nonNormalVars)
 
+## To show median [min,max] for nonnormal variables, use minMax = TRUE
+print(contTableOverall, nonnormal = nonNormalVars, minMax = TRUE)
+
 ## The table can be stratified by one or more variables
 contTableBySexTrt <- CreateContTable(vars = contVars,
                                      strata = c("sex","trt"), data = pbc)
