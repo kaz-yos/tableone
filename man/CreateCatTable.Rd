@@ -100,7 +100,7 @@ catTableBySexTrt <- CreateCatTable(vars = catVars,
 ## (3 by default). It does <0.001 for you.
 catTableBySexTrt
 
-## The exact argument will toggle the p-values to the example test result from
+## The exact argument toggles the p-values to the exact test result from
 ## fisher.test. It will show which ones are from exact tests.
 print(catTableBySexTrt, exact = "ascites")
 

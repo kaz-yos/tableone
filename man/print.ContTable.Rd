@@ -3,8 +3,8 @@
 \title{Format and print the \code{ContTable} class objects}
 \usage{
 \method{print}{ContTable}(x, missing = FALSE, digits = 2,
-  nonnormal = NULL, quote = FALSE, test = TRUE, pDigits = 3,
-  explain = TRUE, printToggle = TRUE, ...)
+  nonnormal = NULL, minMax = FALSE, quote = FALSE, test = TRUE,
+  pDigits = 3, explain = TRUE, printToggle = TRUE, ...)
 }
 \arguments{
   \item{x}{The result of a call to the
@@ -19,6 +19,9 @@
   variables for which the p-values should be those of
   nonparametric tests. By default all p-values are from
   normal assumption-based tests (oneway.test).}
+
+  \item{minMax}{Whether to use [min,max] instead of
+  [p25,p75] for nonnormal variables. The default is FALSE.}
 
   \item{quote}{Whether to show everything in quotes. The
   default is FALSE. If TRUE, everything including the row
@@ -89,9 +92,12 @@ contTableBySexTrt <- CreateContTable(vars = contVars,
 ## by the pDigits argument (3 by default). It does <0.001 for you.
 contTableBySexTrt
 
-## The nonnormal argument will toggle the p-values to the nonparametric result from
+## The nonnormal argument toggles the p-values to the nonparametric result from
 ## kruskal.test (wilcox.test equivalent for the two group case).
 print(contTableBySexTrt, nonnormal = nonNormalVars)
+
+## The minMax argument toggles whether to show median [range]
+print(contTableBySexTrt, nonnormal = nonNormalVars, minMax = TRUE)
 
 ## summary now includes both types of p-values
 summary(contTableBySexTrt)
