@@ -40,6 +40,11 @@
 ##' ## Just typing the object name will invoke the print.TableOne method
 ##' tableOne
 ##'
+##' ## Specifying nonnormal variables will show the variables appropriately,
+##' ## and show nonparametric test p-values. Specify variables in the exact
+##' ## argument to obtain the exact test p-values.
+##' print(tableOne, nonnormal = c("time"), exact = c("ascites"))
+##'
 ##' ## Use the summary.TableOne method for detailed summary
 ##' summary(tableOne)
 ##'

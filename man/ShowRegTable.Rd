@@ -43,8 +43,10 @@ data(pbc)
 head(pbc)
 
 ## Fit a Cox regression model
-objCoxph <- coxph(formula = Surv(time, status == 2) ~ trt + age + albumin + ascites,
-                  data    = pbc)
+objCoxph <-
+    coxph(formula = Surv(time, status == 2) ~ trt + age + albumin + ascites,
+          data    = pbc,
+          ties    = c("efron","breslow","exact")[1])
 
 ## Show the simple table
 ShowRegTable(objCoxph)
@@ -54,5 +56,11 @@ ShowRegTable(objCoxph, quote = TRUE)
 }
 \author{
 Kazuki Yoshida
+}
+\seealso{
+CreateContTable, \code{\link{print.ContTable}},
+\code{\link{summary.ContTable}},
+\code{\link{CreateCatTable}}, \code{\link{print.CatTable}},
+\code{\link{summary.CatTable}}
 }
 

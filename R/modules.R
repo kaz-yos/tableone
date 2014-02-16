@@ -15,10 +15,10 @@ ModuleStopIfNotDataFrame <- function(data) {
 }
 ## Extract variables that exist in the data frame
 ModuleReturnVarsExist <- function(vars, data) {
-
+    
     ## Check if variables exist. Drop them if not.
     varsNotInData <- setdiff(vars, names(data))
-
+    
     if (length(varsNotInData) > 0) {
         warning("The data frame does not have ",
                 paste0(varsNotInData, sep = " "), " Dropped")
@@ -43,7 +43,7 @@ ModuleReturnFalseIfNoStrata <- function(strata, test) { # Give strata variable n
 }
 ## Check statra variables and conditionally create
 ModuleReturnStrata <- function(strata, data, dat) {     # Give strata variable names
-
+    
     if(missing(strata)) {
         ## If there is no strata, give "Overall" to every subject
         strata <- rep("Overall", dim(dat)[1])                           # Check if dim(dat)[[1]] is correct.
@@ -105,7 +105,7 @@ ModuleCreateStrataVarName <- function(obj) {
 
 ## Try catch function           # Taken from demo(error.catching)
 ## Used to define non-failing functions, that return NA when there is an error
-tryCatch.W.E <- function(expr) {
+tryCatch.W.E <- function(expr) { 
     W <- NULL
     w.handler <- function(w) { # warning handler
         W <<- w
@@ -142,43 +142,7 @@ sasKurtosis <- function(x) {
 ### Modules intented for the print methods
 ################################################################################
 
-## Define a function to format a normal variable
-ModuleConvertNormal <- function(rowMat, digits) {
-
-    ## Format for SD
-    fmt <- paste0(" (%.", digits,"f",")")
-
-    ## Create a DF with numeric mean column and character (SD) column
-    data.frame(col1 = rowMat[,"mean"],
-               col2 = sprintf(fmt = fmt, rowMat[,"sd"]),
-               stringsAsFactors = FALSE)
-}
-
-## Define a function to format a nonnormal variable
-ModuleConvertNonNormal <- function(rowMat, digits, minMax = FALSE) {
-    
-    ## Format for [p25, p75]
-    fmt <- paste0(" [%.", digits,"f, %.",digits,"f]")
-
-    if (minMax == FALSE) {
-        ## Create a DF with numeric median column and character [p25, p75] column        
-        out <- data.frame(col1 = rowMat[,"median"],
-                          col2 = sprintf(fmt = fmt, rowMat[,"p25"], rowMat[,"p75"]),
-                          stringsAsFactors = FALSE)
-    } else if (minMax == TRUE) {
-        ## Create a DF with numeric median column and character [p25, p75] column
-        out <- data.frame(col1 = rowMat[,"median"],
-                          col2 = sprintf(fmt = fmt, rowMat[,"min"], rowMat[,"max"]),
-                          stringsAsFactors = FALSE)
-    } else {
-        stop("minMax must be a logical vector of one: FALSE or TRUE")
-    }
-
-    return(out)
-}
-
-### Modules by both print and summary methods
-## ModuleQuoteAndPrintMat()
+### ModuleQuoteAndPrintMat()
 ## Takes an matrix object format, print, and (invisibly) return it
 ## Requires quote and printToggle argument in the printToggle method
 ModuleQuoteAndPrintMat <- function(matObj, quote = FALSE, printToggle = TRUE) {
@@ -197,10 +161,10 @@ ModuleQuoteAndPrintMat <- function(matObj, quote = FALSE, printToggle = TRUE) {
 
     ## print if required and return
     if (printToggle) {
-
+        
         print(matObj, quote = quote)
         return(matObj)
-
+        
     } else if (!printToggle) {
 
         return(matObj)

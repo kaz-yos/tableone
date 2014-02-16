@@ -1,27 +1,27 @@
-tableone 0.2.1 (2014-02-15)
-----------------------------------------------------------------
-BUG FIXES
-
-* Documentations were fixed to represent the current version.
-
-
-tableone 0.2.0 (2014-02-14)
+tableone 0.2.0
 ----------------------------------------------------------------
 NEW FEATURES
 
 * CreateTableOne and related print/summary methods were added.
 
 * CreateTableOne can crate a table with both categorical and
-  continuous variables.
+   continuous variables.
+
+
+tableone 0.1.3
+----------------------------------------------------------------
+NEW FEATURES
 
 * The print method can suppress printing by printToggle option.
+
+* (CreateTableOne and related print and summary methods are introduced).
 
 BUG FIXES
 
 * In the Roxygen part of the code, only at_export followed by nothing is used.
 
 
-tableone 0.1.2 (2014-02-09)
+tableone 0.1.2
 ----------------------------------------------------------------
 BUG FIXES
 
@@ -33,7 +33,7 @@ BUG FIXES
 * Passed all the default tests by R CMD check file.tar.gz
 
 
-tableone 0.1.1 (2014-02-09)
+tableone 0.1.1
 ----------------------------------------------------------------
 BUG FIXES
 
@@ -42,7 +42,7 @@ BUG FIXES
 * Documents are now included in 
 
 
-tableone 0.1.0 (2014-02-08)
+tableone 0.1.0
 ----------------------------------------------------------------
 FIRST DEVELOPMENTAL VERSION
 

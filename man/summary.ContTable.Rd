@@ -18,10 +18,9 @@ It will print the results.
 \description{
 This method shows all the data a \code{ContTable} class
 object has. This includes the (optionally stratified) part
-with summary statistics and , if available, p-values from
-the normal assupmtion-based test (\code{\link{oneway.test}}
-by default) and nonparametric test
-(\code{\link{kruskal.test}} by default).
+with summary statistics and p-values from the normal
+assupmtion-based test (oneway.test by default) and
+nonparametric test (kruskal.test by default).
 }
 \examples{
 ## Load
