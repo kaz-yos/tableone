@@ -2,11 +2,11 @@
 \alias{CreateTableOne}
 \title{Create an object summarizing both categorical and continuous variables}
 \usage{
-CreateTableOne(vars, strata, data, test = TRUE, testApprox = chisq.test,
-  argsApprox = list(correct = TRUE), testExact = fisher.test,
-  argsExact = list(workspace = 2 * 10^5), testNormal = oneway.test,
-  argsNormal = list(var.equal = TRUE), testNonNormal = kruskal.test,
-  argsNonNormal = list(NULL))
+CreateTableOne(vars, strata, data, factorVars, test = TRUE,
+  testApprox = chisq.test, argsApprox = list(correct = TRUE),
+  testExact = fisher.test, argsExact = list(workspace = 2 * 10^5),
+  testNormal = oneway.test, argsNormal = list(var.equal = TRUE),
+  testNonNormal = kruskal.test, argsNonNormal = list(NULL))
 }
 \arguments{
   \item{vars}{Variables to be summarized given as a
@@ -21,6 +21,13 @@ CreateTableOne(vars, strata, data, test = TRUE, testApprox = chisq.test,
   \item{data}{A data frame in which these variables exist.
   All variables (both vars and strata) must be in this data
   frame.}
+
+  \item{factorVars}{Numerically coded variables that should
+  be handled as categorical variables given as a character
+  vector. If omitted, only factors are considered
+  categorical variables. If all categorical variables in
+  the dataset are already factors, this option is not
+  necessary.}
 
   \item{test}{If TRUE, as in the default and there are more
   than two groups, groupwise comparisons are performed.}
