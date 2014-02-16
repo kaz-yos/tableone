@@ -4,8 +4,8 @@
 \usage{
 \method{print}{TableOne}(x, missing = FALSE, quote = FALSE, test = TRUE,
   catDigits = 1, contDigits = 2, pDigits = 3, format = c("fp", "f", "p",
-  "pf")[1], exact = NULL, nonnormal = NULL, explain = TRUE,
-  printToggle = TRUE, ...)
+  "pf")[1], exact = NULL, nonnormal = NULL, minMax = FALSE,
+  explain = TRUE, printToggle = TRUE, ...)
 }
 \arguments{
   \item{x}{The result of a call to the
@@ -45,6 +45,9 @@
   variables for which the p-values should be those of
   nonparametric tests. By default all p-values are from
   normal assumption-based tests (oneway.test).}
+
+  \item{minMax}{Whether to use [min,max] instead of
+  [p25,p75] for nonnormal variables. The default is FALSE.}
 
   \item{explain}{Whether to add explanation to the variable
   names, i.e., (\%) is added to the variable names when

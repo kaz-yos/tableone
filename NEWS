@@ -1,3 +1,20 @@
+tableone 0.3.0 (2014-02-16)
+----------------------------------------------------------------
+NEW FEATURES
+
+* CreateTableOne has a new factorVars argument, a character
+  vector specifying numerically coded variables that should be
+  treated as factors.
+
+* The print method for the TableOne/CatTable class object has a
+  new minMax argument, a logical value specifying whether to show
+  median [min, max] instead of median [IQR] for nonnormal variables
+
+BUG FIXES
+
+* Documentations were fixed to represent the current version.
+
+
 tableone 0.2.1 (2014-02-15)
 ----------------------------------------------------------------
 BUG FIXES

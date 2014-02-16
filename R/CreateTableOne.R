@@ -2,30 +2,18 @@
 ##'
 ##' Create an object summarizing all baseline variables optionally stratifying by one or more startifying variables and performing statistical tests. The object gives a table that is easy to use in medical research papers. See also \code{\link{print.TableOne}} and \code{\link{summary.TableOne}}.
 ##'
-##' @param vars Variables to be summarized given as a character vector. Factors are
-##' handled as categorical variables, whereas numeric variables are handled as continuous variables.
-##' @param strata Stratifying (grouping) variable name(s) given as a character
-##' vector. If omitted, the overall results are returned.
-##' @param data A data frame in which these variables exist. All variables
-##' (both vars and strata) must be in this data frame.
-##' @param test If TRUE, as in the default and there are more than two groups,
-##' groupwise comparisons are performed.
-##' @param testNormal A function used to perform the normal assumption based
-##' tests. The default is \code{\link{oneway.test}}. This is equivalent of the t-test when there are only two groups.
+##' @param vars Variables to be summarized given as a character vector. Factors are handled as categorical variables, whereas numeric variables are handled as continuous variables.
+##' @param strata Stratifying (grouping) variable name(s) given as a character vector. If omitted, the overall results are returned.
+##' @param data A data frame in which these variables exist. All variables (both vars and strata) must be in this data frame.
+##' @param factorVars Numerically coded variables that should be handled as categorical variables given as a character vector. If omitted, only factors are considered categorical variables. If all categorical variables in the dataset are already factors, this option is not necessary.
+##' @param test If TRUE, as in the default and there are more than two groups, groupwise comparisons are performed.
+##' @param testNormal A function used to perform the normal assumption based tests. The default is \code{\link{oneway.test}}. This is equivalent of the t-test when there are only two groups.
 ##' @param argsNormal A named list of arguments passed to the function specified in \code{testNormal}. The default is \code{list(var.equal = TRUE)}, which makes it the ordinary ANOVA that assumes equal variance across groups.
-##' @param testNonNormal A function used to perform the nonparametric tests.
-##' The default is \code{kruskal.test} (Kruskal-Wallis Rank Sum Test). This is
-##' equivalent of the wilcox.test (Man-Whitney U test) when there are only two
-##' groups.
+##' @param testNonNormal A function used to perform the nonparametric tests. The default is \code{kruskal.test} (Kruskal-Wallis Rank Sum Test). This is equivalent of the wilcox.test (Man-Whitney U test) when there are only two groups.
 ##' @param argsNonNormal A named list of arguments passed to the function specified in \code{testNonNormal}. The default is \code{list(NULL)}, which is just a placeholder.
-##' @param testApprox A function used to perform the large sample approximation
-##' based tests. The default is \code{\link{chisq.test}}. This is not recommended when some
-##' of the cell have small counts like fewer than 5.
+##' @param testApprox A function used to perform the large sample approximation based tests. The default is \code{\link{chisq.test}}. This is not recommended when some of the cell have small counts like fewer than 5.
 ##' @param argsApprox A named list of arguments passed to the function specified in testApprox. The default is \code{list(correct = TRUE)}, which turns on the continuity correction for \code{\link{chisq.test}}.
-##' @param testExact A function used to perform the exact tests. The default is
-##' fisher.test. If the cells have large numbers, it will fail because of
-##' memory limitation. In this situation, the large sample approximation based
-##' should suffice.
+##' @param testExact A function used to perform the exact tests. The default is fisher.test. If the cells have large numbers, it will fail because of memory limitation. In this situation, the large sample approximation based should suffice.
 ##' @param argsExact A named list of arguments passed to the function specified in testExact. The default is \code{list(workspace = 2*10^5)}, which specifies the memory space allocated for \code{\link{fisher.test}}.
 ##' @return An object of class \code{TableOne}, which really is a list of three objects.
 ##' @return \item{TableOne}{a categorical-continuous mixture data formatted and printed by the \code{\link{print.TableOne}} method}
@@ -94,6 +82,7 @@ CreateTableOne <-
     function(vars,                                      # character vector of variable names
              strata,                                    # character vector of variable names
              data,                                      # data frame
+             factorVars,                                # variables to be transformed to factors
              test          = TRUE,                      # whether to put p-values
              ## Test configuration for categorical data
              testApprox    = chisq.test,                # function for approximation test
@@ -117,6 +106,14 @@ CreateTableOne <-
         ## Abort if no variables exist at this point
         ModuleStopIfNoVarsLeft(vars)
 
+        ## Factor conversions if the factorVars argument exist
+        if (!missing(factorVars)) {
+            ## Check if variables exist. Drop them if not.
+            factorVars <- ModuleReturnVarsExist(factorVars, data)
+            ## Convert to factor
+            data[factorVars] <- lapply(data[factorVars], factor)
+        }
+
         ## Toggle test FALSE if no strata is given
         test <- ModuleReturnFalseIfNoStrata(strata, test)
 
@@ -136,13 +133,13 @@ CreateTableOne <-
                                     testNonNormal = testNonNormal,
                                     argsNonNormal = argsNonNormal
                                     )
-        argsCreateCatTable <- list(data           = data,
-                                   test           = test,
-                                   testApprox     = testApprox,
-                                   argsApprox     = argsApprox,
-                                   testExact      = testExact,
-                                   argsExact      = argsExact
-                                   )
+        argsCreateCatTable  <- list(data          = data,
+                                    test          = test,
+                                    testApprox    = testApprox,
+                                    argsApprox    = argsApprox,
+                                    testExact     = testExact,
+                                    argsExact     = argsExact
+                                    )
         ## Add strata = strata for argument only if strata is given
         if(!missing(strata)) {
 
