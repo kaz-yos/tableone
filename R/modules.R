@@ -105,7 +105,7 @@ ModuleCreateStrataVarName <- function(obj) {
 
 ## Try catch function           # Taken from demo(error.catching)
 ## Used to define non-failing functions, that return NA when there is an error
-tryCatch.W.E <- function(expr) {
+ModuleTryCatchWE <- function(expr) {
     W <- NULL
     w.handler <- function(w) { # warning handler
         W <<- w
@@ -121,19 +121,19 @@ tryCatch.W.E <- function(expr) {
 ## Consider additional options by do.call()
 ModuleTestSafe <- function(obj, testFunction, testArgs = NULL) {
 
-    out <- tryCatch.W.E(do.call(testFunction, args = c(list(obj), testArgs))$p.value)
+    out <- ModuleTryCatchWE(do.call(testFunction, args = c(list(obj), testArgs))$p.value)
     ## If it returns a numeric value, return it. Otherwise, return NA.
     ifelse(is.numeric(out$value), out$value, NA)
 }
 
 ## Define special skewness and kurtosis functions that do not fail (SAS definitions)
 sasSkewness <- function(x) {
-    out <- tryCatch.W.E(e1071::skewness(x, na.rm = TRUE, type = 2))
+    out <- ModuleTryCatchWE(e1071::skewness(x, na.rm = TRUE, type = 2))
     ## If it returns a numeric value, return it. Otherwise, return NaN.
     ifelse(is.numeric(out$value), out$value, NaN)
 }
 sasKurtosis <- function(x) {
-    out <- tryCatch.W.E(e1071::kurtosis(x, na.rm = TRUE, type = 2))
+    out <- ModuleTryCatchWE(e1071::kurtosis(x, na.rm = TRUE, type = 2))
     ## If it returns a numeric value, return it. Otherwise, return NaN.
     ifelse(is.numeric(out$value), out$value, NaN)
 }
