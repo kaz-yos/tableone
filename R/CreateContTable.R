@@ -139,7 +139,7 @@ CreateContTable <-
     ## Create a list of default functions
     functions <- c("n"      = function(x) {length(x)},
                    "miss"   = function(x) {sum(is.na(x))},
-                   "p.miss" = function(x) {sum(is.na(x)) / length(x)},
+                   "p.miss" = function(x) {(sum(is.na(x)) / length(x)) * 100},
                    "mean"   = function(x) {mean(x, na.rm = TRUE)},
                    "sd"     = function(x) {sd(x, na.rm = TRUE)},
                    "median" = function(x) {median(x, na.rm = TRUE)},
