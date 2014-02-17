@@ -202,6 +202,47 @@ ModuleConvertNonNormal <- function(rowMat, digits, minMax = FALSE) {
     return(out)
 }
 
+
+## Module to handle TRUE/FALSE or character vector of variable names
+## Returns a numeric vector: 1 for default action variable; 2 for alternative action variable
+ModuleHandleDefaultOrAlternative <- function(switchVec, nameOfSwitchVec, varNames) {
+
+    ## Check the number of variables
+    nVars <- length(varNames)
+    
+    ## If null, do default print/test for all variables
+    if (is.null(switchVec)) {
+        ##  Give one as many as there are variables
+        switchVec <- rep(1, nVars)
+
+    } else {
+        ## If not null, it needs checking.
+
+        ## Check the switchVec argument
+        if (!is.logical(switchVec) & !is.character(switchVec)) {
+            stop(paste0(nameOfSwitchVec, " argument has to be FALSE/TRUE or a character vector of variable names."))
+        }
+        ## Extend if it is a logitcal vector with one element.
+        if (is.logical(switchVec)) {
+
+            if (length(switchVec) != 1) {
+                stop(paste0(nameOfSwitchVec, " has to be a logical vector of length 1"))
+            }
+
+            switchVec <- rep(switchVec, nVars)
+        }
+        ## Convert to a logical vector if it is a character vector
+        if (is.character(switchVec)) {
+            switchVec <- varNames %in% switchVec
+        }
+        ## Convert to numeric (1 for default action, 2 for alternative actions)
+        switchVec <- as.numeric(switchVec) + 1
+    }
+
+    return(switchVec)
+}
+
+
 ### Modules by both print and summary methods
 ## ModuleQuoteAndPrintMat()
 ## Takes an matrix object format, print, and (invisibly) return it

@@ -110,36 +110,14 @@ print.CatTable <- function(x,                        # CatTable object
     ## Save variable names using the first non-null element
     varNames <- names(CatTable[[posFirstNonNullElement]])
     ## Check the number of variables (list length)
-    nVar <- length(varNames)
+    nVars <- length(varNames)
 
-    ## If null, do approx
-    if (is.null(exact)) {
 
-        exact <- rep(1, nVar)
-
-    } else {
-        ## If not null, it needs checking.
-
-        ## Check the exact argument
-        if (!is.logical(exact) & !is.character(exact)) {
-            stop("exact argument has to be FALSE/TRUE or character.")
-        }
-        ## Extend if it is a logitcal vector with one element.
-        if (is.logical(exact)) {
-
-            if (length(exact) != 1) {
-                stop("exact has to be a logical vector of length 1")
-            }
-
-            exact <- rep(exact, nVar)
-        }
-        ## Convert to a logical vector if it is a character vector
-        if (is.character(exact)) {
-            exact <- varNames %in% exact
-        }
-        ## Convert to numeric (1 for approx, 2 for exact)
-        exact <- as.numeric(exact) + 1
-    }
+    ## Returns a numeric vector: 1 for approx test variable; 2 for exact test variable
+    exact <- ModuleHandleDefaultOrAlternative(switchVec       = exact,
+                                              nameOfSwitchVec = "exact",
+                                              varNames        = varNames)
+    
 
     ## Check format argument. If it is broken, choose "fp" for frequency (percent)
     if (!length(format) == 1  | !format %in% c("fp","f","p","pf")) {
@@ -151,15 +129,15 @@ print.CatTable <- function(x,                        # CatTable object
     ## Added as the top row later
     strataN <- sapply(CatTable,
                       FUN = function(stratum) { # loop over strata
-                          ## Just the first available element may be enough.
-                          ## Obtain n from all variables and all levels, and get the mean
+                          ## each stratum is a list of one data frame for each variable
+                          ## Obtain n from all variables and all levels
                           n <- unlist(sapply(stratum, getElement, "n"))
                           ## Pick the first non-null element
                           n[!is.null(n)][1]
-                          ## Convert NULL to N
+                          ## Convert NULL to 0
                           ifelse(is.null(n), "0", as.character(n))
                       },
-                      simplify = TRUE)
+                      simplify = TRUE) # vector with as many elements as strata
 
     ## Provide indicators to show what columns were added.
     wasLevelColumnAdded  <- FALSE
@@ -391,7 +369,7 @@ print.CatTable <- function(x,                        # CatTable object
     ## Add p-values when requested and available
     if (test == TRUE & !is.null(attr(CatTable, "pValues"))) {
 
-        ## nVariables x 2 (pNormal,pNonNormal) data frame
+        ## nVarsiables x 2 (pNormal,pNonNormal) data frame
         pValues <- attr(CatTable, "pValues")
 
         ## Pick ones specified in exact (a vector with 1s(approx) and 2s(exact))

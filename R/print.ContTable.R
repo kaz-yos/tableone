@@ -102,38 +102,16 @@ print.ContTable <- function(x,                        # ContTable object
     posFirstNonNullElement <- which(!sapply(ContTable, is.null))[1]
     ## Save variable names using the first non-null element
     varNames <- rownames(ContTable[[posFirstNonNullElement]])
-    ## Check the number of rows
-    nRows <- length(varNames)
+    ## Check the number of variables
+    nVars <- length(varNames)
 
-    ## If null, do normal print/test
-    if (is.null(nonnormal)) {
-        ##  Give one as many as there are rows
-        nonnormal <- rep(1, nRows)
 
-    } else {
-        ## If not null, it needs checking.
+    ## Returns a numeric vector: 1 for normal variable; 2 for nonnormal variable
+    nonnormal <- ModuleHandleDefaultOrAlternative(switchVec       = nonnormal,
+                                                  nameOfSwitchVec = "nonnormal",
+                                                  varNames        = varNames)
 
-        ## Check the nonnormal argument
-        if (!is.logical(nonnormal) & !is.character(nonnormal)) {
-            stop("nonnormal argument has to be FALSE/TRUE or character.")
-        }
-        ## Extend if it is a logitcal vector with one element.
-        if (is.logical(nonnormal)) {
-
-            if (length(nonnormal) != 1) {
-                stop("nonormal has to be a logical vector of length 1")
-            }
-
-            nonnormal <- rep(nonnormal, nRows)
-        }
-        ## Convert to a logical vector if it is a character vector
-        if (is.character(nonnormal)) {
-            nonnormal <- varNames %in% nonnormal
-        }
-        ## Convert to numeric (1 for normal, 2 for nonnormal)
-        nonnormal <- as.numeric(nonnormal) + 1
-    }
-
+    
     ## Check the statistics. If necessary statistics are lacking abort
     statNames <- colnames(ContTable[[posFirstNonNullElement]])
     funcDefault <- c("n","miss","mean","sd","median","p25","p75")
@@ -148,15 +126,15 @@ print.ContTable <- function(x,                        # ContTable object
     ## Added as the top row later
     strataN <- sapply(ContTable,
                       FUN = function(stratum) { # loop over strata
-                          ## Just the first available element may be enough.
-                          ## Obtain n from all variables and all levels, and get the mean
+                          ## each strutum is a data frame with one row for each variable
+                          ## Obtain n from all variables
                           n <- stratum[,"n"]
                           ## Pick the first non-null element
                           n[!is.null(n)][1]
-                          ## Convert NULL to N
+                          ## Convert NULL to 0
                           ifelse(is.null(n), "0", as.character(n))
                       },
-                      simplify = TRUE)
+                      simplify = TRUE) # vector with as many elements as strata
 
     ## Provide indicators to show what columns were added.
     wasPValueColumnAdded     <- FALSE
@@ -179,7 +157,7 @@ print.ContTable <- function(x,                        # ContTable object
     ## Create a list of these two functions
     listOfFunctions <- list(normal = ConvertNormal, nonnormal = ConvertNonNormal)
 
-    ## Take functions from the 2-element list, and convert to an nRows-length list
+    ## Take functions from the 2-element list, and convert to an nVars-length list
     listOfFunctions <- listOfFunctions[nonnormal]
 
     ## Loop over strata (There may be just one)
@@ -188,14 +166,14 @@ print.ContTable <- function(x,                        # ContTable object
 
                       ## In an empty stratum, return empty
                       if (is.null(stratum)) {
-                          out <- rep("-", nRows)
+                          out <- rep("-", nVars)
                           ## Give NA to the width of the mean/median column in characters
                           nCharMeanOrMedian <- NA
                       } else {
 
                           ## Apply row by row within each non-empty stratum
                           ## This row-by-row operation is necessary to handle mean (sd) and median [IQR]
-                          out <- sapply(seq_len(nRows),
+                          out <- sapply(seq_len(nVars),
                                          FUN = function(i) {
 
                                              ## Choose between normal or nonnormal function
