@@ -41,8 +41,7 @@
 
   \item{cramVars}{A character vector to specify the
   two-level categorical variables, for which both levels
-  should be shown in one row. This should be used via
-  \code{\link{print.TableOne}}.}
+  should be shown in one row.}
 
   \item{test}{Whether to show the p-values. TRUE by
   default. If FALSE, only the numerical summaries are
