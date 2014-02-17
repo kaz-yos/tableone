@@ -6,33 +6,16 @@
 ##' also \code{\link{print.ContTable}} and \code{\link{summary.ContTable}}.
 ##'
 ##' @param vars Variable(s) to be summarized given as a character vector.
-##' @param strata Stratifying (grouping) variable name(s) given as a character
-##' vector. If omitted, the overall results are returned.
-##' @param data A data frame in which these variables exist. All variables
-##' (both vars and strata) must be in this data frame.
-##' @param func.names The functions to give the group size, number with missing
-##' values, mean, standard deviations, median, 25th percentile, 75th
-##' percentile, minimum, maximum, skewness (same definition as in SAS),
-##' kurtosis (same definition as in SAS). All of them can be seen in the
-##' summary method output. The print method uses subset of these. You can
-##' choose subset of them or reorder them. They are all configure to omit NA
-##' values (\code{na.rm = TRUE}).
-##' @param func.additional Additional functions can be given as a named list. For example, \code{list(sum = sum)}.
-##' @param test If TRUE, as in the default and there are more than two groups,
-##' groupwise comparisons are performed. Both tests that assume normality and
-##' tests that do not are performed. Either one of the result can be obtained
-##' from the print method.
-##' @param testNormal A function used to perform the normal assumption based
-##' tests. The default is \code{\link{oneway.test}}. This is equivalent of the t-test when there are only two groups.
+##' @param strata Stratifying (grouping) variable name(s) given as a character vector. If omitted, the overall results are returned.
+##' @param data A data frame in which these variables exist. All variables (both vars and strata) must be in this data frame.
+##' @param funcNames The functions to give the group size, number with missing values, proportion with missing values, mean, standard deviations, median, 25th percentile, 75th percentile, minimum, maximum, skewness (same definition as in SAS), kurtosis (same definition as in SAS). All of them can be seen in the summary method output. The print method uses subset of these. You can choose subset of them or reorder them. They are all configure to omit NA values (\code{na.rm = TRUE}).
+##' @param funcAdditional Additional functions can be given as a named list. For example, \code{list(sum = sum)}.
+##' @param test If TRUE, as in the default and there are more than two groups, groupwise comparisons are performed. Both tests that assume normality and tests that do not are performed. Either one of the result can be obtained from the print method.
+##' @param testNormal A function used to perform the normal assumption based tests. The default is \code{\link{oneway.test}}. This is equivalent of the t-test when there are only two groups.
 ##' @param argsNormal A named list of arguments passed to the function specified in \code{testNormal}. The default is \code{list(var.equal = TRUE)}, which makes it the ordinary ANOVA that assumes equal variance across groups.
-##' @param testNonNormal A function used to perform the nonparametric tests.
-##' The default is \code{kruskal.test} (Kruskal-Wallis rank sum test). This is
-##' equivalent of the wilcox.test (Man-Whitney U test) when there are only two
-##' groups.
+##' @param testNonNormal A function used to perform the nonparametric tests. The default is \code{kruskal.test} (Kruskal-Wallis rank sum test). This is equivalent of the wilcox.test (Man-Whitney U test) when there are only two groups.
 ##' @param argsNonNormal A named list of arguments passed to the function specified in \code{testNonNormal}. The default is \code{list(NULL)}, which is just a placeholder. 
-##' @return An object of class \code{ContTable}, which really is a \code{\link{by}} object with
-##' additional attributes. Each element of the \code{\link{by}} part is a matrix with rows
-##' representing variables, and columns representing summary statistics.
+##' @return An object of class \code{ContTable}, which really is a \code{\link{by}} object with additional attributes. Each element of the \code{\link{by}} part is a matrix with rows representing variables, and columns representing summary statistics.
 ##' @author Kazuki Yoshida (based on \code{Deducer::descriptive.table()})
 ##' @seealso
 ##' \code{\link{CreateContTable}}, \code{\link{print.ContTable}}, \code{\link{summary.ContTable}},
@@ -103,7 +86,7 @@ CreateContTable <-
                  "median","p25","p75","min","max",
                  "skew","kurt"
                  ),
-             func.additional,                        # named list of additional functions
+             funcAdditional,                        # named list of additional functions
              test          = TRUE,                   # Whether to put p-values
              testNormal    = oneway.test,            # test for normally distributed variables
              argsNormal    = list(var.equal = TRUE), # arguments passed to testNormal
@@ -147,9 +130,9 @@ CreateContTable <-
 
     ## Create indexes for default functions by partial string matching with the funcNames argument
     funcIndexes <- pmatch(funcNames, c("n","miss","p.miss",
-                                         "mean","sd",
-                                         "median","p25","p75","min","max",
-                                         "skew","kurt"))
+                                       "mean","sd",
+                                       "median","p25","p75","min","max",
+                                       "skew","kurt"))
     ## Remove NA
     funcIndexes <- funcIndexes[!is.na(funcIndexes)]
 
@@ -172,23 +155,26 @@ CreateContTable <-
     functions <- functions[funcIndexes]
 
     ## Check for additional functions
-    if(!missing(func.additional)){
+    if(!missing(funcAdditional)) {
+        
         ## When additional functions are given
-        if(!is.list(func.additional) || is.null(names(func.additional))) {
+        if(!is.list(funcAdditional) || is.null(names(funcAdditional))) {
             ## Stop if not a named list
-            stop("func.additional must be a named list of functions")
+            stop("funcAdditional must be a named list of functions")
         }
 
         ## If a named list is given, add to the vector of functions and their names
-        functions  <- c(functions, unlist(func.additional))
-        func.names <- c(func.names, names(func.additional))
+        functions  <- c(functions, unlist(funcAdditional))
+        funcNames  <- c(funcNames, names(funcAdditional))
     }
 
 
 ### Actual descriptive statistics are calculated here.
     ## strata-functions-variable structure alternative 2014-01-22
     ## Devide by strata
-    result <- by(data = dat, INDICES = strata,  # INDICES can be a multi-column data frame
+    result <- by(data = dat, INDICES = strata, # INDICES can be a multi-column data frame
+
+                 ## Work on each stratum
                  FUN = function(strataDat) { # Work on each stratum through by()
 
                      ## Loop for functions
@@ -205,7 +191,7 @@ CreateContTable <-
                      do.call(cbind, out)
                  })
 
-    ## Add stratification information to the column header
+    ## Add stratification variable information as an attribute
     if (length(result) > 1 ) {
         ## strataVarName from dimension headers
         strataVarName <- ModuleCreateStrataVarName(result)
@@ -219,7 +205,6 @@ CreateContTable <-
     ## Initialize to avoid error when it does not exist at the attribute assignment
     pValues <- NULL
 
-### This part performs between group tests
     ## Only when test is asked for
     if (test == TRUE) {
 
@@ -238,7 +223,7 @@ CreateContTable <-
                    FUN = function(var) {
                        ## Perform tests and return the result as 1x2 DF
                        data.frame(
-                           pNormal    = ModuleTestSafe(var ~ strataVec, testNormal, argsNormal),
+                           pNormal    = ModuleTestSafe(var ~ strataVec, testNormal,    argsNormal),
                            pNonNormal = ModuleTestSafe(var ~ strataVec, testNonNormal, argsNonNormal)
                            )
                    },

@@ -127,12 +127,12 @@ ModuleTestSafe <- function(obj, testFunction, testArgs = NULL) {
 }
 
 ## Define special skewness and kurtosis functions that do not fail (SAS definitions)
-sasSkewness <- function(x) {
+ModuleSasSkewness <- function(x) {
     out <- ModuleTryCatchWE(e1071::skewness(x, na.rm = TRUE, type = 2))
     ## If it returns a numeric value, return it. Otherwise, return NaN.
     ifelse(is.numeric(out$value), out$value, NaN)
 }
-sasKurtosis <- function(x) {
+ModuleSasKurtosis <- function(x) {
     out <- ModuleTryCatchWE(e1071::kurtosis(x, na.rm = TRUE, type = 2))
     ## If it returns a numeric value, return it. Otherwise, return NaN.
     ifelse(is.numeric(out$value), out$value, NaN)

@@ -172,12 +172,12 @@ CreateTableOne <-
             ## CreateCatTable for categorical. CreateContTable for continuous.
             listOfConstructors <- listOfConstructors[logiFactors + 1]
             ## Create a list of arguments
-            listOfArgs <- list(argsCreateContTable = argsCreateContTable,
-                               argsCreateCatTable  = argsCreateCatTable)
+            listOfArgs         <- list(argsCreateContTable = argsCreateContTable,
+                                       argsCreateCatTable  = argsCreateCatTable)
             ## argsCreateCatTable for categorical. argsCreateContTable for continuous.
-            listOfArgs <- listOfArgs[logiFactors + 1]
+            listOfArgs         <- listOfArgs[logiFactors + 1]
 
-            ## Create a list of tables
+            ## Create a list of tables by looping over variables/constructors/arguments
             TableOne <- sapply(seq_along(listOfConstructors),
                                FUN = function(i) {
 
@@ -189,11 +189,11 @@ CreateTableOne <-
                                },
                                simplify = FALSE)
 
-            ## Give variable names
+            ## Give variable names to the result object
             names(TableOne) <- vars
 
 
-            ## Create ContTable and CatTable objects (this is redundant)
+            ## Create ContTable and CatTable objects (this is redundant, but easy)
             ## Aggregated ContTable
             ContTable <- do.call(CreateContTable,
                                  args = c(list(vars = varNumerics), argsCreateContTable))
@@ -201,16 +201,16 @@ CreateTableOne <-
             CatTable  <- do.call(CreateCatTable,
                                  args = c(list(vars = varFactors),  argsCreateCatTable))
 
-            ## Create a list
-            listOfTables <- list(TableOne  = TableOne,
-                                 ContTable = ContTable,
-                                 CatTable  = CatTable
-                                 )
+            ## Create a list for output
+            TableOneObject <- list(TableOne  = TableOne,
+                                   ContTable = ContTable,
+                                   CatTable  = CatTable
+                                   )
 
             ## Give a class
-            class(listOfTables) <- "TableOne"
+            class(TableOneObject) <- "TableOne"
 
             ## Return the object
-            return(listOfTables)
+            return(TableOneObject)
         }
     }
