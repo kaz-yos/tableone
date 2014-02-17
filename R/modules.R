@@ -81,6 +81,9 @@ ModuleCreateTableForOneVar <- function(x) { # Give a vector
     ## Total missing n (duplicated as many times as there are levels)
     freq$miss        <- sum(is.na(x))
 
+    ## Total missing percentage
+    freq$p.miss      <- (freq$miss / freq$n) * 100
+
     ## Category frequency
     freq$freq        <- freqRaw
 
@@ -91,7 +94,7 @@ ModuleCreateTableForOneVar <- function(x) { # Give a vector
     freq$cum.percent <- cumsum(freqRaw) / sum(freqRaw) * 100
 
     ## Reorder variables
-    freq <- freq[c("n","miss","level","freq","percent","cum.percent")]
+    freq <- freq[c("n","miss","p.miss","level","freq","percent","cum.percent")]
 
     ## Return result as a data frame
     return(freq)
