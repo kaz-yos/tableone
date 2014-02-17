@@ -66,8 +66,8 @@ summary.CatTable <- function(object, digits = 1, ...) {
                                                   DF)
 
                                       ## Format percent and cum.percent
-                                      DF[c("percent","cum.percent")] <-
-                                          lapply(X = DF[c("percent","cum.percent")],
+                                      DF[c("p.miss","percent","cum.percent")] <-
+                                          lapply(X = DF[c("p.miss","percent","cum.percent")],
                                                  FUN = sprintf,
                                                  fmt = fmt)
 
@@ -77,7 +77,7 @@ summary.CatTable <- function(object, digits = 1, ...) {
                                                  FUN = as.character)
 
                                       ## Delete n and miss except in the first row
-                                      DF[-1, c("var","n","miss")] <- ""
+                                      DF[-1, c("var","n","miss","p.miss")] <- ""
 
                                       ## row bind an empty row
                                       DF <- rbind(DF,

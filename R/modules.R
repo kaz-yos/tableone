@@ -81,6 +81,9 @@ ModuleCreateTableForOneVar <- function(x) { # Give a vector
     ## Total missing n (duplicated as many times as there are levels)
     freq$miss        <- sum(is.na(x))
 
+    ## Total missing percentage
+    freq$p.miss      <- (freq$miss / freq$n) * 100
+
     ## Category frequency
     freq$freq        <- freqRaw
 
@@ -91,7 +94,7 @@ ModuleCreateTableForOneVar <- function(x) { # Give a vector
     freq$cum.percent <- cumsum(freqRaw) / sum(freqRaw) * 100
 
     ## Reorder variables
-    freq <- freq[c("n","miss","level","freq","percent","cum.percent")]
+    freq <- freq[c("n","miss","p.miss","level","freq","percent","cum.percent")]
 
     ## Return result as a data frame
     return(freq)
@@ -105,7 +108,7 @@ ModuleCreateStrataVarName <- function(obj) {
 
 ## Try catch function           # Taken from demo(error.catching)
 ## Used to define non-failing functions, that return NA when there is an error
-tryCatch.W.E <- function(expr) {
+ModuleTryCatchWE <- function(expr) {
     W <- NULL
     w.handler <- function(w) { # warning handler
         W <<- w
@@ -121,22 +124,44 @@ tryCatch.W.E <- function(expr) {
 ## Consider additional options by do.call()
 ModuleTestSafe <- function(obj, testFunction, testArgs = NULL) {
 
-    out <- tryCatch.W.E(do.call(testFunction, args = c(list(obj), testArgs))$p.value)
+    out <- ModuleTryCatchWE(do.call(testFunction, args = c(list(obj), testArgs))$p.value)
     ## If it returns a numeric value, return it. Otherwise, return NA.
     ifelse(is.numeric(out$value), out$value, NA)
 }
 
 ## Define special skewness and kurtosis functions that do not fail (SAS definitions)
-sasSkewness <- function(x) {
-    out <- tryCatch.W.E(e1071::skewness(x, na.rm = TRUE, type = 2))
+ModuleSasSkewness <- function(x) {
+    out <- ModuleTryCatchWE(e1071::skewness(x, na.rm = TRUE, type = 2))
     ## If it returns a numeric value, return it. Otherwise, return NaN.
     ifelse(is.numeric(out$value), out$value, NaN)
 }
-sasKurtosis <- function(x) {
-    out <- tryCatch.W.E(e1071::kurtosis(x, na.rm = TRUE, type = 2))
+ModuleSasKurtosis <- function(x) {
+    out <- ModuleTryCatchWE(e1071::kurtosis(x, na.rm = TRUE, type = 2))
     ## If it returns a numeric value, return it. Otherwise, return NaN.
     ifelse(is.numeric(out$value), out$value, NaN)
 }
+
+
+## Create a single variable representation of multivariable stratification
+## result: by object; strata: data frame of stratifying variable(s)
+ModuleCreateStrataVarAsFactor <- function(result, strata) {
+
+    ## Create all possible combinations of strata levels and collapse as a vector.
+    dfStrataLevels <- expand.grid(attr(result, "dimnames")) # 1st var cycles fastest, consistent with by()
+    ## Create a single variable representing all strata
+    strataLevels   <- apply(X = dfStrataLevels, MARGIN = 1, FUN = paste0, collapse = ":")
+    ## The length is the number of potential combinations. Used for the levels argument in the next part.
+    
+    ## Create the actual variable from the observed levels. NA if any one of the variables is NA.
+    strataVar      <- as.character(interaction(strata, sep = ":"))
+    ## Make it a factor (kruskal.test requires it). Use levels not to drop defined nonexisting levels.
+    strataVar      <- factor(strataVar, levels = strataLevels)
+    
+    ## Return stratifying variable. The length is the number of observations in the dataset.
+    ## NA for subjects with NA for any of the stratifying variables.
+    return(strataVar)
+}
+
 
 
 ### Modules intented for the print methods
@@ -176,6 +201,47 @@ ModuleConvertNonNormal <- function(rowMat, digits, minMax = FALSE) {
 
     return(out)
 }
+
+
+## Module to handle TRUE/FALSE or character vector of variable names
+## Returns a numeric vector: 1 for default action variable; 2 for alternative action variable
+ModuleHandleDefaultOrAlternative <- function(switchVec, nameOfSwitchVec, varNames) {
+
+    ## Check the number of variables
+    nVars <- length(varNames)
+    
+    ## If null, do default print/test for all variables
+    if (is.null(switchVec)) {
+        ##  Give one as many as there are variables
+        switchVec <- rep(1, nVars)
+
+    } else {
+        ## If not null, it needs checking.
+
+        ## Check the switchVec argument
+        if (!is.logical(switchVec) & !is.character(switchVec)) {
+            stop(paste0(nameOfSwitchVec, " argument has to be FALSE/TRUE or a character vector of variable names."))
+        }
+        ## Extend if it is a logitcal vector with one element.
+        if (is.logical(switchVec)) {
+
+            if (length(switchVec) != 1) {
+                stop(paste0(nameOfSwitchVec, " has to be a logical vector of length 1"))
+            }
+
+            switchVec <- rep(switchVec, nVars)
+        }
+        ## Convert to a logical vector if it is a character vector
+        if (is.character(switchVec)) {
+            switchVec <- varNames %in% switchVec
+        }
+        ## Convert to numeric (1 for default action, 2 for alternative actions)
+        switchVec <- as.numeric(switchVec) + 1
+    }
+
+    return(switchVec)
+}
+
 
 ### Modules by both print and summary methods
 ## ModuleQuoteAndPrintMat()

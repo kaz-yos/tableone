@@ -11,7 +11,7 @@
 ##' @param printToggle Whether to print the output. If FLASE, no output is created, and a matrix is invisibly returned.
 ##' @param format The default is "fp" frequency (percentage). You can also choose from "f" frequency only, "p" percentage only, and "pf" percentage (frequency).
 ##' @param showAllLevels Whether to show all levels. FALSE by default, i.e., for 2-level categorical variables, only the higher level is shown to avoid
-##' @param cramVars A character vector to specify the two-level categorical variables, for which both levels should be shown in one row. This should be used via \code{\link{print.TableOne}}.
+##' @param cramVars A character vector to specify the two-level categorical variables, for which both levels should be shown in one row.
 ##' @param test Whether to show the p-values. TRUE by default. If FALSE, only the numerical summaries are shown.
 ##' @param exact A character vector to specify the variables for which the p-values should be those of exact tests. By default all p-values are from large sample approximation tests (chisq.test).
 ##' @param CrossTable Whether to show the cross table objects held internally using gmodels::CrossTable function. This will give an output similar to the PROC FREQ in SAS.
@@ -110,36 +110,14 @@ print.CatTable <- function(x,                        # CatTable object
     ## Save variable names using the first non-null element
     varNames <- names(CatTable[[posFirstNonNullElement]])
     ## Check the number of variables (list length)
-    nVar <- length(varNames)
+    nVars <- length(varNames)
 
-    ## If null, do approx
-    if (is.null(exact)) {
 
-        exact <- rep(1, nVar)
+    ## Returns a numeric vector: 1 for approx test variable; 2 for exact test variable
+    exact <- ModuleHandleDefaultOrAlternative(switchVec       = exact,
+                                              nameOfSwitchVec = "exact",
+                                              varNames        = varNames)
 
-    } else {
-        ## If not null, it needs checking.
-
-        ## Check the exact argument
-        if (!is.logical(exact) & !is.character(exact)) {
-            stop("exact argument has to be FALSE/TRUE or character.")
-        }
-        ## Extend if it is a logitcal vector with one element.
-        if (is.logical(exact)) {
-
-            if (length(exact) != 1) {
-                stop("exact has to be a logical vector of length 1")
-            }
-
-            exact <- rep(exact, nVar)
-        }
-        ## Convert to a logical vector if it is a character vector
-        if (is.character(exact)) {
-            exact <- varNames %in% exact
-        }
-        ## Convert to numeric (1 for approx, 2 for exact)
-        exact <- as.numeric(exact) + 1
-    }
 
     ## Check format argument. If it is broken, choose "fp" for frequency (percent)
     if (!length(format) == 1  | !format %in% c("fp","f","p","pf")) {
@@ -151,15 +129,15 @@ print.CatTable <- function(x,                        # CatTable object
     ## Added as the top row later
     strataN <- sapply(CatTable,
                       FUN = function(stratum) { # loop over strata
-                          ## Just the first available element may be enough.
-                          ## Obtain n from all variables and all levels, and get the mean
+                          ## each stratum is a list of one data frame for each variable
+                          ## Obtain n from all variables and all levels (list of data frames)
                           n <- unlist(sapply(stratum, getElement, "n"))
                           ## Pick the first non-null element
                           n[!is.null(n)][1]
-                          ## Convert NULL to N
+                          ## Convert NULL to 0
                           ifelse(is.null(n), "0", as.character(n))
                       },
-                      simplify = TRUE)
+                      simplify = TRUE) # vector with as many elements as strata
 
     ## Provide indicators to show what columns were added.
     wasLevelColumnAdded  <- FALSE
@@ -181,97 +159,91 @@ print.CatTable <- function(x,                        # CatTable object
                    if (!is.null(LIST)) {
 
                        ## Returns an empty list if the stratum is null (empty).
-                       LIST <- sapply(X = seq_along(LIST), # Loop over variables (list element is DF)
-                                      FUN = function(i) {
+                       LIST <-
+                           sapply(X = seq_along(LIST), # Loop over variables (list element is DF)
+                                  FUN = function(i) {
 
-                                          ## Extract the data frame (list element)
-                                          DF <- LIST[[i]]
+                                      ## Extract the data frame (list element)
+                                      DF <- LIST[[i]]
 
-                                          ## Extract the variable name
-                                          varName <- names(LIST)[i]
+                                      ## Extract the variable name
+                                      varName <- names(LIST)[i]
 
-                                          ## Check number of rows (levels)
-                                          nRow <- nrow(DF)
+                                      ## Check number of rows (levels)
+                                      nRow <- nrow(DF)
 
-                                          ## Add a variable name to the left as a character vector
-                                          DF <- cbind(var = rep(varName, nRow),
-                                                      DF)
+                                      ## Add a variable name to the left as a character vector
+                                      DF <- cbind(var = rep(varName, nRow),
+                                                  DF)
 
-                                          ## Format percent and cum.percent as strings
-                                          DF[c("percent","cum.percent")] <-
-                                              lapply(X = DF[c("percent","cum.percent")],
-                                                     FUN = sprintf,
-                                                     fmt = fmt1)
+                                      ## Format percent and cum.percent as strings
+                                      DF[c("p.miss","percent","cum.percent")] <-
+                                          lapply(X = DF[c("p.miss","percent","cum.percent")],
+                                                 FUN = sprintf,
+                                                 fmt = fmt1)
 
 
-                                          ## Make all variables strings (freq is an integer, so direct convert ok)
-                                          DF[] <- lapply(X = DF, FUN = as.character)
+                                      ## Make all variables strings (freq is an integer, so direct convert ok)
+                                      DF[] <- lapply(X = DF, FUN = as.character)
 
-                                          ## Add first row indicator column
-                                          DF$firstRowInd <- ""
-                                          ## Add crammed row indicator column
-                                          DF$crammedRowInd <- ""
+                                      ## Add first row indicator column
+                                      DF$firstRowInd <- ""
+                                      ## Add crammed row indicator column
+                                      DF$crammedRowInd <- ""
 
-                                          ## Format based on the number of levels
-                                          if (!showAllLevels & nRow == 1) {
-                                              ## If showAllLevels is FALSE AND there are only ONE levels,
-                                              ## change variable name to "var = level"
+                                      ## Format based on the number of levels
+                                      if (!showAllLevels & nRow == 1) {
+                                          ## If showAllLevels is FALSE AND there are only ONE levels,
+                                          ## change variable name to "var = level"
+                                          DF$var <- with(DF, paste0(var, " = ", level))
+
+                                      } else if (!showAllLevels & nRow == 2) {
+                                          ## If showAllLevels is FALSE AND there are only TWO levels,
+                                          ## cram two levels in one row if requested
+                                          if (unique(DF$var)  %in% cramVars) {
+                                              ## If cramVars includes var, cram into one line
+                                              ## Cram two freq and count with / in between
+                                              DF$freq    <- paste0(DF$freq,    collapse = "/")
+                                              DF$percent <- paste0(DF$percent, collapse = "/")
+                                              ## change variable name, and delete the first level.
+                                              DF$var     <- paste0(DF$var, " = ",
+                                                                   paste0(DF$level, collapse = "/"))
+                                              ## Delete the first row
+                                              DF <- DF[-1, , drop = FALSE]
+                                              ## Add crammed row indicator (used for formatting)
+                                              DF[1,"crammedRowInd"] <- "crammed"
+                                          } else {
+                                              ## Otherwise, keep the second level only
+                                              ## change variable name, and delete the first level.
                                               DF$var <- with(DF, paste0(var, " = ", level))
-                                              ## Add first row indicator (used to add (%))
-                                              DF[1,"firstRowInd"] <- "first"
-
-                                          } else if (!showAllLevels & nRow == 2) {
-
-                                              ## cram results in one row if requested
-                                              if (unique(DF$var)  %in% cramVars) {
-                                                  ## If cramVars is true. Cram in one line
-                                                  ## Cram two freq and count with / in between
-                                                  DF$freq    <- paste0(DF$freq,    collapse = "/")
-                                                  DF$percent <- paste0(DF$percent, collapse = "/")
-                                                  DF$var     <- paste0(DF$var, " = ",
-                                                                       paste0(DF$level, collapse = "/"))
-                                                  ## Delete the first row
-                                                  DF <- DF[-1, , drop = FALSE]
-                                                  ## Add first row indicator (used to add (%))
-                                                  DF[1,"firstRowInd"]   <- "first"
-                                                  DF[1,"crammedRowInd"] <- "crammed"
-
-                                              } else {
-                                                  ## Otherwise, keep the second level only
-                                                  ## If showAllLevels is FALSE AND there are only TWO levels,
-                                                  ## change variable name, and delete the first level.
-                                                  DF$var <- with(DF, paste0(var, " = ", level))
-                                                  DF <- DF[-1, , drop = FALSE]
-                                                  ## Add first row indicator (used to add (%))
-                                                  DF[1,"firstRowInd"] <- "first"
-                                              }
-
-                                          } else if (!showAllLevels & nRow > 2) {
-                                              ## If showAllLevels is FALSE AND there are MORE THAN two levels,
-                                              ## add an empty row and put the var name, then levels below.
-                                              DF <- rbind(rep("", ncol(DF)),
-                                                          DF)
-                                              ## Add variable name in the first row
-                                              DF[1,"var"] <- DF[2,"var"]
-
-                                              ## 2nd to last have level names. (nrow has changed by +1)
-                                              secondToLastRows <- seq(from = 2,to = nrow(DF), by = 1)
-                                              DF[secondToLastRows, "var"] <-
-                                                  paste0("   ", DF[secondToLastRows, "level"]) # preceding spaces
-                                              ## Add first row indicator (used to add (%))
-                                              DF[1,"firstRowInd"] <- "first"
-
-                                          } else if (showAllLevels) {
-                                              ## If showAllLevels is TRUE clear names
-                                              DF[-1, c("var","n","miss")] <- ""
-                                              ## Add first row indicator (used to add (%))
-                                              DF[1,"firstRowInd"] <- "first"
+                                              DF <- DF[-1, , drop = FALSE]
                                           }
 
-                                          ## Return a data frame
-                                          DF
-                                      },
-                                      simplify = FALSE)
+                                      } else if (!showAllLevels & nRow > 2) {
+                                          ## If showAllLevels is FALSE AND there are MORE THAN two levels,
+                                          ## add an empty row and put the var name, then levels below.
+                                          DF <- rbind(rep("", ncol(DF)),
+                                                      DF)
+                                          ## Add variable name in the first row
+                                          DF[1,"var"] <- DF[2,"var"]
+
+                                          ## 2nd to last have level names. (nrow has changed by +1)
+                                          secondToLastRows <- seq(from = 2,to = nrow(DF), by = 1)
+                                          DF[secondToLastRows, "var"] <-
+                                              paste0("   ", DF[secondToLastRows, "level"]) # preceding spaces
+
+                                      } else if (showAllLevels) {
+                                          ## If showAllLevels is TRUE, clear these except in 1st row
+                                          DF[-1, c("var","n","miss","p.miss")] <- ""
+                                      }
+
+                                      ## Add first row indicator (used to add (%))
+                                      DF[1,"firstRowInd"]   <- "first"
+
+                                      ## Return a data frame
+                                      DF
+                                  },
+                                  simplify = FALSE) # Looped over variables (list element is DF)
 
 
                        ## Collapse DFs within each stratum
@@ -281,34 +253,40 @@ print.CatTable <- function(x,                        # CatTable object
                        ## Check non-empty rows
                        posNonEmptyRows <- DF$freq != ""
 
-                       ## Right justify frequency (crammed and non crammed separately)
-                       DF[DF$crammedRowInd == "crammed","freq"] <-
-                           format(DF[DF$crammedRowInd == "crammed","freq"], justify = "right")
-                       DF[DF$crammedRowInd == "","freq"] <-
-                           format(DF[DF$crammedRowInd == "","freq"], justify = "right")
 
+                       ## Create freq to be added on to the right side within ()
+                       DF$freqAddOn <- DF$freq
+                       ## Right justify frequency (crammed and non-crammed at once)
+                       DF$freq <- format(DF$freq, justify = "right")
+                       ## Right justify frequency (non-crammed only)
+                       DF[DF$crammedRowInd == "","freqAddOn"] <-
+                           format(DF[DF$crammedRowInd == "","freqAddOn"], justify = "right")
                        ## Obtain the max width of characters
                        nCharFreq <- max(nchar(DF$freq))
 
-                       ## Right justify percent
-                       DF[DF$crammedRowInd == "crammed","percent"] <-
-                           format(DF[DF$crammedRowInd == "crammed","percent"], justify = "right")
-                       DF[DF$crammedRowInd == "","percent"] <-
-                           format(DF[DF$crammedRowInd == "","percent"], justify = "right")
+
+                       ## Create percent to be added on to the right side within ()
+                       DF$percentAddOn <- DF$percent
+                       ## Right justify percent (crammed and non-crammed at once)
+                       DF$percent <- format(DF$percent, justify = "right")
+                       ## Right justify percent (non-crammed only)
+                       DF[DF$crammedRowInd == "","percentAddOn"] <-
+                           format(DF[DF$crammedRowInd == "","percentAddOn"], justify = "right")
                        ## Obtain the max width of characters
                        nCharPercent <- max(nchar(DF$percent))
+
 
                        ## Add freq (percent) column (only in non-empty rows)
                        DF$freqPer <- ""
                        DF[posNonEmptyRows,]$freqPer <- sprintf(fmt = "%s (%s) ",
                                                                DF[posNonEmptyRows,]$freq,
-                                                               DF[posNonEmptyRows,]$percent)
+                                                               DF[posNonEmptyRows,]$percentAddOn)
 
                        ## Add percent (freq) column  (only in non-empty rows)
                        DF$perFreq <- ""
                        DF[posNonEmptyRows,]$perFreq <- sprintf(fmt = "%s (%s) ",
                                                                DF[posNonEmptyRows,]$percent,
-                                                               DF[posNonEmptyRows,]$freq)
+                                                               DF[posNonEmptyRows,]$freqAddOn)
 
                        ## Add aditional attributes
                        attributes(DF) <- c(attributes(DF),
@@ -322,7 +300,6 @@ print.CatTable <- function(x,                        # CatTable object
 
                }, simplify = FALSE)
 
-    ## browser()
 
 ### Obtain the original column width in characters for alignment in print.TableOne
     ## Name of the column to keep
@@ -391,7 +368,7 @@ print.CatTable <- function(x,                        # CatTable object
     ## Add p-values when requested and available
     if (test == TRUE & !is.null(attr(CatTable, "pValues"))) {
 
-        ## nVariables x 2 (pNormal,pNonNormal) data frame
+        ## nVarsiables x 2 (pNormal,pNonNormal) data frame
         pValues <- attr(CatTable, "pValues")
 
         ## Pick ones specified in exact (a vector with 1s(approx) and 2s(exact))

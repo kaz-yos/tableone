@@ -2,10 +2,11 @@
 \alias{CreateContTable}
 \title{Create an object summarizing continous variables}
 \usage{
-CreateContTable(vars, strata, data, func.names = c("n", "miss", "mean", "sd",
-  "median", "p25", "p75", "min", "max", "skew", "kurt"), func.additional,
-  test = TRUE, testNormal = oneway.test, argsNormal = list(var.equal =
-  TRUE), testNonNormal = kruskal.test, argsNonNormal = list(NULL))
+CreateContTable(vars, strata, data, funcNames = c("n", "miss", "p.miss",
+  "mean", "sd", "median", "p25", "p75", "min", "max", "skew", "kurt"),
+  funcAdditional, test = TRUE, testNormal = oneway.test,
+  argsNormal = list(var.equal = TRUE), testNonNormal = kruskal.test,
+  argsNonNormal = list(NULL))
 }
 \arguments{
   \item{vars}{Variable(s) to be summarized given as a
@@ -19,17 +20,17 @@ CreateContTable(vars, strata, data, func.names = c("n", "miss", "mean", "sd",
   All variables (both vars and strata) must be in this data
   frame.}
 
-  \item{func.names}{The functions to give the group size,
-  number with missing values, mean, standard deviations,
-  median, 25th percentile, 75th percentile, minimum,
-  maximum, skewness (same definition as in SAS), kurtosis
-  (same definition as in SAS). All of them can be seen in
-  the summary method output. The print method uses subset
-  of these. You can choose subset of them or reorder them.
-  They are all configure to omit NA values (\code{na.rm =
-  TRUE}).}
+  \item{funcNames}{The functions to give the group size,
+  number with missing values, proportion with missing
+  values, mean, standard deviations, median, 25th
+  percentile, 75th percentile, minimum, maximum, skewness
+  (same definition as in SAS), kurtosis (same definition as
+  in SAS). All of them can be seen in the summary method
+  output. The print method uses subset of these. You can
+  choose subset of them or reorder them. They are all
+  configure to omit NA values (\code{na.rm = TRUE}).}
 
-  \item{func.additional}{Additional functions can be given
+  \item{funcAdditional}{Additional functions can be given
   as a named list. For example, \code{list(sum = sum)}.}
 
   \item{test}{If TRUE, as in the default and there are more
