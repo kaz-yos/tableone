@@ -117,7 +117,7 @@ print.CatTable <- function(x,                        # CatTable object
     exact <- ModuleHandleDefaultOrAlternative(switchVec       = exact,
                                               nameOfSwitchVec = "exact",
                                               varNames        = varNames)
-    
+
 
     ## Check format argument. If it is broken, choose "fp" for frequency (percent)
     if (!length(format) == 1  | !format %in% c("fp","f","p","pf")) {
@@ -130,7 +130,7 @@ print.CatTable <- function(x,                        # CatTable object
     strataN <- sapply(CatTable,
                       FUN = function(stratum) { # loop over strata
                           ## each stratum is a list of one data frame for each variable
-                          ## Obtain n from all variables and all levels
+                          ## Obtain n from all variables and all levels (list of data frames)
                           n <- unlist(sapply(stratum, getElement, "n"))
                           ## Pick the first non-null element
                           n[!is.null(n)][1]
@@ -195,23 +195,21 @@ print.CatTable <- function(x,                        # CatTable object
                                               ## If showAllLevels is FALSE AND there are only ONE levels,
                                               ## change variable name to "var = level"
                                               DF$var <- with(DF, paste0(var, " = ", level))
-                                              ## Add first row indicator (used to add (%))
-                                              DF[1,"firstRowInd"] <- "first"
 
                                           } else if (!showAllLevels & nRow == 2) {
 
-                                              ## cram results in one row if requested
+                                              ## cram two levels in one row if requested
                                               if (unique(DF$var)  %in% cramVars) {
-                                                  ## If cramVars is true. Cram in one line
+                                                  ## If cramVars includes var, cram into one line
                                                   ## Cram two freq and count with / in between
                                                   DF$freq    <- paste0(DF$freq,    collapse = "/")
                                                   DF$percent <- paste0(DF$percent, collapse = "/")
+                                                  ## change variable name, and delete the first level.
                                                   DF$var     <- paste0(DF$var, " = ",
                                                                        paste0(DF$level, collapse = "/"))
                                                   ## Delete the first row
                                                   DF <- DF[-1, , drop = FALSE]
-                                                  ## Add first row indicator (used to add (%))
-                                                  DF[1,"firstRowInd"]   <- "first"
+                                                  ## Add crammed row indicator (used for formatting)
                                                   DF[1,"crammedRowInd"] <- "crammed"
 
                                               } else {
@@ -220,8 +218,6 @@ print.CatTable <- function(x,                        # CatTable object
                                                   ## change variable name, and delete the first level.
                                                   DF$var <- with(DF, paste0(var, " = ", level))
                                                   DF <- DF[-1, , drop = FALSE]
-                                                  ## Add first row indicator (used to add (%))
-                                                  DF[1,"firstRowInd"] <- "first"
                                               }
 
                                           } else if (!showAllLevels & nRow > 2) {
@@ -236,15 +232,14 @@ print.CatTable <- function(x,                        # CatTable object
                                               secondToLastRows <- seq(from = 2,to = nrow(DF), by = 1)
                                               DF[secondToLastRows, "var"] <-
                                                   paste0("   ", DF[secondToLastRows, "level"]) # preceding spaces
-                                              ## Add first row indicator (used to add (%))
-                                              DF[1,"firstRowInd"] <- "first"
 
                                           } else if (showAllLevels) {
-                                              ## If showAllLevels is TRUE clear names
-                                              DF[-1, c("var","n","miss")] <- ""
-                                              ## Add first row indicator (used to add (%))
-                                              DF[1,"firstRowInd"] <- "first"
+                                              ## If showAllLevels is TRUE, clear these except in 1st row
+                                              DF[-1, c("var","n","miss","p.miss")] <- ""
                                           }
+
+                                          ## Add first row indicator (used to add (%))
+                                          DF[1,"firstRowInd"]   <- "first"
 
                                           ## Return a data frame
                                           DF
