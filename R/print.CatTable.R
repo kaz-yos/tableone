@@ -245,7 +245,7 @@ print.CatTable <- function(x,                        # CatTable object
                                   },
                                   simplify = FALSE) # Looped over variables (list element is DF)
 
-   browser()
+
                        ## Collapse DFs within each stratum
                        DF <- do.call(rbind, LIST)
 
@@ -253,34 +253,40 @@ print.CatTable <- function(x,                        # CatTable object
                        ## Check non-empty rows
                        posNonEmptyRows <- DF$freq != ""
 
-                       ## Right justify frequency (crammed and non crammed separately)
-                       DF[DF$crammedRowInd == "crammed","freq"] <-
-                           format(DF[DF$crammedRowInd == "crammed","freq"], justify = "right")
-                       DF[DF$crammedRowInd == "","freq"] <-
-                           format(DF[DF$crammedRowInd == "","freq"], justify = "right")
 
+                       ## Create freq to be added on to the right side within ()
+                       DF$freqAddOn <- DF$freq
+                       ## Right justify frequency (crammed and non-crammed at once)
+                       DF$freq <- format(DF$freq, justify = "right")
+                       ## Right justify frequency (non-crammed only)
+                       DF[DF$crammedRowInd == "","freqAddOn"] <-
+                           format(DF[DF$crammedRowInd == "","freqAddOn"], justify = "right")
                        ## Obtain the max width of characters
                        nCharFreq <- max(nchar(DF$freq))
 
-                       ## Right justify percent
-                       DF[DF$crammedRowInd == "crammed","percent"] <-
-                           format(DF[DF$crammedRowInd == "crammed","percent"], justify = "right")
-                       DF[DF$crammedRowInd == "","percent"] <-
-                           format(DF[DF$crammedRowInd == "","percent"], justify = "right")
+
+                       ## Create percent to be added on to the right side within ()
+                       DF$percentAddOn <- DF$percent
+                       ## Right justify percent (crammed and non-crammed at once)
+                       DF$percent <- format(DF$percent, justify = "right")
+                       ## Right justify percent (non-crammed only)
+                       DF[DF$crammedRowInd == "","percentAddOn"] <-
+                           format(DF[DF$crammedRowInd == "","percentAddOn"], justify = "right")
                        ## Obtain the max width of characters
                        nCharPercent <- max(nchar(DF$percent))
+
 
                        ## Add freq (percent) column (only in non-empty rows)
                        DF$freqPer <- ""
                        DF[posNonEmptyRows,]$freqPer <- sprintf(fmt = "%s (%s) ",
                                                                DF[posNonEmptyRows,]$freq,
-                                                               DF[posNonEmptyRows,]$percent)
+                                                               DF[posNonEmptyRows,]$percentAddOn)
 
                        ## Add percent (freq) column  (only in non-empty rows)
                        DF$perFreq <- ""
                        DF[posNonEmptyRows,]$perFreq <- sprintf(fmt = "%s (%s) ",
                                                                DF[posNonEmptyRows,]$percent,
-                                                               DF[posNonEmptyRows,]$freq)
+                                                               DF[posNonEmptyRows,]$freqAddOn)
 
                        ## Add aditional attributes
                        attributes(DF) <- c(attributes(DF),
@@ -294,7 +300,6 @@ print.CatTable <- function(x,                        # CatTable object
 
                }, simplify = FALSE)
 
-    ## browser()
 
 ### Obtain the original column width in characters for alignment in print.TableOne
     ## Name of the column to keep
