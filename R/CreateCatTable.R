@@ -149,24 +149,17 @@ CreateCatTable <-
 
 ### Perform tests when necessary
     ## Initialize
-    pValues <- NULL
+    pValues   <- NULL
     listXtabs <- list()
 
     ## Only when test is asked for
     if (test == TRUE) {
 
-        ## Create all combinations of strata levels and collapse as a vector for level combinations.
-        dfStrataLevels <- expand.grid(attr(result, "dimnames")) # 1st var cycles fastest, consistent with by()
-        ## Create a single variable representing all strata
-        strataLevels   <- apply(X = dfStrataLevels, MARGIN = 1, FUN = paste0, collapse = ":")
-        
-        ## Create the actual variable from the observed levels
-        strataVar      <- as.character(interaction(strata, sep = ":"))
-        ## Make it a factor (kruskal.test requires it). Use levels not to drop defined nonexisting levels.
-        strataVar      <- factor(strataVar, levels = strataLevels)
+        ## Create a single variable representation of multivariable stratification
+        strataVar <- ModuleCreateStrataVarAsFactor(result, strata)
 
-        
         ## Loop over variables in dat, and create a list of xtabs
+        ## Empty strata are kept in the corss tables. Different behavior than the cont counterpart!
         listXtabs <- sapply(X = names(dat),
                             FUN = function(var) {
                                 ## Create a formula

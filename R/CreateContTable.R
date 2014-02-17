@@ -14,7 +14,7 @@
 ##' @param testNormal A function used to perform the normal assumption based tests. The default is \code{\link{oneway.test}}. This is equivalent of the t-test when there are only two groups.
 ##' @param argsNormal A named list of arguments passed to the function specified in \code{testNormal}. The default is \code{list(var.equal = TRUE)}, which makes it the ordinary ANOVA that assumes equal variance across groups.
 ##' @param testNonNormal A function used to perform the nonparametric tests. The default is \code{kruskal.test} (Kruskal-Wallis rank sum test). This is equivalent of the wilcox.test (Man-Whitney U test) when there are only two groups.
-##' @param argsNonNormal A named list of arguments passed to the function specified in \code{testNonNormal}. The default is \code{list(NULL)}, which is just a placeholder. 
+##' @param argsNonNormal A named list of arguments passed to the function specified in \code{testNonNormal}. The default is \code{list(NULL)}, which is just a placeholder.
 ##' @return An object of class \code{ContTable}, which really is a \code{\link{by}} object with additional attributes. Each element of the \code{\link{by}} part is a matrix with rows representing variables, and columns representing summary statistics.
 ##' @author Kazuki Yoshida (based on \code{Deducer::descriptive.table()})
 ##' @seealso
@@ -156,7 +156,7 @@ CreateContTable <-
 
     ## Check for additional functions
     if(!missing(funcAdditional)) {
-        
+
         ## When additional functions are given
         if(!is.list(funcAdditional) || is.null(names(funcAdditional))) {
             ## Stop if not a named list
@@ -205,33 +205,29 @@ CreateContTable <-
     ## Initialize to avoid error when it does not exist at the attribute assignment
     pValues <- NULL
 
+
     ## Only when test is asked for
     if (test == TRUE) {
 
-        ## Create a single variable representing all strata
-        strataVec                   <- apply(X = strata, MARGIN = 1, FUN = paste0, collapse = ":")
-        ## Give NA if any of the variables are missing
-        strataVecAnyMiss            <- apply(X = is.na(strata), MARGIN = 1, FUN = sum) > 0
-        strataVec[strataVecAnyMiss] <- NA
-        ## Make it a factor (kruskal.test requires it)
-        strataVec                   <- factor(strataVec)
-
+        ## Create a single variable representation of multivariable stratification
+        strataVar <- ModuleCreateStrataVarAsFactor(result, strata)
 
         ## Loop over variables in dat, and obtain p values for two tests
+        ## DF = 6 when there are 8 levels (one empty), i.e., empty strata dropped by oneway.test/kruskal.test
         pValues <-
             sapply(X = dat,
                    FUN = function(var) {
                        ## Perform tests and return the result as 1x2 DF
                        data.frame(
-                           pNormal    = ModuleTestSafe(var ~ strataVec, testNormal,    argsNormal),
-                           pNonNormal = ModuleTestSafe(var ~ strataVec, testNonNormal, argsNonNormal)
+                           pNormal    = ModuleTestSafe(var ~ strataVar, testNormal,    argsNormal),
+                           pNonNormal = ModuleTestSafe(var ~ strataVar, testNonNormal, argsNonNormal)
                            )
                    },
                    simplify = FALSE)
 
         ## Create a single data frame (n x 2 (normal,nonormal))
         pValues <- do.call(rbind, pValues)
-    }
+    } # Conditional for test == TRUE ends here.
 
 
     ## Return object

@@ -139,6 +139,28 @@ ModuleSasKurtosis <- function(x) {
 }
 
 
+## Create a single variable representation of multivariable stratification
+## result: by object; strata: data frame of stratifying variable(s)
+ModuleCreateStrataVarAsFactor <- function(result, strata) {
+
+    ## Create all possible combinations of strata levels and collapse as a vector.
+    dfStrataLevels <- expand.grid(attr(result, "dimnames")) # 1st var cycles fastest, consistent with by()
+    ## Create a single variable representing all strata
+    strataLevels   <- apply(X = dfStrataLevels, MARGIN = 1, FUN = paste0, collapse = ":")
+    ## The length is the number of potential combinations. Used for the levels argument in the next part.
+    
+    ## Create the actual variable from the observed levels. NA if any one of the variables is NA.
+    strataVar      <- as.character(interaction(strata, sep = ":"))
+    ## Make it a factor (kruskal.test requires it). Use levels not to drop defined nonexisting levels.
+    strataVar      <- factor(strataVar, levels = strataLevels)
+    
+    ## Return stratifying variable. The length is the number of observations in the dataset.
+    ## NA for subjects with NA for any of the stratifying variables.
+    return(strataVar)
+}
+
+
+
 ### Modules intented for the print methods
 ################################################################################
 
