@@ -97,8 +97,8 @@ CreateContTable <-
     function(vars,                                   # character vector of variable names
              strata,                                 # character vector of variable names
              data,                                   # data frame
-             func.names    = c(                      # can pick a subset of them
-                 "n","miss",
+             funcNames    = c(                      # can pick a subset of them
+                 "n","miss","p.miss",
                  "mean","sd",
                  "median","p25","p75","min","max",
                  "skew","kurt"
@@ -145,30 +145,31 @@ CreateContTable <-
     if(!all(sapply(dat, is.numeric))) {stop("Can only be run on numeric variables")}
 
 
-    ## Create indexes for default functions by partial string matching with the func.names argument
-    func.indexes <- pmatch(func.names, c("n","miss",
+    ## Create indexes for default functions by partial string matching with the funcNames argument
+    funcIndexes <- pmatch(funcNames, c("n","miss","p.miss",
                                          "mean","sd",
                                          "median","p25","p75","min","max",
                                          "skew","kurt"))
     ## Remove NA
-    func.indexes <- func.indexes[!is.na(func.indexes)]
+    funcIndexes <- funcIndexes[!is.na(funcIndexes)]
 
     ## Create a list of default functions
-    functions <- c("n"      = function(x) length(x),
-                   "miss"   = function(x) sum(is.na(x)),
-                   "mean"   = function(x) mean(x, na.rm = TRUE),
-                   "sd"     = function(x) sd(x, na.rm = TRUE),
-                   "median" = function(x) median(x, na.rm = TRUE),
-                   "p25"    = function(x) quantile(x, probs = 0.25, na.rm = TRUE),
-                   "p75"    = function(x) quantile(x, probs = 0.75, na.rm = TRUE),
-                   "min"    = function(x) min(x, na.rm = TRUE),
-                   "max"    = function(x) max(x, na.rm = TRUE),
-                   "skew"   = function(x) sasSkewness(x),
-                   "kurt"   = function(x) sasKurtosis(x)
+    functions <- c("n"      = function(x) {length(x)},
+                   "miss"   = function(x) {sum(is.na(x))},
+                   "p.miss" = function(x) {sum(is.na(x)) / length(x)},
+                   "mean"   = function(x) {mean(x, na.rm = TRUE)},
+                   "sd"     = function(x) {sd(x, na.rm = TRUE)},
+                   "median" = function(x) {median(x, na.rm = TRUE)},
+                   "p25"    = function(x) {quantile(x, probs = 0.25, na.rm = TRUE)},
+                   "p75"    = function(x) {quantile(x, probs = 0.75, na.rm = TRUE)},
+                   "min"    = function(x) {min(x, na.rm = TRUE)},
+                   "max"    = function(x) {max(x, na.rm = TRUE)},
+                   "skew"   = function(x) {ModuleSasSkewness(x)},
+                   "kurt"   = function(x) {ModuleSasKurtosis(x)}
                    )
 
     ## Keep only functions in use
-    functions <- functions[func.indexes]
+    functions <- functions[funcIndexes]
 
     ## Check for additional functions
     if(!missing(func.additional)){
