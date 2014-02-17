@@ -127,7 +127,7 @@ print.ContTable <- function(x,                        # ContTable object
     strataN <- sapply(ContTable,
                       FUN = function(stratum) { # loop over strata
                           ## each strutum is a data frame with one row for each variable
-                          ## Obtain n from all variables
+                          ## Obtain n from all variables (matrix)
                           n <- stratum[,"n"]
                           ## Pick the first non-null element
                           n[!is.null(n)][1]
