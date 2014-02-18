@@ -151,12 +151,12 @@ ModuleCreateStrataVarAsFactor <- function(result, strata) {
     ## Create a single variable representing all strata
     strataLevels   <- apply(X = dfStrataLevels, MARGIN = 1, FUN = paste0, collapse = ":")
     ## The length is the number of potential combinations. Used for the levels argument in the next part.
-    
+
     ## Create the actual variable from the observed levels. NA if any one of the variables is NA.
     strataVar      <- as.character(interaction(strata, sep = ":"))
     ## Make it a factor (kruskal.test requires it). Use levels not to drop defined nonexisting levels.
     strataVar      <- factor(strataVar, levels = strataLevels)
-    
+
     ## Return stratifying variable. The length is the number of observations in the dataset.
     ## NA for subjects with NA for any of the stratifying variables.
     return(strataVar)
@@ -181,12 +181,12 @@ ModuleConvertNormal <- function(rowMat, digits) {
 
 ## Define a function to format a nonnormal variable
 ModuleConvertNonNormal <- function(rowMat, digits, minMax = FALSE) {
-    
+
     ## Format for [p25, p75]
     fmt <- paste0(" [%.", digits,"f, %.",digits,"f]")
 
     if (minMax == FALSE) {
-        ## Create a DF with numeric median column and character [p25, p75] column        
+        ## Create a DF with numeric median column and character [p25, p75] column
         out <- data.frame(col1 = rowMat[,"median"],
                           col2 = sprintf(fmt = fmt, rowMat[,"p25"], rowMat[,"p75"]),
                           stringsAsFactors = FALSE)
@@ -209,7 +209,7 @@ ModuleHandleDefaultOrAlternative <- function(switchVec, nameOfSwitchVec, varName
 
     ## Check the number of variables
     nVars <- length(varNames)
-    
+
     ## If null, do default print/test for all variables
     if (is.null(switchVec)) {
         ##  Give one as many as there are variables
@@ -240,6 +240,74 @@ ModuleHandleDefaultOrAlternative <- function(switchVec, nameOfSwitchVec, varName
     }
 
     return(switchVec)
+}
+
+
+## Column name formatter (strata names. "Overvall" if only one preset)
+ModuleCreateStrataNames <- function(TableObject) {
+
+    ## Create all combinations and collapse as strings
+    strataNames <-  apply(expand.grid(attr(TableObject, "dimnames")),
+                          MARGIN = 1,
+                          paste0, collapse = ":")
+
+    ## Return the names as a vector
+    return(strataNames)
+}
+
+
+## p-value picker/formatter
+ModulePickAndFormatPValues <- function(TableObject, switchVec, pDigits) {
+
+    ## nVarsiables x 2 (pNormal,pNonNormal) data frame
+    pValues <- attr(TableObject, "pValues")
+
+    ## Pick ones specified in exact (a vector with 1s(approx) and 2s(exact))
+    pValues <- sapply(seq_along(switchVec),    # loop over exact
+                      FUN = function(i) {
+                          ## Pick from a matrix i-th row, exact[i]-th column
+                          ## Logical NA must be converted to a numeric
+                          as.numeric(pValues[i, switchVec[i]])
+                      },
+                      simplify = TRUE)
+
+    ## Format p value
+    fmt  <- paste0("%.", pDigits, "f")
+    pVec <- sprintf(fmt = fmt, pValues)
+
+    ## Create a string like <0.001
+    smallPString       <- paste0("<0.", paste0(rep("0", pDigits - 1), collapse = ""), "1")
+    ## Check positions where it is all zero like 0.000
+    posAllZeros        <- grepl("^0\\.0*$", pVec)
+    ## Put the string where it is all zero like 0.000
+    pVec[posAllZeros]  <- smallPString
+    ## Put a preceding space where it is not like 0.000
+    pVec[!posAllZeros] <- paste0(" ", pVec[!posAllZeros])
+
+    ## Return formatted p-values (as many as there are variables)
+    return(pVec)
+}
+
+
+## Module to return the dimention headers added to the out 2d matrix
+ModuleReturnDimHeaders <- function(TableObject) {
+
+    ## Add stratification information to the column header
+    if (length(TableObject) > 1 ) {
+        ## Create strata string
+        strataString <- paste0("Stratified by ",
+                               paste0(names(attr(TableObject, "dimnames")), collapse = ":"))
+
+        ## Name the row dimension with it. 1st dimension name should be empty.
+        dimHeaders <- c("", strataString)
+
+    }  else {
+        ## If no stratification, no name for the second dimension
+        dimHeaders <- c("", "")
+    }
+
+    ## Return the dim header a vector of length 2
+    return(dimHeaders)
 }
 
 
