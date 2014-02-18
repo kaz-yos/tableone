@@ -443,21 +443,8 @@ print.CatTable <- function(x,                        # CatTable object
     ## Put back the column names (overkill for non-multivariable cases)
     colnames(out) <- outColNames
 
-    ## Add stratification information to the column header (This is also in the constructor)
-    if (length(CatTable) > 1 ) {
-        ## Combine variable names with : in between
-        strataVarName <- attributes(CatTable)$strataVarName
-
-        ## Create strata string
-        strataString <- paste0("Stratified by ", strataVarName)
-
-        ## Name the row dimension with it. 1st dimension name should be empty.
-        names(dimnames(out)) <- c("", strataString)
-    } else {
-
-        names(dimnames(out)) <- c("", "")
-    }
-
+    ## Add stratification information to the column header depending on the dimension
+    names(dimnames(out)) <- ModuleReturnDimHeaders(CatTable)
 
     ## Modular version of quote/print toggle.
     out <- ModuleQuoteAndPrintMat(matObj = out,

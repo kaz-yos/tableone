@@ -111,7 +111,7 @@ print.ContTable <- function(x,                        # ContTable object
                                                   nameOfSwitchVec = "nonnormal",
                                                   varNames        = varNames)
 
-    
+
     ## Check the statistics. If necessary statistics are lacking abort
     statNames <- colnames(ContTable[[posFirstNonNullElement]])
     funcDefault <- c("n","miss","mean","sd","median","p25","p75")
@@ -294,7 +294,6 @@ print.ContTable <- function(x,                        # ContTable object
 
     ## Add mean (sd) or median [IQR]/median [range] explanation if requested
     if (explain) {
-
         ## Create a vector of explanations to be pasted
         if (minMax == FALSE) {
             what <- c(" (mean (sd))"," (median [IQR])")[nonnormal]
@@ -316,19 +315,8 @@ print.ContTable <- function(x,                        # ContTable object
     ## Put back the column names (overkill for non-multivariable cases)
     colnames(out) <- outColNames
 
-    ## Add stratification information to the column header
-    if (length(ContTable) > 1 ) {
-        ## Create strata string
-        strataString <- paste0("Stratified by ",
-                               paste0(names(attr(ContTable, "dimnames")), collapse = ":"))
-
-        ## Name the row dimension with it. 1st dimension name should be empty.
-        names(dimnames(out)) <- c("", strataString)
-    }  else {
-
-        names(dimnames(out)) <- c("", "")
-    }
-
+    ## Add stratification information to the column header depending on the dimension
+    names(dimnames(out)) <- ModuleReturnDimHeaders(ContTable)
 
     ## (module) Takes an matrix object format, print if requested
     out <- ModuleQuoteAndPrintMat(matObj = out,
