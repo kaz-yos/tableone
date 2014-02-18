@@ -8,11 +8,11 @@ This package creates "Table 1", i.e., description of
 baseline patient characteristics, which is essential in
 every medical research. This package provides functions to
 create such summaries for continuous and categorical
-variables, optionally with subgroups and groupwise
-comparison. The package was insipired by and based on
-descriptive statistics functions in Deducer, a Java-based
-GUI package by Ian Fellows. This package does not require
-GUI or Java, and intended for command-line users.
+variables, optionally with subgroup comparisons. The
+package was insipired by and based on descriptive
+statistics functions in Deducer, a Java-based GUI package
+by Ian Fellows. This package does not require GUI or Java,
+and intended for command-line users.
 }
 \note{
 Special Thanks:
