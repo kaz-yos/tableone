@@ -2,26 +2,14 @@
 \alias{print.TableOne}
 \title{Format and print the \code{TableOne} class objects}
 \usage{
-\method{print}{TableOne}(x, missing = FALSE, quote = FALSE, test = TRUE,
-  catDigits = 1, contDigits = 2, pDigits = 3, format = c("fp", "f", "p",
-  "pf")[1], exact = NULL, nonnormal = NULL, explain = TRUE,
-  printToggle = TRUE, ...)
+\method{print}{TableOne}(x, catDigits = 1, contDigits = 2, pDigits = 3,
+  quote = FALSE, missing = FALSE, explain = TRUE, printToggle = TRUE,
+  test = TRUE, format = c("fp", "f", "p", "pf")[1], cramVars = NULL,
+  exact = NULL, nonnormal = NULL, minMax = FALSE, ...)
 }
 \arguments{
   \item{x}{The result of a call to the
   \code{\link{CreateTableOne}} function.}
-
-  \item{missing}{Whether to show missing data information
-  (not implemented yet, placeholder)}
-
-  \item{quote}{Whether to show everything in quotes. The
-  default is FALSE. If TRUE, everything including the row
-  and column names are quoted so that you can copy it to
-  Excel easily.}
-
-  \item{test}{Whether to show the p-values. TRUE by
-  default. If FALSE, only the numerical summaries are
-  shown.}
 
   \item{catDigits}{Number of digits to print for
   proportions. Default 1.}
@@ -32,9 +20,33 @@
   \item{pDigits}{Number of digits to print for p-values.
   Default 3.}
 
+  \item{quote}{Whether to show everything in quotes. The
+  default is FALSE. If TRUE, everything including the row
+  and column names are quoted so that you can copy it to
+  Excel easily.}
+
+  \item{missing}{Whether to show missing data information
+  (not implemented yet, placeholder)}
+
+  \item{explain}{Whether to add explanation to the variable
+  names, i.e., (\%) is added to the variable names when
+  percentage is shown.}
+
+  \item{printToggle}{Whether to print the output. If FLASE,
+  no output is created, and a matrix is invisibly
+  returned.}
+
+  \item{test}{Whether to show the p-values. TRUE by
+  default. If FALSE, only the numerical summaries are
+  shown.}
+
   \item{format}{The default is "fp" frequency (percentage).
   You can also choose from "f" frequency only, "p"
   percentage only, and "pf" percentage (frequency).}
+
+  \item{cramVars}{A character vector to specify the
+  two-level categorical variables, for which both levels
+  should be shown in one row.}
 
   \item{exact}{A character vector to specify the variables
   for which the p-values should be those of exact tests. By
@@ -46,13 +58,8 @@
   nonparametric tests. By default all p-values are from
   normal assumption-based tests (oneway.test).}
 
-  \item{explain}{Whether to add explanation to the variable
-  names, i.e., (\%) is added to the variable names when
-  percentage is shown.}
-
-  \item{printToggle}{Whether to print the output. If FLASE,
-  no output is created, and a matrix is invisibly
-  returned.}
+  \item{minMax}{Whether to use [min,max] instead of
+  [p25,p75] for nonnormal variables. The default is FALSE.}
 
   \item{...}{For compatibility with generic. Ignored.}
 }
@@ -92,9 +99,10 @@ tableOne
 
 ## Specifying nonnormal variables will show the variables appropriately,
 ## and show nonparametric test p-values. Specify variables in the exact
-## argument to obtain the exact test p-values.
+## argument to obtain the exact test p-values. cramVars can be used to
+## show both levels for a 2-level categorical variables.
 print(tableOne, nonnormal = c("bili","chol","copper","alk.phos","trig"),
-      exact = c("status","stage"))
+      exact = c("status","stage"), cramVars = "hepato")
 
 ## Use the summary.TableOne method for detailed summary
 summary(tableOne)

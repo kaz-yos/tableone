@@ -3,26 +3,17 @@
 ##' This is the \code{print} method for the \code{ContTable} class objects created by \code{\link{CreateContTable}} function.
 ##'
 ##' @param x The result of a call to the \code{\link{CreateContTable}} function.
-##' @param missing Whether to show missing data information (not implemented
-##' yet, placeholder)
 ##' @param digits Number of digits to print in the table.
-##' @param nonnormal A character vector to specify the variables for which the
-##' p-values should be those of nonparametric tests. By default all p-values
-##' are from normal assumption-based tests (oneway.test).
-##' @param quote Whether to show everything in quotes. The default is FALSE. If
-##' TRUE, everything including the row and column names are quoted so that you
-##' can copy it to Excel easily.
-##' @param test Whether to show the p-values. TRUE by default. If FALSE, only
-##' the numerical summaries are shown.
 ##' @param pDigits Number of digits to print for p-values.
-##' @param explain Whether to add explanation to the variable names, i.e.,
-##' (mean (sd) or median [IQR]) is added to the variable names.
-##' @param printToggle Whether to print the output. If FLASE, no output is
-##' created, and a matrix is invisibly returned.
+##' @param quote Whether to show everything in quotes. The default is FALSE. If TRUE, everything including the row and column names are quoted so that you can copy it to Excel easily.
+##' @param missing Whether to show missing data information (not implemented yet, placeholder)
+##' @param explain Whether to add explanation to the variable names, i.e., (mean (sd) or median [IQR]) is added to the variable names.
+##' @param printToggle Whether to print the output. If FLASE, no output is created, and a matrix is invisibly returned.
+##' @param nonnormal A character vector to specify the variables for which the p-values should be those of nonparametric tests. By default all p-values are from normal assumption-based tests (oneway.test).
+##' @param minMax Whether to use [min,max] instead of [p25,p75] for nonnormal variables. The default is FALSE.
+##' @param test Whether to show the p-values. TRUE by default. If FALSE, only the numerical summaries are shown.
 ##' @param ... For compatibility with generic. Ignored.
-##' @return It is mainly for printing the result. But this function does return
-##' a matrix containing what you see in the output invisibly. You can assign it
-##' to an object to save it.
+##' @return It is mainly for printing the result. But this function does return a matrix containing what you see in the output invisibly. You can assign it to an object to save it.
 ##' @author Kazuki Yoshida
 ##' @seealso
 ##' \code{\link{CreateCatTable}}, \code{\link{print.CatTable}}, \code{\link{summary.CatTable}},
@@ -58,6 +49,9 @@
 ##' nonNormalVars <- c("age","chol","copper","alk.phos","trig","protime")
 ##' print(contTableOverall, nonnormal = nonNormalVars)
 ##'
+##' ## To show median [min,max] for nonnormal variables, use minMax = TRUE
+##' print(contTableOverall, nonnormal = nonNormalVars, minMax = TRUE)
+##'
 ##' ## The table can be stratified by one or more variables
 ##' contTableBySexTrt <- CreateContTable(vars = contVars,
 ##'                                      strata = c("sex","trt"), data = pbc)
@@ -67,9 +61,12 @@
 ##' ## by the pDigits argument (3 by default). It does <0.001 for you.
 ##' contTableBySexTrt
 ##'
-##' ## The nonnormal argument will toggle the p-values to the nonparametric result from
+##' ## The nonnormal argument toggles the p-values to the nonparametric result from
 ##' ## kruskal.test (wilcox.test equivalent for the two group case).
 ##' print(contTableBySexTrt, nonnormal = nonNormalVars)
+##'
+##' ## The minMax argument toggles whether to show median [range]
+##' print(contTableBySexTrt, nonnormal = nonNormalVars, minMax = TRUE)
 ##'
 ##' ## summary now includes both types of p-values
 ##' summary(contTableBySexTrt)
@@ -80,11 +77,19 @@
 ##' print(contTableBySexTrt, nonnormal = nonNormalVars, quote = TRUE)
 ##'
 ##' @export
-print.ContTable <- function(x, missing = FALSE,
-                            digits = 2, nonnormal = NULL, quote = FALSE,
-                            test = TRUE, pDigits = 3,
-                            explain = TRUE,
-                            printToggle = TRUE,
+print.ContTable <- function(x,                        # ContTable object
+                            digits = 2, pDigits = 3,  # Number of digits to show
+                            quote       = FALSE,      # Whether to show quotes
+
+                            missing     = FALSE,      # show missing values (not implemented yet)
+                            explain     = TRUE,       # Whether to show explanation in variable names
+                            printToggle = TRUE,       # Whether to print the result visibly
+
+                            nonnormal   = NULL,       # Which variables should be treated as nonnormal
+                            minMax      = FALSE,      # median [range] instead of median [IQR]
+
+                            test        = TRUE,       # Whether to add p-values
+
                             ...) {
 
     ## x and ... required to be consistent with generic print(x, ...)
@@ -97,37 +102,15 @@ print.ContTable <- function(x, missing = FALSE,
     posFirstNonNullElement <- which(!sapply(ContTable, is.null))[1]
     ## Save variable names using the first non-null element
     varNames <- rownames(ContTable[[posFirstNonNullElement]])
-    ## Check the number of rows
-    nRows <- length(varNames)
+    ## Check the number of variables
+    nVars <- length(varNames)
 
-    ## If null, do normal print/test
-    if (is.null(nonnormal)) {
-        ##  Give one as many as there are rows
-        nonnormal <- rep(1, nRows)
 
-    } else {
-        ## If not null, it needs checking.
+    ## Returns a numeric vector: 1 for normal variable; 2 for nonnormal variable
+    nonnormal <- ModuleHandleDefaultOrAlternative(switchVec       = nonnormal,
+                                                  nameOfSwitchVec = "nonnormal",
+                                                  varNames        = varNames)
 
-        ## Check the nonnormal argument
-        if (!is.logical(nonnormal) & !is.character(nonnormal)) {
-            stop("nonnormal argument has to be FALSE/TRUE or character.")
-        }
-        ## Extend if it is a logitcal vector with one element.
-        if (is.logical(nonnormal)) {
-
-            if (length(nonnormal) != 1) {
-                stop("nonormal has to be a logical vector of length 1")
-            }
-
-            nonnormal <- rep(nonnormal, nRows)
-        }
-        ## Convert to a logical vector if it is a character vector
-        if (is.character(nonnormal)) {
-            nonnormal <- varNames %in% nonnormal
-        }
-        ## Convert to numeric (1 for normal, 2 for nonnormal)
-        nonnormal <- as.numeric(nonnormal) + 1
-    }
 
     ## Check the statistics. If necessary statistics are lacking abort
     statNames <- colnames(ContTable[[posFirstNonNullElement]])
@@ -143,15 +126,15 @@ print.ContTable <- function(x, missing = FALSE,
     ## Added as the top row later
     strataN <- sapply(ContTable,
                       FUN = function(stratum) { # loop over strata
-                          ## Just the first available element may be enough.
-                          ## Obtain n from all variables and all levels, and get the mean
+                          ## each strutum is a data frame with one row for each variable
+                          ## Obtain n from all variables (matrix)
                           n <- stratum[,"n"]
                           ## Pick the first non-null element
                           n[!is.null(n)][1]
-                          ## Convert NULL to N
+                          ## Convert NULL to 0
                           ifelse(is.null(n), "0", as.character(n))
                       },
-                      simplify = TRUE)
+                      simplify = TRUE) # vector with as many elements as strata
 
     ## Provide indicators to show what columns were added.
     wasPValueColumnAdded     <- FALSE
@@ -160,34 +143,21 @@ print.ContTable <- function(x, missing = FALSE,
 
 ### Conversion of data for printing
 
-    ## These may want to be moved to separate files later.
-    ## Define a function to print a normal variable
+    ## Define the nonnormal formatter depending on the minMax status
     ConvertNormal <- function(rowMat) {
-
-        ## Format for SD
-        fmt <- paste0(" (%.", digits,"f",")")
-
-        ## Create a DF with numeric mean column and character (SD) column
-        data.frame(col1 = rowMat[,"mean"],
-                   col2 = sprintf(fmt = fmt, rowMat[,"sd"]),
-                   stringsAsFactors = FALSE)
+        ## Take minMax value from outside (NOT A STANDALONE FUNCTION!!)
+        ModuleConvertNormal(rowMat, digits)
     }
-    ## Define a function to print a nonnormal variable
+    ## Define the nonnormal formatter depending on the minMax status
     ConvertNonNormal <- function(rowMat) {
-        ## Format for [p25, p75]
-        fmt <- paste0(" [%.", digits,"f, %.",digits,"f]")
-
-        ## Create a DF with numeric median column and character [p25, p75] column
-        data.frame(col1 = rowMat[,"median"],
-                   col2 = sprintf(fmt = fmt, rowMat[,"p25"], rowMat[,"p75"]),
-                   stringsAsFactors = FALSE)
+        ## Take minMax value from outside (NOT A STANDALONE FUNCTION!!)
+        ModuleConvertNonNormal(rowMat, digits, minMax = minMax)
     }
-
 
     ## Create a list of these two functions
     listOfFunctions <- list(normal = ConvertNormal, nonnormal = ConvertNonNormal)
 
-    ## Take functions from the 2-element list, and convert to an nRows-length list
+    ## Take functions from the 2-element list, and convert to an nVars-length list
     listOfFunctions <- listOfFunctions[nonnormal]
 
     ## Loop over strata (There may be just one)
@@ -196,14 +166,14 @@ print.ContTable <- function(x, missing = FALSE,
 
                       ## In an empty stratum, return empty
                       if (is.null(stratum)) {
-                          out <- rep("-", nRows)
+                          out <- rep("-", nVars)
                           ## Give NA to the width of the mean/median column in characters
                           nCharMeanOrMedian <- NA
                       } else {
 
                           ## Apply row by row within each non-empty stratum
                           ## This row-by-row operation is necessary to handle mean (sd) and median [IQR]
-                          out <- sapply(seq_len(nRows),
+                          out <- sapply(seq_len(nVars),
                                          FUN = function(i) {
 
                                              ## Choose between normal or nonnormal function
@@ -260,71 +230,48 @@ print.ContTable <- function(x, missing = FALSE,
     ## Add column names if multivariable stratification is used.
     if (length(attr(ContTable, "dimnames")) > 1) {
 
-        colnames(out) <-
-            ## Create all combinations and collapse as strings
-            apply(expand.grid(attr(ContTable, "dimnames")),
-                  MARGIN = 1,
-                  paste0, collapse = ":")
+        colnames(out) <- ModuleCreateStrataNames(ContTable)
     }
 
 
     ## Add p-values when requested and available
     if (test == TRUE & !is.null(attr(ContTable, "pValues"))) {
 
-        ## nVariables x 2 (pNormal,pNonNormal) data frame
-        pValues <- attr(ContTable, "pValues")
-
-        ## Pick ones specified in nonnormal (a vector with 1s(normal) and 2s(nonnormal))
-        pValues <- sapply(seq_along(nonnormal),    # loop over nonnormal
-                          FUN = function(i) {
-                              ## Pick from a matrix i-th row, nonnormal[i]-th column
-                              ## Logical NA must be converted to a numeric
-                              as.numeric(pValues[i, nonnormal[i]])
-                          },
-                          simplify = TRUE)
-
-        ## Pick test types used
+        ## Pick test types used (used for annonation)
         testTypes <- c("","nonnorm")[nonnormal]
 
-        ## Format
-        fmt <- paste0("%.", pDigits, "f")
-        p   <- sprintf(fmt = fmt, pValues)
-
-        ## Create a string like <0.001
-        smallPString <- paste0("<0.", paste0(rep("0", pDigits - 1), collapse = ""), "1")
-        ## Check positions where it is all zero like 0.000
-        posAllZeros <- grepl("^0\\.0*$", p)
-        ## Put the string where it is all zero like 0.000
-        p[posAllZeros] <- smallPString
-        ## Put a preceding space where it is not like 0.000
-        p[!posAllZeros] <- paste0(" ", p[!posAllZeros])
+        ## Pick the p-values requested, and format like <0.001
+        pVec <- ModulePickAndFormatPValues(TableObject = ContTable,
+                                           switchVec   = nonnormal,
+                                           pDigits     = pDigits)
 
         ## Column combine with the output
-        out <- cbind(out, p = p)
+        out <- cbind(out, p = pVec)
 
         ## Change the indicator
         wasPValueColumnAdded <- TRUE
 
 
-        ## If nonormal test is used at least onece, add a test type indicator.
-        ## if (any(nonormal == 2)) {
-        if (TRUE) {
-            ## Create an empty test type column
-            out <- cbind(out,
-                         test = rep("", nrow(out))) # Column for test types
+        ## Create an empty test type column, and add test types
+        out <- cbind(out,
+                     test = rep("", nrow(out))) # Column for test types
+        ## Put the test types  at the non-empty positions (all rows in continuous!)
+        out[ ,"test"] <- testTypes
 
-            ## Put the test types  at the non-empty positions (all rows in continuous!)
-            out[ ,"test"] <- testTypes
-
-            ## Change the indicator
-            wasNonNormalColumnAdded <- TRUE
-        }
+        ## Change the indicator
+        wasNonNormalColumnAdded <- TRUE
     }
 
 
-    ## Add mean (sd) or median [IQR] explanation if requested
+    ## Add mean (sd) or median [IQR]/median [range] explanation if requested
     if (explain) {
-        what <- c(" (mean (sd))"," (median [IQR])")[nonnormal]
+        ## Create a vector of explanations to be pasted
+        if (minMax == FALSE) {
+            what <- c(" (mean (sd))"," (median [IQR])")[nonnormal]
+        } else if (minMax == TRUE) {
+            what <- c(" (mean (sd))"," (median [range])")[nonnormal]
+        }
+        ## Paste to the rownames
         rownames(out) <- paste0(rownames(out), what)
     }
 
@@ -339,19 +286,8 @@ print.ContTable <- function(x, missing = FALSE,
     ## Put back the column names (overkill for non-multivariable cases)
     colnames(out) <- outColNames
 
-    ## Add stratification information to the column header
-    if (length(ContTable) > 1 ) {
-        ## Create strata string
-        strataString <- paste0("Stratified by ",
-                               paste0(names(attr(ContTable, "dimnames")), collapse = ":"))
-
-        ## Name the row dimension with it. 1st dimension name should be empty.
-        names(dimnames(out)) <- c("", strataString)
-    }  else {
-
-        names(dimnames(out)) <- c("", "")
-    }
-
+    ## Add stratification information to the column header depending on the dimension
+    names(dimnames(out)) <- ModuleReturnDimHeaders(ContTable)
 
     ## (module) Takes an matrix object format, print if requested
     out <- ModuleQuoteAndPrintMat(matObj = out,

@@ -76,8 +76,12 @@ catTableOverall <- CreateCatTable(vars = catVars, data = pbc)
 
 ## Simply typing the object name will invoke the print.CatTable method,
 ## which will show the sample size, frequencies and percentages.
-## For 2-level variables, only the higher level is shown for simplicity.
+## For 2-level variables, only the higher level is shown for simplicity
+## unless the variables are specified in the cramVars argument.
 catTableOverall
+
+## If you need to show both levels for some 2-level factors, use cramVars
+print(catTableOverall, cramVars = "hepato")
 
 ## Use the showAllLevels argument to see all levels for all variables.
 print(catTableOverall, showAllLevels = TRUE)
@@ -100,7 +104,7 @@ catTableBySexTrt <- CreateCatTable(vars = catVars,
 ## (3 by default). It does <0.001 for you.
 catTableBySexTrt
 
-## The exact argument will toggle the p-values to the example test result from
+## The exact argument toggles the p-values to the exact test result from
 ## fisher.test. It will show which ones are from exact tests.
 print(catTableBySexTrt, exact = "ascites")
 

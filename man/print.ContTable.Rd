@@ -2,34 +2,25 @@
 \alias{print.ContTable}
 \title{Format and print the \code{ContTable} class objects}
 \usage{
-\method{print}{ContTable}(x, missing = FALSE, digits = 2,
-  nonnormal = NULL, quote = FALSE, test = TRUE, pDigits = 3,
-  explain = TRUE, printToggle = TRUE, ...)
+\method{print}{ContTable}(x, digits = 2, pDigits = 3, quote = FALSE,
+  missing = FALSE, explain = TRUE, printToggle = TRUE, nonnormal = NULL,
+  minMax = FALSE, test = TRUE, ...)
 }
 \arguments{
   \item{x}{The result of a call to the
   \code{\link{CreateContTable}} function.}
 
-  \item{missing}{Whether to show missing data information
-  (not implemented yet, placeholder)}
-
   \item{digits}{Number of digits to print in the table.}
 
-  \item{nonnormal}{A character vector to specify the
-  variables for which the p-values should be those of
-  nonparametric tests. By default all p-values are from
-  normal assumption-based tests (oneway.test).}
+  \item{pDigits}{Number of digits to print for p-values.}
 
   \item{quote}{Whether to show everything in quotes. The
   default is FALSE. If TRUE, everything including the row
   and column names are quoted so that you can copy it to
   Excel easily.}
 
-  \item{test}{Whether to show the p-values. TRUE by
-  default. If FALSE, only the numerical summaries are
-  shown.}
-
-  \item{pDigits}{Number of digits to print for p-values.}
+  \item{missing}{Whether to show missing data information
+  (not implemented yet, placeholder)}
 
   \item{explain}{Whether to add explanation to the variable
   names, i.e., (mean (sd) or median [IQR]) is added to the
@@ -38,6 +29,18 @@
   \item{printToggle}{Whether to print the output. If FLASE,
   no output is created, and a matrix is invisibly
   returned.}
+
+  \item{nonnormal}{A character vector to specify the
+  variables for which the p-values should be those of
+  nonparametric tests. By default all p-values are from
+  normal assumption-based tests (oneway.test).}
+
+  \item{minMax}{Whether to use [min,max] instead of
+  [p25,p75] for nonnormal variables. The default is FALSE.}
+
+  \item{test}{Whether to show the p-values. TRUE by
+  default. If FALSE, only the numerical summaries are
+  shown.}
 
   \item{...}{For compatibility with generic. Ignored.}
 }
@@ -80,6 +83,9 @@ summary(contTableOverall)
 nonNormalVars <- c("age","chol","copper","alk.phos","trig","protime")
 print(contTableOverall, nonnormal = nonNormalVars)
 
+## To show median [min,max] for nonnormal variables, use minMax = TRUE
+print(contTableOverall, nonnormal = nonNormalVars, minMax = TRUE)
+
 ## The table can be stratified by one or more variables
 contTableBySexTrt <- CreateContTable(vars = contVars,
                                      strata = c("sex","trt"), data = pbc)
@@ -89,9 +95,12 @@ contTableBySexTrt <- CreateContTable(vars = contVars,
 ## by the pDigits argument (3 by default). It does <0.001 for you.
 contTableBySexTrt
 
-## The nonnormal argument will toggle the p-values to the nonparametric result from
+## The nonnormal argument toggles the p-values to the nonparametric result from
 ## kruskal.test (wilcox.test equivalent for the two group case).
 print(contTableBySexTrt, nonnormal = nonNormalVars)
+
+## The minMax argument toggles whether to show median [range]
+print(contTableBySexTrt, nonnormal = nonNormalVars, minMax = TRUE)
 
 ## summary now includes both types of p-values
 summary(contTableBySexTrt)
