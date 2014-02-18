@@ -49,7 +49,7 @@ head(pbc)
 factorVars <- c("status","trt","ascites","hepato","spiders","edema","stage")
 
 ## Create a variable list
-dput(names(pbc))
+dput(names(pbc))    # This shows a character vector-creating syntax.
 vars <- c("time","status","age","sex","ascites","hepato",
           "spiders","edema","bili","chol","albumin",
           "copper","alk.phos","ast","trig","platelet",
@@ -86,7 +86,7 @@ summary(tableOne$ContTable)
 ## you may benefit from the quote argument. This will quote everything so that
 ## Excel does not mess up the cells.
 print(tableOne, nonnormal = c("bili","chol","copper","alk.phos","trig"),
-      exact = c("status","stage"), quote = TRUE)
+      exact = c("status","stage"), cramVars = "sex", quote = TRUE)
 }
 \author{
 Kazuki Yoshida, Justin Bohn
