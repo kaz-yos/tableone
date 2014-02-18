@@ -1,3 +1,14 @@
+tableone 0.3.1 (2014-02-18)
+----------------------------------------------------------------
+
+BUG FIXES
+
+* NAMESPACE now includes import(e1071) and import(gmodels).
+
+* DESCRIPTION now includes Imports e1071, gmodels and
+  Suggests survival, instead of Depends...
+
+
 tableone 0.3.0 (2014-02-17)
 ----------------------------------------------------------------
 NEW FEATURES
