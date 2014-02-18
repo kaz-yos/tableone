@@ -15,8 +15,10 @@ See also the demonstration here: http://rpubs.com/kaz_yos/tableone-demo-e
 
 ```
 > tableOne <- CreateTableOne(vars = vars, strata = "trt", data = pbc)
-> print(tableOne, nonnormal = c("bili","chol","copper","alk.phos","trig"), exact = c("status","stage"))
-                         Stratified by trt
+> print(tableOne, nonnormal = c("bili","chol","copper","alk.phos","trig"),
++       exact = c("status","stage"), cramVars = "sex")
+
+                          Stratified by trt
                           1                         2                         p      test   
   n                       158                       154                                     
   time (mean (sd))        2015.62 (1094.12)         1996.86 (1155.93)          0.883        
@@ -25,7 +27,7 @@ See also the demonstration here: http://rpubs.com/kaz_yos/tableone-demo-e
      1                         10 ( 6.3)                  9 ( 5.8)                          
      2                         65 (41.1)                 60 (39.0)                          
   age (mean (sd))           51.42 (11.01)             48.58 (9.96)             0.018        
-  sex = f (%)                 137 (86.7)                139 (90.3)             0.421        
+  sex = m/f (%)            21/137 (13.3/86.7)        15/139 (9.7/90.3)         0.421        
   ascites = 1 (%)              14 (8.9)                  10 (6.5)              0.567        
   hepato = 1 (%)               73 (46.2)                 87 (56.5)             0.088        
   spiders = 1 (%)              45 (28.5)                 45 (29.2)             0.985        
