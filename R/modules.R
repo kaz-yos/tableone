@@ -243,6 +243,39 @@ ModuleHandleDefaultOrAlternative <- function(switchVec, nameOfSwitchVec, varName
 }
 
 
+## p-value picker/formatter
+ModulePickAndFormatPValues <- function(TableObject, switchVec, pDigits) {
+
+    ## nVarsiables x 2 (pNormal,pNonNormal) data frame
+    pValues <- attr(TableObject, "pValues")
+
+    ## Pick ones specified in exact (a vector with 1s(approx) and 2s(exact))
+    pValues <- sapply(seq_along(switchVec),    # loop over exact
+                      FUN = function(i) {
+                          ## Pick from a matrix i-th row, exact[i]-th column
+                          ## Logical NA must be converted to a numeric
+                          as.numeric(pValues[i, switchVec[i]])
+                      },
+                      simplify = TRUE)
+
+    ## Format p value
+    fmt  <- paste0("%.", pDigits, "f")
+    pVec <- sprintf(fmt = fmt, pValues)
+
+    ## Create a string like <0.001
+    smallPString       <- paste0("<0.", paste0(rep("0", pDigits - 1), collapse = ""), "1")
+    ## Check positions where it is all zero like 0.000
+    posAllZeros        <- grepl("^0\\.0*$", pVec)
+    ## Put the string where it is all zero like 0.000
+    pVec[posAllZeros]  <- smallPString
+    ## Put a preceding space where it is not like 0.000
+    pVec[!posAllZeros] <- paste0(" ", pVec[!posAllZeros])
+
+    ## Return formatted p-values (as many as there are variables)
+    return(pVec)
+}
+
+
 ## Module to return the dimention headers added to the out 2d matrix
 ModuleReturnDimHeaders <- function(TableObject) {
 

@@ -241,54 +241,29 @@ print.ContTable <- function(x,                        # ContTable object
     ## Add p-values when requested and available
     if (test == TRUE & !is.null(attr(ContTable, "pValues"))) {
 
-        ## nVariables x 2 (pNormal,pNonNormal) data frame
-        pValues <- attr(ContTable, "pValues")
-
-        ## Pick ones specified in nonnormal (a vector with 1s(normal) and 2s(nonnormal))
-        pValues <- sapply(seq_along(nonnormal),    # loop over nonnormal
-                          FUN = function(i) {
-                              ## Pick from a matrix i-th row, nonnormal[i]-th column
-                              ## Logical NA must be converted to a numeric
-                              as.numeric(pValues[i, nonnormal[i]])
-                          },
-                          simplify = TRUE)
-
-        ## Pick test types used
+        ## Pick test types used (used for annonation)
         testTypes <- c("","nonnorm")[nonnormal]
 
-        ## Format
-        fmt <- paste0("%.", pDigits, "f")
-        p   <- sprintf(fmt = fmt, pValues)
-
-        ## Create a string like <0.001
-        smallPString <- paste0("<0.", paste0(rep("0", pDigits - 1), collapse = ""), "1")
-        ## Check positions where it is all zero like 0.000
-        posAllZeros <- grepl("^0\\.0*$", p)
-        ## Put the string where it is all zero like 0.000
-        p[posAllZeros] <- smallPString
-        ## Put a preceding space where it is not like 0.000
-        p[!posAllZeros] <- paste0(" ", p[!posAllZeros])
+        ## Pick the p-values requested, and format like <0.001
+        pVec <- ModulePickAndFormatPValues(TableObject = ContTable,
+                                           switchVec   = nonnormal,
+                                           pDigits     = pDigits)
 
         ## Column combine with the output
-        out <- cbind(out, p = p)
+        out <- cbind(out, p = pVec)
 
         ## Change the indicator
         wasPValueColumnAdded <- TRUE
 
 
-        ## If nonormal test is used at least onece, add a test type indicator.
-        ## if (any(nonormal == 2)) {
-        if (TRUE) {
-            ## Create an empty test type column
-            out <- cbind(out,
-                         test = rep("", nrow(out))) # Column for test types
+        ## Create an empty test type column, and add test types
+        out <- cbind(out,
+                     test = rep("", nrow(out))) # Column for test types
+        ## Put the test types  at the non-empty positions (all rows in continuous!)
+        out[ ,"test"] <- testTypes
 
-            ## Put the test types  at the non-empty positions (all rows in continuous!)
-            out[ ,"test"] <- testTypes
-
-            ## Change the indicator
-            wasNonNormalColumnAdded <- TRUE
-        }
+        ## Change the indicator
+        wasNonNormalColumnAdded <- TRUE
     }
 
 

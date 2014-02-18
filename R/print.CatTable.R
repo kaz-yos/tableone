@@ -368,57 +368,32 @@ print.CatTable <- function(x,                        # CatTable object
     ## Add p-values when requested and available
     if (test == TRUE & !is.null(attr(CatTable, "pValues"))) {
 
-        ## nVarsiables x 2 (pNormal,pNonNormal) data frame
-        pValues <- attr(CatTable, "pValues")
-
-        ## Pick ones specified in exact (a vector with 1s(approx) and 2s(exact))
-        pValues <- sapply(seq_along(exact),    # loop over exact
-                          FUN = function(i) {
-                              ## Pick from a matrix i-th row, exact[i]-th column
-                              ## Logical NA must be converted to a numeric
-                              as.numeric(pValues[i, exact[i]])
-                          },
-                          simplify = TRUE)
-
-        ## Pick test types used
+        ## Pick test types used (used for annonation)
         testTypes <- c("","exact")[exact]
 
-        ## Format p value
-        fmt <- paste0("%.", pDigits, "f")
-        p   <- sprintf(fmt = fmt, pValues)
-
-        ## Create a string like <0.001
-        smallPString <- paste0("<0.", paste0(rep("0", pDigits - 1), collapse = ""), "1")
-        ## Check positions where it is all zero like 0.000
-        posAllZeros <- grepl("^0\\.0*$", p)
-        ## Put the string where it is all zero like 0.000
-        p[posAllZeros] <- smallPString
-        ## Put a preceding space where it is not like 0.000
-        p[!posAllZeros] <- paste0(" ", p[!posAllZeros])
+        ## Pick the p-values requested, and format like <0.001
+        pVec <- ModulePickAndFormatPValues(TableObject = CatTable,
+                                           switchVec   = exact,
+                                           pDigits     = pDigits)
 
         ## Create an empty p-value column and test column
         out <- cbind(out,
                      p     = rep("", nrow(out))) # Column for p-values
         ## Put the values at the non-empty positions
-        out[logiNonEmptyRowNames,"p"] <- p
+        out[logiNonEmptyRowNames,"p"] <- pVec
 
         ## Change the indicator
         wasPValueColumnAdded <- TRUE
 
 
-        ## If exact test is used at least onece, add a test type indicator.
-        ## if (any(exact == 2)) {
-        if (TRUE) {
-            ## Create an empty test type column
-            out <- cbind(out,
-                         test = rep("", nrow(out))) # Column for test types
+        ## Create an empty test type column, and add test types
+        out <- cbind(out,
+                     test = rep("", nrow(out))) # Column for test types
+        ## Put the test types  at the non-empty positions (all rows in continuous!)
+        out[logiNonEmptyRowNames,"test"] <- testTypes
 
-            ## Put the test types  at the non-empty positions
-            out[logiNonEmptyRowNames,"test"] <- testTypes
-
-            ## Change the indicator
-            wasExactColumnAdded <- TRUE
-        }
+        ## Change the indicator
+        wasExactColumnAdded <- TRUE
     }
 
 
