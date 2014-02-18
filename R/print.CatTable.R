@@ -342,13 +342,10 @@ print.CatTable <- function(x,                        # CatTable object
     ## Add column names if multivariable stratification is used. (No column names added automatically)
     if (length(attr(CatTable, "dimnames")) > 1) {
 
-        colnames(out) <-
-            ## Create all combinations and collapse as strings. 1st variable cycles fastest.
-            apply(expand.grid(attr(CatTable, "dimnames")),
-                  MARGIN = 1,
-                  paste0, collapse = ":")
+        colnames(out) <- ModuleCreateStrataNames(CatTable)
     }
 
+    
     ## Set the variables names
     rownames(out) <- CatTableCollapsed[[posFirstNonNullElement]][,"var"]
     ## Get positions of rows with variable names

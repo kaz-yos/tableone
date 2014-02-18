@@ -243,6 +243,19 @@ ModuleHandleDefaultOrAlternative <- function(switchVec, nameOfSwitchVec, varName
 }
 
 
+## Column name formatter (strata names. "Overvall" if only one preset)
+ModuleCreateStrataNames <- function(TableObject) {
+
+    ## Create all combinations and collapse as strings
+    strataNames <-  apply(expand.grid(attr(TableObject, "dimnames")),
+                          MARGIN = 1,
+                          paste0, collapse = ":")
+
+    ## Return the names as a vector
+    return(strataNames)
+}
+
+
 ## p-value picker/formatter
 ModulePickAndFormatPValues <- function(TableObject, switchVec, pDigits) {
 

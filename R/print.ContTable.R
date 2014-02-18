@@ -230,11 +230,7 @@ print.ContTable <- function(x,                        # ContTable object
     ## Add column names if multivariable stratification is used.
     if (length(attr(ContTable, "dimnames")) > 1) {
 
-        colnames(out) <-
-            ## Create all combinations and collapse as strings
-            apply(expand.grid(attr(ContTable, "dimnames")),
-                  MARGIN = 1,
-                  paste0, collapse = ":")
+        colnames(out) <- ModuleCreateStrataNames(ContTable)
     }
 
 
