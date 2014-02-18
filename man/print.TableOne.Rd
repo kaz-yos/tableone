@@ -99,9 +99,10 @@ tableOne
 
 ## Specifying nonnormal variables will show the variables appropriately,
 ## and show nonparametric test p-values. Specify variables in the exact
-## argument to obtain the exact test p-values.
+## argument to obtain the exact test p-values. cramVars can be used to
+## show both levels for a 2-level categorical variables.
 print(tableOne, nonnormal = c("bili","chol","copper","alk.phos","trig"),
-      exact = c("status","stage"))
+      exact = c("status","stage"), cramVars = "hepato")
 
 ## Use the summary.TableOne method for detailed summary
 summary(tableOne)

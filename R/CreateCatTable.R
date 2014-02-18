@@ -6,22 +6,12 @@
 ##' also \code{\link{print.CatTable}} and \code{\link{summary.CatTable}}.
 ##'
 ##' @param vars Variable(s) to be summarized given as a character vector.
-##' @param strata Stratifying (grouping) variable name(s) given as a character
-##' vector. If omitted, the overall results are returned.
-##' @param data A data frame in which these variables exist. All variables
-##' (both vars and strata) must be in this data frame.
-##' @param test If TRUE, as in the default and there are more than two groups,
-##' groupwise comparisons are performed. Both tests that require the large
-##' sample approximation and exact tests are performed. Either one of the
-##' result can be obtained from the print method.
-##' @param testApprox A function used to perform the large sample approximation
-##' based tests. The default is \code{\link{chisq.test}}. This is not recommended when some
-##' of the cell have small counts like fewer than 5.
+##' @param strata Stratifying (grouping) variable name(s) given as a character vector. If omitted, the overall results are returned.
+##' @param data A data frame in which these variables exist. All variables (both vars and strata) must be in this data frame.
+##' @param test If TRUE, as in the default and there are more than two groups, groupwise comparisons are performed. Both tests that require the large sample approximation and exact tests are performed. Either one of the result can be obtained from the print method.
+##' @param testApprox A function used to perform the large sample approximation based tests. The default is \code{\link{chisq.test}}. This is not recommended when some of the cell have small counts like fewer than 5.
 ##' @param argsApprox A named list of arguments passed to the function specified in testApprox. The default is \code{list(correct = TRUE)}, which turns on the continuity correction for \code{\link{chisq.test}}.
-##' @param testExact A function used to perform the exact tests. The default is
-##' fisher.test. If the cells have large numbers, it will fail because of
-##' memory limitation. In this situation, the large sample approximation based
-##' should suffice.
+##' @param testExact A function used to perform the exact tests. The default is fisher.test. If the cells have large numbers, it will fail because of memory limitation. In this situation, the large sample approximation based should suffice.
 ##' @param argsExact A named list of arguments passed to the function specified in testExact. The default is \code{list(workspace = 2*10^5)}, which specifies the memory space allocated for \code{\link{fisher.test}}.
 ##' @return An object of class \code{CatTable}, which really is a \code{\link{by}} object with additional attributes. Each element of the \code{\link{by}} part is a matrix with rows representing variables, and columns representing summary statistics.
 ##' @author Kazuki Yoshida (based on \code{Deducer::frequencies()})
@@ -50,6 +40,9 @@
 ##' ## unless the variables are specified in the cramVars argument.
 ##' catTableOverall
 ##'
+##' ## If you need to show both levels for some 2-level factors, use cramVars
+##' print(catTableOverall, cramVars = "hepato")
+##' 
 ##' ## Use the showAllLevels argument to see all levels for all variables.
 ##' print(catTableOverall, showAllLevels = TRUE)
 ##'

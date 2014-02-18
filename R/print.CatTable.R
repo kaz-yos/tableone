@@ -42,6 +42,9 @@
 ##' ## For 2-level variables, only the higher level is shown for simplicity.
 ##' catTableOverall
 ##'
+##' ## If you need to show both levels for some 2-level factors, use cramVars
+##' print(catTableOverall, cramVars = "hepato")
+##'
 ##' ## Use the showAllLevels argument to see all levels for all variables.
 ##' print(catTableOverall, showAllLevels = TRUE)
 ##'

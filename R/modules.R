@@ -7,12 +7,14 @@
 
 ### Modules intended for the constructors
 ################################################################################
+## Check if the data given is a data frame
 ModuleStopIfNotDataFrame <- function(data) {
 
     if (is.data.frame(data) == FALSE) {
         stop("The data argument needs to be a data frame (no quote).")
     }
 }
+
 ## Extract variables that exist in the data frame
 ModuleReturnVarsExist <- function(vars, data) {
 
@@ -28,11 +30,13 @@ ModuleReturnVarsExist <- function(vars, data) {
     ## Return existing variables
     return(vars)
 }
+
 ## Stop if not vars are left
 ModuleStopIfNoVarsLeft <- function(vars) {
     if (length(vars) < 1) {stop("No valid variables.")}
 }
-##
+
+## Toggle test FALSE if no strata are given
 ModuleReturnFalseIfNoStrata <- function(strata, test) { # Give strata variable names
 
     if(missing(strata)) {
@@ -41,7 +45,8 @@ ModuleReturnFalseIfNoStrata <- function(strata, test) { # Give strata variable n
     }
     return(test)
 }
-## Check statra variables and conditionally create
+
+## Check statra variables and conditionally create strata data frame
 ModuleReturnStrata <- function(strata, data, dat) {     # Give strata variable names
 
     if(missing(strata)) {
@@ -65,6 +70,7 @@ ModuleReturnStrata <- function(strata, data, dat) {     # Give strata variable n
     ## return DF with strata variable(s)
     return(strata)
 }
+
 ## Module to create a table for one categorical variable
 ## Taken from Deducer::frequencies()
 ModuleCreateTableForOneVar <- function(x) { # Give a vector
@@ -100,7 +106,7 @@ ModuleCreateTableForOneVar <- function(x) { # Give a vector
     return(freq)
 }
 
-## Create StrataVarName from multiple dimension headers
+## Create StrataVarName from multiple dimension headers, for example sex:trt
 ModuleCreateStrataVarName <- function(obj) {
     ## Combine variable names with : in between
     paste0(names(attr(obj, "dimnames")), collapse = ":")
@@ -120,10 +126,8 @@ ModuleTryCatchWE <- function(expr) {
 }
 
 ## Function to perform non-failing tests (obj should be xtabs or formula)
-## Function has to have $p.value element
-## Consider additional options by do.call()
 ModuleTestSafe <- function(obj, testFunction, testArgs = NULL) {
-
+    ## Result from a function has to have $p.value element
     out <- ModuleTryCatchWE(do.call(testFunction, args = c(list(obj), testArgs))$p.value)
     ## If it returns a numeric value, return it. Otherwise, return NA.
     ifelse(is.numeric(out$value), out$value, NA)
@@ -142,7 +146,7 @@ ModuleSasKurtosis <- function(x) {
 }
 
 
-## Create a single variable representation of multivariable stratification
+## Create a single variable representation of multivariable stratification for individuals
 ## result: by object; strata: data frame of stratifying variable(s)
 ModuleCreateStrataVarAsFactor <- function(result, strata) {
 
@@ -243,7 +247,7 @@ ModuleHandleDefaultOrAlternative <- function(switchVec, nameOfSwitchVec, varName
 }
 
 
-## Column name formatter (strata names. "Overvall" if only one preset)
+## Column name formatter
 ModuleCreateStrataNames <- function(TableObject) {
 
     ## Create all combinations and collapse as strings
@@ -327,7 +331,6 @@ ModuleQuoteAndPrintMat <- function(matObj, quote = FALSE, printToggle = TRUE) {
         ## 1st (row) dimension needs a preceding space for best copy and paste
         names(dimnames(matObj))[1] <- paste0(" ", names(dimnames(matObj))[1])
     }
-
 
     ## print if required and return
     if (printToggle) {
