@@ -1,4 +1,4 @@
-tableone 0.3.0 (2014-02-16)
+tableone 0.3.0 (2014-02-17)
 ----------------------------------------------------------------
 NEW FEATURES
 
@@ -9,6 +9,11 @@ NEW FEATURES
 * The print method for the TableOne/CatTable class object has a
   new minMax argument, a logical value specifying whether to show
   median [min, max] instead of median [IQR] for nonnormal variables
+
+* The print method for the TableOne/CatTable class object has a
+  new cramVars argument, a character vector to specify which
+  2-level factors to should have both levels presented in one row.
+
 
 BUG FIXES
 
