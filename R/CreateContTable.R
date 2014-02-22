@@ -117,7 +117,7 @@ CreateContTable <-
     strata <- ModuleReturnStrata(strata, data, dat)
 
 
-    ## Handle non-numeric elements
+    ## Handle non-numeric elements (intergers give TRUE, and pass)
     if(any(!sapply(dat, is.numeric))){
         ## If there is any non-numeric variables
         dat <- dat[sapply(dat, is.numeric)]

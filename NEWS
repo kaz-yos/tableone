@@ -1,3 +1,14 @@
+tableone 0.3.3 (2014-02-22)
+----------------------------------------------------------------
+
+BUG FIXES
+
+* CreateTableOne now handles logical and chracter vectors correctly.
+  They are handled as categorical variables, and passed to the
+  CreateCatTable function. Variables that are none of numeric,
+  integer, factor, logical, or character are dropped for safety.
+
+
 tableone 0.3.2 (2014-02-18)
 ----------------------------------------------------------------
 

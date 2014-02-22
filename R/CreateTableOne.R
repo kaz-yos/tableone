@@ -119,11 +119,18 @@ CreateTableOne <-
 
         ## Get the classes of the variables
         varClasses  <- sapply(data[vars], class)
-        varFactors  <- names(varClasses[varClasses == "factor"])
+        varFactors  <- names(varClasses[varClasses == "factor"  | varClasses == "logical" | varClasses == "character"])
         varNumerics <- names(varClasses[varClasses == "numeric" | varClasses == "integer"])
 
-        ## Create a logical vector indicator for factors
-        logiFactors <- sapply(data[vars], is.factor)
+        ## Drop variables that do not meet either because it is unsupported
+        varDrop <- setdiff(vars, c(varFactors, varNumerics))
+        if (length(varDrop) > 0) {
+            warning("Dropping variable(s) ", varDrop, " due to unsupported class.\n")
+            vars <- setdiff(vars, varDrop)
+        }
+
+        ## Create a logical vector indicator for factors (vars in varFactors = TRUE)
+        logiFactors <- vars %in% varFactors
 
         ## Create lists of arguments
         argsCreateContTable <- list(data          = data,
@@ -158,7 +165,7 @@ CreateTableOne <-
 
         } else if (length(varFactors) == 0) {
             ## No factors
-            cat('NOTE: no factor variables supplied, using CreateContTable()\n')
+            cat('NOTE: no factor/logical/character variables supplied, using CreateContTable()\n')
             ContTable <- do.call(CreateContTable,
                                  args = c(list(vars = varNumerics), argsCreateContTable))
             return(ContTable)
