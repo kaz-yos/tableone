@@ -1,3 +1,13 @@
+tableone 0.3.4 (2014-02-28)
+----------------------------------------------------------------
+
+BUG FIXES
+
+* Added the Create* functions handling of all NA/NaN variables.
+  These invalid variables are examined at the beginning and dropped
+  with warning for safety.
+
+
 tableone 0.3.3 (2014-02-22)
 ----------------------------------------------------------------
 
@@ -91,7 +101,7 @@ BUG FIXES
 
 * This version is to better conform to the CRAN standards.
 
-* Documents are now included in 
+* Documents are now included in
 
 
 tableone 0.1.0 (2014-02-08)

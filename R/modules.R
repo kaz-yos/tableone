@@ -16,6 +16,7 @@ ModuleStopIfNotDataFrame <- function(data) {
 }
 
 ## Extract variables that exist in the data frame
+## Also exclude variables that only have NA
 ModuleReturnVarsExist <- function(vars, data) {
 
     ## Check if variables exist. Drop them if not.
@@ -27,7 +28,22 @@ ModuleReturnVarsExist <- function(vars, data) {
         ## Only keep variables that exist
         vars <- intersect(vars, names(data))
     }
-    ## Return existing variables
+
+    ## Check if variables have at least some valid values (not NA/NaN)
+    logiAllNaVars <- sapply(X   = data[vars],
+                            FUN = function(VAR) {
+                                all(is.na(VAR))
+                            },
+                            simplify = TRUE)
+
+    if (any(logiAllNaVars)) {
+        warning("These variables only have NA/NaN: ",
+                paste0(vars[logiAllNaVars], sep = " "), " Dropped")
+
+        vars <- vars[!logiAllNaVars]
+    }
+
+    ## Return existing and valid variables
     return(vars)
 }
 
