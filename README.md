@@ -1,4 +1,4 @@
-tableone
+tableone (release repo)
 ===============================================================================
 
 **An R package to create "Table 1", description of baseline characteristics**
@@ -55,47 +55,13 @@ See also the demonstration here: http://rpubs.com/kaz_yos/tableone-demo-e
 Installation
 -------------------------------------------------------------------------------
 
-The tableone package for R is still in development, and is not available from the CRAN, yet. You can install it using one of the following ways.
+This is the release version of the tableone package either to be released on CRAN or is already on CRAN. The installation can be done by the usual package installation via CRAN.
 
-The archive file for point releases are available from the following  URL:
+- http://cran.r-project.org/web/packages/tableone/index.html
 
-- https://github.com/kaz-yos/tableone/releases
 
-**Console method**
-In OS X and Linux, after downloading this .tar.gz file, it can be installed from the terminal (Mac: Terminal.app) by doing:
 
-```
-$ R CMD install tableone_0.2.0_20140214.tar.gz # (or what ever the current version is)
-```
 
-In Windows, you should be able to do the same in the console. If it does not work please install the Rtools (http://cran.r-project.org/bin/windows/Rtools/).
+If you prefer to follow the latest development, please see the developmetal repo:
 
-```
-> R CMD install tableone_0.2.0_20140214.tar.gz
-```
-
-**R method 1**
-From within R, you can also use the install.packages() function as follows.
-
-```
-> install.packages("~/statistics/package_development/tableone_0.2.0_20140214.tar.gz", repos = NULL, type = "source")
-```
-
-You need to change "~/statistics/package_development/tableone_0.2.0_20140214.tar.gz" part to the directory where you have the file.edit
-
-**R method 2**
-Yet another way to install it is installation from github repository. You first need to install the devtools package to do the following. You can choose from the latest stable version and the latest development version.
-```
-## Install devtools (if you do not have it already)
-> install.packages("devtools")
-## Load devtools
-> library(devtools)
-## Install directly from github (master (stable) branch)
-> install_github(repo = "kaz-yos/tableone")
-## Install directly from github (develop branch)
-> install_github(repo = "kaz-yos/tableone", ref = "develop") # If you want the latest
-```
-
-Using devtools requires some preparation, please see the following link for information.
-
-http://www.rstudio.com/projects/devtools/
+- https://github.com/kaz-yos/tableone/tree/develop
