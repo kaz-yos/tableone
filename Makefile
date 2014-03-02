@@ -13,10 +13,6 @@
 PKG_NAME=$(shell    grep -i ^package: DESCRIPTION | cut -d : -d \  -f 2)
 PKG_VERSION=$(shell grep -i ^version: DESCRIPTION | cut -d : -d \  -f 2)
 
-## Define the package directory as ../pkgName (used by roxygenize())
-PKG_QUOTED="\'../${PKG_NAME}\'"
-
-
 ## Define files
 R_FILES   := $(wildcard R/*.R)
 SRC_FILES := $(wildcard src/*) $(addprefix src/, $(COPY_SRC))
@@ -41,7 +37,7 @@ $(PKG_NAME)_$(PKG_VERSION).tar.gz: $(PKG_FILES)
 
 ## (file target) NAMESPACE depends on *.R files, and excecute roxygen2 on these.
 NAMESPACE: $(R_FILES)
-	Rscript -e "library(roxygen2); roxygenize(${PKG_QUOTED})"
+	Rscript -e "library(roxygen2); roxygenize('.')"
 
 ## check requires the *.tar.gz file, and execute strict tests on it.
 check: $(PKG_NAME)_$(PKG_VERSION).tar.gz
