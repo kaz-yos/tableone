@@ -8,14 +8,8 @@ README.md
 ## Avoid these temporary scripts
 Makefile
 compile.sh
-clean_comments.sh
 man_create.R
 man/Rd2roxygen.R
-
-## Exclude TableOne related functions
-## R/CreateTableOne.R
-## R/summary.TableOne.R
-## R/print.TableOne.R
-## man/CreateTableOne.Rd
-## man/summary.TableOne.Rd
-## man/print.TableOne.Rd
+man/clean_comments.sh
+tableone.Rcheck
+.*.tar.gz
