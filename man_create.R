@@ -1,4 +1,5 @@
-## !/usr/bin/Rscript
+#!/usr/bin/Rscript
+
 ################################################################################
 ### .Rd creater 
 ## Creates .Rd from in-source Roxygen2 docs in .R files
@@ -6,11 +7,15 @@
 ## Author: Kazuki Yoshida
 ################################################################################
 
+## How to make it work with Rscript (load methods and utils explicitly)
+## http://stackoverflow.com/questions/8964515/cannot-call-roxygenize-function-from-rscript-batch-file
 
 ### Prepare environment
 ################################################################################
 
 ### Load packages
+library(methods)
+library(utils)
 library(devtools)
 
 
