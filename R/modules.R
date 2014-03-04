@@ -64,23 +64,55 @@ ModuleReturnFalseIfNoStrata <- function(strata, test) { # Give strata variable n
 
 ## Check statra variables and conditionally create strata data frame
 ModuleReturnStrata <- function(strata, data, dat) {     # Give strata variable names
+    ## strata: char vector; data: data frame given; dat = data[c(vars)]
 
     if(missing(strata)) {
-        ## If there is no strata, give "Overall" to every subject
-        strata <- rep("Overall", dim(dat)[1])                           # Check if dim(dat)[[1]] is correct.
-    } else {
+        ## If there is no strata, give "Overall" to every subject (dim1 is nrow)
+        strata <- rep("Overall", dim(dat)[1])
 
-        ## Check presence of strata variables in the data frame  (multivariable support)
-        presenceOfStrata <- strata %in% names(data)
-        ## Delete variables that do not exist in the data frame
-        strata <- strata[presenceOfStrata]
+    } else { # If strata is given
 
+        ## Drop nonexisting and NA/NaN only variables
+        strata <- ModuleReturnVarsExist(strata, data)
+
+        ## Conditional on presence of remaining variable
         if (length(strata) == 0) {
-            stop("None of the stratifying variables are present in the data frame")
-        }
+            ## Stop if none left
+            stop("None of the stratifying variables are present in the data frame.")
 
-        ## Extract the stratifying variable vector (strata is a data frame)
-        strata <- data[c(strata)]
+        } else {
+
+            ## Check validity of the remaining variables
+            logiSingleLevelOnly <-
+                lapply(data[c(strata)],
+                       function(VEC) {
+                           ## Check number of levels
+                           nLevels <- ifelse(test = is.factor(VEC),
+                                             yes  = nlevels(VEC),
+                                             no   = nlevels(factor(VEC)))
+                           ## Return logical indicating only one valid level
+                           nLevels == 1
+                       })
+            logiSingleLevelOnly <- unlist(logiSingleLevelOnly)
+
+            ## Only keep variables that have 2+ levels
+            if (any(logiSingleLevelOnly)) {
+                warning("These variables have only one valid level: ",
+                        paste0(strata[logiSingleLevelOnly], sep = " "), " Dropped")
+
+                strata <- strata[!logiSingleLevelOnly]
+
+            }
+
+            ## Stop if no variables are left
+            if (length(strata) == 0) {
+                ## Stop if none left
+                stop("None of the stratifying variables have 2+ valid levels.")
+            }
+
+            ## Extract the stratifying variable vector (strata is a data frame)
+            strata <- data[c(strata)]
+        }
     }
 
     ## return DF with strata variable(s)
