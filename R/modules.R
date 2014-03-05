@@ -63,12 +63,12 @@ ModuleReturnFalseIfNoStrata <- function(strata, test) { # Give strata variable n
 }
 
 ## Check statra variables and conditionally create strata data frame
-ModuleReturnStrata <- function(strata, data, dat) {     # Give strata variable names
-    ## strata: char vector; data: data frame given; dat = data[c(vars)]
+ModuleReturnStrata <- function(strata, data) {     # Give strata variable names
+    ## strata: char vector; data: data frame given
 
     if(missing(strata)) {
         ## If there is no strata, give "Overall" to every subject (dim1 is nrow)
-        strata <- rep("Overall", dim(dat)[1])
+        strata <- rep("Overall", nrow(data))
 
     } else { # If strata is given
 

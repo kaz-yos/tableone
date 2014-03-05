@@ -110,7 +110,7 @@ CreateCatTable <-
     dat[datNotFactor] <- lapply(dat[datNotFactor], factor)
 
     ## Create strata data frame (data frame with only strata variables)
-    strata <- ModuleReturnStrata(strata, data, dat)
+    strata <- ModuleReturnStrata(strata, data)
 
 
 ### Actual descriptive statistics are calculated here.

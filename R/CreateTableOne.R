@@ -152,7 +152,7 @@ CreateTableOne <-
 
             ## Check strata. This returns a DF. Returns a "Overall" DF if strata is missing.
             ## Must not be place outside if (!missing(strata)) {  }.
-            dfStrata <- ModuleReturnStrata(strata, data, dat)
+            dfStrata <- ModuleReturnStrata(strata, data)
             ## Return variable names. Code inefficient in exchange for code simplicity.
             strata   <- names(dfStrata)
 
