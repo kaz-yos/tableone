@@ -23,7 +23,7 @@ ModuleReturnVarsExist <- function(vars, data) {
     varsNotInData <- setdiff(vars, names(data))
 
     if (length(varsNotInData) > 0) {
-        warning("The data frame does not have ",
+        warning("The data frame does not have: ",
                 paste0(varsNotInData, sep = " "), " Dropped")
         ## Only keep variables that exist
         vars <- intersect(vars, names(data))
@@ -71,6 +71,9 @@ ModuleReturnStrata <- function(strata, data, dat) {     # Give strata variable n
         strata <- rep("Overall", dim(dat)[1])
 
     } else { # If strata is given
+
+        ## unique it first to remove duplications
+        strata <- unique(strata)
 
         ## Drop nonexisting and NA/NaN only variables
         strata <- ModuleReturnVarsExist(strata, data)
