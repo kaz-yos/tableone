@@ -1,4 +1,4 @@
-tableone 0.3.4 (2014-02-28)
+tableone 0.3.4 (2014-03-04)
 ----------------------------------------------------------------
 
 BUG FIXES
@@ -6,6 +6,10 @@ BUG FIXES
 * Added the Create* functions handling of all NA/NaN variables.
   These invalid variables are examined at the beginning and dropped
   with warning for safety.
+
+* For the strata argument, variables with only one level is dropped
+  with warning because these are meaningless, and caused data
+  handling problems.
 
 
 tableone 0.3.3 (2014-02-22)
