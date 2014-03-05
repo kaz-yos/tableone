@@ -148,8 +148,15 @@ CreateTableOne <-
                                     argsExact     = argsExact
                                     )
         ## Add strata = strata for argument only if strata is given
-        if(!missing(strata)) {
+        if (!missing(strata)) {
 
+            ## Check strata. This returns a DF. Returns a "Overall" DF if strata is missing.
+            ## Must not be place outside if (!missing(strata)) {  }.
+            dfStrata <- ModuleReturnStrata(strata, data)
+            ## Return variable names. Code inefficient in exchange for code simplicity.
+            strata   <- names(dfStrata)
+
+            ## Create lists of arguments including strata
             argsCreateContTable <- c(list(strata = strata), argsCreateContTable)
             argsCreateCatTable  <- c(list(strata = strata), argsCreateCatTable)
         }
