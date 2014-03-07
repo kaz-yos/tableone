@@ -114,7 +114,7 @@ CreateContTable <-
     test <- ModuleReturnFalseIfNoStrata(strata, test)
 
     ## Create strata data frame (data frame with only strata variables)
-    strata <- ModuleReturnStrata(strata, data, dat)
+    strata <- ModuleReturnStrata(strata, data)
 
 
     ## Handle non-numeric elements (intergers give TRUE, and pass)
