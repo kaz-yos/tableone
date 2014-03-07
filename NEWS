@@ -1,3 +1,13 @@
+tableone 0.3.5 (2014-03-07)
+----------------------------------------------------------------
+
+BUG FIXES
+
+* Added more robust class assessment in CreateTableOne, which now
+  correctly handles ordered factors correctly, and drop Surv object
+  correctly.
+
+  
 tableone 0.3.4 (2014-03-04)
 ----------------------------------------------------------------
 
