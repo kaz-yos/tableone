@@ -121,15 +121,15 @@ CreateTableOne <-
         varClasses  <- lapply(data[vars], class)
 
         ## Classify as varFactors if any one of these classes are contained
-        varFactors <- unlist(lapply(varClasses, function(VEC) {
+        varFactors <-sapply(varClasses, function(VEC) {
             any(VEC %in% c("factor", "ordered", "logical", "character"))
-        }))
+        })
         varFactors <- names(varFactors)[varFactors]
 
         ## Classify as varNumerics if any one of these classes are contained
-        varNumerics <- unlist(lapply(varClasses, function(VEC) {
+        varNumerics <-sapply(varClasses, function(VEC) {
             any(VEC %in% c("numeric", "integer"))
-        }))
+        })
         varNumerics <- names(varNumerics)[varNumerics]
 
         ## Drop variables that do not meet either because it is unsupported

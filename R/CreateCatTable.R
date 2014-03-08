@@ -107,12 +107,12 @@ CreateCatTable <-
     ## Convert to a factor if it is not a factor already. (categorical version only)
     ## Not done on factors, to avoid dropping zero levels.
     ## Probably this cannot handle Surv object??
-    datNotFactor <- unlist(lapply(dat, function(VEC) {
+    logiNotFactor <- sapply(dat, function(VEC) {
         ## Return TRUE if classes for a vector does NOT contain class "factor"
         !any(VEC %in% c("factor"))
-    }))
+    })
 
-    dat[datNotFactor] <- lapply(dat[datNotFactor], factor)
+    dat[logiNotFactor] <- lapply(dat[logiNotFactor], factor)
 
     ## Create strata data frame (data frame with only strata variables)
     strata <- ModuleReturnStrata(strata, data)
