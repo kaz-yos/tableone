@@ -7,7 +7,10 @@ BUG FIXES
   CreateCatTable, which now handles ordered factors correctly.
   CreateTableOne also drops Surv object for safety.
 
-  
+* "Dropped due to unsupported class" message has been fixed to
+  show variable names with spaces in between.
+
+
 tableone 0.3.4 (2014-03-04)
 ----------------------------------------------------------------
 
