@@ -42,7 +42,7 @@
 ##'
 ##' ## If you need to show both levels for some 2-level factors, use cramVars
 ##' print(catTableOverall, cramVars = "hepato")
-##' 
+##'
 ##' ## Use the showAllLevels argument to see all levels for all variables.
 ##' print(catTableOverall, showAllLevels = TRUE)
 ##'
@@ -106,8 +106,13 @@ CreateCatTable <-
 
     ## Convert to a factor if it is not a factor already. (categorical version only)
     ## Not done on factors, to avoid dropping zero levels.
-    datNotFactor <- sapply(dat, class) != "factor"
-    dat[datNotFactor] <- lapply(dat[datNotFactor], factor)
+    ## Probably this cannot handle Surv object??
+    logiNotFactor <- sapply(dat, function(VEC) {
+        ## Return TRUE if classes for a vector does NOT contain class "factor"
+        !any(VEC %in% c("factor"))
+    })
+
+    dat[logiNotFactor] <- lapply(dat[logiNotFactor], factor)
 
     ## Create strata data frame (data frame with only strata variables)
     strata <- ModuleReturnStrata(strata, data)
