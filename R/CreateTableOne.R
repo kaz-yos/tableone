@@ -135,7 +135,8 @@ CreateTableOne <-
         ## Drop variables that do not meet either because it is unsupported
         varDrop <- setdiff(vars, c(varFactors, varNumerics))
         if (length(varDrop) > 0) {
-            warning("Dropping variable(s) ", varDrop, " due to unsupported class.\n")
+            warning("Dropping variable(s) ", paste0(varDrop, sep = " "),
+                    " due to unsupported class.\n")
             vars <- setdiff(vars, varDrop)
         }
 
