@@ -1,7 +1,24 @@
+tableone 0.4.0 (2014-03-14)
+----------------------------------------------------------------
+
+NEW FEATURES
+
+* The showAllLevels argument to show all levels of categorical
+  variables regardless of numbers of levels was added to
+  print.TableOne. Previously, it was only available in
+  print.CatTable. To accommodate this feature, insertLevel argument
+  to insert an empty level column was added to print.ContTable.
+
+
 tableone 0.3.5 (2014-03-07)
 ----------------------------------------------------------------
 
 BUG FIXES
+
+* Fixed problem with space insertion when empty strata are present.
+
+* Thanks jomuller for bug reports and code suggestions for the
+  following.
 
 * Added more robust class assessment in CreateTableOne and
   CreateCatTable, which now handles ordered factors correctly.

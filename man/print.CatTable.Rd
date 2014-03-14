@@ -37,7 +37,8 @@
 
   \item{showAllLevels}{Whether to show all levels. FALSE by
   default, i.e., for 2-level categorical variables, only
-  the higher level is shown to avoid}
+  the higher level is shown to avoid redundant
+  information.}
 
   \item{cramVars}{A character vector to specify the
   two-level categorical variables, for which both levels

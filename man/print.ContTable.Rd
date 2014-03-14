@@ -4,7 +4,7 @@
 \usage{
 \method{print}{ContTable}(x, digits = 2, pDigits = 3, quote = FALSE,
   missing = FALSE, explain = TRUE, printToggle = TRUE, nonnormal = NULL,
-  minMax = FALSE, test = TRUE, ...)
+  minMax = FALSE, insertLevel = FALSE, test = TRUE, ...)
 }
 \arguments{
   \item{x}{The result of a call to the
@@ -37,6 +37,9 @@
 
   \item{minMax}{Whether to use [min,max] instead of
   [p25,p75] for nonnormal variables. The default is FALSE.}
+
+  \item{insertLevel}{Whether to add an empty level column
+  to the left of strata.}
 
   \item{test}{Whether to show the p-values. TRUE by
   default. If FALSE, only the numerical summaries are
