@@ -131,7 +131,8 @@ print.TableOne <- function(x,                   # TableOne object
                           FUN    = "-"
                           )
     nSpacesToAdd <- -1 * nSpacesToAdd
-
+    ## Get rid of NA, so that it does not cause problem in rep() as a times argument
+    nSpacesToAdd[is.na(nSpacesToAdd)] <- 0
 
     ## For each matrix, add spaces
     spaceFormattedTables <- sapply(seq_along(formattedTables),
