@@ -15,7 +15,10 @@ tableone 0.3.5 (2014-03-07)
 
 BUG FIXES
 
-* Thanks jomuller for bug reports and code suggestions.
+* Fixed problem with space insertion when empty strata are present.
+
+* Thanks jomuller for bug reports and code suggestions for the
+  following.
 
 * Added more robust class assessment in CreateTableOne and
   CreateCatTable, which now handles ordered factors correctly.
