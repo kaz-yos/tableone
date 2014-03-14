@@ -4,8 +4,8 @@
 \usage{
 \method{print}{TableOne}(x, catDigits = 1, contDigits = 2, pDigits = 3,
   quote = FALSE, missing = FALSE, explain = TRUE, printToggle = TRUE,
-  test = TRUE, format = c("fp", "f", "p", "pf")[1], cramVars = NULL,
-  exact = NULL, nonnormal = NULL, minMax = FALSE, ...)
+  test = TRUE, format = c("fp", "f", "p", "pf")[1], showAllLevels = FALSE,
+  cramVars = NULL, exact = NULL, nonnormal = NULL, minMax = FALSE, ...)
 }
 \arguments{
   \item{x}{The result of a call to the
@@ -43,6 +43,11 @@
   \item{format}{The default is "fp" frequency (percentage).
   You can also choose from "f" frequency only, "p"
   percentage only, and "pf" percentage (frequency).}
+
+  \item{showAllLevels}{Whether to show all levels. FALSE by
+  default, i.e., for 2-level categorical variables, only
+  the higher level is shown to avoid redundant
+  information.}
 
   \item{cramVars}{A character vector to specify the
   two-level categorical variables, for which both levels
