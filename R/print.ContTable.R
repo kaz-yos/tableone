@@ -77,18 +77,19 @@
 ##' print(contTableBySexTrt, nonnormal = nonNormalVars, quote = TRUE)
 ##'
 ##' @export
-print.ContTable <- function(x,                        # ContTable object
-                            digits = 2, pDigits = 3,  # Number of digits to show
-                            quote       = FALSE,      # Whether to show quotes
+print.ContTable <- function(x,                       # ContTable object
+                            digits = 2, pDigits = 3, # Number of digits to show
+                            quote        = FALSE,    # Whether to show quotes
 
-                            missing     = FALSE,      # show missing values (not implemented yet)
-                            explain     = TRUE,       # Whether to show explanation in variable names
-                            printToggle = TRUE,       # Whether to print the result visibly
+                            missing      = FALSE,    # show missing values (not implemented yet)
+                            explain      = TRUE,     # Whether to show explanation in variable names
+                            printToggle  = TRUE,     # Whether to print the result visibly
 
-                            nonnormal   = NULL,       # Which variables should be treated as nonnormal
-                            minMax      = FALSE,      # median [range] instead of median [IQR]
+                            nonnormal    = NULL,     # Which variables should be treated as nonnormal
+                            minMax       = FALSE,    # median [range] instead of median [IQR]
+                            insertLevel  = FALSE,    # insert the level column to match showAllLevels in print.CatTable
 
-                            test        = TRUE,       # Whether to add p-values
+                            test         = TRUE,     # Whether to add p-values
 
                             ...) {
 
@@ -285,6 +286,12 @@ print.ContTable <- function(x,                        # ContTable object
                  out)
     ## Put back the column names (overkill for non-multivariable cases)
     colnames(out) <- outColNames
+
+    ## Add the level column if requested
+    if (insertLevel) {
+        out <- cbind(level = rep("", nrow(out)),
+                     out)
+    }
 
     ## Add stratification information to the column header depending on the dimension
     names(dimnames(out)) <- ModuleReturnDimHeaders(ContTable)
