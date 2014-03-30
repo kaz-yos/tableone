@@ -5,7 +5,7 @@
 ##' @param vars Variables to be summarized given as a character vector. Factors are handled as categorical variables, whereas numeric variables are handled as continuous variables.
 ##' @param strata Stratifying (grouping) variable name(s) given as a character vector. If omitted, the overall results are returned.
 ##' @param data A data frame in which these variables exist. All variables (both vars and strata) must be in this data frame.
-##' @param factorVars Numerically coded variables that should be handled as categorical variables given as a character vector. If omitted, only factors are considered categorical variables. If all categorical variables in the dataset are already factors, this option is not necessary.
+##' @param factorVars Numerically coded variables that should be handled as categorical variables given as a character vector. If omitted, only factors are considered categorical variables. If all categorical variables in the dataset are already factors, this option is not necessary. The variables specified here must also be specified in the \code{vars} argument.
 ##' @param test If TRUE, as in the default and there are more than two groups, groupwise comparisons are performed.
 ##' @param testNormal A function used to perform the normal assumption based tests. The default is \code{\link{oneway.test}}. This is equivalent of the t-test when there are only two groups.
 ##' @param argsNormal A named list of arguments passed to the function specified in \code{testNormal}. The default is \code{list(var.equal = TRUE)}, which makes it the ordinary ANOVA that assumes equal variance across groups.
