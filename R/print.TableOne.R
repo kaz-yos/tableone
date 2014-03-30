@@ -12,6 +12,7 @@
 ##' @param printToggle Whether to print the output. If FLASE, no output is created, and a matrix is invisibly returned.
 ##' @param test Whether to show the p-values. TRUE by default. If FALSE, only the numerical summaries are shown.
 ##' @param format The default is "fp" frequency (percentage). You can also choose from "f" frequency only, "p" percentage only, and "pf" percentage (frequency).
+##' @param showAllLevels Whether to show all levels. FALSE by default, i.e., for 2-level categorical variables, only the higher level is shown to avoid redundant information.
 ##' @param cramVars A character vector to specify the two-level categorical variables, for which both levels should be shown in one row.
 ##' @param exact A character vector to specify the variables for which the p-values should be those of exact tests. By default all p-values are from large sample approximation tests (chisq.test).
 ##' @param nonnormal A character vector to specify the variables for which the p-values should be those of nonparametric tests. By default all p-values are from normal assumption-based tests (oneway.test).
@@ -69,23 +70,24 @@
 ##' @export
 print.TableOne <- function(x,                   # TableOne object
                            catDigits = 1, contDigits = 2, pDigits = 3, # Number of digits to show
-                           quote = FALSE,       # Whether to show quotes
+                           quote         = FALSE,       # Whether to show quotes
 
                            ## Common options
-                           missing     = FALSE, # Not implemented yet
-                           explain     = TRUE,  # Whether to show explanation in variable names
-                           printToggle = TRUE,  # Whether to print the result visibly
-                           test        = TRUE,  # Whether to add p-values
+                           missing       = FALSE, # Not implemented yet
+                           explain       = TRUE,  # Whether to show explanation in variable names
+                           printToggle   = TRUE,  # Whether to print the result visibly
+                           test          = TRUE,  # Whether to add p-values
 
                            ## Categorical options
-                           format      = c("fp","f","p","pf")[1], # Format f_requency and/or p_ercent
-                           cramVars    = NULL,  # Which 2-level variables to show both levels in one row
-                           exact       = NULL,  # Which variables should be tested with exact tests
+                           format        = c("fp","f","p","pf")[1], # Format f_requency and/or p_ercent
+                           showAllLevels = FALSE, # Show all levels of a categorical variable
+                           cramVars      = NULL,  # Which 2-level variables to show both levels in one row
+                           exact         = NULL,  # Which variables should be tested with exact tests
 
                            ## Continuous options
-                           nonnormal   = NULL,  # Which variables should be treated as nonnormal
-                           minMax      = FALSE, # Whether to show median
-                           
+                           nonnormal     = NULL,  # Which variables should be treated as nonnormal
+                           minMax        = FALSE, # Whether to show median
+
                            ...) {
 
     ## Get the mixed element only
@@ -100,14 +102,17 @@ print.TableOne <- function(x,                   # TableOne object
     formattedTables <- sapply(seq_along(TableOne),
                               FUN = function(i) {
 
+                                  ## print.CatTable or print.ContTable called depending on the class
                                   print(TableOne[[i]], printToggle = FALSE, test = test, explain = explain,
                                         digits = digits[i],
+
                                         ## print.CatTable arguments
                                         format = format, exact = exact,
-                                        showAllLevels = FALSE,  # must be FALSE to get same column counts
+                                        showAllLevels = showAllLevels,  # Returns one more column if TRUE
                                         cramVars = cramVars,
+
                                         ## print.ContTable argument
-                                        nonnormal = nonnormal, minMax = minMax
+                                        nonnormal = nonnormal, minMax = minMax, insertLevel = showAllLevels
                                         )  # Method dispatch at work
                               },
                               simplify = FALSE)
@@ -142,11 +147,22 @@ print.TableOne <- function(x,                   # TableOne object
                                        matObj <- formattedTables[[i]]
                                        nSpaces <- nSpacesToAdd[, i]
 
-                                       ## For j-th stratum (column). Be aware of the p-value column
+                                       ## For j-th stratum (column), add spaces.
+                                       ## Be aware of the p-value column (last. not included in first palce)
+                                       ## and level column (1st. explicitly ignore).
                                        for (j in seq_along(nSpaces)) {
 
-                                           matObj[, j] <- paste0(paste0(rep(" ", nSpaces[j]), collapse = ""),
-                                                                 matObj[, j])
+                                           ## If showAllLevels is requested, ignore the first column (level column).
+                                           if (showAllLevels) {
+                                               matObj[, (j + 1)] <- paste0(paste0(rep(" ", nSpaces[j]), collapse = ""),
+                                                                           matObj[, (j + 1)])
+
+                                           } else {
+                                               ## if not, no need to ignore the first column
+                                               matObj[, j] <- paste0(paste0(rep(" ", nSpaces[j]), collapse = ""),
+                                                                     matObj[, j])
+                                           }
+
                                        }
 
                                        ## Return the adjusted table

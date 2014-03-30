@@ -11,6 +11,7 @@
 ##' @param printToggle Whether to print the output. If FLASE, no output is created, and a matrix is invisibly returned.
 ##' @param nonnormal A character vector to specify the variables for which the p-values should be those of nonparametric tests. By default all p-values are from normal assumption-based tests (oneway.test).
 ##' @param minMax Whether to use [min,max] instead of [p25,p75] for nonnormal variables. The default is FALSE.
+##' @param insertLevel Whether to add an empty level column to the left of strata.
 ##' @param test Whether to show the p-values. TRUE by default. If FALSE, only the numerical summaries are shown.
 ##' @param ... For compatibility with generic. Ignored.
 ##' @return It is mainly for printing the result. But this function does return a matrix containing what you see in the output invisibly. You can assign it to an object to save it.
@@ -77,18 +78,19 @@
 ##' print(contTableBySexTrt, nonnormal = nonNormalVars, quote = TRUE)
 ##'
 ##' @export
-print.ContTable <- function(x,                        # ContTable object
-                            digits = 2, pDigits = 3,  # Number of digits to show
-                            quote       = FALSE,      # Whether to show quotes
+print.ContTable <- function(x,                       # ContTable object
+                            digits = 2, pDigits = 3, # Number of digits to show
+                            quote        = FALSE,    # Whether to show quotes
 
-                            missing     = FALSE,      # show missing values (not implemented yet)
-                            explain     = TRUE,       # Whether to show explanation in variable names
-                            printToggle = TRUE,       # Whether to print the result visibly
+                            missing      = FALSE,    # show missing values (not implemented yet)
+                            explain      = TRUE,     # Whether to show explanation in variable names
+                            printToggle  = TRUE,     # Whether to print the result visibly
 
-                            nonnormal   = NULL,       # Which variables should be treated as nonnormal
-                            minMax      = FALSE,      # median [range] instead of median [IQR]
+                            nonnormal    = NULL,     # Which variables should be treated as nonnormal
+                            minMax       = FALSE,    # median [range] instead of median [IQR]
+                            insertLevel  = FALSE,    # insert the level column to match showAllLevels in print.CatTable
 
-                            test        = TRUE,       # Whether to add p-values
+                            test         = TRUE,     # Whether to add p-values
 
                             ...) {
 
@@ -285,6 +287,12 @@ print.ContTable <- function(x,                        # ContTable object
                  out)
     ## Put back the column names (overkill for non-multivariable cases)
     colnames(out) <- outColNames
+
+    ## Add the level column if requested
+    if (insertLevel) {
+        out <- cbind(level = rep("", nrow(out)),
+                     out)
+    }
 
     ## Add stratification information to the column header depending on the dimension
     names(dimnames(out)) <- ModuleReturnDimHeaders(ContTable)
