@@ -27,7 +27,8 @@ CreateTableOne(vars, strata, data, factorVars, test = TRUE,
   vector. If omitted, only factors are considered
   categorical variables. If all categorical variables in
   the dataset are already factors, this option is not
-  necessary.}
+  necessary. The variables specified here must also be
+  specified in the \code{vars} argument.}
 
   \item{test}{If TRUE, as in the default and there are more
   than two groups, groupwise comparisons are performed.}
