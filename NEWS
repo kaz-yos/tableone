@@ -1,3 +1,13 @@
+tableone 0.5.0 (2014-04-14)
+----------------------------------------------------------------
+
+NEW FEATURES
+
+* The noSpaces argument was added to print.* functions. This allows
+  removal of spaces added for alignment using fixed-width fonts.
+  Use this option if you prefer to align your table in other software.
+
+
 tableone 0.4.0 (2014-03-30)
 ----------------------------------------------------------------
 
