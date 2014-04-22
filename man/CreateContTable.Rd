@@ -128,6 +128,9 @@ summary(contTableBySexTrt)
 ## you may benefit from the quote argument. This will quote everything so that
 ## Excel does not mess up the cells.
 print(contTableBySexTrt, nonnormal = nonNormalVars, quote = TRUE)
+
+## If you want to center-align values in Word, use noSpaces option.
+print(contTableBySexTrt, nonnormal = nonNormalVars, quote = TRUE, noSpaces = TRUE)
 }
 \author{
 Kazuki Yoshida (based on

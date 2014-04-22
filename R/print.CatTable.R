@@ -79,6 +79,9 @@
 ##' ## Excel does not mess up the cells.
 ##' print(catTableBySexTrt, exact = "ascites", quote = TRUE)
 ##'
+##' ## If you want to center-align values in Word, use noSpaces option.
+##' print(catTableBySexTrt, exact = "ascites", quote = TRUE, noSpaces = TRUE)
+##'
 ##' @export
 print.CatTable <- function(x,                        # CatTable object
                            digits = 1, pDigits = 3,  # Number of digits to show

@@ -115,6 +115,9 @@ summary(catTableBySexTrt)
 ## you may benefit from the quote argument. This will quote everything so that
 ## Excel does not mess up the cells.
 print(catTableBySexTrt, exact = "ascites", quote = TRUE)
+
+## If you want to center-align values in Word, use noSpaces option.
+print(catTableBySexTrt, exact = "ascites", quote = TRUE, noSpaces = TRUE)
 }
 \author{
 Kazuki Yoshida (based on \code{Deducer::frequencies()})
