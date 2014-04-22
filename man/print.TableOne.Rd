@@ -4,8 +4,9 @@
 \usage{
 \method{print}{TableOne}(x, catDigits = 1, contDigits = 2, pDigits = 3,
   quote = FALSE, missing = FALSE, explain = TRUE, printToggle = TRUE,
-  test = TRUE, format = c("fp", "f", "p", "pf")[1], showAllLevels = FALSE,
-  cramVars = NULL, exact = NULL, nonnormal = NULL, minMax = FALSE, ...)
+  test = TRUE, noSpaces = FALSE, format = c("fp", "f", "p", "pf")[1],
+  showAllLevels = FALSE, cramVars = NULL, exact = NULL,
+  nonnormal = NULL, minMax = FALSE, ...)
 }
 \arguments{
   \item{x}{The result of a call to the
@@ -39,6 +40,10 @@
   \item{test}{Whether to show the p-values. TRUE by
   default. If FALSE, only the numerical summaries are
   shown.}
+
+  \item{noSpaces}{Whether to remove spaces added for
+  alignment. Use this option if you prefer to align numbers
+  yourself in other software.}
 
   \item{format}{The default is "fp" frequency (percentage).
   You can also choose from "f" frequency only, "p"
@@ -119,6 +124,16 @@ summary(tableOne$CatTable)
 ## See the continuous part only using $ operator
 tableOne$ContTable
 summary(tableOne$ContTable)
+
+## If your work flow includes copying to Excel and Word when writing manuscripts,
+## you may benefit from the quote argument. This will quote everything so that
+## Excel does not mess up the cells.
+print(tableOne, nonnormal = c("bili","chol","copper","alk.phos","trig"),
+      exact = c("status","stage"), cramVars = "hepato", quote = TRUE)
+
+## If you want to center-align values in Word, use noSpaces option.
+print(tableOne, nonnormal = c("bili","chol","copper","alk.phos","trig"),
+      exact = c("status","stage"), cramVars = "hepato", quote = TRUE, noSpaces = TRUE)
 }
 \author{
 Kazuki Yoshida, Justin Bohn

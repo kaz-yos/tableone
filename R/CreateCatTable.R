@@ -76,6 +76,9 @@
 ##' ## Excel does not mess up the cells.
 ##' print(catTableBySexTrt, exact = "ascites", quote = TRUE)
 ##'
+##' ## If you want to center-align values in Word, use noSpaces option.
+##' print(catTableBySexTrt, exact = "ascites", quote = TRUE, noSpaces = TRUE)
+##'
 ##' @export
 CreateCatTable <-
     function(vars,                                 # character vector of variable names

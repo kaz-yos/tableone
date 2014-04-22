@@ -9,6 +9,7 @@
 ##' @param missing Whether to show missing data information (not implemented yet, placeholder)
 ##' @param explain Whether to add explanation to the variable names, i.e., (mean (sd) or median [IQR]) is added to the variable names.
 ##' @param printToggle Whether to print the output. If FLASE, no output is created, and a matrix is invisibly returned.
+##' @param noSpaces Whether to remove spaces added for alignment. Use this option if you prefer to align numbers yourself in other software.
 ##' @param nonnormal A character vector to specify the variables for which the p-values should be those of nonparametric tests. By default all p-values are from normal assumption-based tests (oneway.test).
 ##' @param minMax Whether to use [min,max] instead of [p25,p75] for nonnormal variables. The default is FALSE.
 ##' @param insertLevel Whether to add an empty level column to the left of strata.
@@ -77,6 +78,9 @@
 ##' ## Excel does not mess up the cells.
 ##' print(contTableBySexTrt, nonnormal = nonNormalVars, quote = TRUE)
 ##'
+##' ## If you want to center-align values in Word, use noSpaces option.
+##' print(contTableBySexTrt, nonnormal = nonNormalVars, quote = TRUE, noSpaces = TRUE)
+##' 
 ##' @export
 print.ContTable <- function(x,                       # ContTable object
                             digits = 2, pDigits = 3, # Number of digits to show
@@ -85,6 +89,7 @@ print.ContTable <- function(x,                       # ContTable object
                             missing      = FALSE,    # show missing values (not implemented yet)
                             explain      = TRUE,     # Whether to show explanation in variable names
                             printToggle  = TRUE,     # Whether to print the result visibly
+                            noSpaces     = FALSE,    # Whether to remove spaces for alignments
 
                             nonnormal    = NULL,     # Which variables should be treated as nonnormal
                             minMax       = FALSE,    # median [range] instead of median [IQR]
@@ -296,6 +301,9 @@ print.ContTable <- function(x,                       # ContTable object
 
     ## Add stratification information to the column header depending on the dimension
     names(dimnames(out)) <- ModuleReturnDimHeaders(ContTable)
+
+    ## Remove spaces if asked.
+    out <- ModuleRemoveSpaces(mat = out, noSpaces = noSpaces)
 
     ## (module) Takes an matrix object format, print if requested
     out <- ModuleQuoteAndPrintMat(matObj = out,

@@ -9,6 +9,7 @@
 ##' @param missing Whether to show missing data information (not implemented yet, placeholder)
 ##' @param explain Whether to add explanation to the variable names, i.e., (\%) is added to the variable names when percentage is shown.
 ##' @param printToggle Whether to print the output. If FLASE, no output is created, and a matrix is invisibly returned.
+##' @param noSpaces Whether to remove spaces added for alignment. Use this option if you prefer to align numbers yourself in other software.
 ##' @param format The default is "fp" frequency (percentage). You can also choose from "f" frequency only, "p" percentage only, and "pf" percentage (frequency).
 ##' @param showAllLevels Whether to show all levels. FALSE by default, i.e., for 2-level categorical variables, only the higher level is shown to avoid redundant information.
 ##' @param cramVars A character vector to specify the two-level categorical variables, for which both levels should be shown in one row.
@@ -78,6 +79,9 @@
 ##' ## Excel does not mess up the cells.
 ##' print(catTableBySexTrt, exact = "ascites", quote = TRUE)
 ##'
+##' ## If you want to center-align values in Word, use noSpaces option.
+##' print(catTableBySexTrt, exact = "ascites", quote = TRUE, noSpaces = TRUE)
+##'
 ##' @export
 print.CatTable <- function(x,                        # CatTable object
                            digits = 1, pDigits = 3,  # Number of digits to show
@@ -86,6 +90,7 @@ print.CatTable <- function(x,                        # CatTable object
                            missing       = FALSE,    # Show missing values (not implemented yet)
                            explain       = TRUE,     # Whether to show explanation in variable names
                            printToggle   = TRUE,     # Whether to print the result visibly
+                           noSpaces      = FALSE,    # Whether to remove spaces for alignments
 
                            format        = c("fp","f","p","pf")[1], # Format f_requency and/or p_ercent
                            showAllLevels = FALSE,
@@ -420,6 +425,9 @@ print.CatTable <- function(x,                        # CatTable object
 
     ## Add stratification information to the column header depending on the dimension
     names(dimnames(out)) <- ModuleReturnDimHeaders(CatTable)
+
+    ## Remove spaces if asked.
+    out <- ModuleRemoveSpaces(mat = out, noSpaces = noSpaces)
 
     ## Modular version of quote/print toggle.
     out <- ModuleQuoteAndPrintMat(matObj = out,

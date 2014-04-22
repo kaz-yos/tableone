@@ -77,6 +77,10 @@
 ##' print(tableOne, nonnormal = c("bili","chol","copper","alk.phos","trig"),
 ##'       exact = c("status","stage"), quote = TRUE)
 ##'
+##' ## If you want to center-align values in Word, use noSpaces option.
+##' print(tableOne, nonnormal = c("bili","chol","copper","alk.phos","trig"),
+##'       exact = c("status","stage"), quote = TRUE, noSpaces = TRUE)
+##'
 ##' @export
 CreateTableOne <-
     function(vars,                                      # character vector of variable names

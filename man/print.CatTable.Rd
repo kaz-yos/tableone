@@ -3,9 +3,9 @@
 \title{Format and print the \code{CatTable} class objects}
 \usage{
 \method{print}{CatTable}(x, digits = 1, pDigits = 3, quote = FALSE,
-  missing = FALSE, explain = TRUE, printToggle = TRUE, format = c("fp",
-  "f", "p", "pf")[1], showAllLevels = FALSE, cramVars = NULL, test = TRUE,
-  exact = NULL, CrossTable = FALSE, ...)
+  missing = FALSE, explain = TRUE, printToggle = TRUE, noSpaces = FALSE,
+  format = c("fp", "f", "p", "pf")[1], showAllLevels = FALSE,
+  cramVars = NULL, test = TRUE, exact = NULL, CrossTable = FALSE, ...)
 }
 \arguments{
   \item{x}{The result of a call to the
@@ -30,6 +30,10 @@
   \item{printToggle}{Whether to print the output. If FLASE,
   no output is created, and a matrix is invisibly
   returned.}
+
+  \item{noSpaces}{Whether to remove spaces added for
+  alignment. Use this option if you prefer to align numbers
+  yourself in other software.}
 
   \item{format}{The default is "fp" frequency (percentage).
   You can also choose from "f" frequency only, "p"
@@ -123,6 +127,9 @@ summary(catTableBySexTrt)
 ## you may benefit from the quote argument. This will quote everything so that
 ## Excel does not mess up the cells.
 print(catTableBySexTrt, exact = "ascites", quote = TRUE)
+
+## If you want to center-align values in Word, use noSpaces option.
+print(catTableBySexTrt, exact = "ascites", quote = TRUE, noSpaces = TRUE)
 }
 \author{
 Kazuki Yoshida

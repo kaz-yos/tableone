@@ -11,6 +11,7 @@
 ##' @param explain Whether to add explanation to the variable names, i.e., (\%) is added to the variable names when percentage is shown.
 ##' @param printToggle Whether to print the output. If FLASE, no output is created, and a matrix is invisibly returned.
 ##' @param test Whether to show the p-values. TRUE by default. If FALSE, only the numerical summaries are shown.
+##' @param noSpaces Whether to remove spaces added for alignment. Use this option if you prefer to align numbers yourself in other software.
 ##' @param format The default is "fp" frequency (percentage). You can also choose from "f" frequency only, "p" percentage only, and "pf" percentage (frequency).
 ##' @param showAllLevels Whether to show all levels. FALSE by default, i.e., for 2-level categorical variables, only the higher level is shown to avoid redundant information.
 ##' @param cramVars A character vector to specify the two-level categorical variables, for which both levels should be shown in one row.
@@ -66,6 +67,16 @@
 ##' ## See the continuous part only using $ operator
 ##' tableOne$ContTable
 ##' summary(tableOne$ContTable)
+##' 
+##' ## If your work flow includes copying to Excel and Word when writing manuscripts,
+##' ## you may benefit from the quote argument. This will quote everything so that
+##' ## Excel does not mess up the cells.
+##' print(tableOne, nonnormal = c("bili","chol","copper","alk.phos","trig"),
+##'       exact = c("status","stage"), cramVars = "hepato", quote = TRUE)
+##'
+##' ## If you want to center-align values in Word, use noSpaces option.
+##' print(tableOne, nonnormal = c("bili","chol","copper","alk.phos","trig"),
+##'       exact = c("status","stage"), cramVars = "hepato", quote = TRUE, noSpaces = TRUE)
 ##'
 ##' @export
 print.TableOne <- function(x,                   # TableOne object
@@ -77,6 +88,7 @@ print.TableOne <- function(x,                   # TableOne object
                            explain       = TRUE,  # Whether to show explanation in variable names
                            printToggle   = TRUE,  # Whether to print the result visibly
                            test          = TRUE,  # Whether to add p-values
+                           noSpaces      = FALSE, # Whether to remove spaces for alignments
 
                            ## Categorical options
                            format        = c("fp","f","p","pf")[1], # Format f_requency and/or p_ercent
@@ -198,6 +210,9 @@ print.TableOne <- function(x,                   # TableOne object
 
         names(dimnames(out)) <- c("", "")
     }
+
+    ## Remove spaces if asked.
+    out <- ModuleRemoveSpaces(mat = out, noSpaces = noSpaces)
 
     ## Modular version of quote/print toggle.
     out <- ModuleQuoteAndPrintMat(matObj = out,

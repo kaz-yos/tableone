@@ -366,6 +366,20 @@ ModuleReturnDimHeaders <- function(TableObject) {
 }
 
 
+## Module to remove spaces from the result matrix
+ModuleRemoveSpaces <- function(mat, noSpaces) {
+
+    ## Carry out these replacements to remove spaces if asked
+    if (noSpaces) {
+        mat <- gsub(pattern = "^ *| *$", replacement = "",  x = mat)
+        mat <- gsub(pattern = "\\( *",   replacement = "(", x = mat)
+    }
+
+    ## Return the matrix
+    mat
+}
+
+
 ### Modules by both print and summary methods
 ## ModuleQuoteAndPrintMat()
 ## Takes an matrix object format, print, and (invisibly) return it
