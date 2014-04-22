@@ -67,6 +67,16 @@
 ##' ## See the continuous part only using $ operator
 ##' tableOne$ContTable
 ##' summary(tableOne$ContTable)
+##' 
+##' ## If your work flow includes copying to Excel and Word when writing manuscripts,
+##' ## you may benefit from the quote argument. This will quote everything so that
+##' ## Excel does not mess up the cells.
+##' print(tableOne, nonnormal = c("bili","chol","copper","alk.phos","trig"),
+##'       exact = c("status","stage"), cramVars = "hepato", quote = TRUE)
+##'
+##' ## If you want to center-align values in Word, use noSpaces option.
+##' print(tableOne, nonnormal = c("bili","chol","copper","alk.phos","trig"),
+##'       exact = c("status","stage"), cramVars = "hepato", quote = TRUE, noSpaces = TRUE)
 ##'
 ##' @export
 print.TableOne <- function(x,                   # TableOne object

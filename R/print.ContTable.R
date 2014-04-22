@@ -78,6 +78,9 @@
 ##' ## Excel does not mess up the cells.
 ##' print(contTableBySexTrt, nonnormal = nonNormalVars, quote = TRUE)
 ##'
+##' ## If you want to center-align values in Word, use noSpaces option.
+##' print(contTableBySexTrt, nonnormal = nonNormalVars, quote = TRUE, noSpaces = TRUE)
+##' 
 ##' @export
 print.ContTable <- function(x,                       # ContTable object
                             digits = 2, pDigits = 3, # Number of digits to show

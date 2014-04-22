@@ -84,4 +84,8 @@
 ##' print(tableOne, nonnormal = c("bili","chol","copper","alk.phos","trig"),
 ##'       exact = c("status","stage"), cramVars = "sex", quote = TRUE)
 ##'
+##' ## If you want to center-align values in Word, use noSpaces option.
+##' print(tableOne, nonnormal = c("bili","chol","copper","alk.phos","trig"),
+##'       exact = c("status","stage"), cramVars = "sex", quote = TRUE, noSpaces = TRUE)
+##'
 NULL

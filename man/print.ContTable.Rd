@@ -3,8 +3,9 @@
 \title{Format and print the \code{ContTable} class objects}
 \usage{
 \method{print}{ContTable}(x, digits = 2, pDigits = 3, quote = FALSE,
-  missing = FALSE, explain = TRUE, printToggle = TRUE, nonnormal = NULL,
-  minMax = FALSE, insertLevel = FALSE, test = TRUE, ...)
+  missing = FALSE, explain = TRUE, printToggle = TRUE, noSpaces = FALSE,
+  nonnormal = NULL, minMax = FALSE, insertLevel = FALSE, test = TRUE,
+  ...)
 }
 \arguments{
   \item{x}{The result of a call to the
@@ -29,6 +30,10 @@
   \item{printToggle}{Whether to print the output. If FLASE,
   no output is created, and a matrix is invisibly
   returned.}
+
+  \item{noSpaces}{Whether to remove spaces added for
+  alignment. Use this option if you prefer to align numbers
+  yourself in other software.}
 
   \item{nonnormal}{A character vector to specify the
   variables for which the p-values should be those of
@@ -112,6 +117,9 @@ summary(contTableBySexTrt)
 ## you may benefit from the quote argument. This will quote everything so that
 ## Excel does not mess up the cells.
 print(contTableBySexTrt, nonnormal = nonNormalVars, quote = TRUE)
+
+## If you want to center-align values in Word, use noSpaces option.
+print(contTableBySexTrt, nonnormal = nonNormalVars, quote = TRUE, noSpaces = TRUE)
 }
 \author{
 Kazuki Yoshida
