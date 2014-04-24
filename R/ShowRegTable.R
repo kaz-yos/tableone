@@ -41,7 +41,7 @@ ShowRegTable <- function(model, exp = TRUE, digits = 2, pDigits = 3, quote = FAL
     ## Obtain necessary data
     ## The model must have summary and confint methods
     modelCoef       <- coef(model)
-    modelConfInt    <- confint(model)
+    modelConfInt    <- suppressMessages(confint(model))
     modelSummaryMat <- coef(summary(model))
     modelP          <- modelSummaryMat[,ncol(modelSummaryMat)]
 
