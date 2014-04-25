@@ -2,7 +2,8 @@
 \alias{ShowRegTable}
 \title{Format regression results in medically decent format}
 \usage{
-ShowRegTable(model, exp = TRUE, digits = 2, pDigits = 3, quote = FALSE)
+ShowRegTable(model, exp = TRUE, digits = 2, pDigits = 3,
+  printToggle = TRUE, quote = FALSE)
 }
 \arguments{
   \item{model}{Regression model result objects that have
@@ -17,6 +18,10 @@ ShowRegTable(model, exp = TRUE, digits = 2, pDigits = 3, quote = FALSE)
 
   \item{pDigits}{Number of digits to print for the
   p-values.}
+
+  \item{printToggle}{Whether to print the output. If FLASE,
+  no output is created, and a matrix is invisibly
+  returned.}
 
   \item{quote}{Whether to show everything in quotes. The
   default is FALSE. If TRUE, everything including the row
