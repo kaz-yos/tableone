@@ -1,8 +1,11 @@
-tableone 0.6.0 (2014-04-24)
+tableone 0.6.0 (2014-05-30)
 ----------------------------------------------------------------
 
 NEW FEATURES
 
+* The CreateTableOne function automatically use all variables
+  in the data frame given to the data argument, if the vars
+  argument is empty.
 * The printToggle argument added to ShowRegTable().
 
 
