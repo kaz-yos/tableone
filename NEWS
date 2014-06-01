@@ -1,3 +1,16 @@
+tableone 0.6.1 (2014-06-01)
+----------------------------------------------------------------
+
+BUG FIXES
+
+* The algorithm CreateCatTable used to detect variables to convert
+  to factos had a bug. CreateCatTable was effectively (re-)converting
+  all variables to factors, which deleted empty levels from factors
+  and ordered factors.
+
+* Special thanks to Atsushi Shiraishi for reporting this issues.
+
+
 tableone 0.6.0 (2014-05-31)
 ----------------------------------------------------------------
 
@@ -38,7 +51,7 @@ tableone 0.3.5 (2014-03-07)
 
 BUG FIXES
 
-* Fixed problem with space insertion when empty strata are present.
+* Fixed a problem with space insertion when empty strata are present.
 
 * Thanks jomuller for bug reports and code suggestions for the
   following.
