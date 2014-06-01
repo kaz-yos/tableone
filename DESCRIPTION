@@ -17,5 +17,6 @@ Imports:
     e1071,
     gmodels
 Suggests:
-    survival
+    survival,
+    testthat
 URL: https://github.com/kaz-yos/tableone
