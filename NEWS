@@ -1,3 +1,16 @@
+tableone 0.6.2 (2014-06-01)
+----------------------------------------------------------------
+
+BUG FIXES
+
+* The testing of 1 x m table was problematic when a categorical
+  variable only have one level. chisq.test() returns Chi-squared
+  test for given probabilities (test for strata imbalance) in such
+  cases.
+
+* Special thanks to Atsushi Shiraishi for reporting this issues.
+
+
 tableone 0.6.1 (2014-06-01)
 ----------------------------------------------------------------
 
