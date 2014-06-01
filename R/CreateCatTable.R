@@ -112,7 +112,8 @@ CreateCatTable <-
     ## Probably this cannot handle Surv object??
     logiNotFactor <- sapply(dat, function(VEC) {
         ## Return TRUE if classes for a vector does NOT contain class "factor"
-        !any(VEC %in% c("factor"))
+        ## VEC is a vector of a variable in the dat data frame, use class
+        !any(class(VEC) %in% c("factor"))
     })
 
     dat[logiNotFactor] <- lapply(dat[logiNotFactor], factor)
