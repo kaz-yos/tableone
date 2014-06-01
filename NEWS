@@ -8,12 +8,7 @@ BUG FIXES
   all variables to factors, which deleted empty levels from factors
   and ordered factors.
 
-* The testing of 1 x m table was problematic when a categorical
-  variable only have one level. chisq.test() returns Chi-squared
-  test for given probabilities (test for strata imbalance) in such
-  cases.
-
-* Special thanks to Atsushi Shiraishi for reporting those issues.
+* Special thanks to Atsushi Shiraishi for reporting this issues.
 
 
 tableone 0.6.0 (2014-05-31)
