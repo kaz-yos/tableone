@@ -2,7 +2,7 @@
 ##'
 ##' Create an object summarizing all baseline variables optionally stratifying by one or more startifying variables and performing statistical tests. The object gives a table that is easy to use in medical research papers. See also \code{\link{print.TableOne}} and \code{\link{summary.TableOne}}.
 ##'
-##' @param vars Variables to be summarized given as a character vector. Factors are handled as categorical variables, whereas numeric variables are handled as continuous variables.
+##' @param vars Variables to be summarized given as a character vector. Factors are handled as categorical variables, whereas numeric variables are handled as continuous variables. If empty, all variables in the data frame specified in the data argument are used.
 ##' @param strata Stratifying (grouping) variable name(s) given as a character vector. If omitted, the overall results are returned.
 ##' @param data A data frame in which these variables exist. All variables (both vars and strata) must be in this data frame.
 ##' @param factorVars Numerically coded variables that should be handled as categorical variables given as a character vector. If omitted, only factors are considered categorical variables. If all categorical variables in the dataset are already factors, this option is not necessary. The variables specified here must also be specified in the \code{vars} argument.
@@ -103,6 +103,11 @@ CreateTableOne <-
 ### Data check
         ## Check if the data given is a dataframe
         ModuleStopIfNotDataFrame(data)
+
+        ## Check if vars argument is missing. If so, add all names in data.
+        if (missing(vars)) {
+            vars <- names(data)
+        }
 
         ## Check if variables exist. Drop them if not.
         vars <- ModuleReturnVarsExist(vars, data)
