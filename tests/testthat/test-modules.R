@@ -41,8 +41,8 @@ xtabs2[2,2] <- 50
 
 test_that("P-values are returned for appropriate 2x2 xtabs", {
     ## chisq.test
-    expect_that(ModuleTestSafe(xtabs1, chisq.test), equals(chisq.test(xtabs1)$p.value))
-    expect_that(ModuleTestSafe(xtabs2, chisq.test), equals(chisq.test(xtabs2)$p.value))
+    expect_that(ModuleTestSafe(xtabs1, chisq.test),  equals(chisq.test(xtabs1)$p.value))
+    expect_that(ModuleTestSafe(xtabs2, chisq.test),  equals(chisq.test(xtabs2)$p.value))
     ## fisher.test
     expect_that(ModuleTestSafe(xtabs1, fisher.test), equals(fisher.test(xtabs1)$p.value))
     expect_that(ModuleTestSafe(xtabs2, fisher.test), equals(fisher.test(xtabs2)$p.value))
@@ -58,8 +58,8 @@ class(xtabs4) <- c("xtabs", "table")
 
 test_that("P-values should be NA for 1xM xtabs", {
     ## chisq.test
-    expect_that(ModuleTestSafe(xtabs3, chisq.test), equals(NA))
-    expect_that(ModuleTestSafe(xtabs4, chisq.test), equals(NA))
+    expect_that(ModuleTestSafe(xtabs3, chisq.test),  equals(NA))
+    expect_that(ModuleTestSafe(xtabs4, chisq.test),  equals(NA))
     ## fisher.test
     expect_that(ModuleTestSafe(xtabs3, fisher.test), equals(NA))
     expect_that(ModuleTestSafe(xtabs4, fisher.test), equals(NA))
