@@ -11,11 +11,14 @@
 ##' Ian Fellows for developing the Deducer package, which this package is based on.
 ##'
 ##' Hadley Wickham for packaging advice and for creating tools this package was made with (roxygen2, devtools, testthat).
-##' 
-##' Yoshinobu Kanda for design advice.
-## and for (future) integration into \code{RcmdrPlugin.EZR}.
 ##'
-##' Members of the Facebook Organization of R Users for Medical Statistics in Japan (FORUMS-J) for testing pre-release versions.
+##' Yoshinobu Kanda for design advice and for integration into \code{RcmdrPlugin.EZR}.
+##'
+##' jomuller for a bug report and fix suggestion regarding handling of ordered factors.
+##'
+##' Raja Sriswan Mamidi for suggestions regarding alignment.
+##'
+##' Members of the Facebook Organization of R Users for Medical Statistics in Japan (FORUMS-J) for testing pre-release versions and suggestions.
 ##'
 ##' Developmental repository is on github. Your contributions are appreciated.
 ##'

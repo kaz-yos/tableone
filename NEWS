@@ -1,3 +1,14 @@
+tableone 0.6.0 (2014-05-31)
+----------------------------------------------------------------
+
+NEW FEATURES
+
+* The CreateTableOne function automatically use all variables
+  in the data frame given to the data argument, if the vars
+  argument is empty.
+* The printToggle argument added to ShowRegTable().
+
+
 tableone 0.5.0 (2014-04-14)
 ----------------------------------------------------------------
 
@@ -6,6 +17,7 @@ NEW FEATURES
 * The noSpaces argument was added to print.* functions. This allows
   removal of spaces added for alignment using fixed-width fonts.
   Use this option if you prefer to align your table in other software.
+  (Special thanks to Raja Sriswan Mamidi for suggestions)
 
 
 tableone 0.4.0 (2014-03-30)
@@ -18,6 +30,7 @@ NEW FEATURES
   print.TableOne. Previously, it was only available in
   print.CatTable. To accommodate this feature, insertLevel argument
   to insert an empty level column was added to print.ContTable.
+  (Special thanks to Yoshinobu Kanda for suggestions)
 
 
 tableone 0.3.5 (2014-03-07)
