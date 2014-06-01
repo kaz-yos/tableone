@@ -36,8 +36,9 @@ $(PKG_NAME)_$(PKG_VERSION).tar.gz: $(PKG_FILES)
 	R CMD build ../${PKG_NAME}
 
 ## (file target) NAMESPACE depends on *.R files, and excecute roxygen2 on these.
+## methods::is() is not automatically loaded by roxygen2 version 4
 NAMESPACE: $(R_FILES)
-	Rscript -e "library(roxygen2); roxygenize('.')"
+	Rscript -e "library(methods); library(roxygen2); roxygenize('.')"
 
 ## check requires the *.tar.gz file, and execute strict tests on it.
 check: $(PKG_NAME)_$(PKG_VERSION).tar.gz
