@@ -1,7 +1,7 @@
 Package: tableone
 Type: Package
 Title: Create "Table 1" to describe baseline characteristics
-Version: 0.6.1
+Version: 0.6.2
 Date: 2014-06-01
 Author: Kazuki Yoshida, Justin Bohn.
 Maintainer: Kazuki Yoshida <kazukiyoshida@mail.harvard.edu>
@@ -17,5 +17,6 @@ Imports:
     e1071,
     gmodels
 Suggests:
-    survival
+    survival,
+    testthat
 URL: https://github.com/kaz-yos/tableone

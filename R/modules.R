@@ -163,6 +163,7 @@ ModuleCreateStrataVarName <- function(obj) {
     paste0(names(attr(obj, "dimnames")), collapse = ":")
 }
 
+### ModuleTryCatchWE
 ## Try catch function           # Taken from demo(error.catching)
 ## Used to define non-failing functions, that return NA when there is an error
 ModuleTryCatchWE <- function(expr) {
@@ -176,13 +177,33 @@ ModuleTryCatchWE <- function(expr) {
          warning = W)
 }
 
+### ModuleTestSafe
 ## Function to perform non-failing tests (obj should be xtabs or formula)
 ModuleTestSafe <- function(obj, testFunction, testArgs = NULL) {
+
     ## Result from a function has to have $p.value element
     out <- ModuleTryCatchWE(do.call(testFunction, args = c(list(obj), testArgs))$p.value)
-    ## If it returns a numeric value, return it. Otherwise, return NA.
-    ifelse(is.numeric(out$value), out$value, NA)
+
+    ## If it contains a numeric value, return it. Otherwise, return NA.
+    pValue <- ifelse(is.numeric(out$value), out$value, NA)
+
+    ## When obj is an xtabs object
+    if (any(class(obj) %in% "xtabs")) {
+        ## and has 1 x M dimension, always return NA, and end there.
+        if (dim(obj)[1] == 1) {
+            ## ends here, returning NA
+            return(NA)
+
+        } else {
+            ## If obj is a multi-row xtabs object, return the p-value
+            pValue
+        }
+    } else {
+        ## If obj is not an xtabs (formula for continuous variables), return the p-value
+        pValue
+    }
 }
+
 
 ## Define special skewness and kurtosis functions that do not fail (SAS definitions)
 ModuleSasSkewness <- function(x) {
