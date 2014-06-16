@@ -1,3 +1,87 @@
+tableone 0.6.2 (2014-06-01)
+----------------------------------------------------------------
+
+BUG FIXES
+
+* The testing of 1 x m table was problematic when a categorical
+  variable only have one level. chisq.test() returns Chi-squared
+  test for given probabilities (test for strata imbalance) in such
+  cases. In this version, testing a 1 x m table always return NA,
+  as test for a cross table is not defined in this context.
+
+* Special thanks to Atsushi Shiraishi for reporting this issues.
+
+* Unit testing with the testthat package was added for some
+  functions. Thus, the testthat package was added as a suggested
+  package.
+
+
+tableone 0.6.1 (2014-06-01)
+----------------------------------------------------------------
+
+BUG FIXES
+
+* The algorithm CreateCatTable used to detect variables to convert
+  to factos had a bug. CreateCatTable was effectively (re-)converting
+  all variables to factors, which deleted empty levels from factors
+  and ordered factors.
+
+* Special thanks to Atsushi Shiraishi for reporting this issues.
+
+
+tableone 0.6.0 (2014-05-31)
+----------------------------------------------------------------
+
+NEW FEATURES
+
+* The CreateTableOne function automatically use all variables
+  in the data frame given to the data argument, if the vars
+  argument is empty.
+* The printToggle argument added to ShowRegTable().
+
+
+tableone 0.5.0 (2014-04-14)
+----------------------------------------------------------------
+
+NEW FEATURES
+
+* The noSpaces argument was added to print.* functions. This allows
+  removal of spaces added for alignment using fixed-width fonts.
+  Use this option if you prefer to align your table in other software.
+  (Special thanks to Raja Sriswan Mamidi for suggestions)
+
+
+tableone 0.4.0 (2014-03-30)
+----------------------------------------------------------------
+
+NEW FEATURES
+
+* The showAllLevels argument to show all levels of categorical
+  variables regardless of numbers of levels was added to
+  print.TableOne. Previously, it was only available in
+  print.CatTable. To accommodate this feature, insertLevel argument
+  to insert an empty level column was added to print.ContTable.
+  (Special thanks to Yoshinobu Kanda for suggestions)
+
+
+tableone 0.3.5 (2014-03-07)
+----------------------------------------------------------------
+
+BUG FIXES
+
+* Fixed a problem with space insertion when empty strata are present.
+
+* Thanks jomuller for bug reports and code suggestions for the
+  following.
+
+* Added more robust class assessment in CreateTableOne and
+  CreateCatTable, which now handles ordered factors correctly.
+  CreateTableOne also drops Surv object for safety.
+
+* "Dropped due to unsupported class" message has been fixed to
+  show variable names with spaces in between.
+
+
 tableone 0.3.4 (2014-03-04)
 ----------------------------------------------------------------
 

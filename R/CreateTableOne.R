@@ -2,10 +2,10 @@
 ##'
 ##' Create an object summarizing all baseline variables optionally stratifying by one or more startifying variables and performing statistical tests. The object gives a table that is easy to use in medical research papers. See also \code{\link{print.TableOne}} and \code{\link{summary.TableOne}}.
 ##'
-##' @param vars Variables to be summarized given as a character vector. Factors are handled as categorical variables, whereas numeric variables are handled as continuous variables.
+##' @param vars Variables to be summarized given as a character vector. Factors are handled as categorical variables, whereas numeric variables are handled as continuous variables. If empty, all variables in the data frame specified in the data argument are used.
 ##' @param strata Stratifying (grouping) variable name(s) given as a character vector. If omitted, the overall results are returned.
 ##' @param data A data frame in which these variables exist. All variables (both vars and strata) must be in this data frame.
-##' @param factorVars Numerically coded variables that should be handled as categorical variables given as a character vector. If omitted, only factors are considered categorical variables. If all categorical variables in the dataset are already factors, this option is not necessary.
+##' @param factorVars Numerically coded variables that should be handled as categorical variables given as a character vector. If omitted, only factors are considered categorical variables. If all categorical variables in the dataset are already factors, this option is not necessary. The variables specified here must also be specified in the \code{vars} argument.
 ##' @param test If TRUE, as in the default and there are more than two groups, groupwise comparisons are performed.
 ##' @param testNormal A function used to perform the normal assumption based tests. The default is \code{\link{oneway.test}}. This is equivalent of the t-test when there are only two groups.
 ##' @param argsNormal A named list of arguments passed to the function specified in \code{testNormal}. The default is \code{list(var.equal = TRUE)}, which makes it the ordinary ANOVA that assumes equal variance across groups.
@@ -77,6 +77,10 @@
 ##' print(tableOne, nonnormal = c("bili","chol","copper","alk.phos","trig"),
 ##'       exact = c("status","stage"), quote = TRUE)
 ##'
+##' ## If you want to center-align values in Word, use noSpaces option.
+##' print(tableOne, nonnormal = c("bili","chol","copper","alk.phos","trig"),
+##'       exact = c("status","stage"), quote = TRUE, noSpaces = TRUE)
+##'
 ##' @export
 CreateTableOne <-
     function(vars,                                      # character vector of variable names
@@ -100,6 +104,11 @@ CreateTableOne <-
         ## Check if the data given is a dataframe
         ModuleStopIfNotDataFrame(data)
 
+        ## Check if vars argument is missing. If so, add all names in data.
+        if (missing(vars)) {
+            vars <- names(data)
+        }
+
         ## Check if variables exist. Drop them if not.
         vars <- ModuleReturnVarsExist(vars, data)
 
@@ -120,24 +129,27 @@ CreateTableOne <-
         
         
         ## Get the classes of the variables
-        varClasses  <- sapply(data[vars], FUN=class)
-        ## Transform ordered factor as factor
-        ordered_factor<-names(varClasses[sapply(varClasses, FUN=function(x){  "ordered" %in% x })])
-        
-        for( name_ordered in ordered_factor){
-          data[,name_ordered] <- factor(data[,name_ordered],ordered=F)
-        }
-        
-        varClasses  <- sapply(data[vars], FUN=class)
-        varFactors  <- names(varClasses[varClasses == "factor"  | varClasses == "logical" | varClasses == "character"])
-        
-        
-        varNumerics <- names(varClasses[varClasses == "numeric" | varClasses == "integer"])
+
+        varClasses  <- lapply(data[vars], class)
+
+        ## Classify as varFactors if any one of these classes are contained
+        varFactors <-sapply(varClasses, function(VEC) {
+            any(VEC %in% c("factor", "ordered", "logical", "character"))
+        })
+        varFactors <- names(varFactors)[varFactors]
+
+        ## Classify as varNumerics if any one of these classes are contained
+        varNumerics <-sapply(varClasses, function(VEC) {
+            any(VEC %in% c("numeric", "integer"))
+        })
+        varNumerics <- names(varNumerics)[varNumerics]
 
         ## Drop variables that do not meet either because it is unsupported
         varDrop <- setdiff(vars, c(varFactors, varNumerics))
         if (length(varDrop) > 0) {
-            warning("Dropping variable(s) ", paste(varDrop,sep=", "), " due to unsupported class.\n")
+
+            warning("Dropping variable(s) ", paste0(varDrop, sep = " "),
+                    " due to unsupported class.\n")
             vars <- setdiff(vars, varDrop)
         }
 

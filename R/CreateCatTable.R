@@ -42,7 +42,7 @@
 ##'
 ##' ## If you need to show both levels for some 2-level factors, use cramVars
 ##' print(catTableOverall, cramVars = "hepato")
-##' 
+##'
 ##' ## Use the showAllLevels argument to see all levels for all variables.
 ##' print(catTableOverall, showAllLevels = TRUE)
 ##'
@@ -76,6 +76,9 @@
 ##' ## Excel does not mess up the cells.
 ##' print(catTableBySexTrt, exact = "ascites", quote = TRUE)
 ##'
+##' ## If you want to center-align values in Word, use noSpaces option.
+##' print(catTableBySexTrt, exact = "ascites", quote = TRUE, noSpaces = TRUE)
+##'
 ##' @export
 CreateCatTable <-
     function(vars,                                 # character vector of variable names
@@ -106,8 +109,14 @@ CreateCatTable <-
 
     ## Convert to a factor if it is not a factor already. (categorical version only)
     ## Not done on factors, to avoid dropping zero levels.
-    datNotFactor <- sapply(dat, class) != "factor"
-    dat[datNotFactor] <- lapply(dat[datNotFactor], factor)
+    ## Probably this cannot handle Surv object??
+    logiNotFactor <- sapply(dat, function(VEC) {
+        ## Return TRUE if classes for a vector does NOT contain class "factor"
+        ## VEC is a vector of a variable in the dat data frame, use class
+        !any(class(VEC) %in% c("factor"))
+    })
+
+    dat[logiNotFactor] <- lapply(dat[logiNotFactor], factor)
 
     ## Create strata data frame (data frame with only strata variables)
     strata <- ModuleReturnStrata(strata, data)

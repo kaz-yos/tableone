@@ -7,6 +7,7 @@
 ##' @param exp TRUE by default. You need to specify exp = FALSE if your model is has the indentity link function (linear regression, etc).
 ##' @param digits Number of digits to print for the main part.
 ##' @param pDigits Number of digits to print for the p-values.
+##' @param printToggle Whether to print the output. If FLASE, no output is created, and a matrix is invisibly returned.
 ##' @param quote Whether to show everything in quotes. The default is FALSE. If TRUE, everything including the row and column names are quoted so that you can copy it to Excel easily.
 ##' @return A matrix containing what you see is returned invisibly. You can capture it by assignment to an object.
 ##' @author Kazuki Yoshida
@@ -32,7 +33,7 @@
 ##' ShowRegTable(objCoxph, quote = TRUE)
 ##' 
 ##' @export
-ShowRegTable <- function(model, exp = TRUE, digits = 2, pDigits = 3, quote = FALSE) {
+ShowRegTable <- function(model, exp = TRUE, digits = 2, pDigits = 3, printToggle = TRUE, quote = FALSE) {
 
     ## Create formats
     fmt1 <- paste0("%.",  digits, "f")
@@ -41,7 +42,7 @@ ShowRegTable <- function(model, exp = TRUE, digits = 2, pDigits = 3, quote = FAL
     ## Obtain necessary data
     ## The model must have summary and confint methods
     modelCoef       <- coef(model)
-    modelConfInt    <- confint(model)
+    modelConfInt    <- suppressMessages(confint(model))
     modelSummaryMat <- coef(summary(model))
     modelP          <- modelSummaryMat[,ncol(modelSummaryMat)]
 
@@ -100,8 +101,10 @@ ShowRegTable <- function(model, exp = TRUE, digits = 2, pDigits = 3, quote = FAL
     }
 
 
-    ## Print the result
-    print(outMat, quote = quote)
+    ## Print the result if asked
+    if (printToggle) {
+        print(outMat, quote = quote)
+    }
 
     ## Invisibly return for capture as an object
     return(invisible(outMat))
