@@ -71,7 +71,7 @@ BUG FIXES
 
 * Fixed a problem with space insertion when empty strata are present.
 
-* Thanks jomuller for bug reports and code suggestions for the
+* Thanks Joris Muller for bug reports and code suggestions for the
   following.
 
 * Added more robust class assessment in CreateTableOne and
