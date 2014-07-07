@@ -126,7 +126,10 @@ CreateTableOne <-
         ## Toggle test FALSE if no strata is given
         test <- ModuleReturnFalseIfNoStrata(strata, test)
 
+        
+        
         ## Get the classes of the variables
+
         varClasses  <- lapply(data[vars], class)
 
         ## Classify as varFactors if any one of these classes are contained
@@ -144,6 +147,7 @@ CreateTableOne <-
         ## Drop variables that do not meet either because it is unsupported
         varDrop <- setdiff(vars, c(varFactors, varNumerics))
         if (length(varDrop) > 0) {
+
             warning("Dropping variable(s) ", paste0(varDrop, sep = " "),
                     " due to unsupported class.\n")
             vars <- setdiff(vars, varDrop)
