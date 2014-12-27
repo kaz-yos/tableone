@@ -1,0 +1,40 @@
+Introduction to tableone
+==================
+
+```{r, message = FALSE, tidy = FALSE, echo = F}
+## knitr configuration: http://yihui.name/knitr/options#chunk_options
+library(knitr)
+showMessage <- FALSE
+showWarning <- TRUE
+set_alias(w = "fig.width", h = "fig.height", res = "results")
+opts_chunk$set(comment = "##", error= TRUE, warning = showWarning, message = showMessage,
+               tidy = FALSE, cache = F, echo = T,
+               fig.width = 7, fig.height = 7, dev.args = list(family = "sans"))
+## for rgl
+knit_hooks$set(rgl = hook_rgl, webgl = hook_webgl)
+## for animation
+opts_knit$set(animation.fun = hook_ffmpeg_html)
+
+## R configuration
+options(width = 116, scipen = 5)
+```
+
+What is tableone?
+--------------------
+The tableone package is an R package that eases the construction of "Table 1", *i.e.,* patient baseline characteristics table commonly found in biomedical research papers.
+
+Load packages
+--------------------
+```{r}
+library(magrittr)
+
+```
+
+--------------------
+```{r}
+
+```
+
+
+--------------------
+- github repo: https://github.com/kaz-yos/tableone
