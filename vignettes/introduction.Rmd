@@ -7,13 +7,9 @@ library(knitr)
 showMessage <- FALSE
 showWarning <- TRUE
 set_alias(w = "fig.width", h = "fig.height", res = "results")
-opts_chunk$set(comment = "##", error= TRUE, warning = showWarning, message = showMessage,
+opts_chunk$set(comment = "", error= TRUE, warning = showWarning, message = showMessage,
                tidy = FALSE, cache = F, echo = T,
                fig.width = 7, fig.height = 7, dev.args = list(family = "sans"))
-## for rgl
-knit_hooks$set(rgl = hook_rgl, webgl = hook_webgl)
-## for animation
-opts_knit$set(animation.fun = hook_ffmpeg_html)
 
 ## R configuration
 options(width = 116, scipen = 5)
@@ -21,17 +17,40 @@ options(width = 116, scipen = 5)
 
 What is tableone?
 --------------------
-The tableone package is an R package that eases the construction of "Table 1", *i.e.,* patient baseline characteristics table commonly found in biomedical research papers.
+The tableone package is an R package that eases the construction of "Table 1", *i.e.*, patient baseline characteristics table commonly found in biomedical research papers. The packages can summarize both continuous and categorical variables mixed within one table. Categorical variables can be summarized as counts and/or percentages. Continuous variables can be summarized in the "normal" way (means and standard deviations) or "nonnormal" way (medians and interquartile ranges).
 
 Load packages
 --------------------
 ```{r}
-library(magrittr)
-
+## tableone package itself
+library(tableone)
+## survival pcakge for Mayo Clinic's PBC data
+library(survival)
+data(pbc)
 ```
 
+Demonstration single group summary
 --------------------
+
+The simplest use case is summarizing the whole dataset. You can just feed in the data frame to the main workhorse function CreateTableOne(). You can see there are 418 patients in the dataset.
 ```{r}
+CreateTableOne(data = pbc)
+```
+
+Most of the categorical variables are coded numerically, so we either have to transform then to factors in the dataset or use factorVars argument to transform them on-the-fly. Also it's a better practice to specify which variables to summarize by the vars argument, and exclude the ID variable(s). How do we know which ones are numerically-coded categorical variables? Please check your data dictionary (in this case help(pbc)).
+
+```{r}
+## Get variables names
+dput(names(pbc))
+## Vector of variables to summarize
+myVars <- c("time", "status", "trt", "age", "sex", "ascites", "hepato",
+          "spiders", "edema", "bili", "chol", "albumin", "copper", "alk.phos",
+          "ast", "trig", "platelet", "protime", "stage")
+## Vector of categorical variables that need transformation
+catVars <- c("status", "trt", "ascites", "hepato",
+             "spiders", "edema", "stage")
+
+CreateTableOne(vars = myVars, data = pbc, factorVars = catVars)
 
 ```
 
