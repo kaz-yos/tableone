@@ -1,7 +1,7 @@
 ## Avoid Mac files
 .DS_Store
 
-## Avoid git(hub) related
+## Avoid git(hub) related files
 \.git/*
 README.md
 
@@ -9,4 +9,4 @@ README.md
 Makefile
 tableone.Rcheck
 .*.tar.gz
-*.gif
+.*.gif
