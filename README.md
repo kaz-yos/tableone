@@ -16,10 +16,10 @@ The code being executed can be found in the introduction vignette.
 A higher quality version is available at YouTube: https://www.youtube.com/watch?v=IZgDKmOC0Wg&feature=youtu.be
 
 
-Table 1 in three lines
+tableone code example
 -------------------------------------------------------------------------------
 
-In this table, continuous and categorical variables can be ordered however you like. The p-valeus are from exact tests for pre-specified variables. For nonnormal variables, it shows median and IQR instead of mean and SD, and p-values are from nonparametric tests.
+In this table, continuous and categorical variables can be ordered however you like. The p-valeus are from exact tests for pre-specified variables. For nonnormal variables, it shows median and IQR instead of mean and SD, and p-values are from nonparametric tests. In this case, the dataset has been transformed so that categorical variables are factors.
 
 ```
 > tableOne <- CreateTableOne(vars = vars, strata = "trt", data = pbc)
