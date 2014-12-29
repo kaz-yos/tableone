@@ -13,10 +13,11 @@
 PKG_NAME=$(shell    grep -i ^package: DESCRIPTION | cut -d : -d \  -f 2)
 PKG_VERSION=$(shell grep -i ^version: DESCRIPTION | cut -d : -d \  -f 2)
 
-## Define files
+## Define files to check for updates
 R_FILES   := $(wildcard R/*.R)
 SRC_FILES := $(wildcard src/*) $(addprefix src/, $(COPY_SRC))
-PKG_FILES := DESCRIPTION NAMESPACE NEWS $(R_FILES) $(SRC_FILES)
+VIG_FILES := $(wildcard vignettes/*)
+PKG_FILES := DESCRIPTION NAMESPACE NEWS $(R_FILES) $(SRC_FILES) $(VIG_FILES)
 
 
 ## .PHONY to allow non-file targets (file targets should not be here)
@@ -65,3 +66,6 @@ list:
 	@echo
 	@echo "Source files:"
 	@echo $(SRC_FILES)
+	@echo
+	@echo "Vignettes:"
+	@echo $(VIG_FILES)

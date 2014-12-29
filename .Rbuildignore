@@ -1,15 +1,12 @@
 ## Avoid Mac files
 .DS_Store
 
-## Avoid git(hub) related
+## Avoid git(hub) related files
 \.git/*
 README.md
 
-## Avoid these temporary scripts
+## Avoid Makefile, testing-related files, and archives
 Makefile
-compile.sh
-man_create.R
-man/Rd2roxygen.R
-man/clean_comments.sh
 tableone.Rcheck
 .*.tar.gz
+.*.gif
