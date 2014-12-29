@@ -11,7 +11,7 @@ Examples
 
 The tableone package creates tables like the one below. In this table, continuous and categorical variables are ordered in an arbitrary order. The p-valeus are from exact tests for pre-specified variables. For nonnormal variables, it shows median and IQR instead of mean and SD, and test is via nonparametric tests.
 
-See also the demonstration here: http://rpubs.com/kaz_yos/tableone-demo-e
+You can watch how it works here: https://www.youtube.com/watch?v=IZgDKmOC0Wg&feature=youtu.be
 
 ```
 > tableOne <- CreateTableOne(vars = vars, strata = "trt", data = pbc)
