@@ -6,12 +6,18 @@ tableone (developmental repo)
 This package creates "Table 1", i.e., description of baseline patient characteristics, which is essential every medical research. This package provides functions to create such summaries for continuous and categorical variables, optionally with subgroup comparisons. The package was inspired by and based on descriptive statistics functions in Deducer, a Java-based GUI package by Ian Fellows. This package does not require GUI or Java, and intended for command-line users.
 
 
-Examples
+tableone screencast
 -------------------------------------------------------------------------------
 
-The tableone package creates tables like the one below. In this table, continuous and categorical variables are ordered in an arbitrary order. The p-valeus are from exact tests for pre-specified variables. For nonnormal variables, it shows median and IQR instead of mean and SD, and test is via nonparametric tests.
+![screencast](tableone.gif "screencast")
 
-You can watch how it works here: https://www.youtube.com/watch?v=IZgDKmOC0Wg&feature=youtu.be
+A higher quality version is available at YouTube: https://www.youtube.com/watch?v=IZgDKmOC0Wg&feature=youtu.be
+
+
+Code examples
+-------------------------------------------------------------------------------
+
+The tableone package creates tables like the one below. In this table, continuous and categorical variables can be ordered however you like. The p-valeus are from exact tests for pre-specified variables. For nonnormal variables, it shows median and IQR instead of mean and SD, and p-values are from nonparametric tests.
 
 ```
 > tableOne <- CreateTableOne(vars = vars, strata = "trt", data = pbc)
