@@ -18,5 +18,7 @@ Imports:
     gmodels
 Suggests:
     survival,
-    testthat
+    testthat,
+    knitr
 URL: https://github.com/kaz-yos/tableone
+VignetteBuilder: knitr
