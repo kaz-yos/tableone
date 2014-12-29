@@ -28,6 +28,8 @@ options(width = 116, scipen = 5)
 
 The tableone package is an R package that eases the construction of "Table 1", *i.e.*, patient baseline characteristics table commonly found in biomedical research papers. The packages can summarize both continuous and categorical variables mixed within one table. Categorical variables can be summarized as counts and/or percentages. Continuous variables can be summarized in the "normal" way (means and standard deviations) or "nonnormal" way (medians and interquartile ranges).
 
+A screencast demonstrating this vignette is available at: https://www.youtube.com/watch?v=IZgDKmOC0Wg&feature=youtu.be
+
 ## Load packages
 
 ```{r}
