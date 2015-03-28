@@ -9,6 +9,7 @@
 ##' @param pDigits Number of digits to print for the p-values.
 ##' @param printToggle Whether to print the output. If FLASE, no output is created, and a matrix is invisibly returned.
 ##' @param quote Whether to show everything in quotes. The default is FALSE. If TRUE, everything including the row and column names are quoted so that you can copy it to Excel easily.
+##' @param simpleCi Whether to calculate confidence interval by the default normal approximation method. The default is FALSE. If TRUE, the default normal approximation method is used. This may be used when the profile likelihood-based calculation takes too much time.
 ##' @return A matrix containing what you see is returned invisibly. You can capture it by assignment to an object.
 ##' @author Kazuki Yoshida
 ##' @examples
@@ -33,7 +34,12 @@
 ##' ShowRegTable(objCoxph, quote = TRUE)
 ##' 
 ##' @export
-ShowRegTable <- function(model, exp = TRUE, digits = 2, pDigits = 3, printToggle = TRUE, quote = FALSE) {
+ShowRegTable <- function(model, exp = TRUE, digits = 2, pDigits = 3, printToggle = TRUE,
+                         quote = FALSE, simpleCi = FALSE) {
+
+    if (simpleCi) {
+        confint <- confint.default
+    }
 
     ## Create formats
     fmt1 <- paste0("%.",  digits, "f")
