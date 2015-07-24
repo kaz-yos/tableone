@@ -139,7 +139,9 @@ print.svyContTable <- function(x,                       # ContTable object
                           ## Pick the first non-null element
                           n[!is.null(n)][1]
                           ## Convert NULL to 0
-                          ifelse(is.null(n), "0", as.character(n))
+                          ifelse(is.null(n),
+                                 "0",
+                                 sprintf(fmt = paste0("%.", digits, "f"), n))
                       },
                       simplify = TRUE) # vector with as many elements as strata
 
