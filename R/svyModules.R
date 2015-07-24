@@ -163,7 +163,8 @@ svyPropTable <- function(var, design) {
 }
 
 
-svyCatSummary <- function(var, design, includeNA = FALSE) {
+## This one works at a single variable level within a stratum
+svyCatSummaryForOneVar <- function(var, design, includeNA = FALSE) {
 
     ## Tables
     freqTab <- svyTable(var, design, includeNA)
@@ -178,27 +179,19 @@ svyCatSummary <- function(var, design, includeNA = FALSE) {
                p.miss      = missVec / nVec * 100,
                level       = names(freqTab),
                freq        = as.vector(freqTab),
-               percent     = as.vector(propTab),
-               cum.percent = cumsum(propTab),
+               percent     = as.vector(propTab) * 100,
+               cum.percent = cumsum(propTab) * 100,
                ## To protect against, level having <NA>
                row.names   = NULL)
 }
 
 
+## This one can take multiple variables and return a list
+svyCatSummary <- function(vars, design, includeNA = FALSE) {
 
+    sapply(vars, function(var) {
 
+        svyCatSummaryForOneVar(var, design, includeNA)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    }, simplify = FALSE)
+}
