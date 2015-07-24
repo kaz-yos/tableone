@@ -111,7 +111,11 @@ svyCreateContTable <-
     test <- ModuleReturnFalseIfNoStrata(strata, test)
 
     ## Create strata data frame (data frame with only strata variables)
-    strata <- ModuleReturnStrata(strata, data)
+    ## FIXME: This changes type of strata
+    strata <- ModuleReturnStrata(strata, data$variables)
+
+    ## Create a single stratification variable
+    strataVar <- do.call(interaction, strata)
 
 
     ## Handle non-numeric elements (intergers give TRUE, and pass)
@@ -129,11 +133,15 @@ svyCreateContTable <-
 
 
 ### Actual descriptive statistics are calculated here.
+
+    ## To implement
+    ## Create a single grouping variable from strata variables
+    ## Create a list of subgroup data by the grouping variable
+    ## Loop over each stratum with matrix forming function
+
+
     ## strata-functions-variable structure alternative 2014-01-22
     ## Devide by strata
-
-
-
     result <- by(data = dat, INDICES = strata, # INDICES can be a multi-column data frame
 
                  ## Work on each stratum
