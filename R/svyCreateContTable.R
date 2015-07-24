@@ -1,4 +1,4 @@
-##' Create an object summarizing continous variables
+##' Create an object summarizing continous variables for weighted dataset
 ##'
 ##' Create an object summarizing continous variables optionally stratifying by
 ##' one or more startifying variables and performing statistical tests. The
@@ -8,8 +8,8 @@
 ##' @param vars Variable(s) to be summarized given as a character vector.
 ##' @param strata Stratifying (grouping) variable name(s) given as a character vector. If omitted, the overall results are returned.
 ##' @param data A data frame in which these variables exist. All variables (both vars and strata) must be in this data frame.
-##' @param funcNames The functions to give the group size, number with missing values, proportion with missing values, mean, standard deviations, median, 25th percentile, 75th percentile, minimum, maximum, skewness (same definition as in SAS), kurtosis (same definition as in SAS). All of them can be seen in the summary method output. The print method uses subset of these. You can choose subset of them or reorder them. They are all configure to omit NA values (\code{na.rm = TRUE}).
-##' @param funcAdditional Additional functions can be given as a named list. For example, \code{list(sum = sum)}.
+##' @param funcNames Not available for weighted dataset
+##' @param funcAdditional Not available for weighted dataset
 ##' @param test If TRUE, as in the default and there are more than two groups, groupwise comparisons are performed. Both tests that assume normality and tests that do not are performed. Either one of the result can be obtained from the print method.
 ##' @param testNormal A function used to perform the normal assumption based tests. The default is \code{\link{oneway.test}}. This is equivalent of the t-test when there are only two groups.
 ##' @param argsNormal A named list of arguments passed to the function specified in \code{testNormal}. The default is \code{list(var.equal = TRUE)}, which makes it the ordinary ANOVA that assumes equal variance across groups.
@@ -79,17 +79,12 @@
 ##' print(contTableBySexTrt, nonnormal = nonNormalVars, quote = TRUE, noSpaces = TRUE)
 ##'
 ##' @export
-CreateContTable <-
+CreateContTableWt <-
     function(vars,                                   # character vector of variable names
              strata,                                 # character vector of variable names
              data,                                   # data frame
-             funcNames    = c(                      # can pick a subset of them
-                 "n","miss","p.miss",
-                 "mean","sd",
-                 "median","p25","p75","min","max",
-                 "skew","kurt"
-                 ),
-             funcAdditional,                        # named list of additional functions
+             funcNames = NULL,                       # Ignored
+             funcAdditional = NULL,                  # Ignored
              test          = TRUE,                   # Whether to put p-values
              testNormal    = oneway.test,            # test for normally distributed variables
              argsNormal    = list(var.equal = TRUE), # arguments passed to testNormal
@@ -101,8 +96,8 @@ CreateContTable <-
     ## require(e1071)      # for skewness and kurtosis
 
 ### Data check
-    ## Check if the data given is a dataframe
-    ModuleStopIfNotDataFrame(data)
+    ## Check if the data given is a survey design object
+    ModuleStopIfNotSurveyDesign(data)
 
     ## Check if variables exist. Drop them if not.
     vars <- ModuleReturnVarsExist(vars, data)

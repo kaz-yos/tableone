@@ -1,4 +1,4 @@
-##' Create an object summarizing categorical variables
+##' Create an object summarizing categorical variables for weighted data
 ##'
 ##' Create an object summarizing categorical variables optionally stratifying
 ##' by one or more startifying variables and performing statistical tests. The
@@ -80,7 +80,7 @@
 ##' print(catTableBySexTrt, exact = "ascites", quote = TRUE, noSpaces = TRUE)
 ##'
 ##' @export
-CreateCatTable <-
+CreateCatTableWt <-
     function(vars,                                 # character vector of variable names
              strata,                               # character vector of variable names
              data,                                 # data frame
