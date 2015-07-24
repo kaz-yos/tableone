@@ -93,7 +93,7 @@ svyCreateContTable <-
     ## Require dependencies (DELETE before CRAN release. Use Depends in DESCRIPTION)
     ## require(e1071)      # for skewness and kurtosis
 
-## Data check
+### Data check
     ## Check if the data given is a survey design object
     StopIfNotSurveyDesign(data)
 
@@ -103,9 +103,6 @@ svyCreateContTable <-
 
     ## Abort if no variables exist at this point
     ModuleStopIfNoVarsLeft(vars)
-
-    ## Extract necessary variables
-    dat <- data[vars]
 
     ## Toggle test FALSE if no strata
     test <- ModuleReturnFalseIfNoStrata(strata, test)
@@ -140,17 +137,19 @@ svyCreateContTable <-
     ## Create a list of subgroup data by the grouping variable
     ## Loop over each stratum with matrix forming function
 
-    result <- lapply(strataVarLevels, function(level) {
+    result <- sapply(strataVarLevels, function(level) {
 
         ## Create a matrix including vars X c(n,miss,...) matrix
         svyContSummary(vars, subset(data, strataVar == level))
-    })
+
+    }, simplify = FALSE)
+
     ## Make it a by object
     class(result) <- "by"
 
 
     ## Add stratification variable information as an attribute
-    if (length(result) > 1 ) {
+    if (length(result) > 1) {
         ## strataVarName from dimension headers
         strataVarName <- paste0(names(strata), collapse = ":")
         ## Add an attribute for the stratifying variable name
@@ -164,8 +163,9 @@ svyCreateContTable <-
     pValues <- NULL
 
 
-    ## Only when test is asked for
-    if (test == TRUE) {
+    ## Only when test is asked FOR
+    ## TEMPORALILY TURNED OFF
+    if (test & FALSE) {
 
         ## Create a single variable representation of multivariable stratification
         strataVar <- ModuleCreateStrataVarAsFactor(result, strata)
@@ -190,7 +190,7 @@ svyCreateContTable <-
 
     ## Return object
     ## Give an S3 class
-    class(result) <- c("ContTable", class(result))
+    class(result) <- c("svyContTable", "ContTable", class(result))
 
     ## Give additional attributes
     attributes(result) <- c(attributes(result),
