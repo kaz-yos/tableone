@@ -126,50 +126,12 @@ CreateContTableWt <-
     if(!all(sapply(dat, is.numeric))) {stop("Can only be run on numeric variables")}
 
 
-    ## Create indexes for default functions by partial string matching with the funcNames argument
-    funcIndexes <- pmatch(funcNames, c("n","miss","p.miss",
-                                       "mean","sd",
-                                       "median","p25","p75","min","max",
-                                       "skew","kurt"))
-    ## Remove NA
-    funcIndexes <- funcIndexes[!is.na(funcIndexes)]
-
-    ## Create a list of default functions
-    functions <- c("n"      = function(x) {length(x)},
-                   "miss"   = function(x) {sum(is.na(x))},
-                   "p.miss" = function(x) {(sum(is.na(x)) / length(x)) * 100},
-                   "mean"   = function(x) {mean(x, na.rm = TRUE)},
-                   "sd"     = function(x) {sd(x, na.rm = TRUE)},
-                   "median" = function(x) {median(x, na.rm = TRUE)},
-                   "p25"    = function(x) {quantile(x, probs = 0.25, na.rm = TRUE)},
-                   "p75"    = function(x) {quantile(x, probs = 0.75, na.rm = TRUE)},
-                   "min"    = function(x) {min(x, na.rm = TRUE)},
-                   "max"    = function(x) {max(x, na.rm = TRUE)},
-                   "skew"   = function(x) {ModuleSasSkewness(x)},
-                   "kurt"   = function(x) {ModuleSasKurtosis(x)}
-                   )
-
-    ## Keep only functions in use
-    functions <- functions[funcIndexes]
-
-    ## Check for additional functions
-    if(!missing(funcAdditional)) {
-
-        ## When additional functions are given
-        if(!is.list(funcAdditional) || is.null(names(funcAdditional))) {
-            ## Stop if not a named list
-            stop("funcAdditional must be a named list of functions")
-        }
-
-        ## If a named list is given, add to the vector of functions and their names
-        functions  <- c(functions, unlist(funcAdditional))
-        funcNames  <- c(funcNames, names(funcAdditional))
-    }
-
-
 ### Actual descriptive statistics are calculated here.
     ## strata-functions-variable structure alternative 2014-01-22
     ## Devide by strata
+    
+
+    
     result <- by(data = dat, INDICES = strata, # INDICES can be a multi-column data frame
 
                  ## Work on each stratum
