@@ -138,39 +138,67 @@ svyContSummary <- function(vars, design) {
 ###
 ### Helpers for categorical variable summary
 ################################################################################
+## These work on one variable at a time
 
-svyTable <- function(vars, design) {
-    form <- FormulaString(vars)
-    ## Remove missingness and mean
-    ## Bad behavior, but consistent with the unweighted version
-    res <- svytable(formula = as.formula(form), design = design)
+svyTable <- function(var, design, includeNA = FALSE) {
+    form <- FormulaString(var)
+
+    ## If including NA, redefine variable
+    if (includeNA) {
+        design$variables[, var] <- factor(design$variables[, var], exclude = NULL)
+    }
+
+    out <- svytable(formula = as.formula(form), design = design)
     out
 }
 
 
-svyLevel <- function(vars, design) {
-    names(svyTable(vars, design))
+svyLevel <- function(var, design) {
+    names(svyTable(var, design))
 }
 
 
-svyPropTable <- function(vars, design) {
-    prop.table(svyTable(vars, design))
+svyPropTable <- function(var, design) {
+    prop.table(svyTable(var, design))
 }
 
 
-svyCatSummary <- function(vars, design) {
+svyCatSummary <- function(var, design, includeNA = FALSE) {
 
-    ## Save for reuse
-    freqTab <- svyTable(vars, design)
-    propTab <- prop.table(freqTab),
-    nVec    <- svyN(vars, design)
-    missVec <- svyMiss(vars, design)
+    ## Tables
+    freqTab <- svyTable(var, design, includeNA)
+    propTab <- prop.table(freqTab)
+    nLevels <- length(freqTab)
+    ## Repeat as many as the levels
+    nVec    <- rep(svyN(var, design), nLevels)
+    missVec <- rep(svyMiss(var, design), nLevels)
 
-    data.frame(n = nVec,
-               miss = missVec,
-               p.miss = missVec / nVec * 100,
-               level = names(freqTab),
-               freq = freqTab, # This remains as a table
-               percent = propTab,
-               cum.percent = cumsum(propTab))
+    data.frame(n           = nVec,
+               miss        = missVec,
+               p.miss      = missVec / nVec * 100,
+               level       = names(freqTab),
+               freq        = as.vector(freqTab),
+               percent     = as.vector(propTab),
+               cum.percent = cumsum(propTab),
+               ## To protect against, level having <NA>
+               row.names   = NULL)
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
