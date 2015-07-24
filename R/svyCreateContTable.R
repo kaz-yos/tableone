@@ -111,12 +111,13 @@ svyCreateContTable <-
     test <- ModuleReturnFalseIfNoStrata(strata, test)
 
     ## Create strata data frame (data frame with only strata variables)
-    ## FIXME: This changes type of strata
+    ## FIXME: This changes type of strata; not a good practice
     strata <- ModuleReturnStrata(strata, data$variables)
 
     ## Create a single stratification variable
-    strataVar <- do.call(interaction, strata)
-
+    ## Keeps non-existing levels
+    strataVar       <- interaction(strata, sep = ":")
+    strataVarLevels <- levels(strataVar)
 
     ## Handle non-numeric elements (intergers give TRUE, and pass)
     if(any(!sapply(data$variables[vars], is.numeric))){
@@ -139,32 +140,19 @@ svyCreateContTable <-
     ## Create a list of subgroup data by the grouping variable
     ## Loop over each stratum with matrix forming function
 
+    result <- lapply(strataVarLevels, function(level) {
 
-    ## strata-functions-variable structure alternative 2014-01-22
-    ## Devide by strata
-    result <- by(data = dat, INDICES = strata, # INDICES can be a multi-column data frame
+        ## Create a matrix including vars X c(n,miss,...) matrix
+        svyContSummary(vars, subset(data, strataVar == level))
+    })
+    ## Make it a by object
+    class(result) <- "by"
 
-                 ## Work on each stratum
-                 FUN = function(strataDat) { # Work on each stratum through by()
-
-                     ## Loop for functions
-                     out <- sapply(X = functions,
-                                   FUN = function(fun) {
-
-                                       ## Loop for variables
-                                       sapply(X = strataDat, FUN = fun, simplify = TRUE)
-
-                                   }, simplify = FALSE)
-
-                     ## The 2nd-level loop does not simplify to avoid oversimplification
-                     ## when there is only one variable.
-                     do.call(cbind, out)
-                 })
 
     ## Add stratification variable information as an attribute
     if (length(result) > 1 ) {
         ## strataVarName from dimension headers
-        strataVarName <- ModuleCreateStrataVarName(result)
+        strataVarName <- paste0(names(strata), collapse = ":")
         ## Add an attribute for the stratifying variable name
         attributes(result) <- c(attributes(result),
                                 list(strataVarName = strataVarName))
