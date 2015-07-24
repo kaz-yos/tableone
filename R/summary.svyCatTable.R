@@ -95,8 +95,10 @@ summary.svyCatTable <- function(object, digits = 1, ...) {
                    DF
                }, simplify = FALSE)
 
-    ## Restore the dimnames through attributes()
-    attributes(CatTableCollapsed) <- c(attributes(CatTableCollapsed), attributes(CatTable))
+    ## Change to an array to use print.by()
+    CatTableCollapsed <- as.array(CatTableCollapsed)
+    ## Force dimname label as the strataVarName
+    names(dimnames(CatTableCollapsed)) <- attr(CatTable, "strataVarName")
 
     ## Print forcing the print.by method. Do not show row names.
     print.by(CatTableCollapsed, digits = digits, row.names = FALSE)

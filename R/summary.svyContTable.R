@@ -38,11 +38,15 @@
 ##' @export
 summary.svyContTable <- function(object, digits = 2, ...) {
 
-    ## Force class list
-    class(object) <- "list"
+    ## Save the initial object
+    ContTable <- object
+
+    ## Force an 1-dimensional array
+    object <- as.array(object)
+    names(dimnames(object)) <- attr(ContTable, "strataVarName")
 
     ## Just print as a list
-    print(object, digits = digits)
+    print.by(object, digits = digits)
 
     ## Print p-values if it exist
     if (!is.null(attributes(object)$pValues)) {
