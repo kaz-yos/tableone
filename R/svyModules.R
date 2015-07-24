@@ -51,7 +51,7 @@ svyMiss <- function(vars, design) {
     design$variables[vars] <- lapply(design$variables[vars], miss)
 
     ## Same for all variables, just use first
-    form <- paste0(" ~ ", vars, collapse = " + ")
+    form <- FormulaString(vars)
 
     res <- svytotal(x = as.formula(form), design = design)
     out <- as.vector(res)
@@ -67,7 +67,7 @@ svyPMiss <- function(vars, design) {
 
 svyMean <- function(vars, design) {
     ## Same for all variables, just use first
-    form <- paste0(" ~ ", vars, collapse = " + ")
+    form <- FormulaString(vars)
     ## Remove missingness and mean
     ## Bad behavior, but consistent with the unweighted version
     res <- svymean(x = as.formula(form), design = design, na.rm = TRUE)
@@ -79,7 +79,7 @@ svyMean <- function(vars, design) {
 
 svySd <- function(vars, design) {
     ## Same for all variables, just use first
-    form <- paste0(" ~ ", vars, collapse = " + ")
+    form <- FormulaString(vars)
     ## Remove missingness and var
     ## Bad behavior, but consistent with the unweighted version
     res <- svyvar(x = as.formula(form), design = design, na.rm = TRUE)
@@ -89,9 +89,10 @@ svySd <- function(vars, design) {
     sqrt(out)
 }
 
+
 svyQuant <- function(vars, design, q = 0.5) {
     ## Same for all variables, just use first
-    form <- paste0(" ~ ", vars, collapse = " + ")
+    form <- FormulaString(vars)
     ## Remove missingness and mean
     ## Bad behavior, but consistent with the unweighted version
     res <- svyquantile(x = as.formula(form), quantiles = q, design = design, na.rm = TRUE)
@@ -107,14 +108,14 @@ svyContSummary <- function(vars, design) {
     nVec    <- svyN(vars, design)
     missVec <- svyMiss(vars, design)
 
-    cbind(n = nVec,
-          miss = missVec,
+    cbind(n      = nVec,
+          miss   = missVec,
           p.miss = missVec / nVec * 100,
-          mean = svyMean(vars, design),
-          sd = svySd(vars, design),
+          mean   = svyMean(vars, design),
+          sd     = svySd(vars, design),
           median = svyQuant(vars, design, q = 0.5),
-          p25 = svyQuant(vars, design, q = 0.25),
-          p75 = svyQuant(vars, design, q = 0.75),
-          min = svyQuant(vars, design, q = 0),
-          max = svyQuant(vars, design, q = 1))
+          p25    = svyQuant(vars, design, q = 0.25),
+          p75    = svyQuant(vars, design, q = 0.75),
+          min    = svyQuant(vars, design, q = 0),
+          max    = svyQuant(vars, design, q = 1))
 }
