@@ -369,7 +369,7 @@ ModulePickAndFormatPValues <- function(TableObject, switchVec, pDigits) {
 ModuleReturnDimHeaders <- function(TableObject) {
 
     ## Add stratification information to the column header
-    if (length(TableObject) > 1 ) {
+    if (length(TableObject) > 1) {
         ## Create strata string
         strataString <- paste0("Stratified by ",
                                paste0(names(attr(TableObject, "dimnames")), collapse = ":"))

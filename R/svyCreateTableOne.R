@@ -1,4 +1,4 @@
-##' Create an object summarizing both categorical and continuous variables
+##' Create an object summarizing any variables for weighted data
 ##'
 ##' Create an object summarizing all baseline variables optionally stratifying by one or more startifying variables and performing statistical tests. The object gives a table that is easy to use in medical research papers. See also \code{\link{print.TableOne}} and \code{\link{summary.TableOne}}.
 ##'
@@ -83,22 +83,22 @@
 ##'
 ##' @export
 CreateTableOne <-
-    function(vars,                                      # character vector of variable names
-             strata,                                    # character vector of variable names
-             data,                                      # data frame
-             factorVars,                                # variables to be transformed to factors
-             test          = TRUE,                      # whether to put p-values
-             ## Test configuration for categorical data
-             testApprox    = chisq.test,                # function for approximation test
-             argsApprox    = list(correct = TRUE),      # arguments passed to testApprox
-             testExact     = fisher.test,               # function for exact test
-             argsExact     = list(workspace = 2*10^5),  # arguments passed to testExact
-             ## Test configuration for continuous data
-             testNormal    = oneway.test,               # test for normally distributed variables
-             argsNormal    = list(var.equal = TRUE),    # arguments passed to testNormal
-             testNonNormal = kruskal.test,              # test for nonnormally distributed variables
-             argsNonNormal = list(NULL)                 # arguments passed to testNonNormal
-             ) {
+function(vars,                                      # character vector of variable names
+         strata,                                    # character vector of variable names
+         data,                                      # data frame
+         factorVars,                                # variables to be transformed to factors
+         test          = TRUE,                      # whether to put p-values
+         ## Test configuration for categorical data
+         testApprox    = chisq.test,                # function for approximation test
+         argsApprox    = list(correct = TRUE),      # arguments passed to testApprox
+         testExact     = fisher.test,               # function for exact test
+         argsExact     = list(workspace = 2*10^5),  # arguments passed to testExact
+         ## Test configuration for continuous data
+         testNormal    = oneway.test,               # test for normally distributed variables
+         argsNormal    = list(var.equal = TRUE),    # arguments passed to testNormal
+         testNonNormal = kruskal.test,              # test for nonnormally distributed variables
+         argsNonNormal = list(NULL)                 # arguments passed to testNonNormal
+         ) {
 
 ### Data check
         ## Check if the data given is a dataframe
@@ -185,14 +185,14 @@ CreateTableOne <-
         ## Condition on the absence of factor/numeric
         if (length(varNumerics) == 0) {
             ## No numerics
-            cat('NOTE: no numeric/integer variables supplied, using CreateCatTable()\n')
+            message('NOTE: no numeric/integer variables supplied, using CreateCatTable()\n')
             CatTable <- do.call(CreateCatTable,
                                 args = c(list(vars = varFactors), argsCreateCatTable))
             return(CatTable)
 
         } else if (length(varFactors) == 0) {
             ## No factors
-            cat('NOTE: no factor/logical/character variables supplied, using CreateContTable()\n')
+            message('NOTE: no factor/logical/character variables supplied, using CreateContTable()\n')
             ContTable <- do.call(CreateContTable,
                                  args = c(list(vars = varNumerics), argsCreateContTable))
             return(ContTable)
