@@ -38,8 +38,11 @@
 ##' @export
 summary.svyContTable <- function(object, digits = 2, ...) {
 
-    ## Just call print.by
-    print.by(object, digits = digits)
+    ## Force class list
+    class(object) <- "list"
+
+    ## Just print as a list
+    print(object, digits = digits)
 
     ## Print p-values if it exist
     if (!is.null(attributes(object)$pValues)) {
