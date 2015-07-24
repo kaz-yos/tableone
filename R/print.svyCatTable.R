@@ -424,7 +424,8 @@ print.svyCatTable <- function(x,                        # CatTable object
     colnames(out) <- outColNames
 
     ## Add stratification information to the column header depending on the dimension
-    names(dimnames(out)) <- ModuleReturnDimHeaders(CatTable)
+    names(dimnames(out)) <- c("", paste0("Stratified by ",
+                                         attr(CatTable, "strataVarName")))
 
     ## Remove spaces if asked.
     out <- ModuleRemoveSpaces(mat = out, noSpaces = noSpaces)

@@ -302,7 +302,8 @@ print.svyContTable <- function(x,                       # ContTable object
     }
 
     ## Add stratification information to the column header depending on the dimension
-    names(dimnames(out)) <- ModuleReturnDimHeaders(ContTable)
+    names(dimnames(out)) <- c("", paste0("Stratified by ",
+                                         attr(ContTable, "strataVarName")))
 
     ## Remove spaces if asked.
     out <- ModuleRemoveSpaces(mat = out, noSpaces = noSpaces)
