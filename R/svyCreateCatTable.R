@@ -93,56 +93,75 @@ CreateCatTableWt <-
 
 ### Data check
     ## Check if the data given is a dataframe
-    ModuleStopIfNotDataFrame(data)
+    StopIfNotSurveyDesign(data)
 
     ## Check if variables exist. Drop them if not.
-    vars <- ModuleReturnVarsExist(vars, data)
+    vars <- ModuleReturnVarsExist(vars, data$variables)
 
     ## Abort if no variables exist at this point
     ModuleStopIfNoVarsLeft(vars)
 
-    ## Extract necessary variables (unused variables are not included in dat)
-    dat <- data[c(vars)]
-
     ## Toggle test FALSE if no strata
     test <- ModuleReturnFalseIfNoStrata(strata, test)
 
+    ## Create strata data frame (data frame with only strata variables)
+    ## FIXME: This changes type of strata; not a good practice
+    strata <- ModuleReturnStrata(strata, data$variables)
+
+    ## Create a single stratification variable
+    ## Keeps non-existing levels
+    strataVar       <- interaction(strata, sep = ":")
+    strataVarLevels <- levels(strataVar)
+
     ## Convert to a factor if it is not a factor already. (categorical version only)
     ## Not done on factors, to avoid dropping zero levels.
-    ## Probably this cannot handle Surv object??
-    logiNotFactor <- sapply(dat, function(VEC) {
+    logiNotFactor <- sapply(data$variables, function(v) {
         ## Return TRUE if classes for a vector does NOT contain class "factor"
-        ## VEC is a vector of a variable in the dat data frame, use class
-        !any(class(VEC) %in% c("factor"))
+        ## v is a vector of a variable in the data$variables data frame, use class
+        ## Ordered factor has c("ordered", "factor"), thus, %in% is necessary
+        !("factor" %in% class(v))
     })
 
-    dat[logiNotFactor] <- lapply(dat[logiNotFactor], factor)
-
-    ## Create strata data frame (data frame with only strata variables)
-    strata <- ModuleReturnStrata(strata, data)
+    data$variables[logiNotFactor] <- lapply(data$variables[logiNotFactor], factor)
 
 
 ### Actual descriptive statistics are calculated here.
 
-    ## strata--variable-CreateTableForOneVar structure
-    ## Devide by strata
-    result <- by(data = dat, INDICES = strata, # INDICES can be a multi-column data frame
+    ## To implement
+    ## Create a single grouping variable from strata variables
+    ## Create a list of subgroup data by the grouping variable
+    ## Loop over each stratum with matrix forming function
 
-                 ## Work on each stratum
-                 FUN = function(dfStrataDat) { # dfStrataDat should be a data frame
+    result <- sapply(strataVarLevels, function(level) {
 
-                     ## Loop for variables
-                     sapply(dfStrataDat,
-                            FUN = ModuleCreateTableForOneVar,
-                            simplify = FALSE)
+        ## Create a matrix including vars X c(n,miss,...) matrix
+        svyCatSummary(vars, subset(data, strataVar == level))
 
-                 }, simplify = FALSE)
+    }, simplify = FALSE)
 
+    ## Make it a by object
+    class(result) <- "by"
+
+    if (FALSE) {
+        ## strata--variable-CreateTableForOneVar structure
+        ## Devide by strata
+        result <- by(data = dat, INDICES = strata, # INDICES can be a multi-column data frame
+
+                     ## Work on each stratum
+                     FUN = function(dfStrataDat) { # dfStrataDat should be a data frame
+
+                         ## Loop for variables
+                         sapply(dfStrataDat,
+                                FUN = ModuleCreateTableForOneVar,
+                                simplify = FALSE)
+
+                     }, simplify = FALSE)
+    }
 
     ## Add stratification variable information as an attribute
-    if (length(result) > 1 ) {
+    if (length(result) > 1) {
         ## strataVarName from dimension headers
-        strataVarName <- ModuleCreateStrataVarName(result)
+        strataVarName <- paste0(names(strata), collapse = ":")
         ## Add an attribute for the stratifying variable name
         attributes(result) <- c(attributes(result),
                                 list(strataVarName = strataVarName))
