@@ -30,6 +30,20 @@ FormulaString <- function(vars) {
 
 
 ###
+### Helpers for both types of data
+################################################################################
+
+## Check for survey data; fail if not
+StopIfNotSurveyDesign <- function(data) {
+
+    if (c("survey.design2") %in% class(data)) {
+        stop("The data argument needs to be a survey design object.")
+    }
+
+}
+
+
+###
 ### Helpers for continuous variable summary
 ################################################################################
 

@@ -97,7 +97,7 @@ CreateContTableWt <-
 
 ### Data check
     ## Check if the data given is a survey design object
-    ModuleStopIfNotSurveyDesign(data)
+    StopIfNotSurveyDesign(data)
 
     ## Check if variables exist. Drop them if not.
     vars <- ModuleReturnVarsExist(vars, data)
