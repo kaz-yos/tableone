@@ -43,6 +43,7 @@ summary.svyCatTable <- function(object, digits = 1, ...) {
 
     ## Create format
     fmt <- paste0("%.", digits, "f")
+    varsNumeric <- c("n","miss","p.miss","freq","percent","cum.percent")
 
     ## Obtain collpased result within each stratum
     CatTableCollapsed <-
@@ -66,10 +67,9 @@ summary.svyCatTable <- function(object, digits = 1, ...) {
                                                   DF)
 
                                       ## Format percent and cum.percent
-                                      DF[c("p.miss","percent","cum.percent")] <-
-                                          lapply(X = DF[c("p.miss","percent","cum.percent")],
-                                                 FUN = sprintf,
-                                                 fmt = fmt)
+                                      DF[varsNumeric] <- lapply(X = DF[varsNumeric],
+                                                                FUN = sprintf,
+                                                                fmt = fmt)
 
                                       ## Make var and level a string
                                       DF[c("var","level")] <-

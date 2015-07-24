@@ -143,7 +143,9 @@ print.svyCatTable <- function(x,                        # CatTable object
                           ## Pick the first non-null element
                           n[!is.null(n)][1]
                           ## Convert NULL to 0
-                          ifelse(is.null(n), "0", as.character(n))
+                          ifelse(is.null(n),
+                                 "0",
+                                 sprintf(fmt = paste0("%.", digits, "f"), n))
                       },
                       simplify = TRUE) # vector with as many elements as strata
 
@@ -157,6 +159,7 @@ print.svyCatTable <- function(x,                        # CatTable object
 
     ## Create format for percent used in the loop
     fmt1 <- paste0("%.", digits, "f")
+    varsNumeric <- c("n","miss","p.miss","freq","percent","cum.percent")
 
     ## Obtain collpased result
     CatTableCollapsed <-
@@ -185,10 +188,9 @@ print.svyCatTable <- function(x,                        # CatTable object
                                                   DF)
 
                                       ## Format percent and cum.percent as strings
-                                      DF[c("p.miss","percent","cum.percent")] <-
-                                          lapply(X = DF[c("p.miss","percent","cum.percent")],
-                                                 FUN = sprintf,
-                                                 fmt = fmt1)
+                                      DF[varsNumeric] <- lapply(X = DF[varsNumeric],
+                                                                FUN = sprintf,
+                                                                fmt = fmt1)
 
 
                                       ## Make all variables strings (freq is an integer, so direct convert ok)
