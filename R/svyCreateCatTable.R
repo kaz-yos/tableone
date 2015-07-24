@@ -80,16 +80,16 @@
 ##' print(catTableBySexTrt, exact = "ascites", quote = TRUE, noSpaces = TRUE)
 ##'
 ##' @export
-CreateCatTableWt <-
-    function(vars,                                 # character vector of variable names
-             strata,                               # character vector of variable names
-             data,                                 # data frame
-             test  = TRUE,                         # whether to put p-values
-             testApprox = chisq.test,              # function for approximation test
-             argsApprox = list(correct = TRUE),   # arguments passed to testApprox
-             testExact  = fisher.test,             # function for exact test
-             argsExact  = list(workspace = 2*10^5) # arguments passed to testExact
-             ) {
+svyCreateCatTable <-
+function(vars,                                 # character vector of variable names
+         strata,                               # character vector of variable names
+         data,                                 # data frame
+         test  = TRUE,                         # whether to put p-values
+         testApprox = chisq.test,              # function for approximation test
+         argsApprox = list(correct = TRUE),   # arguments passed to testApprox
+         testExact  = fisher.test,             # function for exact test
+         argsExact  = list(workspace = 2*10^5) # arguments passed to testExact
+         ) {
 
 ### Data check
     ## Check if the data given is a dataframe
@@ -142,22 +142,6 @@ CreateCatTableWt <-
     ## Make it a by object
     class(result) <- "by"
 
-    if (FALSE) {
-        ## strata--variable-CreateTableForOneVar structure
-        ## Devide by strata
-        result <- by(data = dat, INDICES = strata, # INDICES can be a multi-column data frame
-
-                     ## Work on each stratum
-                     FUN = function(dfStrataDat) { # dfStrataDat should be a data frame
-
-                         ## Loop for variables
-                         sapply(dfStrataDat,
-                                FUN = ModuleCreateTableForOneVar,
-                                simplify = FALSE)
-
-                     }, simplify = FALSE)
-    }
-
     ## Add stratification variable information as an attribute
     if (length(result) > 1) {
         ## strataVarName from dimension headers
@@ -174,7 +158,8 @@ CreateCatTableWt <-
     listXtabs <- list()
 
     ## Only when test is asked for
-    if (test == TRUE) {
+    ## TURN OFF FOR THE TIME BEING
+    if (test & FALSE) {
 
         ## Create a single variable representation of multivariable stratification
         strataVar <- ModuleCreateStrataVarAsFactor(result, strata)
@@ -216,7 +201,7 @@ CreateCatTableWt <-
 
     ## Return object
     ## Give an S3 class
-    class(result) <- c("CatTable", class(result))
+    class(result) <- c("svyCatTable", "CatTable", class(result))
 
     ## Give additional attributes
     attributes(result) <- c(attributes(result),
