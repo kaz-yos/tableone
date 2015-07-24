@@ -97,10 +97,21 @@ svySd <- function(vars, design) {
     ## Remove missingness and var
     ## Bad behavior, but consistent with the unweighted version
     res <- svyvar(x = as.formula(form), design = design, na.rm = TRUE)
-    ## Diagnonal elements are variances
-    out <- sqrt(diag(res))
+
+
+    ## Diagnonal elements are variances given 2+ variables
+    if (length(vars) == 1) {
+
+        out <- as.vector(sqrt(res))
+
+    } else if (length(vars) > 1) {
+
+        ## Matrix if vars is of length 2+
+        out <- sqrt(diag(res))
+    }
+
     names(out) <- vars
-    sqrt(out)
+    out
 }
 
 
