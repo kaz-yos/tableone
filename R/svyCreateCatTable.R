@@ -84,9 +84,10 @@ svyCreateCatTable <-
 function(vars,                                 # character vector of variable names
          strata,                               # character vector of variable names
          data,                                 # data frame
+         includeNA = FALSE,                    # include NA as a category
          test  = TRUE,                         # whether to put p-values
          testApprox = chisq.test,              # function for approximation test
-         argsApprox = list(correct = TRUE),   # arguments passed to testApprox
+         argsApprox = list(correct = TRUE),    # arguments passed to testApprox
          testExact  = fisher.test,             # function for exact test
          argsExact  = list(workspace = 2*10^5) # arguments passed to testExact
          ) {
@@ -124,6 +125,22 @@ function(vars,                                 # character vector of variable na
 
     data$variables[logiNotFactor] <- lapply(data$variables[logiNotFactor], factor)
 
+    ## If including NA as a level, include NA as a factor level before subsetting
+    if (includeNA) {
+        ## Logical vector for variables that have any NA
+        logiAnyNA <- (colSums(is.na(data$variables)) > 0)
+
+        ## Add NA as a new level unless already present
+        data$variables[logiAnyNA] <-
+                                    lapply(data$variables[logiAnyNA],
+                                           function(var) {
+                                               if (all(!is.na(levels(var)))) {
+                                                   var <- factor(var, c(levels(var), NA),
+                                                                 exclude = NULL)
+                                               }
+                                               var
+                                           })
+    }
 
 ### Actual descriptive statistics are calculated here.
 

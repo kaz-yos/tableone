@@ -140,14 +140,8 @@ svyContSummary <- function(vars, design) {
 ################################################################################
 ## These work on one variable at a time
 
-svyTable <- function(var, design, includeNA = FALSE) {
+svyTable <- function(var, design) {
     form <- FormulaString(var)
-
-    ## If including NA, redefine variable
-    if (includeNA) {
-        design$variables[, var] <- factor(design$variables[, var], exclude = NULL)
-    }
-
     out <- svytable(formula = as.formula(form), design = design)
     out
 }
@@ -164,10 +158,10 @@ svyPropTable <- function(var, design) {
 
 
 ## This one works at a single variable level within a stratum
-svyCatSummaryForOneVar <- function(var, design, includeNA = FALSE) {
+svyCatSummaryForOneVar <- function(var, design) {
 
     ## Tables
-    freqTab <- svyTable(var, design, includeNA)
+    freqTab <- svyTable(var, design)
     propTab <- prop.table(freqTab)
     nLevels <- length(freqTab)
     ## Repeat as many as the levels
@@ -187,11 +181,11 @@ svyCatSummaryForOneVar <- function(var, design, includeNA = FALSE) {
 
 
 ## This one can take multiple variables and return a list
-svyCatSummary <- function(vars, design, includeNA = FALSE) {
+svyCatSummary <- function(vars, design) {
 
     sapply(vars, function(var) {
 
-        svyCatSummaryForOneVar(var, design, includeNA)
+        svyCatSummaryForOneVar(var, design)
 
     }, simplify = FALSE)
 }
