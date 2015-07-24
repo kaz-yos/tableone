@@ -93,18 +93,19 @@ svyCreateContTable <-
     ## Require dependencies (DELETE before CRAN release. Use Depends in DESCRIPTION)
     ## require(e1071)      # for skewness and kurtosis
 
-### Data check
+## Data check
     ## Check if the data given is a survey design object
     StopIfNotSurveyDesign(data)
 
     ## Check if variables exist. Drop them if not.
-    vars <- ModuleReturnVarsExist(vars, data)
+    ## survey.design$variables holds original data frame
+    vars <- ModuleReturnVarsExist(vars, data$variables)
 
     ## Abort if no variables exist at this point
     ModuleStopIfNoVarsLeft(vars)
 
     ## Extract necessary variables
-    dat <- data[c(vars)]
+    dat <- data[vars]
 
     ## Toggle test FALSE if no strata
     test <- ModuleReturnFalseIfNoStrata(strata, test)
@@ -114,22 +115,25 @@ svyCreateContTable <-
 
 
     ## Handle non-numeric elements (intergers give TRUE, and pass)
-    if(any(!sapply(dat, is.numeric))){
+    if(any(!sapply(data$variables[vars], is.numeric))){
+
         ## If there is any non-numeric variables
-        dat <- dat[sapply(dat, is.numeric)]
+        vars <- vars[sapply(data$variables[vars], is.numeric)]
         warning("Non-numeric variables dropped")
     }
 
     ## Check if all the variables are continuous, and stop if not
-    if(!all(sapply(dat, is.numeric))) {stop("Can only be run on numeric variables")}
+    if(!all(sapply(data$variables[vars], is.numeric))) {
+        stop("Can only be run on numeric variables")
+    }
 
 
 ### Actual descriptive statistics are calculated here.
     ## strata-functions-variable structure alternative 2014-01-22
     ## Devide by strata
-    
 
-    
+
+
     result <- by(data = dat, INDICES = strata, # INDICES can be a multi-column data frame
 
                  ## Work on each stratum
