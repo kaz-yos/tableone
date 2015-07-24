@@ -79,12 +79,10 @@
 ##' print(contTableBySexTrt, nonnormal = nonNormalVars, quote = TRUE, noSpaces = TRUE)
 ##'
 ##' @export
-CreateContTableWt <-
+svyCreateContTable <-
     function(vars,                                   # character vector of variable names
              strata,                                 # character vector of variable names
-             data,                                   # data frame
-             funcNames = NULL,                       # Ignored
-             funcAdditional = NULL,                  # Ignored
+             data,                                   # survey design data
              test          = TRUE,                   # Whether to put p-values
              testNormal    = oneway.test,            # test for normally distributed variables
              argsNormal    = list(var.equal = TRUE), # arguments passed to testNormal
