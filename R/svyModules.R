@@ -133,3 +133,44 @@ svyContSummary <- function(vars, design) {
           min    = svyQuant(vars, design, q = 0),
           max    = svyQuant(vars, design, q = 1))
 }
+
+
+###
+### Helpers for categorical variable summary
+################################################################################
+
+svyTable <- function(vars, design) {
+    form <- FormulaString(vars)
+    ## Remove missingness and mean
+    ## Bad behavior, but consistent with the unweighted version
+    res <- svytable(formula = as.formula(form), design = design)
+    out
+}
+
+
+svyLevel <- function(vars, design) {
+    names(svyTable(vars, design))
+}
+
+
+svyPropTable <- function(vars, design) {
+    prop.table(svyTable(vars, design))
+}
+
+
+svyCatSummary <- function(vars, design) {
+
+    ## Save for reuse
+    freqTab <- svyTable(vars, design)
+    propTab <- prop.table(freqTab),
+    nVec    <- svyN(vars, design)
+    missVec <- svyMiss(vars, design)
+
+    data.frame(n = nVec,
+               miss = missVec,
+               p.miss = missVec / nVec * 100,
+               level = names(freqTab),
+               freq = freqTab, # This remains as a table
+               percent = propTab,
+               cum.percent = cumsum(propTab))
+}
