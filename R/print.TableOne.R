@@ -117,7 +117,7 @@ print.TableOne <- function(x,                   # TableOne object
 
                                   ## print.CatTable or print.ContTable called depending on the class
                                   print(TableOne[[i]], printToggle = FALSE, test = test, explain = explain,
-                                        digits = digits[i],
+                                        digits = digits[i], pDigits = pDigits,
 
                                         ## print.CatTable arguments
                                         format = format, exact = exact,
