@@ -77,3 +77,99 @@ test_that("P-values should be NA for 1xM xtabs", {
 })
 
 
+
+### Regression tests
+################################################################################
+
+library(survival)
+data(pbc)
+
+## Make categorical variables factors
+varsToFactor <- c("status","trt","ascites","hepato","spiders","edema","stage")
+pbc[varsToFactor] <- lapply(pbc[varsToFactor], factor)
+
+## Create a variable list
+dput(names(pbc))
+vars <- c("time","status","age","sex","ascites","hepato",
+          "spiders","edema","bili","chol","albumin",
+          "copper","alk.phos","ast","trig","platelet",
+          "protime","stage")
+
+
+tableOne <- CreateTableOne(vars = vars, strata = c("trt"), data = pbc)
+
+
+## Specifying nonnormal variables will show the variables appropriately,
+## and show nonparametric test p-values. Specify variables in the exact
+## argument to obtain the exact test p-values.
+print(tableOne, nonnormal = c("bili","chol","copper","alk.phos","trig"),
+      exact = c("status","stage"))
+
+test_that("Regression test", {
+
+
+    ## Expectations
+    res1 <- structure(c("158", "2015.62 (1094.12)", "     ", "     83 (52.5) ",
+"     10 ( 6.3) ", "     65 (41.1) ", "  51.42 (11.01)", "    137 (86.7) ",
+"     14 (8.9) ", "     73 (46.2) ", "     45 (28.5) ", "    ",
+"    132 (83.5) ", "     16 (10.1) ", "     10 ( 6.3) ", "   2.87 (3.63)",
+" 365.01 (209.54)", "   3.52 (0.44)", "  97.64 (90.59)", "2021.30 (2183.44)",
+" 120.21 (54.52)", " 124.14 (71.54)", " 258.75 (100.32)", "  10.65 (0.85)",
+"     ", "     12 ( 7.6) ", "     35 (22.2) ", "     56 (35.4) ",
+"     55 (34.8) ", "154", "1996.86 (1155.93)", "     ", "     85 (55.2) ",
+"      9 ( 5.8) ", "     60 (39.0) ", "  48.58 (9.96)", "    139 (90.3) ",
+"     10 (6.5) ", "     87 (56.5) ", "     45 (29.2) ", "    ",
+"    131 (85.1) ", "     13 ( 8.4) ", "     10 ( 6.5) ", "   3.65 (5.28)",
+" 373.88 (252.48)", "   3.52 (0.40)", "  97.65 (80.49)", "1943.01 (2101.69)",
+" 124.97 (58.93)", " 125.25 (58.52)", " 265.20 (90.73)", "  10.80 (1.14)",
+"     ", "      4 ( 2.6) ", "     32 (20.8) ", "     64 (41.6) ",
+"     54 (35.1) ", "", " 0.883", " 0.894", "", "", "", " 0.018",
+" 0.421", " 0.567", " 0.088", " 0.985", " 0.877", "", "", "",
+" 0.131", " 0.748", " 0.874", " 0.999", " 0.747", " 0.460", " 0.886",
+" 0.555", " 0.197", " 0.201", "", "", "", "", "", "", "", "",
+"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
+"", "", "", "", "", "", "", "", ""), .Dim = c(29L, 4L), .Dimnames = structure(list(
+    c("n", "time (mean (sd))", "status (%)", "   0", "   1",
+    "   2", "age (mean (sd))", "sex = f (%)", "ascites = 1 (%)",
+    "hepato = 1 (%)", "spiders = 1 (%)", "edema (%)", "   0",
+    "   0.5", "   1", "bili (mean (sd))", "chol (mean (sd))",
+    "albumin (mean (sd))", "copper (mean (sd))", "alk.phos (mean (sd))",
+    "ast (mean (sd))", "trig (mean (sd))", "platelet (mean (sd))",
+    "protime (mean (sd))", "stage (%)", "   1", "   2", "   3",
+    "   4"), `Stratified by trt` = c("1", "2", "p", "test")), .Names = c("",
+"Stratified by trt")))
+    expect_equal(print(tableOne, printToggle = FALSE), res1)
+
+    res2 <- structure(c("158", "2015.62 (1094.12)", "     ", "     83 (52.5) ",
+"     10 ( 6.3) ", "     65 (41.1) ", "  51.42 (11.01)", "    137 (86.7) ",
+"     14 (8.9) ", "     73 (46.2) ", "     45 (28.5) ", "    ",
+"    132 (83.5) ", "     16 (10.1) ", "     10 ( 6.3) ", "   1.40 [0.80, 3.20]",
+" 315.50 [247.75, 417.00]", "   3.52 (0.44)", "  73.00 [40.00, 121.00]",
+"1214.50 [840.75, 2028.00]", " 120.21 (54.52)", " 106.00 [84.50, 146.00]",
+" 258.75 (100.32)", "  10.65 (0.85)", "     ", "     12 ( 7.6) ",
+"     35 (22.2) ", "     56 (35.4) ", "     55 (34.8) ", "154",
+"1996.86 (1155.93)", "     ", "     85 (55.2) ", "      9 ( 5.8) ",
+"     60 (39.0) ", "  48.58 (9.96)", "    139 (90.3) ", "     10 (6.5) ",
+"     87 (56.5) ", "     45 (29.2) ", "    ", "    131 (85.1) ",
+"     13 ( 8.4) ", "     10 ( 6.5) ", "   1.30 [0.72, 3.60]",
+" 303.50 [254.25, 377.00]", "   3.52 (0.40)", "  73.00 [43.00, 139.00]",
+"1283.00 [922.50, 1949.75]", " 124.97 (58.93)", " 113.00 [84.50, 155.00]",
+" 265.20 (90.73)", "  10.80 (1.14)", "     ", "      4 ( 2.6) ",
+"     32 (20.8) ", "     64 (41.6) ", "     54 (35.1) ", "",
+" 0.883", " 0.884", "", "", "", " 0.018", " 0.421", " 0.567",
+" 0.088", " 0.985", " 0.877", "", "", "", " 0.842", " 0.544",
+" 0.874", " 0.717", " 0.812", " 0.460", " 0.370", " 0.555", " 0.197",
+" 0.205", "", "", "", "", "", "", "exact", "", "", "", "", "",
+"", "", "", "", "", "", "", "nonnorm", "nonnorm", "", "nonnorm",
+"nonnorm", "", "nonnorm", "", "", "exact", "", "", "", ""), .Dim = c(29L,
+4L), .Dimnames = structure(list(c("n", "time (mean (sd))", "status (%)",
+"   0", "   1", "   2", "age (mean (sd))", "sex = f (%)", "ascites = 1 (%)",
+"hepato = 1 (%)", "spiders = 1 (%)", "edema (%)", "   0", "   0.5",
+"   1", "bili (median [IQR])", "chol (median [IQR])", "albumin (mean (sd))",
+"copper (median [IQR])", "alk.phos (median [IQR])", "ast (mean (sd))",
+"trig (median [IQR])", "platelet (mean (sd))", "protime (mean (sd))",
+"stage (%)", "   1", "   2", "   3", "   4"), `Stratified by trt` = c("1",
+"2", "p", "test")), .Names = c("", "Stratified by trt")))
+    expect_equal(print(tableOne, nonnormal = c("bili","chol","copper","alk.phos","trig"),
+                       exact = c("status","stage"), printToggle = FALSE), res2)
+})
