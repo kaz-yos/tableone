@@ -11,7 +11,6 @@
 ### Prepare environment
 ################################################################################
 library(testthat)
-library(tableone)
 library(survey)
 
 
