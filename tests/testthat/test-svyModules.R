@@ -259,7 +259,10 @@ test_that("Statistical test wrappers work", {
     ## ANOVA equivalent
     expect_true(regTermTest(svyglm(Y ~ E, datSvy), test.terms = "E")$p[1,1] ==  svyTestNormal("Y ~ E", design = datSvy, test.terms = "E", method = "Wald"))
 
-    ## Kruskal-Wallis test equivalent
+    ## Kruskal-Wallis test equivalent (the whole htest object match)
     expect_equal(svyranktest(Y ~ E, datSvy), svyTestNonNormal("Y ~ E", design = datSvy))
+
+    ## Chi-squared test equivalent (the whole thing had partial mismatch)
+    expect_equal(svychisq(~ C1 + E, datSvy)$p.value, svyTestChisq("~ C1 + E", design = datSvy)$p.value)
 
 })

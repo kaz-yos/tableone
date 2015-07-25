@@ -224,9 +224,17 @@ svyTestNormal <- function(formulaString, design, test.terms, method) {
     list(p.value = out$p[1,1])
 }
 
+
+## Kruskal-Wallis test
 svyTestNonNormal <- function(formulaString, design) {
 
-    ## Kruskal.test-like test
     ## This returns an htest object that has a scalar $p.value element
     svyranktest(formula = as.formula(formulaString), design = design)
+}
+
+
+svyTestChisq <- function(formulaString, design) {
+
+    ## This returns an htest object that has a scalar $p.value element
+    svychisq(formula = as.formula(formulaString), design = design)
 }
