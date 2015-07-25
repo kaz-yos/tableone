@@ -185,14 +185,14 @@ CreateTableOne <-
         ## Condition on the absence of factor/numeric
         if (length(varNumerics) == 0) {
             ## No numerics
-            cat('NOTE: no numeric/integer variables supplied, using CreateCatTable()\n')
+            message('NOTE: no numeric/integer variables supplied, using CreateCatTable()\n')
             CatTable <- do.call(CreateCatTable,
                                 args = c(list(vars = varFactors), argsCreateCatTable))
             return(CatTable)
 
         } else if (length(varFactors) == 0) {
             ## No factors
-            cat('NOTE: no factor/logical/character variables supplied, using CreateContTable()\n')
+            message('NOTE: no factor/logical/character variables supplied, using CreateContTable()\n')
             ContTable <- do.call(CreateContTable,
                                  args = c(list(vars = varNumerics), argsCreateContTable))
             return(ContTable)
