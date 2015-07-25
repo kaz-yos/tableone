@@ -80,15 +80,15 @@
 ##'
 ##' @export
 svyCreateContTable <-
-    function(vars,                                   # character vector of variable names
-             strata,                                 # character vector of variable names
-             data,                                   # survey design data
-             test          = TRUE,                   # Whether to put p-values
-             testNormal    = oneway.test,            # test for normally distributed variables
-             argsNormal    = list(var.equal = TRUE), # arguments passed to testNormal
-             testNonNormal = kruskal.test,           # test for nonnormally distributed variables
-             argsNonNormal = list(NULL)              # arguments passed to testNonNormal
-             ) {
+function(vars,                                  # character vector of variable names
+         strata,                                # character vector of variable names
+         data,                                  # survey design data
+         test          = TRUE,                  # Whether to put p-values
+         testNormal    = svyTestNormal,         # test for normally distributed variables
+         argsNormal    = list(method = "Wald"), # arguments passed to testNormal
+         testNonNormal = svyTestNonNormal,      # test for nonnormally distributed variables
+         argsNonNormal = list(NULL)             # arguments passed to testNonNormal
+         ) {
 
     ## Require dependencies (DELETE before CRAN release. Use Depends in DESCRIPTION)
     ## require(e1071)      # for skewness and kurtosis
@@ -164,24 +164,29 @@ svyCreateContTable <-
 
 
     ## Only when test is asked FOR
-    ## TEMPORALILY TURNED OFF
-    if (test & FALSE) {
+    if (test) {
 
+        ## This is not necessary as it has already been created as ..strataVar...
         ## Create a single variable representation of multivariable stratification
-        strataVar <- ModuleCreateStrataVarAsFactor(result, strata)
+        ## strataVar <- ModuleCreateStrataVarAsFactor(result, strata)
 
         ## Loop over variables in dat, and obtain p values for two tests
         ## DF = 6 when there are 8 levels (one empty), i.e., empty strata dropped by oneway.test/kruskal.test
         pValues <-
-            sapply(X = dat,
-                   FUN = function(var) {
-                       ## Perform tests and return the result as 1x2 DF
-                       data.frame(
-                           pNormal    = ModuleTestSafe(var ~ strataVar, testNormal,    argsNormal),
-                           pNonNormal = ModuleTestSafe(var ~ strataVar, testNonNormal, argsNonNormal)
-                           )
-                   },
-                   simplify = FALSE)
+        sapply(X = vars,
+               FUN = function(var) {
+
+                   ## Create a formula as a string
+                   formulaString <- paste0(var, " ~ ..strataVar..")
+
+                   ## Perform tests and return the result as 1x2 DF
+                   ## The test functions should take a formula string as their first argument.
+                   data.frame(pNormal    = ModuleTestSafe(formulaString, testNormal,
+                                                          c(list(design = data, test.terms = var), argsNormal)),
+                              pNonNormal = ModuleTestSafe(formulaString, testNonNormal,
+                                                          c(list(design = data), argsNonNormal)))
+               },
+               simplify = FALSE)
 
         ## Create a single data frame (n x 2 (normal,nonormal))
         pValues <- do.call(rbind, pValues)

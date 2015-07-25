@@ -113,7 +113,6 @@ svyCreateTableOne <-
         vars <- ModuleReturnVarsExist(vars, data$variables)
 
         ## Abort if no variables exist at this point
-
         ModuleStopIfNoVarsLeft(vars)
 
         ## Factor conversions if the factorVars argument exist
