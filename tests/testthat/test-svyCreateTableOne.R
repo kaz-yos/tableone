@@ -16,7 +16,7 @@ library(survey)
 
 ### Context (1 for each file)
 ################################################################################
-context("Unit tests for the survey-related modules")
+context("Unit tests for svy* user functions")
 
 
 
@@ -45,6 +45,10 @@ datMw[c(1,150), "Y"] <- NA
 ## Create a survey design object
 datSvy <- svydesign(ids = ~ 1, data = datMw, weights = ~ Mw)
 
+## Create a variable list
+vars <- c("E", "C", "Y", "C1", "C2")
+factorVars <- c("Y","C1")
+
 
 ### Tests
 ################################################################################
@@ -55,23 +59,31 @@ datSvy <- svydesign(ids = ~ 1, data = datMw, weights = ~ Mw)
 
 test_that("data assessment detects anomalies", {
 
-    ## Should give
     ## Error in ModuleStopIfNoVarsLeft(vars) (from modules.R#52) : No valid variables.
     ## In addition: Warning message:
     ## In ModuleReturnVarsExist(vars, data$variables) :
     ##   The data frame does not have: none  Dropped
     expect_warning(expect_error(svyCreateTableOne(vars = "non-existent", data = datSvy),
-                                "No valid variables."),
+                                "No valid variables"),
                    "The data frame does not have: non-existent  Dropped")
 
-    ## Should give
+
+    ## Error in StopIfNotSurveyDesign(data) :
+    ##   The data argument needs to be a survey design object.
+    expect_error(svyCreateTableOne(vars = c("E"), data = "not a svy object"),
+                 "The data argument needs to be a survey design object")
+
+    ## Data frame is not allowed
+    expect_error(svyCreateTableOne(vars = c("E"), data = data.frame(E = c(1,2,3))),
+                 "The data argument needs to be a survey design object")
+
     ## Error in ModuleReturnStrata(strata, data$variable) (from modules.R#84) :
     ##   None of the stratifying variables are present in the data frame.
     ## In addition: Warning message:
     ## In ModuleReturnVarsExist(strata, data) :
     ##   The data frame does not have: non-existent  Dropped
-    expect_warning(expect_error(svyCreateTableOne(vars = vars, strata = c("non-existent"), data = datSvy, factorVars = factorVars),
-                                "None of the stratifying variables are present in the data frame."),
+    expect_warning(expect_error(svyCreateTableOne(vars = vars, strata = c("non-existent"), data = datSvy),
+                                "None of the stratifying variables are present in the data frame"),
                    "The data frame does not have: non-existent  Dropped")
 
 })
@@ -80,10 +92,6 @@ test_that("data assessment detects anomalies", {
 ### User-level functionalities
 
 ## Make categorical variables factors
-
-## Create a variable list
-vars <- c("E", "C", "Y", "C1", "C2")
-factorVars <- c("Y","C1")
 
 ## Create a table to test
 mwOverall  <- svyCreateTableOne(vars = vars, data = datSvy, factorVars = factorVars)
@@ -210,7 +218,7 @@ test_that("printing of a TableOne$ContTable object do not regress", {
     expect_equal_to_reference(print(mwByTrt$ContTable, noSpaces = TRUE, printToggle = FALSE),
                               "ref-svyContTable_noSpaces")
 
-    
+
     expect_equal_to_reference(print(mwByTrt$ContTable, explain = FALSE, printToggle = FALSE),
                               "ref-svyContTable_explain")
 

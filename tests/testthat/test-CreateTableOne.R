@@ -16,8 +16,55 @@ library(testthat)
 context("Unit tests for the CreateTableOne function")
 
 
-### Tests for
-## Tests for ModuleTestSafe, a wrapper for test functions such as oneway.test and chisq.test
+### Load data
+
+library(survival)
+data(pbc)
+
+## Make categorical variables factors
+varsToFactor <- c("status","trt","ascites","hepato","spiders","edema","stage")
+pbc[varsToFactor] <- lapply(pbc[varsToFactor], factor)
+
+## Create a variable list
+vars <- c("time","status","age","sex","ascites","hepato",
+          "spiders","edema","bili","chol","albumin",
+          "copper","alk.phos","ast","trig","platelet",
+          "protime","stage")
+
+
+### Tests for data checkers
+
+test_that("abnormal data are correctly detected", {
+
+    ## Expectations
+    ## Use regular expressions
+
+    ## Error in ModuleStopIfNoVarsLeft(vars) : No valid variables.
+    ## In addition: Warning message:
+    ## In ModuleReturnVarsExist(vars, data) :
+    ##   The data frame does not have: non-existent  Dropped
+    expect_error(expect_warning(CreateTableOne(vars = "non-existent", data = pbc),
+                                "The data frame does not have: non-existent  Dropped"),
+                 "No valid variables.")
+
+    ## Error in ModuleStopIfNotDataFrame(data) :
+    ##   The data argument needs to be a data frame (no quote).
+    expect_error(CreateTableOne(data = "not a data frame"),
+                 "The data argument needs to be a data frame")
+
+    ## Error in ModuleReturnStrata(strata, data) :
+    ##   None of the stratifying variables are present in the data frame.
+    ## In addition: Warning message:
+    ## In ModuleReturnVarsExist(strata, data) :
+    ##   The data frame does not have: non-existent  Dropped
+    expect_error(expect_warning(CreateTableOne(vars = vars, strata = c("non-existent"), data = pbc),
+                                "The data frame does not have: non-existent  Dropped"),
+                 "None of the stratifying variables are present in the data frame")
+
+})
+
+
+### Tests for ModuleTestSafe, a wrapper for test functions such as oneway.test and chisq.test
 
 ## Create a dataset for a table
 dat <- read.table(header = TRUE, text = "
@@ -81,19 +128,6 @@ test_that("P-values should be NA for 1xM xtabs", {
 ### Regression tests
 ################################################################################
 
-library(survival)
-data(pbc)
-
-## Make categorical variables factors
-varsToFactor <- c("status","trt","ascites","hepato","spiders","edema","stage")
-pbc[varsToFactor] <- lapply(pbc[varsToFactor], factor)
-
-## Create a variable list
-vars <- c("time","status","age","sex","ascites","hepato",
-          "spiders","edema","bili","chol","albumin",
-          "copper","alk.phos","ast","trig","platelet",
-          "protime","stage")
-
 ## Create a table to test
 pbcOverall  <- CreateTableOne(vars = vars, data = pbc)
 pbcByTrt    <- CreateTableOne(vars = vars, strata = c("trt"), data = pbc)
@@ -115,7 +149,7 @@ test_that("printing of a TableOne object does not regress", {
 
     expect_equal_to_reference(print(pbcByTrtSex, printToggle = FALSE),
                               "ref-TableOne_2StrataVars")
-    
+
     ## 2015-07-25 pDigits is not functional now
     expect_equal_to_reference(print(pbcByTrt, catDigits = 3, contDigits = 4, pDigits = 5, printToggle = FALSE),
                               "ref-TableOne_digits")
@@ -157,7 +191,7 @@ test_that("printing of a TableOne$CatTable object do not regress", {
 
     expect_equal_to_reference(print(pbcByTrtSex$CatTable, test = FALSE, printToggle = FALSE),
                               "ref-CatTable_noTests")
-    
+
     expect_equal_to_reference(print(pbcByTrt$CatTable, noSpaces = TRUE, printToggle = FALSE),
                               "ref-CatTable_noSpaces")
 
@@ -201,13 +235,13 @@ test_that("printing of a TableOne$ContTable object do not regress", {
 
     expect_equal_to_reference(print(pbcByTrt$ContTable, test = FALSE, printToggle = FALSE),
                               "ref-ContTable_noTests")
-    
+
     expect_equal_to_reference(print(pbcByTrt$ContTable, nonnormal = nonnormalVars, exact = exactVars, printToggle = FALSE),
                               "ref-ContTable_nonnormal_exact")
 
     expect_equal_to_reference(print(pbcByTrt$ContTable, nonnormal = nonnormalVars, minMax = TRUE, printToggle = FALSE),
                               "ref-ContTable_nonnormal_minMax")
-    
+
     expect_equal_to_reference(print(pbcByTrt$ContTable, noSpaces = TRUE, printToggle = FALSE),
                               "ref-ContTable_noSpaces")
 
