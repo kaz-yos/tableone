@@ -201,3 +201,29 @@ svyCatSummary <- function(vars, design) {
 
     }, simplify = FALSE)
 }
+
+
+###
+### Helpers for testing for p values
+################################################################################
+
+## Function to do Wald test on a multi-degree variable after linear regression
+svyGlmTermTest <- function(formula, design, test.terms, method = "Wald") {
+
+    ## Perform linear regression and perform
+    regTermTest(svyglm(formula, design), test.terms = test.terms, method = method)
+}
+
+
+## Given a formula string as its first argument, calls svyGlmTermTest correctly
+svyTestNormal <- function(formulaString, design, test.terms, method) {
+
+    svyGlmTermTest(formula = as.formula(formulaString), design = design,
+                   test.terms = test.terms, method = method)
+}
+
+svyTestNonNormal <- function(formulaString, design) {
+
+    ## Kruskal.test-like
+    svyranktest(formula = as.formula(formulaString), design = design)
+}

@@ -113,8 +113,8 @@ svyCreateContTable <-
 
     ## Create a single stratification variable
     ## Keeps non-existing levels
-    strataVar       <- interaction(strata, sep = ":")
-    strataVarLevels <- levels(strataVar)
+    data$variables$..strataVar..       <- interaction(strata, sep = ":")
+    strataVarLevels <- levels(data$variables$..strataVar..)
 
     ## Handle non-numeric elements (intergers give TRUE, and pass)
     if(any(!sapply(data$variables[vars], is.numeric))){
@@ -140,7 +140,7 @@ svyCreateContTable <-
     result <- sapply(strataVarLevels, function(level) {
 
         ## Create a matrix including vars X c(n,miss,...) matrix
-        svyContSummary(vars, subset(data, strataVar == level))
+        svyContSummary(vars, subset(data, ..strataVar.. %in% level))
 
     }, simplify = FALSE)
 
