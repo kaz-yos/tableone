@@ -25,7 +25,7 @@ miss <- function(x) {
 
 ## Return formula string having vars on RHS
 FormulaString <- function(vars) {
-    paste0(" ~ ", vars, collapse = " + ")
+    paste0(" ~ ", paste0(vars, collapse = " + "))
 }
 
 
@@ -120,7 +120,8 @@ svyQuant <- function(vars, design, q = 0.5) {
     form <- FormulaString(vars)
     ## Remove missingness and mean
     ## Bad behavior, but consistent with the unweighted version
-    res <- svyquantile(x = as.formula(form), quantiles = q, design = design, na.rm = TRUE)
+    ## Use only one quantile
+    res <- svyquantile(x = as.formula(form), quantiles = q[1], design = design, na.rm = TRUE)
     out <- as.vector(res)
     names(out) <- vars
     out
