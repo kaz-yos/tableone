@@ -99,11 +99,12 @@ pbcOverall  <- CreateTableOne(vars = vars, data = pbc)
 pbcByTrt    <- CreateTableOne(vars = vars, strata = c("trt"), data = pbc)
 pbcByTrtSex <- CreateTableOne(vars = vars, strata = c("trt","sex"), data = pbc)
 
+## Specify variables for special handling
+nonnormalVars <- c("bili","chol","copper","alk.phos","trig")
+exactVars <- c("status","stage")
+
 
 test_that("printing of a TableOne object does not regress", {
-
-    nonnormalVars <- c("bili","chol","copper","alk.phos","trig")
-    exactVars <- c("status","stage")
 
     ## Expectations
     expect_equal_to_reference(print(pbcByTrt, printToggle = FALSE),
