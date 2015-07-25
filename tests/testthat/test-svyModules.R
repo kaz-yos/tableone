@@ -146,7 +146,7 @@ test_that("SDs are correct", {
 
 
 test_that("Quantiles are correct", {
-    
+
     ## Expectations
     expect_equal(as.numeric(svyQuant(vars = "E", datSvy, q = 0.5)),
                  as.numeric(svyquantile( ~ E, datSvy, quantiles = 0.5)))
@@ -165,25 +165,25 @@ test_that("Quantiles are correct", {
 
 test_that("Regression test for svyContSummary", {
 
-    res1 <- structure(c(450.015, 450.015, 0, 0.2858, 0, 0.0635089941446396, 
-                        2.00060881081326, 0.39357484459537, 0.816777838825025, 0.488786864487986, 
+    res1 <- structure(c(450.015, 450.015, 0, 0.2858, 0, 0.0635089941446396,
+                        2.00060881081326, 0.39357484459537, 0.816777838825025, 0.488786864487986,
                         2, 0, 1, 0, 3, 1, 1, 0, 3, 1), .Dim = c(2L, 10L), .Dimnames = list(
-    c("E", "Y"), c("n", "miss", "p.miss", "mean", "sd", "median", 
+    c("E", "Y"), c("n", "miss", "p.miss", "mean", "sd", "median",
     "p25", "p75", "min", "max")))
     expect_equal(svyContSummary(vars = c("E","Y"), datSvy), res1)
 })
 
 
 test_that("table works", {
-    
+
     ## Expectations
     expect_true(all(svyTable("E", datSvy) == svytable( ~ E, datSvy)))
-    expect_true(all(svyTable("Y", datSvy) == svytable( ~ Y, datSvy)))    
+    expect_true(all(svyTable("Y", datSvy) == svytable( ~ Y, datSvy)))
 })
 
 
 test_that("Levels are obtained", {
-    
+
     ## Expectations
     expect_equal(svyLevel("E", datSvy),  c("1","2","3"))
     expect_equal(svyLevel("Y", datSvy),  c("0","1"))
@@ -191,7 +191,7 @@ test_that("Levels are obtained", {
 
 
 test_that("Prop table works", {
-    
+
     ## Expectations
     expect_equal(as.numeric(round(svyPropTable("E", datSvy), 3)),
                  round(c(1/3,1/3,1/3), 3))
@@ -201,51 +201,65 @@ test_that("Prop table works", {
 
 
 test_that("Regression test for one variable categorical summary", {
-    
+
     ## Expectations
     res1 <- structure(list(n = c(450.015, 450.015), miss = c(0.2858, 0.2858
-), p.miss = c(0.0635089941446396, 0.0635089941446396), level = structure(1:2, .Label = c("0", 
-"1"), class = "factor"), freq = c(272.7271, 177.0021), percent = c(60.642515540463, 
-39.357484459537), cum.percent = c(60.642515540463, 100)), .Names = c("n", 
-"miss", "p.miss", "level", "freq", "percent", "cum.percent"), row.names = c(NA, 
+), p.miss = c(0.0635089941446396, 0.0635089941446396), level = structure(1:2, .Label = c("0",
+"1"), class = "factor"), freq = c(272.7271, 177.0021), percent = c(60.642515540463,
+39.357484459537), cum.percent = c(60.642515540463, 100)), .Names = c("n",
+"miss", "p.miss", "level", "freq", "percent", "cum.percent"), row.names = c(NA,
 -2L), class = "data.frame")
     expect_equal(svyCatSummaryForOneVar("Y", datSvy), res1)
 
-    res2 <- structure(list(n = c(450.015, 450.015, 450.015), miss = c(0, 
-0, 0), p.miss = c(0, 0, 0), level = structure(1:3, .Label = c("1", 
-"2", "3"), class = "factor"), freq = c(150.012, 150.003, 150), 
+    res2 <- structure(list(n = c(450.015, 450.015, 450.015), miss = c(0,
+0, 0), p.miss = c(0, 0, 0), level = structure(1:3, .Label = c("1",
+"2", "3"), class = "factor"), freq = c(150.012, 150.003, 150),
     percent = c(33.3348888370388, 33.3328889037032, 33.332222259258
     ), cum.percent = c(33.3348888370388, 66.667777740742, 100
-    )), .Names = c("n", "miss", "p.miss", "level", "freq", "percent", 
+    )), .Names = c("n", "miss", "p.miss", "level", "freq", "percent",
 "cum.percent"), row.names = c(NA, -3L), class = "data.frame")
     expect_equal(svyCatSummaryForOneVar("E", datSvy), res2)
 })
 
 
-test_that("Regression test for multiple variable categorical sumamry", {
-    
+test_that("Regression test for multiple variable categorical summary", {
+
     ## Expectations
 
     res1 <- structure(list(E = structure(list(n = c(450.015, 450.015, 450.015
-), miss = c(0, 0, 0), p.miss = c(0, 0, 0), level = structure(1:3, .Label = c("1", 
-"2", "3"), class = "factor"), freq = c(150.012, 150.003, 150), 
+), miss = c(0, 0, 0), p.miss = c(0, 0, 0), level = structure(1:3, .Label = c("1",
+"2", "3"), class = "factor"), freq = c(150.012, 150.003, 150),
     percent = c(33.3348888370388, 33.3328889037032, 33.332222259258
     ), cum.percent = c(33.3348888370388, 66.667777740742, 100
-    )), .Names = c("n", "miss", "p.miss", "level", "freq", "percent", 
-"cum.percent"), row.names = c(NA, -3L), class = "data.frame"), 
-    Y = structure(list(n = c(450.015, 450.015), miss = c(0.2858, 
+    )), .Names = c("n", "miss", "p.miss", "level", "freq", "percent",
+"cum.percent"), row.names = c(NA, -3L), class = "data.frame"),
+    Y = structure(list(n = c(450.015, 450.015), miss = c(0.2858,
     0.2858), p.miss = c(0.0635089941446396, 0.0635089941446396
-    ), level = structure(1:2, .Label = c("0", "1"), class = "factor"), 
-        freq = c(272.7271, 177.0021), percent = c(60.642515540463, 
+    ), level = structure(1:2, .Label = c("0", "1"), class = "factor"),
+        freq = c(272.7271, 177.0021), percent = c(60.642515540463,
         39.357484459537), cum.percent = c(60.642515540463, 100
-        )), .Names = c("n", "miss", "p.miss", "level", "freq", 
-    "percent", "cum.percent"), row.names = c(NA, -2L), class = "data.frame"), 
-    C1 = structure(list(n = c(450.015, 450.015), miss = c(0, 
-    0), p.miss = c(0, 0), level = structure(1:2, .Label = c("0", 
-    "1"), class = "factor"), freq = c(300.015, 150), percent = c(66.667777740742, 
-    33.332222259258), cum.percent = c(66.667777740742, 100)), .Names = c("n", 
+        )), .Names = c("n", "miss", "p.miss", "level", "freq",
+    "percent", "cum.percent"), row.names = c(NA, -2L), class = "data.frame"),
+    C1 = structure(list(n = c(450.015, 450.015), miss = c(0,
+    0), p.miss = c(0, 0), level = structure(1:2, .Label = c("0",
+    "1"), class = "factor"), freq = c(300.015, 150), percent = c(66.667777740742,
+    33.332222259258), cum.percent = c(66.667777740742, 100)), .Names = c("n",
     "miss", "p.miss", "level", "freq", "percent", "cum.percent"
-    ), row.names = c(NA, -2L), class = "data.frame")), .Names = c("E", 
+    ), row.names = c(NA, -2L), class = "data.frame")), .Names = c("E",
                                                                   "Y", "C1"))
     expect_equal(svyCatSummary(c("E","Y","C1"), datSvy), res1)
+})
+
+
+### Statistical test functions
+
+test_that("Statistical test wrappers work", {
+
+    ## Expectations
+    ## ANOVA equivalent
+    expect_true(regTermTest(svyglm(Y ~ E, datSvy), test.terms = "E")$p[1,1] ==  svyTestNormal("Y ~ E", design = datSvy, test.terms = "E", method = "Wald"))
+
+    ## Kruskal-Wallis test equivalent
+    expect_equal(svyranktest(Y ~ E, datSvy), svyTestNonNormal("Y ~ E", design = datSvy))
+
 })

@@ -226,8 +226,7 @@ svyTestNormal <- function(formulaString, design, test.terms, method) {
 
 svyTestNonNormal <- function(formulaString, design) {
 
-    ## Kruskal.test-like
-    out <- svyranktest(formula = as.formula(formulaString), design = design)
-
-    list(p.value = out$p.value[1,1])
+    ## Kruskal.test-like test
+    ## This returns an htest object that has a scalar $p.value element
+    svyranktest(formula = as.formula(formulaString), design = design)
 }
