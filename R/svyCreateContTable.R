@@ -182,7 +182,7 @@ function(vars,                                  # character vector of variable n
                    ## Perform tests and return the result as 1x2 DF
                    ## The test functions should take a formula string as their first argument.
                    data.frame(pNormal    = ModuleTestSafe(formulaString, testNormal,
-                                                          c(list(design = data, test.terms = var), argsNormal)),
+                                                          c(list(design = data, test.terms = "..strataVar.."), argsNormal)),
                               pNonNormal = ModuleTestSafe(formulaString, testNonNormal,
                                                           c(list(design = data), argsNonNormal)))
                },

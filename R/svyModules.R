@@ -218,12 +218,16 @@ svyGlmTermTest <- function(formula, design, test.terms, method = "Wald") {
 ## Given a formula string as its first argument, calls svyGlmTermTest correctly
 svyTestNormal <- function(formulaString, design, test.terms, method) {
 
-    svyGlmTermTest(formula = as.formula(formulaString), design = design,
-                   test.terms = test.terms, method = method)
+    out <- svyGlmTermTest(formula = as.formula(formulaString), design = design,
+                          test.terms = test.terms, method = method)
+    ## Give an appropriate name for consistent extraction
+    list(p.value = out$p[1,1])
 }
 
 svyTestNonNormal <- function(formulaString, design) {
 
     ## Kruskal.test-like
-    svyranktest(formula = as.formula(formulaString), design = design)
+    out <- svyranktest(formula = as.formula(formulaString), design = design)
+
+    list(p.value = out$p.value[1,1])
 }
