@@ -82,61 +82,62 @@
 ##'       exact = c("status","stage"), quote = TRUE, noSpaces = TRUE)
 ##'
 ##' @export
-CreateTableOne <-
-function(vars,                                      # character vector of variable names
-         strata,                                    # character vector of variable names
-         data,                                      # data frame
-         factorVars,                                # variables to be transformed to factors
-         test          = TRUE,                      # whether to put p-values
-         ## Test configuration for categorical data
-         testApprox    = chisq.test,                # function for approximation test
-         argsApprox    = list(correct = TRUE),      # arguments passed to testApprox
-         testExact     = fisher.test,               # function for exact test
-         argsExact     = list(workspace = 2*10^5),  # arguments passed to testExact
-         ## Test configuration for continuous data
-         testNormal    = oneway.test,               # test for normally distributed variables
-         argsNormal    = list(var.equal = TRUE),    # arguments passed to testNormal
-         testNonNormal = kruskal.test,              # test for nonnormally distributed variables
-         argsNonNormal = list(NULL)                 # arguments passed to testNonNormal
-         ) {
+svyCreateTableOne <-
+    function(vars,                                      # character vector of variable names
+             strata,                                    # character vector of variable names
+             data,                                      # data frame
+             factorVars,                                # variables to be transformed to factors
+             test          = TRUE,                      # whether to put p-values
+             ## Test configuration for categorical data
+             testApprox    = chisq.test,                # function for approximation test
+             argsApprox    = list(correct = TRUE),      # arguments passed to testApprox
+             testExact     = fisher.test,               # function for exact test
+             argsExact     = list(workspace = 2*10^5),  # arguments passed to testExact
+             ## Test configuration for continuous data
+             testNormal    = oneway.test,               # test for normally distributed variables
+             argsNormal    = list(var.equal = TRUE),    # arguments passed to testNormal
+             testNonNormal = kruskal.test,              # test for nonnormally distributed variables
+             argsNonNormal = list(NULL)                 # arguments passed to testNonNormal
+             ) {
 
 ### Data check
         ## Check if the data given is a dataframe
-        ModuleStopIfNotDataFrame(data)
+        StopIfNotSurveyDesign(data)
 
         ## Check if vars argument is missing. If so, add all names in data.
         if (missing(vars)) {
-            vars <- names(data)
+            vars <- names(data$variables)
         }
 
         ## Check if variables exist. Drop them if not.
-        vars <- ModuleReturnVarsExist(vars, data)
+        vars <- ModuleReturnVarsExist(vars, data$variables)
 
         ## Abort if no variables exist at this point
+
         ModuleStopIfNoVarsLeft(vars)
 
         ## Factor conversions if the factorVars argument exist
         if (!missing(factorVars)) {
             ## Check if variables exist. Drop them if not.
-            factorVars <- ModuleReturnVarsExist(factorVars, data)
+            factorVars <- ModuleReturnVarsExist(factorVars, data$variables)
             ## Convert to factor
-            data[factorVars] <- lapply(data[factorVars], factor)
+            data$variables[factorVars] <- lapply(data$variables[factorVars], factor)
         }
 
         ## Toggle test FALSE if no strata is given
         test <- ModuleReturnFalseIfNoStrata(strata, test)
 
         ## Get the classes of the variables
-        varClasses  <- lapply(data[vars], class)
+        varClasses  <- lapply(data$variables[vars], class)
 
         ## Classify as varFactors if any one of these classes are contained
-        varFactors <-sapply(varClasses, function(VEC) {
+        varFactors <- sapply(varClasses, function(VEC) {
             any(VEC %in% c("factor", "ordered", "logical", "character"))
         })
         varFactors <- names(varFactors)[varFactors]
 
         ## Classify as varNumerics if any one of these classes are contained
-        varNumerics <-sapply(varClasses, function(VEC) {
+        varNumerics <- sapply(varClasses, function(VEC) {
             any(VEC %in% c("numeric", "integer"))
         })
         varNumerics <- names(varNumerics)[varNumerics]
@@ -172,7 +173,7 @@ function(vars,                                      # character vector of variab
 
             ## Check strata. This returns a DF. Returns a "Overall" DF if strata is missing.
             ## Must not be place outside if (!missing(strata)) {  }.
-            dfStrata <- ModuleReturnStrata(strata, data)
+            dfStrata <- ModuleReturnStrata(strata, data$variable)
             ## Return variable names. Code inefficient in exchange for code simplicity.
             strata   <- names(dfStrata)
 
@@ -186,14 +187,14 @@ function(vars,                                      # character vector of variab
         if (length(varNumerics) == 0) {
             ## No numerics
             message('NOTE: no numeric/integer variables supplied, using CreateCatTable()\n')
-            CatTable <- do.call(CreateCatTable,
+            CatTable <- do.call(svyCreateCatTable,
                                 args = c(list(vars = varFactors), argsCreateCatTable))
             return(CatTable)
 
         } else if (length(varFactors) == 0) {
             ## No factors
             message('NOTE: no factor/logical/character variables supplied, using CreateContTable()\n')
-            ContTable <- do.call(CreateContTable,
+            ContTable <- do.call(svyCreateContTable,
                                  args = c(list(vars = varNumerics), argsCreateContTable))
             return(ContTable)
 
@@ -201,8 +202,8 @@ function(vars,                                      # character vector of variab
         } else if ((length(varFactors) > 0) & (length(varNumerics) > 0)) {
 
             ## Create a list of constructors
-            listOfConstructors <- list(CreateContTable = CreateContTable,
-                                       CreateCatTable  = CreateCatTable)
+            listOfConstructors <- list(CreateContTable = svyCreateContTable,
+                                       CreateCatTable  = svyCreateCatTable)
             ## CreateCatTable for categorical. CreateContTable for continuous.
             listOfConstructors <- listOfConstructors[logiFactors + 1]
             ## Create a list of arguments
@@ -229,20 +230,19 @@ function(vars,                                      # character vector of variab
 
             ## Create ContTable and CatTable objects (this is redundant, but easy)
             ## Aggregated ContTable
-            ContTable <- do.call(CreateContTable,
+            ContTable <- do.call(svyCreateContTable,
                                  args = c(list(vars = varNumerics), argsCreateContTable))
             ## Aggregated CatTable
-            CatTable  <- do.call(CreateCatTable,
+            CatTable  <- do.call(svyCreateCatTable,
                                  args = c(list(vars = varFactors),  argsCreateCatTable))
 
             ## Create a list for output
             TableOneObject <- list(TableOne  = TableOne,
                                    ContTable = ContTable,
-                                   CatTable  = CatTable
-                                   )
+                                   CatTable  = CatTable)
 
             ## Give a class
-            class(TableOneObject) <- "TableOne"
+            class(TableOneObject) <- c("svyTableOne", "TableOne")
 
             ## Return the object
             return(TableOneObject)

@@ -107,7 +107,8 @@ print.TableOne <- function(x,                   # TableOne object
 
     ## Get the Cont/Cat status (1st of classes)
     classOfTables <- sapply(TableOne, class)[1,]
-    digits <- c(CatTable = catDigits, ContTable = contDigits)[classOfTables]
+    ## This relies on Cat/Cont alphabetical order (svyCat/svyCont work similarly)
+    digits <- c(CatTable = catDigits, ContTable = contDigits)[as.numeric(factor(classOfTables))]
 
 
     ## Get the formatted tables
