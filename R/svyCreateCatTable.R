@@ -87,7 +87,7 @@ function(vars,                      # character vector of variable names
          includeNA  = FALSE,        # include NA as a category
          test       = TRUE,         # whether to put p-values
          testApprox = svyTestChisq, # function for approximation test (only choice)
-         argsApprox = list(NULL)    # arguments passed to testApprox
+         argsApprox = NULL          # arguments passed to testApprox
          ) {
 
 ### Data check

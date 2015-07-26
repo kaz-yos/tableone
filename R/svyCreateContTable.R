@@ -87,7 +87,7 @@ function(vars,                                  # character vector of variable n
          testNormal    = svyTestNormal,         # test for normally distributed variables
          argsNormal    = list(method = "Wald"), # arguments passed to testNormal
          testNonNormal = svyTestNonNormal,      # test for nonnormally distributed variables
-         argsNonNormal = list(NULL)             # arguments passed to testNonNormal
+         argsNonNormal = NULL                   # arguments passed to testNonNormal
          ) {
 
     ## Require dependencies (DELETE before CRAN release. Use Depends in DESCRIPTION)

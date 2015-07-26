@@ -216,7 +216,7 @@ svyGlmTermTest <- function(formula, design, test.terms, method = "Wald") {
 
 
 ## Given a formula string as its first argument, calls svyGlmTermTest correctly
-svyTestNormal <- function(formulaString, design, test.terms, method) {
+svyTestNormal <- function(formulaString, design, test.terms, method = "Wald") {
 
     out <- svyGlmTermTest(formula = as.formula(formulaString), design = design,
                           test.terms = test.terms, method = method)

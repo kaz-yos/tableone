@@ -83,19 +83,19 @@
 ##'
 ##' @export
 svyCreateTableOne <-
-function(vars,                                      # character vector of variable names
-         strata,                                    # character vector of variable names
-         data,                                      # data frame
-         factorVars,                                # variables to be transformed to factors
-         test          = TRUE,                      # whether to put p-values
+function(vars,                                   # character vector of variable names
+         strata,                                 # character vector of variable names
+         data,                                   # data frame
+         factorVars,                             # variables to be transformed to factors
+         test          = TRUE,                   # whether to put p-values
          ## Test configuration for categorical data
-         testApprox = svyTestChisq, # function for approximation test (only choice)
-         argsApprox = list(NULL),   # arguments passed to testApprox
+         testApprox    = svyTestChisq,           # function for approximation test (only choice)
+         argsApprox    = NULL,                   # arguments passed to testApprox
          ## Test configuration for continuous data
-         testNormal    = svyTestNormal,         # test for normally distributed variables
-         argsNormal    = list(method = "Wald"), # arguments passed to testNormal
-         testNonNormal = svyTestNonNormal,      # test for nonnormally distributed variables
-         argsNonNormal = list(NULL)             # arguments passed to testNonNormal
+         testNormal    = svyTestNormal,          # test for normally distributed variables
+         argsNormal    = list(method = "Wald"),  # arguments passed to testNormal
+         testNonNormal = svyTestNonNormal,       # test for nonnormally distributed variables
+         argsNonNormal = NULL                    # arguments passed to testNonNormal
          ) {
 
 ### Data check
