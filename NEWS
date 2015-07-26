@@ -1,3 +1,25 @@
+tableone 0.7.0 (2015-07-26)
+----------------------------------------------------------------
+
+NEW FEATURES
+
+* Weighted data are now supported via the survey package.
+  The svydesign() should be used to create a survey design
+  object, and this object should be used for svyCreateTableOne()
+  instead of the orginal data frame.
+
+MINOR CHANGES
+
+* ShowRegTable() uses coef to refer to coefficients.
+
+* Unit tests were extended to cover more functions.
+
+BUG FIXES
+
+* pDigits option was not correctly functional in print.ContTable().
+
+
+
 tableone 0.6.3 (2014-12-28)
 ----------------------------------------------------------------
 
