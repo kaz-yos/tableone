@@ -1,39 +1,19 @@
-##' Shows all results in a \code{CatTable} class object
+##' Shows all results in a \code{svyCatTable} class object
 ##'
-##' This method shows all the data a \code{CatTable} class object has. This includes the (optionally stratified) part with summary statistics and , if available, p-values from the approximation method test (\code{\link{chisq.test}} by default) and exact method test (\code{\link{fisher.test}} by default).
+##' This method shows all the data a \code{svyCatTable} class object has. This includes the (optionally stratified) part with summary statistics and , if available, p-values from the approximation method test (\code{\link{chisq.test}} by default) and exact method test (\code{\link{fisher.test}} by default).
 ##'
-##' @param object An object that has the \code{CatTable} class to be shown.
+##' @param object An object that has the \code{svyCatTable} class to be shown.
 ##' @param digits Number of digits to print.
 ##' @param ... For compatibility with generic. Ignored.
 ##' @return It will print the results.
 ##' @author Kazuki Yoshida
 ##' @seealso
-##' \code{\link{CreateCatTable}}, \code{\link{print.CatTable}}, \code{\link{summary.CatTable}},
-##' \code{\link{CreateContTable}}, \code{\link{print.ContTable}}, \code{\link{summary.ContTable}},
-##' \code{\link{CreateTableOne}}, \code{\link{print.TableOne}}, \code{\link{summary.TableOne}}
+##' \code{\link{svyCreateCatTable}},  \code{\link{print.svyCatTable}},  \code{\link{summary.svyCatTable}},
+##' \code{\link{svyCreateContTable}}, \code{\link{print.svyContTable}}, \code{\link{summary.svyContTable}},
+##' \code{\link{svyCreateTableOne}},  \code{\link{print.TableOne}},     \code{\link{summary.TableOne}}
 ##' @examples
 ##'
-##' ## Load
-##' library(tableone)
-##'
-##' ## Load Mayo Clinic Primary Biliary Cirrhosis Data
-##' library(survival)
-##' data(pbc)
-##' ## Check variables
-##' head(pbc)
-##'
-##' ## Create an overall table for categorical variables
-##' catVars <- c("status","ascites","hepato","spiders","edema","stage")
-##' catTableOverall <- CreateCatTable(vars = catVars, data = pbc)
-##'
-##' ## Simply typing the object name will invoke the print.CatTable method,
-##' ## which will show the sample size, frequencies and percentages.
-##' ## For 2-level variables, only the higher level is shown for simplicity.
-##' catTableOverall
-##'
-##' ## To further examine the variables, use the summary.CatTable method,
-##' ## which will show more details.
-##' summary(catTableOverall)
+##' ##
 ##'
 ##' @export
 summary.svyCatTable <- function(object, digits = 1, ...) {
