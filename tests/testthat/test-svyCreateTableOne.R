@@ -106,34 +106,34 @@ exactVars <- c("Y")
 test_that("printing of a svyTableOne object does not regress", {
 
     ## Expectations
-    expect_equal_to_reference(print(mwByTrt, printToggle = FALSE),
+    expect_equal_to_reference(print(mwByTrt, printToggle = TRUE),
                               "ref-svyTableOne_defaultPrint")
 
-    expect_equal_to_reference(print(mwOverall, printToggle = FALSE),
+    expect_equal_to_reference(print(mwOverall, printToggle = TRUE),
                               "ref-svyTableOne_overallPrint")
 
-    expect_equal_to_reference(print(mwByTrtSex, printToggle = FALSE),
+    expect_equal_to_reference(print(mwByTrtSex, printToggle = TRUE),
                               "ref-svyTableOne_2StrataVars")
 
-    expect_equal_to_reference(print(mwByTrt, catDigits = 3, contDigits = 4, pDigits = 5, printToggle = FALSE),
+    expect_equal_to_reference(print(mwByTrt, catDigits = 3, contDigits = 4, pDigits = 5, printToggle = TRUE),
                               "ref-svyTableOne_digits")
 
-    expect_equal_to_reference(print(mwByTrt, test = FALSE, printToggle = FALSE),
+    expect_equal_to_reference(print(mwByTrt, test = FALSE, printToggle = TRUE),
                               "ref-svyTableOne_noTests")
 
-    expect_equal_to_reference(print(mwByTrt, nonnormal = nonnormalVars, exact = exactVars, printToggle = FALSE),
+    expect_equal_to_reference(print(mwByTrt, nonnormal = nonnormalVars, exact = exactVars, printToggle = TRUE),
                               "ref-svyTableOne_nonnormal_exact")
 
-    expect_equal_to_reference(print(mwByTrt, nonnormal = nonnormalVars, minMax = TRUE, printToggle = FALSE),
+    expect_equal_to_reference(print(mwByTrt, nonnormal = nonnormalVars, minMax = TRUE, printToggle = TRUE),
                               "ref-svyTableOne_nonnormal_minMax")
 
-    expect_equal_to_reference(print(mwByTrt, catDigits = 3, noSpaces = TRUE, printToggle = FALSE),
+    expect_equal_to_reference(print(mwByTrt, catDigits = 3, noSpaces = TRUE, printToggle = TRUE),
                               "ref-svyTableOne_noSpaces")
 
-    expect_equal_to_reference(print(mwByTrt, nonnormal = nonnormalVars, exact = exactVars, showAllLevels = TRUE, printToggle = FALSE),
+    expect_equal_to_reference(print(mwByTrt, nonnormal = nonnormalVars, exact = exactVars, showAllLevels = TRUE, printToggle = TRUE),
                               "ref-svyTableOne_showAllLevels")
 
-    expect_equal_to_reference(print(mwByTrt, catDigits = 3, nonnormal = nonnormalVars, exact = exactVars, noSpaces = TRUE, showAllLevels = FALSE, quote = TRUE, printToggle = FALSE),
+    expect_equal_to_reference(print(mwByTrt, catDigits = 3, nonnormal = nonnormalVars, exact = exactVars, noSpaces = TRUE, showAllLevels = FALSE, quote = TRUE, printToggle = TRUE),
                               "ref-svyTableOne_noSpaces_showAllLevels_quote")
 })
 
@@ -142,46 +142,46 @@ test_that("printing of a svyTableOne object does not regress", {
 test_that("printing of a svyTableOne$CatTable object do not regress", {
 
     ## Expectations
-    expect_equal_to_reference(print(mwByTrt$CatTable, printToggle = FALSE),
+    expect_equal_to_reference(print(mwByTrt$CatTable, printToggle = TRUE),
                               "ref-svyCatTable_defaultPrint")
 
-    expect_equal_to_reference(print(mwOverall$CatTable, printToggle = FALSE),
+    expect_equal_to_reference(print(mwOverall$CatTable, printToggle = TRUE),
                               "ref-svyCatTable_overallPrint")
 
-    expect_equal_to_reference(print(mwByTrtSex$CatTable, printToggle = FALSE),
+    expect_equal_to_reference(print(mwByTrtSex$CatTable, printToggle = TRUE),
                               "ref-svyCatTable_2StrataVars")
 
     ## 2015-07-25 p values not implemented yet
-    expect_equal_to_reference(print(mwByTrtSex$CatTable, digits = 3, pDigits = 5, printToggle = FALSE),
+    expect_equal_to_reference(print(mwByTrtSex$CatTable, digits = 3, pDigits = 5, printToggle = TRUE),
                               "ref-svyCatTable_digits")
 
     ## 2015-07-25 p not implemented, but will be correct without it
-    expect_equal_to_reference(print(mwByTrtSex$CatTable, test = FALSE, printToggle = FALSE),
+    expect_equal_to_reference(print(mwByTrtSex$CatTable, test = FALSE, printToggle = TRUE),
                               "ref-svyCatTable_noTests")
 
     ## In this case, noSpaces does not make any difference anyway
-    expect_equal_to_reference(print(mwByTrt$CatTable, digits = 3, noSpaces = TRUE, printToggle = FALSE),
+    expect_equal_to_reference(print(mwByTrt$CatTable, digits = 3, noSpaces = TRUE, printToggle = TRUE),
                               "ref-svyCatTable_noSpaces")
 
-    expect_equal_to_reference(print(mwByTrt$CatTable, showAllLevels = TRUE, printToggle = FALSE),
+    expect_equal_to_reference(print(mwByTrt$CatTable, showAllLevels = TRUE, printToggle = TRUE),
                               "ref-svyCatTable_showAllLevels")
 
-    expect_equal_to_reference(print(mwByTrt$CatTable, explain = FALSE, printToggle = FALSE),
+    expect_equal_to_reference(print(mwByTrt$CatTable, explain = FALSE, printToggle = TRUE),
                               "ref-svyCatTable_explain")
 
-    expect_equal_to_reference(print(mwByTrt$CatTable, format = "f", printToggle = FALSE),
+    expect_equal_to_reference(print(mwByTrt$CatTable, format = "f", printToggle = TRUE),
                               "ref-svyCatTable_format_f")
 
-    expect_equal_to_reference(print(mwByTrt$CatTable, format = "p", printToggle = FALSE),
+    expect_equal_to_reference(print(mwByTrt$CatTable, format = "p", printToggle = TRUE),
                               "ref-svyCatTable_format_p")
 
-    expect_equal_to_reference(print(mwByTrt$CatTable, format = "pf", printToggle = FALSE),
+    expect_equal_to_reference(print(mwByTrt$CatTable, format = "pf", printToggle = TRUE),
                               "ref-svyCatTable_format_pf")
 
-    expect_equal_to_reference(print(mwByTrt$CatTable, cramVars = "Y", printToggle = FALSE),
+    expect_equal_to_reference(print(mwByTrt$CatTable, cramVars = "Y", printToggle = TRUE),
                               "ref-svyCatTable_cramVars")
 
-    expect_equal_to_reference(print(mwByTrt$CatTable, noSpaces = TRUE, showAllLevels = TRUE, quote = TRUE, printToggle = FALSE),
+    expect_equal_to_reference(print(mwByTrt$CatTable, noSpaces = TRUE, showAllLevels = TRUE, quote = TRUE, printToggle = TRUE),
                               "ref-svyCatTable_noSpaces_showAllLevels_quote")
 })
 
@@ -189,38 +189,38 @@ test_that("printing of a svyTableOne$CatTable object do not regress", {
 test_that("printing of a svyTableOne$ContTable object do not regress", {
 
     ## Expectations
-    expect_equal_to_reference(print(mwByTrt$ContTable, printToggle = FALSE),
+    expect_equal_to_reference(print(mwByTrt$ContTable, printToggle = TRUE),
                               "ref-svyContTable_defaultPrint")
 
-    expect_equal_to_reference(print(mwOverall$ContTable, printToggle = FALSE),
+    expect_equal_to_reference(print(mwOverall$ContTable, printToggle = TRUE),
                               "ref-svyContTable_overallPrint")
 
-    expect_equal_to_reference(print(mwByTrtSex$ContTable, printToggle = FALSE),
+    expect_equal_to_reference(print(mwByTrtSex$ContTable, printToggle = TRUE),
                               "ref-svyContTable_2StrataVars")
 
     ## 2015-07-25 p values are not implemented yet
-    expect_equal_to_reference(print(mwByTrt$ContTable, digits = 3, pDigits = 5, printToggle = FALSE),
+    expect_equal_to_reference(print(mwByTrt$ContTable, digits = 3, pDigits = 5, printToggle = TRUE),
                               "ref-svyContTable_digits")
 
     ## 2015-07-25 p values are not implemented yet, thus correct
-    expect_equal_to_reference(print(mwByTrt$ContTable, test = FALSE, printToggle = FALSE),
+    expect_equal_to_reference(print(mwByTrt$ContTable, test = FALSE, printToggle = TRUE),
                               "ref-svyContTable_noTests")
 
-    expect_equal_to_reference(print(mwByTrt$ContTable, nonnormal = nonnormalVars, exact = exactVars, printToggle = FALSE),
+    expect_equal_to_reference(print(mwByTrt$ContTable, nonnormal = nonnormalVars, exact = exactVars, printToggle = TRUE),
                               "ref-svyContTable_nonnormal_exact")
 
-    expect_equal_to_reference(print(mwByTrt$ContTable, nonnormal = nonnormalVars, minMax = TRUE, printToggle = FALSE),
+    expect_equal_to_reference(print(mwByTrt$ContTable, nonnormal = nonnormalVars, minMax = TRUE, printToggle = TRUE),
                               "ref-svyContTable_nonnormal_minMax")
 
     ## This does not make a difference here
-    expect_equal_to_reference(print(mwByTrt$ContTable, noSpaces = TRUE, printToggle = FALSE),
+    expect_equal_to_reference(print(mwByTrt$ContTable, noSpaces = TRUE, printToggle = TRUE),
                               "ref-svyContTable_noSpaces")
 
 
-    expect_equal_to_reference(print(mwByTrt$ContTable, explain = FALSE, printToggle = FALSE),
+    expect_equal_to_reference(print(mwByTrt$ContTable, explain = FALSE, printToggle = TRUE),
                               "ref-svyContTable_explain")
 
-    expect_equal_to_reference(print(mwByTrt$ContTable, noSpaces = TRUE, showAllLevels = TRUE, quote = TRUE, printToggle = FALSE),
+    expect_equal_to_reference(print(mwByTrt$ContTable, noSpaces = TRUE, showAllLevels = TRUE, quote = TRUE, printToggle = TRUE),
                               "ref-svyContTable_noSpaces_showAllLevels_quote")
 })
 
