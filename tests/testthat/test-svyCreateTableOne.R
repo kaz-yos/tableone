@@ -256,3 +256,129 @@ test_that("p values are correctly calculated", {
     expect_equal(attr(mwByTrt$ContTable, "pValues")[, "pNonNormal"], pValuesTestNonNormal)
 
 })
+
+
+
+### Correctness of data object and final print out
+################################################################################
+
+## Create svydesign and TableOne object
+data(nhanes)
+nhanesSvy <- svydesign(ids = ~ SDMVPSU, strata = ~ SDMVSTRA, weights = ~ WTMEC2YR, nest = TRUE, data = nhanes)
+tab1 <- svyCreateTableOne(vars = c("HI_CHOL","race","agecat","RIAGENDR"),
+                          strata = "RIAGENDR", data = nhanesSvy,
+                          factorVars = c("race","RIAGENDR"))
+
+### Gold standar data
+## Sample size
+outTotals <- svyby(formula = ~ tableone:::one(HI_CHOL), by = ~ RIAGENDR, design = nhanesSvy,
+                   FUN = svytotal, na.rm = TRUE)
+## Means
+outMeans <- svyby(formula = ~ HI_CHOL, by = ~ RIAGENDR, design = nhanesSvy, FUN = svymean, na.rm = TRUE)
+## Variances (for SD)
+outVar <- svyby(formula = ~ HI_CHOL, by = ~ RIAGENDR, design = nhanesSvy, FUN = svyvar, na.rm = TRUE)
+## Quantiles
+outQt1 <- svyquantile( ~ HI_CHOL, subset(nhanesSvy, RIAGENDR == 1), quantiles = c(0.5,0.25,0.75,0,1), na.rm = TRUE)
+outQt2 <- svyquantile( ~ HI_CHOL, subset(nhanesSvy, RIAGENDR == 2), quantiles = c(0.5,0.25,0.75,0,1), na.rm = TRUE)
+## Tests
+pTTest <- sprintf(" %.7f", as.vector(svyttest(HI_CHOL ~ RIAGENDR, nhanesSvy)$p.value))
+pRankTest <- sprintf(" %.7f", as.vector(svyranktest(HI_CHOL ~ RIAGENDR, nhanesSvy)$p.value))
+
+test_that("continuous data object and final print outs are numerically correct", {
+
+### Continuous part
+### Sample sizes
+## Correctness of one() function for sample size against total weights
+expect_equal(as.vector(by(nhanes$WTMEC2YR, nhanes$RIAGENDR, sum)),
+             outTotals[,2])
+## Numerical correctness
+expect_equal(c(tab1$ContTable[[1]][,"n"], tab1$ContTable[[2]][,"n"]),
+             outTotals[,2])
+## print out correctness
+expect_equal(as.vector(print(tab1$ContTable, printToggle = TRUE)[1,1:2]),
+             sprintf("%.2f", outTotals[,2]))
+
+### Means
+## Numerical correctness
+expect_equal(c(tab1$ContTable[[1]][,"mean"], tab1$ContTable[[2]][,"mean"]),
+             outMeans[,2])
+
+### Standard deviations
+## Numerically
+expect_equal(c(tab1$ContTable[[1]][,"sd"], tab1$ContTable[[2]][,"sd"]),
+             sqrt(outVar[,2]))
+## print out (mean and sd)
+expect_equal(as.vector(print(tab1$ContTable, digits = 2, printToggle = TRUE)[2,1:2]),
+             sprintf("%.2f (%.2f)", outMeans[,2], sqrt(outVar[,2])))
+
+### Quantiles
+## median [p25, p75]
+expect_equal(as.vector(print(tab1$ContTable, nonnormal = "HI_CHOL", printToggle = TRUE)[2,1:2]),
+             c(do.call(sprintf, c(list(fmt = "%.2f [%.2f, %.2f]"), outQt1[1:3])),
+               do.call(sprintf, c(list(fmt = "%.2f [%.2f, %.2f]"), outQt2[1:3]))))
+## median [min,max]
+expect_equal(as.vector(print(tab1$ContTable, nonnormal = "HI_CHOL", minMax = TRUE, printToggle = TRUE)[2,1:2]),
+             c(do.call(sprintf, c(list(fmt = "%.2f [%.2f, %.2f]"), outQt1[c(1,4,5)])),
+               do.call(sprintf, c(list(fmt = "%.2f [%.2f, %.2f]"), outQt2[c(1,4,5)]))))
+
+### p-values
+## t test
+expect_equal(print(tab1$ContTable, pDigits = 7, printToggle = TRUE)[2,3],
+             ## One space for < 
+             pTTest)
+## KW
+expect_equal(print(tab1$ContTable, pDigits = 7, nonnormal = "HI_CHOL", printToggle = TRUE)[2,3],
+             ## One space for < 
+             pRankTest)
+})
+
+
+### Gold standard for categorical
+outFreq <- svytable( ~ race + RIAGENDR, nhanesSvy)
+outPerc <- prop.table(outFreq, margin = 2)
+## Take first three rows only as space pading is tedious to reproduce
+outFP <- cbind(sprintf("%.3f (%.3f) ", outFreq[,1], (outPerc[,1] * 100)),
+               sprintf(" %.3f ( %.3f) ", outFreq[,2], (outPerc[,2] * 100)))[1:3,]
+## Test
+pChisq <- sprintf(" %.7f", as.vector(svychisq( ~ race + RIAGENDR, nhanesSvy)$p.value))
+
+test_that("categorical data object and final print outs are numerically correct", {
+
+### Categorical part
+
+### Sample sizes
+expect_equal(as.vector(print(tab1$CatTable, digits = 3, printToggle = TRUE)[1,1:2]),
+             sprintf("%.3f", outTotals[,2]))
+### Frequencies and percentages
+matFP <- print(tab1$CatTable, digits = 3, printToggle = TRUE)[3:5,1:2]
+dimnames(matFP) <- NULL
+expect_equal(matFP, outFP)
+
+### p-values
+expect_equal(print(tab1$CatTable, pDigits = 7, printToggle = TRUE)[2,3],
+             pChisq)
+})
+
+
+test_that("mixed data object print outs are numerically correct", {
+    
+### Mixed object
+## Mean and SD
+expect_equal(as.vector(gsub("^ *", "", print(tab1, pDigits = 7)[2,1:2])),
+             sprintf("%.2f (%.2f)", outMeans[,2], sqrt(outVar[,2])))
+## normal test
+expect_equal(print(tab1, pDigits = 7)[2,3], pTTest)
+## nonnormal test
+expect_equal(print(tab1, pDigits = 7, nonnormal = "HI_CHOL")[2,3], pTTest)
+
+## Table
+matFP <- print(tab1, catDigits = 3, printToggle = TRUE)[4:6,1:2]
+dimnames(matFP) <- NULL
+## column by column deleting spaces
+expect_equal(matFP[,1], outFP[,1])
+expect_equal(gsub(" ", "", matFP[,1]), gsub(" ", "", outFP[,1]))
+## chisq test
+expect_equal(print(tab1, pDigits = 7, nonnormal = "HI_CHOL")[3,3],
+             pChisq)
+
+})
