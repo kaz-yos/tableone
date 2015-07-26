@@ -166,10 +166,6 @@ function(vars,                                  # character vector of variable n
     ## Only when test is asked FOR
     if (test) {
 
-        ## This is not necessary as it has already been created as ..strataVar...
-        ## Create a single variable representation of multivariable stratification
-        ## strataVar <- ModuleCreateStrataVarAsFactor(result, strata)
-
         ## Loop over variables in dat, and obtain p values for two tests
         ## DF = 6 when there are 8 levels (one empty), i.e., empty strata dropped by oneway.test/kruskal.test
         pValues <-
@@ -182,7 +178,8 @@ function(vars,                                  # character vector of variable n
                    ## Perform tests and return the result as 1x2 DF
                    ## The test functions should take a formula string as their first argument.
                    data.frame(pNormal    = ModuleTestSafe(formulaString, testNormal,
-                                                          c(list(design = data, test.terms = "..strataVar.."), argsNormal)),
+                                                          c(list(design = data, test.terms = "..strataVar.."),
+                                                            argsNormal)),
                               pNonNormal = ModuleTestSafe(formulaString, testNonNormal,
                                                           c(list(design = data), argsNonNormal)))
                },

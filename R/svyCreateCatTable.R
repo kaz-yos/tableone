@@ -81,15 +81,13 @@
 ##'
 ##' @export
 svyCreateCatTable <-
-function(vars,                                 # character vector of variable names
-         strata,                               # character vector of variable names
-         data,                                 # data frame
-         includeNA = FALSE,                    # include NA as a category
-         test  = TRUE,                         # whether to put p-values
-         testApprox = chisq.test,              # function for approximation test
-         argsApprox = list(correct = TRUE),    # arguments passed to testApprox
-         testExact  = fisher.test,             # function for exact test
-         argsExact  = list(workspace = 2*10^5) # arguments passed to testExact
+function(vars,                      # character vector of variable names
+         strata,                    # character vector of variable names
+         data,                      # data frame
+         includeNA  = FALSE,        # include NA as a category
+         test       = TRUE,         # whether to put p-values
+         testApprox = svyTestChisq, # function for approximation test (only choice)
+         argsApprox = list(NULL)    # arguments passed to testApprox
          ) {
 
 ### Data check
@@ -111,8 +109,8 @@ function(vars,                                 # character vector of variable na
 
     ## Create a single stratification variable
     ## Keeps non-existing levels
-    strataVar       <- interaction(strata, sep = ":")
-    strataVarLevels <- levels(strataVar)
+    data$variables$..strataVar.. <- interaction(strata, sep = ":")
+    strataVarLevels <- levels(data$variables$..strataVar..)
 
     ## Convert to a factor if it is not a factor already. (categorical version only)
     ## Not done on factors, to avoid dropping zero levels.
@@ -152,7 +150,7 @@ function(vars,                                 # character vector of variable na
     result <- sapply(strataVarLevels, function(level) {
 
         ## Create a matrix including vars X c(n,miss,...) matrix
-        svyCatSummary(vars, subset(data, strataVar == level))
+        svyCatSummary(vars, subset(data, ..strataVar.. %in% level))
 
     }, simplify = FALSE)
 
@@ -175,22 +173,15 @@ function(vars,                                 # character vector of variable na
     listXtabs <- list()
 
     ## Only when test is asked for
-    ## TURN OFF FOR THE TIME BEING
-    if (test & FALSE) {
+    if (test) {
 
-        ## Create a single variable representation of multivariable stratification
-        strataVar <- ModuleCreateStrataVarAsFactor(result, strata)
-
-        ## Loop over variables in dat, and create a list of xtabs
-        ## Empty strata are kept in the corss tables. Different behavior than the cont counterpart!
-        listXtabs <- sapply(X = names(dat),
+        listXtabs <- sapply(X = vars,
                             FUN = function(var) {
                                 ## Create a formula
-                                formula <- paste0("~ ", var, " + ", "strataVar")
-                                formula <- as.formula(formula)
+                                formula <- as.formula(paste0("~ ", var, " + ", "..strataVar.."))
 
                                 ## Create a 2-dimensional crosstable
-                                xtabs(formula = formula, data = dat)
+                                svytable(formula = formula, design = data)
                             },
                             simplify = FALSE)
 
@@ -200,14 +191,19 @@ function(vars,                                 # character vector of variable na
             names(dimnames(listXtabs[[i]]))[2] <- strataVarName
         }
 
-        ## Loop over xtabs, and create p-values
-        pValues <- sapply(X = listXtabs,
-                          FUN = function(xtabs) {
-                              ## Perform tests and return the result as 1x2 DF
-                              data.frame(
-                                  pApprox = ModuleTestSafe(xtabs, testApprox, argsApprox),
-                                  pExact  = ModuleTestSafe(xtabs, testExact,  argsExact)
-                                  )
+
+        ## Loop over variables, and create p-values
+        pValues <-
+        sapply(X = vars,
+               FUN = function(var) {
+
+                   formulaString <- paste0(" ~ ", var, " + ..strataVar..")
+
+                   ## Perform tests and return the result as 1x2 DF
+                   data.frame(pApprox = ModuleTestSafe(formulaString, testApprox,
+                                                       c(list(design = data), argsApprox)),
+                              ## Not available for survey data. Just fill in with NA
+                              pExact  = NA)
                           },
                           simplify = FALSE)
 
