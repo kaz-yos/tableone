@@ -5,7 +5,7 @@
 ##' @name tableone-package
 ##' @aliases tableone-package tableone
 ##' @docType package
-##' @import e1071 gmodels
+##' @import survey e1071 gmodels
 ##' @note Special Thanks:
 ##'
 ##' Ian Fellows for developing the Deducer package, which this package is based on.
