@@ -225,3 +225,29 @@ test_that("printing of a TableOne$ContTable object do not regress", {
     expect_equal_to_reference(print(mwByTrt$ContTable, noSpaces = TRUE, showAllLevels = TRUE, quote = TRUE, printToggle = FALSE),
                               "ref-svyContTable_noSpaces_showAllLevels_quote")
 })
+
+
+
+### p value calculations
+
+test_that("p values are correctly calculated", {
+
+    ## svychisq
+    expect_equal(attr(mwByTrt$CatTable, "pValues")[, "pApprox"],
+                 c(svychisq( ~ Y + E, datSvy)$p.value, svychisq( ~ C1 + E, datSvy)$p.value))
+
+    ## svyglm to do ANOVA equivalent
+    pValuesTestNormal <-
+    c(svyTestNormal("E ~ factor(E)", datSvy, test.terms = "factor(E)", method = "Wald")$p.value,
+             svyTestNormal("C ~ factor(E)", datSvy, test.terms = "factor(E)", method = "Wald")$p.value,
+             svyTestNormal("C2 ~ factor(E)", datSvy, test.terms = "factor(E)", method = "Wald")$p.value)
+    expect_equal(attr(mwByTrt$ContTable, "pValues")[, "pNormal"], pValuesTestNormal)
+
+    ## svyranktest
+    pValuesTestNonNormal <-
+    c(svyTestNonNormal("E ~ factor(E)", datSvy)$p.value,
+      svyTestNonNormal("C ~ factor(E)", datSvy)$p.value,
+      svyTestNonNormal("C2 ~ factor(E)", datSvy)$p.value)
+    expect_equal(attr(mwByTrt$ContTable, "pValues")[, "pNonNormal"], pValuesTestNonNormal)
+
+})
