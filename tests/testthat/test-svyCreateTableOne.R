@@ -141,7 +141,7 @@ test_that("printing of a svyTableOne object does not regress", {
 
 
 ## These will fail when p-values are implemented
-test_that("printing of a TableOne$CatTable object do not regress", {
+test_that("printing of a svyTableOne$CatTable object do not regress", {
 
     ## Expectations
     expect_equal_to_reference(print(mwByTrt$CatTable, printToggle = FALSE),
@@ -188,7 +188,7 @@ test_that("printing of a TableOne$CatTable object do not regress", {
 })
 
 
-test_that("printing of a TableOne$ContTable object do not regress", {
+test_that("printing of a svyTableOne$ContTable object do not regress", {
 
     ## Expectations
     expect_equal_to_reference(print(mwByTrt$ContTable, printToggle = FALSE),
@@ -233,8 +233,10 @@ test_that("printing of a TableOne$ContTable object do not regress", {
 test_that("p values are correctly calculated", {
 
     ## svychisq
-    expect_equal(attr(mwByTrt$CatTable, "pValues")[, "pApprox"],
-                 c(svychisq( ~ Y + E, datSvy)$p.value, svychisq( ~ C1 + E, datSvy)$p.value))
+    pValuesTestChisq <- c(svychisq( ~ Y + E, datSvy)$p.value, svychisq( ~ C1 + E, datSvy)$p.value)
+    ## Drop names X-squared X-squared
+    names(pValuesTestChisq) <- NULL
+    expect_equal(attr(mwByTrt$CatTable, "pValues")[, "pApprox"], pValuesTestChisq)
 
     ## svyglm to do ANOVA equivalent
     pValuesTestNormal <-
