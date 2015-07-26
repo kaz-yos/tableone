@@ -141,35 +141,35 @@ exactVars <- c("status","stage")
 test_that("printing of a TableOne object does not regress", {
 
     ## Expectations
-    expect_equal_to_reference(print(pbcByTrt, printToggle = FALSE),
+    expect_equal_to_reference(print(pbcByTrt, printToggle = TRUE),
                               "ref-TableOne_defaultPrint")
 
-    expect_equal_to_reference(print(pbcOverall, printToggle = FALSE),
+    expect_equal_to_reference(print(pbcOverall, printToggle = TRUE),
                               "ref-TableOne_overallPrint")
 
-    expect_equal_to_reference(print(pbcByTrtSex, printToggle = FALSE),
+    expect_equal_to_reference(print(pbcByTrtSex, printToggle = TRUE),
                               "ref-TableOne_2StrataVars")
 
     ## 2015-07-25 pDigits is not functional now
-    expect_equal_to_reference(print(pbcByTrt, catDigits = 3, contDigits = 4, pDigits = 5, printToggle = FALSE),
+    expect_equal_to_reference(print(pbcByTrt, catDigits = 3, contDigits = 4, pDigits = 5, printToggle = TRUE),
                               "ref-TableOne_digits")
 
-    expect_equal_to_reference(print(pbcByTrt, test = FALSE, printToggle = FALSE),
+    expect_equal_to_reference(print(pbcByTrt, test = FALSE, printToggle = TRUE),
                               "ref-TableOne_noTests")
 
-    expect_equal_to_reference(print(pbcByTrt, nonnormal = nonnormalVars, exact = exactVars, printToggle = FALSE),
+    expect_equal_to_reference(print(pbcByTrt, nonnormal = nonnormalVars, exact = exactVars, printToggle = TRUE),
                               "ref-TableOne_nonnormal_exact")
 
-    expect_equal_to_reference(print(pbcByTrt, nonnormal = nonnormalVars, minMax = TRUE, printToggle = FALSE),
+    expect_equal_to_reference(print(pbcByTrt, nonnormal = nonnormalVars, minMax = TRUE, printToggle = TRUE),
                               "ref-TableOne_nonnormal_minMax")
 
-    expect_equal_to_reference(print(pbcByTrt, nonnormal = nonnormalVars, exact = exactVars, noSpaces = TRUE, printToggle = FALSE),
+    expect_equal_to_reference(print(pbcByTrt, nonnormal = nonnormalVars, exact = exactVars, noSpaces = TRUE, printToggle = TRUE),
                               "ref-TableOne_noSpaces")
 
-    expect_equal_to_reference(print(pbcByTrt, nonnormal = nonnormalVars, exact = exactVars, showAllLevels = TRUE, printToggle = FALSE),
+    expect_equal_to_reference(print(pbcByTrt, nonnormal = nonnormalVars, exact = exactVars, showAllLevels = TRUE, printToggle = TRUE),
                               "ref-TableOne_showAllLevels")
 
-    expect_equal_to_reference(print(pbcByTrt, nonnormal = nonnormalVars, exact = exactVars, noSpaces = TRUE, showAllLevels = FALSE, quote = TRUE, printToggle = FALSE),
+    expect_equal_to_reference(print(pbcByTrt, nonnormal = nonnormalVars, exact = exactVars, noSpaces = TRUE, showAllLevels = FALSE, quote = TRUE, printToggle = TRUE),
                               "ref-TableOne_noSpaces_showAllLevels_quote")
 })
 
@@ -177,43 +177,43 @@ test_that("printing of a TableOne object does not regress", {
 test_that("printing of a TableOne$CatTable object do not regress", {
 
     ## Expectations
-    expect_equal_to_reference(print(pbcByTrt$CatTable, printToggle = FALSE),
+    expect_equal_to_reference(print(pbcByTrt$CatTable, printToggle = TRUE),
                               "ref-CatTable_defaultPrint")
 
-    expect_equal_to_reference(print(pbcOverall$CatTable, printToggle = FALSE),
+    expect_equal_to_reference(print(pbcOverall$CatTable, printToggle = TRUE),
                               "ref-CatTable_overallPrint")
 
-    expect_equal_to_reference(print(pbcByTrtSex$CatTable, printToggle = FALSE),
+    expect_equal_to_reference(print(pbcByTrtSex$CatTable, printToggle = TRUE),
                               "ref-CatTable_2StrataVars")
 
-    expect_equal_to_reference(print(pbcByTrtSex$CatTable, digits = 3, pDigits = 5, printToggle = FALSE),
+    expect_equal_to_reference(print(pbcByTrtSex$CatTable, digits = 3, pDigits = 5, printToggle = TRUE),
                               "ref-CatTable_digits")
 
-    expect_equal_to_reference(print(pbcByTrtSex$CatTable, test = FALSE, printToggle = FALSE),
+    expect_equal_to_reference(print(pbcByTrtSex$CatTable, test = FALSE, printToggle = TRUE),
                               "ref-CatTable_noTests")
 
-    expect_equal_to_reference(print(pbcByTrt$CatTable, noSpaces = TRUE, printToggle = FALSE),
+    expect_equal_to_reference(print(pbcByTrt$CatTable, noSpaces = TRUE, printToggle = TRUE),
                               "ref-CatTable_noSpaces")
 
-    expect_equal_to_reference(print(pbcByTrt$CatTable, showAllLevels = TRUE, printToggle = FALSE),
+    expect_equal_to_reference(print(pbcByTrt$CatTable, showAllLevels = TRUE, printToggle = TRUE),
                               "ref-CatTable_showAllLevels")
 
-    expect_equal_to_reference(print(pbcByTrt$CatTable, explain = FALSE, printToggle = FALSE),
+    expect_equal_to_reference(print(pbcByTrt$CatTable, explain = FALSE, printToggle = TRUE),
                               "ref-CatTable_explain")
 
-    expect_equal_to_reference(print(pbcByTrt$CatTable, format = "f", printToggle = FALSE),
+    expect_equal_to_reference(print(pbcByTrt$CatTable, format = "f", printToggle = TRUE),
                               "ref-CatTable_format_f")
 
-    expect_equal_to_reference(print(pbcByTrt$CatTable, format = "p", printToggle = FALSE),
+    expect_equal_to_reference(print(pbcByTrt$CatTable, format = "p", printToggle = TRUE),
                               "ref-CatTable_format_p")
 
-    expect_equal_to_reference(print(pbcByTrt$CatTable, format = "pf", printToggle = FALSE),
+    expect_equal_to_reference(print(pbcByTrt$CatTable, format = "pf", printToggle = TRUE),
                               "ref-CatTable_format_pf")
 
-    expect_equal_to_reference(print(pbcByTrt$CatTable, cramVars = "sex", printToggle = FALSE),
+    expect_equal_to_reference(print(pbcByTrt$CatTable, cramVars = "sex", printToggle = TRUE),
                               "ref-CatTable_cramVars")
 
-    expect_equal_to_reference(print(pbcByTrt$CatTable, noSpaces = TRUE, showAllLevels = TRUE, quote = TRUE, printToggle = FALSE),
+    expect_equal_to_reference(print(pbcByTrt$CatTable, noSpaces = TRUE, showAllLevels = TRUE, quote = TRUE, printToggle = TRUE),
                               "ref-CatTable_noSpaces_showAllLevels_quote")
 })
 
@@ -221,33 +221,33 @@ test_that("printing of a TableOne$CatTable object do not regress", {
 test_that("printing of a TableOne$ContTable object do not regress", {
 
     ## Expectations
-    expect_equal_to_reference(print(pbcByTrt$ContTable, printToggle = FALSE),
+    expect_equal_to_reference(print(pbcByTrt$ContTable, printToggle = TRUE),
                               "ref-ContTable_defaultPrint")
 
-    expect_equal_to_reference(print(pbcOverall$ContTable, printToggle = FALSE),
+    expect_equal_to_reference(print(pbcOverall$ContTable, printToggle = TRUE),
                               "ref-ContTable_overallPrint")
 
-    expect_equal_to_reference(print(pbcByTrtSex$ContTable, printToggle = FALSE),
+    expect_equal_to_reference(print(pbcByTrtSex$ContTable, printToggle = TRUE),
                               "ref-ContTable_2StrataVars")
 
-    expect_equal_to_reference(print(pbcByTrt$ContTable, digits = 3, pDigits = 5, printToggle = FALSE),
+    expect_equal_to_reference(print(pbcByTrt$ContTable, digits = 3, pDigits = 5, printToggle = TRUE),
                               "ref-ContTable_digits")
 
-    expect_equal_to_reference(print(pbcByTrt$ContTable, test = FALSE, printToggle = FALSE),
+    expect_equal_to_reference(print(pbcByTrt$ContTable, test = FALSE, printToggle = TRUE),
                               "ref-ContTable_noTests")
 
-    expect_equal_to_reference(print(pbcByTrt$ContTable, nonnormal = nonnormalVars, exact = exactVars, printToggle = FALSE),
+    expect_equal_to_reference(print(pbcByTrt$ContTable, nonnormal = nonnormalVars, exact = exactVars, printToggle = TRUE),
                               "ref-ContTable_nonnormal_exact")
 
-    expect_equal_to_reference(print(pbcByTrt$ContTable, nonnormal = nonnormalVars, minMax = TRUE, printToggle = FALSE),
+    expect_equal_to_reference(print(pbcByTrt$ContTable, nonnormal = nonnormalVars, minMax = TRUE, printToggle = TRUE),
                               "ref-ContTable_nonnormal_minMax")
 
-    expect_equal_to_reference(print(pbcByTrt$ContTable, noSpaces = TRUE, printToggle = FALSE),
+    expect_equal_to_reference(print(pbcByTrt$ContTable, noSpaces = TRUE, printToggle = TRUE),
                               "ref-ContTable_noSpaces")
 
-    expect_equal_to_reference(print(pbcByTrt$ContTable, explain = FALSE, printToggle = FALSE),
+    expect_equal_to_reference(print(pbcByTrt$ContTable, explain = FALSE, printToggle = TRUE),
                               "ref-ContTable_explain")
 
-    expect_equal_to_reference(print(pbcByTrt$ContTable, noSpaces = TRUE, showAllLevels = TRUE, quote = TRUE, printToggle = FALSE),
+    expect_equal_to_reference(print(pbcByTrt$ContTable, noSpaces = TRUE, showAllLevels = TRUE, quote = TRUE, printToggle = TRUE),
                               "ref-ContTable_noSpaces_showAllLevels_quote")
 })
