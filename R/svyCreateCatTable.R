@@ -3,82 +3,24 @@
 ##' Create an object summarizing categorical variables optionally stratifying
 ##' by one or more startifying variables and performing statistical tests. The
 ##' object gives a table that is easy to use in medical research papers. See
-##' also \code{\link{print.CatTable}} and \code{\link{summary.CatTable}}.
+##' also \code{\link{print.svyCatTable}} and \code{\link{summary.svyCatTable}}.
 ##'
 ##' @param vars Variable(s) to be summarized given as a character vector.
 ##' @param strata Stratifying (grouping) variable name(s) given as a character vector. If omitted, the overall results are returned.
-##' @param data A data frame in which these variables exist. All variables (both vars and strata) must be in this data frame.
+##' @param data A survey design object in which these variables exist. All variables (both vars and strata) must be in this survey design object. It is created with the \code{\link{svydesign}} function in the \code{\link{survey}} package.
 ##' @param includeNA If TRUE, NA is handled as a regular factor level rather than missing. NA is shown as the last factor level in the table. Only effective for categorical variables.
 ##' @param test If TRUE, as in the default and there are more than two groups, groupwise comparisons are performed. Both tests that require the large sample approximation and exact tests are performed. Either one of the result can be obtained from the print method.
-##' @param testApprox A function used to perform the large sample approximation based tests. The default is \code{\link{chisq.test}}. This is not recommended when some of the cell have small counts like fewer than 5.
-##' @param argsApprox A named list of arguments passed to the function specified in testApprox. The default is \code{list(correct = TRUE)}, which turns on the continuity correction for \code{\link{chisq.test}}.
-##' @param testExact A function used to perform the exact tests. The default is fisher.test. If the cells have large numbers, it will fail because of memory limitation. In this situation, the large sample approximation based should suffice.
-##' @param argsExact A named list of arguments passed to the function specified in testExact. The default is \code{list(workspace = 2*10^5)}, which specifies the memory space allocated for \code{\link{fisher.test}}.
-##' @return An object of class \code{CatTable}, which really is a \code{\link{by}} object with additional attributes. Each element of the \code{\link{by}} part is a matrix with rows representing variables, and columns representing summary statistics.
-##' @author Kazuki Yoshida (based on \code{Deducer::frequencies()})
+##' @param testApprox A function used to perform the large sample approximation based tests. The default is \code{\link{svychisq}}.
+##' @param argsApprox A named list of arguments passed to the function specified in testApprox.
+##' @return An object of class \code{svyCatTable}.
+##' @author Kazuki Yoshida
 ##' @seealso
-##' \code{\link{CreateCatTable}}, \code{\link{print.CatTable}}, \code{\link{summary.CatTable}},
-##' \code{\link{CreateContTable}}, \code{\link{print.ContTable}}, \code{\link{summary.ContTable}},
-##' \code{\link{CreateTableOne}}, \code{\link{print.TableOne}}, \code{\link{summary.TableOne}}
+##' \code{\link{svyCreateCatTable}},  \code{\link{print.svyCatTable}},  \code{\link{summary.svyCatTable}},
+##' \code{\link{svyCreateContTable}}, \code{\link{print.svyContTable}}, \code{\link{summary.svyContTable}},
+##' \code{\link{svyCreateTableOne}},  \code{\link{print.TableOne}},  \code{\link{summary.TableOne}}
 ##' @examples
 ##'
-##' ## Load
-##' library(tableone)
-##'
-##' ## Load Mayo Clinic Primary Biliary Cirrhosis Data
-##' library(survival)
-##' data(pbc)
-##' ## Check variables
-##' head(pbc)
-##'
-##' ## Create an overall table for categorical variables
-##' catVars <- c("status","ascites","hepato","spiders","edema","stage")
-##' catTableOverall <- CreateCatTable(vars = catVars, data = pbc)
-##'
-##' ## Simply typing the object name will invoke the print.CatTable method,
-##' ## which will show the sample size, frequencies and percentages.
-##' ## For 2-level variables, only the higher level is shown for simplicity
-##' ## unless the variables are specified in the cramVars argument.
-##' catTableOverall
-##'
-##' ## If you need to show both levels for some 2-level factors, use cramVars
-##' print(catTableOverall, cramVars = "hepato")
-##'
-##' ## Use the showAllLevels argument to see all levels for all variables.
-##' print(catTableOverall, showAllLevels = TRUE)
-##'
-##' ## You can choose form frequencies ("f") and/or percentages ("p") or both.
-##' ## "fp" frequency (percentage) is the default. Row names change accordingly.
-##' print(catTableOverall, format = "f")
-##' print(catTableOverall, format = "p")
-##'
-##' ## To further examine the variables, use the summary.CatTable method,
-##' ## which will show more details.
-##' summary(catTableOverall)
-##'
-##' ## The table can be stratified by one or more variables
-##' catTableBySexTrt <- CreateCatTable(vars = catVars,
-##'                                    strata = c("sex","trt"), data = pbc)
-##'
-##' ## print now includes p-values which are by default calculated by chisq.test.
-##' ## It is formatted at the decimal place specified by the pDigits argument
-##' ## (3 by default). It does <0.001 for you.
-##' catTableBySexTrt
-##'
-##' ## The exact argument toggles the p-values to the exact test result from
-##' ## fisher.test. It will show which ones are from exact tests.
-##' print(catTableBySexTrt, exact = "ascites")
-##'
-##' ## summary now includes both types of p-values
-##' summary(catTableBySexTrt)
-##'
-##' ## If your work flow includes copying to Excel and Word when writing manuscripts,
-##' ## you may benefit from the quote argument. This will quote everything so that
-##' ## Excel does not mess up the cells.
-##' print(catTableBySexTrt, exact = "ascites", quote = TRUE)
-##'
-##' ## If you want to center-align values in Word, use noSpaces option.
-##' print(catTableBySexTrt, exact = "ascites", quote = TRUE, noSpaces = TRUE)
+##' ## Placeholder
 ##'
 ##' @export
 svyCreateCatTable <-
