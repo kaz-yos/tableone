@@ -87,6 +87,7 @@ CreateTableOne <-
              strata,                                    # character vector of variable names
              data,                                      # data frame
              factorVars,                                # variables to be transformed to factors
+             includeNA     = FALSE,                     # include NA as a category (categoricals only)
              test          = TRUE,                      # whether to put p-values
              ## Test configuration for categorical data
              testApprox    = chisq.test,                # function for approximation test
@@ -161,6 +162,7 @@ CreateTableOne <-
                                     argsNonNormal = argsNonNormal
                                     )
         argsCreateCatTable  <- list(data          = data,
+                                    includeNA     = includeNA,
                                     test          = test,
                                     testApprox    = testApprox,
                                     argsApprox    = argsApprox,

@@ -130,6 +130,7 @@ test_that("P-values should be NA for 1xM xtabs", {
 
 ## Create a table to test
 pbcOverall  <- CreateTableOne(vars = vars, data = pbc)
+pbcInclNa   <- CreateTableOne(vars = vars, data = pbc, includeNA = TRUE)
 pbcByTrt    <- CreateTableOne(vars = vars, strata = c("trt"), data = pbc)
 pbcByTrtSex <- CreateTableOne(vars = vars, strata = c("trt","sex"), data = pbc)
 
@@ -146,6 +147,9 @@ test_that("printing of a TableOne object does not regress", {
 
     expect_equal_to_reference(print(pbcOverall, printToggle = TRUE),
                               "ref-TableOne_overallPrint")
+
+    expect_equal_to_reference(print(pbcInclNa, printToggle = TRUE),
+                              "ref-TableOne_IncludeNA")
 
     expect_equal_to_reference(print(pbcByTrtSex, printToggle = TRUE),
                               "ref-TableOne_2StrataVars")
@@ -182,6 +186,9 @@ test_that("printing of a TableOne$CatTable object do not regress", {
 
     expect_equal_to_reference(print(pbcOverall$CatTable, printToggle = TRUE),
                               "ref-CatTable_overallPrint")
+
+    expect_equal_to_reference(print(pbcInclNa$CatTable, printToggle = TRUE),
+                              "ref-CatTable_IncludeNA")
 
     expect_equal_to_reference(print(pbcByTrtSex$CatTable, printToggle = TRUE),
                               "ref-CatTable_2StrataVars")

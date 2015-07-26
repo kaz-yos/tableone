@@ -84,9 +84,10 @@ CreateCatTable <-
     function(vars,                                 # character vector of variable names
              strata,                               # character vector of variable names
              data,                                 # data frame
-             test  = TRUE,                         # whether to put p-values
+             includeNA  = FALSE,                   # include NA as a category
+             test       = TRUE,                    # whether to put p-values
              testApprox = chisq.test,              # function for approximation test
-             argsApprox = list(correct = TRUE),   # arguments passed to testApprox
+             argsApprox = list(correct = TRUE),    # arguments passed to testApprox
              testExact  = fisher.test,             # function for exact test
              argsExact  = list(workspace = 2*10^5) # arguments passed to testExact
              ) {
@@ -107,6 +108,9 @@ CreateCatTable <-
     ## Toggle test FALSE if no strata
     test <- ModuleReturnFalseIfNoStrata(strata, test)
 
+    ## Create strata data frame (data frame with only strata variables)
+    strata <- ModuleReturnStrata(strata, data)
+
     ## Convert to a factor if it is not a factor already. (categorical version only)
     ## Not done on factors, to avoid dropping zero levels.
     ## Probably this cannot handle Surv object??
@@ -118,9 +122,22 @@ CreateCatTable <-
 
     dat[logiNotFactor] <- lapply(dat[logiNotFactor], factor)
 
-    ## Create strata data frame (data frame with only strata variables)
-    strata <- ModuleReturnStrata(strata, data)
+    ## If including NA as a level, include NA as a factor level before subsetting
+    if (includeNA) {
+        ## Logical vector for variables that have any NA
+        logiAnyNA <- (colSums(is.na(dat)) > 0)
 
+        ## Add NA as a new level unless already present
+        dat[logiAnyNA] <-
+                     lapply(dat[logiAnyNA],
+                            function(var) {
+                                if (all(!is.na(levels(var)))) {
+                                    var <- factor(var, c(levels(var), NA),
+                                                  exclude = NULL)
+                                }
+                                var
+                            })
+    }
 
 ### Actual descriptive statistics are calculated here.
 
