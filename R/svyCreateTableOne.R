@@ -87,6 +87,7 @@ function(vars,                                   # character vector of variable 
          strata,                                 # character vector of variable names
          data,                                   # data frame
          factorVars,                             # variables to be transformed to factors
+         includeNA     = FALSE,                  # include NA as a category (categoricals only)
          test          = TRUE,                   # whether to put p-values
          ## Test configuration for categorical data
          testApprox    = svyTestChisq,           # function for approximation test (only choice)
@@ -159,6 +160,7 @@ function(vars,                                   # character vector of variable 
                                     argsNonNormal = argsNonNormal
                                     )
         argsCreateCatTable  <- list(data          = data,
+                                    includeNA     = includeNA,
                                     test          = test,
                                     testApprox    = testApprox,
                                     argsApprox    = argsApprox

@@ -95,6 +95,7 @@ test_that("data assessment detects anomalies", {
 
 ## Create a table to test
 mwOverall  <- svyCreateTableOne(vars = vars, data = datSvy, factorVars = factorVars)
+mwInclNa   <- svyCreateTableOne(vars = vars, data = datSvy, factorVars = factorVars, includeNA = TRUE)
 mwByTrt    <- svyCreateTableOne(vars = vars, strata = c("E"), data = datSvy, factorVars = factorVars)
 mwByTrtSex <- svyCreateTableOne(vars = vars, strata = c("E","C1"), data = datSvy, factorVars = factorVars)
 
@@ -111,6 +112,9 @@ test_that("printing of a svyTableOne object does not regress", {
 
     expect_equal_to_reference(print(mwOverall, printToggle = TRUE),
                               "ref-svyTableOne_overallPrint")
+
+    expect_equal_to_reference(print(mwInclNa, printToggle = TRUE),
+                              "ref-svyTableOne_IncludeNA")
 
     expect_equal_to_reference(print(mwByTrtSex, printToggle = TRUE),
                               "ref-svyTableOne_2StrataVars")
@@ -147,6 +151,9 @@ test_that("printing of a svyTableOne$CatTable object do not regress", {
 
     expect_equal_to_reference(print(mwOverall$CatTable, printToggle = TRUE),
                               "ref-svyCatTable_overallPrint")
+
+    expect_equal_to_reference(print(mwInclNa$CatTable, printToggle = TRUE),
+                              "ref-svyCatTable_IncludeNA")
 
     expect_equal_to_reference(print(mwByTrtSex$CatTable, printToggle = TRUE),
                               "ref-svyCatTable_2StrataVars")

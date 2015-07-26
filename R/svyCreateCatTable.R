@@ -130,14 +130,14 @@ function(vars,                      # character vector of variable names
 
         ## Add NA as a new level unless already present
         data$variables[logiAnyNA] <-
-                                    lapply(data$variables[logiAnyNA],
-                                           function(var) {
-                                               if (all(!is.na(levels(var)))) {
-                                                   var <- factor(var, c(levels(var), NA),
-                                                                 exclude = NULL)
-                                               }
-                                               var
-                                           })
+                                lapply(data$variables[logiAnyNA],
+                                       function(var) {
+                                           if (all(!is.na(levels(var)))) {
+                                               var <- factor(var, c(levels(var), NA),
+                                                             exclude = NULL)
+                                           }
+                                           var
+                                       })
     }
 
 ### Actual descriptive statistics are calculated here.
