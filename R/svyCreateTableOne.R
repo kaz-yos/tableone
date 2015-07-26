@@ -4,15 +4,15 @@
 ##'
 ##' @param vars Variables to be summarized given as a character vector. Factors are handled as categorical variables, whereas numeric variables are handled as continuous variables. If empty, all variables in the survey design object specified in the data argument are used.
 ##' @param strata Stratifying (grouping) variable name(s) given as a character vector. If omitted, the overall results are returned.
-##' @param data A survey design object in which these variables exist. All variables (both vars and strata) must be in this survey design object. It is created with the \code{\link{svydesign}} function in the \code{\link{survey}} package.
+##' @param data A survey design object in which these variables exist. All variables (both vars and strata) must be in this survey design object. It is created with the \code{svydesign} function in the \code{survey} package.
 ##' @param factorVars Numerically coded variables that should be handled as categorical variables given as a character vector. If omitted, only factors are considered categorical variables. If all categorical variables in the dataset are already factors, this option is not necessary. The variables specified here must also be specified in the \code{vars} argument.
 ##' @param includeNA If TRUE, NA is handled as a regular factor level rather than missing. NA is shown as the last factor level in the table. Only effective for categorical variables.
 ##' @param test If TRUE, as in the default and there are more than two groups, groupwise comparisons are performed.
-##' @param testNormal A function used to perform the normal assumption based tests. The default is multiple degrees of freedom test using \code{\link{svyglm}} and \code{\link{regTermTest}}. This is equivalent of the \code{\link{svyttest}} when there are only two groups.
+##' @param testNormal A function used to perform the normal assumption based tests. The default is multiple degrees of freedom test using \code{svyglm} and \code{regTermTest}. This is equivalent of the \code{svyttest} when there are only two groups.
 ##' @param argsNormal A named list of arguments passed to the function specified in \code{testNormal}.
-##' @param testNonNormal A function used to perform the nonparametric tests. The default is \code{\link{svyranktest}}.
+##' @param testNonNormal A function used to perform the nonparametric tests. The default is \code{svyranktest}.
 ##' @param argsNonNormal A named list of arguments passed to the function specified in \code{testNonNormal}.
-##' @param testApprox A function used to perform the large sample approximation based tests. The default is \code{\link{svychisq}}.
+##' @param testApprox A function used to perform the large sample approximation based tests. The default is \code{svychisq}.
 ##' @param argsApprox A named list of arguments passed to the function specified in testApprox.
 ##' @return An object of class \code{svyTableOne}, which really is a list of three objects.
 ##' @return \item{TableOne}{a categorical-continuous mixture data formatted and printed by the \code{\link{print.TableOne}} method}
@@ -22,7 +22,7 @@
 ##'
 ##' @author Kazuki Yoshida
 ##' @seealso
-##' \code{\link{svyCreateTableOne}},  \code{\link{print.TableOne}},  \code{\link{summary.TableOne}},
+##' \code{\link{svyCreateTableOne}},  \code{\link{print.TableOne}},     \code{\link{summary.TableOne}},
 ##' \code{\link{svyCreateCatTable}},  \code{\link{print.svyCatTable}},  \code{\link{summary.svyCatTable}},
 ##' \code{\link{svyCreateContTable}}, \code{\link{print.svyContTable}}, \code{\link{summary.svyContTable}}
 ##' @examples

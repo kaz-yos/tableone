@@ -7,18 +7,18 @@
 ##'
 ##' @param vars Variable(s) to be summarized given as a character vector.
 ##' @param strata Stratifying (grouping) variable name(s) given as a character vector. If omitted, the overall results are returned.
-##' @param data A survey design object in which these variables exist. All variables (both vars and strata) must be in this survey design object. It is created with the \code{\link{svydesign}} function in the \code{\link{survey}} package.
+##' @param data A survey design object in which these variables exist. All variables (both vars and strata) must be in this survey design object. It is created with the \code{svydesign} function in the \code{survey} package.
 ##' @param test If TRUE, as in the default and there are more than two groups, groupwise comparisons are performed. Both tests that assume normality and tests that do not are performed. Either one of the result can be obtained from the print method.
-##' @param testNormal A function used to perform the normal assumption based tests. The default is multiple degrees of freedom test using \code{\link{svyglm}} and \code{\link{regTermTest}}. This is equivalent of the \code{\link{svyttest}} when there are only two groups.
+##' @param testNormal A function used to perform the normal assumption based tests. The default is multiple degrees of freedom test using \code{svyglm} and \code{regTermTest}. This is equivalent of the \code{svyttest} when there are only two groups.
 ##' @param argsNormal A named list of arguments passed to the function specified in \code{testNormal}.
-##' @param testNonNormal A function used to perform the nonparametric tests. The default is \code{\link{svyranktest}}.
+##' @param testNonNormal A function used to perform the nonparametric tests. The default is \code{svyranktest}.
 ##' @param argsNonNormal A named list of arguments passed to the function specified in \code{testNonNormal}.
 ##' @return An object of class \code{svyContTable}.
 ##' @author Kazuki Yoshida
 ##' @seealso
 ##' \code{\link{svyCreateContTable}}, \code{\link{print.svyContTable}}, \code{\link{summary.svyContTable}},
-##' \code{\link{svyCreateCatTable}}, \code{\link{print.svyCatTable}}, \code{\link{summary.svyCatTable}},
-##' \code{\link{svyCreateTableOne}}, \code{\link{print.TableOne}}, \code{\link{summary.TableOne}}
+##' \code{\link{svyCreateCatTable}},  \code{\link{print.svyCatTable}},  \code{\link{summary.svyCatTable}},
+##' \code{\link{svyCreateTableOne}},  \code{\link{print.TableOne}},     \code{\link{summary.TableOne}}
 ##' @examples
 ##'
 ##' ## Placeholder
