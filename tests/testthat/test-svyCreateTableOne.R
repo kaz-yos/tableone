@@ -151,15 +151,12 @@ test_that("printing of a svyTableOne$CatTable object do not regress", {
     expect_equal_to_reference(print(mwByTrtSex$CatTable, printToggle = TRUE),
                               "ref-svyCatTable_2StrataVars")
 
-    ## 2015-07-25 p values not implemented yet
     expect_equal_to_reference(print(mwByTrtSex$CatTable, digits = 3, pDigits = 5, printToggle = TRUE),
                               "ref-svyCatTable_digits")
 
-    ## 2015-07-25 p not implemented, but will be correct without it
     expect_equal_to_reference(print(mwByTrtSex$CatTable, test = FALSE, printToggle = TRUE),
                               "ref-svyCatTable_noTests")
 
-    ## In this case, noSpaces does not make any difference anyway
     expect_equal_to_reference(print(mwByTrt$CatTable, digits = 3, noSpaces = TRUE, printToggle = TRUE),
                               "ref-svyCatTable_noSpaces")
 
@@ -198,16 +195,14 @@ test_that("printing of a svyTableOne$ContTable object do not regress", {
     expect_equal_to_reference(print(mwByTrtSex$ContTable, printToggle = TRUE),
                               "ref-svyContTable_2StrataVars")
 
-    ## 2015-07-25 p values are not implemented yet
     expect_equal_to_reference(print(mwByTrt$ContTable, digits = 3, pDigits = 5, printToggle = TRUE),
                               "ref-svyContTable_digits")
 
-    ## 2015-07-25 p values are not implemented yet, thus correct
     expect_equal_to_reference(print(mwByTrt$ContTable, test = FALSE, printToggle = TRUE),
                               "ref-svyContTable_noTests")
 
-    expect_equal_to_reference(print(mwByTrt$ContTable, nonnormal = nonnormalVars, exact = exactVars, printToggle = TRUE),
-                              "ref-svyContTable_nonnormal_exact")
+    expect_equal_to_reference(print(mwByTrt$ContTable, nonnormal = nonnormalVars, printToggle = TRUE),
+                              "ref-svyContTable_nonnormal")
 
     expect_equal_to_reference(print(mwByTrt$ContTable, nonnormal = nonnormalVars, minMax = TRUE, printToggle = TRUE),
                               "ref-svyContTable_nonnormal_minMax")
