@@ -115,11 +115,9 @@ test_that("printing of a svyTableOne object does not regress", {
     expect_equal_to_reference(print(mwByTrtSex, printToggle = FALSE),
                               "ref-svyTableOne_2StrataVars")
 
-    ## 2015-07-25 pDigits is not implemented yet
     expect_equal_to_reference(print(mwByTrt, catDigits = 3, contDigits = 4, pDigits = 5, printToggle = FALSE),
                               "ref-svyTableOne_digits")
 
-    ## 2015-07-25 Not implemented yet (thus correct)
     expect_equal_to_reference(print(mwByTrt, test = FALSE, printToggle = FALSE),
                               "ref-svyTableOne_noTests")
 
@@ -237,6 +235,9 @@ test_that("p values are correctly calculated", {
     ## Drop names X-squared X-squared
     names(pValuesTestChisq) <- NULL
     expect_equal(attr(mwByTrt$CatTable, "pValues")[, "pApprox"], pValuesTestChisq)
+
+    ## no exact tests
+    expect_equal(attr(mwByTrt$CatTable, "pValues")[, "pExact"], c(NA, NA))
 
     ## svyglm to do ANOVA equivalent
     pValuesTestNormal <-
