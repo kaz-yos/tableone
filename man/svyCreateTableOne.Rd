@@ -4,47 +4,44 @@
 \alias{svyCreateTableOne}
 \title{Create an object summarizing any variables for weighted data}
 \usage{
-svyCreateTableOne(vars, strata, data, factorVars, test = TRUE,
-  testApprox = chisq.test, argsApprox = list(correct = TRUE),
-  testExact = fisher.test, argsExact = list(workspace = 2 * 10^5),
-  testNormal = oneway.test, argsNormal = list(var.equal = TRUE),
-  testNonNormal = kruskal.test, argsNonNormal = list(NULL))
+svyCreateTableOne(vars, strata, data, factorVars, includeNA = FALSE,
+  test = TRUE, testApprox = svyTestChisq, argsApprox = NULL,
+  testNormal = svyTestNormal, argsNormal = list(method = "Wald"),
+  testNonNormal = svyTestNonNormal, argsNonNormal = NULL)
 }
 \arguments{
-\item{vars}{Variables to be summarized given as a character vector. Factors are handled as categorical variables, whereas numeric variables are handled as continuous variables. If empty, all variables in the data frame specified in the data argument are used.}
+\item{vars}{Variables to be summarized given as a character vector. Factors are handled as categorical variables, whereas numeric variables are handled as continuous variables. If empty, all variables in the survey design object specified in the data argument are used.}
 
 \item{strata}{Stratifying (grouping) variable name(s) given as a character vector. If omitted, the overall results are returned.}
 
-\item{data}{A data frame in which these variables exist. All variables (both vars and strata) must be in this data frame.}
+\item{data}{A survey design object in which these variables exist. All variables (both vars and strata) must be in this survey design object. It is created with the \code{svydesign} function in the \code{survey} package.}
 
 \item{factorVars}{Numerically coded variables that should be handled as categorical variables given as a character vector. If omitted, only factors are considered categorical variables. If all categorical variables in the dataset are already factors, this option is not necessary. The variables specified here must also be specified in the \code{vars} argument.}
 
+\item{includeNA}{If TRUE, NA is handled as a regular factor level rather than missing. NA is shown as the last factor level in the table. Only effective for categorical variables.}
+
 \item{test}{If TRUE, as in the default and there are more than two groups, groupwise comparisons are performed.}
 
-\item{testApprox}{A function used to perform the large sample approximation based tests. The default is \code{\link{chisq.test}}. This is not recommended when some of the cell have small counts like fewer than 5.}
+\item{testApprox}{A function used to perform the large sample approximation based tests. The default is \code{svychisq}.}
 
-\item{argsApprox}{A named list of arguments passed to the function specified in testApprox. The default is \code{list(correct = TRUE)}, which turns on the continuity correction for \code{\link{chisq.test}}.}
+\item{argsApprox}{A named list of arguments passed to the function specified in testApprox.}
 
-\item{testExact}{A function used to perform the exact tests. The default is fisher.test. If the cells have large numbers, it will fail because of memory limitation. In this situation, the large sample approximation based should suffice.}
+\item{testNormal}{A function used to perform the normal assumption based tests. The default is multiple degrees of freedom test using \code{svyglm} and \code{regTermTest}. This is equivalent of the \code{svyttest} when there are only two groups.}
 
-\item{argsExact}{A named list of arguments passed to the function specified in testExact. The default is \code{list(workspace = 2*10^5)}, which specifies the memory space allocated for \code{\link{fisher.test}}.}
+\item{argsNormal}{A named list of arguments passed to the function specified in \code{testNormal}.}
 
-\item{testNormal}{A function used to perform the normal assumption based tests. The default is \code{\link{oneway.test}}. This is equivalent of the t-test when there are only two groups.}
+\item{testNonNormal}{A function used to perform the nonparametric tests. The default is \code{svyranktest}.}
 
-\item{argsNormal}{A named list of arguments passed to the function specified in \code{testNormal}. The default is \code{list(var.equal = TRUE)}, which makes it the ordinary ANOVA that assumes equal variance across groups.}
-
-\item{testNonNormal}{A function used to perform the nonparametric tests. The default is \code{kruskal.test} (Kruskal-Wallis Rank Sum Test). This is equivalent of the wilcox.test (Man-Whitney U test) when there are only two groups.}
-
-\item{argsNonNormal}{A named list of arguments passed to the function specified in \code{testNonNormal}. The default is \code{list(NULL)}, which is just a placeholder.}
+\item{argsNonNormal}{A named list of arguments passed to the function specified in \code{testNonNormal}.}
 }
 \value{
-An object of class \code{TableOne}, which really is a list of three objects.
+An object of class \code{svyTableOne}, which really is a list of three objects.
 
 \item{TableOne}{a categorical-continuous mixture data formatted and printed by the \code{\link{print.TableOne}} method}
 
-\item{ContTable}{an object of class \code{ContTable}, containing continuous variables only}
+\item{ContTable}{an object of class \code{svyContTable}, containing continuous variables only}
 
-\item{CatTable}{ an object of class \code{CatTable}, containing categorical variables only}
+\item{CatTable}{ an object of class \code{svyCatTable}, containing categorical variables only}
 
 The second and third objects can be then be examined with the \code{print} and \code{summary} method, for example, \code{summary(object$CatTable)} to examine the categorical variables in detail.
 }
@@ -52,65 +49,52 @@ The second and third objects can be then be examined with the \code{print} and \
 Create an object summarizing all baseline variables optionally stratifying by one or more startifying variables and performing statistical tests. The object gives a table that is easy to use in medical research papers. See also \code{\link{print.TableOne}} and \code{\link{summary.TableOne}}.
 }
 \examples{
-## Load
+## Load packages
 library(tableone)
+library(survey)
 
-## Load Mayo Clinic Primary Biliary Cirrhosis Data
-library(survival)
-data(pbc)
-## Check variables
-head(pbc)
+## Create a weighted survey design object
+data(nhanes)
+nhanesSvy <- svydesign(ids = ~ SDMVPSU, strata = ~ SDMVSTRA, weights = ~ WTMEC2YR,
+                       nest = TRUE, data = nhanes)
 
-## Make categorical variables factors
-varsToFactor <- c("status","trt","ascites","hepato","spiders","edema","stage")
-pbc[varsToFactor] <- lapply(pbc[varsToFactor], factor)
+## Create a table object
+## factorVars are converted to factors; no need to do this if variables are already factors
+## strata will stratify summaries; leave it unspecified, and overview is obtained
+tab1 <- svyCreateTableOne(vars = c("HI_CHOL","race","agecat","RIAGENDR"),
+                          strata = "RIAGENDR", data = nhanesSvy,
+                          factorVars = c("race","RIAGENDR"))
 
-## Create a variable list
-dput(names(pbc))
-vars <- c("time","status","age","sex","ascites","hepato",
-          "spiders","edema","bili","chol","albumin",
-          "copper","alk.phos","ast","trig","platelet",
-          "protime","stage")
+## Detailed output
+summary(tab1)
 
-## Create Table 1 stratified by trt
-tableOne <- CreateTableOne(vars = vars, strata = c("trt"), data = pbc)
+## Default formatted printing
+tab1
 
-## Just typing the object name will invoke the print.TableOne method
-tableOne
+## nonnormal specifies variables to be shown as median [IQR]
+print(tab1, nonnormal = "HI_CHOL", contDigits = 3, catDigits = 2, pDigits = 4)
 
-## Specifying nonnormal variables will show the variables appropriately,
-## and show nonparametric test p-values. Specify variables in the exact
-## argument to obtain the exact test p-values.
-print(tableOne, nonnormal = c("bili","chol","copper","alk.phos","trig"),
-      exact = c("status","stage"))
+## minMax changes it to median [min, max]
+print(tab1, nonnormal = "HI_CHOL", minMax = TRUE, contDigits = 3, catDigits = 2, pDigits = 4)
 
-## Use the summary.TableOne method for detailed summary
-summary(tableOne)
+## showAllLevels can be used tow show levels for all categorical variables
+print(tab1, showAllLevels = TRUE)
 
-## See the categorical part only using $ operator
-tableOne$CatTable
-summary(tableOne$CatTable)
+## To see all printing options
+?print.TableOne
 
-## See the continuous part only using $ operator
-tableOne$ContTable
-summary(tableOne$ContTable)
+## To examine categorical variables only
+tab1$CatTable
 
-## If your work flow includes copying to Excel and Word when writing manuscripts,
-## you may benefit from the quote argument. This will quote everything so that
-## Excel does not mess up the cells.
-print(tableOne, nonnormal = c("bili","chol","copper","alk.phos","trig"),
-      exact = c("status","stage"), quote = TRUE)
-
-## If you want to center-align values in Word, use noSpaces option.
-print(tableOne, nonnormal = c("bili","chol","copper","alk.phos","trig"),
-      exact = c("status","stage"), quote = TRUE, noSpaces = TRUE)
+## To examine continuous variables only
+tab1$ContTable
 }
 \author{
-Justin Bohn, Kazuki Yoshida
+Kazuki Yoshida
 }
 \seealso{
-\code{\link{CreateTableOne}}, \code{\link{print.TableOne}}, \code{\link{summary.TableOne}},
-\code{\link{CreateCatTable}}, \code{\link{print.CatTable}}, \code{\link{summary.CatTable}},
-\code{\link{CreateContTable}}, \code{\link{print.ContTable}}, \code{\link{summary.ContTable}}
+\code{\link{svyCreateTableOne}},  \code{\link{print.TableOne}},     \code{\link{summary.TableOne}},
+\code{\link{svyCreateCatTable}},  \code{\link{print.svyCatTable}},  \code{\link{summary.svyCatTable}},
+\code{\link{svyCreateContTable}}, \code{\link{print.svyContTable}}, \code{\link{summary.svyContTable}}
 }
 

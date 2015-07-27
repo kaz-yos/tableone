@@ -4,9 +4,9 @@
 \alias{CreateCatTable}
 \title{Create an object summarizing categorical variables}
 \usage{
-CreateCatTable(vars, strata, data, test = TRUE, testApprox = chisq.test,
-  argsApprox = list(correct = TRUE), testExact = fisher.test,
-  argsExact = list(workspace = 2 * 10^5))
+CreateCatTable(vars, strata, data, includeNA = FALSE, test = TRUE,
+  testApprox = chisq.test, argsApprox = list(correct = TRUE),
+  testExact = fisher.test, argsExact = list(workspace = 2 * 10^5))
 }
 \arguments{
 \item{vars}{Variable(s) to be summarized given as a character vector.}
@@ -14,6 +14,8 @@ CreateCatTable(vars, strata, data, test = TRUE, testApprox = chisq.test,
 \item{strata}{Stratifying (grouping) variable name(s) given as a character vector. If omitted, the overall results are returned.}
 
 \item{data}{A data frame in which these variables exist. All variables (both vars and strata) must be in this data frame.}
+
+\item{includeNA}{If TRUE, NA is handled as a regular factor level rather than missing. NA is shown as the last factor level in the table. Only effective for categorical variables.}
 
 \item{test}{If TRUE, as in the default and there are more than two groups, groupwise comparisons are performed. Both tests that require the large sample approximation and exact tests are performed. Either one of the result can be obtained from the print method.}
 
