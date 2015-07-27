@@ -8,6 +8,9 @@ NEW FEATURES
   object, and this object should be used for svyCreateTableOne()
   instead of the orginal data frame.
 
+* The includeNA option for CreateTableOne() and svyCreateTableOne()
+  make NA's in factors treated as a regular level.
+
 MINOR CHANGES
 
 * ShowRegTable() uses coef to refer to coefficients.
