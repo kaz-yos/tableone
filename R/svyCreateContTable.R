@@ -55,7 +55,7 @@ function(vars,                                  # character vector of variable n
 
     ## Create a single stratification variable
     ## Keeps non-existing levels
-    data$variables$..strataVar..       <- interaction(strata, sep = ":")
+    data$variables$..strataVar.. <- interaction(strata, sep = ":")
     strataVarLevels <- levels(data$variables$..strataVar..)
 
     ## Handle non-numeric elements (intergers give TRUE, and pass)
