@@ -25,7 +25,7 @@
 ##' \code{\link{svyCreateTableOne}},  \code{\link{print.TableOne}},     \code{\link{summary.TableOne}}
 ##' @examples
 ##'
-##' ##
+##' ## See the examples for svyCreateTableOne()
 ##'
 ##' @export
 print.svyCatTable <- function(x,                        # CatTable object

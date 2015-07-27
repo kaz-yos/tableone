@@ -13,7 +13,7 @@
 ##' \code{\link{svyCreateTableOne}},  \code{\link{print.TableOne}},     \code{\link{summary.TableOne}}
 ##' @examples
 ##'
-##' ##
+##' ## See the examples for svyCreateTableOne()
 ##'
 ##' @export
 summary.svyCatTable <- function(object, digits = 1, ...) {

@@ -23,8 +23,8 @@
 ##' \code{\link{svyCreateTableOne}},  \code{\link{print.TableOne}},     \code{\link{summary.TableOne}}
 ##' @examples
 ##'
-##' ##
-##' 
+##' ## See the examples for svyCreateTableOne()
+##'
 ##' @export
 print.svyContTable <- function(x,                       # ContTable object
                                digits = 2, pDigits = 3, # Number of digits to show

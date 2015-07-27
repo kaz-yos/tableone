@@ -21,7 +21,7 @@
 ##' \code{\link{svyCreateTableOne}},  \code{\link{print.TableOne}},     \code{\link{summary.TableOne}}
 ##' @examples
 ##'
-##' ## Placeholder
+##' ## See the examples for svyCreateTableOne()
 ##'
 ##' @export
 svyCreateContTable <-
