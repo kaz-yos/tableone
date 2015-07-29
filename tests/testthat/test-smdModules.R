@@ -286,11 +286,11 @@ test_that("categorical standardized difference is correct (nhanes unweighted)", 
 
     covMean2 <-
     list((MultinomialVar(propTable2[1,]) + MultinomialVar(propTable2[2,])) / 2,
-         (MultinomialVar(propTable2[1,]) + MultinomialVar(propTable2[2,])) / 2,
-         (MultinomialVar(propTable2[1,]) + MultinomialVar(propTable2[2,])) / 2,
-         (MultinomialVar(propTable2[1,]) + MultinomialVar(propTable2[2,])) / 2,
-         (MultinomialVar(propTable2[1,]) + MultinomialVar(propTable2[2,])) / 2,
-         (MultinomialVar(propTable2[1,]) + MultinomialVar(propTable2[2,])) / 2)
+         (MultinomialVar(propTable2[1,]) + MultinomialVar(propTable2[3,])) / 2,
+         (MultinomialVar(propTable2[1,]) + MultinomialVar(propTable2[4,])) / 2,
+         (MultinomialVar(propTable2[2,]) + MultinomialVar(propTable2[3,])) / 2,
+         (MultinomialVar(propTable2[2,]) + MultinomialVar(propTable2[4,])) / 2,
+         (MultinomialVar(propTable2[3,]) + MultinomialVar(propTable2[4,])) / 2)
 
     ## These should match in length.
     expect_equal(length(meanDiffs2), length(covMean2))
@@ -356,11 +356,11 @@ test_that("categorical standardized difference is correct (nhanes weighted)", {
 
     covMean2 <-
     list((MultinomialVar(propTable2[1,]) + MultinomialVar(propTable2[2,])) / 2,
-         (MultinomialVar(propTable2[1,]) + MultinomialVar(propTable2[2,])) / 2,
-         (MultinomialVar(propTable2[1,]) + MultinomialVar(propTable2[2,])) / 2,
-         (MultinomialVar(propTable2[1,]) + MultinomialVar(propTable2[2,])) / 2,
-         (MultinomialVar(propTable2[1,]) + MultinomialVar(propTable2[2,])) / 2,
-         (MultinomialVar(propTable2[1,]) + MultinomialVar(propTable2[2,])) / 2)
+         (MultinomialVar(propTable2[1,]) + MultinomialVar(propTable2[3,])) / 2,
+         (MultinomialVar(propTable2[1,]) + MultinomialVar(propTable2[4,])) / 2,
+         (MultinomialVar(propTable2[2,]) + MultinomialVar(propTable2[3,])) / 2,
+         (MultinomialVar(propTable2[2,]) + MultinomialVar(propTable2[4,])) / 2,
+         (MultinomialVar(propTable2[3,]) + MultinomialVar(propTable2[4,])) / 2)
 
     ## These should match in length.
     expect_equal(length(meanDiffs2), length(covMean2))
@@ -371,10 +371,10 @@ test_that("categorical standardized difference is correct (nhanes weighted)", {
     }))
 
     ## Individual numbers
-    expect_equal(StdDiffMulti(nhanes$agecat, nhanes$race),
+    expect_equal(svyStdDiffMulti("agecat", "race", design = nhanesSvy),
                  smds)
     ## Average across
-    expect_equal(mean(StdDiffMulti(nhanes$agecat, nhanes$race)),
+    expect_equal(mean(svyStdDiffMulti("agecat", "race", design = nhanesSvy)),
                  mean(smds))
 
 })
