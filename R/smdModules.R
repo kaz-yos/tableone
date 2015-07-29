@@ -132,7 +132,7 @@ StdDiff <- function(variable, group, binary = FALSE, na.rm = TRUE) {
 
     out <- meanDiffs / sqrt(varMeans)
 
-    abs(out[upper.tri(out)])
+    abs(out[lower.tri(out)])
 }
 
 ### Categorical (including binary) standardizzed mean difference
@@ -186,7 +186,7 @@ svyStdDiff <- function(varName, groupName, design, binary = FALSE, na.rm = TRUE)
 
     out <- meanDiffs / sqrt(varMeans)
 
-    abs(out[upper.tri(out)])
+    abs(out[lower.tri(out)])
 }
 
 
