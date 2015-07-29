@@ -232,9 +232,9 @@ print.svyContTable <- function(x,                       # ContTable object
     outColNames <- colnames(out)
     ## Add n at the correct location depending on the number of columns added (level and/or p)
     out <- rbind(n = c(strataN,
-                     p    = rep("", wasPValueColumnAdded),   # Add "" padding if p-value added
-                     test = rep("", wasNonNormalColumnAdded) # Add "" padding if nonnormal test used
-                     ),
+                       p    = rep("", wasPValueColumnAdded),   # Add "" padding if p-value added
+                       test = rep("", wasNonNormalColumnAdded) # Add "" padding if nonnormal test used
+                       ),
                  out)
     ## Put back the column names (overkill for non-multivariable cases)
     colnames(out) <- outColNames

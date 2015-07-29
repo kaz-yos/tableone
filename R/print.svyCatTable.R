@@ -361,11 +361,11 @@ print.svyCatTable <- function(x,                        # CatTable object
     ## Keep column names (strataN does not have correct names if stratification is by multiple variables)
     outColNames <- colnames(out)
     ## Add n at the correct location depending on the number of columns added (level and/or p)
-    out <- rbind(n = c(level = rep("", wasLevelColumnAdded), # Add "" padding if level added
-                     strataN,
-                     p       = rep("", wasPValueColumnAdded), # Add "" padding if p-value added
-                     test    = rep("", wasExactColumnAdded)   # Add "" padding if exact test used
-                     ),
+    out <- rbind(n = c(level = rep("", wasLevelColumnAdded),    # Add "" padding if level added
+                       strataN,
+                       p       = rep("", wasPValueColumnAdded), # Add "" padding if p-value added
+                       test    = rep("", wasExactColumnAdded)   # Add "" padding if exact test used
+                       ),
                  out)
     ## Put back the column names (overkill for non-multivariable cases)
     colnames(out) <- outColNames
