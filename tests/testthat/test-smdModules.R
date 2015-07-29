@@ -217,6 +217,172 @@ test_that("binary standardized difference is correct (nhanes weighted)", {
 })
 
 
+test_that("multinomal helpers are correct", {
+
+    means <- c(0.310336708264657, 0.224393689663292, 0.234283023310572, 0.230986578761479)
+    covs  <- MultinomialVar(means)
+
+    ## Expectations
+    ## Diagonal p(1-p)
+    expect_equal(diag(covs), means * (1 - means))
+    ## Off diagonal -1 * p_i * p_j
+    expect_equal(covs[1,2], -1 * means[1] * means[2])
+    expect_equal(covs[1,3], -1 * means[1] * means[3])
+    expect_equal(covs[1,4], -1 * means[1] * means[4])
+    expect_equal(covs[2,3], -1 * means[2] * means[3])
+    expect_equal(covs[2,4], -1 * means[2] * means[4])
+    expect_equal(covs[3,4], -1 * means[3] * means[4])
+
+})
+
+
+test_that("categorical standardized difference is correct (nhanes unweighted)", {
+
+    ## Four groups with 6 contrasts
+    means2 <- tapply(nhanes$HI_CHOL, nhanes$race, mean, na.rm = TRUE)
+    vars2  <- means2 * (1 - means2)
+    meanDiffs2 <-
+    c((means2[1] - means2[2]) / sqrt((vars2[1] + vars2[2]) / 2),
+      (means2[1] - means2[3]) / sqrt((vars2[1] + vars2[3]) / 2),
+      (means2[1] - means2[4]) / sqrt((vars2[1] + vars2[4]) / 2),
+      (means2[2] - means2[3]) / sqrt((vars2[2] + vars2[3]) / 2),
+      (means2[2] - means2[4]) / sqrt((vars2[2] + vars2[4]) / 2),
+      (means2[3] - means2[4]) / sqrt((vars2[3] + vars2[4]) / 2))
+    names(meanDiffs2) <- NULL
+
+    ## Individual numbers
+    expect_equal(StdDiffMulti(nhanes$HI_CHOL, nhanes$race),
+                 abs(meanDiffs2))
+    ## Average across
+    expect_equal(mean(StdDiffMulti(nhanes$HI_CHOL, nhanes$race)),
+                 mean(abs(meanDiffs2)))
+
+
+    ## Two group with only one contrast 1 vs 2
+    strataByLevels1 <- xtabs( ~ RIAGENDR + agecat, data = nhanes)
+    ## drop first column after calculating proportion
+    propTable1 <- prop.table(strataByLevels1, margin = 1)[, -1, drop = FALSE]
+    meanDiffs1 <- propTable1[1,] - propTable1[2,]
+    covMean1 <- (MultinomialVar(propTable1[1,]) + MultinomialVar(propTable1[2,])) / 2
+
+    ## R is not strict about transposition
+    expect_equal(meanDiffs1 %*% MASS::ginv(covMean1) %*% meanDiffs1,
+                 t(meanDiffs1) %*% MASS::ginv(covMean1) %*% t(t(meanDiffs1)))
+
+    ## Test actual functions
+    expect_equal(StdDiffMulti(nhanes$agecat, nhanes$RIAGENDR),
+                 sqrt(drop(t(meanDiffs1) %*% MASS::ginv(covMean1) %*% t(t(meanDiffs1)))))
+
+
+    ## Four groups with 6 contrasts
+    strataByLevels2 <- xtabs( ~ race + agecat, data = nhanes)
+    propTable2 <- prop.table(strataByLevels2, margin = 1)[, -1, drop = FALSE]
+    meanDiffs2 <- list(propTable2[1,] - propTable2[2,],
+                       propTable2[1,] - propTable2[3,],
+                       propTable2[1,] - propTable2[4,],
+                       propTable2[2,] - propTable2[3,],
+                       propTable2[2,] - propTable2[4,],
+                       propTable2[3,] - propTable2[4,])
+
+    covMean2 <-
+    list((MultinomialVar(propTable2[1,]) + MultinomialVar(propTable2[2,])) / 2,
+         (MultinomialVar(propTable2[1,]) + MultinomialVar(propTable2[2,])) / 2,
+         (MultinomialVar(propTable2[1,]) + MultinomialVar(propTable2[2,])) / 2,
+         (MultinomialVar(propTable2[1,]) + MultinomialVar(propTable2[2,])) / 2,
+         (MultinomialVar(propTable2[1,]) + MultinomialVar(propTable2[2,])) / 2,
+         (MultinomialVar(propTable2[1,]) + MultinomialVar(propTable2[2,])) / 2)
+
+    ## These should match in length.
+    expect_equal(length(meanDiffs2), length(covMean2))
+
+    smds <- unlist(lapply(seq_along(meanDiffs2), function(i) {
+
+        sqrt(drop(t(meanDiffs2[[i]]) %*% MASS::ginv(covMean2[[i]]) %*% t(t(meanDiffs2[[i]]))))
+    }))
+
+
+    ## Individual numbers
+    expect_equal(StdDiffMulti(nhanes$agecat, nhanes$race),
+                 smds)
+    ## Average across
+    expect_equal(mean(StdDiffMulti(nhanes$agecat, nhanes$race)),
+                 mean(smds))
+
+})
+
+
+test_that("categorical standardized difference is correct (nhanes weighted)", {
+
+    ## Binary four groups
+    means2 <- svyby( ~ HI_CHOL, by = ~ race, design = nhanesSvy, FUN = svymean, na.rm = TRUE)[,2]
+    vars2  <- means2 * (1 - means2)
+    meanDiffs2 <-
+    c((means2[1] - means2[2]) / sqrt((vars2[1] + vars2[2]) / 2),
+      (means2[1] - means2[3]) / sqrt((vars2[1] + vars2[3]) / 2),
+      (means2[1] - means2[4]) / sqrt((vars2[1] + vars2[4]) / 2),
+      (means2[2] - means2[3]) / sqrt((vars2[2] + vars2[3]) / 2),
+      (means2[2] - means2[4]) / sqrt((vars2[2] + vars2[4]) / 2),
+      (means2[3] - means2[4]) / sqrt((vars2[3] + vars2[4]) / 2))
+    names(meanDiffs2) <- NULL
+
+    ## Individual numbers
+    expect_equal(svyStdDiffMulti("HI_CHOL", "race", design = nhanesSvy),
+                 abs(meanDiffs2))
+    ## Average across
+    expect_equal(mean(svyStdDiffMulti("HI_CHOL", "race", design = nhanesSvy)),
+                 mean(abs(meanDiffs2)))
+
+
+    ## Two group with only one contrast 1 vs 2
+    strataByLevels1 <- svytable( ~ RIAGENDR + agecat, design = nhanesSvy)
+    propTable1 <- prop.table(strataByLevels1, margin = 1)[, -1, drop = FALSE]
+    meanDiffs1 <- propTable1[1,] - propTable1[2,]
+    covMean1 <- (MultinomialVar(propTable1[1,]) + MultinomialVar(propTable1[2,])) / 2
+
+    ## Test actual functions
+    expect_equal(svyStdDiffMulti("agecat", "RIAGENDR", design = nhanesSvy),
+                 sqrt(drop(t(meanDiffs1) %*% MASS::ginv(covMean1) %*% t(t(meanDiffs1)))))
+
+
+    ## Four groups with 6 contrasts
+    strataByLevels2 <- svytable( ~ race + agecat, design = nhanesSvy)
+    propTable2 <- prop.table(strataByLevels2, margin = 1)[, -1, drop = FALSE]
+    meanDiffs2 <- list(propTable2[1,] - propTable2[2,],
+                       propTable2[1,] - propTable2[3,],
+                       propTable2[1,] - propTable2[4,],
+                       propTable2[2,] - propTable2[3,],
+                       propTable2[2,] - propTable2[4,],
+                       propTable2[3,] - propTable2[4,])
+
+    covMean2 <-
+    list((MultinomialVar(propTable2[1,]) + MultinomialVar(propTable2[2,])) / 2,
+         (MultinomialVar(propTable2[1,]) + MultinomialVar(propTable2[2,])) / 2,
+         (MultinomialVar(propTable2[1,]) + MultinomialVar(propTable2[2,])) / 2,
+         (MultinomialVar(propTable2[1,]) + MultinomialVar(propTable2[2,])) / 2,
+         (MultinomialVar(propTable2[1,]) + MultinomialVar(propTable2[2,])) / 2,
+         (MultinomialVar(propTable2[1,]) + MultinomialVar(propTable2[2,])) / 2)
+
+    ## These should match in length.
+    expect_equal(length(meanDiffs2), length(covMean2))
+
+    smds <- unlist(lapply(seq_along(meanDiffs2), function(i) {
+
+        sqrt(drop(t(meanDiffs2[[i]]) %*% MASS::ginv(covMean2[[i]]) %*% t(t(meanDiffs2[[i]]))))
+    }))
+
+    ## Individual numbers
+    expect_equal(StdDiffMulti(nhanes$agecat, nhanes$race),
+                 smds)
+    ## Average across
+    expect_equal(mean(StdDiffMulti(nhanes$agecat, nhanes$race)),
+                 mean(smds))
+
+})
+
+
+### Older tests with simpler data
+################################################################################
+
 test_that("binary standardized difference is correct", {
 
     ## Prepare data
