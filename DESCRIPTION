@@ -5,7 +5,7 @@ Version: 0.7.0
 Date: 2015-07-24
 Author: Kazuki Yoshida, Justin Bohn.
 Maintainer: Kazuki Yoshida <kazukiyoshida@mail.harvard.edu>
-Description: tableone creates "Table 1", i.e., description of baseline
+Description: Creates "Table 1", i.e., description of baseline
     patient characteristics, which is essential in every medical research.
     It provides functions to create such summaries for continuous and
     categorical variables, optionally with subgroup comparisons. tableone
@@ -15,6 +15,7 @@ Description: tableone creates "Table 1", i.e., description of baseline
 License: GPL-2
 Imports:
     survey,
+    MASS,
     e1071,
     gmodels
 Suggests:

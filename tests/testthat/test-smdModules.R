@@ -12,7 +12,7 @@
 ###
 ### References
 ################################################################################
-## A unified approach to measuring the effect size between two groups using SAS®
+## A unified approach to measuring the effect size between two groups using SAS
 ## http://support.sas.com/resources/papers/proceedings12/335-2012.pdf
 
 

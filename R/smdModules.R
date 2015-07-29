@@ -8,20 +8,15 @@
 ###
 ### References
 ################################################################################
-## A unified approach to measuring the effect size between two groups using SAS®
-## http://support.sas.com/resources/papers/proceedings12/335-2012.pdf
-
-
-###
-### Helpers common to both
-################################################################################
-
-## Multinomial standardized differences
-## A unified approach to measuring the effect size between two groups using SAS®
+## A unified approach to measuring the effect size between two groups using SAS
 ## http://support.sas.com/resources/papers/proceedings12/335-2012.pdf
 ## R multinomial distribution variance
 ## http://stackoverflow.com/questions/19960605/r-multinomial-distribution-variance
-## Receives dummie variable matrix with no redundant column
+
+
+###
+### Helpers common to both unweighted and weighed functions
+################################################################################
 
 ## Dummy matrix to means (proportions for each dummy)
 MultinomialMeans <- function(dummyMat, na.rm = TRUE) {
@@ -72,6 +67,8 @@ StdDiffFromLstMeans <- function(lstMeans) {
                 ## For upper triangle elements only
                 ## Squared Mahalanobis distance
                 ## meanDiffs^T covMean^-1 meanDiffs
+                ## Generalized inverse for protection against singularity
+                ## Reduces to true inverse if non-singular
                 sqMahaDist <-
                 t(lstMeanDiffs[[i]][[j]]) %*%
                 MASS::ginv(lstCovMeans[[i]][[j]]) %*%
