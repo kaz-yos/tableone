@@ -150,6 +150,73 @@ test_that("continuous standardized difference is correct (nhanes weighted)", {
 })
 
 
+test_that("binary standardized difference is correct (nhanes unweighted)", {
+
+    ## Two group with only one contrast 1 vs 2
+    means1 <- tapply(nhanes$HI_CHOL, nhanes$RIAGENDR, mean, na.rm = TRUE)
+    vars1  <- means1 * (1 - means1)
+    meanDiffs1 <- (means1[1] - means1[2]) / sqrt((vars1[1] + vars1[2]) / 2)
+    names(meanDiffs1) <- NULL
+
+    expect_equal(StdDiff(nhanes$HI_CHOL, nhanes$RIAGENDR, binary = TRUE),
+                 abs(meanDiffs1))
+
+
+    ## Four groups with 6 contrasts
+    means2 <- tapply(nhanes$HI_CHOL, nhanes$race, mean, na.rm = TRUE)
+    vars2  <- means2 * (1 - means2)
+    meanDiffs2 <-
+    c((means2[1] - means2[2]) / sqrt((vars2[1] + vars2[2]) / 2),
+      (means2[1] - means2[3]) / sqrt((vars2[1] + vars2[3]) / 2),
+      (means2[1] - means2[4]) / sqrt((vars2[1] + vars2[4]) / 2),
+      (means2[2] - means2[3]) / sqrt((vars2[2] + vars2[3]) / 2),
+      (means2[2] - means2[4]) / sqrt((vars2[2] + vars2[4]) / 2),
+      (means2[3] - means2[4]) / sqrt((vars2[3] + vars2[4]) / 2))
+    names(meanDiffs2) <- NULL
+
+    ## Individual numbers
+    expect_equal(StdDiff(nhanes$HI_CHOL, nhanes$race, binary = TRUE),
+                 abs(meanDiffs2))
+    ## Average across
+    expect_equal(mean(StdDiff(nhanes$HI_CHOL, nhanes$race, binary = TRUE)),
+                 mean(abs(meanDiffs2)))
+
+})
+
+
+test_that("binary standardized difference is correct (nhanes weighted)", {
+
+    ## Two group
+    means1 <- svyby( ~ HI_CHOL, by = ~ RIAGENDR, design = nhanesSvy, FUN = svymean, na.rm = TRUE)[,2]
+    vars1  <- means1 * (1 - means1)
+    meanDiffs1 <- (means1[1] - means1[2]) / sqrt((vars1[1] + vars1[2]) / 2)
+
+    expect_equal(svyStdDiff("HI_CHOL", "RIAGENDR", design = nhanesSvy, binary = TRUE),
+                 abs(meanDiffs1))
+
+
+    ## Four groups
+    means2 <- svyby( ~ HI_CHOL, by = ~ race, design = nhanesSvy, FUN = svymean, na.rm = TRUE)[,2]
+    vars2  <- means2 * (1 - means2)
+    meanDiffs2 <-
+    c((means2[1] - means2[2]) / sqrt((vars2[1] + vars2[2]) / 2),
+      (means2[1] - means2[3]) / sqrt((vars2[1] + vars2[3]) / 2),
+      (means2[1] - means2[4]) / sqrt((vars2[1] + vars2[4]) / 2),
+      (means2[2] - means2[3]) / sqrt((vars2[2] + vars2[3]) / 2),
+      (means2[2] - means2[4]) / sqrt((vars2[2] + vars2[4]) / 2),
+      (means2[3] - means2[4]) / sqrt((vars2[3] + vars2[4]) / 2))
+    names(meanDiffs2) <- NULL
+
+    ## Individual numbers
+    expect_equal(svyStdDiff("HI_CHOL", "race", design = nhanesSvy, binary = TRUE),
+                 abs(meanDiffs2))
+    ## Average across
+    expect_equal(mean(svyStdDiff("HI_CHOL", "race", design = nhanesSvy, binary = TRUE)),
+                 mean(abs(meanDiffs2)))
+
+})
+
+
 test_that("binary standardized difference is correct", {
 
     ## Prepare data
