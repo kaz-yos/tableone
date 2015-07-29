@@ -149,8 +149,6 @@ print.CatTable <- function(x,                        # CatTable object
 
     ## Provide indicators to show what columns were added.
     wasLevelColumnAdded  <- FALSE
-    wasPValueColumnAdded <- FALSE
-    wasExactColumnAdded  <- FALSE
 
 
 ### Formatting for printing
@@ -387,18 +385,12 @@ print.CatTable <- function(x,                        # CatTable object
         ## Put the values at the non-empty positions
         out[logiNonEmptyRowNames,"p"] <- pVec
 
-        ## Change the indicator
-        wasPValueColumnAdded <- TRUE
-
-
         ## Create an empty test type column, and add test types
         out <- cbind(out,
                      test = rep("", nrow(out))) # Column for test types
         ## Put the test types  at the non-empty positions (all rows in continuous!)
         out[logiNonEmptyRowNames,"test"] <- testTypes
 
-        ## Change the indicator
-        wasExactColumnAdded <- TRUE
     }
 
 
@@ -414,12 +406,10 @@ print.CatTable <- function(x,                        # CatTable object
     ## Keep column names (strataN does not have correct names if stratification is by multiple variables)
     outColNames <- colnames(out)
     ## Add n at the correct location depending on the number of columns added (level and/or p)
-    out <- rbind(n = c(level = rep("", wasLevelColumnAdded), # Add "" padding if level added
-                       strataN,
-                       p       = rep("", wasPValueColumnAdded), # Add "" padding if p-value added
-                       test    = rep("", wasExactColumnAdded)   # Add "" padding if exact test used
-                       ),
-                 out)
+    nRow <- c(level = rep("", wasLevelColumnAdded),    # Add "" padding if level added
+              strataN)
+    nRow <- c(nRow, rep("", ncol(out) - length(nRow))) # Additional padding to right
+    out <- rbind(n = nRow, out)
     ## Put back the column names (overkill for non-multivariable cases)
     colnames(out) <- outColNames
 

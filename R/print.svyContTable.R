@@ -89,10 +89,6 @@ print.svyContTable <- function(x,                       # ContTable object
                       },
                       simplify = TRUE) # vector with as many elements as strata
 
-    ## Provide indicators to show what columns were added.
-    wasPValueColumnAdded     <- FALSE
-    wasNonNormalColumnAdded  <- FALSE
-
 
 ### Conversion of data for printing
 
@@ -201,18 +197,12 @@ print.svyContTable <- function(x,                       # ContTable object
         ## Column combine with the output
         out <- cbind(out, p = pVec)
 
-        ## Change the indicator
-        wasPValueColumnAdded <- TRUE
-
-
         ## Create an empty test type column, and add test types
         out <- cbind(out,
                      test = rep("", nrow(out))) # Column for test types
         ## Put the test types  at the non-empty positions (all rows in continuous!)
         out[ ,"test"] <- testTypes
 
-        ## Change the indicator
-        wasNonNormalColumnAdded <- TRUE
     }
 
 
@@ -231,11 +221,9 @@ print.svyContTable <- function(x,                       # ContTable object
     ## Keep column names (strataN does not have correct names if stratification is by multiple variables)
     outColNames <- colnames(out)
     ## Add n at the correct location depending on the number of columns added (level and/or p)
-    out <- rbind(n = c(strataN,
-                       p    = rep("", wasPValueColumnAdded),   # Add "" padding if p-value added
-                       test = rep("", wasNonNormalColumnAdded) # Add "" padding if nonnormal test used
-                       ),
-                 out)
+    nRow <- strataN
+    nRow <- c(nRow, rep("", ncol(out) - length(nRow))) # Additional padding to right
+    out <- rbind(n = nRow, out)
     ## Put back the column names (overkill for non-multivariable cases)
     colnames(out) <- outColNames
 
