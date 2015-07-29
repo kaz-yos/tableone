@@ -63,7 +63,7 @@ StdDiffFromLstMeans <- function(lstMeans) {
     })
 
     ## Initialize a numeric vector object for capturing values
-    smds <- vector(mode = "numeric")
+    sqSmds <- vector(mode = "numeric")
 
     ## Add upper triangle elements (i < j) to output list
     for (i in seq_along(lstMeans)) {
@@ -78,11 +78,12 @@ StdDiffFromLstMeans <- function(lstMeans) {
                 t(t(lstMeanDiffs[[i]][[j]]))
                 ## Add sqrt of MD to output
                 ## Not efficient; room for improvement
-                smds <- c(smds, sqrt(sqMahaDist))
+                sqSmds <- c(sqSmds, sqMahaDist)
             }
         }
     }
-    smds
+    ## We want it on the original scale
+    sqrt(sqSmds)
 }
 
 
