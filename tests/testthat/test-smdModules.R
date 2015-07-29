@@ -29,6 +29,24 @@ library(survey)
 context("Tests for functions for standardized mean differences")
 
 
+### Provide data
+data(nhanes)
+nhanesSvy <- svydesign(ids = ~ SDMVPSU, strata = ~ SDMVSTRA, weights = ~ WTMEC2YR,
+                       nest = TRUE, data = nhanes)
+## ‘SDMVPSU’ Primary sampling units
+## ‘SDMVSTRA’ Sampling strata
+## ‘WTMEC2YR’ Sampling weights
+## ‘HI_CHOL’ Numeric vector: 1 for total cholesterol over 240mg/dl, 0
+##      under 240mg/dl
+## ‘race’ 1=Hispanic, 2=non-Hispanic white, 3=non-Hispanic black,
+##      4=other
+## ‘agecat’ Age group ‘(0,19]’ ‘(19,39]’ ‘(39,59]’ ‘(59,Inf]’
+## ‘RIAGENDR’ Gender: 1=male, 2=female
+
+## Use HI_CHOL for continuous, RIAGENDR for binary, race and agecat as categorical
+
+
+
 ### Old functions explicitly for 3 groups
 ## Standardize differences
 StdDiffOld <- function(variable, group) {
@@ -65,6 +83,71 @@ svyStdDiffOld <- function(varName, groupName, design) {
     names(out) <- c("3vs2","3vs1","2vs1")
     out
 }
+
+
+test_that("continuous standardized difference is correct (nhanes unweighted)", {
+
+    ## Two group with only one contrast 1 vs 2
+    means1 <- tapply(nhanes$HI_CHOL, nhanes$RIAGENDR, mean, na.rm = TRUE)
+    vars1  <- tapply(nhanes$HI_CHOL, nhanes$RIAGENDR, var, na.rm = TRUE)
+    meanDiffs1 <- (means1[1] - means1[2]) / sqrt((vars1[1] + vars1[2]) / 2)
+    names(meanDiffs1) <- NULL
+
+    expect_equal(StdDiff(nhanes$HI_CHOL, nhanes$RIAGENDR), abs(meanDiffs1))
+
+
+    ## Four groups with 6 contrasts
+    means2 <- tapply(nhanes$HI_CHOL, nhanes$race, mean, na.rm = TRUE)
+    vars2  <- tapply(nhanes$HI_CHOL, nhanes$race, var, na.rm = TRUE)
+    meanDiffs2 <-
+    c((means2[1] - means2[2]) / sqrt((vars2[1] + vars2[2]) / 2),
+      (means2[1] - means2[3]) / sqrt((vars2[1] + vars2[3]) / 2),
+      (means2[1] - means2[4]) / sqrt((vars2[1] + vars2[4]) / 2),
+      (means2[2] - means2[3]) / sqrt((vars2[2] + vars2[3]) / 2),
+      (means2[2] - means2[4]) / sqrt((vars2[2] + vars2[4]) / 2),
+      (means2[3] - means2[4]) / sqrt((vars2[3] + vars2[4]) / 2))
+    names(meanDiffs2) <- NULL
+
+    ## Individual numbers
+    expect_equal(StdDiff(nhanes$HI_CHOL, nhanes$race), abs(meanDiffs2))
+    ## Average across
+    expect_equal(mean(StdDiff(nhanes$HI_CHOL, nhanes$race)),
+                 mean(abs(meanDiffs2)))
+
+})
+
+
+test_that("continuous standardized difference is correct (nhanes weighted)", {
+
+    ## Two group
+    means1 <- svyby( ~ HI_CHOL, by = ~ RIAGENDR, design = nhanesSvy, FUN = svymean, na.rm = TRUE)[,2]
+    vars1  <- svyby( ~ HI_CHOL, by = ~ RIAGENDR, design = nhanesSvy, FUN = svyvar, na.rm = TRUE)[,2]
+    meanDiffs1 <- (means1[1] - means1[2]) / sqrt((vars1[1] + vars1[2]) / 2)
+
+    expect_equal(svyStdDiff("HI_CHOL", "RIAGENDR", design = nhanesSvy),
+                 abs(meanDiffs1))
+
+
+    ## Four groups
+    means2 <- svyby( ~ HI_CHOL, by = ~ race, design = nhanesSvy, FUN = svymean, na.rm = TRUE)[,2]
+    vars2  <- svyby( ~ HI_CHOL, by = ~ race, design = nhanesSvy, FUN = svyvar, na.rm = TRUE)[,2]
+    meanDiffs2 <-
+    c((means2[1] - means2[2]) / sqrt((vars2[1] + vars2[2]) / 2),
+      (means2[1] - means2[3]) / sqrt((vars2[1] + vars2[3]) / 2),
+      (means2[1] - means2[4]) / sqrt((vars2[1] + vars2[4]) / 2),
+      (means2[2] - means2[3]) / sqrt((vars2[2] + vars2[3]) / 2),
+      (means2[2] - means2[4]) / sqrt((vars2[2] + vars2[4]) / 2),
+      (means2[3] - means2[4]) / sqrt((vars2[3] + vars2[4]) / 2))
+    names(meanDiffs2) <- NULL
+
+    ## Individual numbers
+    expect_equal(svyStdDiff("HI_CHOL", "race", design = nhanesSvy),
+                 abs(meanDiffs2))
+    ## Average across
+    expect_equal(mean(svyStdDiff("HI_CHOL", "race", design = nhanesSvy)),
+                 mean(abs(meanDiffs2)))
+
+})
 
 
 test_that("binary standardized difference is correct", {
