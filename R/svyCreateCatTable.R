@@ -126,7 +126,8 @@ function(vars,                      # character vector of variable names
         smds <- sapply(vars, function(var) {
             svyStdDiffMulti(varName = var, groupName = "..strataVar..", design = data)
         }, simplify = FALSE)
-        smds <- do.call(rbind, smds)
+        ## Give name and add mean column
+        smds <- FormatLstSmds(smds, nStrata = length(result))
     }
 
     ## Return object

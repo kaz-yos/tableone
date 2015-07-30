@@ -245,7 +245,8 @@ function(vars,                                   # character vector of variable 
         smds <- sapply(dat, function(var) {
             StdDiff(variable = var, group = strataVar)
         }, simplify = FALSE)
-        smds <- do.call(rbind, smds)
+        ## Give name and add mean column
+        smds <- FormatLstSmds(smds, nStrata = length(result))
     }
 
 

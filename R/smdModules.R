@@ -106,6 +106,31 @@ LstMeansFromFullTable <- function(strataByLevels) {
 }
 
 
+## Create a matrix form
+FormatLstSmds <- function(lstSmds, nStrata) {
+
+    if (nStrata < 2) {
+        warning("nStrata has to be >= 2.")
+    }
+
+    ## matrix form
+    matSmds <- do.call(rbind, lstSmds)
+
+    ## Create contrast names
+    allCombns <- t(combn(nStrata, 2))
+    combnNames <- apply(allCombns, MARGIN = 1, FUN = paste, collapse = " vs ")
+    colnames(matSmds) <- combnNames
+
+    ## Add a mean column if more than two columns
+    if (ncol(matSmds) > 1) {
+        matSmds <- cbind(mean = rowMeans(matSmds),
+                         matSmds)
+    }
+
+    matSmds
+}
+
+
 ###
 ### Functions for unweighted data only
 ################################################################################
