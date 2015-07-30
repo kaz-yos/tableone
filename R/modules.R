@@ -400,6 +400,180 @@ ModuleRemoveSpaces <- function(mat, noSpaces) {
     mat
 }
 
+## Module to loop over variables within a stratum formatting categorical variables
+ModuleCatFormatVariables <- function(lstVars, varsToFormat, fmt, level, cramVars, showAllLevels) {
+
+    ## Loop over variables within a stratum
+    ## Each list element is a data frame summarizing levels
+    sapply(X = seq_along(lstVars),
+           FUN = function(i) {
+
+               ## Extract the data frame (list element)
+               DF <- lstVars[[i]]
+
+               ## Extract the variable name
+               varName <- names(lstVars)[i]
+
+               ## Check number of rows (levels)
+               nRow <- nrow(DF)
+
+               ## Add a variable name to the left as a character vector
+               DF <- cbind(var = rep(varName, nRow), DF)
+
+               ## Format percent and cum.percent as strings
+               DF[varsToFormat] <- lapply(X = DF[varsToFormat],
+                                          FUN = sprintf,
+                                          fmt = fmt)
+
+               ## Make all variables strings (if freq is an integer, direct convert is ok)
+               DF[] <- lapply(X = DF, FUN = as.character)
+
+               ## Add first row indicator column
+               DF$firstRowInd <- ""
+               ## Add crammed row indicator column
+               DF$crammedRowInd <- ""
+
+
+               ## Format based on the number of levels
+               if (!showAllLevels & nRow == 1) {
+                   ## If showAllLevels is FALSE AND there are only ONE levels,
+                   ## change variable name to "var = level"
+                   DF$var <- with(DF, paste0(var, " = ", level))
+
+               } else if (!showAllLevels & nRow == 2) {
+                   ## If showAllLevels is FALSE AND there are only TWO levels,
+                   ## cram two levels in one row if requested
+                   if (unique(DF$var) %in% cramVars) {
+                       ## If cramVars includes var, cram into one line
+                       ## Cram two freq and count with / in between
+                       DF$freq    <- paste0(DF$freq,    collapse = "/")
+                       DF$percent <- paste0(DF$percent, collapse = "/")
+                       ## change variable name, and delete the first level.
+                       DF$var     <- paste0(DF$var, " = ",
+                                            paste0(DF$level, collapse = "/"))
+                       ## Delete the first row
+                       DF <- DF[-1, , drop = FALSE]
+                       ## Add crammed row indicator (used for formatting)
+                       DF[1,"crammedRowInd"] <- "crammed"
+
+                   } else {
+                       ## Otherwise, keep the second level only
+                       ## change variable name, and delete the first level.
+                       DF$var <- sprintf("%s = %s", DF$var, DF$level)
+                       DF <- DF[-1, , drop = FALSE]
+                   }
+
+               } else if (!showAllLevels & nRow > 2) {
+                   ## If showAllLevels is FALSE AND there are MORE THAN two levels,
+                   ## add an empty row and put the var name, then levels below.
+                   DF <- rbind(rep("", ncol(DF)), DF)
+                   ## Add variable name in the first row
+                   DF[1,"var"] <- DF[2,"var"]
+
+                   ## 2nd to last have level names. (nrow has changed by +1)
+                   secondToLastRows <- seq(from = 2,to = nrow(DF), by = 1)
+                   DF[secondToLastRows, "var"] <-
+                                             paste0("   ", DF[secondToLastRows, "level"]) # preceding spaces
+
+               } else if (showAllLevels) {
+                   ## If showAllLevels is TRUE, clear these except in 1st row
+                   DF[-1, c("var","n","miss","p.miss")] <- ""
+               }
+
+               ## Add first row indicator (used to add (%))
+               DF[1,"firstRowInd"]   <- "first"
+
+               ## Return a data frame
+               DF
+           },
+           simplify = FALSE) # Looped over variables (list element is DF)
+}
+
+## Module to loop over strata formatting categorical variables
+ModuleCatFormatStrata <- function(CatTable, digits, varsToFormat, cramVars, showAllLevels) {
+
+    ## Create format for percent used in the loop
+    fmt1 <- paste0("%.", digits, "f")
+
+    ## Obtain collpased result
+    CatTableCollapsed <-
+    ## Loop over strata extracting list of variables
+    sapply(X = CatTable,   
+           FUN = function(lstVars) {
+
+               ## Do the following formatting only if the stratum is non-null. Do nothing if null.
+               if (!is.null(lstVars)) {
+                   ## Returns an empty list if the stratum is null (empty).
+                   
+                   ## Loop over list of variables formatting them
+                   lstVarsFormatted <-
+                   ModuleCatFormatVariables(lstVars       = lstVars,
+                                            varsToFormat  = varsToFormat,
+                                            fmt           = fmt1,
+                                            cramVars      = cramVars,
+                                            showAllLevels = showAllLevels)
+                   
+
+                   ## Collapse DFs within each stratum
+                   DF <- do.call(rbind, lstVarsFormatted)
+
+                   ## Justification should happen here after combining variable DFs into a stratum DF.
+                   ## Check non-empty rows
+                   posNonEmptyRows <- DF$freq != ""
+
+
+                   ## Create freq to be added on to the right side within ()
+                   DF$freqAddOn <- DF$freq
+                   ## Right justify frequency (crammed and non-crammed at once)
+                   DF$freq <- format(DF$freq, justify = "right")
+                   ## Right justify frequency (non-crammed only)
+                   DF[DF$crammedRowInd == "","freqAddOn"] <-
+                                                        format(DF[DF$crammedRowInd == "","freqAddOn"], justify = "right")
+                   ## Obtain the max width of characters
+                   nCharFreq <- max(nchar(DF$freq))
+
+
+                   ## Create percent to be added on to the right side within ()
+                   DF$percentAddOn <- DF$percent
+                   ## Right justify percent (crammed and non-crammed at once)
+                   DF$percent <- format(DF$percent, justify = "right")
+                   ## Right justify percent (non-crammed only)
+                   DF[DF$crammedRowInd == "","percentAddOn"] <-
+                                                           format(DF[DF$crammedRowInd == "","percentAddOn"], justify = "right")
+                   ## Obtain the max width of characters
+                   nCharPercent <- max(nchar(DF$percent))
+
+
+                   ## Add freq (percent) column (only in non-empty rows)
+                   DF$freqPer <- ""
+                   DF[posNonEmptyRows,]$freqPer <- sprintf(fmt = "%s (%s) ",
+                                                           DF[posNonEmptyRows,]$freq,
+                                                           DF[posNonEmptyRows,]$percentAddOn)
+
+                   ## Add percent (freq) column  (only in non-empty rows)
+                   DF$perFreq <- ""
+                   DF[posNonEmptyRows,]$perFreq <- sprintf(fmt = "%s (%s) ",
+                                                           DF[posNonEmptyRows,]$percent,
+                                                           DF[posNonEmptyRows,]$freqAddOn)
+
+                   ## Add aditional attributes
+                   attributes(DF) <- c(attributes(DF),
+                                       list(nCharFreq    = nCharFreq,
+                                            nCharPercent = nCharPercent))
+
+                   ## Return a data frame (2014-02-12 sapply breaks attributes?)
+                   DF
+               } # end of non-null condition (Null strata skip all this. No action.)
+
+           }, simplify = FALSE)
+
+    CatTableCollapsed
+}
+
+
+## Module to loop over strata formatting continuous variables
+
+
 
 ### Modules by both print and summary methods
 ## ModuleQuoteAndPrintMat()
