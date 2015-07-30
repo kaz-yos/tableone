@@ -46,4 +46,10 @@ summary.ContTable <- function(object, digits = 2, ...) {
         cat("\np-values\n")
         print(attributes(object)$pValues)
     }
+
+    ## Print SMDs if it exist
+    if (!is.null(attributes(object)$smd)) {
+        cat("\nStandardize mean differences\n")
+        print(attributes(object)$smd)
+    }
 }

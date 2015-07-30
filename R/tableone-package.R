@@ -5,7 +5,7 @@
 ##' @name tableone-package
 ##' @aliases tableone-package tableone
 ##' @docType package
-##' @import e1071 gmodels
+##' @import survey MASS e1071 gmodels
 ##' @note Special Thanks:
 ##'
 ##' Ian Fellows for developing the Deducer package, which this package is based on.
@@ -28,9 +28,12 @@
 ##'
 ##' Maintainer: Kazuki Yoshida <kazukiyoshida@@mail.harvard.edu>
 ##' @seealso
-##' \code{\link{CreateTableOne}}, \code{\link{print.TableOne}}, \code{\link{summary.TableOne}},
-##' \code{\link{CreateContTable}}, \code{\link{print.ContTable}}, \code{\link{summary.ContTable}},
-##' \code{\link{CreateCatTable}}, \code{\link{print.CatTable}}, \code{\link{summary.CatTable}},
+##' \code{\link{CreateTableOne}},     \code{\link{print.TableOne}},     \code{\link{summary.TableOne}},
+##' \code{\link{CreateContTable}},    \code{\link{print.ContTable}},    \code{\link{summary.ContTable}},
+##' \code{\link{CreateCatTable}},     \code{\link{print.CatTable}},     \code{\link{summary.CatTable}},
+##' \code{\link{svyCreateTableOne}},  \code{\link{print.TableOne}},     \code{\link{summary.TableOne}},
+##' \code{\link{svyCreateContTable}}, \code{\link{print.svyContTable}}, \code{\link{summary.svyContTable}},
+##' \code{\link{svyCreateCatTable}},  \code{\link{print.svyCatTable}},  \code{\link{summary.svyCatTable}},
 ##' \code{\link{ShowRegTable}}
 ##' @examples
 ##'
@@ -90,5 +93,48 @@
 ##' ## If you want to center-align values in Word, use noSpaces option.
 ##' print(tableOne, nonnormal = c("bili","chol","copper","alk.phos","trig"),
 ##'       exact = c("status","stage"), cramVars = "sex", quote = TRUE, noSpaces = TRUE)
+##'
+##'
+##' ## Analysis for weighted data
+##'
+##' ## Load packages
+##' library(tableone)
+##' library(survey)
+##'
+##' ## Create a weighted survey design object
+##' data(nhanes)
+##' nhanesSvy <- svydesign(ids = ~ SDMVPSU, strata = ~ SDMVSTRA, weights = ~ WTMEC2YR,
+##'                        nest = TRUE, data = nhanes)
+##'
+##' ## Create a table object
+##' ## factorVars are converted to factors; no need to do this if variables are already factors
+##' ## strata will stratify summaries; leave it unspecified, and overview is obtained
+##' tab1 <- svyCreateTableOne(vars = c("HI_CHOL","race","agecat","RIAGENDR"),
+##'                           strata = "RIAGENDR", data = nhanesSvy,
+##'                           factorVars = c("race","RIAGENDR"))
+##'
+##' ## Detailed output
+##' summary(tab1)
+##'
+##' ## Default formatted printing
+##' tab1
+##'
+##' ## nonnormal specifies variables to be shown as median [IQR]
+##' print(tab1, nonnormal = "HI_CHOL", contDigits = 3, catDigits = 2, pDigits = 4)
+##'
+##' ## minMax changes it to median [min, max]
+##' print(tab1, nonnormal = "HI_CHOL", minMax = TRUE, contDigits = 3, catDigits = 2, pDigits = 4)
+##'
+##' ## showAllLevels can be used tow show levels for all categorical variables
+##' print(tab1, showAllLevels = TRUE)
+##'
+##' ## To see all printing options
+##' ?print.TableOne
+##'
+##' ## To examine categorical variables only
+##' tab1$CatTable
+##'
+##' ## To examine continuous variables only
+##' tab1$ContTable
 ##'
 NULL

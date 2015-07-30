@@ -11,6 +11,7 @@
 ##' @param explain Whether to add explanation to the variable names, i.e., (\%) is added to the variable names when percentage is shown.
 ##' @param printToggle Whether to print the output. If FLASE, no output is created, and a matrix is invisibly returned.
 ##' @param test Whether to show the p-values. TRUE by default. If FALSE, only the numerical summaries are shown.
+##' @param smd Whether to show the standardized mean difference. If there are more than one contrasts, the average of all possible standardized mean differences is shown. For categorical variables, Yang and Dalton's definition is used.
 ##' @param noSpaces Whether to remove spaces added for alignment. Use this option if you prefer to align numbers yourself in other software.
 ##' @param format The default is "fp" frequency (percentage). You can also choose from "f" frequency only, "p" percentage only, and "pf" percentage (frequency).
 ##' @param showAllLevels Whether to show all levels. FALSE by default, i.e., for 2-level categorical variables, only the higher level is shown to avoid redundant information.
@@ -67,7 +68,7 @@
 ##' ## See the continuous part only using $ operator
 ##' tableOne$ContTable
 ##' summary(tableOne$ContTable)
-##' 
+##'
 ##' ## If your work flow includes copying to Excel and Word when writing manuscripts,
 ##' ## you may benefit from the quote argument. This will quote everything so that
 ##' ## Excel does not mess up the cells.
@@ -79,55 +80,59 @@
 ##'       exact = c("status","stage"), cramVars = "hepato", quote = TRUE, noSpaces = TRUE)
 ##'
 ##' @export
-print.TableOne <- function(x,                   # TableOne object
-                           catDigits = 1, contDigits = 2, pDigits = 3, # Number of digits to show
-                           quote         = FALSE,       # Whether to show quotes
+print.TableOne <-
+function(x,                   # TableOne object
+         catDigits = 1, contDigits = 2, pDigits = 3, # Number of digits to show
+         quote         = FALSE,       # Whether to show quotes
 
-                           ## Common options
-                           missing       = FALSE, # Not implemented yet
-                           explain       = TRUE,  # Whether to show explanation in variable names
-                           printToggle   = TRUE,  # Whether to print the result visibly
-                           test          = TRUE,  # Whether to add p-values
-                           noSpaces      = FALSE, # Whether to remove spaces for alignments
+         ## Common options
+         missing       = FALSE, # Not implemented yet
+         explain       = TRUE,  # Whether to show explanation in variable names
+         printToggle   = TRUE,  # Whether to print the result visibly
+         test          = TRUE,  # Whether to add p-values
+         smd           = FALSE,  # Whether to add standardized mean differences
+         noSpaces      = FALSE, # Whether to remove spaces for alignments
 
-                           ## Categorical options
-                           format        = c("fp","f","p","pf")[1], # Format f_requency and/or p_ercent
-                           showAllLevels = FALSE, # Show all levels of a categorical variable
-                           cramVars      = NULL,  # Which 2-level variables to show both levels in one row
-                           exact         = NULL,  # Which variables should be tested with exact tests
+         ## Categorical options
+         format        = c("fp","f","p","pf")[1], # Format f_requency and/or p_ercent
+         showAllLevels = FALSE, # Show all levels of a categorical variable
+         cramVars      = NULL,  # Which 2-level variables to show both levels in one row
+         exact         = NULL,  # Which variables should be tested with exact tests
 
-                           ## Continuous options
-                           nonnormal     = NULL,  # Which variables should be treated as nonnormal
-                           minMax        = FALSE, # Whether to show median
+         ## Continuous options
+         nonnormal     = NULL,  # Which variables should be treated as nonnormal
+         minMax        = FALSE, # Whether to show median
 
-                           ...) {
+         ...) {
 
     ## Get the mixed element only
     TableOne <- x$TableOne
 
     ## Get the Cont/Cat status (1st of classes)
     classOfTables <- sapply(TableOne, class)[1,]
-    digits <- c(CatTable = catDigits, ContTable = contDigits)[classOfTables]
+    ## This relies on Cat/Cont alphabetical order (svyCat/svyCont work similarly)
+    digits <- c(CatTable = catDigits, ContTable = contDigits)[as.numeric(factor(classOfTables))]
 
 
     ## Get the formatted tables
-    formattedTables <- sapply(seq_along(TableOne),
-                              FUN = function(i) {
+    formattedTables <-
+    sapply(seq_along(TableOne),
+           FUN = function(i) {
 
-                                  ## print.CatTable or print.ContTable called depending on the class
-                                  print(TableOne[[i]], printToggle = FALSE, test = test, explain = explain,
-                                        digits = digits[i],
+               ## print.CatTable or print.ContTable called depending on the class
+               print(TableOne[[i]], printToggle = FALSE, test = test, smd = smd,
+                     explain = explain, digits = digits[i], pDigits = pDigits,
 
-                                        ## print.CatTable arguments
-                                        format = format, exact = exact,
-                                        showAllLevels = showAllLevels,  # Returns one more column if TRUE
-                                        cramVars = cramVars,
+                     ## print.CatTable arguments
+                     format = format, exact = exact,
+                     showAllLevels = showAllLevels,  # Returns one more column if TRUE
+                     cramVars = cramVars,
 
-                                        ## print.ContTable argument
-                                        nonnormal = nonnormal, minMax = minMax, insertLevel = showAllLevels
-                                        )  # Method dispatch at work
-                              },
-                              simplify = FALSE)
+                     ## print.ContTable argument
+                     nonnormal = nonnormal, minMax = minMax, insertLevel = showAllLevels
+                     )  # Method dispatch at work
+           },
+           simplify = FALSE)
 
     ## Get the column width information (strata x vars format)
     columnWidthInfo <- sapply(formattedTables,
@@ -152,35 +157,36 @@ print.TableOne <- function(x,                   # TableOne object
     nSpacesToAdd[is.na(nSpacesToAdd)] <- 0
 
     ## For each matrix, add spaces
-    spaceFormattedTables <- sapply(seq_along(formattedTables),
-                                   FUN = function(i) {
+    spaceFormattedTables <-
+    sapply(seq_along(formattedTables),
+           FUN = function(i) {
 
-                                       ## For i-th variable
-                                       matObj <- formattedTables[[i]]
-                                       nSpaces <- nSpacesToAdd[, i]
+               ## For i-th variable
+               matObj <- formattedTables[[i]]
+               nSpaces <- nSpacesToAdd[, i]
 
-                                       ## For j-th stratum (column), add spaces.
-                                       ## Be aware of the p-value column (last. not included in first palce)
-                                       ## and level column (1st. explicitly ignore).
-                                       for (j in seq_along(nSpaces)) {
+               ## For j-th stratum (column), add spaces.
+               ## Be aware of the p-value column (last. not included in first palce)
+               ## and level column (1st. explicitly ignore).
+               for (j in seq_along(nSpaces)) {
 
-                                           ## If showAllLevels is requested, ignore the first column (level column).
-                                           if (showAllLevels) {
-                                               matObj[, (j + 1)] <- paste0(paste0(rep(" ", nSpaces[j]), collapse = ""),
-                                                                           matObj[, (j + 1)])
+                   ## If showAllLevels is requested, ignore the first column (level column).
+                   if (showAllLevels) {
+                       matObj[, (j + 1)] <- paste0(paste0(rep(" ", nSpaces[j]), collapse = ""),
+                                                   matObj[, (j + 1)])
 
-                                           } else {
-                                               ## if not, no need to ignore the first column
-                                               matObj[, j] <- paste0(paste0(rep(" ", nSpaces[j]), collapse = ""),
-                                                                     matObj[, j])
-                                           }
+                   } else {
+                       ## if not, no need to ignore the first column
+                       matObj[, j] <- paste0(paste0(rep(" ", nSpaces[j]), collapse = ""),
+                                             matObj[, j])
+                   }
 
-                                       }
+               }
 
-                                       ## Return the adjusted table
-                                       matObj
-                                   },
-                                   simplify = FALSE)
+               ## Return the adjusted table
+               matObj
+           },
+           simplify = FALSE)
 
     ## Set aside the n row (stratum sizes). 1st element, 1st row
     stratumSizesRow <- spaceFormattedTables[[1]][1, , drop = FALSE]

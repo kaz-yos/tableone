@@ -163,6 +163,26 @@ ModuleCreateStrataVarName <- function(obj) {
     paste0(names(attr(obj, "dimnames")), collapse = ":")
 }
 
+
+## Convert variables with NA to include NA as a level (for CatTable constructor)
+ModuleIncludeNaAsLevel <- function(data) {
+    ## Logical vector for variables that have any NA
+    logiAnyNA <- (colSums(is.na(data)) > 0)
+
+    ## Add NA as a new level unless already present
+    data[logiAnyNA] <-
+                  lapply(data[logiAnyNA],
+                         function(var) {
+                             if (all(!is.na(levels(var)))) {
+                                 var <- factor(var, c(levels(var), NA),
+                                               exclude = NULL)
+                             }
+                             var
+                         })
+    data
+}
+
+
 ### ModuleTryCatchWE
 ## Try catch function           # Taken from demo(error.catching)
 ## Used to define non-failing functions, that return NA when there is an error
@@ -238,6 +258,50 @@ ModuleCreateStrataVarAsFactor <- function(result, strata) {
     return(strataVar)
 }
 
+
+### Module for testing multiple variables
+################################################################################
+
+ModuleApproxExactTests <- function(result, strata, dat, strataVarName,
+                                   testApprox, argsApprox,
+                                   testExact,  argsExact) {
+    ## Create a single variable representation of multivariable stratification
+    strataVar <- ModuleCreateStrataVarAsFactor(result, strata)
+
+    ## Loop over variables in dat, and create a list of xtabs
+    ## Empty strata are kept in the corss tables. Different behavior than the cont counterpart!
+    listXtabs <- sapply(X = names(dat),
+                        FUN = function(var) {
+                            ## Create a formula
+                            formula <- as.formula(paste0("~ ", var, " + ", "strataVar"))
+
+                            ## Create a 2-dimensional crosstable
+                            xtabs(formula = formula, data = dat)
+                        },
+                        simplify = FALSE)
+
+    ## Rename the second dimension of the xtabs with the newly create name.
+    for (i in seq_along(listXtabs)) {
+
+        names(dimnames(listXtabs[[i]]))[2] <- strataVarName
+    }
+
+    ## Loop over xtabs, and create p-values
+    pValues <-
+    sapply(X = listXtabs,
+           FUN = function(xtabs) {
+               ## Perform tests and return the result as 1x2 DF
+               data.frame(pApprox = ModuleTestSafe(xtabs, testApprox, argsApprox),
+                          pExact  = ModuleTestSafe(xtabs, testExact,  argsExact))
+           },
+           simplify = FALSE)
+
+    ## Create a single data frame (n x 2 (normal,nonormal))
+    pValues <- do.call(rbind, pValues)
+
+    ## Return both xtabs and p value df
+    list(pValues = pValues, xtabs = listXtabs)
+}
 
 
 ### Modules intented for the print methods
@@ -331,21 +395,8 @@ ModuleCreateStrataNames <- function(TableObject) {
     return(strataNames)
 }
 
-
-## p-value picker/formatter
-ModulePickAndFormatPValues <- function(TableObject, switchVec, pDigits) {
-
-    ## nVarsiables x 2 (pNormal,pNonNormal) data frame
-    pValues <- attr(TableObject, "pValues")
-
-    ## Pick ones specified in exact (a vector with 1s(approx) and 2s(exact))
-    pValues <- sapply(seq_along(switchVec),    # loop over exact
-                      FUN = function(i) {
-                          ## Pick from a matrix i-th row, exact[i]-th column
-                          ## Logical NA must be converted to a numeric
-                          as.numeric(pValues[i, switchVec[i]])
-                      },
-                      simplify = TRUE)
+## p-value formatter
+ModuleFormatPValues <- function(pValues, pDigits) {
 
     ## Format p value
     fmt  <- paste0("%.", pDigits, "f")
@@ -364,12 +415,32 @@ ModulePickAndFormatPValues <- function(TableObject, switchVec, pDigits) {
     return(pVec)
 }
 
+## p-value picker/formatter
+ModulePickAndFormatPValues <- function(TableObject, switchVec, pDigits) {
+
+    ## nVarsiables x 2 (pNormal,pNonNormal) data frame
+    pValues <- attr(TableObject, "pValues")
+
+    ## Pick ones specified in exact (a vector with 1s(approx) and 2s(exact))
+    pValues <- sapply(seq_along(switchVec),    # loop over exact
+                      FUN = function(i) {
+                          ## Pick from a matrix i-th row, exact[i]-th column
+                          ## Logical NA must be converted to a numeric
+                          as.numeric(pValues[i, switchVec[i]])
+                      },
+                      simplify = TRUE)
+
+    ## Return formatted p-values (as many as there are variables)
+    ## e.g. <0.001 if too small to show
+    ModuleFormatPValues(pValues, pDigits)
+}
+
 
 ## Module to return the dimention headers added to the out 2d matrix
 ModuleReturnDimHeaders <- function(TableObject) {
 
     ## Add stratification information to the column header
-    if (length(TableObject) > 1 ) {
+    if (length(TableObject) > 1) {
         ## Create strata string
         strataString <- paste0("Stratified by ",
                                paste0(names(attr(TableObject, "dimnames")), collapse = ":"))
@@ -399,6 +470,237 @@ ModuleRemoveSpaces <- function(mat, noSpaces) {
     ## Return the matrix
     mat
 }
+
+## Module to loop over variables within a stratum formatting categorical variables
+ModuleCatFormatVariables <- function(lstVars, varsToFormat, fmt, level, cramVars, showAllLevels) {
+
+    ## Loop over variables within a stratum
+    ## Each list element is a data frame summarizing levels
+    sapply(X = seq_along(lstVars),
+           FUN = function(i) {
+
+               ## Extract the data frame (list element)
+               DF <- lstVars[[i]]
+
+               ## Extract the variable name
+               varName <- names(lstVars)[i]
+
+               ## Check number of rows (levels)
+               nRow <- nrow(DF)
+
+               ## Add a variable name to the left as a character vector
+               DF <- cbind(var = rep(varName, nRow), DF)
+
+               ## Format percent and cum.percent as strings
+               DF[varsToFormat] <- lapply(X = DF[varsToFormat],
+                                          FUN = sprintf,
+                                          fmt = fmt)
+
+               ## Make all variables strings (if freq is an integer, direct convert is ok)
+               DF[] <- lapply(X = DF, FUN = as.character)
+
+               ## Add first row indicator column
+               DF$firstRowInd <- ""
+               ## Add crammed row indicator column
+               DF$crammedRowInd <- ""
+
+
+               ## Format based on the number of levels
+               if (!showAllLevels & nRow == 1) {
+                   ## If showAllLevels is FALSE AND there are only ONE levels,
+                   ## change variable name to "var = level"
+                   DF$var <- with(DF, paste0(var, " = ", level))
+
+               } else if (!showAllLevels & nRow == 2) {
+                   ## If showAllLevels is FALSE AND there are only TWO levels,
+                   ## cram two levels in one row if requested
+                   if (unique(DF$var) %in% cramVars) {
+                       ## If cramVars includes var, cram into one line
+                       ## Cram two freq and count with / in between
+                       DF$freq    <- paste0(DF$freq,    collapse = "/")
+                       DF$percent <- paste0(DF$percent, collapse = "/")
+                       ## change variable name, and delete the first level.
+                       DF$var     <- paste0(DF$var, " = ",
+                                            paste0(DF$level, collapse = "/"))
+                       ## Delete the first row
+                       DF <- DF[-1, , drop = FALSE]
+                       ## Add crammed row indicator (used for formatting)
+                       DF[1,"crammedRowInd"] <- "crammed"
+
+                   } else {
+                       ## Otherwise, keep the second level only
+                       ## change variable name, and delete the first level.
+                       DF$var <- sprintf("%s = %s", DF$var, DF$level)
+                       DF <- DF[-1, , drop = FALSE]
+                   }
+
+               } else if (!showAllLevels & nRow > 2) {
+                   ## If showAllLevels is FALSE AND there are MORE THAN two levels,
+                   ## add an empty row and put the var name, then levels below.
+                   DF <- rbind(rep("", ncol(DF)), DF)
+                   ## Add variable name in the first row
+                   DF[1,"var"] <- DF[2,"var"]
+
+                   ## 2nd to last have level names. (nrow has changed by +1)
+                   secondToLastRows <- seq(from = 2,to = nrow(DF), by = 1)
+                   DF[secondToLastRows, "var"] <-
+                                             paste0("   ", DF[secondToLastRows, "level"]) # preceding spaces
+
+               } else if (showAllLevels) {
+                   ## If showAllLevels is TRUE, clear these except in 1st row
+                   DF[-1, c("var","n","miss","p.miss")] <- ""
+               }
+
+               ## Add first row indicator (used to add (%))
+               DF[1,"firstRowInd"]   <- "first"
+
+               ## Return a data frame
+               DF
+           },
+           simplify = FALSE) # Looped over variables (list element is DF)
+}
+
+## Module to loop over strata formatting categorical variables
+ModuleCatFormatStrata <- function(CatTable, digits, varsToFormat, cramVars, showAllLevels) {
+
+    ## Create format for percent used in the loop
+    fmt1 <- paste0("%.", digits, "f")
+
+    ## Obtain collpased result
+    CatTableCollapsed <-
+    ## Loop over strata extracting list of variables
+    sapply(X = CatTable,
+           FUN = function(lstVars) {
+
+               ## Do the following formatting only if the stratum is non-null. Do nothing if null.
+               if (!is.null(lstVars)) {
+                   ## Returns an empty list if the stratum is null (empty).
+
+                   ## Loop over list of variables formatting them
+                   lstVarsFormatted <-
+                   ModuleCatFormatVariables(lstVars       = lstVars,
+                                            varsToFormat  = varsToFormat,
+                                            fmt           = fmt1,
+                                            cramVars      = cramVars,
+                                            showAllLevels = showAllLevels)
+
+
+                   ## Collapse DFs within each stratum
+                   DF <- do.call(rbind, lstVarsFormatted)
+
+                   ## Justification should happen here after combining variable DFs into a stratum DF.
+                   ## Check non-empty rows
+                   posNonEmptyRows <- DF$freq != ""
+
+
+                   ## Create freq to be added on to the right side within ()
+                   DF$freqAddOn <- DF$freq
+                   ## Right justify frequency (crammed and non-crammed at once)
+                   DF$freq <- format(DF$freq, justify = "right")
+                   ## Right justify frequency (non-crammed only)
+                   DF[DF$crammedRowInd == "","freqAddOn"] <-
+                                                        format(DF[DF$crammedRowInd == "","freqAddOn"], justify = "right")
+                   ## Obtain the max width of characters
+                   nCharFreq <- max(nchar(DF$freq))
+
+
+                   ## Create percent to be added on to the right side within ()
+                   DF$percentAddOn <- DF$percent
+                   ## Right justify percent (crammed and non-crammed at once)
+                   DF$percent <- format(DF$percent, justify = "right")
+                   ## Right justify percent (non-crammed only)
+                   DF[DF$crammedRowInd == "","percentAddOn"] <-
+                                                           format(DF[DF$crammedRowInd == "","percentAddOn"], justify = "right")
+                   ## Obtain the max width of characters
+                   nCharPercent <- max(nchar(DF$percent))
+
+
+                   ## Add freq (percent) column (only in non-empty rows)
+                   DF$freqPer <- ""
+                   DF[posNonEmptyRows,]$freqPer <- sprintf(fmt = "%s (%s) ",
+                                                           DF[posNonEmptyRows,]$freq,
+                                                           DF[posNonEmptyRows,]$percentAddOn)
+
+                   ## Add percent (freq) column  (only in non-empty rows)
+                   DF$perFreq <- ""
+                   DF[posNonEmptyRows,]$perFreq <- sprintf(fmt = "%s (%s) ",
+                                                           DF[posNonEmptyRows,]$percent,
+                                                           DF[posNonEmptyRows,]$freqAddOn)
+
+                   ## Add aditional attributes
+                   attributes(DF) <- c(attributes(DF),
+                                       list(nCharFreq    = nCharFreq,
+                                            nCharPercent = nCharPercent))
+
+                   ## Return a data frame (2014-02-12 sapply breaks attributes?)
+                   DF
+               } # end of non-null condition (Null strata skip all this. No action.)
+
+           }, simplify = FALSE)
+
+    CatTableCollapsed
+}
+
+
+## Module to loop over strata formatting continuous variables
+## No variable level looping here as each stratum is a matrix of all variables
+ModuleContFormatStrata <- function(ContTable, nVars, listOfFunctions, digits) {
+
+    ## Return a formatted table looping over strata
+    sapply(ContTable,
+           ## Each stratum is a matrix containing summaries
+           ## One row is one variable
+           FUN = function(stratum) {
+
+               ## In an empty stratum, return empty
+               if (is.null(stratum)) {
+
+                   out <- rep("-", nVars)
+                   ## Give NA to the width of the mean/median column in characters
+                   nCharMeanOrMedian <- NA
+
+               } else {
+
+                   ## Apply row by row within each non-empty stratum
+                   ## This row-by-row operation is necessary to handle mean (sd) and median [IQR]
+                   out <- sapply(seq_len(nVars),
+                                 FUN = function(i) {
+
+                                     ## Choose between normal or nonnormal function
+                                     fun <- listOfFunctions[[i]]
+                                     ## Convert a row matrix to 1x2 df (numeric, character)
+                                     fun(stratum[i, , drop = FALSE])
+
+                                     ## Create a 1-row DF (numeric, character)
+                                 },
+                                 simplify = FALSE)
+
+                   ## nx2 data frame by row binding multiple 1-row data frames
+                   out <- do.call(rbind, out)
+
+                   ## Format for decimals
+                   out$col1 <- sprintf(fmt = paste0("%.", digits, "f"), out$col1)
+
+                   ## right justify by adding spaces (to align at the decimal point of mean/median)
+                   out$col1 <- format(out$col1, justify = "right")
+
+                   ## Obtain the width of the mean/median column in characters
+                   nCharMeanOrMedian <- nchar(out$col1[1])
+
+                   ## Create mean (SD) or median [p25, p75] as a character vector
+                   out <- do.call(paste0, out)
+               }
+
+               ## Add attributes
+               attributes(out) <- c(attributes(out),
+                                    list(nCharMeanOrMedian = nCharMeanOrMedian))
+
+               ## Return
+               out
+           },
+           simplify = FALSE)
+}
+
 
 
 ### Modules by both print and summary methods

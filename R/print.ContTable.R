@@ -14,6 +14,7 @@
 ##' @param minMax Whether to use [min,max] instead of [p25,p75] for nonnormal variables. The default is FALSE.
 ##' @param insertLevel Whether to add an empty level column to the left of strata.
 ##' @param test Whether to show the p-values. TRUE by default. If FALSE, only the numerical summaries are shown.
+##' @param smd Whether to show the standardized mean difference. If there are more than one contrasts, the average of all possible standardized mean differences is shown.
 ##' @param ... For compatibility with generic. Ignored.
 ##' @return It is mainly for printing the result. But this function does return a matrix containing what you see in the output invisibly. You can assign it to an object to save it.
 ##' @author Kazuki Yoshida
@@ -80,24 +81,27 @@
 ##'
 ##' ## If you want to center-align values in Word, use noSpaces option.
 ##' print(contTableBySexTrt, nonnormal = nonNormalVars, quote = TRUE, noSpaces = TRUE)
-##' 
+##'
 ##' @export
-print.ContTable <- function(x,                       # ContTable object
-                            digits = 2, pDigits = 3, # Number of digits to show
-                            quote        = FALSE,    # Whether to show quotes
+print.ContTable <-
+function(x,                       # ContTable object
+         digits = 2, pDigits = 3, # Number of digits to show
+         quote        = FALSE,    # Whether to show quotes
 
-                            missing      = FALSE,    # show missing values (not implemented yet)
-                            explain      = TRUE,     # Whether to show explanation in variable names
-                            printToggle  = TRUE,     # Whether to print the result visibly
-                            noSpaces     = FALSE,    # Whether to remove spaces for alignments
+         missing      = FALSE,    # show missing values (not implemented yet)
+         explain      = TRUE,     # Whether to show explanation in variable names
+         printToggle  = TRUE,     # Whether to print the result visibly
+         noSpaces     = FALSE,    # Whether to remove spaces for alignments
 
-                            nonnormal    = NULL,     # Which variables should be treated as nonnormal
-                            minMax       = FALSE,    # median [range] instead of median [IQR]
-                            insertLevel  = FALSE,    # insert the level column to match showAllLevels in print.CatTable
+         nonnormal    = NULL,     # Which variables should be treated as nonnormal
+         minMax       = FALSE,    # median [range] instead of median [IQR]
+         insertLevel  = FALSE,    # insert the level column to match showAllLevels in print.CatTable
 
-                            test         = TRUE,     # Whether to add p-values
+         test         = TRUE,     # Whether to add p-values
 
-                            ...) {
+         smd          = FALSE,    # Whether to add standardized mean differences
+
+         ...) {
 
     ## x and ... required to be consistent with generic print(x, ...)
     ContTable <- x
@@ -143,10 +147,6 @@ print.ContTable <- function(x,                       # ContTable object
                       },
                       simplify = TRUE) # vector with as many elements as strata
 
-    ## Provide indicators to show what columns were added.
-    wasPValueColumnAdded     <- FALSE
-    wasNonNormalColumnAdded  <- FALSE
-
 
 ### Conversion of data for printing
 
@@ -168,54 +168,11 @@ print.ContTable <- function(x,                       # ContTable object
     listOfFunctions <- listOfFunctions[nonnormal]
 
     ## Loop over strata (There may be just one)
-    out <- sapply(ContTable,
-                  FUN = function(stratum) {
+    out <- ModuleContFormatStrata(ContTable       = ContTable,
+                                  nVars           = nVars,
+                                  listOfFunctions = listOfFunctions,
+                                  digits          = digits)
 
-                      ## In an empty stratum, return empty
-                      if (is.null(stratum)) {
-                          out <- rep("-", nVars)
-                          ## Give NA to the width of the mean/median column in characters
-                          nCharMeanOrMedian <- NA
-                      } else {
-
-                          ## Apply row by row within each non-empty stratum
-                          ## This row-by-row operation is necessary to handle mean (sd) and median [IQR]
-                          out <- sapply(seq_len(nVars),
-                                         FUN = function(i) {
-
-                                             ## Choose between normal or nonnormal function
-                                             fun <- listOfFunctions[[i]]
-                                             ## Convert a row matrix to 1x2 df (numeric, character)
-                                             fun(stratum[i, , drop = FALSE])
-
-                                             ## Create a 1-row DF (numeric, character)
-                                         },
-                                         simplify = FALSE)
-
-                          ## nx2 data frame by row binding multiple 1-row data frames
-                          out <- do.call(rbind, out)
-
-                          ## Format for decimals
-                          out$col1 <- sprintf(fmt = paste0("%.", digits, "f"), out$col1)
-
-                          ## right justify by adding spaces (to align at the decimal point of mean/median)
-                          out$col1 <- format(out$col1, justify = "right")
-
-                          ## Obtain the width of the mean/median column in characters
-                          nCharMeanOrMedian <- nchar(out$col1[1])
-
-                          ## Create mean (SD) or median [p25, p75] as a character vector
-                          out <- do.call(paste0, out)
-                      }
-
-                      ## Add attributes
-                      attributes(out) <- c(attributes(out),
-                                           list(nCharMeanOrMedian = nCharMeanOrMedian))
-
-                      ## Return
-                      out
-                  },
-                  simplify = FALSE)
 
 ### Obtain the original column width in characters for alignment in print.TableOne
     vecColWidths <- sapply(out,
@@ -255,19 +212,26 @@ print.ContTable <- function(x,                       # ContTable object
         ## Column combine with the output
         out <- cbind(out, p = pVec)
 
-        ## Change the indicator
-        wasPValueColumnAdded <- TRUE
-
-
         ## Create an empty test type column, and add test types
         out <- cbind(out,
                      test = rep("", nrow(out))) # Column for test types
         ## Put the test types  at the non-empty positions (all rows in continuous!)
         out[ ,"test"] <- testTypes
 
-        ## Change the indicator
-        wasNonNormalColumnAdded <- TRUE
     }
+
+
+    ## Add SMDs when requested and available
+    if (smd & !is.null(attr(ContTable, "smd"))) {
+
+        ## Create an empty column
+        out <- cbind(out,
+                     SMD = rep("", nrow(out))) # Column for p-values
+        ## Put the values at the non-empty positions
+        out[,"SMD"] <- ModuleFormatPValues(attr(ContTable, "smd")[,1],
+                                           pDigits = pDigits)
+    }
+
 
 
     ## Add mean (sd) or median [IQR]/median [range] explanation if requested
@@ -285,11 +249,8 @@ print.ContTable <- function(x,                       # ContTable object
     ## Keep column names (strataN does not have correct names if stratification is by multiple variables)
     outColNames <- colnames(out)
     ## Add n at the correct location depending on the number of columns added (level and/or p)
-    out <- rbind(n = c(strataN,
-                     p    = rep("", wasPValueColumnAdded),   # Add "" padding if p-value added
-                     test = rep("", wasNonNormalColumnAdded) # Add "" padding if nonnormal test used
-                     ),
-                 out)
+    nRow <- c(strataN, rep("", ncol(out) - length(strataN))) # Additional padding to right
+    out <- rbind(n = nRow, out)
     ## Put back the column names (overkill for non-multivariable cases)
     colnames(out) <- outColNames
 

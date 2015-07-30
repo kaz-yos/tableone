@@ -10,3 +10,7 @@ Makefile
 tableone.Rcheck
 .*.tar.gz
 .*.gif
+
+## unit testing
+test-all.txt
+tests/testthat/ref-*

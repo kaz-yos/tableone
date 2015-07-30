@@ -11,7 +11,6 @@
 ### Prepare environment
 ################################################################################
 library(testthat)
-library(tableone)
 
 ### Context (1 for each file)
 context("Unit tests for the modules")
