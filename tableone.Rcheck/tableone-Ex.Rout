@@ -380,6 +380,22 @@ hepato  0.20805680 0.20480121
 spiders 0.08898575 0.08569292
 edema   0.90584197 0.84833223
 stage   0.64630048         NA
+
+Standardize mean differences
+          average    1 vs 2     1 vs 3     1 vs 4    2 vs 3     2 vs 4
+status  0.5770647 0.8748771 0.79644734 0.83097631 0.4375075 0.06043662
+ascites 0.1755851 0.1845375 0.30219043 0.04452096 0.1211310 0.14105454
+hepato  0.1598214 0.2544151 0.05802589 0.02073917 0.3135916 0.23336861
+spiders 0.4018377 0.3999925 0.25073566 0.42200838 0.6471968 0.02154469
+edema   0.2122338 0.1624118 0.37625250 0.18063879 0.2420277 0.04705137
+stage   0.2773411 0.1333844 0.21945509 0.35632272 0.3000785 0.26275030
+            3 vs 4
+status  0.46214324
+ascites 0.26007640
+hepato  0.07878788
+spiders 0.66954801
+edema   0.26502087
+stage   0.39205566
 > 
 > ## If your work flow includes copying to Excel and Word when writing manuscripts,
 > ## you may benefit from the quote argument. This will quote everything so that
@@ -803,6 +819,32 @@ ast      5.982898e-01 5.086616e-01
 trig     3.701073e-01 5.827726e-02
 platelet 3.624740e-01 4.451277e-01
 protime  1.365463e-01 8.114383e-02
+
+Standardize mean differences
+           average     1 vs 2     1 vs 3     1 vs 4     2 vs 3     2 vs 4
+time     0.1556365 0.22071813 0.27083134 0.15677410 0.08450703 0.06369595
+age      0.5214974 0.40993004 0.13353519 0.70700091 0.60864596 0.30853876
+bili     0.1352025 0.04023105 0.11373946 0.18444097 0.04265701 0.18855913
+chol     0.2950579 0.21756422 0.62108339 0.09219212 0.33996564 0.09881382
+albumin  0.1637683 0.30878937 0.28262444 0.26228013 0.01074465 0.06658036
+copper   0.5416574 0.94378898 0.50727571 0.86116098 0.46259003 0.11048709
+alk.phos 0.1633259 0.23603622 0.30907333 0.23332162 0.09290687 0.00733728
+ast      0.1818681 0.18797132 0.34614452 0.04399580 0.12602823 0.12777729
+trig     0.2940632 0.38944815 0.63360898 0.33242327 0.09194315 0.09085446
+platelet 0.2340433 0.30251429 0.08655951 0.37226635 0.25448008 0.05557853
+protime  0.3283721 0.24596092 0.40162254 0.08476002 0.66430044 0.12924857
+             3 vs 4
+time     0.13729269
+age      0.96133382
+bili     0.24158721
+chol     0.40072828
+albumin  0.05159074
+copper   0.36464167
+alk.phos 0.10128012
+ast      0.25929154
+trig     0.22610097
+platelet 0.33286083
+protime  0.44433997
 > 
 > ## If your work flow includes copying to Excel and Word when writing manuscripts,
 > ## you may benefit from the quote argument. This will quote everything so that
@@ -1134,6 +1176,20 @@ trig     0.88604213 0.36980434
 platelet 0.55451136 0.45482564
 protime  0.19714026 0.58802048
 
+Standardize mean differences
+               1 vs 2
+time     0.0166658751
+age      0.2702619258
+bili     0.1710905651
+chol     0.0382210537
+albumin  0.0180021838
+copper   0.0001200022
+alk.phos 0.0365323630
+ast      0.0837836058
+trig     0.0170615337
+platelet 0.0674763888
+protime  0.1460939117
+
 =======================================================================================
 
      ### Summary of categorical variables ### 
@@ -1203,6 +1259,16 @@ hepato  0.08820884 0.07137522
 spiders 0.98466036 0.90113734
 edema   0.87681949 0.89370131
 stage   0.20129629 0.20455558
+
+Standardize mean differences
+            1 vs 2
+status  0.05375763
+sex     0.11141161
+ascites 0.08900618
+hepato  0.20699413
+spiders 0.01632844
+edema   0.05811659
+stage   0.24600834
 > 
 > ## See the categorical part only using $ operator
 > tableOne$CatTable
@@ -1292,6 +1358,16 @@ hepato  0.08820884 0.07137522
 spiders 0.98466036 0.90113734
 edema   0.87681949 0.89370131
 stage   0.20129629 0.20455558
+
+Standardize mean differences
+            1 vs 2
+status  0.05375763
+sex     0.11141161
+ascites 0.08900618
+hepato  0.20699413
+spiders 0.01632844
+edema   0.05811659
+stage   0.24600834
 > 
 > ## See the continuous part only using $ operator
 > tableOne$ContTable
@@ -1375,6 +1451,20 @@ ast      0.45969842 0.45892358
 trig     0.88604213 0.36980434
 platelet 0.55451136 0.45482564
 protime  0.19714026 0.58802048
+
+Standardize mean differences
+               1 vs 2
+time     0.0166658751
+age      0.2702619258
+bili     0.1710905651
+chol     0.0382210537
+albumin  0.0180021838
+copper   0.0001200022
+alk.phos 0.0365323630
+ast      0.0837836058
+trig     0.0170615337
+platelet 0.0674763888
+protime  0.1460939117
 > 
 > ## If your work flow includes copying to Excel and Word when writing manuscripts,
 > ## you may benefit from the quote argument. This will quote everything so that
@@ -1924,6 +2014,22 @@ hepato  0.20805680 0.20480121
 spiders 0.08898575 0.08569292
 edema   0.90584197 0.84833223
 stage   0.64630048         NA
+
+Standardize mean differences
+          average    1 vs 2     1 vs 3     1 vs 4    2 vs 3     2 vs 4
+status  0.5770647 0.8748771 0.79644734 0.83097631 0.4375075 0.06043662
+ascites 0.1755851 0.1845375 0.30219043 0.04452096 0.1211310 0.14105454
+hepato  0.1598214 0.2544151 0.05802589 0.02073917 0.3135916 0.23336861
+spiders 0.4018377 0.3999925 0.25073566 0.42200838 0.6471968 0.02154469
+edema   0.2122338 0.1624118 0.37625250 0.18063879 0.2420277 0.04705137
+stage   0.2773411 0.1333844 0.21945509 0.35632272 0.3000785 0.26275030
+            3 vs 4
+status  0.46214324
+ascites 0.26007640
+hepato  0.07878788
+spiders 0.66954801
+edema   0.26502087
+stage   0.39205566
 > 
 > ## If your work flow includes copying to Excel and Word when writing manuscripts,
 > ## you may benefit from the quote argument. This will quote everything so that
@@ -2406,6 +2512,32 @@ ast      5.982898e-01 5.086616e-01
 trig     3.701073e-01 5.827726e-02
 platelet 3.624740e-01 4.451277e-01
 protime  1.365463e-01 8.114383e-02
+
+Standardize mean differences
+           average     1 vs 2     1 vs 3     1 vs 4     2 vs 3     2 vs 4
+time     0.1556365 0.22071813 0.27083134 0.15677410 0.08450703 0.06369595
+age      0.5214974 0.40993004 0.13353519 0.70700091 0.60864596 0.30853876
+bili     0.1352025 0.04023105 0.11373946 0.18444097 0.04265701 0.18855913
+chol     0.2950579 0.21756422 0.62108339 0.09219212 0.33996564 0.09881382
+albumin  0.1637683 0.30878937 0.28262444 0.26228013 0.01074465 0.06658036
+copper   0.5416574 0.94378898 0.50727571 0.86116098 0.46259003 0.11048709
+alk.phos 0.1633259 0.23603622 0.30907333 0.23332162 0.09290687 0.00733728
+ast      0.1818681 0.18797132 0.34614452 0.04399580 0.12602823 0.12777729
+trig     0.2940632 0.38944815 0.63360898 0.33242327 0.09194315 0.09085446
+platelet 0.2340433 0.30251429 0.08655951 0.37226635 0.25448008 0.05557853
+protime  0.3283721 0.24596092 0.40162254 0.08476002 0.66430044 0.12924857
+             3 vs 4
+time     0.13729269
+age      0.96133382
+bili     0.24158721
+chol     0.40072828
+albumin  0.05159074
+copper   0.36464167
+alk.phos 0.10128012
+ast      0.25929154
+trig     0.22610097
+platelet 0.33286083
+protime  0.44433997
 > 
 > ## If your work flow includes copying to Excel and Word when writing manuscripts,
 > ## you may benefit from the quote argument. This will quote everything so that
@@ -2820,6 +2952,32 @@ trig     3.701073e-01 5.827726e-02
 platelet 3.624740e-01 4.451277e-01
 protime  1.365463e-01 8.114383e-02
 
+Standardize mean differences
+           average     1 vs 2     1 vs 3     1 vs 4     2 vs 3     2 vs 4
+time     0.1556365 0.22071813 0.27083134 0.15677410 0.08450703 0.06369595
+age      0.5214974 0.40993004 0.13353519 0.70700091 0.60864596 0.30853876
+bili     0.1352025 0.04023105 0.11373946 0.18444097 0.04265701 0.18855913
+chol     0.2950579 0.21756422 0.62108339 0.09219212 0.33996564 0.09881382
+albumin  0.1637683 0.30878937 0.28262444 0.26228013 0.01074465 0.06658036
+copper   0.5416574 0.94378898 0.50727571 0.86116098 0.46259003 0.11048709
+alk.phos 0.1633259 0.23603622 0.30907333 0.23332162 0.09290687 0.00733728
+ast      0.1818681 0.18797132 0.34614452 0.04399580 0.12602823 0.12777729
+trig     0.2940632 0.38944815 0.63360898 0.33242327 0.09194315 0.09085446
+platelet 0.2340433 0.30251429 0.08655951 0.37226635 0.25448008 0.05557853
+protime  0.3283721 0.24596092 0.40162254 0.08476002 0.66430044 0.12924857
+             3 vs 4
+time     0.13729269
+age      0.96133382
+bili     0.24158721
+chol     0.40072828
+albumin  0.05159074
+copper   0.36464167
+alk.phos 0.10128012
+ast      0.25929154
+trig     0.22610097
+platelet 0.33286083
+protime  0.44433997
+
 =======================================================================================
 
      ### Summary of categorical variables ### 
@@ -2936,6 +3094,22 @@ hepato  0.20805680 0.20480121
 spiders 0.08898575 0.08569292
 edema   0.90584197 0.84833223
 stage   0.64630048         NA
+
+Standardize mean differences
+          average    1 vs 2     1 vs 3     1 vs 4    2 vs 3     2 vs 4
+status  0.5770647 0.8748771 0.79644734 0.83097631 0.4375075 0.06043662
+ascites 0.1755851 0.1845375 0.30219043 0.04452096 0.1211310 0.14105454
+hepato  0.1598214 0.2544151 0.05802589 0.02073917 0.3135916 0.23336861
+spiders 0.4018377 0.3999925 0.25073566 0.42200838 0.6471968 0.02154469
+edema   0.2122338 0.1624118 0.37625250 0.18063879 0.2420277 0.04705137
+stage   0.2773411 0.1333844 0.21945509 0.35632272 0.3000785 0.26275030
+            3 vs 4
+status  0.46214324
+ascites 0.26007640
+hepato  0.07878788
+spiders 0.66954801
+edema   0.26502087
+stage   0.39205566
 > 
 > ## See the categorical part only using $ operator
 > tableOne$CatTable
@@ -3071,6 +3245,22 @@ hepato  0.20805680 0.20480121
 spiders 0.08898575 0.08569292
 edema   0.90584197 0.84833223
 stage   0.64630048         NA
+
+Standardize mean differences
+          average    1 vs 2     1 vs 3     1 vs 4    2 vs 3     2 vs 4
+status  0.5770647 0.8748771 0.79644734 0.83097631 0.4375075 0.06043662
+ascites 0.1755851 0.1845375 0.30219043 0.04452096 0.1211310 0.14105454
+hepato  0.1598214 0.2544151 0.05802589 0.02073917 0.3135916 0.23336861
+spiders 0.4018377 0.3999925 0.25073566 0.42200838 0.6471968 0.02154469
+edema   0.2122338 0.1624118 0.37625250 0.18063879 0.2420277 0.04705137
+stage   0.2773411 0.1333844 0.21945509 0.35632272 0.3000785 0.26275030
+            3 vs 4
+status  0.46214324
+ascites 0.26007640
+hepato  0.07878788
+spiders 0.66954801
+edema   0.26502087
+stage   0.39205566
 > 
 > ## See the continuous part only using $ operator
 > tableOne$ContTable
@@ -3224,6 +3414,32 @@ ast      5.982898e-01 5.086616e-01
 trig     3.701073e-01 5.827726e-02
 platelet 3.624740e-01 4.451277e-01
 protime  1.365463e-01 8.114383e-02
+
+Standardize mean differences
+           average     1 vs 2     1 vs 3     1 vs 4     2 vs 3     2 vs 4
+time     0.1556365 0.22071813 0.27083134 0.15677410 0.08450703 0.06369595
+age      0.5214974 0.40993004 0.13353519 0.70700091 0.60864596 0.30853876
+bili     0.1352025 0.04023105 0.11373946 0.18444097 0.04265701 0.18855913
+chol     0.2950579 0.21756422 0.62108339 0.09219212 0.33996564 0.09881382
+albumin  0.1637683 0.30878937 0.28262444 0.26228013 0.01074465 0.06658036
+copper   0.5416574 0.94378898 0.50727571 0.86116098 0.46259003 0.11048709
+alk.phos 0.1633259 0.23603622 0.30907333 0.23332162 0.09290687 0.00733728
+ast      0.1818681 0.18797132 0.34614452 0.04399580 0.12602823 0.12777729
+trig     0.2940632 0.38944815 0.63360898 0.33242327 0.09194315 0.09085446
+platelet 0.2340433 0.30251429 0.08655951 0.37226635 0.25448008 0.05557853
+protime  0.3283721 0.24596092 0.40162254 0.08476002 0.66430044 0.12924857
+             3 vs 4
+time     0.13729269
+age      0.96133382
+bili     0.24158721
+chol     0.40072828
+albumin  0.05159074
+copper   0.36464167
+alk.phos 0.10128012
+ast      0.25929154
+trig     0.22610097
+platelet 0.33286083
+protime  0.44433997
 > 
 > ## If your work flow includes copying to Excel and Word when writing manuscripts,
 > ## you may benefit from the quote argument. This will quote everything so that
@@ -3903,6 +4119,32 @@ trig     3.701073e-01 5.827726e-02
 platelet 3.624740e-01 4.451277e-01
 protime  1.365463e-01 8.114383e-02
 
+Standardize mean differences
+           average     1 vs 2     1 vs 3     1 vs 4     2 vs 3     2 vs 4
+time     0.1556365 0.22071813 0.27083134 0.15677410 0.08450703 0.06369595
+age      0.5214974 0.40993004 0.13353519 0.70700091 0.60864596 0.30853876
+bili     0.1352025 0.04023105 0.11373946 0.18444097 0.04265701 0.18855913
+chol     0.2950579 0.21756422 0.62108339 0.09219212 0.33996564 0.09881382
+albumin  0.1637683 0.30878937 0.28262444 0.26228013 0.01074465 0.06658036
+copper   0.5416574 0.94378898 0.50727571 0.86116098 0.46259003 0.11048709
+alk.phos 0.1633259 0.23603622 0.30907333 0.23332162 0.09290687 0.00733728
+ast      0.1818681 0.18797132 0.34614452 0.04399580 0.12602823 0.12777729
+trig     0.2940632 0.38944815 0.63360898 0.33242327 0.09194315 0.09085446
+platelet 0.2340433 0.30251429 0.08655951 0.37226635 0.25448008 0.05557853
+protime  0.3283721 0.24596092 0.40162254 0.08476002 0.66430044 0.12924857
+             3 vs 4
+time     0.13729269
+age      0.96133382
+bili     0.24158721
+chol     0.40072828
+albumin  0.05159074
+copper   0.36464167
+alk.phos 0.10128012
+ast      0.25929154
+trig     0.22610097
+platelet 0.33286083
+protime  0.44433997
+
 =======================================================================================
 
      ### Summary of categorical variables ### 
@@ -4019,6 +4261,22 @@ hepato  0.20805680 0.20480121
 spiders 0.08898575 0.08569292
 edema   0.90584197 0.84833223
 stage   0.64630048         NA
+
+Standardize mean differences
+          average    1 vs 2     1 vs 3     1 vs 4    2 vs 3     2 vs 4
+status  0.5770647 0.8748771 0.79644734 0.83097631 0.4375075 0.06043662
+ascites 0.1755851 0.1845375 0.30219043 0.04452096 0.1211310 0.14105454
+hepato  0.1598214 0.2544151 0.05802589 0.02073917 0.3135916 0.23336861
+spiders 0.4018377 0.3999925 0.25073566 0.42200838 0.6471968 0.02154469
+edema   0.2122338 0.1624118 0.37625250 0.18063879 0.2420277 0.04705137
+stage   0.2773411 0.1333844 0.21945509 0.35632272 0.3000785 0.26275030
+            3 vs 4
+status  0.46214324
+ascites 0.26007640
+hepato  0.07878788
+spiders 0.66954801
+edema   0.26502087
+stage   0.39205566
 > 
 > 
 > 
@@ -4159,6 +4417,10 @@ p-values
             pNormal  pNonNormal
 HI_CHOL 0.009221135 0.009221135
 
+Standardize mean differences
+            1 vs 2
+HI_CHOL 0.07093003
+
 =======================================================================================
 
      ### Summary of categorical variables ### 
@@ -4200,6 +4462,12 @@ p-values
 race     4.162884e-02     NA
 agecat   1.175703e-03     NA
 RIAGENDR 2.688704e-49     NA
+
+Standardize mean differences
+             1 vs 2
+race     0.06878329
+agecat   0.08873652
+RIAGENDR 0.00000000
 > 
 > ## Default formatted printing
 > tab1
@@ -4332,8 +4600,8 @@ _U_s_a_g_e:
      ## S3 method for class 'TableOne'
      print(x, catDigits = 1, contDigits = 2, pDigits = 3,
        quote = FALSE, missing = FALSE, explain = TRUE, printToggle = TRUE,
-       test = TRUE, noSpaces = FALSE, format = c("fp", "f", "p", "pf")[1],
-       showAllLevels = FALSE, cramVars = NULL, exact = NULL,
+       test = TRUE, smd = FALSE, noSpaces = FALSE, format = c("fp", "f", "p",
+       "pf")[1], showAllLevels = FALSE, cramVars = NULL, exact = NULL,
        nonnormal = NULL, minMax = FALSE, ...)
      
 _A_r_g_u_m_e_n_t_s:
@@ -4362,6 +4630,11 @@ printToggle: Whether to print the output. If FLASE, no output is
 
     test: Whether to show the p-values. TRUE by default. If FALSE, only
           the numerical summaries are shown.
+
+     smd: Whether to show the standardized mean difference. If there
+          are more than one contrasts, the average of all possible
+          standardized mean differences is shown. For categorical
+          variables, Yang and Dalton's definition is used.
 
 noSpaces: Whether to remove spaces added for alignment. Use this option
           if you prefer to align numbers yourself in other software.
@@ -4700,6 +4973,20 @@ trig     0.88604213 0.36980434
 platelet 0.55451136 0.45482564
 protime  0.19714026 0.58802048
 
+Standardize mean differences
+               1 vs 2
+time     0.0166658751
+age      0.2702619258
+bili     0.1710905651
+chol     0.0382210537
+albumin  0.0180021838
+copper   0.0001200022
+alk.phos 0.0365323630
+ast      0.0837836058
+trig     0.0170615337
+platelet 0.0674763888
+protime  0.1460939117
+
 =======================================================================================
 
      ### Summary of categorical variables ### 
@@ -4769,6 +5056,16 @@ hepato  0.08820884 0.07137522
 spiders 0.98466036 0.90113734
 edema   0.87681949 0.89370131
 stage   0.20129629 0.20455558
+
+Standardize mean differences
+            1 vs 2
+status  0.05375763
+sex     0.11141161
+ascites 0.08900618
+hepato  0.20699413
+spiders 0.01632844
+edema   0.05811659
+stage   0.24600834
 > 
 > ## See the categorical part only using $ operator
 > tableOne$CatTable
@@ -4858,6 +5155,16 @@ hepato  0.08820884 0.07137522
 spiders 0.98466036 0.90113734
 edema   0.87681949 0.89370131
 stage   0.20129629 0.20455558
+
+Standardize mean differences
+            1 vs 2
+status  0.05375763
+sex     0.11141161
+ascites 0.08900618
+hepato  0.20699413
+spiders 0.01632844
+edema   0.05811659
+stage   0.24600834
 > 
 > ## See the continuous part only using $ operator
 > tableOne$ContTable
@@ -4941,6 +5248,20 @@ ast      0.45969842 0.45892358
 trig     0.88604213 0.36980434
 platelet 0.55451136 0.45482564
 protime  0.19714026 0.58802048
+
+Standardize mean differences
+               1 vs 2
+time     0.0166658751
+age      0.2702619258
+bili     0.1710905651
+chol     0.0382210537
+albumin  0.0180021838
+copper   0.0001200022
+alk.phos 0.0365323630
+ast      0.0837836058
+trig     0.0170615337
+platelet 0.0674763888
+protime  0.1460939117
 > 
 > ## If your work flow includes copying to Excel and Word when writing manuscripts,
 > ## you may benefit from the quote argument. This will quote everything so that
@@ -5120,6 +5441,10 @@ p-values
             pNormal  pNonNormal
 HI_CHOL 0.009221135 0.009221135
 
+Standardize mean differences
+            1 vs 2
+HI_CHOL 0.07093003
+
 =======================================================================================
 
      ### Summary of categorical variables ### 
@@ -5161,6 +5486,12 @@ p-values
 race     4.162884e-02     NA
 agecat   1.175703e-03     NA
 RIAGENDR 2.688704e-49     NA
+
+Standardize mean differences
+             1 vs 2
+race     0.06878329
+agecat   0.08873652
+RIAGENDR 0.00000000
 > 
 > ## Default formatted printing
 > tab1
@@ -5293,8 +5624,8 @@ _U_s_a_g_e:
      ## S3 method for class 'TableOne'
      print(x, catDigits = 1, contDigits = 2, pDigits = 3,
        quote = FALSE, missing = FALSE, explain = TRUE, printToggle = TRUE,
-       test = TRUE, noSpaces = FALSE, format = c("fp", "f", "p", "pf")[1],
-       showAllLevels = FALSE, cramVars = NULL, exact = NULL,
+       test = TRUE, smd = FALSE, noSpaces = FALSE, format = c("fp", "f", "p",
+       "pf")[1], showAllLevels = FALSE, cramVars = NULL, exact = NULL,
        nonnormal = NULL, minMax = FALSE, ...)
      
 _A_r_g_u_m_e_n_t_s:
@@ -5323,6 +5654,11 @@ printToggle: Whether to print the output. If FLASE, no output is
 
     test: Whether to show the p-values. TRUE by default. If FALSE, only
           the numerical summaries are shown.
+
+     smd: Whether to show the standardized mean difference. If there
+          are more than one contrasts, the average of all possible
+          standardized mean differences is shown. For categorical
+          variables, Yang and Dalton's definition is used.
 
 noSpaces: Whether to remove spaces added for alignment. Use this option
           if you prefer to align numbers yourself in other software.
@@ -5456,7 +5792,7 @@ _E_x_a_m_p_l_e_s:
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  11.317 0.258 11.701 0.011 0.01 
+Time elapsed:  9.219 0.19 9.541 0.008 0.008 
 > grDevices::dev.off()
 null device 
           1 

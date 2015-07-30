@@ -7,7 +7,8 @@
 \method{print}{CatTable}(x, digits = 1, pDigits = 3, quote = FALSE,
   missing = FALSE, explain = TRUE, printToggle = TRUE, noSpaces = FALSE,
   format = c("fp", "f", "p", "pf")[1], showAllLevels = FALSE,
-  cramVars = NULL, test = TRUE, exact = NULL, CrossTable = FALSE, ...)
+  cramVars = NULL, test = TRUE, exact = NULL, smd = FALSE,
+  CrossTable = FALSE, ...)
 }
 \arguments{
 \item{x}{The result of a call to the \code{\link{CreateCatTable}} function.}
@@ -35,6 +36,8 @@
 \item{test}{Whether to show the p-values. TRUE by default. If FALSE, only the numerical summaries are shown.}
 
 \item{exact}{A character vector to specify the variables for which the p-values should be those of exact tests. By default all p-values are from large sample approximation tests (chisq.test).}
+
+\item{smd}{Whether to show the standardized mean difference. If there are more than one contrasts, the average of all possible standardized mean differences is shown. For categorical variables, Yang and Dalton's definition is used.}
 
 \item{CrossTable}{Whether to show the cross table objects held internally using gmodels::CrossTable function. This will give an output similar to the PROC FREQ in SAS.}
 

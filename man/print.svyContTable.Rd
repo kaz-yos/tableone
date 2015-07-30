@@ -7,7 +7,7 @@
 \method{print}{svyContTable}(x, digits = 2, pDigits = 3, quote = FALSE,
   missing = FALSE, explain = TRUE, printToggle = TRUE, noSpaces = FALSE,
   nonnormal = NULL, minMax = FALSE, insertLevel = FALSE, test = TRUE,
-  ...)
+  smd = FALSE, ...)
 }
 \arguments{
 \item{x}{The result of a call to the \code{\link{svyCreateContTable}} function.}
@@ -33,6 +33,8 @@
 \item{insertLevel}{Whether to add an empty level column to the left of strata.}
 
 \item{test}{Whether to show the p-values. TRUE by default. If FALSE, only the numerical summaries are shown.}
+
+\item{smd}{Whether to show the standardized mean difference. If there are more than one contrasts, the average of all possible standardized mean differences is shown.}
 
 \item{...}{For compatibility with generic. Ignored.}
 }

@@ -14,6 +14,7 @@
 ##' @param minMax Whether to use [min,max] instead of [p25,p75] for nonnormal variables. The default is FALSE.
 ##' @param insertLevel Whether to add an empty level column to the left of strata.
 ##' @param test Whether to show the p-values. TRUE by default. If FALSE, only the numerical summaries are shown.
+##' @param smd Whether to show the standardized mean difference. If there are more than one contrasts, the average of all possible standardized mean differences is shown.
 ##' @param ... For compatibility with generic. Ignored.
 ##' @return It is mainly for printing the result. But this function does return a matrix containing what you see in the output invisibly. You can assign it to an object to save it.
 ##' @author Kazuki Yoshida

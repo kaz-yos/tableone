@@ -6,8 +6,8 @@
 \usage{
 \method{print}{TableOne}(x, catDigits = 1, contDigits = 2, pDigits = 3,
   quote = FALSE, missing = FALSE, explain = TRUE, printToggle = TRUE,
-  test = TRUE, noSpaces = FALSE, format = c("fp", "f", "p", "pf")[1],
-  showAllLevels = FALSE, cramVars = NULL, exact = NULL,
+  test = TRUE, smd = FALSE, noSpaces = FALSE, format = c("fp", "f", "p",
+  "pf")[1], showAllLevels = FALSE, cramVars = NULL, exact = NULL,
   nonnormal = NULL, minMax = FALSE, ...)
 }
 \arguments{
@@ -28,6 +28,8 @@
 \item{printToggle}{Whether to print the output. If FLASE, no output is created, and a matrix is invisibly returned.}
 
 \item{test}{Whether to show the p-values. TRUE by default. If FALSE, only the numerical summaries are shown.}
+
+\item{smd}{Whether to show the standardized mean difference. If there are more than one contrasts, the average of all possible standardized mean differences is shown. For categorical variables, Yang and Dalton's definition is used.}
 
 \item{noSpaces}{Whether to remove spaces added for alignment. Use this option if you prefer to align numbers yourself in other software.}
 

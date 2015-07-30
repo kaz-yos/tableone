@@ -557,7 +557,7 @@ test_that("multiple variables can be looped", {
       svyStdDiffMulti(catVars[2], "race", nhanesSvy),
       svyStdDiffMulti(catVars[3], "race", nhanesSvy),
       svyStdDiffMulti(catVars[4], "race", nhanesSvy)))
-    
+
 })
 
 
@@ -767,5 +767,52 @@ test_that("mutlinomial SMD for survey data is correct", {
 
     expect_equal(svyStdDiffMulti("X", "group", datSvy),
                  StdDiffMulti(dat$X, group = dat$group))
+
+})
+
+
+
+###
+### User level functionality check
+################################################################################
+
+test_that("SMDs are correctly shown in print()", {
+
+    vars   <- c("race","agecat")
+    strata <- c("HI_CHOL","RIAGENDR")
+
+    ## Create an interaction variable
+    nhanes$strataVar <- interaction(nhanes$HI_CHOL, nhanes$RIAGENDR, sep = ":")
+    ## Create an weighted data
+    nhanesSvy <- svydesign(ids = ~ SDMVPSU, strata = ~ SDMVSTRA, weights = ~ WTMEC2YR,
+                           nest = TRUE, data = nhanes)
+
+
+    ## Unweighed version
+    ## Create a table
+    tab1 <- CreateTableOne(vars = vars, strata = strata, data = nhanes)
+
+    ## Show summary including
+    summary(tab1)
+    expect_output(summary(tab1), "Standardize mean differences")
+
+    ## First variable changes fastest, and its consistent with by()'s order
+    expect_equal(levels(nhanes$strataVar),
+                 c("0:1", "1:1", "0:2", "1:2"))
+    expect_equal(levels(nhanes$strataVar),
+                 colnames(print(tab1$ContTable))[1:4])
+
+    ## Check ordering is correct (continuous)
+    expect_equal(as.vector(attr(tab1$ContTable, "smd"))[-1],
+                 StdDiff(nhanes$race, nhanes$strataVar))
+
+   ## Check ordering is correct (categorical)
+    expect_equal(as.vector(attr(tab1$CatTable, "smd"))[-1],
+                 StdDiffMulti(nhanes$agecat, nhanes$strataVar))
+
+    out1 <- print(tab1, smd = TRUE)
+    expect_equal(as.vector(out1[,"SMD"][2:3]),
+                 c(sprintf(" %.3f", attr(tab1$ContTable, "smd")[1,1]),
+                   sprintf(" %.3f", attr(tab1$CatTable, "smd")[1,1])))
 
 })
