@@ -90,8 +90,12 @@ LstMeansFromFullTable <- function(strataByLevels) {
     ## Proportion within each stratum
     ## Equivalent to mean of dummy variables
     propTables <- prop.table(strataByLevels, margin = 1)
-    ## Drop first level to eliminate dependence
-    propTables <- propTables[, -1, drop = FALSE]
+
+    ## Drop first level to eliminate dependence if more than two levels
+    ## Avoids errors with constant variable
+    if (ncol(propTables) > 1) {
+        propTables <- propTables[, -1, drop = FALSE]
+    }
 
     ## list of mean vectors (Missing values are discarded)
     lstMeans <- lapply(seq_len(nrow(propTables)), function(i) {
