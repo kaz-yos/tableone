@@ -110,6 +110,7 @@ function(vars,                                  # character vector of variable n
 
     ## Toggle test FALSE if no strata
     test <- ModuleReturnFalseIfNoStrata(strata, test)
+    smd  <- ModuleReturnFalseIfNoStrata(strata, smd)
 
     ## Create strata data frame (data frame with only strata variables)
     strata <- ModuleReturnStrata(strata, data)

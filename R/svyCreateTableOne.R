@@ -111,7 +111,8 @@ function(vars,                                   # character vector of variable 
         }
 
         ## Toggle test FALSE if no strata is given
-        test <- ModuleReturnFalseIfNoStrata(strata, test)
+    test <- ModuleReturnFalseIfNoStrata(strata, test)
+    smd  <- ModuleReturnFalseIfNoStrata(strata, smd)
 
         ## Get the classes of the variables
         varClasses  <- lapply(data$variables[vars], class)

@@ -47,6 +47,7 @@ function(vars,                      # character vector of variable names
 
     ## Toggle test FALSE if no strata
     test <- ModuleReturnFalseIfNoStrata(strata, test)
+    smd  <- ModuleReturnFalseIfNoStrata(strata, smd)
 
     ## Create strata data frame (data frame with only strata variables)
     ## FIXME: This changes type of strata; not a good practice
