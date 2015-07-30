@@ -1,4 +1,4 @@
-tableone 0.7.0 (2015-07-26)
+tableone 0.7.0 (2015-07-30)
 ----------------------------------------------------------------
 
 NEW FEATURES
@@ -6,10 +6,20 @@ NEW FEATURES
 * Weighted data are now supported via the survey package.
   The svydesign() should be used to create a survey design
   object, and this object should be used for svyCreateTableOne()
-  instead of the orginal data frame.
+  instead of a data frame. Other options are essentially the same.
+
+* Standardized mean differences are calculated. print() methods
+  include smd option, which defaults to FALSE for backward
+  compatibility. If TRUE, SMD is shown on the right side of the
+  table. To suppress p-values, use test = FALSE option.
+  summary() methods also print SMDs. If there are more than two
+  strata, all possible pairwise contrasts are shown along with the
+  average SMD across all contrats. In this case, print methods only
+  prints the average SMD for brevity.
 
 * The includeNA option for CreateTableOne() and svyCreateTableOne()
   make NA's in factors treated as a regular level.
+
 
 MINOR CHANGES
 
@@ -17,10 +27,11 @@ MINOR CHANGES
 
 * Unit tests were extended to cover more functions.
 
+
 BUG FIXES
 
-* pDigits option was not correctly functional in print.ContTable().
-
+* Fixed pDigits option in print.ContTable(), which was not correctly
+  functional as advertised.
 
 
 tableone 0.6.3 (2014-12-28)
