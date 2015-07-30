@@ -67,7 +67,7 @@
 ##' ## See the continuous part only using $ operator
 ##' tableOne$ContTable
 ##' summary(tableOne$ContTable)
-##' 
+##'
 ##' ## If your work flow includes copying to Excel and Word when writing manuscripts,
 ##' ## you may benefit from the quote argument. This will quote everything so that
 ##' ## Excel does not mess up the cells.
@@ -79,28 +79,30 @@
 ##'       exact = c("status","stage"), cramVars = "hepato", quote = TRUE, noSpaces = TRUE)
 ##'
 ##' @export
-print.TableOne <- function(x,                   # TableOne object
-                           catDigits = 1, contDigits = 2, pDigits = 3, # Number of digits to show
-                           quote         = FALSE,       # Whether to show quotes
+print.TableOne <-
+function(x,                   # TableOne object
+         catDigits = 1, contDigits = 2, pDigits = 3, # Number of digits to show
+         quote         = FALSE,       # Whether to show quotes
 
-                           ## Common options
-                           missing       = FALSE, # Not implemented yet
-                           explain       = TRUE,  # Whether to show explanation in variable names
-                           printToggle   = TRUE,  # Whether to print the result visibly
-                           test          = TRUE,  # Whether to add p-values
-                           noSpaces      = FALSE, # Whether to remove spaces for alignments
+         ## Common options
+         missing       = FALSE, # Not implemented yet
+         explain       = TRUE,  # Whether to show explanation in variable names
+         printToggle   = TRUE,  # Whether to print the result visibly
+         test          = TRUE,  # Whether to add p-values
+         smd           = FALSE,  # Whether to add standardized mean differences
+         noSpaces      = FALSE, # Whether to remove spaces for alignments
 
-                           ## Categorical options
-                           format        = c("fp","f","p","pf")[1], # Format f_requency and/or p_ercent
-                           showAllLevels = FALSE, # Show all levels of a categorical variable
-                           cramVars      = NULL,  # Which 2-level variables to show both levels in one row
-                           exact         = NULL,  # Which variables should be tested with exact tests
+         ## Categorical options
+         format        = c("fp","f","p","pf")[1], # Format f_requency and/or p_ercent
+         showAllLevels = FALSE, # Show all levels of a categorical variable
+         cramVars      = NULL,  # Which 2-level variables to show both levels in one row
+         exact         = NULL,  # Which variables should be tested with exact tests
 
-                           ## Continuous options
-                           nonnormal     = NULL,  # Which variables should be treated as nonnormal
-                           minMax        = FALSE, # Whether to show median
+         ## Continuous options
+         nonnormal     = NULL,  # Which variables should be treated as nonnormal
+         minMax        = FALSE, # Whether to show median
 
-                           ...) {
+         ...) {
 
     ## Get the mixed element only
     TableOne <- x$TableOne
@@ -112,23 +114,24 @@ print.TableOne <- function(x,                   # TableOne object
 
 
     ## Get the formatted tables
-    formattedTables <- sapply(seq_along(TableOne),
-                              FUN = function(i) {
+    formattedTables <-
+    sapply(seq_along(TableOne),
+           FUN = function(i) {
 
-                                  ## print.CatTable or print.ContTable called depending on the class
-                                  print(TableOne[[i]], printToggle = FALSE, test = test, explain = explain,
-                                        digits = digits[i], pDigits = pDigits,
+               ## print.CatTable or print.ContTable called depending on the class
+               print(TableOne[[i]], printToggle = FALSE, test = test, smd = smd,
+                     explain = explain, digits = digits[i], pDigits = pDigits,
 
-                                        ## print.CatTable arguments
-                                        format = format, exact = exact,
-                                        showAllLevels = showAllLevels,  # Returns one more column if TRUE
-                                        cramVars = cramVars,
+                     ## print.CatTable arguments
+                     format = format, exact = exact,
+                     showAllLevels = showAllLevels,  # Returns one more column if TRUE
+                     cramVars = cramVars,
 
-                                        ## print.ContTable argument
-                                        nonnormal = nonnormal, minMax = minMax, insertLevel = showAllLevels
-                                        )  # Method dispatch at work
-                              },
-                              simplify = FALSE)
+                     ## print.ContTable argument
+                     nonnormal = nonnormal, minMax = minMax, insertLevel = showAllLevels
+                     )  # Method dispatch at work
+           },
+           simplify = FALSE)
 
     ## Get the column width information (strata x vars format)
     columnWidthInfo <- sapply(formattedTables,
@@ -153,35 +156,36 @@ print.TableOne <- function(x,                   # TableOne object
     nSpacesToAdd[is.na(nSpacesToAdd)] <- 0
 
     ## For each matrix, add spaces
-    spaceFormattedTables <- sapply(seq_along(formattedTables),
-                                   FUN = function(i) {
+    spaceFormattedTables <-
+    sapply(seq_along(formattedTables),
+           FUN = function(i) {
 
-                                       ## For i-th variable
-                                       matObj <- formattedTables[[i]]
-                                       nSpaces <- nSpacesToAdd[, i]
+               ## For i-th variable
+               matObj <- formattedTables[[i]]
+               nSpaces <- nSpacesToAdd[, i]
 
-                                       ## For j-th stratum (column), add spaces.
-                                       ## Be aware of the p-value column (last. not included in first palce)
-                                       ## and level column (1st. explicitly ignore).
-                                       for (j in seq_along(nSpaces)) {
+               ## For j-th stratum (column), add spaces.
+               ## Be aware of the p-value column (last. not included in first palce)
+               ## and level column (1st. explicitly ignore).
+               for (j in seq_along(nSpaces)) {
 
-                                           ## If showAllLevels is requested, ignore the first column (level column).
-                                           if (showAllLevels) {
-                                               matObj[, (j + 1)] <- paste0(paste0(rep(" ", nSpaces[j]), collapse = ""),
-                                                                           matObj[, (j + 1)])
+                   ## If showAllLevels is requested, ignore the first column (level column).
+                   if (showAllLevels) {
+                       matObj[, (j + 1)] <- paste0(paste0(rep(" ", nSpaces[j]), collapse = ""),
+                                                   matObj[, (j + 1)])
 
-                                           } else {
-                                               ## if not, no need to ignore the first column
-                                               matObj[, j] <- paste0(paste0(rep(" ", nSpaces[j]), collapse = ""),
-                                                                     matObj[, j])
-                                           }
+                   } else {
+                       ## if not, no need to ignore the first column
+                       matObj[, j] <- paste0(paste0(rep(" ", nSpaces[j]), collapse = ""),
+                                             matObj[, j])
+                   }
 
-                                       }
+               }
 
-                                       ## Return the adjusted table
-                                       matObj
-                                   },
-                                   simplify = FALSE)
+               ## Return the adjusted table
+               matObj
+           },
+           simplify = FALSE)
 
     ## Set aside the n row (stratum sizes). 1st element, 1st row
     stratumSizesRow <- spaceFormattedTables[[1]][1, , drop = FALSE]

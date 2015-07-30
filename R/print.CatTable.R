@@ -83,25 +83,28 @@
 ##' print(catTableBySexTrt, exact = "ascites", quote = TRUE, noSpaces = TRUE)
 ##'
 ##' @export
-print.CatTable <- function(x,                        # CatTable object
-                           digits = 1, pDigits = 3,  # Number of digits to show
-                           quote         = FALSE,    # Whether to show quotes
+print.CatTable <-
+function(x,                        # CatTable object
+         digits = 1, pDigits = 3,  # Number of digits to show
+         quote         = FALSE,    # Whether to show quotes
 
-                           missing       = FALSE,    # Show missing values (not implemented yet)
-                           explain       = TRUE,     # Whether to show explanation in variable names
-                           printToggle   = TRUE,     # Whether to print the result visibly
-                           noSpaces      = FALSE,    # Whether to remove spaces for alignments
+         missing       = FALSE,    # Show missing values (not implemented yet)
+         explain       = TRUE,     # Whether to show explanation in variable names
+         printToggle   = TRUE,     # Whether to print the result visibly
+         noSpaces      = FALSE,    # Whether to remove spaces for alignments
 
-                           format        = c("fp","f","p","pf")[1], # Format f_requency and/or p_ercent
-                           showAllLevels = FALSE,
-                           cramVars      = NULL,     # variables to be crammed into one row
+         format        = c("fp","f","p","pf")[1], # Format f_requency and/or p_ercent
+         showAllLevels = FALSE,
+         cramVars      = NULL,     # variables to be crammed into one row
 
-                           test          = TRUE,     # Whether to add p-values
-                           exact         = NULL,     # Which variables should be tested with exact tests
+         test          = TRUE,     # Whether to add p-values
+         exact         = NULL,     # Which variables should be tested with exact tests
 
-                           CrossTable    = FALSE,    # Whether to show gmodels::CrossTable
+         smd           = FALSE,    # Whether to add standardized mean differences
 
-                           ...) {
+         CrossTable    = FALSE,    # Whether to show gmodels::CrossTable
+
+         ...) {
 
     ## x and ... required to be consistent with generic print(x, ...)
     CatTable <- x
@@ -239,6 +242,17 @@ print.CatTable <- function(x,                        # CatTable object
         ## Put the test types  at the non-empty positions (all rows in continuous!)
         out[logiNonEmptyRowNames,"test"] <- testTypes
 
+    }
+
+
+    ## Add SMDs when requested and available
+    if (smd & !is.null(attr(CatTable, "smd"))) {
+
+        ## Create an empty column
+        out <- cbind(out,
+                     SMD = rep("", nrow(out))) # Column for p-values
+        ## Put the values at the non-empty positions
+        out[logiNonEmptyRowNames,"SMD"] <- attr(CatTable, "smd")[,1]
     }
 
 

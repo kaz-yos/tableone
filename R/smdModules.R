@@ -106,9 +106,6 @@ LstMeansFromFullTable <- function(strataByLevels) {
 }
 
 
-
-
-
 ###
 ### Functions for unweighted data only
 ################################################################################

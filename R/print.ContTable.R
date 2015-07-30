@@ -80,24 +80,27 @@
 ##'
 ##' ## If you want to center-align values in Word, use noSpaces option.
 ##' print(contTableBySexTrt, nonnormal = nonNormalVars, quote = TRUE, noSpaces = TRUE)
-##' 
+##'
 ##' @export
-print.ContTable <- function(x,                       # ContTable object
-                            digits = 2, pDigits = 3, # Number of digits to show
-                            quote        = FALSE,    # Whether to show quotes
+print.ContTable <-
+function(x,                       # ContTable object
+         digits = 2, pDigits = 3, # Number of digits to show
+         quote        = FALSE,    # Whether to show quotes
 
-                            missing      = FALSE,    # show missing values (not implemented yet)
-                            explain      = TRUE,     # Whether to show explanation in variable names
-                            printToggle  = TRUE,     # Whether to print the result visibly
-                            noSpaces     = FALSE,    # Whether to remove spaces for alignments
+         missing      = FALSE,    # show missing values (not implemented yet)
+         explain      = TRUE,     # Whether to show explanation in variable names
+         printToggle  = TRUE,     # Whether to print the result visibly
+         noSpaces     = FALSE,    # Whether to remove spaces for alignments
 
-                            nonnormal    = NULL,     # Which variables should be treated as nonnormal
-                            minMax       = FALSE,    # median [range] instead of median [IQR]
-                            insertLevel  = FALSE,    # insert the level column to match showAllLevels in print.CatTable
+         nonnormal    = NULL,     # Which variables should be treated as nonnormal
+         minMax       = FALSE,    # median [range] instead of median [IQR]
+         insertLevel  = FALSE,    # insert the level column to match showAllLevels in print.CatTable
 
-                            test         = TRUE,     # Whether to add p-values
+         test         = TRUE,     # Whether to add p-values
 
-                            ...) {
+         smd          = FALSE,    # Whether to add standardized mean differences
+
+         ...) {
 
     ## x and ... required to be consistent with generic print(x, ...)
     ContTable <- x
@@ -215,6 +218,18 @@ print.ContTable <- function(x,                       # ContTable object
         out[ ,"test"] <- testTypes
 
     }
+
+
+    ## Add SMDs when requested and available
+    if (smd & !is.null(attr(ContTable, "smd"))) {
+
+        ## Create an empty column
+        out <- cbind(out,
+                     SMD = rep("", nrow(out))) # Column for p-values
+        ## Put the values at the non-empty positions
+        out[logiNonEmptyRowNames,"SMD"] <- attr(ContTable, "smd")[,1]
+    }
+
 
 
     ## Add mean (sd) or median [IQR]/median [range] explanation if requested
