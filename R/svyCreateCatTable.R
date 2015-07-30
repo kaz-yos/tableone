@@ -12,6 +12,7 @@
 ##' @param test If TRUE, as in the default and there are more than two groups, groupwise comparisons are performed. Both tests that require the large sample approximation and exact tests are performed. Either one of the result can be obtained from the print method.
 ##' @param testApprox A function used to perform the large sample approximation based tests. The default is \code{svychisq}.
 ##' @param argsApprox A named list of arguments passed to the function specified in testApprox.
+##' @param smd If TRUE, as in the default and there are more than two groups, standardized mean differences for all pairwise comparisons are calculated. For categorical variables, Yang and Dalton's definition is used.
 ##' @return An object of class \code{svyCatTable}.
 ##' @author Kazuki Yoshida
 ##' @seealso
@@ -117,13 +118,11 @@ function(vars,                      # character vector of variable names
     smds <- NULL
 
     ## Only when SMD is asked for
-    ## TURN OFF FOR NOW
-    if (smd & FALSE) {
+    if (smd) {
         ## list of smds
         smds <- sapply(vars, function(var) {
-            svyStdDiffMulti(varName = var, groupName = strataVarName, design = data)
+            svyStdDiffMulti(varName = var, groupName = "..strataVar..", design = data)
         }, simplify = FALSE)
-
         smds <- do.call(rbind, smds)
     }
 

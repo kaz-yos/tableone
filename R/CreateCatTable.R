@@ -14,6 +14,7 @@
 ##' @param argsApprox A named list of arguments passed to the function specified in testApprox. The default is \code{list(correct = TRUE)}, which turns on the continuity correction for \code{\link{chisq.test}}.
 ##' @param testExact A function used to perform the exact tests. The default is fisher.test. If the cells have large numbers, it will fail because of memory limitation. In this situation, the large sample approximation based should suffice.
 ##' @param argsExact A named list of arguments passed to the function specified in testExact. The default is \code{list(workspace = 2*10^5)}, which specifies the memory space allocated for \code{\link{fisher.test}}.
+##' @param smd If TRUE, as in the default and there are more than two groups, standardized mean differences for all pairwise comparisons are calculated. For categorical variables, Yang and Dalton's definition is used.
 ##' @return An object of class \code{CatTable}, which really is a \code{\link{by}} object with additional attributes. Each element of the \code{\link{by}} part is a matrix with rows representing variables, and columns representing summary statistics.
 ##' @author Kazuki Yoshida (based on \code{Deducer::frequencies()})
 ##' @seealso
@@ -82,15 +83,16 @@
 ##'
 ##' @export
 CreateCatTable <-
-function(vars,                                 # character vector of variable names
-         strata,                               # character vector of variable names
-         data,                                 # data frame
-         includeNA  = FALSE,                   # include NA as a category
-         test       = TRUE,                    # whether to include p-values
-         testApprox = chisq.test,              # function for approximation test
-         argsApprox = list(correct = TRUE),    # arguments passed to testApprox
-         testExact  = fisher.test,             # function for exact test
-         argsExact  = list(workspace = 2*10^5) # arguments passed to testExact
+function(vars,                                  # character vector of variable names
+         strata,                                # character vector of variable names
+         data,                                  # data frame
+         includeNA  = FALSE,                    # include NA as a category
+         test       = TRUE,                     # whether to include p-values
+         testApprox = chisq.test,               # function for approximation test
+         argsApprox = list(correct = TRUE),     # arguments passed to testApprox
+         testExact  = fisher.test,              # function for exact test
+         argsExact  = list(workspace = 2*10^5), # arguments passed to testExact
+         smd        = TRUE                      # whether to include standardize mean differences
          ) {
 
 ### Data check
@@ -129,7 +131,6 @@ function(vars,                                 # character vector of variable na
     }
 
 ### Actual descriptive statistics are calculated here.
-
     ## strata--variable-CreateTableForOneVar structure
     ## Devide by strata
     result <- by(data = dat, INDICES = strata, # INDICES can be a multi-column data frame
@@ -160,6 +161,10 @@ function(vars,                                 # character vector of variable na
     pValues   <- NULL
     listXtabs <- list()
 
+    ## Create a single variable representation of multivariable stratification
+    ## Respect ordering of levels in by()
+    strataVar <- ModuleCreateStrataVarAsFactor(result, strata)
+
     ## Only when test is asked for
     if (test) {
         lstXtabsPVals <-
@@ -175,6 +180,20 @@ function(vars,                                 # character vector of variable na
         listXtabs <- lstXtabsPVals$xtabs
     }
 
+
+### Perform SMD when requested
+    smds <- NULL
+
+    ## Only when SMD is asked for
+    if (smd) {
+        ## list of smds
+        smds <- sapply(dat, function(var) {
+            StdDiffMulti(variable = var, group = strataVar)
+        }, simplify = FALSE)
+        smds <- do.call(rbind, smds)
+    }
+
+
     ## Return object
     ## Give an S3 class
     class(result) <- c("CatTable", class(result))
@@ -182,7 +201,8 @@ function(vars,                                 # character vector of variable na
     ## Give additional attributes
     attributes(result) <- c(attributes(result),
                             list(pValues = pValues),
-                            list(xtabs   = listXtabs))
+                            list(xtabs   = listXtabs),
+                            list(smd     = smds))
 
     ## Return
     return(result)

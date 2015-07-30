@@ -14,6 +14,7 @@
 ##' @param argsNonNormal A named list of arguments passed to the function specified in \code{testNonNormal}.
 ##' @param testApprox A function used to perform the large sample approximation based tests. The default is \code{svychisq}.
 ##' @param argsApprox A named list of arguments passed to the function specified in testApprox.
+##' @param smd If TRUE, as in the default and there are more than two groups, standardized mean differences for all pairwise comparisons are calculated. For categorical variables, Yang and Dalton's definition is used.
 ##' @return An object of class \code{svyTableOne}, which really is a list of three objects.
 ##' @return \item{TableOne}{a categorical-continuous mixture data formatted and printed by the \code{\link{print.TableOne}} method}
 ##' @return \item{ContTable}{an object of class \code{svyContTable}, containing continuous variables only}
@@ -82,7 +83,8 @@ function(vars,                                   # character vector of variable 
          testNormal    = svyTestNormal,          # test for normally distributed variables
          argsNormal    = list(method = "Wald"),  # arguments passed to testNormal
          testNonNormal = svyTestNonNormal,       # test for nonnormally distributed variables
-         argsNonNormal = NULL                    # arguments passed to testNonNormal
+         argsNonNormal = NULL,                   # arguments passed to testNonNormal
+         smd           = TRUE                    # whether to include standardize mean differences
          ) {
 
 ### Data check
@@ -143,12 +145,14 @@ function(vars,                                   # character vector of variable 
                                     testNormal    = testNormal,
                                     argsNormal    = argsNormal,
                                     testNonNormal = testNonNormal,
-                                    argsNonNormal = argsNonNormal)
+                                    argsNonNormal = argsNonNormal,
+                                    smd           = smd)
         argsCreateCatTable  <- list(data          = data,
                                     includeNA     = includeNA,
                                     test          = test,
                                     testApprox    = testApprox,
-                                    argsApprox    = argsApprox)
+                                    argsApprox    = argsApprox,
+                                    smd           = smd)
 
         ## Add strata = strata for argument only if strata is given
         if (!missing(strata)) {

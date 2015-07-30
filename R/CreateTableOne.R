@@ -16,6 +16,7 @@
 ##' @param argsApprox A named list of arguments passed to the function specified in testApprox. The default is \code{list(correct = TRUE)}, which turns on the continuity correction for \code{\link{chisq.test}}.
 ##' @param testExact A function used to perform the exact tests. The default is fisher.test. If the cells have large numbers, it will fail because of memory limitation. In this situation, the large sample approximation based should suffice.
 ##' @param argsExact A named list of arguments passed to the function specified in testExact. The default is \code{list(workspace = 2*10^5)}, which specifies the memory space allocated for \code{\link{fisher.test}}.
+##' @param smd If TRUE, as in the default and there are more than two groups, standardized mean differences for all pairwise comparisons are calculated. For categorical variables, Yang and Dalton's definition is used.
 ##' @return An object of class \code{TableOne}, which really is a list of three objects.
 ##' @return \item{TableOne}{a categorical-continuous mixture data formatted and printed by the \code{\link{print.TableOne}} method}
 ##' @return \item{ContTable}{an object of class \code{ContTable}, containing continuous variables only}
@@ -99,7 +100,8 @@ function(vars,                                      # character vector of variab
          testNormal    = oneway.test,               # test for normally distributed variables
          argsNormal    = list(var.equal = TRUE),    # arguments passed to testNormal
          testNonNormal = kruskal.test,              # test for nonnormally distributed variables
-         argsNonNormal = list(NULL)                 # arguments passed to testNonNormal
+         argsNonNormal = list(NULL),                # arguments passed to testNonNormal
+         smd           = TRUE                       # whether to include standardize mean differences
          ) {
 
 ### Data check
@@ -160,14 +162,16 @@ function(vars,                                      # character vector of variab
                                     testNormal    = testNormal,
                                     argsNormal    = argsNormal,
                                     testNonNormal = testNonNormal,
-                                    argsNonNormal = argsNonNormal)
+                                    argsNonNormal = argsNonNormal,
+                                    smd           = smd)
         argsCreateCatTable  <- list(data          = data,
                                     includeNA     = includeNA,
                                     test          = test,
                                     testApprox    = testApprox,
                                     argsApprox    = argsApprox,
                                     testExact     = testExact,
-                                    argsExact     = argsExact)
+                                    argsExact     = argsExact,
+                                    smd           = smd)
 
         ## Add strata = strata for argument only if strata is given
         if (!missing(strata)) {

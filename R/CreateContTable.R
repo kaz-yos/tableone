@@ -15,6 +15,7 @@
 ##' @param argsNormal A named list of arguments passed to the function specified in \code{testNormal}. The default is \code{list(var.equal = TRUE)}, which makes it the ordinary ANOVA that assumes equal variance across groups.
 ##' @param testNonNormal A function used to perform the nonparametric tests. The default is \code{kruskal.test} (Kruskal-Wallis rank sum test). This is equivalent of the wilcox.test (Man-Whitney U test) when there are only two groups.
 ##' @param argsNonNormal A named list of arguments passed to the function specified in \code{testNonNormal}. The default is \code{list(NULL)}, which is just a placeholder.
+##' @param smd If TRUE, as in the default and there are more than two groups, standardized mean differences for all pairwise comparisons are calculated.
 ##' @return An object of class \code{ContTable}, which really is a \code{\link{by}} object with additional attributes. Each element of the \code{\link{by}} part is a matrix with rows representing variables, and columns representing summary statistics.
 ##' @author Kazuki Yoshida (based on \code{Deducer::descriptive.table()})
 ##' @seealso
@@ -83,17 +84,18 @@ CreateContTable <-
 function(vars,                                   # character vector of variable names
          strata,                                 # character vector of variable names
          data,                                   # data frame
-         funcNames    = c(                      # can pick a subset of them
+         funcNames    = c(                       # can pick a subset of them
                  "n","miss","p.miss",
                  "mean","sd",
                  "median","p25","p75","min","max",
                  "skew","kurt"),
-         funcAdditional,                        # named list of additional functions
+         funcAdditional,                         # named list of additional functions
          test          = TRUE,                   # Whether to include p-values
          testNormal    = oneway.test,            # test for normally distributed variables
          argsNormal    = list(var.equal = TRUE), # arguments passed to testNormal
          testNonNormal = kruskal.test,           # test for nonnormally distributed variables
-         argsNonNormal = list(NULL)              # arguments passed to testNonNormal
+         argsNonNormal = list(NULL),             # arguments passed to testNonNormal
+         smd           = TRUE                    # whether to include standardize mean differences
          ) {
 
     ## Require dependencies (DELETE before CRAN release. Use Depends in DESCRIPTION)
@@ -207,15 +209,16 @@ function(vars,                                   # character vector of variable 
     ## Initialize to avoid error when it does not exist at the attribute assignment
     pValues <- NULL
 
+    ## Create a single variable representation of multivariable stratification
+    ## Respect ordering of levels in by()
+    strataVar <- ModuleCreateStrataVarAsFactor(result, strata)
 
     ## Only when test is asked for
-    if (test == TRUE) {
-
-        ## Create a single variable representation of multivariable stratification
-        strataVar <- ModuleCreateStrataVarAsFactor(result, strata)
+    if (test) {
 
         ## Loop over variables in dat, and obtain p values for two tests
-        ## DF = 6 when there are 8 levels (one empty), i.e., empty strata dropped by oneway.test/kruskal.test
+        ## DF = 6 when there are 8 levels (one empty),
+        ## i.e., empty strata dropped by oneway.test/kruskal.test
         pValues <-
             sapply(X = dat,
                    FUN = function(var) {
@@ -232,13 +235,27 @@ function(vars,                                   # character vector of variable 
     } # Conditional for test == TRUE ends here.
 
 
+### Perform SMD when requested
+    smds <- NULL
+
+    ## Only when SMD is asked for
+    if (smd) {
+        ## list of smds
+        smds <- sapply(dat, function(var) {
+            StdDiff(variable = var, group = strataVar)
+        }, simplify = FALSE)
+        smds <- do.call(rbind, smds)
+    }
+
+
     ## Return object
     ## Give an S3 class
     class(result) <- c("ContTable", class(result))
 
     ## Give additional attributes
     attributes(result) <- c(attributes(result),
-                            list(pValues = pValues))
+                            list(pValues = pValues),
+                            list(smd     = smds))
 
     ## Return
     return(result)

@@ -13,6 +13,7 @@
 ##' @param argsNormal A named list of arguments passed to the function specified in \code{testNormal}.
 ##' @param testNonNormal A function used to perform the nonparametric tests. The default is \code{svyranktest}.
 ##' @param argsNonNormal A named list of arguments passed to the function specified in \code{testNonNormal}.
+##' @param smd If TRUE, as in the default and there are more than two groups, standardized mean differences for all pairwise comparisons are calculated.
 ##' @return An object of class \code{svyContTable}.
 ##' @author Kazuki Yoshida
 ##' @seealso
@@ -32,7 +33,8 @@ function(vars,                                  # character vector of variable n
          testNormal    = svyTestNormal,         # test for normally distributed variables
          argsNormal    = list(method = "Wald"), # arguments passed to testNormal
          testNonNormal = svyTestNonNormal,      # test for nonnormally distributed variables
-         argsNonNormal = NULL                   # arguments passed to testNonNormal
+         argsNonNormal = NULL,                  # arguments passed to testNonNormal
+         smd           = TRUE                   # whether to include standardize mean differences
          ) {
 
 ### Data check
@@ -132,13 +134,27 @@ function(vars,                                  # character vector of variable n
     } # Conditional for test == TRUE ends here.
 
 
+### Perform SMD when requested
+    smds <- NULL
+
+    ## Only when SMD is asked for
+    if (smd) {
+        ## list of smds
+        smds <- sapply(vars, function(var) {
+            svyStdDiff(varName = var, groupName = "..strataVar..", design = data)
+        }, simplify = FALSE)
+        smds <- do.call(rbind, smds)
+    }
+
+
     ## Return object
     ## Give an S3 class
     class(result) <- c("svyContTable", "ContTable", class(result))
 
     ## Give additional attributes
     attributes(result) <- c(attributes(result),
-                            list(pValues = pValues))
+                            list(pValues = pValues),
+                            list(smd     = smds))
 
     ## Return
     return(result)
