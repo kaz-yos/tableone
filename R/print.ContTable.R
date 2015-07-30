@@ -164,54 +164,11 @@ print.ContTable <- function(x,                       # ContTable object
     listOfFunctions <- listOfFunctions[nonnormal]
 
     ## Loop over strata (There may be just one)
-    out <- sapply(ContTable,
-                  FUN = function(stratum) {
+    out <- ModuleContFormatStrata(ContTable       = ContTable,
+                                  nVars           = nVars,
+                                  listOfFunctions = listOfFunctions,
+                                  digits          = digits)
 
-                      ## In an empty stratum, return empty
-                      if (is.null(stratum)) {
-                          out <- rep("-", nVars)
-                          ## Give NA to the width of the mean/median column in characters
-                          nCharMeanOrMedian <- NA
-                      } else {
-
-                          ## Apply row by row within each non-empty stratum
-                          ## This row-by-row operation is necessary to handle mean (sd) and median [IQR]
-                          out <- sapply(seq_len(nVars),
-                                         FUN = function(i) {
-
-                                             ## Choose between normal or nonnormal function
-                                             fun <- listOfFunctions[[i]]
-                                             ## Convert a row matrix to 1x2 df (numeric, character)
-                                             fun(stratum[i, , drop = FALSE])
-
-                                             ## Create a 1-row DF (numeric, character)
-                                         },
-                                         simplify = FALSE)
-
-                          ## nx2 data frame by row binding multiple 1-row data frames
-                          out <- do.call(rbind, out)
-
-                          ## Format for decimals
-                          out$col1 <- sprintf(fmt = paste0("%.", digits, "f"), out$col1)
-
-                          ## right justify by adding spaces (to align at the decimal point of mean/median)
-                          out$col1 <- format(out$col1, justify = "right")
-
-                          ## Obtain the width of the mean/median column in characters
-                          nCharMeanOrMedian <- nchar(out$col1[1])
-
-                          ## Create mean (SD) or median [p25, p75] as a character vector
-                          out <- do.call(paste0, out)
-                      }
-
-                      ## Add attributes
-                      attributes(out) <- c(attributes(out),
-                                           list(nCharMeanOrMedian = nCharMeanOrMedian))
-
-                      ## Return
-                      out
-                  },
-                  simplify = FALSE)
 
 ### Obtain the original column width in characters for alignment in print.TableOne
     vecColWidths <- sapply(out,

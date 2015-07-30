@@ -498,13 +498,13 @@ ModuleCatFormatStrata <- function(CatTable, digits, varsToFormat, cramVars, show
     ## Obtain collpased result
     CatTableCollapsed <-
     ## Loop over strata extracting list of variables
-    sapply(X = CatTable,   
+    sapply(X = CatTable,
            FUN = function(lstVars) {
 
                ## Do the following formatting only if the stratum is non-null. Do nothing if null.
                if (!is.null(lstVars)) {
                    ## Returns an empty list if the stratum is null (empty).
-                   
+
                    ## Loop over list of variables formatting them
                    lstVarsFormatted <-
                    ModuleCatFormatVariables(lstVars       = lstVars,
@@ -512,7 +512,7 @@ ModuleCatFormatStrata <- function(CatTable, digits, varsToFormat, cramVars, show
                                             fmt           = fmt1,
                                             cramVars      = cramVars,
                                             showAllLevels = showAllLevels)
-                   
+
 
                    ## Collapse DFs within each stratum
                    DF <- do.call(rbind, lstVarsFormatted)
@@ -572,6 +572,63 @@ ModuleCatFormatStrata <- function(CatTable, digits, varsToFormat, cramVars, show
 
 
 ## Module to loop over strata formatting continuous variables
+## No variable level looping here as each stratum is a matrix of all variables
+ModuleContFormatStrata <- function(ContTable, nVars, listOfFunctions, digits) {
+
+    ## Return a formatted table looping over strata
+    sapply(ContTable,
+           ## Each stratum is a matrix containing summaries
+           ## One row is one variable
+           FUN = function(stratum) {
+
+               ## In an empty stratum, return empty
+               if (is.null(stratum)) {
+
+                   out <- rep("-", nVars)
+                   ## Give NA to the width of the mean/median column in characters
+                   nCharMeanOrMedian <- NA
+
+               } else {
+
+                   ## Apply row by row within each non-empty stratum
+                   ## This row-by-row operation is necessary to handle mean (sd) and median [IQR]
+                   out <- sapply(seq_len(nVars),
+                                 FUN = function(i) {
+
+                                     ## Choose between normal or nonnormal function
+                                     fun <- listOfFunctions[[i]]
+                                     ## Convert a row matrix to 1x2 df (numeric, character)
+                                     fun(stratum[i, , drop = FALSE])
+
+                                     ## Create a 1-row DF (numeric, character)
+                                 },
+                                 simplify = FALSE)
+
+                   ## nx2 data frame by row binding multiple 1-row data frames
+                   out <- do.call(rbind, out)
+
+                   ## Format for decimals
+                   out$col1 <- sprintf(fmt = paste0("%.", digits, "f"), out$col1)
+
+                   ## right justify by adding spaces (to align at the decimal point of mean/median)
+                   out$col1 <- format(out$col1, justify = "right")
+
+                   ## Obtain the width of the mean/median column in characters
+                   nCharMeanOrMedian <- nchar(out$col1[1])
+
+                   ## Create mean (SD) or median [p25, p75] as a character vector
+                   out <- do.call(paste0, out)
+               }
+
+               ## Add attributes
+               attributes(out) <- c(attributes(out),
+                                    list(nCharMeanOrMedian = nCharMeanOrMedian))
+
+               ## Return
+               out
+           },
+           simplify = FALSE)
+}
 
 
 
