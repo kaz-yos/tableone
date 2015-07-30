@@ -232,8 +232,7 @@ print.ContTable <- function(x,                       # ContTable object
     ## Keep column names (strataN does not have correct names if stratification is by multiple variables)
     outColNames <- colnames(out)
     ## Add n at the correct location depending on the number of columns added (level and/or p)
-    nRow <- strataN
-    nRow <- c(nRow, rep("", ncol(out) - length(nRow))) # Additional padding to right
+    nRow <- c(strataN, rep("", ncol(out) - length(strataN))) # Additional padding to right
     out <- rbind(n = nRow, out)
     ## Put back the column names (overkill for non-multivariable cases)
     colnames(out) <- outColNames

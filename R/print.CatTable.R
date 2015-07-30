@@ -147,9 +147,6 @@ print.CatTable <- function(x,                        # CatTable object
                       },
                       simplify = TRUE) # vector with as many elements as strata
 
-    ## Provide indicators to show what columns were added.
-    wasLevelColumnAdded  <- FALSE
-
 
 ### Formatting for printing
 
@@ -211,25 +208,16 @@ print.CatTable <- function(x,                        # CatTable object
         colnames(out) <- ModuleCreateStrataNames(CatTable)
     }
 
-    
+
     ## Set the variables names
     rownames(out) <- CatTableCollapsed[[posFirstNonNullElement]][,"var"]
     ## Get positions of rows with variable names
+    ## Used for adding p values in place
     logiNonEmptyRowNames <- CatTableCollapsed[[posFirstNonNullElement]][, "firstRowInd"] != ""
 
 
-
-    ## Add level names if showAllLevels is TRUE. This adds the level column. Need come after column naming.
-    if (showAllLevels) {
-        out <- cbind(level = CatTableCollapsed[[posFirstNonNullElement]][,"level"], # Cannot be DF
-                     out)
-        ## Changed the indicator
-        wasLevelColumnAdded  <- TRUE
-    }
-
-
     ## Add p-values when requested and available
-    if (test == TRUE & !is.null(attr(CatTable, "pValues"))) {
+    if (test & !is.null(attr(CatTable, "pValues"))) {
 
         ## Pick test types used (used for annonation)
         testTypes <- c("","exact")[exact]
@@ -241,7 +229,7 @@ print.CatTable <- function(x,                        # CatTable object
 
         ## Create an empty p-value column and test column
         out <- cbind(out,
-                     p     = rep("", nrow(out))) # Column for p-values
+                     p = rep("", nrow(out))) # Column for p-values
         ## Put the values at the non-empty positions
         out[logiNonEmptyRowNames,"p"] <- pVec
 
@@ -263,15 +251,23 @@ print.CatTable <- function(x,                        # CatTable object
                                                       explainString)
     }
 
-    ## Keep column names (strataN does not have correct names if stratification is by multiple variables)
+    ## Keep column names (strataN does not have correct names
+    ## if stratification is by multiple variables)
     outColNames <- colnames(out)
-    ## Add n at the correct location depending on the number of columns added (level and/or p)
-    nRow <- c(level = rep("", wasLevelColumnAdded),    # Add "" padding if level added
-              strataN)
-    nRow <- c(nRow, rep("", ncol(out) - length(nRow))) # Additional padding to right
+    ## rbind sample size row, padding necessary "" for p value, etc
+    nRow <- c(strataN, rep("", ncol(out) - length(strataN)))
     out <- rbind(n = nRow, out)
     ## Put back the column names (overkill for non-multivariable cases)
     colnames(out) <- outColNames
+
+    ## Add level names if showAllLevels is TRUE.
+    ## This adds the level column to the left, thus, after nRow addition.
+    ## Need come after column naming.
+    if (showAllLevels) {
+        out <-
+        cbind(level = c("", CatTableCollapsed[[posFirstNonNullElement]][,"level"]),
+              out)
+    }
 
     ## Add stratification information to the column header depending on the dimension
     names(dimnames(out)) <- ModuleReturnDimHeaders(CatTable)

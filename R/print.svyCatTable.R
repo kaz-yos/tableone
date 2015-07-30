@@ -94,9 +94,6 @@ print.svyCatTable <- function(x,                        # CatTable object
                       },
                       simplify = TRUE) # vector with as many elements as strata
 
-    ## Provide indicators to show what columns were added.
-    wasLevelColumnAdded  <- FALSE
-
 
 ### Formatting for printing
 
@@ -164,16 +161,6 @@ print.svyCatTable <- function(x,                        # CatTable object
     logiNonEmptyRowNames <- CatTableCollapsed[[posFirstNonNullElement]][, "firstRowInd"] != ""
 
 
-
-    ## Add level names if showAllLevels is TRUE. This adds the level column. Need come after column naming.
-    if (showAllLevels) {
-        out <- cbind(level = CatTableCollapsed[[posFirstNonNullElement]][,"level"], # Cannot be DF
-                     out)
-        ## Changed the indicator
-        wasLevelColumnAdded  <- TRUE
-    }
-
-
     ## Add p-values when requested and available
     if (test == TRUE & !is.null(attr(CatTable, "pValues"))) {
 
@@ -209,15 +196,23 @@ print.svyCatTable <- function(x,                        # CatTable object
                                                       explainString)
     }
 
-    ## Keep column names (strataN does not have correct names if stratification is by multiple variables)
+    ## Keep column names (strataN does not have correct names
+    ## if stratification is by multiple variables)
     outColNames <- colnames(out)
-    ## Add n at the correct location depending on the number of columns added (level and/or p)
-    nRow <- c(level = rep("", wasLevelColumnAdded),    # Add "" padding if level added
-              strataN)
-    nRow <- c(nRow, rep("", ncol(out) - length(nRow))) # Additional padding to right
+    ## rbind sample size row, padding necessary "" for p value, etc
+    nRow <- c(strataN, rep("", ncol(out) - length(strataN)))
     out <- rbind(n = nRow, out)
     ## Put back the column names (overkill for non-multivariable cases)
     colnames(out) <- outColNames
+
+    ## Add level names if showAllLevels is TRUE.
+    ## This adds the level column to the left, thus, after nRow addition.
+    ## Need come after column naming.
+    if (showAllLevels) {
+        out <-
+        cbind(level = c("", CatTableCollapsed[[posFirstNonNullElement]][,"level"]),
+              out)
+    }
 
     ## Add stratification information to the column header depending on the dimension
     names(dimnames(out)) <- c("", paste0("Stratified by ",
