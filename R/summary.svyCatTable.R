@@ -88,4 +88,10 @@ summary.svyCatTable <- function(object, digits = 1, ...) {
         cat("\np-values\n")
         print(attributes(CatTable)$pValues)
     }
+
+    ## Print SMDs if it exist
+    if (!is.null(attributes(CatTable)$smd)) {
+        cat("\nStandardize mean differences\n")
+        print(attributes(CatTable)$smd)
+    }
 }
