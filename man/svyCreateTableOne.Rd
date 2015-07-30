@@ -7,7 +7,7 @@
 svyCreateTableOne(vars, strata, data, factorVars, includeNA = FALSE,
   test = TRUE, testApprox = svyTestChisq, argsApprox = NULL,
   testNormal = svyTestNormal, argsNormal = list(method = "Wald"),
-  testNonNormal = svyTestNonNormal, argsNonNormal = NULL)
+  testNonNormal = svyTestNonNormal, argsNonNormal = NULL, smd = TRUE)
 }
 \arguments{
 \item{vars}{Variables to be summarized given as a character vector. Factors are handled as categorical variables, whereas numeric variables are handled as continuous variables. If empty, all variables in the survey design object specified in the data argument are used.}
@@ -33,6 +33,8 @@ svyCreateTableOne(vars, strata, data, factorVars, includeNA = FALSE,
 \item{testNonNormal}{A function used to perform the nonparametric tests. The default is \code{svyranktest}.}
 
 \item{argsNonNormal}{A named list of arguments passed to the function specified in \code{testNonNormal}.}
+
+\item{smd}{If TRUE, as in the default and there are more than two groups, standardized mean differences for all pairwise comparisons are calculated. For categorical variables, Yang and Dalton's definition is used.}
 }
 \value{
 An object of class \code{svyTableOne}, which really is a list of three objects.

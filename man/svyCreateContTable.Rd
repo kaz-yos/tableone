@@ -6,7 +6,7 @@
 \usage{
 svyCreateContTable(vars, strata, data, test = TRUE,
   testNormal = svyTestNormal, argsNormal = list(method = "Wald"),
-  testNonNormal = svyTestNonNormal, argsNonNormal = NULL)
+  testNonNormal = svyTestNonNormal, argsNonNormal = NULL, smd = TRUE)
 }
 \arguments{
 \item{vars}{Variable(s) to be summarized given as a character vector.}
@@ -24,6 +24,8 @@ svyCreateContTable(vars, strata, data, test = TRUE,
 \item{testNonNormal}{A function used to perform the nonparametric tests. The default is \code{svyranktest}.}
 
 \item{argsNonNormal}{A named list of arguments passed to the function specified in \code{testNonNormal}.}
+
+\item{smd}{If TRUE, as in the default and there are more than two groups, standardized mean differences for all pairwise comparisons are calculated.}
 }
 \value{
 An object of class \code{svyContTable}.

@@ -5,7 +5,7 @@
 \title{Create an object summarizing categorical variables for weighted data}
 \usage{
 svyCreateCatTable(vars, strata, data, includeNA = FALSE, test = TRUE,
-  testApprox = svyTestChisq, argsApprox = NULL)
+  testApprox = svyTestChisq, argsApprox = NULL, smd = TRUE)
 }
 \arguments{
 \item{vars}{Variable(s) to be summarized given as a character vector.}
@@ -21,6 +21,8 @@ svyCreateCatTable(vars, strata, data, includeNA = FALSE, test = TRUE,
 \item{testApprox}{A function used to perform the large sample approximation based tests. The default is \code{svychisq}.}
 
 \item{argsApprox}{A named list of arguments passed to the function specified in testApprox.}
+
+\item{smd}{If TRUE, as in the default and there are more than two groups, standardized mean differences for all pairwise comparisons are calculated. For categorical variables, Yang and Dalton's definition is used.}
 }
 \value{
 An object of class \code{svyCatTable}.

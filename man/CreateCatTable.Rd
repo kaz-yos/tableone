@@ -6,7 +6,8 @@
 \usage{
 CreateCatTable(vars, strata, data, includeNA = FALSE, test = TRUE,
   testApprox = chisq.test, argsApprox = list(correct = TRUE),
-  testExact = fisher.test, argsExact = list(workspace = 2 * 10^5))
+  testExact = fisher.test, argsExact = list(workspace = 2 * 10^5),
+  smd = TRUE)
 }
 \arguments{
 \item{vars}{Variable(s) to be summarized given as a character vector.}
@@ -26,6 +27,8 @@ CreateCatTable(vars, strata, data, includeNA = FALSE, test = TRUE,
 \item{testExact}{A function used to perform the exact tests. The default is fisher.test. If the cells have large numbers, it will fail because of memory limitation. In this situation, the large sample approximation based should suffice.}
 
 \item{argsExact}{A named list of arguments passed to the function specified in testExact. The default is \code{list(workspace = 2*10^5)}, which specifies the memory space allocated for \code{\link{fisher.test}}.}
+
+\item{smd}{If TRUE, as in the default and there are more than two groups, standardized mean differences for all pairwise comparisons are calculated. For categorical variables, Yang and Dalton's definition is used.}
 }
 \value{
 An object of class \code{CatTable}, which really is a \code{\link{by}} object with additional attributes. Each element of the \code{\link{by}} part is a matrix with rows representing variables, and columns representing summary statistics.

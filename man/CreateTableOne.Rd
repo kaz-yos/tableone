@@ -8,7 +8,7 @@ CreateTableOne(vars, strata, data, factorVars, includeNA = FALSE,
   test = TRUE, testApprox = chisq.test, argsApprox = list(correct = TRUE),
   testExact = fisher.test, argsExact = list(workspace = 2 * 10^5),
   testNormal = oneway.test, argsNormal = list(var.equal = TRUE),
-  testNonNormal = kruskal.test, argsNonNormal = list(NULL))
+  testNonNormal = kruskal.test, argsNonNormal = list(NULL), smd = TRUE)
 }
 \arguments{
 \item{vars}{Variables to be summarized given as a character vector. Factors are handled as categorical variables, whereas numeric variables are handled as continuous variables. If empty, all variables in the data frame specified in the data argument are used.}
@@ -38,6 +38,8 @@ CreateTableOne(vars, strata, data, factorVars, includeNA = FALSE,
 \item{testNonNormal}{A function used to perform the nonparametric tests. The default is \code{kruskal.test} (Kruskal-Wallis Rank Sum Test). This is equivalent of the wilcox.test (Man-Whitney U test) when there are only two groups.}
 
 \item{argsNonNormal}{A named list of arguments passed to the function specified in \code{testNonNormal}. The default is \code{list(NULL)}, which is just a placeholder.}
+
+\item{smd}{If TRUE, as in the default and there are more than two groups, standardized mean differences for all pairwise comparisons are calculated. For categorical variables, Yang and Dalton's definition is used.}
 }
 \value{
 An object of class \code{TableOne}, which really is a list of three objects.
