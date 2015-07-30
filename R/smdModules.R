@@ -164,9 +164,28 @@ StdDiffs <- function(data, vars, groupVar, binaryVars) {
 ### Functions for weighted data only
 ################################################################################
 
+### Check strata for NA-only strata
+svyCheckNaOnlyStrata <- function(varName, groupName, design) {
+
+    unlist(lapply(split(design$variables[,varName],
+                        design$variables[,groupName]),
+                  function(var) {
+                      ## TRUE if only NA's within stratum
+                      all(is.na(var))
+                  }))
+}
+
 ### Continuous/binary standardized mean differences
 ## Expects continuous or 0,1 binary variable
 svyStdDiff <- function(varName, groupName, design, binary = FALSE, na.rm = TRUE) {
+
+    ## Check strata for all NA strata
+    logiAllNaStrata <- svyCheckNaOnlyStrata(varName, groupName, design)
+    ## If ANY strata have only NA's do not remove NA's
+    if (any(logiAllNaStrata)) {
+        warning(varName, " has only NA's in at least one stratum. na.rm turned off.")
+        na.rm = FALSE
+    }
 
     varFormula   <- as.formula(paste("~", varName))
     groupFormula <- as.formula(paste("~", groupName))
@@ -194,6 +213,20 @@ svyStdDiff <- function(varName, groupName, design, binary = FALSE, na.rm = TRUE)
 
 ### Categorical (including binary) standardizzed mean difference
 svyStdDiffMulti <- function(varName, groupName, design) {
+
+    ## Check strata for all NA strata
+    logiAllNaStrata <- svyCheckNaOnlyStrata(varName, groupName, design)
+
+    ## If ALL strata have only NA's convert to a level
+    ## If any strata have valid levels, table is ok
+    ## Empty table breaks the function
+    if (all(logiAllNaStrata)) {
+
+        warning(varName, " has only NA's in all strata. Regarding NA as a level")
+
+        design$variables[,varName] <- factor(design$variables[,varName],
+                                             exclude = NULL)
+    }
 
     tabFormula   <- as.formula(sprintf("~ %s + %s", groupName, varName))
 
