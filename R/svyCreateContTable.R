@@ -59,6 +59,8 @@ function(vars,                                  # character vector of variable n
     ## Keeps non-existing levels
     data$variables$..strataVar.. <- interaction(strata, sep = ":")
     strataVarLevels <- levels(data$variables$..strataVar..)
+    ## Dummy and dumb object to avoid CRAN check "no visible binding for global variable"
+    ..strataVar.. <- NULL
 
     ## Handle non-numeric elements (intergers give TRUE, and pass)
     if(any(!sapply(data$variables[vars], is.numeric))){

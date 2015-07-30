@@ -56,6 +56,8 @@ function(vars,                      # character vector of variable names
     ## Keeps non-existing levels
     data$variables$..strataVar.. <- interaction(strata, sep = ":")
     strataVarLevels <- levels(data$variables$..strataVar..)
+    ## Dummy and dumb object to avoid CRAN check "no visible binding for global variable"
+    ..strataVar.. <- NULL
 
     ## Convert to a factor if it is not a factor already. (categorical version only)
     ## Not done on factors, to avoid dropping zero levels.
