@@ -239,6 +239,50 @@ ModuleCreateStrataVarAsFactor <- function(result, strata) {
 }
 
 
+### Module for testing multiple variables
+################################################################################
+
+ModuleApproxExactTests <- function(result, strata, dat, strataVarName,
+                                   testApprox, argsApprox,
+                                   testExact,  argsExact) {
+    ## Create a single variable representation of multivariable stratification
+    strataVar <- ModuleCreateStrataVarAsFactor(result, strata)
+
+    ## Loop over variables in dat, and create a list of xtabs
+    ## Empty strata are kept in the corss tables. Different behavior than the cont counterpart!
+    listXtabs <- sapply(X = names(dat),
+                        FUN = function(var) {
+                            ## Create a formula
+                            formula <- as.formula(paste0("~ ", var, " + ", "strataVar"))
+
+                            ## Create a 2-dimensional crosstable
+                            xtabs(formula = formula, data = dat)
+                        },
+                        simplify = FALSE)
+
+    ## Rename the second dimension of the xtabs with the newly create name.
+    for (i in seq_along(listXtabs)) {
+
+        names(dimnames(listXtabs[[i]]))[2] <- strataVarName
+    }
+
+    ## Loop over xtabs, and create p-values
+    pValues <-
+    sapply(X = listXtabs,
+           FUN = function(xtabs) {
+               ## Perform tests and return the result as 1x2 DF
+               data.frame(pApprox = ModuleTestSafe(xtabs, testApprox, argsApprox),
+                          pExact  = ModuleTestSafe(xtabs, testExact,  argsExact))
+           },
+           simplify = FALSE)
+
+    ## Create a single data frame (n x 2 (normal,nonormal))
+    pValues <- do.call(rbind, pValues)
+
+    ## Return both xtabs and p value df
+    list(pValues = pValues, xtabs = listXtabs)
+}
+
 
 ### Modules intented for the print methods
 ################################################################################

@@ -82,16 +82,16 @@
 ##'
 ##' @export
 CreateCatTable <-
-    function(vars,                                 # character vector of variable names
-             strata,                               # character vector of variable names
-             data,                                 # data frame
-             includeNA  = FALSE,                   # include NA as a category
-             test       = TRUE,                    # whether to put p-values
-             testApprox = chisq.test,              # function for approximation test
-             argsApprox = list(correct = TRUE),    # arguments passed to testApprox
-             testExact  = fisher.test,             # function for exact test
-             argsExact  = list(workspace = 2*10^5) # arguments passed to testExact
-             ) {
+function(vars,                                 # character vector of variable names
+         strata,                               # character vector of variable names
+         data,                                 # data frame
+         includeNA  = FALSE,                   # include NA as a category
+         test       = TRUE,                    # whether to put p-values
+         testApprox = chisq.test,              # function for approximation test
+         argsApprox = list(correct = TRUE),    # arguments passed to testApprox
+         testExact  = fisher.test,             # function for exact test
+         argsExact  = list(workspace = 2*10^5) # arguments passed to testExact
+         ) {
 
 ### Data check
     ## Check if the data given is a dataframe
@@ -173,45 +173,19 @@ CreateCatTable <-
     listXtabs <- list()
 
     ## Only when test is asked for
-    if (test == TRUE) {
-
-        ## Create a single variable representation of multivariable stratification
-        strataVar <- ModuleCreateStrataVarAsFactor(result, strata)
-
-        ## Loop over variables in dat, and create a list of xtabs
-        ## Empty strata are kept in the corss tables. Different behavior than the cont counterpart!
-        listXtabs <- sapply(X = names(dat),
-                            FUN = function(var) {
-                                ## Create a formula
-                                formula <- paste0("~ ", var, " + ", "strataVar")
-                                formula <- as.formula(formula)
-
-                                ## Create a 2-dimensional crosstable
-                                xtabs(formula = formula, data = dat)
-                            },
-                            simplify = FALSE)
-
-        ## Rename the second dimension of the xtabs with the newly create name.
-        for (i in seq_along(listXtabs)) {
-
-            names(dimnames(listXtabs[[i]]))[2] <- strataVarName
-        }
-
-        ## Loop over xtabs, and create p-values
-        pValues <- sapply(X = listXtabs,
-                          FUN = function(xtabs) {
-                              ## Perform tests and return the result as 1x2 DF
-                              data.frame(
-                                  pApprox = ModuleTestSafe(xtabs, testApprox, argsApprox),
-                                  pExact  = ModuleTestSafe(xtabs, testExact,  argsExact)
-                                  )
-                          },
-                          simplify = FALSE)
-
-        ## Create a single data frame (n x 2 (normal,nonormal))
-        pValues <- do.call(rbind, pValues)
-    } # Conditional for test == TRUE ends here.
-
+    if (test) {
+        lstXtabsPVals <-
+        ModuleApproxExactTests(result        = result,
+                               strata        = strata,
+                               dat           = dat,
+                               strataVarName = strataVarName,
+                               testApprox    = testApprox,
+                               argsApprox    = argsApprox,
+                               testExact     = testExact,
+                               argsExact     = argsExact)
+        pValues   <- lstXtabsPVals$pValues
+        listXtabs <- lstXtabsPVals$xtabs
+    }
 
     ## Return object
     ## Give an S3 class
