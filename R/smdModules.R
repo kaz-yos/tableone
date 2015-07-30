@@ -123,7 +123,7 @@ FormatLstSmds <- function(lstSmds, nStrata) {
 
     ## Add a mean column if more than two columns
     if (ncol(matSmds) > 1) {
-        matSmds <- cbind(mean = rowMeans(matSmds),
+        matSmds <- cbind(average = rowMeans(matSmds),
                          matSmds)
     }
 
