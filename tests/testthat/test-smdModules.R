@@ -487,29 +487,76 @@ test_that("multiple variables can be looped", {
     contVars  <- c("WTMEC2YR", "HI_CHOL", "race", "RIAGENDR")
     catVars <-   c("HI_CHOL", "race", "agecat", "RIAGENDR")
 
-    ## Expectations
-
-    expect_true(FALSE)
 
     ## Two groups
-    sapply(contVars, function(var) {
+    expect_equal(as.numeric(sapply(contVars, function(var) {
         StdDiff(variable = nhanes[,var], group = nhanes[,"RIAGENDR"])
-    }, simplify = FALSE)
+    })),
+    c(StdDiff(variable = nhanes[,contVars[1]], group = nhanes[,"RIAGENDR"]),
+      StdDiff(variable = nhanes[,contVars[2]], group = nhanes[,"RIAGENDR"]),
+      StdDiff(variable = nhanes[,contVars[3]], group = nhanes[,"RIAGENDR"]),
+      StdDiff(variable = nhanes[,contVars[4]], group = nhanes[,"RIAGENDR"])))
 
-    sapply(catVars, function(var) {
+    expect_equal(as.numeric(sapply(catVars, function(var) {
         StdDiffMulti(variable = nhanes[,var], group = nhanes[,"RIAGENDR"])
-    }, simplify = FALSE)
-
+    })),
+    c(StdDiffMulti(variable = nhanes[,catVars[1]], group = nhanes[,"RIAGENDR"]),
+      StdDiffMulti(variable = nhanes[,catVars[2]], group = nhanes[,"RIAGENDR"]),
+      StdDiffMulti(variable = nhanes[,catVars[3]], group = nhanes[,"RIAGENDR"]),
+      StdDiffMulti(variable = nhanes[,catVars[4]], group = nhanes[,"RIAGENDR"])))
 
     ## Four groups
-    sapply(contVars, function(var) {
+    expect_equal(lapply(contVars, function(var) {
         StdDiff(variable = nhanes[,var], group = nhanes[,"race"])
-    }, simplify = FALSE)
+    }),
+    list(StdDiff(variable = nhanes[,contVars[1]], group = nhanes[,"race"]),
+         StdDiff(variable = nhanes[,contVars[2]], group = nhanes[,"race"]),
+         StdDiff(variable = nhanes[,contVars[3]], group = nhanes[,"race"]),
+         StdDiff(variable = nhanes[,contVars[4]], group = nhanes[,"race"])))
 
-    sapply(catVars, function(var) {
+    expect_equal(lapply(catVars, function(var) {
         StdDiffMulti(variable = nhanes[,var], group = nhanes[,"race"])
-    }, simplify = FALSE)
+    }),
+    list(StdDiffMulti(variable = nhanes[,catVars[1]], group = nhanes[,"race"]),
+      StdDiffMulti(variable = nhanes[,catVars[2]], group = nhanes[,"race"]),
+      StdDiffMulti(variable = nhanes[,catVars[3]], group = nhanes[,"race"]),
+      StdDiffMulti(variable = nhanes[,catVars[4]], group = nhanes[,"race"])))
 
+
+    ## Two groups
+    expect_equal(as.numeric(sapply(contVars, function(var) {
+        svyStdDiff(var, "RIAGENDR", nhanesSvy)
+    })),
+    c(svyStdDiff(contVars[1], "RIAGENDR", nhanesSvy),
+      svyStdDiff(contVars[2], "RIAGENDR", nhanesSvy),
+      svyStdDiff(contVars[3], "RIAGENDR", nhanesSvy),
+      svyStdDiff(contVars[4], "RIAGENDR", nhanesSvy)))
+
+    expect_equal(as.numeric(sapply(catVars, function(var) {
+        svyStdDiffMulti(var, "RIAGENDR", nhanesSvy)
+    })),
+    c(svyStdDiffMulti(catVars[1], "RIAGENDR", nhanesSvy),
+      svyStdDiffMulti(catVars[2], "RIAGENDR", nhanesSvy),
+      svyStdDiffMulti(catVars[3], "RIAGENDR", nhanesSvy),
+      svyStdDiffMulti(catVars[4], "RIAGENDR", nhanesSvy)))
+
+    ## Four groups
+    expect_equal(lapply(contVars, function(var) {
+        svyStdDiff(var, "race", nhanesSvy)
+    }),
+    list(svyStdDiff(contVars[1], "race", nhanesSvy),
+         svyStdDiff(contVars[2], "race", nhanesSvy),
+         svyStdDiff(contVars[3], "race", nhanesSvy),
+         svyStdDiff(contVars[4], "race", nhanesSvy)))
+
+    expect_equal(lapply(catVars, function(var) {
+        svyStdDiffMulti(var, "race", nhanesSvy)
+    }),
+    list(svyStdDiffMulti(catVars[1], "race", nhanesSvy),
+      svyStdDiffMulti(catVars[2], "race", nhanesSvy),
+      svyStdDiffMulti(catVars[3], "race", nhanesSvy),
+      svyStdDiffMulti(catVars[4], "race", nhanesSvy)))
+    
 })
 
 

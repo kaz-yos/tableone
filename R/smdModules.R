@@ -260,6 +260,11 @@ svyStdDiffMulti <- function(varName, groupName, design) {
                                              exclude = NULL)
     }
 
+    ## If same variable is used as a group, factor() to allow tabling
+    if (varName == groupName) {
+        groupName <- sprintf("factor(%s)", groupName)
+    }
+
     tabFormula   <- as.formula(sprintf("~ %s + %s", groupName, varName))
 
     ## strata x variable table
