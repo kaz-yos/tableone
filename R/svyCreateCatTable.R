@@ -118,41 +118,15 @@ function(vars,                      # character vector of variable names
     ## Only when test is asked for
     if (test) {
 
-        listXtabs <- sapply(X = vars,
-                            FUN = function(var) {
-                                ## Create a formula
-                                formula <- as.formula(paste0("~ ", var, " + ", "..strataVar.."))
-
-                                ## Create a 2-dimensional crosstable
-                                svytable(formula = formula, design = data)
-                            },
-                            simplify = FALSE)
-
-        ## Rename the second dimension of the xtabs with the newly create name.
-        for (i in seq_along(listXtabs)) {
-
-            names(dimnames(listXtabs[[i]]))[2] <- strataVarName
-        }
-
-
-        ## Loop over variables, and create p-values
-        pValues <-
-        sapply(X = vars,
-               FUN = function(var) {
-
-                   formulaString <- paste0(" ~ ", var, " + ..strataVar..")
-
-                   ## Perform tests and return the result as 1x2 DF
-                   data.frame(pApprox = ModuleTestSafe(formulaString, testApprox,
-                                                       c(list(design = data), argsApprox)),
-                              ## Not available for survey data. Just fill in with NA
-                              pExact  = NA)
-                          },
-                          simplify = FALSE)
-
-        ## Create a single data frame (n x 2 (normal,nonormal))
-        pValues <- do.call(rbind, pValues)
-    } # Conditional for test == TRUE ends here.
+        lstXtabsPVals <-
+        svyModuleApproxExactTests(data          = data,
+                                  vars          = vars,
+                                  strataVarName = strataVarName,
+                                  testApprox    = testApprox,
+                                  argsApprox    = argsApprox)
+        pValues   <- lstXtabsPVals$pValues
+        listXtabs <- lstXtabsPVals$xtabs
+    }
 
 
     ## Return object

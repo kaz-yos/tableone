@@ -238,3 +238,44 @@ svyTestChisq <- function(formulaString, design) {
     ## This returns an htest object that has a scalar $p.value element
     svychisq(formula = as.formula(formulaString), design = design)
 }
+
+
+svyModuleApproxExactTests <- function(data, vars, strataVarName,
+                                      testApprox, argsApprox) {
+
+    ## Loop over variables and create a list of xtabs
+    ## Empty strata are kept in the corss tables. Different behavior than the cont counterpart!
+    listXtabs <- sapply(X = vars,
+                        FUN = function(var) {
+                            ## Create a formula
+                            formula <- as.formula(paste0("~ ", var, " + ", "..strataVar.."))
+
+                            ## Create a 2-dimensional crosstable
+                            svytable(formula = formula, design = data)
+                        },
+                        simplify = FALSE)
+
+    ## Rename the second dimension of the xtabs with the newly create name.
+    for (i in seq_along(listXtabs)) {
+
+        names(dimnames(listXtabs[[i]]))[2] <- strataVarName
+    }
+
+    ## Loop over variables, and create p-values
+    pValues <-
+    sapply(X = vars,
+           FUN = function(var) {
+               formulaString <- paste0(" ~ ", var, " + ..strataVar..")
+               ## Perform tests and return the result as 1x2 DF
+               data.frame(pApprox = ModuleTestSafe(formulaString, testApprox,
+                                                   c(list(design = data), argsApprox)),
+                          pExact  = NA) # Not available for survey data. Just fill in with NA
+           },
+           simplify = FALSE)
+
+    ## Create a single data frame (n x 2 (normal,nonormal))
+    pValues <- do.call(rbind, pValues)
+
+    ## Return both xtabs and p value df
+    list(pValues = pValues, xtabs = listXtabs)
+}
