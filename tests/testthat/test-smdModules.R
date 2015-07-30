@@ -380,6 +380,139 @@ test_that("categorical standardized difference is correct (nhanes weighted)", {
 })
 
 
+### Test on anomalous data
+################################################################################
+
+test_that("decent results are returned for anomalous/difficult data", {
+
+    data(nhanes)
+    nhanes$onlyOne <- 1
+    nhanes$onlyNa  <- as.numeric(NA)
+    nhanes$logi    <- nhanes$RIAGENDR == 1
+    nhanesSvy <- svydesign(ids = ~ SDMVPSU, strata = ~ SDMVSTRA, weights = ~ WTMEC2YR,
+                           nest = TRUE, data = nhanes)
+
+    ## Logical
+    ## 0 due to [0]^- = 0
+    expect_equal(StdDiffMulti(nhanes$logi, group = nhanes$RIAGENDR), 0)
+    ## Matches with result from original variable
+    expect_equal(StdDiffMulti(nhanes$logi,     group = nhanes$race),
+                 StdDiffMulti(nhanes$RIAGENDR, group = nhanes$race))
+
+
+    ## Only one value
+    ## NaN due to division by zero variance
+    expect_equal(StdDiff(nhanes$onlyOne, group = nhanes$RIAGENDR), NaN)
+    ## 0 because [0]^-  = 0, and [1]^T [0]^-1 [1] = 0
+    expect_equal(StdDiffMulti(nhanes$onlyOne, group = nhanes$RIAGENDR), 0)
+    ## When weighted problematic
+    means1 <- svyby(~ onlyOne, by = ~ RIAGENDR, nhanesSvy, FUN = svymean)[,2]
+    vars1  <- svyby(~ onlyOne, by = ~ RIAGENDR, nhanesSvy, FUN = svyvar)[,2]
+    ## Very small difference is inflated by even smaller variance
+    expect_equal(svyStdDiff("onlyOne", "RIAGENDR", nhanesSvy),
+                 (means1[1] - means1[2]) / sqrt(sum(vars1)  / 2))
+    expect_equal(svyStdDiff("onlyOne", "RIAGENDR", nhanesSvy), NaN)
+    ## 0 because [0]^-  = 0, and [1]^T [0]^-1 [1] = 0
+    expect_equal(svyStdDiffMulti("onlyOne", "RIAGENDR", nhanesSvy), 0)
+
+    ## Four groups (six contrasts)
+    ## NaN due to division by zero variance
+    expect_equal(StdDiff(nhanes$onlyOne, group = nhanes$race), rep(NaN, 6))
+    ## 0 because [0]^-  = 0, and [1]^T [0]^-1 [1] = 0
+    expect_equal(StdDiffMulti(nhanes$onlyOne, group = nhanes$race), rep(0, 6))
+    ## When weighted problematic; not in this case??
+    means2 <- svyby(~ onlyOne, by = ~ race, nhanesSvy, FUN = svymean)[,2]
+    vars2  <- svyby(~ onlyOne, by = ~ race, nhanesSvy, FUN = svyvar)[,2]
+    meanDiffs2 <- c((means2[1] - means2[2]) / sqrt((vars2[1] + vars2[2]) / 2),
+                    (means2[1] - means2[3]) / sqrt((vars2[1] + vars2[3]) / 2),
+                    (means2[1] - means2[4]) / sqrt((vars2[1] + vars2[4]) / 2),
+                    (means2[2] - means2[3]) / sqrt((vars2[2] + vars2[3]) / 2),
+                    (means2[2] - means2[4]) / sqrt((vars2[2] + vars2[4]) / 2),
+                    (means2[3] - means2[4]) / sqrt((vars2[3] + vars2[4]) / 2))
+    expect_equal(svyStdDiff("onlyOne", "race", nhanesSvy),  meanDiffs2)
+    expect_equal(svyStdDiff("onlyOne", "race", nhanesSvy), rep(NaN, 6))
+    ## 0 because [0]^-  = 0, and [1]^T [0]^-1 [1] = 0
+    expect_equal(svyStdDiffMulti("onlyOne", "race", nhanesSvy), rep(0, 6))
+
+
+    ## onlyNa
+    ## NA as na.rm is turned off
+    expect_warning(expect_equal(StdDiff(nhanes$onlyNa, group = nhanes$RIAGENDR),
+                                as.numeric(NA)),
+                   "Variable has only NA's in at least one stratum. na.rm turned off.")
+    ## 0 only one level
+    expect_warning(expect_equal(StdDiffMulti(nhanes$onlyNa, group = nhanes$RIAGENDR), 0),
+                   "Variable has only NA's in all strata. Regarding NA as a level")
+    ## When weighted problematic
+    means1 <- svyby(~ onlyNa, by = ~ RIAGENDR, nhanesSvy, FUN = svymean)[,2]
+    vars1  <- svyby(~ onlyNa, by = ~ RIAGENDR, nhanesSvy, FUN = svyvar)[,2]
+    ## Very small difference is inflated by even smaller variance
+    expect_warning(svyStdDiff("onlyNa", "RIAGENDR", nhanesSvy),
+                   "onlyNa has only NA's in at least one stratum. na.rm turned off.")
+    expect_warning(expect_equal(svyStdDiff("onlyNa", "RIAGENDR", nhanesSvy),
+                                as.numeric(NA)),
+                   "onlyNa has only NA's in at least one stratum. na.rm turned off.")
+    ## 0 because [0]^-  = 0, and [1]^T [0]^-1 [1] = 0
+    expect_equal(svyStdDiffMulti("onlyNa", "RIAGENDR", nhanesSvy), 0)
+
+    ## Four groups (six contrasts)
+    ## NaN due to division by zero variance
+    expect_equal(StdDiff(nhanes$onlyNa, group = nhanes$race), rep(NaN, 6))
+    ## 0 because [0]^-  = 0, and [1]^T [0]^-1 [1] = 0
+    expect_equal(StdDiffMulti(nhanes$onlyNa, group = nhanes$race), rep(0, 6))
+    ## When weighted problematic; not in this case??
+    means2 <- svyby(~ onlyNa, by = ~ race, nhanesSvy, FUN = svymean)[,2]
+    vars2  <- svyby(~ onlyNa, by = ~ race, nhanesSvy, FUN = svyvar)[,2]
+    meanDiffs2 <- c((means2[1] - means2[2]) / sqrt((vars2[1] + vars2[2]) / 2),
+                    (means2[1] - means2[3]) / sqrt((vars2[1] + vars2[3]) / 2),
+                    (means2[1] - means2[4]) / sqrt((vars2[1] + vars2[4]) / 2),
+                    (means2[2] - means2[3]) / sqrt((vars2[2] + vars2[3]) / 2),
+                    (means2[2] - means2[4]) / sqrt((vars2[2] + vars2[4]) / 2),
+                    (means2[3] - means2[4]) / sqrt((vars2[3] + vars2[4]) / 2))
+    expect_equal(svyStdDiff("onlyNa", "race", nhanesSvy),  meanDiffs2)
+    expect_equal(svyStdDiff("onlyNa", "race", nhanesSvy), rep(NaN, 6))
+    ## 0 because [0]^-  = 0, and [1]^T [0]^-1 [1] = 0
+    expect_equal(svyStdDiffMulti("onlyNa", "race", nhanesSvy), rep(0, 6))
+
+
+})
+
+
+### Tests working on multiple variables
+################################################################################
+
+test_that("multiple variables can be looped", {
+
+
+    contVars  <- c("WTMEC2YR", "HI_CHOL", "race", "RIAGENDR")
+    catVars <-   c("HI_CHOL", "race", "agecat", "RIAGENDR")
+
+    ## Expectations
+
+    expect_true(FALSE)
+
+    ## Two groups
+    sapply(contVars, function(var) {
+        StdDiff(variable = nhanes[,var], group = nhanes[,"RIAGENDR"])
+    }, simplify = FALSE)
+
+    sapply(catVars, function(var) {
+        StdDiffMulti(variable = nhanes[,var], group = nhanes[,"RIAGENDR"])
+    }, simplify = FALSE)
+
+
+    ## Four groups
+    sapply(contVars, function(var) {
+        StdDiff(variable = nhanes[,var], group = nhanes[,"race"])
+    }, simplify = FALSE)
+
+    sapply(catVars, function(var) {
+        StdDiffMulti(variable = nhanes[,var], group = nhanes[,"race"])
+    }, simplify = FALSE)
+
+})
+
+
 ### Older tests with simpler data
 ################################################################################
 
