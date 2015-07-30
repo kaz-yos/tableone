@@ -395,21 +395,8 @@ ModuleCreateStrataNames <- function(TableObject) {
     return(strataNames)
 }
 
-
-## p-value picker/formatter
-ModulePickAndFormatPValues <- function(TableObject, switchVec, pDigits) {
-
-    ## nVarsiables x 2 (pNormal,pNonNormal) data frame
-    pValues <- attr(TableObject, "pValues")
-
-    ## Pick ones specified in exact (a vector with 1s(approx) and 2s(exact))
-    pValues <- sapply(seq_along(switchVec),    # loop over exact
-                      FUN = function(i) {
-                          ## Pick from a matrix i-th row, exact[i]-th column
-                          ## Logical NA must be converted to a numeric
-                          as.numeric(pValues[i, switchVec[i]])
-                      },
-                      simplify = TRUE)
+## p-value formatter
+ModuleFormatPValues <- function(pValues, pDigits) {
 
     ## Format p value
     fmt  <- paste0("%.", pDigits, "f")
@@ -426,6 +413,26 @@ ModulePickAndFormatPValues <- function(TableObject, switchVec, pDigits) {
 
     ## Return formatted p-values (as many as there are variables)
     return(pVec)
+}
+
+## p-value picker/formatter
+ModulePickAndFormatPValues <- function(TableObject, switchVec, pDigits) {
+
+    ## nVarsiables x 2 (pNormal,pNonNormal) data frame
+    pValues <- attr(TableObject, "pValues")
+
+    ## Pick ones specified in exact (a vector with 1s(approx) and 2s(exact))
+    pValues <- sapply(seq_along(switchVec),    # loop over exact
+                      FUN = function(i) {
+                          ## Pick from a matrix i-th row, exact[i]-th column
+                          ## Logical NA must be converted to a numeric
+                          as.numeric(pValues[i, switchVec[i]])
+                      },
+                      simplify = TRUE)
+
+    ## Return formatted p-values (as many as there are variables)
+    ## e.g. <0.001 if too small to show
+    ModuleFormatPValues(pValues, pDigits)
 }
 
 
