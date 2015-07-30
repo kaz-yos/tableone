@@ -125,19 +125,7 @@ function(vars,                                 # character vector of variable na
 
     ## If including NA as a level, include NA as a factor level before subsetting
     if (includeNA) {
-        ## Logical vector for variables that have any NA
-        logiAnyNA <- (colSums(is.na(dat)) > 0)
-
-        ## Add NA as a new level unless already present
-        dat[logiAnyNA] <-
-                     lapply(dat[logiAnyNA],
-                            function(var) {
-                                if (all(!is.na(levels(var)))) {
-                                    var <- factor(var, c(levels(var), NA),
-                                                  exclude = NULL)
-                                }
-                                var
-                            })
+        dat <- ModuleIncludeNaAsLevel(dat)
     }
 
 ### Actual descriptive statistics are calculated here.

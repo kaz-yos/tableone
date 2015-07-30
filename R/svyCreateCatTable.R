@@ -68,28 +68,12 @@ function(vars,                      # character vector of variable names
 
     ## If including NA as a level, include NA as a factor level before subsetting
     if (includeNA) {
-        ## Logical vector for variables that have any NA
-        logiAnyNA <- (colSums(is.na(data$variables)) > 0)
-
-        ## Add NA as a new level unless already present
-        data$variables[logiAnyNA] <-
-                                lapply(data$variables[logiAnyNA],
-                                       function(var) {
-                                           if (all(!is.na(levels(var)))) {
-                                               var <- factor(var, c(levels(var), NA),
-                                                             exclude = NULL)
-                                           }
-                                           var
-                                       })
+        data$variables <- ModuleIncludeNaAsLevel(data$variables)
     }
 
 ### Actual descriptive statistics are calculated here.
 
-    ## To implement
-    ## Create a single grouping variable from strata variables
-    ## Create a list of subgroup data by the grouping variable
-    ## Loop over each stratum with matrix forming function
-
+    ## Return a list of summary matrices
     result <- sapply(strataVarLevels, function(level) {
 
         ## Create a matrix including vars X c(n,miss,...) matrix

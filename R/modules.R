@@ -163,6 +163,26 @@ ModuleCreateStrataVarName <- function(obj) {
     paste0(names(attr(obj, "dimnames")), collapse = ":")
 }
 
+
+## Convert variables with NA to include NA as a level (for CatTable constructor)
+ModuleIncludeNaAsLevel <- function(data) {
+    ## Logical vector for variables that have any NA
+    logiAnyNA <- (colSums(is.na(data)) > 0)
+
+    ## Add NA as a new level unless already present
+    data[logiAnyNA] <-
+                  lapply(data[logiAnyNA],
+                         function(var) {
+                             if (all(!is.na(levels(var)))) {
+                                 var <- factor(var, c(levels(var), NA),
+                                               exclude = NULL)
+                             }
+                             var
+                         })
+    data
+}
+
+
 ### ModuleTryCatchWE
 ## Try catch function           # Taken from demo(error.catching)
 ## Used to define non-failing functions, that return NA when there is an error
