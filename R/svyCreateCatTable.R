@@ -26,11 +26,12 @@
 svyCreateCatTable <-
 function(vars,                      # character vector of variable names
          strata,                    # character vector of variable names
-         data,                      # data frame
+         data,                      # survey design object
          includeNA  = FALSE,        # include NA as a category
          test       = TRUE,         # whether to put p-values
          testApprox = svyTestChisq, # function for approximation test (only choice)
-         argsApprox = NULL          # arguments passed to testApprox
+         argsApprox = NULL,         # arguments passed to testApprox
+         smd        = TRUE
          ) {
 
 ### Data check
@@ -84,10 +85,10 @@ function(vars,                      # character vector of variable names
     ## Make it a by object
     class(result) <- "by"
 
+    ## strataVarName from dimension headers
+    strataVarName <- paste0(names(strata), collapse = ":")
     ## Add stratification variable information as an attribute
     if (length(result) > 1) {
-        ## strataVarName from dimension headers
-        strataVarName <- paste0(names(strata), collapse = ":")
         ## Add an attribute for the stratifying variable name
         attributes(result) <- c(attributes(result),
                                 list(strataVarName = strataVarName))
@@ -112,6 +113,19 @@ function(vars,                      # character vector of variable names
         listXtabs <- lstXtabsPVals$xtabs
     }
 
+### Perform SMD when requested
+    smds <- NULL
+
+    ## Only when SMD is asked for
+    ## TURN OFF FOR NOW
+    if (smd & FALSE) {
+        ## list of smds
+        smds <- sapply(vars, function(var) {
+            svyStdDiffMulti(varName = var, groupName = strataVarName, design = data)
+        }, simplify = FALSE)
+
+        smds <- do.call(rbind, smds)
+    }
 
     ## Return object
     ## Give an S3 class
@@ -120,7 +134,8 @@ function(vars,                      # character vector of variable names
     ## Give additional attributes
     attributes(result) <- c(attributes(result),
                             list(pValues = pValues),
-                            list(xtabs   = listXtabs))
+                            list(xtabs   = listXtabs),
+                            list(smd     = smds))
 
     ## Return
     return(result)
