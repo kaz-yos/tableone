@@ -88,150 +88,150 @@ function(vars,                                   # character vector of variable 
          ) {
 
 ### Data check
-        ## Check if the data given is a dataframe
-        StopIfNotSurveyDesign(data)
+    ## Check if the data given is a dataframe
+    StopIfNotSurveyDesign(data)
 
-        ## Check if vars argument is missing. If so, add all names in data.
-        if (missing(vars)) {
-            vars <- names(data$variables)
-        }
+    ## Check if vars argument is missing. If so, add all names in data.
+    if (missing(vars)) {
+        vars <- names(data$variables)
+    }
 
+    ## Check if variables exist. Drop them if not.
+    vars <- ModuleReturnVarsExist(vars, data$variables)
+
+    ## Abort if no variables exist at this point
+    ModuleStopIfNoVarsLeft(vars)
+
+    ## Factor conversions if the factorVars argument exist
+    if (!missing(factorVars)) {
         ## Check if variables exist. Drop them if not.
-        vars <- ModuleReturnVarsExist(vars, data$variables)
+        factorVars <- ModuleReturnVarsExist(factorVars, data$variables)
+        ## Convert to factor
+        data$variables[factorVars] <- lapply(data$variables[factorVars], factor)
+    }
 
-        ## Abort if no variables exist at this point
-        ModuleStopIfNoVarsLeft(vars)
-
-        ## Factor conversions if the factorVars argument exist
-        if (!missing(factorVars)) {
-            ## Check if variables exist. Drop them if not.
-            factorVars <- ModuleReturnVarsExist(factorVars, data$variables)
-            ## Convert to factor
-            data$variables[factorVars] <- lapply(data$variables[factorVars], factor)
-        }
-
-        ## Toggle test FALSE if no strata is given
+    ## Toggle test FALSE if no strata is given
     test <- ModuleReturnFalseIfNoStrata(strata, test)
     smd  <- ModuleReturnFalseIfNoStrata(strata, smd)
 
-        ## Get the classes of the variables
-        varClasses  <- lapply(data$variables[vars], class)
+    ## Get the classes of the variables
+    varClasses  <- lapply(data$variables[vars], class)
 
-        ## Classify as varFactors if any one of these classes are contained
-        varFactors <- sapply(varClasses, function(VEC) {
-            any(VEC %in% c("factor", "ordered", "logical", "character"))
-        })
-        varFactors <- names(varFactors)[varFactors]
+    ## Classify as varFactors if any one of these classes are contained
+    varFactors <- sapply(varClasses, function(VEC) {
+        any(VEC %in% c("factor", "ordered", "logical", "character"))
+    })
+    varFactors <- names(varFactors)[varFactors]
 
-        ## Classify as varNumerics if any one of these classes are contained
-        varNumerics <- sapply(varClasses, function(VEC) {
-            any(VEC %in% c("numeric", "integer"))
-        })
-        varNumerics <- names(varNumerics)[varNumerics]
+    ## Classify as varNumerics if any one of these classes are contained
+    varNumerics <- sapply(varClasses, function(VEC) {
+        any(VEC %in% c("numeric", "integer"))
+    })
+    varNumerics <- names(varNumerics)[varNumerics]
 
-        ## Drop variables that do not meet either because it is unsupported
-        varDrop <- setdiff(vars, c(varFactors, varNumerics))
-        if (length(varDrop) > 0) {
-            warning("Dropping variable(s) ", paste0(varDrop, sep = " "),
-                    " due to unsupported class.\n")
-            vars <- setdiff(vars, varDrop)
-        }
+    ## Drop variables that do not meet either because it is unsupported
+    varDrop <- setdiff(vars, c(varFactors, varNumerics))
+    if (length(varDrop) > 0) {
+        warning("Dropping variable(s) ", paste0(varDrop, sep = " "),
+                " due to unsupported class.\n")
+        vars <- setdiff(vars, varDrop)
+    }
 
-        ## Create a logical vector indicator for factors (vars in varFactors = TRUE)
-        logiFactors <- vars %in% varFactors
+    ## Create a logical vector indicator for factors (vars in varFactors = TRUE)
+    logiFactors <- vars %in% varFactors
 
-        ## Create lists of arguments
-        argsCreateContTable <- list(data          = data,
-                                    test          = test,
-                                    testNormal    = testNormal,
-                                    argsNormal    = argsNormal,
-                                    testNonNormal = testNonNormal,
-                                    argsNonNormal = argsNonNormal,
-                                    smd           = smd)
-        argsCreateCatTable  <- list(data          = data,
-                                    includeNA     = includeNA,
-                                    test          = test,
-                                    testApprox    = testApprox,
-                                    argsApprox    = argsApprox,
-                                    smd           = smd)
+    ## Create lists of arguments
+    argsCreateContTable <- list(data          = data,
+                                test          = test,
+                                testNormal    = testNormal,
+                                argsNormal    = argsNormal,
+                                testNonNormal = testNonNormal,
+                                argsNonNormal = argsNonNormal,
+                                smd           = smd)
+    argsCreateCatTable  <- list(data          = data,
+                                includeNA     = includeNA,
+                                test          = test,
+                                testApprox    = testApprox,
+                                argsApprox    = argsApprox,
+                                smd           = smd)
 
-        ## Add strata = strata for argument only if strata is given
-        if (!missing(strata)) {
+    ## Add strata = strata for argument only if strata is given
+    if (!missing(strata)) {
 
-            ## Check strata. This returns a DF. Returns a "Overall" DF if strata is missing.
-            ## Must not be place outside if (!missing(strata)) {  }.
-            dfStrata <- ModuleReturnStrata(strata, data$variable)
-            ## Return variable names. Code inefficient in exchange for code simplicity.
-            strata   <- names(dfStrata)
+        ## Check strata. This returns a DF. Returns a "Overall" DF if strata is missing.
+        ## Must not be place outside if (!missing(strata)) {  }.
+        dfStrata <- ModuleReturnStrata(strata, data$variable)
+        ## Return variable names. Code inefficient in exchange for code simplicity.
+        strata   <- names(dfStrata)
 
-            ## Create lists of arguments including strata
-            argsCreateContTable <- c(list(strata = strata), argsCreateContTable)
-            argsCreateCatTable  <- c(list(strata = strata), argsCreateCatTable)
-        }
+        ## Create lists of arguments including strata
+        argsCreateContTable <- c(list(strata = strata), argsCreateContTable)
+        argsCreateCatTable  <- c(list(strata = strata), argsCreateCatTable)
+    }
 
 
-        ## Condition on the absence of factor/numeric
-        if (length(varNumerics) == 0) {
-            ## No numerics
-            message('NOTE: no numeric/integer variables supplied, using CreateCatTable()\n')
-            CatTable <- do.call(svyCreateCatTable,
-                                args = c(list(vars = varFactors), argsCreateCatTable))
-            return(CatTable)
+    ## Condition on the absence of factor/numeric
+    if (length(varNumerics) == 0) {
+        ## No numerics
+        message('NOTE: no numeric/integer variables supplied, using CreateCatTable()\n')
+        CatTable <- do.call(svyCreateCatTable,
+                            args = c(list(vars = varFactors), argsCreateCatTable))
+        return(CatTable)
 
-        } else if (length(varFactors) == 0) {
-            ## No factors
-            message('NOTE: no factor/logical/character variables supplied, using CreateContTable()\n')
-            ContTable <- do.call(svyCreateContTable,
-                                 args = c(list(vars = varNumerics), argsCreateContTable))
-            return(ContTable)
+    } else if (length(varFactors) == 0) {
+        ## No factors
+        message('NOTE: no factor/logical/character variables supplied, using CreateContTable()\n')
+        ContTable <- do.call(svyCreateContTable,
+                             args = c(list(vars = varNumerics), argsCreateContTable))
+        return(ContTable)
 
 ### Proceed if both types of variables are present (both factors and numerics)
-        } else if ((length(varFactors) > 0) & (length(varNumerics) > 0)) {
+    } else if ((length(varFactors) > 0) & (length(varNumerics) > 0)) {
 
-            ## Create a list of constructors
-            listOfConstructors <- list(CreateContTable = svyCreateContTable,
-                                       CreateCatTable  = svyCreateCatTable)
-            ## CreateCatTable for categorical. CreateContTable for continuous.
-            listOfConstructors <- listOfConstructors[logiFactors + 1]
-            ## Create a list of arguments
-            listOfArgs         <- list(argsCreateContTable = argsCreateContTable,
-                                       argsCreateCatTable  = argsCreateCatTable)
-            ## argsCreateCatTable for categorical. argsCreateContTable for continuous.
-            listOfArgs         <- listOfArgs[logiFactors + 1]
+        ## Create a list of constructors
+        listOfConstructors <- list(CreateContTable = svyCreateContTable,
+                                   CreateCatTable  = svyCreateCatTable)
+        ## CreateCatTable for categorical. CreateContTable for continuous.
+        listOfConstructors <- listOfConstructors[logiFactors + 1]
+        ## Create a list of arguments
+        listOfArgs         <- list(argsCreateContTable = argsCreateContTable,
+                                   argsCreateCatTable  = argsCreateCatTable)
+        ## argsCreateCatTable for categorical. argsCreateContTable for continuous.
+        listOfArgs         <- listOfArgs[logiFactors + 1]
 
-            ## Create a list of tables by looping over variables/constructors/arguments
-            TableOne <- sapply(seq_along(listOfConstructors),
-                               FUN = function(i) {
+        ## Create a list of tables by looping over variables/constructors/arguments
+        TableOne <- sapply(seq_along(listOfConstructors),
+                           FUN = function(i) {
 
-                                   args <- c(list(vars = vars[i]),  # vector element
-                                             listOfArgs[[i]])       # list element
+                               args <- c(list(vars = vars[i]),  # vector element
+                                         listOfArgs[[i]])       # list element
 
-                                   do.call(listOfConstructors[[i]], # list element
-                                           args = args)
-                               },
-                               simplify = FALSE)
+                               do.call(listOfConstructors[[i]], # list element
+                                       args = args)
+                           },
+                           simplify = FALSE)
 
-            ## Give variable names to the result object
-            names(TableOne) <- vars
+        ## Give variable names to the result object
+        names(TableOne) <- vars
 
 
-            ## Create ContTable and CatTable objects (this is redundant, but easy)
-            ## Aggregated ContTable
-            ContTable <- do.call(svyCreateContTable,
-                                 args = c(list(vars = varNumerics), argsCreateContTable))
-            ## Aggregated CatTable
-            CatTable  <- do.call(svyCreateCatTable,
-                                 args = c(list(vars = varFactors),  argsCreateCatTable))
+        ## Create ContTable and CatTable objects (this is redundant, but easy)
+        ## Aggregated ContTable
+        ContTable <- do.call(svyCreateContTable,
+                             args = c(list(vars = varNumerics), argsCreateContTable))
+        ## Aggregated CatTable
+        CatTable  <- do.call(svyCreateCatTable,
+                             args = c(list(vars = varFactors),  argsCreateCatTable))
 
-            ## Create a list for output
-            TableOneObject <- list(TableOne  = TableOne,
-                                   ContTable = ContTable,
-                                   CatTable  = CatTable)
+        ## Create a list for output
+        TableOneObject <- list(TableOne  = TableOne,
+                               ContTable = ContTable,
+                               CatTable  = CatTable)
 
-            ## Give a class
-            class(TableOneObject) <- c("svyTableOne", "TableOne")
+        ## Give a class
+        class(TableOneObject) <- c("svyTableOne", "TableOne")
 
-            ## Return the object
-            return(TableOneObject)
-        }
+        ## Return the object
+        return(TableOneObject)
     }
+}
