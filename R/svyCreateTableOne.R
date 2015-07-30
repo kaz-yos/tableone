@@ -74,7 +74,7 @@ function(vars,                                   # character vector of variable 
          data,                                   # data frame
          factorVars,                             # variables to be transformed to factors
          includeNA     = FALSE,                  # include NA as a category (categoricals only)
-         test          = TRUE,                   # whether to put p-values
+         test          = TRUE,                   # whether to include p-values
          ## Test configuration for categorical data
          testApprox    = svyTestChisq,           # function for approximation test (only choice)
          argsApprox    = NULL,                   # arguments passed to testApprox

@@ -227,7 +227,6 @@ print.svyCatTable <- function(x,                        # CatTable object
 
     ## Print CrossTable() if requested
     if (CrossTable) {
-
         junk <- lapply(attributes(CatTable)$xtabs, gmodels::CrossTable)
     }
 

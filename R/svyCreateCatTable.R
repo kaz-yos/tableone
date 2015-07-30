@@ -28,10 +28,10 @@ function(vars,                      # character vector of variable names
          strata,                    # character vector of variable names
          data,                      # survey design object
          includeNA  = FALSE,        # include NA as a category
-         test       = TRUE,         # whether to put p-values
+         test       = TRUE,         # whether to include p-values
          testApprox = svyTestChisq, # function for approximation test (only choice)
          argsApprox = NULL,         # arguments passed to testApprox
-         smd        = TRUE
+         smd        = TRUE          # whether to include standardize mean differences
          ) {
 
 ### Data check

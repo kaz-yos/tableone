@@ -28,7 +28,7 @@ svyCreateContTable <-
 function(vars,                                  # character vector of variable names
          strata,                                # character vector of variable names
          data,                                  # survey design data
-         test          = TRUE,                  # Whether to put p-values
+         test          = TRUE,                  # Whether to include p-values
          testNormal    = svyTestNormal,         # test for normally distributed variables
          argsNormal    = list(method = "Wald"), # arguments passed to testNormal
          testNonNormal = svyTestNonNormal,      # test for nonnormally distributed variables

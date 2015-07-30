@@ -86,7 +86,7 @@ function(vars,                                 # character vector of variable na
          strata,                               # character vector of variable names
          data,                                 # data frame
          includeNA  = FALSE,                   # include NA as a category
-         test       = TRUE,                    # whether to put p-values
+         test       = TRUE,                    # whether to include p-values
          testApprox = chisq.test,              # function for approximation test
          argsApprox = list(correct = TRUE),    # arguments passed to testApprox
          testExact  = fisher.test,             # function for exact test

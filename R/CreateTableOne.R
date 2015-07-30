@@ -84,23 +84,23 @@
 ##'
 ##' @export
 CreateTableOne <-
-    function(vars,                                      # character vector of variable names
-             strata,                                    # character vector of variable names
-             data,                                      # data frame
-             factorVars,                                # variables to be transformed to factors
-             includeNA     = FALSE,                     # include NA as a category (categoricals only)
-             test          = TRUE,                      # whether to put p-values
-             ## Test configuration for categorical data
-             testApprox    = chisq.test,                # function for approximation test
-             argsApprox    = list(correct = TRUE),      # arguments passed to testApprox
-             testExact     = fisher.test,               # function for exact test
-             argsExact     = list(workspace = 2*10^5),  # arguments passed to testExact
-             ## Test configuration for continuous data
-             testNormal    = oneway.test,               # test for normally distributed variables
-             argsNormal    = list(var.equal = TRUE),    # arguments passed to testNormal
-             testNonNormal = kruskal.test,              # test for nonnormally distributed variables
-             argsNonNormal = list(NULL)                 # arguments passed to testNonNormal
-             ) {
+function(vars,                                      # character vector of variable names
+         strata,                                    # character vector of variable names
+         data,                                      # data frame
+         factorVars,                                # variables to be transformed to factors
+         includeNA     = FALSE,                     # include NA as a category (categoricals only)
+         test          = TRUE,                      # whether to include p-values
+         ## Test configuration for categorical data
+         testApprox    = chisq.test,                # function for approximation test
+         argsApprox    = list(correct = TRUE),      # arguments passed to testApprox
+         testExact     = fisher.test,               # function for exact test
+         argsExact     = list(workspace = 2*10^5),  # arguments passed to testExact
+         ## Test configuration for continuous data
+         testNormal    = oneway.test,               # test for normally distributed variables
+         argsNormal    = list(var.equal = TRUE),    # arguments passed to testNormal
+         testNonNormal = kruskal.test,              # test for nonnormally distributed variables
+         argsNonNormal = list(NULL)                 # arguments passed to testNonNormal
+         ) {
 
 ### Data check
         ## Check if the data given is a dataframe
