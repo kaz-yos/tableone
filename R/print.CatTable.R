@@ -252,7 +252,9 @@ function(x,                        # CatTable object
         out <- cbind(out,
                      SMD = rep("", nrow(out))) # Column for p-values
         ## Put the values at the non-empty positions
-        out[logiNonEmptyRowNames,"SMD"] <- attr(CatTable, "smd")[,1]
+        out[logiNonEmptyRowNames,"SMD"] <-
+        ModuleFormatPValues(attr(CatTable, "smd")[,1],
+                            pDigits = pDigits)
     }
 
 

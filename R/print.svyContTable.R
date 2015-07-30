@@ -173,7 +173,8 @@ function(x,                       # ContTable object
         out <- cbind(out,
                      SMD = rep("", nrow(out))) # Column for p-values
         ## Put the values at the non-empty positions
-        out[,"SMD"] <- attr(ContTable, "smd")[,1]
+        out[,"SMD"] <- ModuleFormatPValues(attr(ContTable, "smd")[,1],
+                                           pDigits = pDigits)
     }
 
 
