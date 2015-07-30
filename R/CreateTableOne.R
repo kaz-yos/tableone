@@ -160,16 +160,15 @@ CreateTableOne <-
                                     testNormal    = testNormal,
                                     argsNormal    = argsNormal,
                                     testNonNormal = testNonNormal,
-                                    argsNonNormal = argsNonNormal
-                                    )
+                                    argsNonNormal = argsNonNormal)
         argsCreateCatTable  <- list(data          = data,
                                     includeNA     = includeNA,
                                     test          = test,
                                     testApprox    = testApprox,
                                     argsApprox    = argsApprox,
                                     testExact     = testExact,
-                                    argsExact     = argsExact
-                                    )
+                                    argsExact     = argsExact)
+
         ## Add strata = strata for argument only if strata is given
         if (!missing(strata)) {
 
@@ -241,8 +240,7 @@ CreateTableOne <-
             ## Create a list for output
             TableOneObject <- list(TableOne  = TableOne,
                                    ContTable = ContTable,
-                                   CatTable  = CatTable
-                                   )
+                                   CatTable  = CatTable)
 
             ## Give a class
             class(TableOneObject) <- "TableOne"

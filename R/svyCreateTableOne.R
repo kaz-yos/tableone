@@ -143,14 +143,13 @@ function(vars,                                   # character vector of variable 
                                     testNormal    = testNormal,
                                     argsNormal    = argsNormal,
                                     testNonNormal = testNonNormal,
-                                    argsNonNormal = argsNonNormal
-                                    )
+                                    argsNonNormal = argsNonNormal)
         argsCreateCatTable  <- list(data          = data,
                                     includeNA     = includeNA,
                                     test          = test,
                                     testApprox    = testApprox,
-                                    argsApprox    = argsApprox
-                                    )
+                                    argsApprox    = argsApprox)
+
         ## Add strata = strata for argument only if strata is given
         if (!missing(strata)) {
 
