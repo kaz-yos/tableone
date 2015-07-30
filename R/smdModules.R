@@ -113,9 +113,28 @@ LstMeansFromFullTable <- function(strataByLevels) {
 ### Functions for unweighted data only
 ################################################################################
 
+### Check strata for NA-only strata
+CheckNaOnlyStrata <- function(variable, group) {
+
+    unlist(lapply(split(variable, group),
+                  function(var) {
+                      ## TRUE if only NA's within stratum
+                      all(is.na(var))
+                  }))
+}
+
+
 ### Continuous/binary standardized mean differences
 ## Expects continuous or 0,1 binary variable
 StdDiff <- function(variable, group, binary = FALSE, na.rm = TRUE) {
+
+    ## Check strata for all NA strata
+    logiAllNaStrata <- CheckNaOnlyStrata(variable, group)
+    ## If ANY strata have only NA's do not remove NA's
+    if (any(logiAllNaStrata)) {
+        warning("Variable has only NA's in at least one stratum. na.rm turned off.")
+        na.rm = FALSE
+    }
 
     ## Proportion of 1 is the mean of variable
     means <- tapply(variable, group, mean, na.rm = na.rm)
@@ -139,6 +158,19 @@ StdDiff <- function(variable, group, binary = FALSE, na.rm = TRUE) {
 
 ### Categorical (including binary) standardizzed mean difference
 StdDiffMulti <- function(variable, group) {
+
+    ## Check strata for all NA strata
+    logiAllNaStrata <- CheckNaOnlyStrata(variable, group)
+
+    ## If ALL strata have only NA's convert to a level
+    ## If any strata have valid levels, table is ok
+    ## Empty table breaks the function
+    if (all(logiAllNaStrata)) {
+
+        warning("Variable has only NA's in all strata. Regarding NA as a level.")
+
+        variable <- factor(variable, exclude = NULL)
+    }
 
     ## strata x variable table
     strataByLevels <- table(group, variable)
@@ -222,7 +254,7 @@ svyStdDiffMulti <- function(varName, groupName, design) {
     ## Empty table breaks the function
     if (all(logiAllNaStrata)) {
 
-        warning(varName, " has only NA's in all strata. Regarding NA as a level")
+        warning(varName, " has only NA's in all strata. Regarding NA as a level.")
 
         design$variables[,varName] <- factor(design$variables[,varName],
                                              exclude = NULL)
