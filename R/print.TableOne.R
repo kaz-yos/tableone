@@ -137,22 +137,21 @@ function(x,                   # TableOne object
     ## return a strata-by-table df containing spaces to add
     nSpacesToAdd <- ModuleNSpacesToAdd(FmtElementTables)
     ## Actually add spaces to tables
-    spaceFmtEltTables <- ModuleAddSpacesToTable(FmtElementTables, nSpacesToAdd, showAllLevels)
+    spcFmtEltTables <- ModuleAddSpacesToTable(FmtElementTables, nSpacesToAdd, showAllLevels)
 
 
     ## Create a list of one variable tables excluding sample size row
-    lstOneVarTables <- ModuleListOfOneVarTables(spaceFmtEltTables,
+    lstOneVarTables <- ModuleListOfOneVarTables(spcFmtEltTables,
                                                 MetaData = x$MetaData)
 
 
     ## Check if the first row is CatTable element
-    ## if so, pick sample size row from CatTable element
+    ## if so, pick sample size row from space-padded CatTable element
+    ## if not, pick sample size row from space-padded ContTable element
     ## Intentionally a one-element list
     lstStratumSizesRow <- ifelse(x$MetaData$logiFactors[1],
-                                 ## Change this to spaceFmtEltTables$ after tests pass
-                                 ## These are not space-padded yet
-                                 list(FmtElementTables$FmtCatTableN),
-                                 list(FmtElementTables$FmtContTableN))
+                                 list(spcFmtEltTables$FmtCatTableN),
+                                 list(spcFmtEltTables$FmtContTableN))
 
     ## Row-combin n and all variables
     out <- do.call(rbind,

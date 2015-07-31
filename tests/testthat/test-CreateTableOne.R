@@ -154,7 +154,6 @@ test_that("printing of a TableOne object does not regress", {
     expect_equal_to_reference(print(pbcByTrtSex, printToggle = TRUE),
                               "ref-TableOne_2StrataVars")
 
-    ## 2015-07-25 pDigits is not functional now
     expect_equal_to_reference(print(pbcByTrt, catDigits = 3, contDigits = 4, pDigits = 5, printToggle = TRUE),
                               "ref-TableOne_digits")
 
