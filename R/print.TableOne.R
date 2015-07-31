@@ -105,107 +105,64 @@ function(x,                   # TableOne object
 
          ...) {
 
-    ## Get the mixed element only
-    TableOne <- x$TableOne
+    ## Extract Cont/CatTable elements of x and dispatch print() appropriately
+    FmtTables <- ModuleFormatTables(x,
+                                    catDigits = catDigits, contDigits = contDigits,
+                                    test = test, smd = smd,
+                                    explain = explain, pDigits = pDigits,
 
-    ## Get the Cont/Cat status (1st of classes)
-    classOfTables <- sapply(TableOne, class)[1,]
-    ## This relies on Cat/Cont alphabetical order (svyCat/svyCont work similarly)
-    digits <- c(CatTable = catDigits, ContTable = contDigits)[as.numeric(factor(classOfTables))]
+                                    ## print.CatTable arguments passed
+                                    format = format, exact = exact,
+                                    ## Returns one more column if TRUE
+                                    showAllLevels = showAllLevels,
+                                    cramVars = cramVars,
+
+                                    ## print.ContTable arguments passed
+                                    nonnormal = nonnormal, minMax = minMax,
+                                    insertLevel = showAllLevels)
+
+    ## List of stratum sample size row only tables
+    FmtStratumSizesTables <- sapply(FmtTables,
+                                    FUN = ModuleStratumSizesRow,
+                                    showAllLevels = showAllLevels,
+                                    simplify = FALSE)
+    names(FmtStratumSizesTables) <- paste0(names(FmtStratumSizesTables), "N")
+
+    ## Combine as a list of necessary table elements
+    FmtElementTables <- c(FmtTables, FmtStratumSizesTables)
 
 
-    ## Get the formatted tables
-    formattedTables <-
-    sapply(seq_along(TableOne),
-           FUN = function(i) {
+    ## Add space paddings
+    ## Given a list of tables with vecColWidths,
+    ## return a strata-by-table df containing spaces to add
+    nSpacesToAdd <- ModuleNSpacesToAdd(FmtElementTables)
+    ## Actually add spaces to tables
+    spcFmtEltTables <- ModuleAddSpacesToTable(FmtElementTables, nSpacesToAdd, showAllLevels)
 
-               ## print.CatTable or print.ContTable called depending on the class
-               print(TableOne[[i]], printToggle = FALSE, test = test, smd = smd,
-                     explain = explain, digits = digits[i], pDigits = pDigits,
 
-                     ## print.CatTable arguments
-                     format = format, exact = exact,
-                     showAllLevels = showAllLevels,  # Returns one more column if TRUE
-                     cramVars = cramVars,
+    ## Create a list of one variable tables excluding sample size row
+    lstOneVarTables <- ModuleListOfOneVarTables(spcFmtEltTables,
+                                                MetaData = x$MetaData)
 
-                     ## print.ContTable argument
-                     nonnormal = nonnormal, minMax = minMax, insertLevel = showAllLevels
-                     )  # Method dispatch at work
-           },
-           simplify = FALSE)
 
-    ## Get the column width information (strata x vars format)
-    columnWidthInfo <- sapply(formattedTables,
-                              FUN = function(matObj) {
-
-                                  attributes(matObj)$vecColWidths
-                              },
-                              simplify = FALSE)
-    columnWidthInfo <- do.call(cbind, columnWidthInfo)
-
-    ## Get the max values for each stratum
-    vecMaxValues <- apply(columnWidthInfo, MARGIN = 1, FUN = max, na.rm = TRUE)
-
-    ## Get the difference (value - max. Must be negated)
-    nSpacesToAdd <- sweep(x      = columnWidthInfo,
-                          MARGIN = 1,
-                          STATS  = vecMaxValues,
-                          FUN    = "-"
-                          )
-    nSpacesToAdd <- -1 * nSpacesToAdd
-    ## Get rid of NA, so that it does not cause problem in rep() as a times argument
-    nSpacesToAdd[is.na(nSpacesToAdd)] <- 0
-
-    ## For each matrix, add spaces
-    spaceFormattedTables <-
-    sapply(seq_along(formattedTables),
-           FUN = function(i) {
-
-               ## For i-th variable
-               matObj <- formattedTables[[i]]
-               nSpaces <- nSpacesToAdd[, i]
-
-               ## For j-th stratum (column), add spaces.
-               ## Be aware of the p-value column (last. not included in first palce)
-               ## and level column (1st. explicitly ignore).
-               for (j in seq_along(nSpaces)) {
-
-                   ## If showAllLevels is requested, ignore the first column (level column).
-                   if (showAllLevels) {
-                       matObj[, (j + 1)] <- paste0(paste0(rep(" ", nSpaces[j]), collapse = ""),
-                                                   matObj[, (j + 1)])
-
-                   } else {
-                       ## if not, no need to ignore the first column
-                       matObj[, j] <- paste0(paste0(rep(" ", nSpaces[j]), collapse = ""),
-                                             matObj[, j])
-                   }
-
-               }
-
-               ## Return the adjusted table
-               matObj
-           },
-           simplify = FALSE)
-
-    ## Set aside the n row (stratum sizes). 1st element, 1st row
-    stratumSizesRow <- spaceFormattedTables[[1]][1, , drop = FALSE]
-
-    ## Remove 1st rows from each table (stratum sizes)
-    spaceFormattedTables <- sapply(spaceFormattedTables,
-                                   FUN = function(matObj) {
-
-                                       matObj[-1, , drop = FALSE]
-                                   },
-                                   simplify = FALSE)
+    ## Check if the first row is CatTable element
+    ## if so, pick sample size row from space-padded CatTable element
+    ## if not, pick sample size row from space-padded ContTable element
+    ## Intentionally a one-element list
+    lstStratumSizesRow <- ifelse(x$MetaData$logiFactors[1],
+                                 list(spcFmtEltTables$FmtCatTableN),
+                                 list(spcFmtEltTables$FmtContTableN))
 
     ## Row-combin n and all variables
-    out <- do.call(rbind, c(list(stratumSizesRow), spaceFormattedTables))
+    out <- do.call(rbind,
+                   ## List concatenation (both are lists)
+                   c(lstStratumSizesRow, lstOneVarTables))
+
 
     ## Add stratification information to the column header (This is also in the constructor)
-    if (length(TableOne[[1]]) > 1 ) {
+    if (length(x$ContTable) > 1 ) {
         ## Combine variable names with : in between
-        strataVarName <- attributes(TableOne[[1]])$strataVarName
+        strataVarName <- attributes(x$ContTable)$strataVarName
 
         ## Create strata string
         strataString <- paste0("Stratified by ", strataVarName)

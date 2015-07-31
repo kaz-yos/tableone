@@ -18,6 +18,7 @@ Imports:
     survey,
     MASS,
     e1071,
+    zoo,
     gmodels
 Suggests:
     survival,

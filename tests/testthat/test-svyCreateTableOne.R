@@ -187,6 +187,18 @@ test_that("printing of a svyTableOne$CatTable object do not regress", {
 
     expect_equal_to_reference(print(mwByTrt$CatTable, noSpaces = TRUE, showAllLevels = TRUE, quote = TRUE, printToggle = TRUE),
                               "ref-svyCatTable_noSpaces_showAllLevels_quote")
+
+    ## gmodels::CrossTable
+    print(mwByTrtSex$CatTable, CrossTable = TRUE)
+    expect_output(print(mwByTrtSex$CatTable, CrossTable = TRUE),
+"|-------------------------|
+|                       N |
+| Chi-square contribution |
+|           N / Row Total |
+|           N / Col Total |
+|         N / Table Total |
+|-------------------------|")
+
 })
 
 
@@ -324,11 +336,11 @@ expect_equal(as.vector(print(tab1$ContTable, nonnormal = "HI_CHOL", minMax = TRU
 ### p-values
 ## t test
 expect_equal(print(tab1$ContTable, pDigits = 7, printToggle = TRUE)[2,3],
-             ## One space for < 
+             ## One space for <
              pTTest)
 ## KW
 expect_equal(print(tab1$ContTable, pDigits = 7, nonnormal = "HI_CHOL", printToggle = TRUE)[2,3],
-             ## One space for < 
+             ## One space for <
              pRankTest)
 })
 
@@ -339,8 +351,12 @@ outPerc <- prop.table(outFreq, margin = 2)
 ## Take first three rows only as space pading is tedious to reproduce
 outFP <- cbind(sprintf("%.3f (%.3f) ", outFreq[,1], (outPerc[,1] * 100)),
                sprintf(" %.3f ( %.3f) ", outFreq[,2], (outPerc[,2] * 100)))[1:3,]
+outFP2 <- cbind(sprintf(" %.3f (%.3f) ", outFreq[,1], (outPerc[,1] * 100)),
+                sprintf(" %.3f ( %.3f) ", outFreq[,2], (outPerc[,2] * 100)))[1:3,]
 ## Test
 pChisq <- sprintf(" %.7f", as.vector(svychisq( ~ race + RIAGENDR, nhanesSvy)$p.value))
+
+
 
 test_that("categorical data object and final print outs are numerically correct", {
 
@@ -361,7 +377,7 @@ expect_equal(print(tab1$CatTable, pDigits = 7, printToggle = TRUE)[2,3],
 
 
 test_that("mixed data object print outs are numerically correct", {
-    
+
 ### Mixed object
 ## Mean and SD
 expect_equal(as.vector(gsub("^ *", "", print(tab1, pDigits = 7)[2,1:2])),
@@ -375,7 +391,7 @@ expect_equal(print(tab1, pDigits = 7, nonnormal = "HI_CHOL")[2,3], pTTest)
 matFP <- print(tab1, catDigits = 3, printToggle = TRUE)[4:6,1:2]
 dimnames(matFP) <- NULL
 ## column by column deleting spaces
-expect_equal(matFP[,1], outFP[,1])
+expect_equal(matFP[,1], outFP2[,1])
 expect_equal(gsub(" ", "", matFP[,1]), gsub(" ", "", outFP[,1]))
 ## chisq test
 expect_equal(print(tab1, pDigits = 7, nonnormal = "HI_CHOL")[3,3],
