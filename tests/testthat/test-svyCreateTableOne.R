@@ -339,8 +339,12 @@ outPerc <- prop.table(outFreq, margin = 2)
 ## Take first three rows only as space pading is tedious to reproduce
 outFP <- cbind(sprintf("%.3f (%.3f) ", outFreq[,1], (outPerc[,1] * 100)),
                sprintf(" %.3f ( %.3f) ", outFreq[,2], (outPerc[,2] * 100)))[1:3,]
+outFP2 <- cbind(sprintf(" %.3f (%.3f) ", outFreq[,1], (outPerc[,1] * 100)),
+                sprintf(" %.3f ( %.3f) ", outFreq[,2], (outPerc[,2] * 100)))[1:3,]
 ## Test
 pChisq <- sprintf(" %.7f", as.vector(svychisq( ~ race + RIAGENDR, nhanesSvy)$p.value))
+
+
 
 test_that("categorical data object and final print outs are numerically correct", {
 
@@ -375,7 +379,7 @@ expect_equal(print(tab1, pDigits = 7, nonnormal = "HI_CHOL")[2,3], pTTest)
 matFP <- print(tab1, catDigits = 3, printToggle = TRUE)[4:6,1:2]
 dimnames(matFP) <- NULL
 ## column by column deleting spaces
-expect_equal(matFP[,1], outFP[,1])
+expect_equal(matFP[,1], outFP2[,1])
 expect_equal(gsub(" ", "", matFP[,1]), gsub(" ", "", outFP[,1]))
 ## chisq test
 expect_equal(print(tab1, pDigits = 7, nonnormal = "HI_CHOL")[3,3],
