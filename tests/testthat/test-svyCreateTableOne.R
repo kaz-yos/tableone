@@ -96,18 +96,32 @@ test_that("data assessment detects anomalies", {
 ## Create a table to test
 mwOverall  <- svyCreateTableOne(vars = vars, data = datSvy, factorVars = factorVars)
 mwInclNa   <- svyCreateTableOne(vars = vars, data = datSvy, factorVars = factorVars, includeNA = TRUE)
-mwByTrt    <- svyCreateTableOne(vars = vars, strata = c("E"), data = datSvy, factorVars = factorVars)
-mwByTrtSex <- svyCreateTableOne(vars = vars, strata = c("E","C1"), data = datSvy, factorVars = factorVars)
+mwByE    <- svyCreateTableOne(vars = vars, strata = c("E"), data = datSvy, factorVars = factorVars)
+mwByEC1 <- svyCreateTableOne(vars = vars, strata = c("E","C1"), data = datSvy, factorVars = factorVars)
+mwContOnlyByEC1 <- svyCreateTableOne(vars = c("E","C"), strata = c("E","C1"), data = datSvy, factorVars = factorVars)
+mwCatOnlyByEC1 <- svyCreateTableOne(vars = c("Y","C1"), strata = c("E","C1"), data = datSvy, factorVars = factorVars)
 
 ## Specify variables for special handling
 nonnormalVars <- c("C")
 exactVars <- c("Y")
 
 
+test_that("svyTableOne objects are always returned", {
+
+    expect_equal(class(mwOverall),       c("svyTableOne","TableOne"))
+    expect_equal(class(mwInclNa),        c("svyTableOne","TableOne"))
+    expect_equal(class(mwByE),           c("svyTableOne","TableOne"))
+    expect_equal(class(mwByEC1),         c("svyTableOne","TableOne"))
+    expect_equal(class(mwContOnlyByEC1), c("svyTableOne","TableOne"))
+    expect_equal(class(mwCatOnlyByEC1),  c("svyTableOne","TableOne"))
+
+})
+
+
 test_that("printing of a svyTableOne object does not regress", {
 
     ## Expectations
-    expect_equal_to_reference(print(mwByTrt, printToggle = TRUE),
+    expect_equal_to_reference(print(mwByE, printToggle = TRUE),
                               "ref-svyTableOne_defaultPrint")
 
     expect_equal_to_reference(print(mwOverall, printToggle = TRUE),
@@ -116,37 +130,43 @@ test_that("printing of a svyTableOne object does not regress", {
     expect_equal_to_reference(print(mwInclNa, printToggle = TRUE),
                               "ref-svyTableOne_IncludeNA")
 
-    expect_equal_to_reference(print(mwByTrtSex, printToggle = TRUE),
+    expect_equal_to_reference(print(mwByEC1, printToggle = TRUE),
                               "ref-svyTableOne_2StrataVars")
 
-    expect_equal_to_reference(print(mwByTrt, catDigits = 3, contDigits = 4, pDigits = 5, printToggle = TRUE),
+    expect_equal_to_reference(print(mwByE, catDigits = 3, contDigits = 4, pDigits = 5, printToggle = TRUE),
                               "ref-svyTableOne_digits")
 
-    expect_equal_to_reference(print(mwByTrt, test = FALSE, printToggle = TRUE),
+    expect_equal_to_reference(print(mwByE, test = FALSE, printToggle = TRUE),
                               "ref-svyTableOne_noTests")
 
-    expect_equal_to_reference(print(mwByTrt, nonnormal = nonnormalVars, exact = exactVars, printToggle = TRUE),
+    expect_equal_to_reference(print(mwByE, nonnormal = nonnormalVars, exact = exactVars, printToggle = TRUE),
                               "ref-svyTableOne_nonnormal_exact")
 
-    expect_equal_to_reference(print(mwByTrt, nonnormal = nonnormalVars, minMax = TRUE, printToggle = TRUE),
+    expect_equal_to_reference(print(mwByE, nonnormal = nonnormalVars, minMax = TRUE, printToggle = TRUE),
                               "ref-svyTableOne_nonnormal_minMax")
 
-    expect_equal_to_reference(print(mwByTrt, catDigits = 3, noSpaces = TRUE, printToggle = TRUE),
+    expect_equal_to_reference(print(mwByE, catDigits = 3, noSpaces = TRUE, printToggle = TRUE),
                               "ref-svyTableOne_noSpaces")
 
-    expect_equal_to_reference(print(mwByTrt, nonnormal = nonnormalVars, exact = exactVars, showAllLevels = TRUE, printToggle = TRUE),
+    expect_equal_to_reference(print(mwByE, nonnormal = nonnormalVars, exact = exactVars, showAllLevels = TRUE, printToggle = TRUE),
                               "ref-svyTableOne_showAllLevels")
 
-    expect_equal_to_reference(print(mwByTrt, catDigits = 3, nonnormal = nonnormalVars, exact = exactVars, noSpaces = TRUE, showAllLevels = FALSE, quote = TRUE, printToggle = TRUE),
+    expect_equal_to_reference(print(mwByE, catDigits = 3, nonnormal = nonnormalVars, exact = exactVars, noSpaces = TRUE, showAllLevels = FALSE, quote = TRUE, printToggle = TRUE),
                               "ref-svyTableOne_noSpaces_showAllLevels_quote")
+
+    expect_equal_to_reference(print(mwContOnlyByEC1),
+                              "ref-svyTableOne_ContOnly")
+
+    expect_equal_to_reference(print(mwCatOnlyByEC1),
+                              "ref-svyTableOne_CatOnly")
+
 })
 
 
-## These will fail when p-values are implemented
 test_that("printing of a svyTableOne$CatTable object do not regress", {
 
     ## Expectations
-    expect_equal_to_reference(print(mwByTrt$CatTable, printToggle = TRUE),
+    expect_equal_to_reference(print(mwByE$CatTable, printToggle = TRUE),
                               "ref-svyCatTable_defaultPrint")
 
     expect_equal_to_reference(print(mwOverall$CatTable, printToggle = TRUE),
@@ -155,42 +175,42 @@ test_that("printing of a svyTableOne$CatTable object do not regress", {
     expect_equal_to_reference(print(mwInclNa$CatTable, printToggle = TRUE),
                               "ref-svyCatTable_IncludeNA")
 
-    expect_equal_to_reference(print(mwByTrtSex$CatTable, printToggle = TRUE),
+    expect_equal_to_reference(print(mwByEC1$CatTable, printToggle = TRUE),
                               "ref-svyCatTable_2StrataVars")
 
-    expect_equal_to_reference(print(mwByTrtSex$CatTable, digits = 3, pDigits = 5, printToggle = TRUE),
+    expect_equal_to_reference(print(mwByEC1$CatTable, digits = 3, pDigits = 5, printToggle = TRUE),
                               "ref-svyCatTable_digits")
 
-    expect_equal_to_reference(print(mwByTrtSex$CatTable, test = FALSE, printToggle = TRUE),
+    expect_equal_to_reference(print(mwByEC1$CatTable, test = FALSE, printToggle = TRUE),
                               "ref-svyCatTable_noTests")
 
-    expect_equal_to_reference(print(mwByTrt$CatTable, digits = 3, noSpaces = TRUE, printToggle = TRUE),
+    expect_equal_to_reference(print(mwByE$CatTable, digits = 3, noSpaces = TRUE, printToggle = TRUE),
                               "ref-svyCatTable_noSpaces")
 
-    expect_equal_to_reference(print(mwByTrt$CatTable, showAllLevels = TRUE, printToggle = TRUE),
+    expect_equal_to_reference(print(mwByE$CatTable, showAllLevels = TRUE, printToggle = TRUE),
                               "ref-svyCatTable_showAllLevels")
 
-    expect_equal_to_reference(print(mwByTrt$CatTable, explain = FALSE, printToggle = TRUE),
+    expect_equal_to_reference(print(mwByE$CatTable, explain = FALSE, printToggle = TRUE),
                               "ref-svyCatTable_explain")
 
-    expect_equal_to_reference(print(mwByTrt$CatTable, format = "f", printToggle = TRUE),
+    expect_equal_to_reference(print(mwByE$CatTable, format = "f", printToggle = TRUE),
                               "ref-svyCatTable_format_f")
 
-    expect_equal_to_reference(print(mwByTrt$CatTable, format = "p", printToggle = TRUE),
+    expect_equal_to_reference(print(mwByE$CatTable, format = "p", printToggle = TRUE),
                               "ref-svyCatTable_format_p")
 
-    expect_equal_to_reference(print(mwByTrt$CatTable, format = "pf", printToggle = TRUE),
+    expect_equal_to_reference(print(mwByE$CatTable, format = "pf", printToggle = TRUE),
                               "ref-svyCatTable_format_pf")
 
-    expect_equal_to_reference(print(mwByTrt$CatTable, cramVars = "Y", printToggle = TRUE),
+    expect_equal_to_reference(print(mwByE$CatTable, cramVars = "Y", printToggle = TRUE),
                               "ref-svyCatTable_cramVars")
 
-    expect_equal_to_reference(print(mwByTrt$CatTable, noSpaces = TRUE, showAllLevels = TRUE, quote = TRUE, printToggle = TRUE),
+    expect_equal_to_reference(print(mwByE$CatTable, noSpaces = TRUE, showAllLevels = TRUE, quote = TRUE, printToggle = TRUE),
                               "ref-svyCatTable_noSpaces_showAllLevels_quote")
 
     ## gmodels::CrossTable
-    print(mwByTrtSex$CatTable, CrossTable = TRUE)
-    expect_output(print(mwByTrtSex$CatTable, CrossTable = TRUE),
+    print(mwByEC1$CatTable, CrossTable = TRUE)
+    expect_output(print(mwByEC1$CatTable, CrossTable = TRUE),
 "|-------------------------|
 |                       N |
 | Chi-square contribution |
@@ -205,36 +225,36 @@ test_that("printing of a svyTableOne$CatTable object do not regress", {
 test_that("printing of a svyTableOne$ContTable object do not regress", {
 
     ## Expectations
-    expect_equal_to_reference(print(mwByTrt$ContTable, printToggle = TRUE),
+    expect_equal_to_reference(print(mwByE$ContTable, printToggle = TRUE),
                               "ref-svyContTable_defaultPrint")
 
     expect_equal_to_reference(print(mwOverall$ContTable, printToggle = TRUE),
                               "ref-svyContTable_overallPrint")
 
-    expect_equal_to_reference(print(mwByTrtSex$ContTable, printToggle = TRUE),
+    expect_equal_to_reference(print(mwByEC1$ContTable, printToggle = TRUE),
                               "ref-svyContTable_2StrataVars")
 
-    expect_equal_to_reference(print(mwByTrt$ContTable, digits = 3, pDigits = 5, printToggle = TRUE),
+    expect_equal_to_reference(print(mwByE$ContTable, digits = 3, pDigits = 5, printToggle = TRUE),
                               "ref-svyContTable_digits")
 
-    expect_equal_to_reference(print(mwByTrt$ContTable, test = FALSE, printToggle = TRUE),
+    expect_equal_to_reference(print(mwByE$ContTable, test = FALSE, printToggle = TRUE),
                               "ref-svyContTable_noTests")
 
-    expect_equal_to_reference(print(mwByTrt$ContTable, nonnormal = nonnormalVars, printToggle = TRUE),
+    expect_equal_to_reference(print(mwByE$ContTable, nonnormal = nonnormalVars, printToggle = TRUE),
                               "ref-svyContTable_nonnormal")
 
-    expect_equal_to_reference(print(mwByTrt$ContTable, nonnormal = nonnormalVars, minMax = TRUE, printToggle = TRUE),
+    expect_equal_to_reference(print(mwByE$ContTable, nonnormal = nonnormalVars, minMax = TRUE, printToggle = TRUE),
                               "ref-svyContTable_nonnormal_minMax")
 
     ## This does not make a difference here
-    expect_equal_to_reference(print(mwByTrt$ContTable, noSpaces = TRUE, printToggle = TRUE),
+    expect_equal_to_reference(print(mwByE$ContTable, noSpaces = TRUE, printToggle = TRUE),
                               "ref-svyContTable_noSpaces")
 
 
-    expect_equal_to_reference(print(mwByTrt$ContTable, explain = FALSE, printToggle = TRUE),
+    expect_equal_to_reference(print(mwByE$ContTable, explain = FALSE, printToggle = TRUE),
                               "ref-svyContTable_explain")
 
-    expect_equal_to_reference(print(mwByTrt$ContTable, noSpaces = TRUE, showAllLevels = TRUE, quote = TRUE, printToggle = TRUE),
+    expect_equal_to_reference(print(mwByE$ContTable, noSpaces = TRUE, showAllLevels = TRUE, quote = TRUE, printToggle = TRUE),
                               "ref-svyContTable_noSpaces_showAllLevels_quote")
 })
 
@@ -248,24 +268,24 @@ test_that("p values are correctly calculated", {
     pValuesTestChisq <- c(svychisq( ~ Y + E, datSvy)$p.value, svychisq( ~ C1 + E, datSvy)$p.value)
     ## Drop names X-squared X-squared
     names(pValuesTestChisq) <- NULL
-    expect_equal(attr(mwByTrt$CatTable, "pValues")[, "pApprox"], pValuesTestChisq)
+    expect_equal(attr(mwByE$CatTable, "pValues")[, "pApprox"], pValuesTestChisq)
 
     ## no exact tests
-    expect_equal(attr(mwByTrt$CatTable, "pValues")[, "pExact"], c(NA, NA))
+    expect_equal(attr(mwByE$CatTable, "pValues")[, "pExact"], c(NA, NA))
 
     ## svyglm to do ANOVA equivalent
     pValuesTestNormal <-
     c(svyTestNormal("E ~ factor(E)", datSvy, test.terms = "factor(E)", method = "Wald")$p.value,
              svyTestNormal("C ~ factor(E)", datSvy, test.terms = "factor(E)", method = "Wald")$p.value,
              svyTestNormal("C2 ~ factor(E)", datSvy, test.terms = "factor(E)", method = "Wald")$p.value)
-    expect_equal(attr(mwByTrt$ContTable, "pValues")[, "pNormal"], pValuesTestNormal)
+    expect_equal(attr(mwByE$ContTable, "pValues")[, "pNormal"], pValuesTestNormal)
 
     ## svyranktest
     pValuesTestNonNormal <-
     c(svyTestNonNormal("E ~ factor(E)", datSvy)$p.value,
       svyTestNonNormal("C ~ factor(E)", datSvy)$p.value,
       svyTestNonNormal("C2 ~ factor(E)", datSvy)$p.value)
-    expect_equal(attr(mwByTrt$ContTable, "pValues")[, "pNonNormal"], pValuesTestNonNormal)
+    expect_equal(attr(mwByE$ContTable, "pValues")[, "pNonNormal"], pValuesTestNonNormal)
 
 })
 
@@ -396,5 +416,27 @@ expect_equal(gsub(" ", "", matFP[,1]), gsub(" ", "", outFP[,1]))
 ## chisq test
 expect_equal(print(tab1, pDigits = 7, nonnormal = "HI_CHOL")[3,3],
              pChisq)
+
+})
+
+
+test_that("summary method works without errors", {
+
+    ## Expectations
+    summary(mwOverall)
+    expect_output(summary(mwOverall), "### Summary of categorical variables ### ")
+    summary(mwInclNa)
+    expect_output(summary(mwInclNa), "<NA>")
+    summary(mwByE)
+    expect_output(summary(mwByE), "2 vs 3")
+    summary(mwByEC1)
+    expect_output(summary(mwByEC1),
+                  "Standardize mean differences")
+    summary(mwContOnlyByEC1)
+    expect_output(summary(mwContOnlyByEC1),
+                  "Standardize mean differences")
+    summary(mwCatOnlyByEC1)
+    expect_output(summary(mwCatOnlyByEC1),
+                  "Standardize mean differences")
 
 })

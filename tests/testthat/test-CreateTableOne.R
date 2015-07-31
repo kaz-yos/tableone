@@ -30,7 +30,8 @@ vars <- c("time","status","age","sex","ascites","hepato",
           "spiders","edema","bili","chol","albumin",
           "copper","alk.phos","ast","trig","platelet",
           "protime","stage")
-
+varsContOnly <- c("time","age","protime")
+varsCatOnly  <- c("status","trt","sex")
 
 ### Tests for data checkers
 
@@ -97,11 +98,16 @@ test_that("P-values are returned for appropriate 2x2 xtabs, even with an empty f
     xtabs2 <- xtabs(~ rowVar + colVar, dat2)
 
     ## chisq.test
-    expect_that(attributes(tab1)$pValues["rowVar","pApprox"], equals(chisq.test(xtabs1)$p.value))
-    expect_that(attributes(tab2)$pValues["rowVar","pApprox"], equals(chisq.test(xtabs2)$p.value))
+    expect_that(attributes(tab1$CatTable)$pValues["rowVar","pApprox"],
+                equals(chisq.test(xtabs1)$p.value))
+    expect_warning(expect_that(attributes(tab2$CatTable)$pValues["rowVar","pApprox"],
+                               equals(chisq.test(xtabs2)$p.value)),
+                   "Chi-squared approximation may be incorrect")
     ## fisher.test
-    expect_that(attributes(tab1)$pValues["rowVar","pExact"],  equals(fisher.test(xtabs1)$p.value))
-    expect_that(attributes(tab2)$pValues["rowVar","pExact"],  equals(fisher.test(xtabs2)$p.value))
+    expect_that(attributes(tab1$CatTable)$pValues["rowVar","pExact"],
+                equals(fisher.test(xtabs1)$p.value))
+    expect_that(attributes(tab2$CatTable)$pValues["rowVar","pExact"],
+                equals(fisher.test(xtabs2)$p.value))
 })
 
 
@@ -116,11 +122,15 @@ test_that("P-values should be NA for 1xM xtabs", {
     xtabs4 <- xtabs(~ rowVar + colVar, dat4)
 
     ## chisq.test
-    expect_that(attributes(tab3)$pValues["rowVar","pApprox"], equals(NA))
-    expect_that(attributes(tab4)$pValues["rowVar","pApprox"], equals(NA))
+    expect_that(attributes(tab3$CatTable)$pValues["rowVar","pApprox"],
+                equals(NA))
+    expect_that(attributes(tab4$CatTable)$pValues["rowVar","pApprox"],
+                equals(NA))
     ## fisher.test
-    expect_that(attributes(tab3)$pValues["rowVar","pExact"],  equals(NA))
-    expect_that(attributes(tab4)$pValues["rowVar","pExact"],  equals(NA))
+    expect_that(attributes(tab3$CatTable)$pValues["rowVar","pExact"],
+                equals(NA))
+    expect_that(attributes(tab4$CatTable)$pValues["rowVar","pExact"],
+                equals(NA))
 })
 
 
@@ -133,10 +143,25 @@ pbcOverall  <- CreateTableOne(vars = vars, data = pbc)
 pbcInclNa   <- CreateTableOne(vars = vars, data = pbc, includeNA = TRUE)
 pbcByTrt    <- CreateTableOne(vars = vars, strata = c("trt"), data = pbc)
 pbcByTrtSex <- CreateTableOne(vars = vars, strata = c("trt","sex"), data = pbc)
+pbcContOnlyByTrtSex <- CreateTableOne(vars = varsContOnly, strata = c("trt","sex"), data = pbc)
+pbcCatOnlyByTrtSex  <- CreateTableOne(vars = varsCatOnly, strata = c("trt","sex"), data = pbc)
+
 
 ## Specify variables for special handling
 nonnormalVars <- c("bili","chol","copper","alk.phos","trig")
 exactVars <- c("status","stage")
+
+
+test_that("TableOne objects are always returned", {
+
+    expect_equal(class(pbcOverall),          "TableOne")
+    expect_equal(class(pbcInclNa),           "TableOne")
+    expect_equal(class(pbcByTrt),            "TableOne")
+    expect_equal(class(pbcByTrtSex),         "TableOne")
+    expect_equal(class(pbcContOnlyByTrtSex), "TableOne")
+    expect_equal(class(pbcCatOnlyByTrtSex),  "TableOne")
+
+})
 
 
 test_that("printing of a TableOne object does not regress", {
@@ -174,6 +199,13 @@ test_that("printing of a TableOne object does not regress", {
 
     expect_equal_to_reference(print(pbcByTrt, nonnormal = nonnormalVars, exact = exactVars, noSpaces = TRUE, showAllLevels = FALSE, quote = TRUE, printToggle = TRUE),
                               "ref-TableOne_noSpaces_showAllLevels_quote")
+
+    expect_equal_to_reference(print(pbcContOnlyByTrtSex),
+                              "ref-TableOne_ContOnly")
+
+    expect_equal_to_reference(print(pbcCatOnlyByTrtSex),
+                              "ref-TableOne_CatOnly")
+
 })
 
 
@@ -268,4 +300,25 @@ test_that("printing of a TableOne$ContTable object do not regress", {
 
     expect_equal_to_reference(print(pbcByTrt$ContTable, noSpaces = TRUE, showAllLevels = TRUE, quote = TRUE, printToggle = TRUE),
                               "ref-ContTable_noSpaces_showAllLevels_quote")
+})
+
+
+test_that("summary method works without errors", {
+
+    ## Expectations
+    summary(pbcOverall)
+    expect_output(summary(pbcOverall), "strata: Overall")
+    summary(pbcInclNa)
+    expect_output(summary(pbcInclNa), "<NA>")
+    summary(pbcByTrt)
+    expect_output(summary(pbcByTrt), "Standardize mean differences")
+    summary(pbcByTrtSex)
+    expect_output(summary(pbcByTrtSex),
+                  "Standardize mean differences")
+    summary(pbcContOnlyByTrtSex)
+    expect_output(summary(pbcContOnlyByTrtSex),
+                  "### Summary of continuous variables ###")
+    summary(pbcCatOnlyByTrtSex)
+    expect_output(summary(pbcCatOnlyByTrtSex), "3 vs 4")
+
 })

@@ -159,16 +159,24 @@ function(x,                   # TableOne object
                    c(lstStratumSizesRow, lstOneVarTables))
 
 
-    ## Add stratification information to the column header (This is also in the constructor)
-    if (length(x$ContTable) > 1 ) {
+    ## Add stratification information to the column header
+    ## NULL element has a length of zero
+    if (length(x$ContTable) > 1) {
         ## Combine variable names with : in between
         strataVarName <- attributes(x$ContTable)$strataVarName
-
         ## Create strata string
         strataString <- paste0("Stratified by ", strataVarName)
-
         ## Name the row dimension with it. 1st dimension name should be empty.
         names(dimnames(out)) <- c("", strataString)
+
+    } else if (length(x$CatTable) > 1) {
+        ## Combine variable names with : in between
+        strataVarName <- attributes(x$CatTable)$strataVarName
+        ## Create strata string
+        strataString <- paste0("Stratified by ", strataVarName)
+        ## Name the row dimension with it. 1st dimension name should be empty.
+        names(dimnames(out)) <- c("", strataString)
+
     } else {
 
         names(dimnames(out)) <- c("", "")
