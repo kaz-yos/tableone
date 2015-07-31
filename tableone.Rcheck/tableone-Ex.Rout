@@ -3938,7 +3938,7 @@ detaching ‘package:survival’
 > 
 > base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: summary.TableOne
-> ### Title: Shows all results in a 'TableOne' class object
+> ### Title: Shows all results in a '(svy)TableOne' class object
 > ### Aliases: summary.TableOne
 > 
 > ### ** Examples
@@ -5792,7 +5792,7 @@ _E_x_a_m_p_l_e_s:
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  8.89 0.258 10.448 0.01 0.012 
+Time elapsed:  10.963 0.356 11.657 0.013 0.014 
 > grDevices::dev.off()
 null device 
           1 

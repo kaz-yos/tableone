@@ -424,12 +424,11 @@ test_that("summary method works without errors", {
 
     ## Expectations
     summary(mwOverall)
-    expect_output(summary(mwOverall),
-                  "n miss p.miss mean  sd median p25 p75 min max")
+    expect_output(summary(mwOverall), "### Summary of categorical variables ### ")
     summary(mwInclNa)
-    expect_output(summary(mwInclNa), "<NA>   0.3     0.1       100.0")
+    expect_output(summary(mwInclNa), "<NA>")
     summary(mwByE)
-    expect_output(summary(mwByE), "Y  0.00099495892 0.00149243839 0.00148861716 0.000003821227")
+    expect_output(summary(mwByE), "2 vs 3")
     summary(mwByEC1)
     expect_output(summary(mwByEC1),
                   "Standardize mean differences")

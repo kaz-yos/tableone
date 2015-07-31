@@ -2,12 +2,12 @@
 % Please edit documentation in R/summary.TableOne.R
 \name{summary.TableOne}
 \alias{summary.TableOne}
-\title{Shows all results in a \code{TableOne} class object}
+\title{Shows all results in a \code{(svy)TableOne} class object}
 \usage{
 \method{summary}{TableOne}(object, digits = 1, ...)
 }
 \arguments{
-\item{object}{An object that has the \code{CatTable} class to be shown.}
+\item{object}{An object that has the \code{(svy)TableOne} class to be shown.}
 
 \item{digits}{Number of digits to print.}
 
@@ -17,10 +17,9 @@
 It will print the results.
 }
 \description{
-This method shows all the data a CatTable class object has. This includes
-the (optionally stratified) part with summary statistics and p-values from
-the approximation method test (chisq.test by default) and exact method test
-(fisher.test by default).
+This method shows all the data a \code{(svy)TableOne} class object has. This
+includes the (optionally stratified) part with summary statistics and p-values
+and/or standardized mean differences.
 }
 \examples{
 ## Load
