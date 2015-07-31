@@ -143,13 +143,25 @@ pbcOverall  <- CreateTableOne(vars = vars, data = pbc)
 pbcInclNa   <- CreateTableOne(vars = vars, data = pbc, includeNA = TRUE)
 pbcByTrt    <- CreateTableOne(vars = vars, strata = c("trt"), data = pbc)
 pbcByTrtSex <- CreateTableOne(vars = vars, strata = c("trt","sex"), data = pbc)
-pbcContByTrtSex <- CreateTableOne(vars = varsContOnly, strata = c("trt","sex"), data = pbc)
-pbcCatByTrtSex  <- CreateTableOne(vars = varsCatOnly, strata = c("trt","sex"), data = pbc)
+pbcContOnlyByTrtSex <- CreateTableOne(vars = varsContOnly, strata = c("trt","sex"), data = pbc)
+pbcCatOnlyByTrtSex  <- CreateTableOne(vars = varsCatOnly, strata = c("trt","sex"), data = pbc)
 
 
 ## Specify variables for special handling
 nonnormalVars <- c("bili","chol","copper","alk.phos","trig")
 exactVars <- c("status","stage")
+
+
+test_that("TableOne objects are always returned", {
+
+    expect_equal(class(pbcOverall),          "TableOne")
+    expect_equal(class(pbcInclNa),           "TableOne")
+    expect_equal(class(pbcByTrt),            "TableOne")
+    expect_equal(class(pbcByTrtSex),         "TableOne")
+    expect_equal(class(pbcContOnlyByTrtSex), "TableOne")
+    expect_equal(class(pbcCatOnlyByTrtSex),  "TableOne")
+
+})
 
 
 test_that("printing of a TableOne object does not regress", {
@@ -188,10 +200,10 @@ test_that("printing of a TableOne object does not regress", {
     expect_equal_to_reference(print(pbcByTrt, nonnormal = nonnormalVars, exact = exactVars, noSpaces = TRUE, showAllLevels = FALSE, quote = TRUE, printToggle = TRUE),
                               "ref-TableOne_noSpaces_showAllLevels_quote")
 
-    expect_equal_to_reference(print(pbcContByTrtSex),
+    expect_equal_to_reference(print(pbcContOnlyByTrtSex),
                               "ref-TableOne_ContOnly")
 
-    expect_equal_to_reference(print(pbcCatByTrtSex),
+    expect_equal_to_reference(print(pbcCatOnlyByTrtSex),
                               "ref-TableOne_CatOnly")
 
 })

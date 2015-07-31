@@ -106,6 +106,18 @@ nonnormalVars <- c("C")
 exactVars <- c("Y")
 
 
+test_that("svyTableOne objects are always returned", {
+
+    expect_equal(class(mwOverall),       c("svyTableOne","TableOne"))
+    expect_equal(class(mwInclNa),        c("svyTableOne","TableOne"))
+    expect_equal(class(mwByE),           c("svyTableOne","TableOne"))
+    expect_equal(class(mwByEC1),         c("svyTableOne","TableOne"))
+    expect_equal(class(mwContOnlyByEC1), c("svyTableOne","TableOne"))
+    expect_equal(class(mwCatOnlyByEC1),  c("svyTableOne","TableOne"))
+
+})
+
+
 test_that("printing of a svyTableOne object does not regress", {
 
     ## Expectations
