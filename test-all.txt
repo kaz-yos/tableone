@@ -1373,7 +1373,7 @@ Column Total |       158 |       154 |       312 |
   "trig (mean (sd))"     "124.14 (71.54)"    "125.25 (58.52)"    "0.886" ""    
   "platelet (mean (sd))" "258.75 (100.32)"   "265.20 (90.73)"    "0.555" ""    
   "protime (mean (sd))"  "10.65 (0.85)"      "10.80 (1.14)"      "0.197" ""    
-.
+.......
 Unit tests for the modules : ........
 Tests for functions for standardized mean differences : ...................................................................................
      ### Summary of continuous variables ###
@@ -2117,7 +2117,7 @@ Column Total |       100 |       100 |       100 |        50 |        50 |      
      (39,59]                               
      (59,Inf]                              
   RIAGENDR = 2 (%)       <0.0000001        
-.
+.......
 Unit tests for the survey-related modules : ................................................
 
 DONE 

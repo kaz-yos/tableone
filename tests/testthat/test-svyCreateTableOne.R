@@ -418,3 +418,20 @@ expect_equal(print(tab1, pDigits = 7, nonnormal = "HI_CHOL")[3,3],
              pChisq)
 
 })
+
+
+test_that("summary method works without errors", {
+
+    ## Expectations
+    expect_output(summary(mwOverall),
+                  "n miss p.miss mean  sd median p25 p75 min max")
+    expect_output(summary(mwInclNa), "<NA>   0.3     0.1       100.0")
+    expect_output(summary(mwByE), "Y  0.00099495892 0.00149243839 0.00148861716 0.000003821227")
+    expect_output(summary(mwByEC1),
+                  "Standardize mean differences")
+    expect_output(summary(mwContOnlyByEC1),
+                  "Standardize mean differences")
+    expect_output(summary(mwCatOnlyByEC1),
+                  "Standardize mean differences")
+
+})
