@@ -702,8 +702,7 @@ ModuleContFormatStrata <- function(ContTable, nVars, listOfFunctions, digits) {
 }
 
 
-
-## Extract vecColWidths from a stratum sample size row
+## Extract stratumSizesRow from vecColWidths attribute of a FmtTable object
 ## Used by print.(svy)TableOne()
 ModuleStratumSizesRow <- function(FmtTable, showAllLevels) {
 
