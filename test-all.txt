@@ -30,7 +30,7 @@ Unit tests for the CreateTableOne function : ...........                      St
      2                      35 (22.2)         32 (20.8)               
      3                      56 (35.4)         64 (41.6)               
      4                      55 (34.8)         54 (35.1)               
-1                      
+.                      
                        Overall          
   n                        418          
   time (mean (sd))     1917.78 (1104.67)
@@ -61,7 +61,7 @@ Unit tests for the CreateTableOne function : ...........                      St
      2                      92 (22.3)   
      3                     155 (37.6)   
      4                     144 (35.0)   
-2                      
+.                      
                        Overall          
   n                        418          
   time (mean (sd))     1917.78 (1104.67)
@@ -102,7 +102,7 @@ Unit tests for the CreateTableOne function : ...........                      St
      3                     155 (37.1)   
      4                     144 (34.4)   
      NA                      6 ( 1.4)   
-3                      Stratified by trt:sex
+.                      Stratified by trt:sex
                        1:m               2:m               1:f              
   n                         21                15               137          
   time (mean (sd))     1793.48 (1244.70) 2156.33 (1428.56) 2049.67 (1070.20)
@@ -164,7 +164,7 @@ Unit tests for the CreateTableOne function : ...........                      St
      2                      30 ( 21.6)              
      3                      59 ( 42.4)              
      4                      47 ( 33.8)              
-4                      Stratified by trt
+.                      Stratified by trt
                        1                     2                     p       
   n                          158                   154                     
   time (mean (sd))     2015.6203 (1094.1233) 1996.8636 (1155.9289)  0.88305
@@ -226,7 +226,7 @@ Unit tests for the CreateTableOne function : ...........                      St
      2                     
      3                     
      4                     
-5                      Stratified by trt
+.                      Stratified by trt
                        1                 2                
   n                        158               154          
   time (mean (sd))     2015.62 (1094.12) 1996.86 (1155.93)
@@ -257,7 +257,7 @@ Unit tests for the CreateTableOne function : ...........                      St
      2                      35 (22.2)         32 (20.8)   
      3                      56 (35.4)         64 (41.6)   
      4                      55 (34.8)         54 (35.1)   
-6                         Stratified by trt
+.                         Stratified by trt
                           1                         2                        
   n                           158                       154                  
   time (mean (sd))        2015.62 (1094.12)         1996.86 (1155.93)        
@@ -319,7 +319,7 @@ Unit tests for the CreateTableOne function : ...........                      St
      2                                  
      3                                  
      4                                  
-7                           Stratified by trt
+.                           Stratified by trt
                             1                         
   n                             158                   
   time (mean (sd))          2015.62 (1094.12)         
@@ -381,7 +381,7 @@ Unit tests for the CreateTableOne function : ...........                      St
      2                           32 (20.8)                           
      3                           64 (41.6)                           
      4                           54 (35.1)                           
-8                         Stratified by trt
+.                         Stratified by trt
                           1                         2                        
   n                       158                       154                      
   time (mean (sd))        2015.62 (1094.12)         1996.86 (1155.93)        
@@ -507,7 +507,7 @@ Unit tests for the CreateTableOne function : ...........                      St
                                32 (20.8)                          
                                64 (41.6)                          
                                54 (35.1)                          
-9                           "Stratified by trt"
+.                           "Stratified by trt"
  ""                         "1"                        
   "n"                       "158"                      
   "time (mean (sd))"        "2015.62 (1094.12)"        
@@ -1710,164 +1710,4 @@ Unit tests for svy* user functions : ....                Stratified by E
 .
 Unit tests for the survey-related modules : ................................................
 
-1. Failure (at test-CreateTableOne.R#145): printing of a TableOne object does not regress 
-print(pbcByTrt, printToggle = TRUE) not equal to reference from ref-TableOne_defaultPrint
-2 string mismatches:
-x[1]: "158"
-y[1]: "    158"
-
-x[30]: "154"
-y[30]: "    154"
-
-x[NA]: NA
-y[NA]: NA
-
-x[NA]: NA
-y[NA]: NA
-
-x[NA]: NA
-y[NA]: NA
-
-2. Failure (at test-CreateTableOne.R#148): printing of a TableOne object does not regress 
-print(pbcOverall, printToggle = TRUE) not equal to reference from ref-TableOne_overallPrint
-1 string mismatches:
-x[1]: "418"
-y[1]: "    418"
-
-x[NA]: NA
-y[NA]: NA
-
-x[NA]: NA
-y[NA]: NA
-
-x[NA]: NA
-y[NA]: NA
-
-x[NA]: NA
-y[NA]: NA
-
-3. Failure (at test-CreateTableOne.R#151): printing of a TableOne object does not regress 
-print(pbcInclNa, printToggle = TRUE) not equal to reference from ref-TableOne_IncludeNA
-1 string mismatches:
-x[1]: "418"
-y[1]: "    418"
-
-x[NA]: NA
-y[NA]: NA
-
-x[NA]: NA
-y[NA]: NA
-
-x[NA]: NA
-y[NA]: NA
-
-x[NA]: NA
-y[NA]: NA
-
-4. Failure (at test-CreateTableOne.R#154): printing of a TableOne object does not regress 
-print(pbcByTrtSex, printToggle = TRUE) not equal to reference from ref-TableOne_2StrataVars
-4 string mismatches:
-x[1]: "21"
-y[1]: "     21"
-
-x[30]: "15"
-y[30]: "     15"
-
-x[59]: "137"
-y[59]: "    137"
-
-x[88]: "139"
-y[88]: "    139"
-
-x[NA]: NA
-y[NA]: NA
-
-5. Failure (at test-CreateTableOne.R#158): printing of a TableOne object does not regress 
-print(pbcByTrt, catDigits = 3, contDigits = 4, pDigits = 5, printToggle = TRUE) not equal to reference from ref-TableOne_digits
-2 string mismatches:
-x[1]: "158"
-y[1]: "      158"
-
-x[30]: "154"
-y[30]: "      154"
-
-x[NA]: NA
-y[NA]: NA
-
-x[NA]: NA
-y[NA]: NA
-
-x[NA]: NA
-y[NA]: NA
-
-6. Failure (at test-CreateTableOne.R#161): printing of a TableOne object does not regress 
-print(pbcByTrt, test = FALSE, printToggle = TRUE) not equal to reference from ref-TableOne_noTests
-2 string mismatches:
-x[1]: "158"
-y[1]: "    158"
-
-x[30]: "154"
-y[30]: "    154"
-
-x[NA]: NA
-y[NA]: NA
-
-x[NA]: NA
-y[NA]: NA
-
-x[NA]: NA
-y[NA]: NA
-
-7. Failure (at test-CreateTableOne.R#164): printing of a TableOne object does not regress 
-print(pbcByTrt, nonnormal = nonnormalVars, exact = exactVars, printToggle = TRUE) not equal to reference from ref-TableOne_nonnormal_exact
-2 string mismatches:
-x[1]: "158"
-y[1]: "    158"
-
-x[30]: "154"
-y[30]: "    154"
-
-x[NA]: NA
-y[NA]: NA
-
-x[NA]: NA
-y[NA]: NA
-
-x[NA]: NA
-y[NA]: NA
-
-8. Failure (at test-CreateTableOne.R#167): printing of a TableOne object does not regress 
-print(pbcByTrt, nonnormal = nonnormalVars, minMax = TRUE, printToggle = TRUE) not equal to reference from ref-TableOne_nonnormal_minMax
-2 string mismatches:
-x[1]: "158"
-y[1]: "    158"
-
-x[30]: "154"
-y[30]: "    154"
-
-x[NA]: NA
-y[NA]: NA
-
-x[NA]: NA
-y[NA]: NA
-
-x[NA]: NA
-y[NA]: NA
-
-9. Failure (at test-CreateTableOne.R#173): printing of a TableOne object does not regress 
-print(pbcByTrt, nonnormal = nonnormalVars, exact = exactVars, showAllLevels = TRUE, printToggle = TRUE) not equal to reference from ref-TableOne_showAllLevels
-2 string mismatches:
-x[31]: "158"
-y[31]: "    158"
-
-x[61]: "154"
-y[61]: "    154"
-
-x[NA]: NA
-y[NA]: NA
-
-x[NA]: NA
-y[NA]: NA
-
-x[NA]: NA
-y[NA]: NA
+DONE 
