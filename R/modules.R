@@ -703,6 +703,218 @@ ModuleContFormatStrata <- function(ContTable, nVars, listOfFunctions, digits) {
 
 
 
+## Extract vecColWidths from a stratum sample size row
+## Used by print.(svy)TableOne()
+ModuleStratumSizesRow <- function(FmtTable, showAllLevels) {
+
+    ## Length of vecColWidths is number of strata
+    nStrata <- length(attr(FmtTable, "vecColWidths"))
+
+    ## Extract the sample size row from Fmt*Table
+    stratumSizesRow <- FmtTable[1, , drop = FALSE]
+
+
+    ## showAllLevels indicates if level column exists
+    if (showAllLevels) {
+
+        ## Teke first nStrata columns after level column (position 1)
+        vecColWidths <- nchar(stratumSizesRow[1, 1 + seq_len(nStrata)])
+    } else {
+
+        ## Teke first nStrata columns
+        vecColWidths <- nchar(stratumSizesRow[1, seq_len(nStrata)])
+    }
+
+    ## Add
+    attr(stratumSizesRow, "vecColWidths") <- vecColWidths
+
+    ## Return a single row matrix with vecColWidths attribute
+    stratumSizesRow
+}
+
+
+## Given a list of tables with vecColWidths,
+## return a strata-by-table df containing spaces to add
+ModuleNSpacesToAdd <- function(FmtElementTables) {
+    ##
+    ## Get the column width information for each object
+    ## each object has widths as many as strata
+    colWidthInfo <- sapply(FmtElementTables,
+                           FUN = function(matObj) {
+
+                               attributes(matObj)$vecColWidths
+                           },
+                           simplify = FALSE)
+    ## list to df
+    colWidthInfo <- as.data.frame(colWidthInfo)
+
+    ## Get the max values for each stratum
+    vecMaxValues <- do.call(function(...) {pmax(..., na.rm = TRUE)}, colWidthInfo)
+
+    ## Get the difference (value - max. Must be negated)
+    nSpacesToAdd <- sweep(x      = colWidthInfo,
+                          MARGIN = 1,
+                          STATS  = vecMaxValues,
+                          FUN    = "-")
+    ## Make sure these negative numbers are made positive
+    nSpacesToAdd <- abs(nSpacesToAdd)
+    ## Get rid of NA, so that it does not cause problem in rep() as a times argument
+    nSpacesToAdd[is.na(nSpacesToAdd)] <- 0
+    nSpacesToAdd
+}
+
+
+## Add spaces to table columns as specified in nSpacesToAdd and considering showAllLevels
+ModuleAddSpacesToTable <- function(FmtElementTables, nSpacesToAdd, showAllLevels) {
+    ## For each matrix, add spaces
+    spaceFormattedTables <-
+    sapply(seq_along(FmtElementTables),
+           FUN = function(i) {
+
+               ## For i-th table
+               matObj  <- FmtElementTables[[i]]
+               nSpaces <- nSpacesToAdd[, i]
+
+               ## For j-th stratum (column), add spaces.
+               ## Be aware of the p-value column (last. not included in first palce)
+               ## and level column (1st. explicitly ignore).
+               for (j in seq_along(nSpaces)) {
+
+                   ## If showAllLevels is requested, ignore the first column (level column).
+                   if (showAllLevels) {
+                       matObj[, (j + 1)] <- paste0(paste0(rep(" ", nSpaces[j]), collapse = ""),
+                                                   matObj[, (j + 1)])
+
+                   } else {
+                       ## if not, no need to ignore the first column
+                       matObj[, j] <- paste0(paste0(rep(" ", nSpaces[j]), collapse = ""),
+                                             matObj[, j])
+                   }
+
+               }
+
+               ## Return the adjusted table
+               matObj
+           },
+           simplify = FALSE)
+
+    ## Restore names for easy acces
+    names(spaceFormattedTables) <- names(FmtElementTables)
+    spaceFormattedTables
+}
+
+
+## Extract Cont/CatTable elements of x and dispatch print() appropriately
+ModuleFormatTables <- function(x, catDigits, contDigits,
+                               ## Generic argumetns passed
+                               test, smd,
+                               explain, pDigits,
+                               ## print.CatTable arguments passed
+                               format, exact,
+                               showAllLevels, cramVars,
+                               ## print.ContTable arguments passed
+                               nonnormal, minMax, insertLevel
+                               ) {
+
+    ## Two-element list(ContTable, CatTable)
+    ## Cont first throughout this function
+    TableOne <- list(x$ContTable, x$CatTable)
+
+    ## Get the Cont/Cat status (1st of classes)
+    ## Always (ContTable, CatTable) by new definition
+    classOfTables <- sapply(TableOne, class)[1,]
+
+    ## Decimal point vector
+    contCatDigitis <- c(CatTable = catDigits, ContTable = contDigits)[classOfTables]
+
+    ## Get the formatted tables (FmtContTable, FmtCatTable)
+    FmtTables <-
+    sapply(seq_along(TableOne),
+           ## loop over ContTable and CatTable
+           FUN = function(i) {
+
+               ## print.CatTable or print.ContTable called depending on the class
+               print(TableOne[[i]],
+                     ## Number of digits depends on Cont or CatTable
+                     digits = contCatDigitis[i],
+
+                     ## Do not print
+                     printToggle = FALSE,
+
+                     ## The rests are just passed
+                     ## generic arguments passed
+                     test = test, smd = smd,
+                     explain = explain, pDigits = pDigits,
+
+                     ## print.CatTable arguments passed
+                     format = format, exact = exact,
+                     showAllLevels = showAllLevels,  # Returns one more column if TRUE
+                     cramVars = cramVars,
+
+                     ## print.ContTable arguments passed
+                     nonnormal = nonnormal, minMax = minMax, insertLevel = showAllLevels
+                     )  # Method dispatch at work
+           },
+           simplify = FALSE)
+    ## Name formatted tables for easier access (Cont first!)
+    names(FmtTables) <- c("FmtContTable", "FmtCatTable")
+
+    FmtTables
+}
+
+
+## Obtain a vector indictor showing n-th variable's
+## correspondence row(s) in  FmtCatTable
+ModuleVarToRowFmtCatTable <- function(spaceFmtEltTables) {
+    ## Extract logical vector of which rows are title rows
+    logiNameRows <- attr(spaceFmtEltTables$FmtCatTable, "logiNameRows")
+    ## Create a numeric representation of which row(s) belong to which variable
+    numNameRows <- as.numeric(logiNameRows)
+    numNameRows[logiNameRows] <- seq_len(sum(logiNameRows))
+    numNameRows[!logiNameRows] <- NA
+    ## LOCF for subheaders (some variables have multiple rows)
+    numNameRows <- zoo::na.locf(numNameRows, na.rm = FALSE)
+    ## First element is always sample size and should be 0 to avoid NA,
+    ## which breaks == use
+    numNameRows[1] <- 0
+    numNameRows
+}
+
+
+## Create a list of one variable tables excluding sample size row
+ModuleListOfOneVarTables <- function(spaceFmtEltTables, MetaData) {
+
+    ## Obtain a vector indictor showing n-th variable's
+    ## correspondence row(s) in  FmtCatTable
+    vecVarToRow <- ModuleVarToRowFmtCatTable(spaceFmtEltTables)
+
+    ## Pick elements and construct a list of rows to rbind
+    ## loop over vars picking elements from appropriate objects
+    lstOneVarTables <- lapply(seq_along(MetaData$vars), function(i) {
+
+        ## Extract current elements
+        var         <- MetaData$vars[i]
+        logiFactor  <- MetaData$logiFactors[i]
+
+        ## Conditional on if its logical
+        if (logiFactor) {
+            ## If cat
+            nthElt <- which(var == MetaData$varFactors)
+            rowsToPick <- which(nthElt == vecVarToRow)
+
+            spaceFmtEltTables$FmtCatTable[rowsToPick, , drop = FALSE]
+
+        } else {
+            ## If Cont
+            nthElt <- which(var == MetaData$varNumerics)
+
+            ## + 1 because of sample size row
+            spaceFmtEltTables$FmtContTable[nthElt + 1, , drop = FALSE]
+        }
+    })
+    lstOneVarTables
+}
+
 ### Modules by both print and summary methods
 ## ModuleQuoteAndPrintMat()
 ## Takes an matrix object format, print, and (invisibly) return it
