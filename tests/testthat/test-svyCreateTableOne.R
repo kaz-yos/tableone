@@ -187,6 +187,18 @@ test_that("printing of a svyTableOne$CatTable object do not regress", {
 
     expect_equal_to_reference(print(mwByTrt$CatTable, noSpaces = TRUE, showAllLevels = TRUE, quote = TRUE, printToggle = TRUE),
                               "ref-svyCatTable_noSpaces_showAllLevels_quote")
+
+    ## gmodels::CrossTable
+    print(mwByTrtSex$CatTable, CrossTable = TRUE)
+    expect_output(print(mwByTrtSex$CatTable, CrossTable = TRUE),
+"|-------------------------|
+|                       N |
+| Chi-square contribution |
+|           N / Row Total |
+|           N / Col Total |
+|         N / Table Total |
+|-------------------------|")
+
 })
 
 
@@ -324,11 +336,11 @@ expect_equal(as.vector(print(tab1$ContTable, nonnormal = "HI_CHOL", minMax = TRU
 ### p-values
 ## t test
 expect_equal(print(tab1$ContTable, pDigits = 7, printToggle = TRUE)[2,3],
-             ## One space for < 
+             ## One space for <
              pTTest)
 ## KW
 expect_equal(print(tab1$ContTable, pDigits = 7, nonnormal = "HI_CHOL", printToggle = TRUE)[2,3],
-             ## One space for < 
+             ## One space for <
              pRankTest)
 })
 
@@ -365,7 +377,7 @@ expect_equal(print(tab1$CatTable, pDigits = 7, printToggle = TRUE)[2,3],
 
 
 test_that("mixed data object print outs are numerically correct", {
-    
+
 ### Mixed object
 ## Mean and SD
 expect_equal(as.vector(gsub("^ *", "", print(tab1, pDigits = 7)[2,1:2])),
