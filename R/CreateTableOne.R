@@ -218,7 +218,13 @@ function(vars,                                      # character vector of variab
 
         ## Create a list for output
         TableOneObject <- list(ContTable = ContTable,
-                               CatTable  = CatTable)
+                               CatTable  = CatTable,
+                               MetaData  = list(vars        = vars,
+                                                ## describes which pos is vars is factor
+                                                logiFactors = logiFactors,
+                                                ## names of vars of each type
+                                                varFactors  = varFactors,
+                                                varNumerics = varNumerics))
 
         ## Give a class
         class(TableOneObject) <- "TableOne"
