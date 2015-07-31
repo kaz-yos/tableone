@@ -14,3 +14,6 @@ tableone.Rcheck
 ## unit testing
 test-all.txt
 tests/testthat/ref-*
+
+## CRAN compatibility check
+cran-check.txt
