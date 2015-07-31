@@ -97,11 +97,16 @@ test_that("P-values are returned for appropriate 2x2 xtabs, even with an empty f
     xtabs2 <- xtabs(~ rowVar + colVar, dat2)
 
     ## chisq.test
-    expect_that(attributes(tab1)$pValues["rowVar","pApprox"], equals(chisq.test(xtabs1)$p.value))
-    expect_that(attributes(tab2)$pValues["rowVar","pApprox"], equals(chisq.test(xtabs2)$p.value))
+    expect_that(attributes(tab1$CatTable)$pValues["rowVar","pApprox"],
+                equals(chisq.test(xtabs1)$p.value))
+    expect_warning(expect_that(attributes(tab2$CatTable)$pValues["rowVar","pApprox"],
+                               equals(chisq.test(xtabs2)$p.value)),
+                   "Chi-squared approximation may be incorrect")
     ## fisher.test
-    expect_that(attributes(tab1)$pValues["rowVar","pExact"],  equals(fisher.test(xtabs1)$p.value))
-    expect_that(attributes(tab2)$pValues["rowVar","pExact"],  equals(fisher.test(xtabs2)$p.value))
+    expect_that(attributes(tab1$CatTable)$pValues["rowVar","pExact"],
+                equals(fisher.test(xtabs1)$p.value))
+    expect_that(attributes(tab2$CatTable)$pValues["rowVar","pExact"],
+                equals(fisher.test(xtabs2)$p.value))
 })
 
 
@@ -116,11 +121,15 @@ test_that("P-values should be NA for 1xM xtabs", {
     xtabs4 <- xtabs(~ rowVar + colVar, dat4)
 
     ## chisq.test
-    expect_that(attributes(tab3)$pValues["rowVar","pApprox"], equals(NA))
-    expect_that(attributes(tab4)$pValues["rowVar","pApprox"], equals(NA))
+    expect_that(attributes(tab3$CatTable)$pValues["rowVar","pApprox"],
+                equals(NA))
+    expect_that(attributes(tab4$CatTable)$pValues["rowVar","pApprox"],
+                equals(NA))
     ## fisher.test
-    expect_that(attributes(tab3)$pValues["rowVar","pExact"],  equals(NA))
-    expect_that(attributes(tab4)$pValues["rowVar","pExact"],  equals(NA))
+    expect_that(attributes(tab3$CatTable)$pValues["rowVar","pExact"],
+                equals(NA))
+    expect_that(attributes(tab4$CatTable)$pValues["rowVar","pExact"],
+                equals(NA))
 })
 
 
