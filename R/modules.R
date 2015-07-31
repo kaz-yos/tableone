@@ -824,8 +824,11 @@ ModuleFormatTables <- function(x, catDigits, contDigits,
     ## Always (ContTable, CatTable) by new definition
     classOfTables <- sapply(TableOne, class)[1,]
 
-    ## Decimal point vector
-    contCatDigitis <- c(CatTable = catDigits, ContTable = contDigits)[classOfTables]
+    ## Decimal point vector; pick appropriately depending on class
+    contCatDigits <- c(ContTable    = contDigits,
+                       CatTable     = catDigits,
+                       svyContTable = contDigits,
+                       svyCatTable  = catDigits)[classOfTables]
 
     ## Get the formatted tables (FmtContTable, FmtCatTable)
     FmtTables <-
@@ -836,7 +839,7 @@ ModuleFormatTables <- function(x, catDigits, contDigits,
                ## print.CatTable or print.ContTable called depending on the class
                print(TableOne[[i]],
                      ## Number of digits depends on Cont or CatTable
-                     digits = contCatDigitis[i],
+                     digits = contCatDigits[i],
 
                      ## Do not print
                      printToggle = FALSE,
