@@ -1,12 +1,11 @@
-##' Shows all results in a \code{TableOne} class object
+##' Shows all results in a \code{(svy)TableOne} class object
 ##'
-##' This method shows all the data a CatTable class object has. This includes
-##' the (optionally stratified) part with summary statistics and p-values from
-##' the approximation method test (chisq.test by default) and exact method test
-##' (fisher.test by default).
+##' This method shows all the data a \code{(svy)TableOne} class object has. This
+##' includes the (optionally stratified) part with summary statistics and p-values
+##' and/or standardized mean differences.
 ##'
 ##'
-##' @param object An object that has the \code{CatTable} class to be shown.
+##' @param object An object that has the \code{(svy)TableOne} class to be shown.
 ##' @param digits Number of digits to print.
 ##' @param ... For compatibility with generic. Ignored.
 ##' @return It will print the results.
@@ -46,17 +45,31 @@
 ##' @export
 summary.TableOne <- function(object, digits = 1, ...) {
 
-    ## object and ... required to be consistent with generic summary(object, ...)
-    listCatContTables <- object
-
     ## Continuous
-    cat("\n     ### Summary of continuous variables ###\n\n")    
-    summary(listCatContTables$ContTable, digits = digits)    
+    if (!is.null(object$ContTable)) {
+        cat("\n     ### Summary of continuous variables ###\n\n")
+        summary(object$ContTable, digits = digits)
+    }
 
     ## Separator
-    cat("\n=======================================================================================\n")
-    
-    ## Categorical    
-    cat("\n     ### Summary of categorical variables ### \n\n")
-    summary(listCatContTables$CatTable, digits = digits)
+    if ((!is.null(object$ContTable)) & !is.null(object$CatTable)) {
+        cat("\n=======================================================================================\n")
+    }
+
+    ## Categorical
+    if (!is.null(object$CatTable)) {
+        cat("\n     ### Summary of categorical variables ### \n\n")
+        summary(object$CatTable, digits = digits)
+    }
 }
+
+
+
+
+
+
+
+
+
+
+

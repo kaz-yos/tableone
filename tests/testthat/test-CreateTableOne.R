@@ -306,14 +306,20 @@ test_that("printing of a TableOne$ContTable object do not regress", {
 test_that("summary method works without errors", {
 
     ## Expectations
+    summary(pbcOverall)
     expect_output(summary(pbcOverall),
                   "time     418    0    0.0 1918 1104.7   1730 1092.8 2614  41.0  4795  0.47 -0.5")
+    summary(pbcInclNa)
     expect_output(summary(pbcInclNa), "<NA>    6     1.4       100.0")
+    summary(pbcByTrt)
     expect_output(summary(pbcByTrt), "hepato  0.20699413")
+    summary(pbcByTrtSex)
     expect_output(summary(pbcByTrtSex),
                   "Standardize mean differences")
+    summary(pbcContOnlyByTrtSex)
     expect_output(summary(pbcContOnlyByTrtSex),
                   "### Summary of continuous variables ###")
+    summary(pbcCatOnlyByTrtSex)
     expect_output(summary(pbcCatOnlyByTrtSex),
                   "status 0.5770647 0.7964473 0.8748771 0.8309763 0.4375075 0.4621432 0.06043662")
 
