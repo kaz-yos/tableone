@@ -30,7 +30,8 @@ vars <- c("time","status","age","sex","ascites","hepato",
           "spiders","edema","bili","chol","albumin",
           "copper","alk.phos","ast","trig","platelet",
           "protime","stage")
-
+varsContOnly <- c("time","age","protime")
+varsCatOnly  <- c("status","trt","sex")
 
 ### Tests for data checkers
 
@@ -142,6 +143,9 @@ pbcOverall  <- CreateTableOne(vars = vars, data = pbc)
 pbcInclNa   <- CreateTableOne(vars = vars, data = pbc, includeNA = TRUE)
 pbcByTrt    <- CreateTableOne(vars = vars, strata = c("trt"), data = pbc)
 pbcByTrtSex <- CreateTableOne(vars = vars, strata = c("trt","sex"), data = pbc)
+pbcContByTrtSex <- CreateTableOne(vars = varsContOnly, strata = c("trt","sex"), data = pbc)
+pbcCatByTrtSex  <- CreateTableOne(vars = varsCatOnly, strata = c("trt","sex"), data = pbc)
+
 
 ## Specify variables for special handling
 nonnormalVars <- c("bili","chol","copper","alk.phos","trig")
@@ -183,6 +187,13 @@ test_that("printing of a TableOne object does not regress", {
 
     expect_equal_to_reference(print(pbcByTrt, nonnormal = nonnormalVars, exact = exactVars, noSpaces = TRUE, showAllLevels = FALSE, quote = TRUE, printToggle = TRUE),
                               "ref-TableOne_noSpaces_showAllLevels_quote")
+
+    expect_equal_to_reference(print(pbcContByTrtSex),
+                              "ref-TableOne_ContOnly")
+
+    expect_equal_to_reference(print(pbcCatByTrtSex),
+                              "ref-TableOne_CatOnly")
+
 })
 
 

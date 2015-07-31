@@ -817,7 +817,13 @@ ModuleFormatTables <- function(x, catDigits, contDigits,
 
     ## Two-element list(ContTable, CatTable)
     ## Cont first throughout this function
-    TableOne <- list(x$ContTable, x$CatTable)
+    TableOne <- list(ContTable = x$ContTable,
+                     CatTable  = x$CatTable)
+    ## Drop NULL element
+    TableOne <- TableOne[!sapply(TableOne, is.null)]
+    if (length(TableOne) == 0) {
+        warning("This object does not have valid ContTable or CatTable")
+    }
 
     ## Get the Cont/Cat status (1st of classes)
     ## Always (ContTable, CatTable) by new definition
@@ -859,7 +865,7 @@ ModuleFormatTables <- function(x, catDigits, contDigits,
            },
            simplify = FALSE)
     ## Name formatted tables for easier access (Cont first!)
-    names(FmtTables) <- c("FmtContTable", "FmtCatTable")
+    names(FmtTables) <- paste0("Fmt", names(TableOne))
 
     FmtTables
 }
@@ -867,15 +873,24 @@ ModuleFormatTables <- function(x, catDigits, contDigits,
 
 ## Obtain a vector indictor showing n-th variable's
 ## correspondence row(s) in  FmtCatTable
-ModuleVarToRowFmtCatTable <- function(spaceFmtEltTables) {
+ModuleVarToRowFmtCatTable <- function(spcFmtEltTables) {
+
+    ## If no categorical elements, return NULL
+    if (!("FmtCatTable" %in% names(spcFmtEltTables))) {
+        return(NULL)
+    }
+
     ## Extract logical vector of which rows are title rows
-    logiNameRows <- attr(spaceFmtEltTables$FmtCatTable, "logiNameRows")
+    logiNameRows <- attr(spcFmtEltTables$FmtCatTable, "logiNameRows")
+
     ## Create a numeric representation of which row(s) belong to which variable
     numNameRows <- as.numeric(logiNameRows)
     numNameRows[logiNameRows] <- seq_len(sum(logiNameRows))
     numNameRows[!logiNameRows] <- NA
+
     ## LOCF for subheaders (some variables have multiple rows)
     numNameRows <- zoo::na.locf(numNameRows, na.rm = FALSE)
+
     ## First element is always sample size and should be 0 to avoid NA,
     ## which breaks == use
     numNameRows[1] <- 0
@@ -884,11 +899,11 @@ ModuleVarToRowFmtCatTable <- function(spaceFmtEltTables) {
 
 
 ## Create a list of one variable tables excluding sample size row
-ModuleListOfOneVarTables <- function(spaceFmtEltTables, MetaData) {
+ModuleListOfOneVarTables <- function(spcFmtEltTables, MetaData) {
 
     ## Obtain a vector indictor showing n-th variable's
     ## correspondence row(s) in  FmtCatTable
-    vecVarToRow <- ModuleVarToRowFmtCatTable(spaceFmtEltTables)
+    vecVarToRow <- ModuleVarToRowFmtCatTable(spcFmtEltTables)
 
     ## Pick elements and construct a list of rows to rbind
     ## loop over vars picking elements from appropriate objects
@@ -904,14 +919,14 @@ ModuleListOfOneVarTables <- function(spaceFmtEltTables, MetaData) {
             nthElt <- which(var == MetaData$varFactors)
             rowsToPick <- which(nthElt == vecVarToRow)
 
-            spaceFmtEltTables$FmtCatTable[rowsToPick, , drop = FALSE]
+            spcFmtEltTables$FmtCatTable[rowsToPick, , drop = FALSE]
 
         } else {
             ## If Cont
             nthElt <- which(var == MetaData$varNumerics)
 
             ## + 1 because of sample size row
-            spaceFmtEltTables$FmtContTable[nthElt + 1, , drop = FALSE]
+            spcFmtEltTables$FmtContTable[nthElt + 1, , drop = FALSE]
         }
     })
     lstOneVarTables
