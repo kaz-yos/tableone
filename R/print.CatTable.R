@@ -303,7 +303,9 @@ function(x,                        # CatTable object
 
     ## Add attributes for column widths in characters
     attributes(out) <- c(attributes(out),
-                         list(vecColWidths = vecColWidths))
+                         list(vecColWidths = vecColWidths,
+                              ## Add one FALSE for sample size row
+                              logiNameRows = c(FALSE, logiNonEmptyRowNames)))
 
     ## return a matrix invisibly
     return(invisible(out))
