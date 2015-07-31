@@ -1,3 +1,4 @@
+Rscript -e "library(methods); library(roxygen2); roxygenize('.')"
 R CMD check --as-cran ./tableone_0.7.0.tar.gz
 * using log directory ‘/Users/kazuki/Documents/programming/r/tableone/tableone.Rcheck’
 * using R version 3.2.1 (2015-06-18)

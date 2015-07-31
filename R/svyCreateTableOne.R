@@ -170,22 +170,20 @@ function(vars,                                   # character vector of variable 
     }
 
 
-### If only varFactors/varNumerics are present, just call one constructor and return
+### If only varFactors/varNumerics are present, just call one constructor
     if (length(varNumerics) == 0) {
         ## No numerics
-        message('NOTE: no numeric/integer variables supplied, using CreateCatTable()\n')
-        CatTable <- do.call(svyCreateCatTable,
-                            args = c(list(vars = varFactors), argsCreateCatTable))
-        return(CatTable)
+        ContTable <- NULL
+        CatTable  <- do.call(svyCreateCatTable,
+                             args = c(list(vars = varFactors), argsCreateCatTable))
 
     } else if (length(varFactors) == 0) {
         ## No factors
-        message('NOTE: no factor/logical/character variables supplied, using CreateContTable()\n')
         ContTable <- do.call(svyCreateContTable,
                              args = c(list(vars = varNumerics), argsCreateContTable))
-        return(ContTable)
+        CatTable  <- NULL
 
-### Proceed if both types of variables are present (both factors and numerics)
+### Both types of variables are present, call both constructors
     } else if ((length(varFactors) > 0) & (length(varNumerics) > 0)) {
 
         ## ContTable
@@ -194,21 +192,28 @@ function(vars,                                   # character vector of variable 
         ## CatTable
         CatTable  <- do.call(svyCreateCatTable,
                              args = c(list(vars = varFactors),  argsCreateCatTable))
+    } else {
 
-        ## Create a list for output
-        TableOneObject <- list(ContTable = ContTable,
-                               CatTable  = CatTable,
-                               MetaData  = list(vars        = vars,
-                                                ## describes which pos is vars is factor
-                                                logiFactors = logiFactors,
-                                                ## names of vars of each type
-                                                varFactors  = varFactors,
-                                                varNumerics = varNumerics))
-
-        ## Give a class
-        class(TableOneObject) <- c("svyTableOne", "TableOne")
-
-        ## Return the object
-        return(TableOneObject)
+        ## vars never empty by data check with ModuleStopIfNoVarsLeft()
+        ## Just to make sure
+        warning("No variables left to analyzed in vars.")
     }
+
+
+    ## Create a list for output
+    ## Either one of the two tables may be NULL
+    TableOneObject <- list(ContTable = ContTable,
+                           CatTable  = CatTable,
+                           MetaData  = list(vars        = vars,
+                                            ## describes which pos is vars is factor
+                                            logiFactors = logiFactors,
+                                            ## names of vars of each type
+                                            varFactors  = varFactors,
+                                            varNumerics = varNumerics))
+
+    ## Give a class
+    class(TableOneObject) <- c("svyTableOne", "TableOne")
+
+    ## Return the object
+    return(TableOneObject)
 }
