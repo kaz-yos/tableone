@@ -15,9 +15,10 @@ PKG_VERSION=$(shell grep -i ^version: DESCRIPTION | cut -d : -d \  -f 2)
 
 ## Define files to check for updates
 R_FILES   := $(wildcard R/*.R)
+TST_FILES := $(wildcard tests/testthat/*.R)
 SRC_FILES := $(wildcard src/*) $(addprefix src/, $(COPY_SRC))
 VIG_FILES := $(wildcard vignettes/*)
-PKG_FILES := DESCRIPTION NAMESPACE NEWS $(R_FILES) $(SRC_FILES) $(VIG_FILES)
+PKG_FILES := DESCRIPTION NAMESPACE NEWS $(R_FILES) $(TST_FILES) $(SRC_FILES) $(VIG_FILES)
 
 
 ## .PHONY to allow non-file targets (file targets should not be here)
