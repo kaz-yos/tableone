@@ -170,7 +170,7 @@ function(vars,                                   # character vector of variable 
     }
 
 
-    ## Condition on the absence of factor/numeric
+### If only varFactors/varNumerics are present, just call one constructor and return
     if (length(varNumerics) == 0) {
         ## No numerics
         message('NOTE: no numeric/integer variables supplied, using CreateCatTable()\n')
@@ -188,45 +188,22 @@ function(vars,                                   # character vector of variable 
 ### Proceed if both types of variables are present (both factors and numerics)
     } else if ((length(varFactors) > 0) & (length(varNumerics) > 0)) {
 
-        ## Create a list of constructors
-        listOfConstructors <- list(CreateContTable = svyCreateContTable,
-                                   CreateCatTable  = svyCreateCatTable)
-        ## CreateCatTable for categorical. CreateContTable for continuous.
-        listOfConstructors <- listOfConstructors[logiFactors + 1]
-        ## Create a list of arguments
-        listOfArgs         <- list(argsCreateContTable = argsCreateContTable,
-                                   argsCreateCatTable  = argsCreateCatTable)
-        ## argsCreateCatTable for categorical. argsCreateContTable for continuous.
-        listOfArgs         <- listOfArgs[logiFactors + 1]
-
-        ## Create a list of tables by looping over variables/constructors/arguments
-        TableOne <- sapply(seq_along(listOfConstructors),
-                           FUN = function(i) {
-
-                               args <- c(list(vars = vars[i]),  # vector element
-                                         listOfArgs[[i]])       # list element
-
-                               do.call(listOfConstructors[[i]], # list element
-                                       args = args)
-                           },
-                           simplify = FALSE)
-
-        ## Give variable names to the result object
-        names(TableOne) <- vars
-
-
-        ## Create ContTable and CatTable objects (this is redundant, but easy)
-        ## Aggregated ContTable
+        ## ContTable
         ContTable <- do.call(svyCreateContTable,
                              args = c(list(vars = varNumerics), argsCreateContTable))
-        ## Aggregated CatTable
+        ## CatTable
         CatTable  <- do.call(svyCreateCatTable,
                              args = c(list(vars = varFactors),  argsCreateCatTable))
 
         ## Create a list for output
-        TableOneObject <- list(TableOne  = TableOne,
-                               ContTable = ContTable,
-                               CatTable  = CatTable)
+        TableOneObject <- list(ContTable = ContTable,
+                               CatTable  = CatTable,
+                               MetaData  = list(vars        = vars,
+                                                ## describes which pos is vars is factor
+                                                logiFactors = logiFactors,
+                                                ## names of vars of each type
+                                                varFactors  = varFactors,
+                                                varNumerics = varNumerics))
 
         ## Give a class
         class(TableOneObject) <- c("svyTableOne", "TableOne")
