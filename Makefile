@@ -69,6 +69,9 @@ list:
 	@echo "R files:"
 	@echo $(R_FILES)
 	@echo
+	@echo "Test files:"
+	@echo $(TST_FILES)
+	@echo
 	@echo "Source files:"
 	@echo $(SRC_FILES)
 	@echo
