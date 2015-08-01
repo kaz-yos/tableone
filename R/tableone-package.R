@@ -1,6 +1,6 @@
 ##' Create "Table 1" to describe baseline characteristics
 ##'
-##' Creates "Table 1", i.e., description of baseline patient characteristics, which is essential in every medical research. Supports both continuous and categorical variables, as well as p-values and standardized mean differences. Weighted data are supported via the survey package. See github for a screencast. tableone was inspired by descriptive statistics functions in Deducer , a Java-based GUI package by Ian Fellows. This package does not require GUI or Java, and intended for command-line users.
+##' Creates "Table 1", i.e., description of baseline patient characteristics, which is essential in every medical research. Supports both continuous and categorical variables, as well as p-values and standardized mean differences. Weighted data are supported via the survey package. See github for a screencast. tableone was inspired by descriptive statistics functions in Deducer , a Java-based GUI package by Ian Fellows. This package does not require GUI or Java, and intended for command-line users. Most important functions are \code{\link{CreateTableOne}} and \code{\link{svyCreateTableOne}}.
 ##'
 ##' @name tableone-package
 ##' @aliases tableone-package tableone
@@ -8,17 +8,16 @@
 ##' @import survey MASS e1071 zoo gmodels
 ##' @note Special Thanks:
 ##'
-##' Ian Fellows for developing the Deducer package, which this package is based on.
+##' Ian Fellows for developing the \code{deducer} package, which this package is based on.
 ##'
-##' Hadley Wickham for packaging advice and for creating tools this package was made with (roxygen2, devtools, testthat).
+##' Hadley Wickham for packaging advice and for creating tools this package was made with (\code{roxygen2}, \code{devtools}, \code{testthat}).
 ##'
 ##' Yoshinobu Kanda for design advice and for integration into \code{RcmdrPlugin.EZR}.
 ##'
-##' jomuller for a bug report and fix suggestion regarding handling of ordered factors.
-##'
-##' Raja Sriswan Mamidi for suggestions regarding alignment.
+##' jomuller, Raja Sriswan Mamidi, and Atsushi Shiraishi for bug reports and/or feature suggestions.
 ##'
 ##' Members of the Facebook Organization of R Users for Medical Statistics in Japan (FORUMS-J) for testing pre-release versions and suggestions.
+##'
 ##'
 ##' Developmental repository is on github. Your contributions are appreciated.
 ##'
