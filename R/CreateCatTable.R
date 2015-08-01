@@ -1,9 +1,6 @@
 ##' Create an object summarizing categorical variables
 ##'
-##' Create an object summarizing categorical variables optionally stratifying
-##' by one or more startifying variables and performing statistical tests. The
-##' object gives a table that is easy to use in medical research papers. See
-##' also \code{\link{print.CatTable}} and \code{\link{summary.CatTable}}.
+##' Create an object summarizing categorical variables optionally stratifying by one or more startifying variables and performing statistical tests. Usually, \code{\link{CreateTableOne}} should be used as the universal frontend for both continuous and categorical data.
 ##'
 ##' @param vars Variable(s) to be summarized given as a character vector.
 ##' @param strata Stratifying (grouping) variable name(s) given as a character vector. If omitted, the overall results are returned.

@@ -1,6 +1,6 @@
 ##' Create an object summarizing continous variables for weighted dataset
 ##'
-##' Create an object summarizing continous variables optionally stratifying by one or more startifying variables and performing statistical tests. The object gives a table that is easy to use in medical research papers. See also \code{\link{print.svyContTable}} and \code{\link{summary.svyContTable}}. \code{\link{svyCreateTableOne}} should be used as the universal frontend.
+##' Create an object summarizing continous variables optionally stratifying by one or more startifying variables and performing statistical tests. Usually, \code{\link{svyCreateTableOne}} should be used as the universal frontend for both continuous and categorical data.
 ##'
 ##' @param vars Variable(s) to be summarized given as a character vector.
 ##' @param strata Stratifying (grouping) variable name(s) given as a character vector. If omitted, the overall results are returned.
