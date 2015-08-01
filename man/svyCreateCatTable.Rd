@@ -28,10 +28,7 @@ svyCreateCatTable(vars, strata, data, includeNA = FALSE, test = TRUE,
 An object of class \code{svyCatTable}.
 }
 \description{
-Create an object summarizing categorical variables optionally stratifying
-by one or more startifying variables and performing statistical tests. The
-object gives a table that is easy to use in medical research papers. See
-also \code{\link{print.svyCatTable}} and \code{\link{summary.svyCatTable}}.
+Create an object summarizing categorical variables optionally stratifying by one or more startifying variables and performing statistical tests. Usually, \code{\link{svyCreateTableOne}} should be used as the universal frontend for both continuous and categorical data.
 }
 \examples{
 ## See the examples for svyCreateTableOne()
@@ -40,8 +37,6 @@ also \code{\link{print.svyCatTable}} and \code{\link{summary.svyCatTable}}.
 Kazuki Yoshida
 }
 \seealso{
-\code{\link{svyCreateCatTable}},  \code{\link{print.svyCatTable}},  \code{\link{summary.svyCatTable}},
-\code{\link{svyCreateContTable}}, \code{\link{print.svyContTable}}, \code{\link{summary.svyContTable}},
-\code{\link{svyCreateTableOne}},  \code{\link{print.TableOne}},     \code{\link{summary.TableOne}}
+\code{\link{svyCreateTableOne}}, \code{\link{print.svyCatTable}}, \code{\link{summary.svyCatTable}},
 }
 

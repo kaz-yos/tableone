@@ -2,7 +2,7 @@
 % Please edit documentation in R/print.svyContTable.R
 \name{print.svyContTable}
 \alias{print.svyContTable}
-\title{Format and print the \code{svyContTable} class objects}
+\title{Format and print \code{svyContTable} class objects}
 \usage{
 \method{print}{svyContTable}(x, digits = 2, pDigits = 3, quote = FALSE,
   missing = FALSE, explain = TRUE, printToggle = TRUE, noSpaces = FALSE,
@@ -10,11 +10,11 @@
   smd = FALSE, ...)
 }
 \arguments{
-\item{x}{The result of a call to the \code{\link{svyCreateContTable}} function.}
+\item{x}{Object returned by \code{\link{svyCreateContTable}} function.}
 
 \item{digits}{Number of digits to print in the table.}
 
-\item{pDigits}{Number of digits to print for p-values.}
+\item{pDigits}{Number of digits to print for p-values (also used for standardized mean differences).}
 
 \item{quote}{Whether to show everything in quotes. The default is FALSE. If TRUE, everything including the row and column names are quoted so that you can copy it to Excel easily.}
 
@@ -32,17 +32,17 @@
 
 \item{insertLevel}{Whether to add an empty level column to the left of strata.}
 
-\item{test}{Whether to show the p-values. TRUE by default. If FALSE, only the numerical summaries are shown.}
+\item{test}{Whether to show p-values. TRUE by default. If FALSE, only the numerical summaries are shown.}
 
-\item{smd}{Whether to show the standardized mean difference. If there are more than one contrasts, the average of all possible standardized mean differences is shown.}
+\item{smd}{Whether to show standardized mean differences. FALSE by default. If there are more than one contrasts, the average of all possible standardized mean differences is shown.}
 
 \item{...}{For compatibility with generic. Ignored.}
 }
 \value{
-It is mainly for printing the result. But this function does return a matrix containing what you see in the output invisibly. You can assign it to an object to save it.
+A matrix object containing what you see is also invisibly returned. This can be assinged a name and exported via \code{write.csv}.
 }
 \description{
-This is the \code{print} method for the \code{svyContTable} class objects created by \code{\link{CreateContTable}} function.
+\code{print} method for the \code{svyContTable} class objects created by \code{\link{CreateContTable}} function.
 }
 \examples{
 ## See the examples for svyCreateTableOne()
@@ -51,8 +51,6 @@ This is the \code{print} method for the \code{svyContTable} class objects create
 Kazuki Yoshida
 }
 \seealso{
-\code{\link{svyCreateCatTable}},  \code{\link{print.svyCatTable}},  \code{\link{summary.svyCatTable}},
-\code{\link{svyCreateContTable}}, \code{\link{print.svyContTable}}, \code{\link{summary.svyContTable}},
-\code{\link{svyCreateTableOne}},  \code{\link{print.TableOne}},     \code{\link{summary.TableOne}}
+\code{\link{svyCreateCatTable}}, \code{\link{summary.svyCatTable}}
 }
 

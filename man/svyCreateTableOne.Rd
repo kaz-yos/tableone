@@ -2,7 +2,7 @@
 % Please edit documentation in R/svyCreateTableOne.R
 \name{svyCreateTableOne}
 \alias{svyCreateTableOne}
-\title{Create an object summarizing any variables for weighted data}
+\title{Create an object summarizing both continuous and categorical variables for weighted data}
 \usage{
 svyCreateTableOne(vars, strata, data, factorVars, includeNA = FALSE,
   test = TRUE, testApprox = svyTestChisq, argsApprox = NULL,
@@ -37,18 +37,16 @@ svyCreateTableOne(vars, strata, data, factorVars, includeNA = FALSE,
 \item{smd}{If TRUE, as in the default and there are more than two groups, standardized mean differences for all pairwise comparisons are calculated. For categorical variables, Yang and Dalton's definition is used.}
 }
 \value{
-An object of class \code{svyTableOne}, which really is a list of three objects.
-
-\item{TableOne}{a categorical-continuous mixture data formatted and printed by the \code{\link{print.TableOne}} method}
+An object of class \code{svyTableOne}, which is a list of three objects.
 
 \item{ContTable}{an object of class \code{svyContTable}, containing continuous variables only}
 
 \item{CatTable}{ an object of class \code{svyCatTable}, containing categorical variables only}
 
-The second and third objects can be then be examined with the \code{print} and \code{summary} method, for example, \code{summary(object$CatTable)} to examine the categorical variables in detail.
+\item{MetaData}{list of metadata regarding variables}
 }
 \description{
-Create an object summarizing all baseline variables optionally stratifying by one or more startifying variables and performing statistical tests. The object gives a table that is easy to use in medical research papers. See also \code{\link{print.TableOne}} and \code{\link{summary.TableOne}}.
+Create an object summarizing all baseline variables (both continuous and categorical) optionally stratifying by one or more startifying variables and performing statistical tests. The object gives a table that is easy to use in medical research papers.
 }
 \examples{
 ## Load packages
@@ -61,8 +59,8 @@ nhanesSvy <- svydesign(ids = ~ SDMVPSU, strata = ~ SDMVSTRA, weights = ~ WTMEC2Y
                        nest = TRUE, data = nhanes)
 
 ## Create a table object
-## factorVars are converted to factors; no need to do this if variables are already factors
-## strata will stratify summaries; leave it unspecified, and overview is obtained
+## factorVars are converted to factors; no need for variables already factors
+## strata will stratify summaries; leave it unspecified for overall summaries
 tab1 <- svyCreateTableOne(vars = c("HI_CHOL","race","agecat","RIAGENDR"),
                           strata = "RIAGENDR", data = nhanesSvy,
                           factorVars = c("race","RIAGENDR"))
@@ -74,13 +72,15 @@ summary(tab1)
 tab1
 
 ## nonnormal specifies variables to be shown as median [IQR]
-print(tab1, nonnormal = "HI_CHOL", contDigits = 3, catDigits = 2, pDigits = 4)
+print(tab1, nonnormal = "HI_CHOL", contDigits = 3, catDigits = 2,
+      pDigits = 4, smd = TRUE)
 
 ## minMax changes it to median [min, max]
-print(tab1, nonnormal = "HI_CHOL", minMax = TRUE, contDigits = 3, catDigits = 2, pDigits = 4)
+print(tab1, nonnormal = "HI_CHOL", minMax = TRUE, contDigits = 3,
+      catDigits = 2, pDigits = 4, smd = TRUE)
 
 ## showAllLevels can be used tow show levels for all categorical variables
-print(tab1, showAllLevels = TRUE)
+print(tab1, showAllLevels = TRUE, smd = TRUE)
 
 ## To see all printing options
 ?print.TableOne
@@ -95,8 +95,6 @@ tab1$ContTable
 Kazuki Yoshida
 }
 \seealso{
-\code{\link{svyCreateTableOne}},  \code{\link{print.TableOne}},     \code{\link{summary.TableOne}},
-\code{\link{svyCreateCatTable}},  \code{\link{print.svyCatTable}},  \code{\link{summary.svyCatTable}},
-\code{\link{svyCreateContTable}}, \code{\link{print.svyContTable}}, \code{\link{summary.svyContTable}}
+\code{\link{print.TableOne}}, \code{\link{summary.TableOne}}
 }
 

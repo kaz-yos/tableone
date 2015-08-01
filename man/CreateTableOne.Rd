@@ -2,7 +2,7 @@
 % Please edit documentation in R/CreateTableOne.R
 \name{CreateTableOne}
 \alias{CreateTableOne}
-\title{Create an object summarizing both categorical and continuous variables}
+\title{Create an object summarizing both continuous and categorical variables}
 \usage{
 CreateTableOne(vars, strata, data, factorVars, includeNA = FALSE,
   test = TRUE, testApprox = chisq.test, argsApprox = list(correct = TRUE),
@@ -23,15 +23,15 @@ CreateTableOne(vars, strata, data, factorVars, includeNA = FALSE,
 
 \item{test}{If TRUE, as in the default and there are more than two groups, groupwise comparisons are performed.}
 
-\item{testApprox}{A function used to perform the large sample approximation based tests. The default is \code{\link{chisq.test}}. This is not recommended when some of the cell have small counts like fewer than 5.}
+\item{testApprox}{A function used to perform the large sample approximation based tests. The default is \code{chisq.test}. This is not recommended when some of the cell have small counts like fewer than 5.}
 
-\item{argsApprox}{A named list of arguments passed to the function specified in testApprox. The default is \code{list(correct = TRUE)}, which turns on the continuity correction for \code{\link{chisq.test}}.}
+\item{argsApprox}{A named list of arguments passed to the function specified in testApprox. The default is \code{list(correct = TRUE)}, which turns on the continuity correction for \code{chisq.test}.}
 
-\item{testExact}{A function used to perform the exact tests. The default is fisher.test. If the cells have large numbers, it will fail because of memory limitation. In this situation, the large sample approximation based should suffice.}
+\item{testExact}{A function used to perform the exact tests. The default is \code{fisher.test}. If the cells have large numbers, it will fail because of memory limitation. In this situation, the large sample approximation based should suffice.}
 
-\item{argsExact}{A named list of arguments passed to the function specified in testExact. The default is \code{list(workspace = 2*10^5)}, which specifies the memory space allocated for \code{\link{fisher.test}}.}
+\item{argsExact}{A named list of arguments passed to the function specified in testExact. The default is \code{list(workspace = 2*10^5)}, which specifies the memory space allocated for \code{fisher.test}.}
 
-\item{testNormal}{A function used to perform the normal assumption based tests. The default is \code{\link{oneway.test}}. This is equivalent of the t-test when there are only two groups.}
+\item{testNormal}{A function used to perform the normal assumption based tests. The default is \code{oneway.test}. This is equivalent of the t-test when there are only two groups.}
 
 \item{argsNormal}{A named list of arguments passed to the function specified in \code{testNormal}. The default is \code{list(var.equal = TRUE)}, which makes it the ordinary ANOVA that assumes equal variance across groups.}
 
@@ -42,18 +42,16 @@ CreateTableOne(vars, strata, data, factorVars, includeNA = FALSE,
 \item{smd}{If TRUE, as in the default and there are more than two groups, standardized mean differences for all pairwise comparisons are calculated. For categorical variables, Yang and Dalton's definition is used.}
 }
 \value{
-An object of class \code{TableOne}, which really is a list of three objects.
+An object of class \code{TableOne}, which is a list of three objects.
 
-\item{TableOne}{a categorical-continuous mixture data formatted and printed by the \code{\link{print.TableOne}} method}
+\item{ContTable}{object of class \code{ContTable}, containing continuous variables only}
 
-\item{ContTable}{an object of class \code{ContTable}, containing continuous variables only}
+\item{CatTable}{object of class \code{CatTable}, containing categorical variables only}
 
-\item{CatTable}{ an object of class \code{CatTable}, containing categorical variables only}
-
-The second and third objects can be then be examined with the \code{print} and \code{summary} method, for example, \code{summary(object$CatTable)} to examine the categorical variables in detail.
+\item{MetaData}{list of metadata regarding variables}
 }
 \description{
-Create an object summarizing all baseline variables optionally stratifying by one or more startifying variables and performing statistical tests. The object gives a table that is easy to use in medical research papers. See also \code{\link{print.TableOne}} and \code{\link{summary.TableOne}}.
+Create an object summarizing all baseline variables (both continuous and categorical) optionally stratifying by one or more startifying variables and performing statistical tests. The object gives a table that is easy to use in medical research papers.
 }
 \examples{
 ## Load
@@ -84,9 +82,10 @@ tableOne
 
 ## Specifying nonnormal variables will show the variables appropriately,
 ## and show nonparametric test p-values. Specify variables in the exact
-## argument to obtain the exact test p-values.
+## argument to obtain the exact test p-values. cramVars can be used to
+## show both levels for a 2-level categorical variables.
 print(tableOne, nonnormal = c("bili","chol","copper","alk.phos","trig"),
-      exact = c("status","stage"))
+      exact = c("status","stage"), cramVars = "hepato", smd = TRUE)
 
 ## Use the summary.TableOne method for detailed summary
 summary(tableOne)
@@ -110,11 +109,9 @@ print(tableOne, nonnormal = c("bili","chol","copper","alk.phos","trig"),
       exact = c("status","stage"), quote = TRUE, noSpaces = TRUE)
 }
 \author{
-Justin Bohn, Kazuki Yoshida
+Kazuki Yoshida, Justin Bohn
 }
 \seealso{
-\code{\link{CreateTableOne}}, \code{\link{print.TableOne}}, \code{\link{summary.TableOne}},
-\code{\link{CreateCatTable}}, \code{\link{print.CatTable}}, \code{\link{summary.CatTable}},
-\code{\link{CreateContTable}}, \code{\link{print.ContTable}}, \code{\link{summary.ContTable}}
+\code{\link{print.TableOne}}, \code{\link{summary.TableOne}}
 }
 

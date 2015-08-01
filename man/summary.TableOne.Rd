@@ -14,46 +14,18 @@
 \item{...}{For compatibility with generic. Ignored.}
 }
 \value{
-It will print the results.
+None. Results are printed.
 }
 \description{
-This method shows all the data a \code{(svy)TableOne} class object has. This
-includes the (optionally stratified) part with summary statistics and p-values
-and/or standardized mean differences.
+Shows all data a \code{(svy)TableOne} class object has. This includes the (optionally stratified) part with summary statistics and p-values and/or standardized mean differences.
 }
 \examples{
-## Load
-library(tableone)
-
-## Load Mayo Clinic Primary Biliary Cirrhosis Data
-library(survival)
-data(pbc)
-## Check variables
-head(pbc)
-
-## Make categorical variables factors
-varsToFactor <- c("status","trt","ascites","hepato","spiders","edema","stage")
-pbc[varsToFactor] <- lapply(pbc[varsToFactor], factor)
-
-## Create Table 1 stratified by sex and trt
-tableOne <- CreateTableOne(vars = c("time","status","age","ascites","hepato",
-                                    "spiders","edema","bili","chol","albumin",
-                                    "copper","alk.phos","ast","trig","platelet",
-                                    "protime","stage"),
-                           strata = c("sex","trt"), data = pbc)
-
-## Just typing the object name will invoke the print.TableOne method
-tableOne
-
-## Use the summary.TableOne method for detailed summary
-summary(tableOne)
+## See examples for CreateTableOne and svyCreateTableOne
 }
 \author{
 Kazuki Yoshida
 }
 \seealso{
-\code{\link{CreateTableOne}}, \code{\link{print.TableOne}}, \code{\link{summary.TableOne}},
-\code{\link{CreateContTable}}, \code{\link{print.ContTable}}, \code{\link{summary.ContTable}},
-\code{\link{CreateCatTable}}, \code{\link{print.CatTable}}, \code{\link{summary.CatTable}}
+\code{\link{CreateTableOne}}, \code{\link{svyCreateCatTable}}
 }
 

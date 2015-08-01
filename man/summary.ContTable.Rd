@@ -14,10 +14,10 @@
 \item{...}{For compatibility with generic. Ignored.}
 }
 \value{
-It will print the results.
+None. Results are printed.
 }
 \description{
-This method shows all the data a \code{ContTable} class object has. This includes the (optionally stratified) part with summary statistics and , if available, p-values from the normal assupmtion-based test (\code{\link{oneway.test}} by default) and nonparametric test (\code{\link{kruskal.test}} by default).
+Shows all data a \code{ContTable} class object has. This includes the (optionally stratified) part with summary statistics and, if available, p-values from the normal assupmtion-based test (\code{oneway.test} by default) and nonparametric test (\code{kruskal.test} by default) and standardized mean differences of all possible pairwise contrasts.
 }
 \examples{
 ## Load
@@ -46,8 +46,6 @@ summary(contTableOverall)
 Kazuki Yoshida
 }
 \seealso{
-\code{\link{CreateContTable}}, \code{\link{print.ContTable}}, \code{\link{summary.ContTable}},
-\code{\link{CreateCatTable}}, \code{\link{print.CatTable}}, \code{\link{summary.CatTable}},
-\code{\link{CreateTableOne}}, \code{\link{print.TableOne}}, \code{\link{summary.TableOne}}
+\code{\link{CreateContTable}}, \code{\link{print.ContTable}}
 }
 
