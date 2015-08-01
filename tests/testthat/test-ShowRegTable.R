@@ -41,19 +41,12 @@ test_that("coxph works", {
     ## confint
     ShowRegTable(coxph1)
     expect_output(ShowRegTable(coxph1),
-                  "[0.72, 1.47]")
+                  "0.72, 1.47")
 
     ## contint.default
     ShowRegTable(coxph1, ciFun = confint.default)
     expect_output(ShowRegTable(coxph1, ciFun = confint.default),
-                  "[0.72, 1.47]")
-
-    ## Show with quote to ease copy and paste
-    ShowRegTable(coxph1, quote = TRUE)
-    expect_output(ShowRegTable(coxph1, quote = TRUE),
-                  '[0.72, 1.47]"')
-    expect_output(ShowRegTable(coxph1, quote = TRUE),
-                  '"[0.72, 1.47]')
+                  "0.72, 1.47")
 
 })
 
@@ -66,12 +59,12 @@ test_that("glm works", {
     ## confint
     ShowRegTable(glm1, digits = 5)
     expect_output(ShowRegTable(glm1, digits = 5),
-                  "[0.63994, 1.75622]")
+                  "0.63994, 1.75622")
 
     ## contint.default
     ShowRegTable(glm1, ciFun = confint.default, digits = 5)
-    expect_output(ShowRegTable(glm1, ciFun = confint.default),
-                  "[0.63975, 1.75230]")
+    expect_output(ShowRegTable(glm1, ciFun = confint.default, digits = 5),
+                  "0.63975, 1.75230")
 
 })
 
@@ -82,14 +75,14 @@ test_that("lm works", {
     expect_true(!all(confint(lm1) == confint.default(lm1)))
 
     ## confint
-    ShowRegTable(lm1, digits = 5)
-    expect_output(ShowRegTable(lm1, digits = 5),
-                  "[-275.96185, 175.16874]")
+    ShowRegTable(lm1, digits = 5, exp = FALSE)
+    expect_output(ShowRegTable(lm1, digits = 5, exp = FALSE),
+                  "-275.96185, 175.16874")
 
     ## contint.default
-    ShowRegTable(lm1, ciFun = confint.default, digits = 5)
-    expect_output(ShowRegTable(lm1, ciFun = confint.default),
-                  "[-275.07261, 174.27950]")
+    ShowRegTable(lm1, ciFun = confint.default, digits = 5, exp = FALSE)
+    expect_output(ShowRegTable(lm1, ciFun = confint.default, digits = 5, exp = FALSE),
+                  "-275.07261, 174.27950")
 
 })
 
