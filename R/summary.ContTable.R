@@ -11,27 +11,7 @@
 ##' \code{\link{CreateContTable}}, \code{\link{print.ContTable}}
 ##' @examples
 ##'
-##' ## Load
-##' library(tableone)
-##'
-##' ## Load Mayo Clinic Primary Biliary Cirrhosis Data
-##' library(survival)
-##' data(pbc)
-##' ## Check variables
-##' head(pbc)
-##'
-##' ## Create an overall table for continuous variables
-##' contVars <- c("time","age","bili","chol","albumin","copper",
-##'               "alk.phos","ast","trig","platelet","protime")
-##' contTableOverall <- CreateContTable(vars = contVars, data = pbc)
-##'
-##' ## Simply typing the object name will invoke the print.ContTable method,
-##' ## which will show the sample size, means and standard deviations.
-##' contTableOverall
-##'
-##' ## To further examine the variables, use the summary.ContTable method,
-##' ## which will show more details.
-##' summary(contTableOverall)
+##' ## See examples for CreateTableOne
 ##'
 ##' @export
 summary.ContTable <- function(object, digits = 2, ...) {

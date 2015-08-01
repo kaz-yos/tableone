@@ -2737,93 +2737,13 @@ detaching ‘package:survival’
 > 
 > ### ** Examples
 > 
-> ## Load
-> library(tableone)
-> 
-> ## Load Mayo Clinic Primary Biliary Cirrhosis Data
-> library(survival)
-> data(pbc)
-> ## Check variables
-> head(pbc)
-  id time status trt      age sex ascites hepato spiders edema bili chol
-1  1  400      2   1 58.76523   f       1      1       1   1.0 14.5  261
-2  2 4500      0   1 56.44627   f       0      1       1   0.0  1.1  302
-3  3 1012      2   1 70.07255   m       0      0       0   0.5  1.4  176
-4  4 1925      2   1 54.74059   f       0      1       1   0.5  1.8  244
-5  5 1504      1   2 38.10541   f       0      1       1   0.0  3.4  279
-6  6 2503      2   2 66.25873   f       0      1       0   0.0  0.8  248
-  albumin copper alk.phos    ast trig platelet protime stage
-1    2.60    156   1718.0 137.95  172      190    12.2     4
-2    4.14     54   7394.8 113.52   88      221    10.6     3
-3    3.48    210    516.0  96.10   55      151    12.0     4
-4    2.54     64   6121.8  60.63   92      183    10.3     4
-5    3.53    143    671.0 113.15   72      136    10.9     3
-6    3.98     50    944.0  93.00   63       NA    11.0     3
-> 
-> ## Create an overall table for categorical variables
-> catVars <- c("status","ascites","hepato","spiders","edema","stage")
-> catTableOverall <- CreateCatTable(vars = catVars, data = pbc)
-> 
-> ## Simply typing the object name will invoke the print.CatTable method,
-> ## which will show the sample size, frequencies and percentages.
-> ## For 2-level variables, only the higher level is shown for simplicity.
-> catTableOverall
-                 
-                  Overall    
-  n               418        
-  status (%)                 
-     0            232 (55.5) 
-     1             25 ( 6.0) 
-     2            161 (38.5) 
-  ascites = 1 (%)  24 ( 7.7) 
-  hepato = 1 (%)  160 (51.3) 
-  spiders = 1 (%)  90 (28.8) 
-  edema (%)                  
-     0            354 (84.7) 
-     0.5           44 (10.5) 
-     1             20 ( 4.8) 
-  stage (%)                  
-     1             21 ( 5.1) 
-     2             92 (22.3) 
-     3            155 (37.6) 
-     4            144 (35.0) 
-> 
-> ## To further examine the variables, use the summary.CatTable method,
-> ## which will show more details.
-> summary(catTableOverall)
-strata: Overall
-     var   n miss p.miss level freq percent cum.percent
-  status 418    0    0.0     0  232    55.5        55.5
-                             1   25     6.0        61.5
-                             2  161    38.5       100.0
-                                                       
- ascites 418  106   25.4     0  288    92.3        92.3
-                             1   24     7.7       100.0
-                                                       
-  hepato 418  106   25.4     0  152    48.7        48.7
-                             1  160    51.3       100.0
-                                                       
- spiders 418  106   25.4     0  222    71.2        71.2
-                             1   90    28.8       100.0
-                                                       
-   edema 418    0    0.0     0  354    84.7        84.7
-                           0.5   44    10.5        95.2
-                             1   20     4.8       100.0
-                                                       
-   stage 418    6    1.4     1   21     5.1         5.1
-                             2   92    22.3        27.4
-                             3  155    37.6        65.0
-                             4  144    35.0       100.0
-                                                       
+> ## See examples for CreateTableOne
 > 
 > 
 > 
 > base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
 > base::cat("summary.CatTable", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
-
-detaching ‘package:survival’
-
 > nameEx("summary.ContTable")
 > ### * summary.ContTable
 > 
@@ -2836,89 +2756,13 @@ detaching ‘package:survival’
 > 
 > ### ** Examples
 > 
-> ## Load
-> library(tableone)
-> 
-> ## Load Mayo Clinic Primary Biliary Cirrhosis Data
-> library(survival)
-> data(pbc)
-> ## Check variables
-> head(pbc)
-  id time status trt      age sex ascites hepato spiders edema bili chol
-1  1  400      2   1 58.76523   f       1      1       1   1.0 14.5  261
-2  2 4500      0   1 56.44627   f       0      1       1   0.0  1.1  302
-3  3 1012      2   1 70.07255   m       0      0       0   0.5  1.4  176
-4  4 1925      2   1 54.74059   f       0      1       1   0.5  1.8  244
-5  5 1504      1   2 38.10541   f       0      1       1   0.0  3.4  279
-6  6 2503      2   2 66.25873   f       0      1       0   0.0  0.8  248
-  albumin copper alk.phos    ast trig platelet protime stage
-1    2.60    156   1718.0 137.95  172      190    12.2     4
-2    4.14     54   7394.8 113.52   88      221    10.6     3
-3    3.48    210    516.0  96.10   55      151    12.0     4
-4    2.54     64   6121.8  60.63   92      183    10.3     4
-5    3.53    143    671.0 113.15   72      136    10.9     3
-6    3.98     50    944.0  93.00   63       NA    11.0     3
-> 
-> ## Create an overall table for continuous variables
-> contVars <- c("time","age","bili","chol","albumin","copper",
-+               "alk.phos","ast","trig","platelet","protime")
-> contTableOverall <- CreateContTable(vars = contVars, data = pbc)
-> 
-> ## Simply typing the object name will invoke the print.ContTable method,
-> ## which will show the sample size, means and standard deviations.
-> contTableOverall
-                      
-                       Overall          
-  n                    418              
-  time (mean (sd))     1917.78 (1104.67)
-  age (mean (sd))        50.74 (10.45)  
-  bili (mean (sd))        3.22 (4.41)   
-  chol (mean (sd))      369.51 (231.94) 
-  albumin (mean (sd))     3.50 (0.42)   
-  copper (mean (sd))     97.65 (85.61)  
-  alk.phos (mean (sd)) 1982.66 (2140.39)
-  ast (mean (sd))       122.56 (56.70)  
-  trig (mean (sd))      124.70 (65.15)  
-  platelet (mean (sd))  257.02 (98.33)  
-  protime (mean (sd))    10.73 (1.02)   
-> 
-> ## To further examine the variables, use the summary.ContTable method,
-> ## which will show more details.
-> summary(contTableOverall)
-strata: Overall
-           n miss p.miss   mean      sd median    p25    p75   min     max
-time     418    0   0.00 1917.8 1104.67 1730.0 1092.8 2613.5  41.0  4795.0
-age      418    0   0.00   50.7   10.45   51.0   42.8   58.2  26.3    78.4
-bili     418    0   0.00    3.2    4.41    1.4    0.8    3.4   0.3    28.0
-chol     418  134  32.06  369.5  231.94  309.5  249.5  400.0 120.0  1775.0
-albumin  418    0   0.00    3.5    0.42    3.5    3.2    3.8   2.0     4.6
-copper   418  108  25.84   97.6   85.61   73.0   41.2  123.0   4.0   588.0
-alk.phos 418  106  25.36 1982.7 2140.39 1259.0  871.5 1980.0 289.0 13862.4
-ast      418  106  25.36  122.6   56.70  114.7   80.6  151.9  26.4   457.2
-trig     418  136  32.54  124.7   65.15  108.0   84.2  151.0  33.0   598.0
-platelet 418   11   2.63  257.0   98.33  251.0  188.5  318.0  62.0   721.0
-protime  418    2   0.48   10.7    1.02   10.6   10.0   11.1   9.0    18.0
-           skew  kurt
-time      0.473 -0.48
-age       0.087 -0.62
-bili      2.718  8.07
-chol      3.409 14.34
-albumin  -0.468  0.57
-copper    2.304  7.62
-alk.phos  2.993  9.66
-ast       1.449  4.31
-trig      2.524 11.80
-platelet  0.627  0.86
-protime   2.223 10.04
+> ## See examples for CreateTableOne
 > 
 > 
 > 
 > base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
 > base::cat("summary.ContTable", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
-
-detaching ‘package:survival’
-
 > nameEx("summary.TableOne")
 > ### * summary.TableOne
 > 
@@ -3397,7 +3241,7 @@ detaching ‘package:survey’, ‘package:grid’
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  5.093 0.184 5.386 0.006 0.008 
+Time elapsed:  4.822 0.161 5.071 0.005 0.007 
 > grDevices::dev.off()
 null device 
           1 

@@ -11,27 +11,7 @@
 ##' \code{\link{CreateCatTable}}, \code{\link{print.CatTable}},
 ##' @examples
 ##'
-##' ## Load
-##' library(tableone)
-##'
-##' ## Load Mayo Clinic Primary Biliary Cirrhosis Data
-##' library(survival)
-##' data(pbc)
-##' ## Check variables
-##' head(pbc)
-##'
-##' ## Create an overall table for categorical variables
-##' catVars <- c("status","ascites","hepato","spiders","edema","stage")
-##' catTableOverall <- CreateCatTable(vars = catVars, data = pbc)
-##'
-##' ## Simply typing the object name will invoke the print.CatTable method,
-##' ## which will show the sample size, frequencies and percentages.
-##' ## For 2-level variables, only the higher level is shown for simplicity.
-##' catTableOverall
-##'
-##' ## To further examine the variables, use the summary.CatTable method,
-##' ## which will show more details.
-##' summary(catTableOverall)
+##' ## See examples for CreateTableOne
 ##'
 ##' @export
 summary.CatTable <- function(object, digits = 1, ...) {
