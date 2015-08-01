@@ -19,9 +19,7 @@
 ##' @return It is mainly for printing the result. But this function does return a matrix containing what you see in the output invisibly. You can assign it to an object to save it.
 ##' @author Kazuki Yoshida
 ##' @seealso
-##' \code{\link{svyCreateCatTable}},  \code{\link{print.svyCatTable}},  \code{\link{summary.svyCatTable}},
-##' \code{\link{svyCreateContTable}}, \code{\link{print.svyContTable}}, \code{\link{summary.svyContTable}},
-##' \code{\link{svyCreateTableOne}},  \code{\link{print.TableOne}},     \code{\link{summary.TableOne}}
+##' \code{\link{svyCreateCatTable}}, \code{\link{summary.svyCatTable}}
 ##' @examples
 ##'
 ##' ## See the examples for svyCreateTableOne()

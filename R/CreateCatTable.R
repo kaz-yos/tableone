@@ -18,9 +18,7 @@
 ##' @return An object of class \code{CatTable}.
 ##' @author Kazuki Yoshida (based on \code{Deducer::frequencies()})
 ##' @seealso
-##' \code{\link{CreateCatTable}},  \code{\link{print.CatTable}},  \code{\link{summary.CatTable}},
-##' \code{\link{CreateContTable}}, \code{\link{print.ContTable}}, \code{\link{summary.ContTable}},
-##' \code{\link{CreateTableOne}},  \code{\link{print.TableOne}},  \code{\link{summary.TableOne}}
+##' \code{\link{CreateTableOne}}, \code{\link{print.CatTable}},  \code{\link{summary.CatTable}}
 ##' @examples
 ##'
 ##' ## Load

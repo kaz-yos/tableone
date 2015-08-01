@@ -14,9 +14,7 @@
 ##' @return An object of class \code{svyContTable}.
 ##' @author Kazuki Yoshida
 ##' @seealso
-##' \code{\link{svyCreateContTable}}, \code{\link{print.svyContTable}}, \code{\link{summary.svyContTable}},
-##' \code{\link{svyCreateCatTable}},  \code{\link{print.svyCatTable}},  \code{\link{summary.svyCatTable}},
-##' \code{\link{svyCreateTableOne}},  \code{\link{print.TableOne}},     \code{\link{summary.TableOne}}
+##' \code{\link{svyCreateTableOne}}, \code{\link{print.svyContTable}}, \code{\link{summary.svyContTable}},
 ##' @examples
 ##'
 ##' ## See the examples for svyCreateTableOne()

@@ -22,9 +22,7 @@
 ##'
 ##' @author Kazuki Yoshida
 ##' @seealso
-##' \code{\link{svyCreateTableOne}},  \code{\link{print.TableOne}},     \code{\link{summary.TableOne}},
-##' \code{\link{svyCreateCatTable}},  \code{\link{print.svyCatTable}},  \code{\link{summary.svyCatTable}},
-##' \code{\link{svyCreateContTable}}, \code{\link{print.svyContTable}}, \code{\link{summary.svyContTable}}
+##' \code{\link{print.TableOne}}, \code{\link{summary.TableOne}}
 ##' @examples
 ##'
 ##' ## Load packages

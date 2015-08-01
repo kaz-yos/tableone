@@ -28,9 +28,7 @@
 ##'
 ##' Maintainer: Kazuki Yoshida <kazukiyoshida@@mail.harvard.edu>
 ##' @seealso
-##' \code{\link{CreateTableOne}}, \code{\link{print.TableOne}}, \code{\link{summary.TableOne}},
-##' \code{\link{svyCreateTableOne}},
-##' \code{\link{ShowRegTable}}
+##' \code{\link{CreateTableOne}}, \code{\link{svyCreateTableOne}}, \code{\link{print.TableOne}}, \code{\link{summary.TableOne}}, \code{\link{ShowRegTable}}
 ##' @examples
 ##'
 ##' ## See examples for CreateTableOne and svyCreateTableOne
