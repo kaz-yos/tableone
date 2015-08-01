@@ -9,7 +9,7 @@
 ##' @param pDigits Number of digits to print for the p-values.
 ##' @param printToggle Whether to print the output. If FLASE, no output is created, and a matrix is invisibly returned.
 ##' @param quote Whether to show everything in quotes. The default is FALSE. If TRUE, everything including the row and column names are quoted so that you can copy it to Excel easily.
-##' @param simpleCi Whether to calculate confidence interval by the default normal approximation method. The default is FALSE. If TRUE, the default normal approximation method is used. This may be used when the profile likelihood-based calculation takes too much time.
+##' @param ciFun Function used for calculation. \code{confint} is the default. For generalized linear models this gives the profile likelihood-based calculation, which may take too much time for large models. Use \code{confint.default} for simple normal approximation method (+/- 1.96 * standard error).
 ##' @return A matrix containing what you see is returned invisibly. You can capture it by assignment to an object.
 ##' @author Kazuki Yoshida
 ##' @examples
@@ -35,11 +35,7 @@
 ##'
 ##' @export
 ShowRegTable <- function(model, exp = TRUE, digits = 2, pDigits = 3, printToggle = TRUE,
-                         quote = FALSE, simpleCi = FALSE) {
-
-    if (simpleCi) {
-        confint <- confint.default
-    }
+                         quote = FALSE, ciFun = confint) {
 
     ## Create formats
     fmt1 <- paste0("%.",  digits, "f")
@@ -48,7 +44,7 @@ ShowRegTable <- function(model, exp = TRUE, digits = 2, pDigits = 3, printToggle
     ## Obtain necessary data
     ## The model must have summary and confint methods
     modelCoef       <- coef(model)
-    modelConfInt    <- suppressMessages(confint(model))
+    modelConfInt    <- suppressMessages(ciFun(model))
     modelSummaryMat <- coef(summary(model))
     modelP          <- modelSummaryMat[,ncol(modelSummaryMat)]
 
@@ -67,11 +63,12 @@ ShowRegTable <- function(model, exp = TRUE, digits = 2, pDigits = 3, printToggle
     pointEstimates <- format(pointEstimates, justify = "right")
 
     resString <- sprintf(fmt = paste0("%s", " [", fmt1, ", ", fmt1 ,"]"),
-                         ## resMat[,1],    # point estimate
+                         ## point estimate
                          pointEstimates,
-                         resMat[,2],    # lower
-                         resMat[,3]     # upper
-                         )
+                         ## lower bound
+                         resMat[,2],
+                         ## upper bound
+                         resMat[,3])
 
     ## Format p-values
     pString <- sprintf(fmt = fmt2,
