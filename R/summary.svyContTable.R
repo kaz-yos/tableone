@@ -1,6 +1,6 @@
 ##' Shows all results in a \code{svyContTable} class object
 ##'
-##' Shows all data a \code{svyContTable} class object has. This includes the (optionally stratified) part with summary statistics and, if available, p-values from the normal assupmtion-based test (\code{\link{oneway.test}} by default) and nonparametric test (\code{\link{kruskal.test}} by default) and standardized mean differences of all possible pairwise contrasts.
+##' Shows all data a \code{svyContTable} class object has. This includes the (optionally stratified) part with summary statistics and, if available, p-values from the normal assupmtion-based test (\code{regTermTest} with \code{svyglm} by default) and nonparametric test (\code{svyranktest} by default) and standardized mean differences of all possible pairwise contrasts.
 ##'
 ##' @param object An object that has the \code{svyContTable} class to be shown.
 ##' @param digits Number of digits to print.
