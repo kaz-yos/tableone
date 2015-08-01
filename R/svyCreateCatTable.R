@@ -4,6 +4,7 @@
 ##' by one or more startifying variables and performing statistical tests. The
 ##' object gives a table that is easy to use in medical research papers. See
 ##' also \code{\link{print.svyCatTable}} and \code{\link{summary.svyCatTable}}.
+##' \code{\link{svyCreateTableOne}} should be used as the universal frontend.
 ##'
 ##' @param vars Variable(s) to be summarized given as a character vector.
 ##' @param strata Stratifying (grouping) variable name(s) given as a character vector. If omitted, the overall results are returned.

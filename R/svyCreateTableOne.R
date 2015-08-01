@@ -1,4 +1,4 @@
-##' Create an object summarizing any variables for weighted data
+##' Create an object summarizing both continuous and categorical variables for weighted data
 ##'
 ##' Create an object summarizing all baseline variables optionally stratifying by one or more startifying variables and performing statistical tests. The object gives a table that is easy to use in medical research papers. See also \code{\link{print.TableOne}} and \code{\link{summary.TableOne}}.
 ##'
@@ -16,10 +16,9 @@
 ##' @param argsApprox A named list of arguments passed to the function specified in testApprox.
 ##' @param smd If TRUE, as in the default and there are more than two groups, standardized mean differences for all pairwise comparisons are calculated. For categorical variables, Yang and Dalton's definition is used.
 ##' @return An object of class \code{svyTableOne}, which really is a list of three objects.
-##' @return \item{TableOne}{a categorical-continuous mixture data formatted and printed by the \code{\link{print.TableOne}} method}
 ##' @return \item{ContTable}{an object of class \code{svyContTable}, containing continuous variables only}
 ##' @return \item{CatTable}{ an object of class \code{svyCatTable}, containing categorical variables only}
-##' @return The second and third objects can be then be examined with the \code{print} and \code{summary} method, for example, \code{summary(object$CatTable)} to examine the categorical variables in detail.
+##' @return \item{MetaData}{list of metadata regarding variables}
 ##'
 ##' @author Kazuki Yoshida
 ##' @seealso

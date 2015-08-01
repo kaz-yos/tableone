@@ -1,4 +1,4 @@
-##' Create an object summarizing both categorical and continuous variables
+##' Create an object summarizing both continuous and categorical variables
 ##'
 ##' Create an object summarizing all baseline variables optionally stratifying by one or more startifying variables and performing statistical tests. The object gives a table that is easy to use in medical research papers. See also \code{\link{print.TableOne}} and \code{\link{summary.TableOne}}.
 ##'
@@ -18,12 +18,11 @@
 ##' @param argsExact A named list of arguments passed to the function specified in testExact. The default is \code{list(workspace = 2*10^5)}, which specifies the memory space allocated for \code{\link{fisher.test}}.
 ##' @param smd If TRUE, as in the default and there are more than two groups, standardized mean differences for all pairwise comparisons are calculated. For categorical variables, Yang and Dalton's definition is used.
 ##' @return An object of class \code{TableOne}, which really is a list of three objects.
-##' @return \item{TableOne}{a categorical-continuous mixture data formatted and printed by the \code{\link{print.TableOne}} method}
-##' @return \item{ContTable}{an object of class \code{ContTable}, containing continuous variables only}
-##' @return \item{CatTable}{ an object of class \code{CatTable}, containing categorical variables only}
-##' @return The second and third objects can be then be examined with the \code{print} and \code{summary} method, for example, \code{summary(object$CatTable)} to examine the categorical variables in detail.
+##' @return \item{ContTable}{object of class \code{ContTable}, containing continuous variables only}
+##' @return \item{CatTable}{object of class \code{CatTable}, containing categorical variables only}
+##' @return \item{MetaData}{list of metadata regarding variables}
 ##'
-##' @author Justin Bohn, Kazuki Yoshida
+##' @author Kazuki Yoshida, Justin Bohn
 ##' @seealso
 ##' \code{\link{CreateTableOne}}, \code{\link{print.TableOne}}, \code{\link{summary.TableOne}},
 ##' \code{\link{CreateCatTable}}, \code{\link{print.CatTable}}, \code{\link{summary.CatTable}},

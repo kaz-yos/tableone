@@ -18,9 +18,9 @@
 ##' @return An object of class \code{CatTable}, which really is a \code{\link{by}} object with additional attributes. Each element of the \code{\link{by}} part is a matrix with rows representing variables, and columns representing summary statistics.
 ##' @author Kazuki Yoshida (based on \code{Deducer::frequencies()})
 ##' @seealso
-##' \code{\link{CreateCatTable}}, \code{\link{print.CatTable}}, \code{\link{summary.CatTable}},
+##' \code{\link{CreateCatTable}},  \code{\link{print.CatTable}},  \code{\link{summary.CatTable}},
 ##' \code{\link{CreateContTable}}, \code{\link{print.ContTable}}, \code{\link{summary.ContTable}},
-##' \code{\link{CreateTableOne}}, \code{\link{print.TableOne}}, \code{\link{summary.TableOne}}
+##' \code{\link{CreateTableOne}},  \code{\link{print.TableOne}},  \code{\link{summary.TableOne}}
 ##' @examples
 ##'
 ##' ## Load
@@ -63,7 +63,7 @@
 ##'
 ##' ## print now includes p-values which are by default calculated by chisq.test.
 ##' ## It is formatted at the decimal place specified by the pDigits argument
-##' ## (3 by default). It does <0.001 for you.
+##' ## (3 by default). It is formatted like <0.001 if very small.
 ##' catTableBySexTrt
 ##'
 ##' ## The exact argument toggles the p-values to the exact test result from
