@@ -1,19 +1,19 @@
 ##' Shows all results in a \code{(svy)TableOne} class object
 ##'
-##' This method shows all the data a \code{(svy)TableOne} class object has. This
-##' includes the (optionally stratified) part with summary statistics and p-values
-##' and/or standardized mean differences.
+##' Shows all data a \code{(svy)TableOne} class object has. This includes the (optionally stratified) part with summary statistics and p-values and/or standardized mean differences.
 ##'
 ##'
 ##' @param object An object that has the \code{(svy)TableOne} class to be shown.
 ##' @param digits Number of digits to print.
 ##' @param ... For compatibility with generic. Ignored.
-##' @return It will print the results.
+##' @return None. Results are printed.
 ##' @author Kazuki Yoshida
 ##' @seealso
-##' \code{\link{CreateTableOne}}, \code{\link{print.TableOne}}, \code{\link{summary.TableOne}},
-##' \code{\link{CreateContTable}}, \code{\link{print.ContTable}}, \code{\link{summary.ContTable}},
-##' \code{\link{CreateCatTable}}, \code{\link{print.CatTable}}, \code{\link{summary.CatTable}}
+##' \code{\link{CreateTableOne}},     \code{\link{print.TableOne}},     \code{\link{summary.TableOne}},
+##' \code{\link{CreateContTable}},    \code{\link{print.ContTable}},    \code{\link{summary.ContTable}},
+##' \code{\link{CreateCatTable}},     \code{\link{print.CatTable}},     \code{\link{summary.CatTable}}
+##' \code{\link{svyCreateContTable}}, \code{\link{print.svyContTable}}, \code{\link{summary.svyContTable}},
+##' \code{\link{svyCreateCatTable}},  \code{\link{print.svyCatTable}},  \code{\link{summary.svyCatTable}}
 ##' @examples
 ##'
 ##' ## Load

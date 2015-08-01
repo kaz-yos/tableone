@@ -1,16 +1,16 @@
 ##' Shows all results in a \code{ContTable} class object
 ##'
-##' This method shows all the data a \code{ContTable} class object has. This includes the (optionally stratified) part with summary statistics and , if available, p-values from the normal assupmtion-based test (\code{\link{oneway.test}} by default) and nonparametric test (\code{\link{kruskal.test}} by default).
+##' Shows all data a \code{ContTable} class object has. This includes the (optionally stratified) part with summary statistics and, if available, p-values from the normal assupmtion-based test (\code{\link{oneway.test}} by default) and nonparametric test (\code{\link{kruskal.test}} by default) and standardized mean differences of all possible pairwise contrasts.
 ##'
 ##' @param object An object that has the \code{ContTable} class to be shown.
 ##' @param digits Number of digits to print.
 ##' @param ... For compatibility with generic. Ignored.
-##' @return It will print the results.
+##' @return None. Results are printed.
 ##' @author Kazuki Yoshida
 ##' @seealso
 ##' \code{\link{CreateContTable}}, \code{\link{print.ContTable}}, \code{\link{summary.ContTable}},
-##' \code{\link{CreateCatTable}}, \code{\link{print.CatTable}}, \code{\link{summary.CatTable}},
-##' \code{\link{CreateTableOne}}, \code{\link{print.TableOne}}, \code{\link{summary.TableOne}}
+##' \code{\link{CreateCatTable}},  \code{\link{print.CatTable}},  \code{\link{summary.CatTable}},
+##' \code{\link{CreateTableOne}},  \code{\link{print.TableOne}},  \code{\link{summary.TableOne}}
 ##' @examples
 ##'
 ##' ## Load
