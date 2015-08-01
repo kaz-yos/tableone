@@ -16,7 +16,7 @@
 ##' @param test Whether to show p-values. TRUE by default. If FALSE, only the numerical summaries are shown.
 ##' @param smd Whether to show standardized mean differences. FALSE by default. If there are more than one contrasts, the average of all possible standardized mean differences is shown.
 ##' @param ... For compatibility with generic. Ignored.
-##' @return It is mainly for printing the result. But this function does return a matrix containing what you see in the output invisibly. You can assign it to an object to save it.
+##' @return A matrix object containing what you see is also invisibly returned. This can be assinged a name and exported via \code{write.csv}.
 ##' @author Kazuki Yoshida
 ##' @seealso
 ##' \code{\link{CreateContTable}}, \code{\link{summary.ContTable}}
