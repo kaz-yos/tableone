@@ -59,7 +59,7 @@
 ##' ## and show nonparametric test p-values. Specify variables in the exact
 ##' ## argument to obtain the exact test p-values.
 ##' print(tableOne, nonnormal = c("bili","chol","copper","alk.phos","trig"),
-##'       exact = c("status","stage"))
+##'       exact = c("status","stage"), smd = TRUE)
 ##'
 ##' ## Use the summary.TableOne method for detailed summary
 ##' summary(tableOne)

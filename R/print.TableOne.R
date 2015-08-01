@@ -56,7 +56,7 @@
 ##' ## argument to obtain the exact test p-values. cramVars can be used to
 ##' ## show both levels for a 2-level categorical variables.
 ##' print(tableOne, nonnormal = c("bili","chol","copper","alk.phos","trig"),
-##'       exact = c("status","stage"), cramVars = "hepato")
+##'       exact = c("status","stage"), cramVars = "hepato", smd = TRUE)
 ##'
 ##' ## Use the summary.TableOne method for detailed summary
 ##' summary(tableOne)

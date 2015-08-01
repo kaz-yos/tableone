@@ -1,6 +1,6 @@
 ##' Create "Table 1" to describe baseline characteristics
 ##'
-##' This package creates "Table 1", i.e., description of baseline patient characteristics, which is essential in every medical research. This package provides functions to create such summaries for continuous and categorical variables, optionally with subgroup comparisons. The package was insipired by and based on descriptive statistics functions in Deducer, a Java-based GUI package by Ian Fellows. This package does not require GUI or Java, and intended for command-line users.
+##' Creates "Table 1", i.e., description of baseline patient characteristics, which is essential in every medical research. Supports both continuous and categorical variables, as well as p-values and standardized mean differences. Weighted data are supported via the survey package. See github for a screencast. tableone was inspired by descriptive statistics functions in Deducer , a Java-based GUI package by Ian Fellows. This package does not require GUI or Java, and intended for command-line users.
 ##'
 ##' @name tableone-package
 ##' @aliases tableone-package tableone
@@ -28,12 +28,8 @@
 ##'
 ##' Maintainer: Kazuki Yoshida <kazukiyoshida@@mail.harvard.edu>
 ##' @seealso
-##' \code{\link{CreateTableOne}},     \code{\link{print.TableOne}},     \code{\link{summary.TableOne}},
-##' \code{\link{CreateContTable}},    \code{\link{print.ContTable}},    \code{\link{summary.ContTable}},
-##' \code{\link{CreateCatTable}},     \code{\link{print.CatTable}},     \code{\link{summary.CatTable}},
-##' \code{\link{svyCreateTableOne}},  \code{\link{print.TableOne}},     \code{\link{summary.TableOne}},
-##' \code{\link{svyCreateContTable}}, \code{\link{print.svyContTable}}, \code{\link{summary.svyContTable}},
-##' \code{\link{svyCreateCatTable}},  \code{\link{print.svyCatTable}},  \code{\link{summary.svyCatTable}},
+##' \code{\link{CreateTableOne}}, \code{\link{print.TableOne}}, \code{\link{summary.TableOne}},
+##' \code{\link{svyCreateTableOne}},
 ##' \code{\link{ShowRegTable}}
 ##' @examples
 ##'
@@ -71,7 +67,7 @@
 ##' ## variables specified in cramVars, both levels are shown. Use minMax
 ##' ## argument to show median [min, max] for nonnormal variables.
 ##' print(tableOne, nonnormal = c("bili","chol","copper","alk.phos","trig"),
-##'       exact = c("status","stage"), cramVars = "sex")
+##'       exact = c("status","stage"), cramVars = "sex", smd = TRUE)
 ##'
 ##' ## Use the summary.TableOne method for detailed summary
 ##' summary(tableOne)
