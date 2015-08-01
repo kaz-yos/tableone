@@ -1,17 +1,17 @@
-##' Format and print the \code{TableOne} class objects
+##' Format and print \code{TableOne} class objects
 ##'
-##' This is the \code{print} method for the \code{TableOne} class objects created by \code{\link{CreateTableOne}} function.
+##' \code{print} method for the \code{TableOne} class objects created by \code{\link{CreateTableOne}} function.
 ##'
-##' @param x The result of a call to the \code{\link{CreateTableOne}} function.
+##' @param x Object returned by \code{\link{CreateTableOne}} function.
 ##' @param catDigits Number of digits to print for proportions. Default 1.
 ##' @param contDigits Number of digits to print for continuous variables. Default 2.
-##' @param pDigits Number of digits to print for p-values. Default 3.
+##' @param pDigits Number of digits to print for p-values (also used for standardized mean differences). Default 3.
 ##' @param quote Whether to show everything in quotes. The default is FALSE. If TRUE, everything including the row and column names are quoted so that you can copy it to Excel easily.
 ##' @param missing Whether to show missing data information (not implemented yet, placeholder)
 ##' @param explain Whether to add explanation to the variable names, i.e., (\%) is added to the variable names when percentage is shown.
 ##' @param printToggle Whether to print the output. If FLASE, no output is created, and a matrix is invisibly returned.
-##' @param test Whether to show the p-values. TRUE by default. If FALSE, only the numerical summaries are shown.
-##' @param smd Whether to show the standardized mean difference. If there are more than one contrasts, the average of all possible standardized mean differences is shown. For categorical variables, Yang and Dalton's definition is used.
+##' @param test Whether to show p-values. TRUE by default. If FALSE, only the numerical summaries are shown.
+##' @param smd Whether to show standardized mean differences. FALSE by default. If there are more than one contrasts, the average of all possible standardized mean differences is shown. For categorical variables, Yang and Dalton's definition is used.
 ##' @param noSpaces Whether to remove spaces added for alignment. Use this option if you prefer to align numbers yourself in other software.
 ##' @param format The default is "fp" frequency (percentage). You can also choose from "f" frequency only, "p" percentage only, and "pf" percentage (frequency).
 ##' @param showAllLevels Whether to show all levels. FALSE by default, i.e., for 2-level categorical variables, only the higher level is shown to avoid redundant information.

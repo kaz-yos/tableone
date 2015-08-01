@@ -1,10 +1,10 @@
-##' Format and print the \code{svyCatTable} class objects
+##' Format and print \code{svyCatTable} class objects
 ##'
-##' This is the \code{print} method for the \code{svyCatTable} class objects created by \code{\link{svyCreateCatTable}} function.
+##' \code{print} method for the \code{svyCatTable} class objects created by \code{\link{svyCreateCatTable}} function.
 ##'
 ##' @param x The result of a call to the \code{\link{svyCreateCatTable}} function.
 ##' @param digits Number of digits to print in the table.
-##' @param pDigits Number of digits to print for p-values.
+##' @param pDigits Number of digits to print for p-values (also used for standardized mean differences).
 ##' @param quote Whether to show everything in quotes. The default is FALSE. If TRUE, everything including the row and column names are quoted so that you can copy it to Excel easily.
 ##' @param missing Whether to show missing data information (not implemented yet, placeholder)
 ##' @param explain Whether to add explanation to the variable names, i.e., (\%) is added to the variable names when percentage is shown.
@@ -13,9 +13,9 @@
 ##' @param format The default is "fp" frequency (percentage). You can also choose from "f" frequency only, "p" percentage only, and "pf" percentage (frequency).
 ##' @param showAllLevels Whether to show all levels. FALSE by default, i.e., for 2-level categorical variables, only the higher level is shown to avoid redundant information.
 ##' @param cramVars A character vector to specify the two-level categorical variables, for which both levels should be shown in one row.
-##' @param test Whether to show the p-values. TRUE by default. If FALSE, only the numerical summaries are shown.
+##' @param test Whether to show p-values. TRUE by default. If FALSE, only the numerical summaries are shown.
 ##' @param exact This option is not available for tables from weighted data.
-##' @param smd Whether to show the standardized mean difference. If there are more than one contrasts, the average of all possible standardized mean differences is shown. For categorical variables, Yang and Dalton's definition is used.
+##' @param smd Whether to show standardized mean differences. FALSE by default. If there are more than one contrasts, the average of all possible standardized mean differences is shown. For categorical variables, Yang and Dalton's definition is used.
 ##' @param CrossTable Whether to show the cross table objects held internally using gmodels::CrossTable function. This will give an output similar to the PROC FREQ in SAS.
 ##' @param ... For compatibility with generic. Ignored.
 ##' @return It is mainly for printing the result. But this function does return a matrix containing what you see in the output invisibly. You can assign it to an object to save it.
