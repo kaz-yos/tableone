@@ -6,13 +6,15 @@
 ##' @aliases tableone-package tableone
 ##' @docType package
 ##' @import survey MASS e1071 zoo gmodels
-##' @note Special Thanks:
+##' @note Acknowledgement:
 ##'
 ##' Ian Fellows for developing the \code{deducer} package, which this package is based on.
 ##'
 ##' Hadley Wickham for packaging advice and for creating tools this package was made with (\code{roxygen2}, \code{devtools}, \code{testthat}).
 ##'
 ##' Yoshinobu Kanda for design advice and for integration into \code{RcmdrPlugin.EZR}.
+##'
+##' H.Tachibana and Hiroki Matsui for inputs regarding standardized mean differences.
 ##'
 ##' jomuller, Raja Sriswan Mamidi, and Atsushi Shiraishi for bug reports and/or feature suggestions.
 ##'
