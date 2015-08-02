@@ -8,7 +8,7 @@
 ##' @return None. Results are printed.
 ##' @author Kazuki Yoshida
 ##' @seealso
-##' \code{\link{CreateCatTable}}, \code{\link{print.CatTable}},
+##' \code{\link{CreateTableOne}}, \code{\link{CreateCatTable}}, \code{\link{print.CatTable}},
 ##' @examples
 ##'
 ##' ## See examples for CreateTableOne

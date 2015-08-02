@@ -26,6 +26,6 @@ Shows all data a \code{ContTable} class object has. This includes the (optionall
 Kazuki Yoshida
 }
 \seealso{
-\code{\link{CreateContTable}}, \code{\link{print.ContTable}}
+\code{\link{CreateTableOne}}, \code{\link{CreateContTable}}, \code{\link{print.ContTable}}
 }
 

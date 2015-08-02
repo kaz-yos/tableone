@@ -60,6 +60,6 @@ A matrix object containing what you see is also invisibly returned. This can be 
 Kazuki Yoshida, Justin Bohn
 }
 \seealso{
-\code{\link{CreateTableOne}}, \code{\link{summary.TableOne}}
+\code{\link{CreateTableOne}}, \code{\link{CreateTableOne}}, \code{\link{summary.TableOne}}
 }
 

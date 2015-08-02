@@ -26,6 +26,6 @@ Shows all data a \code{svyContTable} class object has. This includes the (option
 Kazuki Yoshida
 }
 \seealso{
-\code{\link{svyCreateContTable}}, \code{\link{print.svyContTable}}
+\code{\link{svyCreateTableOne}}, \code{\link{svyCreateContTable}}, \code{\link{print.svyContTable}}
 }
 

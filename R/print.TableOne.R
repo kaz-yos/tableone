@@ -23,7 +23,7 @@
 ##' @return A matrix object containing what you see is also invisibly returned. This can be assinged a name and exported via \code{write.csv}.
 ##' @author Kazuki Yoshida, Justin Bohn
 ##' @seealso
-##' \code{\link{CreateTableOne}}, \code{\link{summary.TableOne}}
+##' \code{\link{CreateTableOne}}, \code{\link{CreateTableOne}}, \code{\link{summary.TableOne}}
 ##' @examples
 ##'
 ##' ## See examples for CreateTableOne and svyCreateTableOne

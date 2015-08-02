@@ -111,6 +111,6 @@ print(catTableBySexTrt, exact = "ascites", quote = TRUE, noSpaces = TRUE)
 Kazuki Yoshida
 }
 \seealso{
-\code{\link{CreateCatTable}}, \code{\link{summary.CatTable}}
+\code{\link{CreateTableOne}}, \code{\link{CreateCatTable}}, \code{\link{summary.CatTable}}
 }
 

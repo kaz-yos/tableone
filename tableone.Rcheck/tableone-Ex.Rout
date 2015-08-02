@@ -3179,7 +3179,7 @@ _A_u_t_h_o_r(_s):
 
 _S_e_e _A_l_s_o:
 
-     ‘CreateTableOne’, ‘summary.TableOne’
+     ‘CreateTableOne’, ‘CreateTableOne’, ‘summary.TableOne’
 
 _E_x_a_m_p_l_e_s:
 
@@ -3241,7 +3241,7 @@ detaching ‘package:survey’, ‘package:grid’
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  4.822 0.161 5.071 0.005 0.007 
+Time elapsed:  4.851 0.166 5.086 0.006 0.008 
 > grDevices::dev.off()
 null device 
           1 

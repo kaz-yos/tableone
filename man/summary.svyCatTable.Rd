@@ -26,6 +26,6 @@ Shows all data a \code{svyCatTable} class object has. This includes the (optiona
 Kazuki Yoshida
 }
 \seealso{
-\code{\link{svyCreateCatTable}},  \code{\link{print.svyCatTable}}
+\code{\link{svyCreateTableOne}}, \code{\link{svyCreateCatTable}},  \code{\link{print.svyCatTable}}
 }
 

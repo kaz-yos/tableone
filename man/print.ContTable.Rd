@@ -107,6 +107,6 @@ print(contTableBySexTrt, nonnormal = nonNormalVars, quote = TRUE, noSpaces = TRU
 Kazuki Yoshida
 }
 \seealso{
-\code{\link{CreateContTable}}, \code{\link{summary.ContTable}}
+\code{\link{CreateTableOne}}, \code{\link{CreateContTable}}, \code{\link{summary.ContTable}}
 }
 

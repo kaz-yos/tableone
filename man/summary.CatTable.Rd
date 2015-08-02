@@ -26,6 +26,6 @@ Shows all data a \code{CatTable} class object has. This includes the (optionally
 Kazuki Yoshida
 }
 \seealso{
-\code{\link{CreateCatTable}}, \code{\link{print.CatTable}},
+\code{\link{CreateTableOne}}, \code{\link{CreateCatTable}}, \code{\link{print.CatTable}},
 }
 

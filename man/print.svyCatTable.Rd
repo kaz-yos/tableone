@@ -56,6 +56,6 @@ A matrix object containing what you see is also invisibly returned. This can be 
 Kazuki Yoshida
 }
 \seealso{
-\code{\link{svyCreateCatTable}}, \code{\link{summary.svyCatTable}}
+\code{\link{svyCreateTableOne}}, \code{\link{svyCreateCatTable}}, \code{\link{summary.svyCatTable}}
 }
 

@@ -8,7 +8,7 @@
 ##' @return None. Results are printed.
 ##' @author Kazuki Yoshida
 ##' @seealso
-##' \code{\link{svyCreateContTable}}, \code{\link{print.svyContTable}}
+##' \code{\link{svyCreateTableOne}}, \code{\link{svyCreateContTable}}, \code{\link{print.svyContTable}}
 ##' @examples
 ##'
 ##' ## See the examples for svyCreateTableOne()

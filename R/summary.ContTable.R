@@ -8,7 +8,7 @@
 ##' @return None. Results are printed.
 ##' @author Kazuki Yoshida
 ##' @seealso
-##' \code{\link{CreateContTable}}, \code{\link{print.ContTable}}
+##' \code{\link{CreateTableOne}}, \code{\link{CreateContTable}}, \code{\link{print.ContTable}}
 ##' @examples
 ##'
 ##' ## See examples for CreateTableOne

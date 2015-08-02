@@ -21,7 +21,7 @@
 ##' @return A matrix object containing what you see is also invisibly returned. This can be assinged a name and exported via \code{write.csv}.
 ##' @author Kazuki Yoshida
 ##' @seealso
-##' \code{\link{CreateCatTable}}, \code{\link{summary.CatTable}}
+##' \code{\link{CreateTableOne}}, \code{\link{CreateCatTable}}, \code{\link{summary.CatTable}}
 ##' @examples
 ##'
 ##' ## Load

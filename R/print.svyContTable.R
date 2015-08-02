@@ -19,7 +19,7 @@
 ##' @return A matrix object containing what you see is also invisibly returned. This can be assinged a name and exported via \code{write.csv}.
 ##' @author Kazuki Yoshida
 ##' @seealso
-##' \code{\link{svyCreateCatTable}}, \code{\link{summary.svyCatTable}}
+##' \code{\link{svyCreateTableOne}}, \code{\link{svyCreateCatTable}}, \code{\link{summary.svyCatTable}}
 ##' @examples
 ##'
 ##' ## See the examples for svyCreateTableOne()
