@@ -1,26 +1,21 @@
 ##' Create an object summarizing categorical variables
 ##'
-##' Create an object summarizing categorical variables optionally stratifying
-##' by one or more startifying variables and performing statistical tests. The
-##' object gives a table that is easy to use in medical research papers. See
-##' also \code{\link{print.CatTable}} and \code{\link{summary.CatTable}}.
+##' Create an object summarizing categorical variables optionally stratifying by one or more startifying variables and performing statistical tests. Usually, \code{\link{CreateTableOne}} should be used as the universal frontend for both continuous and categorical data.
 ##'
 ##' @param vars Variable(s) to be summarized given as a character vector.
 ##' @param strata Stratifying (grouping) variable name(s) given as a character vector. If omitted, the overall results are returned.
 ##' @param data A data frame in which these variables exist. All variables (both vars and strata) must be in this data frame.
 ##' @param includeNA If TRUE, NA is handled as a regular factor level rather than missing. NA is shown as the last factor level in the table. Only effective for categorical variables.
 ##' @param test If TRUE, as in the default and there are more than two groups, groupwise comparisons are performed. Both tests that require the large sample approximation and exact tests are performed. Either one of the result can be obtained from the print method.
-##' @param testApprox A function used to perform the large sample approximation based tests. The default is \code{\link{chisq.test}}. This is not recommended when some of the cell have small counts like fewer than 5.
-##' @param argsApprox A named list of arguments passed to the function specified in testApprox. The default is \code{list(correct = TRUE)}, which turns on the continuity correction for \code{\link{chisq.test}}.
-##' @param testExact A function used to perform the exact tests. The default is fisher.test. If the cells have large numbers, it will fail because of memory limitation. In this situation, the large sample approximation based should suffice.
-##' @param argsExact A named list of arguments passed to the function specified in testExact. The default is \code{list(workspace = 2*10^5)}, which specifies the memory space allocated for \code{\link{fisher.test}}.
-##' @param smd If TRUE, as in the default and there are more than two groups, standardized mean differences for all pairwise comparisons are calculated. For categorical variables, Yang and Dalton's definition is used.
-##' @return An object of class \code{CatTable}, which really is a \code{\link{by}} object with additional attributes. Each element of the \code{\link{by}} part is a matrix with rows representing variables, and columns representing summary statistics.
+##' @param testApprox A function used to perform the large sample approximation based tests. The default is \code{chisq.test}. This is not recommended when some of the cell have small counts like fewer than 5.
+##' @param argsApprox A named list of arguments passed to the function specified in testApprox. The default is \code{list(correct = TRUE)}, which turns on the continuity correction for \code{chisq.test}.
+##' @param testExact A function used to perform the exact tests. The default is \code{fisher.test}. If the cells have large numbers, it will fail because of memory limitation. In this situation, the large sample approximation based should suffice.
+##' @param argsExact A named list of arguments passed to the function specified in testExact. The default is \code{list(workspace = 2*10^5)}, which specifies the memory space allocated for \code{fisher.test}.
+##' @param smd If TRUE, as in the default and there are more than two groups, standardized mean differences for all pairwise comparisons are calculated. For categorical variables, Yang and Dalton's definition is used (\href{http://support.sas.com/resources/papers/proceedings12/335-2012.pdf}{A unified approach to measuring the effect size between two groups}).
+##' @return An object of class \code{CatTable}.
 ##' @author Kazuki Yoshida (based on \code{Deducer::frequencies()})
 ##' @seealso
-##' \code{\link{CreateCatTable}}, \code{\link{print.CatTable}}, \code{\link{summary.CatTable}},
-##' \code{\link{CreateContTable}}, \code{\link{print.ContTable}}, \code{\link{summary.ContTable}},
-##' \code{\link{CreateTableOne}}, \code{\link{print.TableOne}}, \code{\link{summary.TableOne}}
+##' \code{\link{CreateTableOne}}, \code{\link{print.CatTable}},  \code{\link{summary.CatTable}}
 ##' @examples
 ##'
 ##' ## Load
@@ -63,7 +58,7 @@
 ##'
 ##' ## print now includes p-values which are by default calculated by chisq.test.
 ##' ## It is formatted at the decimal place specified by the pDigits argument
-##' ## (3 by default). It does <0.001 for you.
+##' ## (3 by default). It is formatted like <0.001 if very small.
 ##' catTableBySexTrt
 ##'
 ##' ## The exact argument toggles the p-values to the exact test result from

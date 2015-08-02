@@ -1,10 +1,10 @@
-##' Format and print the \code{svyContTable} class objects
+##' Format and print \code{svyContTable} class objects
 ##'
-##' This is the \code{print} method for the \code{svyContTable} class objects created by \code{\link{CreateContTable}} function.
+##' \code{print} method for the \code{svyContTable} class objects created by \code{\link{CreateContTable}} function.
 ##'
-##' @param x The result of a call to the \code{\link{svyCreateContTable}} function.
+##' @param x Object returned by \code{\link{svyCreateContTable}} function.
 ##' @param digits Number of digits to print in the table.
-##' @param pDigits Number of digits to print for p-values.
+##' @param pDigits Number of digits to print for p-values (also used for standardized mean differences).
 ##' @param quote Whether to show everything in quotes. The default is FALSE. If TRUE, everything including the row and column names are quoted so that you can copy it to Excel easily.
 ##' @param missing Whether to show missing data information (not implemented yet, placeholder)
 ##' @param explain Whether to add explanation to the variable names, i.e., (mean (sd) or median [IQR]) is added to the variable names.
@@ -13,15 +13,13 @@
 ##' @param nonnormal A character vector to specify the variables for which the p-values should be those of nonparametric tests. By default all p-values are from normal assumption-based tests (oneway.test).
 ##' @param minMax Whether to use [min,max] instead of [p25,p75] for nonnormal variables. The default is FALSE.
 ##' @param insertLevel Whether to add an empty level column to the left of strata.
-##' @param test Whether to show the p-values. TRUE by default. If FALSE, only the numerical summaries are shown.
-##' @param smd Whether to show the standardized mean difference. If there are more than one contrasts, the average of all possible standardized mean differences is shown.
+##' @param test Whether to show p-values. TRUE by default. If FALSE, only the numerical summaries are shown.
+##' @param smd Whether to show standardized mean differences. FALSE by default. If there are more than one contrasts, the average of all possible standardized mean differences is shown. For individual contrasts, use \code{summary}.
 ##' @param ... For compatibility with generic. Ignored.
-##' @return It is mainly for printing the result. But this function does return a matrix containing what you see in the output invisibly. You can assign it to an object to save it.
+##' @return A matrix object containing what you see is also invisibly returned. This can be assinged a name and exported via \code{write.csv}.
 ##' @author Kazuki Yoshida
 ##' @seealso
-##' \code{\link{svyCreateCatTable}},  \code{\link{print.svyCatTable}},  \code{\link{summary.svyCatTable}},
-##' \code{\link{svyCreateContTable}}, \code{\link{print.svyContTable}}, \code{\link{summary.svyContTable}},
-##' \code{\link{svyCreateTableOne}},  \code{\link{print.TableOne}},     \code{\link{summary.TableOne}}
+##' \code{\link{svyCreateTableOne}}, \code{\link{svyCreateCatTable}}, \code{\link{summary.svyCatTable}}
 ##' @examples
 ##'
 ##' ## See the examples for svyCreateTableOne()

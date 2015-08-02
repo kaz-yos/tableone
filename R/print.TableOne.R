@@ -1,17 +1,17 @@
-##' Format and print the \code{TableOne} class objects
+##' Format and print \code{TableOne} class objects
 ##'
-##' This is the \code{print} method for the \code{TableOne} class objects created by \code{\link{CreateTableOne}} function.
+##' \code{print} method for the \code{TableOne} class objects created by \code{\link{CreateTableOne}} function.
 ##'
-##' @param x The result of a call to the \code{\link{CreateTableOne}} function.
+##' @param x Object returned by \code{\link{CreateTableOne}} function.
 ##' @param catDigits Number of digits to print for proportions. Default 1.
 ##' @param contDigits Number of digits to print for continuous variables. Default 2.
-##' @param pDigits Number of digits to print for p-values. Default 3.
+##' @param pDigits Number of digits to print for p-values (also used for standardized mean differences). Default 3.
 ##' @param quote Whether to show everything in quotes. The default is FALSE. If TRUE, everything including the row and column names are quoted so that you can copy it to Excel easily.
 ##' @param missing Whether to show missing data information (not implemented yet, placeholder)
 ##' @param explain Whether to add explanation to the variable names, i.e., (\%) is added to the variable names when percentage is shown.
 ##' @param printToggle Whether to print the output. If FLASE, no output is created, and a matrix is invisibly returned.
-##' @param test Whether to show the p-values. TRUE by default. If FALSE, only the numerical summaries are shown.
-##' @param smd Whether to show the standardized mean difference. If there are more than one contrasts, the average of all possible standardized mean differences is shown. For categorical variables, Yang and Dalton's definition is used.
+##' @param test Whether to show p-values. TRUE by default. If FALSE, only the numerical summaries are shown.
+##' @param smd Whether to show standardized mean differences. FALSE by default. If there are more than one contrasts, the average of all possible standardized mean differences is shown. For individual contrasts, use \code{summary}. For categorical variables, Yang and Dalton's definition is used (\href{http://support.sas.com/resources/papers/proceedings12/335-2012.pdf}{A unified approach to measuring the effect size between two groups}).
 ##' @param noSpaces Whether to remove spaces added for alignment. Use this option if you prefer to align numbers yourself in other software.
 ##' @param format The default is "fp" frequency (percentage). You can also choose from "f" frequency only, "p" percentage only, and "pf" percentage (frequency).
 ##' @param showAllLevels Whether to show all levels. FALSE by default, i.e., for 2-level categorical variables, only the higher level is shown to avoid redundant information.
@@ -20,64 +20,13 @@
 ##' @param nonnormal A character vector to specify the variables for which the p-values should be those of nonparametric tests. By default all p-values are from normal assumption-based tests (oneway.test).
 ##' @param minMax Whether to use [min,max] instead of [p25,p75] for nonnormal variables. The default is FALSE.
 ##' @param ... For compatibility with generic. Ignored.
-##' @return It is mainly for printing the result. But this function does return a matrix containing what you see in the output invisibly. You can assign it to an object to save it.
+##' @return A matrix object containing what you see is also invisibly returned. This can be assinged a name and exported via \code{write.csv}.
 ##' @author Kazuki Yoshida, Justin Bohn
 ##' @seealso
-##' \code{\link{CreateTableOne}}, \code{\link{print.TableOne}}, \code{\link{summary.TableOne}},
-##' \code{\link{CreateCatTable}}, \code{\link{print.CatTable}}, \code{\link{summary.CatTable}},
-##' \code{\link{CreateContTable}}, \code{\link{print.ContTable}}, \code{\link{summary.ContTable}}
+##' \code{\link{CreateTableOne}}, \code{\link{CreateTableOne}}, \code{\link{summary.TableOne}}
 ##' @examples
 ##'
-##' ## Load
-##' library(tableone)
-##'
-##' ## Load Mayo Clinic Primary Biliary Cirrhosis Data
-##' library(survival)
-##' data(pbc)
-##' ## Check variables
-##' head(pbc)
-##'
-##' ## Make categorical variables factors
-##' varsToFactor <- c("status","trt","ascites","hepato","spiders","edema","stage")
-##' pbc[varsToFactor] <- lapply(pbc[varsToFactor], factor)
-##'
-##' ## Create Table 1 stratified by sex and trt
-##' tableOne <- CreateTableOne(vars = c("time","status","age","ascites","hepato",
-##'                                     "spiders","edema","bili","chol","albumin",
-##'                                     "copper","alk.phos","ast","trig","platelet",
-##'                                     "protime","stage"),
-##'                            strata = c("sex","trt"), data = pbc)
-##'
-##' ## Just typing the object name will invoke the print.TableOne method
-##' tableOne
-##'
-##' ## Specifying nonnormal variables will show the variables appropriately,
-##' ## and show nonparametric test p-values. Specify variables in the exact
-##' ## argument to obtain the exact test p-values. cramVars can be used to
-##' ## show both levels for a 2-level categorical variables.
-##' print(tableOne, nonnormal = c("bili","chol","copper","alk.phos","trig"),
-##'       exact = c("status","stage"), cramVars = "hepato")
-##'
-##' ## Use the summary.TableOne method for detailed summary
-##' summary(tableOne)
-##'
-##' ## See the categorical part only using $ operator
-##' tableOne$CatTable
-##' summary(tableOne$CatTable)
-##'
-##' ## See the continuous part only using $ operator
-##' tableOne$ContTable
-##' summary(tableOne$ContTable)
-##'
-##' ## If your work flow includes copying to Excel and Word when writing manuscripts,
-##' ## you may benefit from the quote argument. This will quote everything so that
-##' ## Excel does not mess up the cells.
-##' print(tableOne, nonnormal = c("bili","chol","copper","alk.phos","trig"),
-##'       exact = c("status","stage"), cramVars = "hepato", quote = TRUE)
-##'
-##' ## If you want to center-align values in Word, use noSpaces option.
-##' print(tableOne, nonnormal = c("bili","chol","copper","alk.phos","trig"),
-##'       exact = c("status","stage"), cramVars = "hepato", quote = TRUE, noSpaces = TRUE)
+##' ## See examples for CreateTableOne and svyCreateTableOne
 ##'
 ##' @export
 print.TableOne <-

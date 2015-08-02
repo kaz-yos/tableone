@@ -5,7 +5,7 @@
 \title{Format regression results in medically decent format}
 \usage{
 ShowRegTable(model, exp = TRUE, digits = 2, pDigits = 3,
-  printToggle = TRUE, quote = FALSE, simpleCi = FALSE)
+  printToggle = TRUE, quote = FALSE, ciFun = confint)
 }
 \arguments{
 \item{model}{Regression model result objects that have the summary and confint methods.}
@@ -20,7 +20,7 @@ ShowRegTable(model, exp = TRUE, digits = 2, pDigits = 3,
 
 \item{quote}{Whether to show everything in quotes. The default is FALSE. If TRUE, everything including the row and column names are quoted so that you can copy it to Excel easily.}
 
-\item{simpleCi}{Whether to calculate confidence interval by the default normal approximation method. The default is FALSE. If TRUE, the default normal approximation method is used. This may be used when the profile likelihood-based calculation takes too much time.}
+\item{ciFun}{Function used for calculation. \code{confint} is the default. For generalized linear models this gives the profile likelihood-based calculation, which may take too much time for large models, use \code{confint.default} for simple normal approximation method (+/- 1.96 * standard error).}
 }
 \value{
 A matrix containing what you see is returned invisibly. You can capture it by assignment to an object.

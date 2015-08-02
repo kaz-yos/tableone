@@ -14,10 +14,10 @@
 \item{...}{For compatibility with generic. Ignored.}
 }
 \value{
-It will print the results.
+None. Results are printed.
 }
 \description{
-This method shows all the data a \code{svyCatTable} class object has. This includes the (optionally stratified) part with summary statistics and , if available, p-values from the approximation method test (\code{\link{chisq.test}} by default) and exact method test (\code{\link{fisher.test}} by default).
+Shows all data a \code{svyCatTable} class object has. This includes the (optionally stratified) part with summary statistics and, if available, p-values from the approximation method test (\code{chisq.test} by default) and exact method test (\code{fisher.test} by default) and standardized mean differences of all possible pairwise contrasts.
 }
 \examples{
 ## See the examples for svyCreateTableOne()
@@ -26,8 +26,6 @@ This method shows all the data a \code{svyCatTable} class object has. This inclu
 Kazuki Yoshida
 }
 \seealso{
-\code{\link{svyCreateCatTable}},  \code{\link{print.svyCatTable}},  \code{\link{summary.svyCatTable}},
-\code{\link{svyCreateContTable}}, \code{\link{print.svyContTable}}, \code{\link{summary.svyContTable}},
-\code{\link{svyCreateTableOne}},  \code{\link{print.TableOne}},     \code{\link{summary.TableOne}}
+\code{\link{svyCreateTableOne}}, \code{\link{svyCreateCatTable}},  \code{\link{print.svyCatTable}}
 }
 

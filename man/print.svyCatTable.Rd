@@ -2,7 +2,7 @@
 % Please edit documentation in R/print.svyCatTable.R
 \name{print.svyCatTable}
 \alias{print.svyCatTable}
-\title{Format and print the \code{svyCatTable} class objects}
+\title{Format and print \code{svyCatTable} class objects}
 \usage{
 \method{print}{svyCatTable}(x, digits = 1, pDigits = 3, quote = FALSE,
   missing = FALSE, explain = TRUE, printToggle = TRUE, noSpaces = FALSE,
@@ -15,7 +15,7 @@
 
 \item{digits}{Number of digits to print in the table.}
 
-\item{pDigits}{Number of digits to print for p-values.}
+\item{pDigits}{Number of digits to print for p-values (also used for standardized mean differences).}
 
 \item{quote}{Whether to show everything in quotes. The default is FALSE. If TRUE, everything including the row and column names are quoted so that you can copy it to Excel easily.}
 
@@ -33,21 +33,21 @@
 
 \item{cramVars}{A character vector to specify the two-level categorical variables, for which both levels should be shown in one row.}
 
-\item{test}{Whether to show the p-values. TRUE by default. If FALSE, only the numerical summaries are shown.}
+\item{test}{Whether to show p-values. TRUE by default. If FALSE, only the numerical summaries are shown.}
 
 \item{exact}{This option is not available for tables from weighted data.}
 
-\item{smd}{Whether to show the standardized mean difference. If there are more than one contrasts, the average of all possible standardized mean differences is shown. For categorical variables, Yang and Dalton's definition is used.}
+\item{smd}{Whether to show standardized mean differences. FALSE by default. If there are more than one contrasts, the average of all possible standardized mean differences is shown. For individual contrasts, use \code{summary}. For categorical variables, Yang and Dalton's definition is used (\href{http://support.sas.com/resources/papers/proceedings12/335-2012.pdf}{A unified approach to measuring the effect size between two groups}).}
 
 \item{CrossTable}{Whether to show the cross table objects held internally using gmodels::CrossTable function. This will give an output similar to the PROC FREQ in SAS.}
 
 \item{...}{For compatibility with generic. Ignored.}
 }
 \value{
-It is mainly for printing the result. But this function does return a matrix containing what you see in the output invisibly. You can assign it to an object to save it.
+A matrix object containing what you see is also invisibly returned. This can be assinged a name and exported via \code{write.csv}.
 }
 \description{
-This is the \code{print} method for the \code{svyCatTable} class objects created by \code{\link{svyCreateCatTable}} function.
+\code{print} method for the \code{svyCatTable} class objects created by \code{\link{svyCreateCatTable}} function.
 }
 \examples{
 ## See the examples for svyCreateTableOne()
@@ -56,8 +56,6 @@ This is the \code{print} method for the \code{svyCatTable} class objects created
 Kazuki Yoshida
 }
 \seealso{
-\code{\link{svyCreateCatTable}},  \code{\link{print.svyCatTable}},  \code{\link{summary.svyCatTable}},
-\code{\link{svyCreateContTable}}, \code{\link{print.svyContTable}}, \code{\link{summary.svyContTable}},
-\code{\link{svyCreateTableOne}},  \code{\link{print.TableOne}},     \code{\link{summary.TableOne}}
+\code{\link{svyCreateTableOne}}, \code{\link{svyCreateCatTable}}, \code{\link{summary.svyCatTable}}
 }
 

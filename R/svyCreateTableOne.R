@@ -1,6 +1,6 @@
-##' Create an object summarizing any variables for weighted data
+##' Create an object summarizing both continuous and categorical variables for weighted data
 ##'
-##' Create an object summarizing all baseline variables optionally stratifying by one or more startifying variables and performing statistical tests. The object gives a table that is easy to use in medical research papers. See also \code{\link{print.TableOne}} and \code{\link{summary.TableOne}}.
+##' Create an object summarizing all baseline variables (both continuous and categorical) optionally stratifying by one or more startifying variables and performing statistical tests. The object gives a table that is easy to use in medical research papers.
 ##'
 ##' @param vars Variables to be summarized given as a character vector. Factors are handled as categorical variables, whereas numeric variables are handled as continuous variables. If empty, all variables in the survey design object specified in the data argument are used.
 ##' @param strata Stratifying (grouping) variable name(s) given as a character vector. If omitted, the overall results are returned.
@@ -14,18 +14,15 @@
 ##' @param argsNonNormal A named list of arguments passed to the function specified in \code{testNonNormal}.
 ##' @param testApprox A function used to perform the large sample approximation based tests. The default is \code{svychisq}.
 ##' @param argsApprox A named list of arguments passed to the function specified in testApprox.
-##' @param smd If TRUE, as in the default and there are more than two groups, standardized mean differences for all pairwise comparisons are calculated. For categorical variables, Yang and Dalton's definition is used.
-##' @return An object of class \code{svyTableOne}, which really is a list of three objects.
-##' @return \item{TableOne}{a categorical-continuous mixture data formatted and printed by the \code{\link{print.TableOne}} method}
+##' @param smd If TRUE, as in the default and there are more than two groups, standardized mean differences for all pairwise comparisons are calculated. For categorical variables, Yang and Dalton's definition is used (\href{http://support.sas.com/resources/papers/proceedings12/335-2012.pdf}{A unified approach to measuring the effect size between two groups}).
+##' @return An object of class \code{svyTableOne}, which is a list of three objects.
 ##' @return \item{ContTable}{an object of class \code{svyContTable}, containing continuous variables only}
 ##' @return \item{CatTable}{ an object of class \code{svyCatTable}, containing categorical variables only}
-##' @return The second and third objects can be then be examined with the \code{print} and \code{summary} method, for example, \code{summary(object$CatTable)} to examine the categorical variables in detail.
+##' @return \item{MetaData}{list of metadata regarding variables}
 ##'
 ##' @author Kazuki Yoshida
 ##' @seealso
-##' \code{\link{svyCreateTableOne}},  \code{\link{print.TableOne}},     \code{\link{summary.TableOne}},
-##' \code{\link{svyCreateCatTable}},  \code{\link{print.svyCatTable}},  \code{\link{summary.svyCatTable}},
-##' \code{\link{svyCreateContTable}}, \code{\link{print.svyContTable}}, \code{\link{summary.svyContTable}}
+##' \code{\link{print.TableOne}}, \code{\link{summary.TableOne}}
 ##' @examples
 ##'
 ##' ## Load packages
@@ -38,8 +35,8 @@
 ##'                        nest = TRUE, data = nhanes)
 ##'
 ##' ## Create a table object
-##' ## factorVars are converted to factors; no need to do this if variables are already factors
-##' ## strata will stratify summaries; leave it unspecified, and overview is obtained
+##' ## factorVars are converted to factors; no need for variables already factors
+##' ## strata will stratify summaries; leave it unspecified for overall summaries
 ##' tab1 <- svyCreateTableOne(vars = c("HI_CHOL","race","agecat","RIAGENDR"),
 ##'                           strata = "RIAGENDR", data = nhanesSvy,
 ##'                           factorVars = c("race","RIAGENDR"))
@@ -51,13 +48,15 @@
 ##' tab1
 ##'
 ##' ## nonnormal specifies variables to be shown as median [IQR]
-##' print(tab1, nonnormal = "HI_CHOL", contDigits = 3, catDigits = 2, pDigits = 4)
+##' print(tab1, nonnormal = "HI_CHOL", contDigits = 3, catDigits = 2,
+##'       pDigits = 4, smd = TRUE)
 ##'
 ##' ## minMax changes it to median [min, max]
-##' print(tab1, nonnormal = "HI_CHOL", minMax = TRUE, contDigits = 3, catDigits = 2, pDigits = 4)
+##' print(tab1, nonnormal = "HI_CHOL", minMax = TRUE, contDigits = 3,
+##'       catDigits = 2, pDigits = 4, smd = TRUE)
 ##'
 ##' ## showAllLevels can be used tow show levels for all categorical variables
-##' print(tab1, showAllLevels = TRUE)
+##' print(tab1, showAllLevels = TRUE, smd = TRUE)
 ##'
 ##' ## To see all printing options
 ##' ?print.TableOne

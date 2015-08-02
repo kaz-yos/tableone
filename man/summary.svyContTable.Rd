@@ -14,10 +14,10 @@
 \item{...}{For compatibility with generic. Ignored.}
 }
 \value{
-It will print the results.
+None. Results are printed.
 }
 \description{
-This method shows all the data a \code{svyContTable} class object has. This includes the (optionally stratified) part with summary statistics and , if available, p-values from the normal assupmtion-based test (\code{\link{oneway.test}} by default) and nonparametric test (\code{\link{kruskal.test}} by default).
+Shows all data a \code{svyContTable} class object has. This includes the (optionally stratified) part with summary statistics and, if available, p-values from the normal assupmtion-based test (\code{regTermTest} with \code{svyglm} by default) and nonparametric test (\code{svyranktest} by default) and standardized mean differences of all possible pairwise contrasts.
 }
 \examples{
 ## See the examples for svyCreateTableOne()
@@ -26,8 +26,6 @@ This method shows all the data a \code{svyContTable} class object has. This incl
 Kazuki Yoshida
 }
 \seealso{
-\code{\link{svyCreateContTable}}, \code{\link{print.svyContTable}}, \code{\link{summary.svyContTable}},
-\code{\link{svyCreateCatTable}},  \code{\link{print.svyCatTable}},  \code{\link{summary.svyCatTable}},
-\code{\link{svyCreateTableOne}},  \code{\link{print.TableOne}},  \code{\link{summary.TableOne}}
+\code{\link{svyCreateTableOne}}, \code{\link{svyCreateContTable}}, \code{\link{print.svyContTable}}
 }
 

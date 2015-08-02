@@ -1,9 +1,6 @@
 ##' Create an object summarizing categorical variables for weighted data
 ##'
-##' Create an object summarizing categorical variables optionally stratifying
-##' by one or more startifying variables and performing statistical tests. The
-##' object gives a table that is easy to use in medical research papers. See
-##' also \code{\link{print.svyCatTable}} and \code{\link{summary.svyCatTable}}.
+##' Create an object summarizing categorical variables optionally stratifying by one or more startifying variables and performing statistical tests. Usually, \code{\link{svyCreateTableOne}} should be used as the universal frontend for both continuous and categorical data.
 ##'
 ##' @param vars Variable(s) to be summarized given as a character vector.
 ##' @param strata Stratifying (grouping) variable name(s) given as a character vector. If omitted, the overall results are returned.
@@ -12,13 +9,11 @@
 ##' @param test If TRUE, as in the default and there are more than two groups, groupwise comparisons are performed. Both tests that require the large sample approximation and exact tests are performed. Either one of the result can be obtained from the print method.
 ##' @param testApprox A function used to perform the large sample approximation based tests. The default is \code{svychisq}.
 ##' @param argsApprox A named list of arguments passed to the function specified in testApprox.
-##' @param smd If TRUE, as in the default and there are more than two groups, standardized mean differences for all pairwise comparisons are calculated. For categorical variables, Yang and Dalton's definition is used.
+##' @param smd If TRUE, as in the default and there are more than two groups, standardized mean differences for all pairwise comparisons are calculated. For categorical variables, Yang and Dalton's definition is used (\href{http://support.sas.com/resources/papers/proceedings12/335-2012.pdf}{A unified approach to measuring the effect size between two groups}).
 ##' @return An object of class \code{svyCatTable}.
 ##' @author Kazuki Yoshida
 ##' @seealso
-##' \code{\link{svyCreateCatTable}},  \code{\link{print.svyCatTable}},  \code{\link{summary.svyCatTable}},
-##' \code{\link{svyCreateContTable}}, \code{\link{print.svyContTable}}, \code{\link{summary.svyContTable}},
-##' \code{\link{svyCreateTableOne}},  \code{\link{print.TableOne}},     \code{\link{summary.TableOne}}
+##' \code{\link{svyCreateTableOne}}, \code{\link{print.svyCatTable}}, \code{\link{summary.svyCatTable}},
 ##' @examples
 ##'
 ##' ## See the examples for svyCreateTableOne()

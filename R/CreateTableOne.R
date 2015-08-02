@@ -1,6 +1,6 @@
-##' Create an object summarizing both categorical and continuous variables
+##' Create an object summarizing both continuous and categorical variables
 ##'
-##' Create an object summarizing all baseline variables optionally stratifying by one or more startifying variables and performing statistical tests. The object gives a table that is easy to use in medical research papers. See also \code{\link{print.TableOne}} and \code{\link{summary.TableOne}}.
+##' Create an object summarizing all baseline variables (both continuous and categorical) optionally stratifying by one or more startifying variables and performing statistical tests. The object gives a table that is easy to use in medical research papers.
 ##'
 ##' @param vars Variables to be summarized given as a character vector. Factors are handled as categorical variables, whereas numeric variables are handled as continuous variables. If empty, all variables in the data frame specified in the data argument are used.
 ##' @param strata Stratifying (grouping) variable name(s) given as a character vector. If omitted, the overall results are returned.
@@ -8,26 +8,23 @@
 ##' @param factorVars Numerically coded variables that should be handled as categorical variables given as a character vector. If omitted, only factors are considered categorical variables. If all categorical variables in the dataset are already factors, this option is not necessary. The variables specified here must also be specified in the \code{vars} argument.
 ##' @param includeNA If TRUE, NA is handled as a regular factor level rather than missing. NA is shown as the last factor level in the table. Only effective for categorical variables.
 ##' @param test If TRUE, as in the default and there are more than two groups, groupwise comparisons are performed.
-##' @param testNormal A function used to perform the normal assumption based tests. The default is \code{\link{oneway.test}}. This is equivalent of the t-test when there are only two groups.
+##' @param testNormal A function used to perform the normal assumption based tests. The default is \code{oneway.test}. This is equivalent of the t-test when there are only two groups.
 ##' @param argsNormal A named list of arguments passed to the function specified in \code{testNormal}. The default is \code{list(var.equal = TRUE)}, which makes it the ordinary ANOVA that assumes equal variance across groups.
 ##' @param testNonNormal A function used to perform the nonparametric tests. The default is \code{kruskal.test} (Kruskal-Wallis Rank Sum Test). This is equivalent of the wilcox.test (Man-Whitney U test) when there are only two groups.
 ##' @param argsNonNormal A named list of arguments passed to the function specified in \code{testNonNormal}. The default is \code{list(NULL)}, which is just a placeholder.
-##' @param testApprox A function used to perform the large sample approximation based tests. The default is \code{\link{chisq.test}}. This is not recommended when some of the cell have small counts like fewer than 5.
-##' @param argsApprox A named list of arguments passed to the function specified in testApprox. The default is \code{list(correct = TRUE)}, which turns on the continuity correction for \code{\link{chisq.test}}.
-##' @param testExact A function used to perform the exact tests. The default is fisher.test. If the cells have large numbers, it will fail because of memory limitation. In this situation, the large sample approximation based should suffice.
-##' @param argsExact A named list of arguments passed to the function specified in testExact. The default is \code{list(workspace = 2*10^5)}, which specifies the memory space allocated for \code{\link{fisher.test}}.
-##' @param smd If TRUE, as in the default and there are more than two groups, standardized mean differences for all pairwise comparisons are calculated. For categorical variables, Yang and Dalton's definition is used.
-##' @return An object of class \code{TableOne}, which really is a list of three objects.
-##' @return \item{TableOne}{a categorical-continuous mixture data formatted and printed by the \code{\link{print.TableOne}} method}
-##' @return \item{ContTable}{an object of class \code{ContTable}, containing continuous variables only}
-##' @return \item{CatTable}{ an object of class \code{CatTable}, containing categorical variables only}
-##' @return The second and third objects can be then be examined with the \code{print} and \code{summary} method, for example, \code{summary(object$CatTable)} to examine the categorical variables in detail.
+##' @param testApprox A function used to perform the large sample approximation based tests. The default is \code{chisq.test}. This is not recommended when some of the cell have small counts like fewer than 5.
+##' @param argsApprox A named list of arguments passed to the function specified in testApprox. The default is \code{list(correct = TRUE)}, which turns on the continuity correction for \code{chisq.test}.
+##' @param testExact A function used to perform the exact tests. The default is \code{fisher.test}. If the cells have large numbers, it will fail because of memory limitation. In this situation, the large sample approximation based should suffice.
+##' @param argsExact A named list of arguments passed to the function specified in testExact. The default is \code{list(workspace = 2*10^5)}, which specifies the memory space allocated for \code{fisher.test}.
+##' @param smd If TRUE, as in the default and there are more than two groups, standardized mean differences for all pairwise comparisons are calculated. For categorical variables, Yang and Dalton's definition is used (\href{http://support.sas.com/resources/papers/proceedings12/335-2012.pdf}{A unified approach to measuring the effect size between two groups}).
+##' @return An object of class \code{TableOne}, which is a list of three objects.
+##' @return \item{ContTable}{object of class \code{ContTable}, containing continuous variables only}
+##' @return \item{CatTable}{object of class \code{CatTable}, containing categorical variables only}
+##' @return \item{MetaData}{list of metadata regarding variables}
 ##'
-##' @author Justin Bohn, Kazuki Yoshida
+##' @author Kazuki Yoshida, Justin Bohn
 ##' @seealso
-##' \code{\link{CreateTableOne}}, \code{\link{print.TableOne}}, \code{\link{summary.TableOne}},
-##' \code{\link{CreateCatTable}}, \code{\link{print.CatTable}}, \code{\link{summary.CatTable}},
-##' \code{\link{CreateContTable}}, \code{\link{print.ContTable}}, \code{\link{summary.ContTable}}
+##' \code{\link{print.TableOne}}, \code{\link{summary.TableOne}}
 ##' @examples
 ##'
 ##' ## Load
@@ -58,9 +55,10 @@
 ##'
 ##' ## Specifying nonnormal variables will show the variables appropriately,
 ##' ## and show nonparametric test p-values. Specify variables in the exact
-##' ## argument to obtain the exact test p-values.
+##' ## argument to obtain the exact test p-values. cramVars can be used to
+##' ## show both levels for a 2-level categorical variables.
 ##' print(tableOne, nonnormal = c("bili","chol","copper","alk.phos","trig"),
-##'       exact = c("status","stage"))
+##'       exact = c("status","stage"), cramVars = "hepato", smd = TRUE)
 ##'
 ##' ## Use the summary.TableOne method for detailed summary
 ##' summary(tableOne)

@@ -1,9 +1,6 @@
 ##' Create an object summarizing continous variables
 ##'
-##' Create an object summarizing continous variables optionally stratifying by
-##' one or more startifying variables and performing statistical tests. The
-##' object gives a table that is easy to use in medical research papers. See
-##' also \code{\link{print.ContTable}} and \code{\link{summary.ContTable}}.
+##' Create an object summarizing continous variables optionally stratifying by one or more startifying variables and performing statistical tests. Usually, \code{\link{CreateTableOne}} should be used as the universal frontend for both continuous and categorical data.
 ##'
 ##' @param vars Variable(s) to be summarized given as a character vector.
 ##' @param strata Stratifying (grouping) variable name(s) given as a character vector. If omitted, the overall results are returned.
@@ -11,17 +8,15 @@
 ##' @param funcNames The functions to give the group size, number with missing values, proportion with missing values, mean, standard deviations, median, 25th percentile, 75th percentile, minimum, maximum, skewness (same definition as in SAS), kurtosis (same definition as in SAS). All of them can be seen in the summary method output. The print method uses subset of these. You can choose subset of them or reorder them. They are all configure to omit NA values (\code{na.rm = TRUE}).
 ##' @param funcAdditional Additional functions can be given as a named list. For example, \code{list(sum = sum)}.
 ##' @param test If TRUE, as in the default and there are more than two groups, groupwise comparisons are performed. Both tests that assume normality and tests that do not are performed. Either one of the result can be obtained from the print method.
-##' @param testNormal A function used to perform the normal assumption based tests. The default is \code{\link{oneway.test}}. This is equivalent of the t-test when there are only two groups.
+##' @param testNormal A function used to perform the normal assumption based tests. The default is \code{oneway.test}. This is equivalent of the t-test when there are only two groups.
 ##' @param argsNormal A named list of arguments passed to the function specified in \code{testNormal}. The default is \code{list(var.equal = TRUE)}, which makes it the ordinary ANOVA that assumes equal variance across groups.
 ##' @param testNonNormal A function used to perform the nonparametric tests. The default is \code{kruskal.test} (Kruskal-Wallis rank sum test). This is equivalent of the wilcox.test (Man-Whitney U test) when there are only two groups.
 ##' @param argsNonNormal A named list of arguments passed to the function specified in \code{testNonNormal}. The default is \code{list(NULL)}, which is just a placeholder.
 ##' @param smd If TRUE, as in the default and there are more than two groups, standardized mean differences for all pairwise comparisons are calculated.
-##' @return An object of class \code{ContTable}, which really is a \code{\link{by}} object with additional attributes. Each element of the \code{\link{by}} part is a matrix with rows representing variables, and columns representing summary statistics.
+##' @return An object of class \code{ContTable}.
 ##' @author Kazuki Yoshida (based on \code{Deducer::descriptive.table()})
 ##' @seealso
-##' \code{\link{CreateContTable}}, \code{\link{print.ContTable}}, \code{\link{summary.ContTable}},
-##' \code{\link{CreateCatTable}}, \code{\link{print.CatTable}}, \code{\link{summary.CatTable}},
-##' \code{\link{CreateTableOne}}, \code{\link{print.TableOne}}, \code{\link{summary.TableOne}}
+##' \code{\link{CreateTableOne}}, \code{\link{print.ContTable}}, \code{\link{summary.ContTable}}
 ##' @examples
 ##'
 ##' ## Load
