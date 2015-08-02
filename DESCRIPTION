@@ -23,6 +23,7 @@ Imports:
 Suggests:
     survival,
     testthat,
+    Matrix,
     knitr
 URL: https://github.com/kaz-yos/tableone
 VignetteBuilder: knitr

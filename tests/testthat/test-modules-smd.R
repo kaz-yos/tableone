@@ -21,6 +21,7 @@
 ################################################################################
 library(testthat)
 library(survey)
+library(Matrix)
 
 
 ###
@@ -515,6 +516,225 @@ test_that("decent results are returned for anomalous/difficult data", {
     ## 0 because [0]^-  = 0, and [1]^T [0]^-1 [1] = 0
     expect_warning(expect_equal(svyStdDiffMulti("onlyNa", "race", nhanesSvy), rep(NaN, 6)),
                    "onlyNa has only NA's in all strata. Regarding NA as a level.")
+
+})
+
+
+
+### Define a function for pooled S matrix (used in two tests)
+pooledSMat <- function(strataByLevels) {
+    lstMeans <- LstMeansFromFullTable(strataByLevels)
+    S1 <- MultinomialVar(lstMeans[[1]])
+    S2 <- MultinomialVar(lstMeans[[2]])
+    S <- (S1 + S2) / 2
+    ## first group element, second group element, pooled
+    list(S1 = S1, S2 = S2, S = S)
+}
+
+
+test_that("zero-cell vectors are decently handled by categorical SMD (artificial data)", {
+
+    set.seed(2015080200)
+    ## Simple artificial data
+    wt <- runif(n = 100)
+    dat <- data.frame(group = rep(c(1,2), each = 100),
+                      var1  = factor(c(rep(1:4, c(0,10,20,70)), rep(1:4, c( 0,10,20,70))), level = 1:4),
+                      var2  = factor(c(rep(1:4, c(0,10,20,70)), rep(1:4, c( 0,20,30,50))), level = 1:4),
+                      var3  = factor(c(rep(1:4, c(0,10,20,70)), rep(1:4, c(20, 0,30,50))), level = 1:4),
+                      var4  = factor(c(rep(1:4, c(0,10,20,70)), rep(1:4, c(10,20,30,40))), level = 1:4),
+                      wt    = rep(wt, 2))
+    datSvy <- svydesign(ids = ~ 1, data = dat, weights = ~wt)
+
+
+    ## Expectations
+    ## First case
+    var1S <- pooledSMat(table(dat$group, dat$var1))
+    expect_true(rankMatrix(var1S[[1]]) < 3)
+    expect_true(rankMatrix(var1S[[2]]) < 3)
+    expect_true(rankMatrix(var1S[[3]]) < 3)
+    ## Using ginv zero due to numerator (OK)
+    expect_equal(StdDiffMulti(dat$var1, dat$group), 0)
+
+    ## Second case
+    var2S <- pooledSMat(table(dat$group, dat$var2))
+    expect_true(rankMatrix(var2S[[1]]) < 3)
+    expect_true(rankMatrix(var2S[[2]]) < 3)
+    expect_true(rankMatrix(var2S[[3]]) < 3)
+    ## Using ginv() non-zero
+    expect_true(StdDiffMulti(dat$var2, dat$group) > 0)
+
+    ## Third case
+    var3S <- pooledSMat(table(dat$group, dat$var3))
+    expect_true(rankMatrix(var3S[[1]]) < 3)
+    expect_true(rankMatrix(var3S[[2]]) < 3)
+    ## pooled can be full rank if zero cell positions are different
+    expect_true(rankMatrix(var3S[[3]]) == 3)
+    ## Using true inverse from ginv, non-zero
+    expect_true(StdDiffMulti(dat$var3, dat$group) > 0)
+
+    ## Third case
+    var4S <- pooledSMat(table(dat$group, dat$var4))
+    expect_true(rankMatrix(var4S[[1]]) < 3)
+    ## All cells populated and full rank
+    expect_true(rankMatrix(var4S[[2]]) == 3)
+    ## pooled can be full rank if one group is full rank
+    expect_true(rankMatrix(var4S[[3]]) == 3)
+    expect_true(StdDiffMulti(dat$var4, dat$group) > 0)
+
+
+    ## Weighted
+    ## First case
+    var1S <- pooledSMat(svytable( ~ group + var1, datSvy))
+    expect_true(rankMatrix(var1S[[1]]) < 3)
+    expect_true(rankMatrix(var1S[[2]]) < 3)
+    expect_true(rankMatrix(var1S[[3]]) < 3)
+    ## Using ginv zero due to numerator (OK)
+    expect_equal(svyStdDiffMulti("var1", "group", datSvy), 0)
+
+    ## Second case
+    var2S <- pooledSMat(svytable( ~ group + var2, datSvy))
+    expect_true(rankMatrix(var2S[[1]]) < 3)
+    expect_true(rankMatrix(var2S[[2]]) < 3)
+    expect_true(rankMatrix(var2S[[3]]) < 3)
+    ## Using ginv() non-zero
+    expect_true(svyStdDiffMulti("var2", "group", datSvy) > 0)
+
+    ## Third case
+    var3S <- pooledSMat(svytable( ~ group + var3, datSvy))
+    expect_true(rankMatrix(var3S[[1]]) < 3)
+    expect_true(rankMatrix(var3S[[2]]) < 3)
+    ## pooled can be full rank if zero cell positions are different
+    expect_true(rankMatrix(var3S[[3]]) == 3)
+    ## Using true inverse from ginv, non-zero
+    expect_true(svyStdDiffMulti("var3", "group", datSvy) > 0)
+
+    ## Third case
+    var4S <- pooledSMat(svytable( ~ group + var4, datSvy))
+    expect_true(rankMatrix(var4S[[1]]) < 3)
+    ## All cells populated and full rank
+    expect_true(rankMatrix(var4S[[2]]) == 3)
+    ## pooled can be full rank if one group is full rank
+    expect_true(rankMatrix(var4S[[3]]) == 3)
+    expect_true(svyStdDiffMulti("var4", "group", datSvy) > 0)
+
+})
+
+
+test_that("zero-cell vectors are decently handled by categorical SMD (real data)", {
+
+    data(nhanes)
+    set.seed(2015080200)
+
+    ## grouping is by a binary nhanes$RIAGENDR
+
+    ## (0,0.1,0.2,0.7)^T for both groups: same distribution
+    nhanes$var1 <- NA
+    nhanes$var1[nhanes$RIAGENDR == 1] <-
+    as.vector(t(1:4) %*% rmultinom(n = nrow(subset(nhanes, RIAGENDR == 1)), size = 1, prob = c(0,0.1,0.2,0.7)))
+    nhanes$var1[nhanes$RIAGENDR == 2] <-
+    as.vector(t(1:4) %*% rmultinom(n = nrow(subset(nhanes, RIAGENDR == 2)), size = 1, prob = c(0,0.1,0.2,0.7)))
+    nhanes$var1 <- factor(nhanes$var1, levels = 1:4)
+
+    ## (0,0.1,0.2,0.7)^T vs (0,0.2,0.3,0.5)^T: different distribution, but same zero cell
+    nhanes$var2 <- NA
+    nhanes$var2[nhanes$RIAGENDR == 1] <-
+    as.vector(t(1:4) %*% rmultinom(n = nrow(subset(nhanes, RIAGENDR == 1)), size = 1, prob = c(0,0.1,0.2,0.7)))
+    nhanes$var2[nhanes$RIAGENDR == 2] <-
+    as.vector(t(1:4) %*% rmultinom(n = nrow(subset(nhanes, RIAGENDR == 2)), size = 1, prob = c(0,0.2,0.3,0.5)))
+    nhanes$var2 <- factor(nhanes$var2, levels = 1:4)
+
+    ## (0,0.1,0.2,0.7)^T vs (0.2,0,0.3,0.5)^T: different distribution and zero cell
+    nhanes$var3 <- NA
+    nhanes$var3[nhanes$RIAGENDR == 1] <-
+    as.vector(t(1:4) %*% rmultinom(n = nrow(subset(nhanes, RIAGENDR == 1)), size = 1, prob = c(0,0.1,0.2,0.7)))
+    nhanes$var3[nhanes$RIAGENDR == 2] <-
+    as.vector(t(1:4) %*% rmultinom(n = nrow(subset(nhanes, RIAGENDR == 2)), size = 1, prob = c(0.2,0,0.3,0.5)))
+    nhanes$var3 <- factor(nhanes$var3, levels = 1:4)
+
+    ## (0,0.1,0.2,0.7)^T vs (0.1,0.2,0.3,0.5)^T: different distribution and one is ok
+    nhanes$var4 <- NA
+    nhanes$var4[nhanes$RIAGENDR == 1] <-
+    as.vector(t(1:4) %*% rmultinom(n = nrow(subset(nhanes, RIAGENDR == 1)), size = 1, prob = c(0,0.1,0.2,0.7)))
+    nhanes$var4[nhanes$RIAGENDR == 2] <-
+    as.vector(t(1:4) %*% rmultinom(n = nrow(subset(nhanes, RIAGENDR == 2)), size = 1, prob = c(0.1,0.2,0.3,0.4)))
+    nhanes$var4 <- factor(nhanes$var4, levels = 1:4)
+
+    ## svydesign
+    nhanesSvy <- svydesign(ids = ~ SDMVPSU, strata = ~ SDMVSTRA,
+                           weights = ~ WTMEC2YR, nest = TRUE,
+                           data = nhanes)
+
+
+    ## Expectations
+    ## First case
+    var1S <- pooledSMat(table(nhanes$RIAGENDR, nhanes$var1))
+    expect_true(rankMatrix(var1S[[1]]) < 3)
+    expect_true(rankMatrix(var1S[[2]]) < 3)
+    expect_true(rankMatrix(var1S[[3]]) < 3)
+    ## Using ginv, near zero due to near-zero numerator
+    expect_true(StdDiffMulti(nhanes$var1, nhanes$RIAGENDR) < 0.1)
+
+    ## Second case
+    var2S <- pooledSMat(table(nhanes$RIAGENDR, nhanes$var2))
+    expect_true(rankMatrix(var2S[[1]]) < 3)
+    expect_true(rankMatrix(var2S[[2]]) < 3)
+    expect_true(rankMatrix(var2S[[3]]) < 3)
+    ## Using ginv() non-zero
+    expect_true(StdDiffMulti(nhanes$var2, nhanes$RIAGENDR) > 0)
+
+    ## Third case
+    var3S <- pooledSMat(table(nhanes$RIAGENDR, nhanes$var3))
+    expect_true(rankMatrix(var3S[[1]]) < 3)
+    expect_true(rankMatrix(var3S[[2]]) < 3)
+    ## pooled can be full rank if zero cell positions are different
+    expect_true(rankMatrix(var3S[[3]]) == 3)
+    ## Using true inverse from ginv, non-zero
+    expect_true(StdDiffMulti(nhanes$var3, nhanes$RIAGENDR) > 0)
+
+    ## Fourth case
+    var4S <- pooledSMat(table(nhanes$RIAGENDR, nhanes$var4))
+    expect_true(rankMatrix(var4S[[1]]) < 3)
+    ## All cells populated and full rank
+    expect_true(rankMatrix(var4S[[2]]) == 3)
+    ## pooled can be full rank if one group is full rank
+    expect_true(rankMatrix(var4S[[3]]) == 3)
+    expect_true(StdDiffMulti(nhanes$var4, nhanes$RIAGENDR) > 0)
+
+
+    ## Weighted
+    ## First case
+    var1S <- pooledSMat(svytable( ~ RIAGENDR + var1, nhanesSvy))
+    expect_true(rankMatrix(var1S[[1]]) < 3)
+    expect_true(rankMatrix(var1S[[2]]) < 3)
+    expect_true(rankMatrix(var1S[[3]]) < 3)
+    ## Using ginv, near zero due to small numerator vector
+    expect_true(svyStdDiffMulti("var1", "RIAGENDR", nhanesSvy) < 0.1)
+
+    ## Second case
+    var2S <- pooledSMat(svytable( ~ RIAGENDR + var2, nhanesSvy))
+    expect_true(rankMatrix(var2S[[1]]) < 3)
+    expect_true(rankMatrix(var2S[[2]]) < 3)
+    expect_true(rankMatrix(var2S[[3]]) < 3)
+    ## Using ginv() non-zero
+    expect_true(svyStdDiffMulti("var2", "RIAGENDR", nhanesSvy) > 0)
+
+    ## Third case
+    var3S <- pooledSMat(svytable( ~ RIAGENDR + var3, nhanesSvy))
+    expect_true(rankMatrix(var3S[[1]]) < 3)
+    expect_true(rankMatrix(var3S[[2]]) < 3)
+    ## pooled can be full rank if zero cell positions are different
+    expect_true(rankMatrix(var3S[[3]]) == 3)
+    ## Using true inverse from ginv, non-zero
+    expect_true(svyStdDiffMulti("var3", "RIAGENDR", nhanesSvy) > 0)
+
+    ## Third case
+    var4S <- pooledSMat(svytable( ~ RIAGENDR + var4, nhanesSvy))
+    expect_true(rankMatrix(var4S[[1]]) < 3)
+    ## All cells populated and full rank
+    expect_true(rankMatrix(var4S[[2]]) == 3)
+    ## pooled can be full rank if one RIAGENDR is full rank
+    expect_true(rankMatrix(var4S[[3]]) == 3)
+    expect_true(svyStdDiffMulti("var4", "RIAGENDR", nhanesSvy) > 0)
 
 })
 

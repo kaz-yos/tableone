@@ -19,7 +19,8 @@ NEW FEATURES
   prints the average SMD for brevity. For categorical variables
   Yang and Dalton's suggested method (A unified approach to
   measuring the effect size between two groups using SAS.
-  SAS Paper 335-2012) is used.
+  SAS Paper 335-2012) is used. SMDs for weighted data are
+  experimental.
 
 * The includeNA option for CreateTableOne() and svyCreateTableOne()
   make NA's in factors treated as a regular level.

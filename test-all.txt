@@ -1668,7 +1668,7 @@ status 0.5770647 0.7964473 0.8748771 0.8309763 0.4375075 0.4621432 0.06043662
 trt          NaN       NaN       NaN       NaN       NaN       NaN        NaN
 sex          NaN       NaN       NaN       NaN       NaN       NaN        NaN
 .
-Tests for functions for standardized mean differences : .....................................................................................
+Tests for functions for standardized mean differences : .....................................................................................................................................................
      ### Summary of continuous variables ###
 
 HI_CHOL: 0
