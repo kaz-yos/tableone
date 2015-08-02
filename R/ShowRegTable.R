@@ -9,7 +9,7 @@
 ##' @param pDigits Number of digits to print for the p-values.
 ##' @param printToggle Whether to print the output. If FLASE, no output is created, and a matrix is invisibly returned.
 ##' @param quote Whether to show everything in quotes. The default is FALSE. If TRUE, everything including the row and column names are quoted so that you can copy it to Excel easily.
-##' @param ciFun Function used for calculation. \code{confint} is the default. For generalized linear models this gives the profile likelihood-based calculation, which may take too much time for large models. Use \code{confint.default} for simple normal approximation method (+/- 1.96 * standard error).
+##' @param ciFun Function used for calculation. \code{confint} is the default. For generalized linear models this gives the profile likelihood-based calculation, which may take too much time for large models, use \code{confint.default} for simple normal approximation method (+/- 1.96 * standard error).
 ##' @return A matrix containing what you see is returned invisibly. You can capture it by assignment to an object.
 ##' @author Kazuki Yoshida
 ##' @examples

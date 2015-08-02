@@ -20,7 +20,7 @@ ShowRegTable(model, exp = TRUE, digits = 2, pDigits = 3,
 
 \item{quote}{Whether to show everything in quotes. The default is FALSE. If TRUE, everything including the row and column names are quoted so that you can copy it to Excel easily.}
 
-\item{ciFun}{Function used for calculation. \code{confint} is the default. For generalized linear models this gives the profile likelihood-based calculation, which may take too much time for large models. Use \code{confint.default} for simple normal approximation method (+/- 1.96 * standard error).}
+\item{ciFun}{Function used for calculation. \code{confint} is the default. For generalized linear models this gives the profile likelihood-based calculation, which may take too much time for large models, use \code{confint.default} for simple normal approximation method (+/- 1.96 * standard error).}
 }
 \value{
 A matrix containing what you see is returned invisibly. You can capture it by assignment to an object.
