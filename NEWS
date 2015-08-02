@@ -6,7 +6,8 @@ NEW FEATURES
 * Weighted data are now supported via the survey package.
   svydesign() should be used to create a survey design object,
   and this object should be used for svyCreateTableOne() instead
-  of a data frame. Other options are essentially the same.
+  of a data frame. Other options are essentially the same. All
+  results will be weighted results.
 
 * Standardized mean differences are calculated. print() methods
   include smd option, which defaults to FALSE for backward
@@ -15,7 +16,10 @@ NEW FEATURES
   summary() methods also print SMDs. If there are more than two
   strata, all possible pairwise contrasts are shown along with the
   average SMD across all contrats. In this case, print methods only
-  prints the average SMD for brevity.
+  prints the average SMD for brevity. For categorical variables
+  Yang and Dalton's suggested method (A unified approach to
+  measuring the effect size between two groups using SAS.
+  SAS Paper 335-2012) is used.
 
 * The includeNA option for CreateTableOne() and svyCreateTableOne()
   make NA's in factors treated as a regular level.

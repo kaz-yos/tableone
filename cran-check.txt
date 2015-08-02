@@ -1,4 +1,17 @@
 Rscript -e "library(methods); library(roxygen2); roxygenize('.')"
+R CMD build ../tableone
+* checking for file ‘../tableone/DESCRIPTION’ ... OK
+* preparing ‘tableone’:
+* checking DESCRIPTION meta-information ... OK
+* installing the package to build vignettes
+* creating vignettes ... OK
+* excluding invalid files
+Subdirectory 'man' contains invalid file names:
+  ‘Rd2roxygen.R’ ‘clean_comments.sh’
+* checking for LF line-endings in source and make files
+* checking for empty or unneeded directories
+Removed empty directory ‘tableone/data’
+* building ‘tableone_0.7.0.tar.gz’
 R CMD check --as-cran ./tableone_0.7.0.tar.gz
 * using log directory ‘/Users/kazuki/Documents/programming/r/tableone/tableone.Rcheck’
 * using R version 3.2.1 (2015-06-18)
