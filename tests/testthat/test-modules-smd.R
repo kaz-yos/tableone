@@ -414,7 +414,7 @@ test_that("decent results are returned for anomalous/difficult data", {
     ## Logical
     ## 0 due to [0]^- = 0
     table(nhanes$logi, nhanes$RIAGENDR)
-    expect_equal(StdDiffMulti(nhanes$logi, group = nhanes$RIAGENDR), 0)
+    expect_equal(StdDiffMulti(nhanes$logi, group = nhanes$RIAGENDR), NaN)
     ## Matches with result from original variable
     expect_equal(StdDiffMulti(nhanes$logi,     group = nhanes$race),
                  StdDiffMulti(nhanes$RIAGENDR, group = nhanes$race))
@@ -423,8 +423,8 @@ test_that("decent results are returned for anomalous/difficult data", {
     ## All groups have single group that is probability 1, thus,
     ## all contrasts have zero matrix S.
     table(nhanes$race2, nhanes$race)
-    expect_equal(StdDiffMulti(nhanes$race2, group = nhanes$race), rep(0,6))
-    expect_equal(svyStdDiffMulti("race2", group = "race", design = nhanesSvy), rep(0,6))
+    expect_equal(StdDiffMulti(nhanes$race2, group = nhanes$race), rep(NaN, 6))
+    expect_equal(svyStdDiffMulti("race2", group = "race", design = nhanesSvy), rep(NaN, 6))
 
 
     ## Only one value
@@ -433,7 +433,7 @@ test_that("decent results are returned for anomalous/difficult data", {
     expect_equal(StdDiff(nhanes$onlyOne, group = nhanes$RIAGENDR), NaN)
     ## 0 because [0]^-  = 0, and [1]^T [0]^-1 [1] = 0
     table(nhanes$onlyOne, nhanes$RIAGENDR)
-    expect_equal(StdDiffMulti(nhanes$onlyOne, group = nhanes$RIAGENDR), 0)
+    expect_equal(StdDiffMulti(nhanes$onlyOne, group = nhanes$RIAGENDR), NaN)
     ## When weighted problematic
     means1 <- svyby(~ onlyOne, by = ~ RIAGENDR, nhanesSvy, FUN = svymean)[,2]
     vars1  <- svyby(~ onlyOne, by = ~ RIAGENDR, nhanesSvy, FUN = svyvar)[,2]
@@ -447,14 +447,14 @@ test_that("decent results are returned for anomalous/difficult data", {
     ## level drop from table occurs only when 2+ levels are present.
     ## If any group has more than 2 levels, then strata-by-level table
     ## is correctly created, which is not the case here.
-    expect_equal(svyStdDiffMulti("onlyOne", "RIAGENDR", nhanesSvy), 0)
+    expect_equal(svyStdDiffMulti("onlyOne", "RIAGENDR", nhanesSvy), NaN)
 
     ## Four groups (six contrasts)
     ## NaN due to division by zero variance
     by(nhanes$onlyOne, nhanes$race, summary)
     expect_equal(StdDiff(nhanes$onlyOne, group = nhanes$race), rep(NaN, 6))
     ## 0 because [0]^-  = 0, and [1]^T [0]^-1 [1] = 0
-    expect_equal(StdDiffMulti(nhanes$onlyOne, group = nhanes$race), rep(0, 6))
+    expect_equal(StdDiffMulti(nhanes$onlyOne, group = nhanes$race), rep(NaN, 6))
     ## When weighted problematic; not in this case??
     means2 <- svyby(~ onlyOne, by = ~ race, nhanesSvy, FUN = svymean)[,2]
     vars2  <- svyby(~ onlyOne, by = ~ race, nhanesSvy, FUN = svyvar)[,2]
@@ -467,7 +467,7 @@ test_that("decent results are returned for anomalous/difficult data", {
     expect_equal(svyStdDiff("onlyOne", "race", nhanesSvy),  meanDiffs2)
     expect_equal(svyStdDiff("onlyOne", "race", nhanesSvy), rep(NaN, 6))
     ## 0 because [0]^-  = 0, and [1]^T [0]^-1 [1] = 0
-    expect_equal(svyStdDiffMulti("onlyOne", "race", nhanesSvy), rep(0, 6))
+    expect_equal(svyStdDiffMulti("onlyOne", "race", nhanesSvy), rep(NaN, 6))
 
 
     ## onlyNa
@@ -476,7 +476,7 @@ test_that("decent results are returned for anomalous/difficult data", {
                                 as.numeric(NA)),
                    "Variable has only NA's in at least one stratum. na.rm turned off.")
     ## 0 only one level
-    expect_warning(expect_equal(StdDiffMulti(nhanes$onlyNa, group = nhanes$RIAGENDR), 0),
+    expect_warning(expect_equal(StdDiffMulti(nhanes$onlyNa, group = nhanes$RIAGENDR), NaN),
                    "Variable has only NA's in all strata. Regarding NA as a level")
     ## When weighted problematic
     means1 <- svyby(~ onlyNa, by = ~ RIAGENDR, nhanesSvy, FUN = svymean)[,2]
@@ -488,7 +488,7 @@ test_that("decent results are returned for anomalous/difficult data", {
                                 as.numeric(NA)),
                    "onlyNa has only NA's in at least one stratum. na.rm turned off.")
     ## 0 because [0]^-  = 0, and [1]^T [0]^-1 [1] = 0
-    expect_warning(expect_equal(svyStdDiffMulti("onlyNa", "RIAGENDR", nhanesSvy), 0),
+    expect_warning(expect_equal(svyStdDiffMulti("onlyNa", "RIAGENDR", nhanesSvy), NaN),
                    "onlyNa has only NA's in all strata. Regarding NA as a level.")
 
     ## Four groups (six contrasts)
@@ -496,7 +496,7 @@ test_that("decent results are returned for anomalous/difficult data", {
     expect_warning(expect_equal(StdDiff(nhanes$onlyNa, group = nhanes$race), rep(NaN, 6)),
                    "Variable has only NA's in at least one stratum. na.rm turned off.")
     ## 0 because [0]^-  = 0, and [1]^T [0]^-1 [1] = 0
-    expect_warning(expect_equal(StdDiffMulti(nhanes$onlyNa, group = nhanes$race), rep(0, 6)),
+    expect_warning(expect_equal(StdDiffMulti(nhanes$onlyNa, group = nhanes$race), rep(NaN, 6)),
                    "Variable has only NA's in all strata. Regarding NA as a level.")
     ## When weighted problematic; not in this case??
     means2 <- svyby(~ onlyNa, by = ~ race, nhanesSvy, FUN = svymean)[,2]
@@ -512,7 +512,7 @@ test_that("decent results are returned for anomalous/difficult data", {
     expect_warning(expect_equal(svyStdDiff("onlyNa", "race", nhanesSvy), rep(NaN, 6)),
                    "onlyNa has only NA's in at least one stratum. na.rm turned off.")
     ## 0 because [0]^-  = 0, and [1]^T [0]^-1 [1] = 0
-    expect_warning(expect_equal(svyStdDiffMulti("onlyNa", "race", nhanesSvy), rep(0, 6)),
+    expect_warning(expect_equal(svyStdDiffMulti("onlyNa", "race", nhanesSvy), rep(NaN, 6)),
                    "onlyNa has only NA's in all strata. Regarding NA as a level.")
 
 })

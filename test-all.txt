@@ -1668,7 +1668,7 @@ status 0.5770647 0.7964473 0.8748771 0.8309763 0.4375075 0.4621432 0.06043662
 trt    0.0000000 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000 0.00000000
 sex    0.0000000 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000 0.00000000
 .
-Tests for functions for standardized mean differences : .....................................................................................
+Tests for functions for standardized mean differences : ................................1.23.4.5.6..7........................................
      ### Summary of continuous variables ###
 
 HI_CHOL: 0
@@ -2623,4 +2623,94 @@ Y  1.218899 1.218899      0      0      0
 C1 0.000000 0.000000      0      0      0
 .
 
-DONE 
+1. Failure (at test-modules-smd.R#417): decent results are returned for anomalous/difficult data -------------------
+StdDiffMulti(nhanes$logi, group = nhanes$RIAGENDR) not equal to NaN
+NaN - 0 == NaN
+
+2. Failure (at test-modules-smd.R#426): decent results are returned for anomalous/difficult data -------------------
+StdDiffMulti(nhanes$race2, group = nhanes$race) not equal to rep(NaN, 6)
+6/6 mismatches (average diff: NaN).
+First 6:
+ pos   x y diff
+   1 NaN 0  NaN
+   2 NaN 0  NaN
+   3 NaN 0  NaN
+   4 NaN 0  NaN
+   5 NaN 0  NaN
+   6 NaN 0  NaN
+
+3. Failure (at test-modules-smd.R#427): decent results are returned for anomalous/difficult data -------------------
+svyStdDiffMulti("race2", group = "race", design = nhanesSvy) not equal to rep(NaN, 6)
+6/6 mismatches (average diff: NaN).
+First 6:
+ pos   x y diff
+   1 NaN 0  NaN
+   2 NaN 0  NaN
+   3 NaN 0  NaN
+   4 NaN 0  NaN
+   5 NaN 0  NaN
+   6 NaN 0  NaN
+
+4. Failure (at test-modules-smd.R#436): decent results are returned for anomalous/difficult data -------------------
+StdDiffMulti(nhanes$onlyOne, group = nhanes$RIAGENDR) not equal to NaN
+NaN - 0 == NaN
+
+5. Failure (at test-modules-smd.R#450): decent results are returned for anomalous/difficult data -------------------
+svyStdDiffMulti("onlyOne", "RIAGENDR", nhanesSvy) not equal to NaN
+NaN - 0 == NaN
+
+6. Failure (at test-modules-smd.R#457): decent results are returned for anomalous/difficult data -------------------
+StdDiffMulti(nhanes$onlyOne, group = nhanes$race) not equal to rep(NaN, 6)
+6/6 mismatches (average diff: NaN).
+First 6:
+ pos   x y diff
+   1 NaN 0  NaN
+   2 NaN 0  NaN
+   3 NaN 0  NaN
+   4 NaN 0  NaN
+   5 NaN 0  NaN
+   6 NaN 0  NaN
+
+7. Failure (at test-modules-smd.R#470): decent results are returned for anomalous/difficult data -------------------
+svyStdDiffMulti("onlyOne", "race", nhanesSvy) not equal to rep(NaN, 6)
+6/6 mismatches (average diff: NaN).
+First 6:
+ pos   x y diff
+   1 NaN 0  NaN
+   2 NaN 0  NaN
+   3 NaN 0  NaN
+   4 NaN 0  NaN
+   5 NaN 0  NaN
+   6 NaN 0  NaN
+
+8. Failure (at test-modules-smd.R#479): decent results are returned for anomalous/difficult data -------------------
+StdDiffMulti(nhanes$onlyNa, group = nhanes$RIAGENDR) not equal to NaN
+NaN - 0 == NaN
+
+9. Failure (at test-modules-smd.R#491): decent results are returned for anomalous/difficult data -------------------
+svyStdDiffMulti("onlyNa", "RIAGENDR", nhanesSvy) not equal to NaN
+NaN - 0 == NaN
+
+a. Failure (at test-modules-smd.R#499): decent results are returned for anomalous/difficult data -------------------
+StdDiffMulti(nhanes$onlyNa, group = nhanes$race) not equal to rep(NaN, 6)
+6/6 mismatches (average diff: NaN).
+First 6:
+ pos   x y diff
+   1 NaN 0  NaN
+   2 NaN 0  NaN
+   3 NaN 0  NaN
+   4 NaN 0  NaN
+   5 NaN 0  NaN
+   6 NaN 0  NaN
+
+b. Failure (at test-modules-smd.R#515): decent results are returned for anomalous/difficult data -------------------
+svyStdDiffMulti("onlyNa", "race", nhanesSvy) not equal to rep(NaN, 6)
+6/6 mismatches (average diff: NaN).
+First 6:
+ pos   x y diff
+   1 NaN 0  NaN
+   2 NaN 0  NaN
+   3 NaN 0  NaN
+   4 NaN 0  NaN
+   5 NaN 0  NaN
+   6 NaN 0  NaN
