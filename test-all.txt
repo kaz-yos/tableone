@@ -1549,7 +1549,7 @@ stage   6.463005e-01           NA
 Standardize mean differences
           average     1 vs 2    1 vs 3     1 vs 4    2 vs 3     2 vs 4     3 vs 4
 status  0.5770647 0.79644734 0.8748771 0.83097631 0.4375075 0.46214324 0.06043662
-sex     0.0000000 0.00000000 0.0000000 0.00000000 0.0000000 0.00000000 0.00000000
+sex           NaN        NaN       NaN        NaN       NaN        NaN        NaN
 ascites 0.1755851 0.30219043 0.1845375 0.04452096 0.1211310 0.26007640 0.14105454
 hepato  0.1598214 0.05802589 0.2544151 0.02073917 0.3135916 0.07878788 0.23336861
 spiders 0.4018377 0.25073566 0.3999925 0.42200838 0.6471968 0.66954801 0.02154469
@@ -1665,10 +1665,10 @@ sex    2.514569e-67 4.934035e-48
 Standardize mean differences
          average    1 vs 2    1 vs 3    1 vs 4    2 vs 3    2 vs 4     3 vs 4
 status 0.5770647 0.7964473 0.8748771 0.8309763 0.4375075 0.4621432 0.06043662
-trt    0.0000000 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000 0.00000000
-sex    0.0000000 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000 0.00000000
+trt          NaN       NaN       NaN       NaN       NaN       NaN        NaN
+sex          NaN       NaN       NaN       NaN       NaN       NaN        NaN
 .
-Tests for functions for standardized mean differences : ...................................................................................
+Tests for functions for standardized mean differences : .....................................................................................
      ### Summary of continuous variables ###
 
 HI_CHOL: 0
@@ -2503,10 +2503,10 @@ C1 4.640660e-128     NA
 Standardize mean differences
      average      1 vs 2      1 vs 3   1 vs 4   1 vs 5   1 vs 6         2 vs 3   2 vs 4   2 vs 5   2 vs 6   3 vs 4
 Y  0.7311319 0.001480611 0.001486405 1.216879 1.216879 1.216879 0.000005793469 1.218891 1.218891 1.218891 1.218899
-C1 0.0000000 0.000000000 0.000000000 0.000000 0.000000 0.000000 0.000000000000 0.000000 0.000000 0.000000 0.000000
+C1       NaN         NaN         NaN      NaN      NaN      NaN            NaN      NaN      NaN      NaN      NaN
      3 vs 5   3 vs 6 4 vs 5 4 vs 6 5 vs 6
 Y  1.218899 1.218899      0      0      0
-C1 0.000000 0.000000      0      0      0
+C1      NaN      NaN    NaN    NaN    NaN
 .
      ### Summary of continuous variables ###
 
@@ -2617,10 +2617,10 @@ C1 4.640660e-128     NA
 Standardize mean differences
      average      1 vs 2      1 vs 3   1 vs 4   1 vs 5   1 vs 6         2 vs 3   2 vs 4   2 vs 5   2 vs 6   3 vs 4
 Y  0.7311319 0.001480611 0.001486405 1.216879 1.216879 1.216879 0.000005793469 1.218891 1.218891 1.218891 1.218899
-C1 0.0000000 0.000000000 0.000000000 0.000000 0.000000 0.000000 0.000000000000 0.000000 0.000000 0.000000 0.000000
+C1       NaN         NaN         NaN      NaN      NaN      NaN            NaN      NaN      NaN      NaN      NaN
      3 vs 5   3 vs 6 4 vs 5 4 vs 6 5 vs 6
 Y  1.218899 1.218899      0      0      0
-C1 0.000000 0.000000      0      0      0
+C1      NaN      NaN    NaN    NaN    NaN
 .
 
 DONE 
