@@ -37,7 +37,7 @@
 
 \item{exact}{This option is not available for tables from weighted data.}
 
-\item{smd}{Whether to show standardized mean differences. FALSE by default. If there are more than one contrasts, the average of all possible standardized mean differences is shown. For individual contrasts, use \code{summary}. For categorical variables, Yang and Dalton's definition is used (\href{http://support.sas.com/resources/papers/proceedings12/335-2012.pdf}{A unified approach to measuring the effect size between two groups}).}
+\item{smd}{Whether to show standardized mean differences. FALSE by default. If there are more than one contrasts, the average of all possible standardized mean differences is shown. For individual contrasts, use \code{summary}. For categorical variables, Yang and Dalton's definition is used (\href{http://support.sas.com/resources/papers/proceedings12/335-2012.pdf}{A unified approach to measuring the effect size between two groups}). Implementation for weighted data is experimental.}
 
 \item{CrossTable}{Whether to show the cross table objects held internally using gmodels::CrossTable function. This will give an output similar to the PROC FREQ in SAS.}
 

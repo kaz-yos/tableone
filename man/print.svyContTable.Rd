@@ -34,7 +34,7 @@
 
 \item{test}{Whether to show p-values. TRUE by default. If FALSE, only the numerical summaries are shown.}
 
-\item{smd}{Whether to show standardized mean differences. FALSE by default. If there are more than one contrasts, the average of all possible standardized mean differences is shown. For individual contrasts, use \code{summary}.}
+\item{smd}{Whether to show standardized mean differences. FALSE by default. If there are more than one contrasts, the average of all possible standardized mean differences is shown. For individual contrasts, use \code{summary}. Implementation for weighted data is experimental.}
 
 \item{...}{For compatibility with generic. Ignored.}
 }
