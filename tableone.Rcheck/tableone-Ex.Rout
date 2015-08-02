@@ -2964,7 +2964,7 @@ Standardize mean differences
              1 vs 2
 race     0.06878329
 agecat   0.08873652
-RIAGENDR 0.00000000
+RIAGENDR        NaN
 > 
 > ## Default formatted printing
 > tab1
@@ -3016,7 +3016,7 @@ RIAGENDR 0.00000000
      (19,39]               40640361.53 ( 28.70)                              
      (39,59]               42817044.01 ( 30.24)                              
      (59,Inf]              29983725.90 ( 21.18)                              
-  RIAGENDR = 2 (%)        141591892.00 (100.00)       <0.0001         <0.0001
+  RIAGENDR = 2 (%)        141591892.00 (100.00)       <0.0001          NaN   
 > 
 > ## minMax changes it to median [min, max]
 > print(tab1, nonnormal = "HI_CHOL", minMax = TRUE, contDigits = 3,
@@ -3050,7 +3050,7 @@ RIAGENDR 0.00000000
      (19,39]                 40640361.53 ( 28.70)                              
      (39,59]                 42817044.01 ( 30.24)                              
      (59,Inf]                29983725.90 ( 21.18)                              
-  RIAGENDR = 2 (%)          141591892.00 (100.00)       <0.0001         <0.0001
+  RIAGENDR = 2 (%)          141591892.00 (100.00)       <0.0001          NaN   
 > 
 > ## showAllLevels can be used tow show levels for all categorical variables
 > print(tab1, showAllLevels = TRUE, smd = TRUE)
@@ -3080,7 +3080,7 @@ RIAGENDR 0.00000000
                                         
                                         
                                         
-  RIAGENDR (%)        <0.001      <0.001
+  RIAGENDR (%)        <0.001       NaN  
                                         
 > 
 > ## To see all printing options
@@ -3241,7 +3241,7 @@ detaching ‘package:survey’, ‘package:grid’
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  4.851 0.166 5.086 0.006 0.008 
+Time elapsed:  5.202 0.199 5.523 0.006 0.008 
 > grDevices::dev.off()
 null device 
           1 

@@ -24,6 +24,8 @@ MultinomialMeans <- function(dummyMat, na.rm = TRUE) {
 }
 
 ## Proportions to variance-covariance matrix
+## http://stackoverflow.com/questions/19960605/r-multinomial-distribution-variance
+## diagonal p_k(1-p_k); off-diagonal -1 * p_k * p_l
 MultinomialVar <- function(multinomialMeans) {
     ## Mean for each
     p <- multinomialMeans
@@ -37,11 +39,13 @@ MultinomialVar <- function(multinomialMeans) {
     drop(covs)
 }
 
-##
+## List of mean vector of a multinomial variable to categorical SMD (Yang & Dalton 2012)
 StdDiffFromLstMeans <- function(lstMeans) {
 
-    ## list of covariance matrices
-    lstCovs  <- lapply(lstMeans,   MultinomialVar)
+    ## list of variance-covariance matrices
+    ## http://stackoverflow.com/questions/19960605/r-multinomial-distribution-variance
+    ## diagonal p_k(1-p_k); off-diagonal -1 * p_k * p_l
+    lstCovs <- lapply(lstMeans, MultinomialVar)
 
     ## All possible mean vector differences
     lstMeanDiffs <- lapply(lstMeans, function(x) {
@@ -66,16 +70,28 @@ StdDiffFromLstMeans <- function(lstMeans) {
             if (i < j) {
                 ## For upper triangle elements only
                 ## Squared Mahalanobis distance
-                ## meanDiffs^T covMean^-1 meanDiffs
+                ## meanDiffs^T (pooled vcov)^-1 meanDiffs
                 ## Generalized inverse for protection against singularity
                 ## Reduces to true inverse if non-singular
-                sqMahaDist <-
-                t(lstMeanDiffs[[i]][[j]]) %*%
-                MASS::ginv(lstCovMeans[[i]][[j]]) %*%
-                t(t(lstMeanDiffs[[i]][[j]]))
+
+                ## Column mean difference vector
+                T_C <- t(t(lstMeanDiffs[[i]][[j]]))
+                ## Pooled vcov
+                S   <- lstCovMeans[[i]][[j]]
+
+                if (all(S == 0)) {
+                    ## If S is a zero matrix, ginv is a zero matrix
+                    ## which gives a zero SMD regardless of mean
+                    ## difference. Such case should be NaN.
+                    sqMD <- NaN
+                } else {
+                    ## Squared Mahalanobis distance
+                    sqMD <- t(T_C) %*% MASS::ginv(S) %*% T_C
+                }
+
                 ## Add sqrt of MD to output
                 ## Not efficient; room for improvement
-                sqSmds <- c(sqSmds, sqMahaDist)
+                sqSmds <- c(sqSmds, sqMD)
             }
         }
     }
