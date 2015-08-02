@@ -442,11 +442,12 @@ test_that("decent results are returned for anomalous/difficult data", {
     (means1[1] - means1[2]) / sqrt(sum(vars1)  / 2))
     ## NaN should be the case, but it's not, but it's consistent with survey
     ## expect_equal(svyStdDiff("onlyOne", "RIAGENDR", nhanesSvy), NaN)
+
     ## 0 because [0]^-  = 0, and [1]^T [0]^-1 [1] = 0
     ## No error even with a single level variable (constant) as redundant
     ## level drop from table occurs only when 2+ levels are present.
     ## If any group has more than 2 levels, then strata-by-level table
-    ## is correctly created, which is not the case here.
+    ## is correctly created, which is not the case here. Redefined NaN.
     expect_equal(svyStdDiffMulti("onlyOne", "RIAGENDR", nhanesSvy), NaN)
 
     ## Four groups (six contrasts)
