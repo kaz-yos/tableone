@@ -1,4 +1,4 @@
-tableone 0.7.0 (2015-08-01)
+tableone 0.7.0 (2015-08-06)
 ----------------------------------------------------------------
 
 NEW FEATURES
@@ -21,6 +21,9 @@ NEW FEATURES
   measuring the effect size between two groups using SAS.
   SAS Paper 335-2012) is used. SMDs for weighted data are
   experimental.
+
+* ExtractSmd() function can be used to extract SMD values as a
+  numeric matrix, which then can be used for plotting, etc.
 
 * The includeNA option for CreateTableOne() and svyCreateTableOne()
   make NA's in factors treated as a regular level.
