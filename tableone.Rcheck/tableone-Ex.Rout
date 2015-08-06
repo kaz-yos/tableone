@@ -1601,6 +1601,15 @@ protime  0.1460939117
   "   3"                    "64 (41.6)"                 ""      ""       
   "   4"                    "54 (35.1)"                 ""      ""       
 > 
+> ## If SMDs are needed as numericals, use ExtractSmd()
+> ExtractSmd(tableOne)
+        time       status          age          sex      ascites       hepato 
+0.0166658751 0.0537576290 0.2702619258 0.1114116116 0.0890061759 0.2069941350 
+     spiders        edema         bili         chol      albumin       copper 
+0.0163284440 0.0581165880 0.1710905651 0.0382210537 0.0180021838 0.0001200022 
+    alk.phos          ast         trig     platelet      protime        stage 
+0.0365323630 0.0837836058 0.0170615337 0.0674763888 0.1460939117 0.2460083410 
+> 
 > 
 > 
 > base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
@@ -1622,7 +1631,7 @@ detaching ‘package:survival’
 > 
 > ### ** Examples
 > 
-> ##
+> ## See examples for CreateTableOne and svyCreateTableOne
 > 
 > 
 > 
@@ -3231,6 +3240,11 @@ _E_x_a_m_p_l_e_s:
   n                   134944553.92 141591892.00            
   HI_CHOL (mean (sd)) 0.10 (0.30)  0.12 (0.33)   0.009     
 > 
+> ## If SMDs are needed as numericals, use ExtractSmd()
+> ExtractSmd(tab1)
+   HI_CHOL       race     agecat   RIAGENDR 
+0.07093003 0.06878329 0.08873652        NaN 
+> 
 > 
 > 
 > base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
@@ -3261,7 +3275,7 @@ detaching ‘package:survey’, ‘package:grid’
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  4.459 0.136 4.848 0.005 0.005 
+Time elapsed:  5.066 0.204 5.388 0.006 0.009 
 > grDevices::dev.off()
 null device 
           1 

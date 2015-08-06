@@ -10,15 +10,18 @@ ExtractSmd(x)
 \item{x}{A stratified (svy)TableOne object containing standardized mean differences.}
 }
 \value{
-A matrix containing the average standardized mean differences as well as the all possible pairwise standardized mean differences. Variables are ordered in the same order as the printed table.
+A vector or matrix containing the average standardized mean differences (if more than two contrasts exist) as well as the all possible pairwise standardized mean differences. Variables are ordered in the same order as the printed table.
 }
 \description{
-Extracts standardized mean differences data as a matrix from a (svy)TableOne object
+Extracts standardized mean differences data as a vector or matrix from a (svy)TableOne object
 }
 \examples{
-##
+## See examples for CreateTableOne and svyCreateTableOne
 }
 \author{
 Kazuki Yoshida
+}
+\seealso{
+\code{\link{CreateTableOne}}, \code{\link{CreateTableOne}}
 }
 

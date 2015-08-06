@@ -90,6 +90,9 @@ tab1$CatTable
 
 ## To examine continuous variables only
 tab1$ContTable
+
+## If SMDs are needed as numericals, use ExtractSmd()
+ExtractSmd(tab1)
 }
 \author{
 Kazuki Yoshida
