@@ -1609,6 +1609,26 @@ protime  0.1460939117
 
 detaching ‘package:survival’
 
+> nameEx("ExtractSmd")
+> ### * ExtractSmd
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: ExtractSmd
+> ### Title: Extract standardized mean differences from a (svy)TableOne
+> ###   object
+> ### Aliases: ExtractSmd
+> 
+> ### ** Examples
+> 
+> ##
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("ExtractSmd", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
 > nameEx("ShowRegTable")
 > ### * ShowRegTable
 > 
@@ -3241,7 +3261,7 @@ detaching ‘package:survey’, ‘package:grid’
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  4.472 0.134 4.784 0.005 0.004 
+Time elapsed:  4.459 0.136 4.848 0.005 0.005 
 > grDevices::dev.off()
 null device 
           1 

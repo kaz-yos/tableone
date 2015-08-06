@@ -12,5 +12,23 @@
 ##'
 ##' @export
 ExtractSmd <- function(x) {
-    NA
+
+    if (class(x)[1] %in% c("TableOne","svyTableOne")) {
+
+        ## Extract SMD from both continuous and categorical
+        matSmd <- rbind(attr(x$ContTable, "smd"),
+                        attr(x$CatTable,  "smd"))
+
+        ## Order by table variable order
+        matSmd[x$MetaData$vars,]
+
+    } else if (class(x)[1] %in% c("ContTable","svyContTable","CatTable","svyCatTable")) {
+
+        ## If not a mixed table object, just get attribute
+        attr(x, "smd")
+
+    } else {
+
+        warning("Unsupported object of class: ", class(x))
+    }
 }
