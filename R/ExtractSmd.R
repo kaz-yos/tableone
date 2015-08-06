@@ -8,7 +8,7 @@
 ##' @author Kazuki Yoshida
 ##' @examples
 ##'
-##' ##
+##' ## See examples for CreateTableOne and svyCreateTableOne
 ##'
 ##' @export
 ExtractSmd <- function(x) {
