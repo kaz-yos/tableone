@@ -2,7 +2,7 @@
 
 ################################################################################
 ### Test ExtractSmd function
-## 
+##
 ## Created on: 2015-08-06
 ## Author: Kazuki Yoshida
 ################################################################################
@@ -47,7 +47,7 @@ pbcByTrtSex <- CreateTableOne(vars = vars, strata = c("trt","sex"), data = pbc)
 
 
 test_that("ExtractSmd work on unweighted data", {
-    
+
     ## Expectations
     ## Correct variable order
     print(ExtractSmd(pbcByTrtSex))
@@ -59,6 +59,10 @@ test_that("ExtractSmd work on unweighted data", {
                  attr(pbcByTrtSex$ContTable, "smd"))
     expect_equal(ExtractSmd(pbcByTrtSex$CatTable),
                  attr(pbcByTrtSex$CatTable, "smd"))
+
+    ## Regression test
+    expect_equal_to_reference(ExtractSmd(pbcByTrtSex),
+                              "ref-ExtractSmd_TableOne")
 
 })
 
@@ -82,7 +86,7 @@ nhanesByRace <- svyCreateTableOne(vars = c("HI_CHOL","race","agecat","RIAGENDR")
 
 
 test_that("ExtractSmd work on weighted data", {
-    
+
     ## Expectations
     ## Correct variable order
     print(ExtractSmd(nhanesByRace))
@@ -94,15 +98,9 @@ test_that("ExtractSmd work on weighted data", {
                  attr(nhanesByRace$ContTable, "smd"))
     expect_equal(ExtractSmd(nhanesByRace$CatTable),
                  attr(nhanesByRace$CatTable, "smd"))
-    
+
+    ## Regression test
+    expect_equal_to_reference(ExtractSmd(nhanesByRace),
+                              "ref-ExtractSmd_svyTableOne")
+
 })
-
-
-
-
-
-
-
-
-
-
