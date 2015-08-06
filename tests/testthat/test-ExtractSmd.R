@@ -18,17 +18,6 @@
 context("Unit tests for the ExtractSmd function")
 
 
-
-### Abnormal object test
-test_that("Abnormal objects are detected", {
-
-    expect_warning(ExtractSmd(1),
-                   "Unsupported object of class")
-
-})
-
-
-
 ### Unweighted table
 
 library(survival)
@@ -44,6 +33,41 @@ vars <- c("time","status","age","sex","ascites","hepato",
 varsContOnly <- c("time","age","protime")
 varsCatOnly  <- c("status","trt","sex")
 pbcByTrtSex <- CreateTableOne(vars = vars, strata = c("trt","sex"), data = pbc)
+
+## Difficult objects
+## SMD turned off
+pbcByTrtSexOff <- CreateTableOne(vars = vars, strata = c("trt","sex"), data = pbc, smd = FALSE)
+## No strata
+pbcByOne <- CreateTableOne(vars = vars, data = pbc)
+## Cont only
+pbcContByTrtSex <- CreateTableOne(vars = varsContOnly, strata = c("trt","sex"), data = pbc)
+## Cat only
+pbcCatByTrtSex <- CreateTableOne(vars = varsCatOnly, strata = c("trt","sex"), data = pbc)
+
+
+### Abnormal object test
+test_that("Anomalous/difficult objects are handled correctly", {
+
+    expect_warning(ExtractSmd(1),
+                   "Unsupported object of class")
+
+    ## Unstratified object necessarily returns NULL
+    expect_equal(ExtractSmd(pbcByOne),
+                 NULL)
+
+    ## Object not containing SMD necessarily returns NULL
+    expect_equal(ExtractSmd(pbcByTrtSexOff),
+                 NULL)
+
+    ## Continuous only
+    expect_equal(ExtractSmd(pbcContByTrtSex),
+                 attr(pbcContByTrtSex$ContTable, "smd"))
+
+    ## Categorical only
+    expect_equal(ExtractSmd(pbcCatByTrtSex),
+                 attr(pbcCatByTrtSex$CatTable, "smd"))
+
+})
 
 
 test_that("ExtractSmd work on unweighted data", {

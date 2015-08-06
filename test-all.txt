@@ -1667,7 +1667,7 @@ status 0.5770647 0.7964473 0.8748771 0.8309763 0.4375075 0.4621432 0.06043662
 trt          NaN       NaN       NaN       NaN       NaN       NaN        NaN
 sex          NaN       NaN       NaN       NaN       NaN       NaN        NaN
 .
-Unit tests for the ExtractSmd function : .           average     1 vs 2     1 vs 3     1 vs 4     2 vs 3     2 vs 4     3 vs 4
+Unit tests for the ExtractSmd function : .....           average     1 vs 2     1 vs 3     1 vs 4     2 vs 3     2 vs 4     3 vs 4
 time     0.1556365 0.27083134 0.22071813 0.15677410 0.08450703 0.13729269 0.06369595
 status   0.5770647 0.79644734 0.87487707 0.83097631 0.43750751 0.46214324 0.06043662
 age      0.5214974 0.13353519 0.40993004 0.70700091 0.60864596 0.96133382 0.30853876
