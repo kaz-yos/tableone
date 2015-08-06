@@ -81,6 +81,9 @@
 ##' print(tableOne, nonnormal = c("bili","chol","copper","alk.phos","trig"),
 ##'       exact = c("status","stage"), quote = TRUE, noSpaces = TRUE)
 ##'
+##' ## If SMDs are needed as numericals, use ExtractSmd()
+##' ExtractSmd(tableOne)
+##'
 ##' @export
 CreateTableOne <-
 function(vars,                                      # character vector of variable names

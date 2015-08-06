@@ -67,6 +67,9 @@
 ##' ## To examine continuous variables only
 ##' tab1$ContTable
 ##'
+##' ## If SMDs are needed as numericals, use ExtractSmd()
+##' ExtractSmd(tab1)
+##'
 ##' @export
 svyCreateTableOne <-
 function(vars,                                   # character vector of variable names

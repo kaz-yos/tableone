@@ -30,7 +30,7 @@ PKG_FILES := DESCRIPTION NAMESPACE NEWS $(R_FILES) $(TST_FILES) $(SRC_FILES) $(V
 
 ## test just runs testthat scripts. No dependencies.
 test:
-	Rscript -e "devtools::test()"
+	Rscript -e "devtools::test()" | tee test-all.txt
 
 ## build depends on the *.tar.gz file, i.e., its own product.
 ## *.tar.gz file is defined seprately to prevent build execution on every invocation.
@@ -48,7 +48,7 @@ NAMESPACE: $(R_FILES)
 
 ## check requires the *.tar.gz file, and execute strict tests on it.
 check: $(PKG_NAME)_$(PKG_VERSION).tar.gz
-	R CMD check --as-cran ./$(PKG_NAME)_$(PKG_VERSION).tar.gz
+	R CMD check --as-cran ./$(PKG_NAME)_$(PKG_VERSION).tar.gz | tee cran-check.txt
 
 ## install requires the *.tar.gz file, and execute installation using it.
 install: $(PKG_NAME)_$(PKG_VERSION).tar.gz

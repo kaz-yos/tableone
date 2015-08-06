@@ -107,6 +107,9 @@ print(tableOne, nonnormal = c("bili","chol","copper","alk.phos","trig"),
 ## If you want to center-align values in Word, use noSpaces option.
 print(tableOne, nonnormal = c("bili","chol","copper","alk.phos","trig"),
       exact = c("status","stage"), quote = TRUE, noSpaces = TRUE)
+
+## If SMDs are needed as numericals, use ExtractSmd()
+ExtractSmd(tableOne)
 }
 \author{
 Kazuki Yoshida, Justin Bohn
