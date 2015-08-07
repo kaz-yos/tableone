@@ -27,7 +27,6 @@ Suggests:
     Matching,
     reshape2,
     ggplot2,
-    gridExtra,
     knitr
 URL: https://github.com/kaz-yos/tableone
 VignetteBuilder: knitr
