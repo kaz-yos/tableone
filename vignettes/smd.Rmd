@@ -26,7 +26,7 @@ options(width = 116, scipen = 5)
 
 ## Standardized mean difference
 
-The standardized (mean) difference is a measure of distance between two group means in terms of one or more variables. In practice it is often used as a balance measure of individual covariates before and after propensity score matching. As it is standardized, comparison across variables on different scales are possible. For definitions see http://www.ncbi.nlm.nih.gov/pmc/articles/PMC3144483/#s11title .
+The standardized (mean) difference is a measure of distance between two group means in terms of one or more variables. In practice it is often used as a balance measure of individual covariates before and after propensity score matching. As it is standardized, comparison across variables on different scales is possible. For definitions see http://www.ncbi.nlm.nih.gov/pmc/articles/PMC3144483/#s11title .
 
 
 Standardized mean differences can be easily calculated with tableone. All standardized mean differences in this package are absolute values, thus, there is no directionality.
@@ -123,7 +123,7 @@ rhc$pMin <- pmin(rhc$pRhc, rhc$pNoRhc)
 
 ## Propensity score matching
 
-The Matching package can be used for propensity score matching. The logit of propensity score is often used as the matching scale, and the matchign caliper is often 0.2 $\times$ SD(logit(PS)). See http://www.ncbi.nlm.nih.gov/pmc/articles/PMC3144483/#s5title for suggestions. After matching, all the standardized mean differences are below 0.1
+The Matching package can be used for propensity score matching. The logit of propensity score is often used as the matching scale, and the matchign caliper is often 0.2 $\times$ SD(logit(PS)). See http://www.ncbi.nlm.nih.gov/pmc/articles/PMC3144483/#s5title for suggestions. After matching, all the standardized mean differences are below 0.1.
 
 ```{r}
 
