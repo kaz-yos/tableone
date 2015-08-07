@@ -14,7 +14,10 @@
 ##' @param argsNonNormal A named list of arguments passed to the function specified in \code{testNonNormal}.
 ##' @param testApprox A function used to perform the large sample approximation based tests. The default is \code{svychisq}.
 ##' @param argsApprox A named list of arguments passed to the function specified in testApprox.
-##' @param smd If TRUE, as in the default and there are more than two groups, standardized mean differences for all pairwise comparisons are calculated. For categorical variables, Yang and Dalton's definition is used (\href{http://support.sas.com/resources/papers/proceedings12/335-2012.pdf}{A unified approach to measuring the effect size between two groups}). Implementation for weighted data is experimental.
+##' @param smd If TRUE, as in the default and there are more than two groups, standardized mean differences for all pairwise comparisons are calculated.
+##'
+##' @details See the details for \code{\link{CreateTableOne}}.
+##'
 ##' @return An object of class \code{svyTableOne}, which is a list of three objects.
 ##' @return \item{ContTable}{an object of class \code{svyContTable}, containing continuous variables only}
 ##' @return \item{CatTable}{ an object of class \code{svyCatTable}, containing categorical variables only}
