@@ -22,6 +22,6 @@ Extracts standardized mean differences data as a vector or matrix from a (svy)Ta
 Kazuki Yoshida
 }
 \seealso{
-\code{\link{CreateTableOne}}, \code{\link{CreateTableOne}}
+\code{\link{CreateTableOne}}, \code{\link{svyCreateTableOne}}
 }
 
