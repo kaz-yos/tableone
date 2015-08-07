@@ -25,7 +25,7 @@ svyCreateContTable(vars, strata, data, test = TRUE,
 
 \item{argsNonNormal}{A named list of arguments passed to the function specified in \code{testNonNormal}.}
 
-\item{smd}{If TRUE, as in the default and there are more than two groups, standardized mean differences for all pairwise comparisons are calculated. Implementation for weighted data is experimental.}
+\item{smd}{If TRUE, as in the default and there are more than two groups, standardized mean differences for all pairwise comparisons are calculated.}
 }
 \value{
 An object of class \code{svyContTable}.

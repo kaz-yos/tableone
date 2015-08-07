@@ -7,7 +7,7 @@
 ##' @return A vector or matrix containing the average standardized mean differences (if more than two contrasts exist) as well as the all possible pairwise standardized mean differences. Variables are ordered in the same order as the printed table.
 ##' @author Kazuki Yoshida
 ##' @seealso
-##' \code{\link{CreateTableOne}}, \code{\link{CreateTableOne}}
+##' \code{\link{CreateTableOne}}, \code{\link{svyCreateTableOne}}
 ##' @examples
 ##'
 ##' ## See examples for CreateTableOne and svyCreateTableOne

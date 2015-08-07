@@ -34,7 +34,7 @@ svyCreateTableOne(vars, strata, data, factorVars, includeNA = FALSE,
 
 \item{argsNonNormal}{A named list of arguments passed to the function specified in \code{testNonNormal}.}
 
-\item{smd}{If TRUE, as in the default and there are more than two groups, standardized mean differences for all pairwise comparisons are calculated. For categorical variables, Yang and Dalton's definition is used (\href{http://support.sas.com/resources/papers/proceedings12/335-2012.pdf}{A unified approach to measuring the effect size between two groups}). Implementation for weighted data is experimental.}
+\item{smd}{If TRUE, as in the default and there are more than two groups, standardized mean differences for all pairwise comparisons are calculated.}
 }
 \value{
 An object of class \code{svyTableOne}, which is a list of three objects.
@@ -47,6 +47,9 @@ An object of class \code{svyTableOne}, which is a list of three objects.
 }
 \description{
 Create an object summarizing all baseline variables (both continuous and categorical) optionally stratifying by one or more startifying variables and performing statistical tests. The object gives a table that is easy to use in medical research papers.
+}
+\details{
+See the details for \code{\link{CreateTableOne}}.
 }
 \examples{
 ## Load packages

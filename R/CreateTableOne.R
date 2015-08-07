@@ -16,11 +16,20 @@
 ##' @param argsApprox A named list of arguments passed to the function specified in testApprox. The default is \code{list(correct = TRUE)}, which turns on the continuity correction for \code{chisq.test}.
 ##' @param testExact A function used to perform the exact tests. The default is \code{fisher.test}. If the cells have large numbers, it will fail because of memory limitation. In this situation, the large sample approximation based should suffice.
 ##' @param argsExact A named list of arguments passed to the function specified in testExact. The default is \code{list(workspace = 2*10^5)}, which specifies the memory space allocated for \code{fisher.test}.
-##' @param smd If TRUE, as in the default and there are more than two groups, standardized mean differences for all pairwise comparisons are calculated. For categorical variables, Yang and Dalton's definition is used (\href{http://support.sas.com/resources/papers/proceedings12/335-2012.pdf}{A unified approach to measuring the effect size between two groups}).
+##' @param smd If TRUE, as in the default and there are more than two groups, standardized mean differences for all pairwise comparisons are calculated.
+##'
+##' @details The definitions of the standardized mean difference (SMD) are available in \href{http://www.tandfonline.com/doi/abs/10.1080/00031305.1986.10475403}{Flury \emph{et al} 1986} for the univariate case and the multivariate case (essentially the square root of the Mahalanobis distance). Extension to binary variables is discussed in \href{http://www.tandfonline.com/doi/abs/10.1080/03610910902859574}{Austin 2009} and extension to multinomival variables is suggested in \href{http://support.sas.com/resources/papers/proceedings12/335-2012.pdf}{Yang \emph{et al} 2012}. This multinomial extesion treats a single multinomial variable as multiple non-redundant dichotomous variables and use the Mahalanobis distance. The off diagonal elements of the covariance matrix on page 3 have an error, and need negation. In weighted data, the same definitions can be used except that the mean and standard deviation estimates are weighted estimates (\href{http://www.ncbi.nlm.nih.gov/pubmed/23902694}{Li \emph{et al} 2013} and \href{http://onlinelibrary.wiley.com/doi/10.1002/sim.6607/full}{Austin \emph{et al} 2015}). In tableone, all weighted estimates are calculated by weighted estimation functions in the \code{survey} package.
+##'
 ##' @return An object of class \code{TableOne}, which is a list of three objects.
 ##' @return \item{ContTable}{object of class \code{ContTable}, containing continuous variables only}
 ##' @return \item{CatTable}{object of class \code{CatTable}, containing categorical variables only}
 ##' @return \item{MetaData}{list of metadata regarding variables}
+##'
+##' @references Flury, BK. and Riedwyl, H. (1986). Standard distance in univariate and multivariate analysis. \emph{The American Statistician}, \bold{40}, 249-251.
+##' @references Austin, PC. (2009). Using the Standardized Difference to Compare the Prevalence of a Binary Variable Between Two Groups in Observational Research. \emph{Communications in Statistics - Simulation and Computation}, \bold{38}, 1228-1234.
+##' @references Yang, D. and Dalton, JE. (2012). A unified approach to measuring the effect size between two groups using SAS. SAS Global Forum 2012, Paper 335-2012.
+##' @references Li, L. and Greene, T. (2013). A weighting analogue to pair matching in propensity score analysis. \emph{International Journal of Biostatistics}, \bold{9}, 215-234.
+##' @references Austin, PC. and Stuart, EA. (2015). Moving towards best practice when using inverse probability of treatment weighting (IPTW) using the propensity score to estimate causal treatment effects in observational studies. \emph{Statistics in Medicine}, Online on August 3, 2015.
 ##'
 ##' @author Kazuki Yoshida, Justin Bohn
 ##' @seealso

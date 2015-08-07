@@ -57,6 +57,7 @@ Maintainer: ‘Kazuki Yoshida <kazukiyoshida@mail.harvard.edu>’
 * checking package vignettes in ‘inst/doc’ ... OK
 * checking running R code from vignettes ...
    ‘introduction.Rmd’ using ‘UTF-8’ ... OK
+   ‘smd.Rmd’ using ‘UTF-8’ ... OK
  OK
 * checking re-building of vignette outputs ... OK
 * checking PDF version of manual ... OK
