@@ -1,4 +1,4 @@
-tableone 0.7.0 (2015-08-06)
+tableone 0.7.0 (2015-08-07)
 ----------------------------------------------------------------
 
 NEW FEATURES
@@ -24,6 +24,9 @@ NEW FEATURES
 
 * ExtractSmd() function can be used to extract SMD values as a
   numeric matrix, which then can be used for plotting, etc.
+
+* An new RMarkdown vignette explains the use of standardized
+  mean differences.
 
 * The includeNA option for CreateTableOne() and svyCreateTableOne()
   make NA's in factors treated as a regular level.
