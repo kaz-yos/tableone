@@ -5,7 +5,7 @@
 ##' @name tableone-package
 ##' @aliases tableone-package tableone
 ##' @docType package
-##' @import survey MASS e1071 zoo gmodels
+##' @import survey
 ##' @importFrom stats as.formula chisq.test coef confint fisher.test kruskal.test median oneway.test quantile sd var xtabs
 ##' @importFrom utils combn
 ##' @note Acknowledgement:

@@ -93,9 +93,6 @@ function(vars,                                   # character vector of variable 
          smd           = TRUE                    # whether to include standardize mean differences
          ) {
 
-    ## Require dependencies (DELETE before CRAN release. Use Depends in DESCRIPTION)
-    ## require(e1071)      # for skewness and kurtosis
-
 ### Data check
     ## Check if the data given is a dataframe
     ModuleStopIfNotDataFrame(data)
