@@ -15,4 +15,4 @@
  - "No repository set, so cyclic dependency check skipped" on R 3.2.1 on win-builder (not a package problem)
 
 ## Downstream dependencies
-RcmdrPlugin.EZR:
+RcmdrPlugin.EZR GUI frontend: Manually examined "Summary table of sample characteristics" for compatibility
