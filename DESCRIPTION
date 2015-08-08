@@ -24,6 +24,7 @@ Suggests:
     survival,
     testthat,
     Matrix,
+    dummies,
     Matching,
     reshape2,
     ggplot2,
