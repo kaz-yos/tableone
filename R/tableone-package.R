@@ -23,7 +23,7 @@
 ##'
 ##' Developmental repository is on github. Your contributions are appreciated.
 ##'
-##' https://github.com/kaz-yos/tableone
+##' \url{https://github.com/kaz-yos/tableone}
 ##'
 ##' @author Kazuki Yoshida, Justin Bohn
 ##'
