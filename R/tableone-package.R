@@ -6,6 +6,8 @@
 ##' @aliases tableone-package tableone
 ##' @docType package
 ##' @import survey MASS e1071 zoo gmodels
+##' @importFrom stats as.formula chisq.test coef confint fisher.test kruskal.test median oneway.test quantile sd var xtabs
+##' @importFrom utils combn
 ##' @note Acknowledgement:
 ##'
 ##' Ian Fellows for developing the \code{deducer} package, which this package is based on.
