@@ -4,16 +4,14 @@
 ## Avoid git(hub) related files
 \.git/*
 README.md
-
 ## Avoid Makefile, testing-related files, and archives
 Makefile
 tableone.Rcheck
 .*.tar.gz
 .*.gif
-
 ## unit testing
 test-all.txt
 tests/testthat/ref-*
-
 ## CRAN compatibility check
 cran-check.txt
+^\.travis\.yml$
