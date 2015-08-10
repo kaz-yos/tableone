@@ -1,7 +1,7 @@
 ---
 title: "Introduction to tableone"
 author: "Kazuki Yoshida"
-date: "`r Sys.Date()`"
+date: "2014-12-28"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Introduction to tableone}
@@ -118,8 +118,10 @@ As you can see in the previous table, when there are two or more groups group co
 
 You may be worried about the nonnormal variables and small cell counts in the stage variable. In such a situation, you can use the nonnormal argument like before as well as the exact (test) argument in the print() method. Now kruskal.test() is used for the nonnormal continous variables and fisher.test() is used for categorical variables specified in the exact argument. kruskal.test() is equivalent to wilcox.test() in the two-group case. The column named test is to indicate which p-values were calculated using the non-default tests.
 
+To also show standardized mean differences, use the smd option.
+
 ```{r}
-print(tab3, nonnormal = biomarkers, exact = "stage")
+print(tab3, nonnormal = biomarkers, exact = "stage", smd = TRUE)
 ```
 
 ## Exporting
@@ -160,5 +162,5 @@ print(tab3$ContTable, nonnormal = biomarkers)
 
 --------------------
 - Authored by Kazuki Yoshida
-- CRAN page: http://cran.r-project.org/web/packages/tableone
+- CRAN page: http://cran.r-project.org/package=tableone
 - github page: https://github.com/kaz-yos/tableone

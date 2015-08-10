@@ -1,0 +1,258 @@
+---
+title: "Using standardized mean differences"
+author: "Kazuki Yoshida"
+date: "2015-08-07"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to tableone}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+```{r, message = FALSE, tidy = FALSE, echo = F}
+## Create a header using devtools::use_vignette("my-vignette")
+## knitr configuration: http://yihui.name/knitr/options#chunk_options
+library(knitr)
+showMessage <- FALSE
+showWarning <- FALSE
+set_alias(w = "fig.width", h = "fig.height", res = "results")
+opts_chunk$set(comment = "", error= TRUE, warning = showWarning, message = showMessage,
+               tidy = FALSE, cache = F, echo = T,
+               fig.width = 10, fig.height = 10, dev.args = list(family = "sans"))
+
+## R configuration
+options(width = 130, scipen = 5)
+```
+
+## Standardized mean difference
+
+The standardized (mean) difference is a measure of distance between two group means in terms of one or more variables. In practice it is often used as a balance measure of individual covariates before and after propensity score matching. As it is standardized, comparison across variables on different scales is possible. For definitions see http://www.ncbi.nlm.nih.gov/pmc/articles/PMC3144483/#s11title .
+
+
+Standardized mean differences can be easily calculated with tableone. All standardized mean differences in this package are absolute values, thus, there is no directionality.
+
+
+## Load packages
+
+```{r}
+
+## tableone package itself
+library(tableone)
+## PS matching
+library(Matching)
+## Weighted analysis
+library(survey)
+## Reorganizing data
+library(reshape2)
+## plotting
+library(ggplot2)
+
+```
+
+
+## Load data
+
+The right heart catheterization dataset is available at http://biostat.mc.vanderbilt.edu/wiki/Main/DataSets . This dataset was originally used in Connors *et al*. JAMA 1996;276:889-897, and has been made publicly available.
+
+```{r}
+
+## Right heart cath dataset
+rhc <- read.csv("http://biostat.mc.vanderbilt.edu/wiki/pub/Main/DataSets/rhc.csv")
+
+```
+
+
+## Unmatched table
+
+Out of the 50 covariates, 32 have standardized mean differences of greater than 0.1, which is often considered the sign of important covariate imbalance (http://www.ncbi.nlm.nih.gov/pmc/articles/PMC3144483/#s11title ).
+
+```{r}
+
+## Covariates
+vars <- c("age","sex","race","edu","income","ninsclas","cat1","das2d3pc","dnr1",
+          "ca","surv2md1","aps1","scoma1","wtkilo1","temp1","meanbp1","resp1",
+          "hrt1","pafi1","paco21","ph1","wblc1","hema1","sod1","pot1","crea1",
+          "bili1","alb1","resp","card","neuro","gastr","renal","meta","hema",
+          "seps","trauma","ortho","cardiohx","chfhx","dementhx","psychhx",
+          "chrpulhx","renalhx","liverhx","gibledhx","malighx","immunhx",
+          "transhx","amihx")
+
+## Construct a table
+tabUnmatched <- CreateTableOne(vars = vars, strata = "swang1", data = rhc, test = FALSE)
+## Show table with SMD
+print(tabUnmatched, smd = TRUE)
+## Count covariates with important imbalance
+addmargins(table(ExtractSmd(tabUnmatched) > 0.1))
+
+```
+
+
+## Propensity score estimation
+
+Usually a logistic regression model is used to estimate individual propensity scores. The model here is taken from "How To Use Propensity Score Analysis" (http://www.mc.vanderbilt.edu/crc/workshop_files/2008-04-11.pdf ). Predicted probabilities of being assigned to right heart catherterization, being assigned no right heart catherterization, being assigned to the true assignment, as well as the smaller of the probabilities of being assigned to right heart catherterization or no right heart catherterization are calculated for later use in propensity score matching and weighting.
+
+```{r}
+
+## Fit model
+psModel <- glm(formula = swang1 ~ age + sex + race + edu + income + ninsclas +
+                         cat1 + das2d3pc + dnr1 + ca + surv2md1 + aps1 + scoma1 +
+                         wtkilo1 + temp1 + meanbp1 + resp1 + hrt1 + pafi1 +
+                         paco21 + ph1 + wblc1 + hema1 + sod1 + pot1 + crea1 +
+                         bili1 + alb1 + resp + card + neuro + gastr + renal +
+                         meta + hema + seps + trauma + ortho + cardiohx + chfhx +
+                         dementhx + psychhx + chrpulhx + renalhx + liverhx + gibledhx +
+                         malighx + immunhx + transhx + amihx,
+               family  = binomial(link = "logit"),
+               data    = rhc)
+
+## Predicted probability of being assigned to RHC
+rhc$pRhc <- predict(psModel, type = "response")
+## Predicted probability of being assigned to no RHC
+rhc$pNoRhc <- 1 - rhc$pRhc
+
+## Predicted probability of being assigned to the
+## treatment actually assigned (either RHC or no RHC)
+rhc$pAssign <- NA
+rhc$pAssign[rhc$swang1 == "RHC"]    <- rhc$pRhc[rhc$swang1   == "RHC"]
+rhc$pAssign[rhc$swang1 == "No RHC"] <- rhc$pNoRhc[rhc$swang1 == "No RHC"]
+## Smaller of pRhc vs pNoRhc for matching weight
+rhc$pMin <- pmin(rhc$pRhc, rhc$pNoRhc)
+
+```
+
+
+## Propensity score matching
+
+The Matching package can be used for propensity score matching. The logit of propensity score is often used as the matching scale, and the matchign caliper is often 0.2 $\times$ SD(logit(PS)). See http://www.ncbi.nlm.nih.gov/pmc/articles/PMC3144483/#s5title for suggestions. After matching, all the standardized mean differences are below 0.1.
+
+```{r}
+
+listMatch <- Match(Tr       = (rhc$swang1 == "RHC"),      # Need to be in 0,1
+                   ## logit of PS,i.e., log(PS/(1-PS)) as matching scale
+                   X        = log(rhc$pRhc / rhc$pNoRhc),
+                   ## 1:1 matching
+                   M        = 1,
+                   ## caliper = 0.2 * SD(logit(PS))
+                   caliper  = 0.2,
+                   replace  = FALSE,
+                   ties     = TRUE,
+                   version  = "fast")
+## Extract matched data
+rhcMatched <- rhc[unlist(listMatch[c("index.treated","index.control")]), ]
+
+## Construct a table
+tabMatched <- CreateTableOne(vars = vars, strata = "swang1", data = rhcMatched, test = FALSE)
+## Show table with SMD
+print(tabMatched, smd = TRUE)
+## Count covariates with important imbalance
+addmargins(table(ExtractSmd(tabMatched) > 0.1))
+
+```
+
+
+## Propensity score matching weight
+
+The matching weight method is a weighting analogue to the 1:1 pairwise algorithmic matching (http://www.ncbi.nlm.nih.gov/pubmed/23902694 ). An earlier version of the paper is available free (http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.359.4724&rep=rep1&type=pdf ). The matching weight is defined as the smaller of the predicted probabilities of receiving or not receiving the treatment over the predicted probability of being assigned to the arm the patient is actually in. After weighting, all the standardized mean differences are below 0.1. The standardized mean differences in weighted data are explained in http://onlinelibrary.wiley.com/doi/10.1002/sim.6607/full .
+
+```{r}
+
+## Matching weight
+rhc$mw <- rhc$pMin / rhc$pAssign
+## Weighted data
+rhcSvy <- svydesign(ids = ~ 1, data = rhc, weights = ~ mw)
+
+## Construct a table (This is a bit slow.)
+tabWeighted <- svyCreateTableOne(vars = vars, strata = "swang1", data = rhcSvy, test = FALSE)
+## Show table with SMD
+print(tabWeighted, smd = TRUE)
+## Count covariates with important imbalance
+addmargins(table(ExtractSmd(tabWeighted) > 0.1))
+
+```
+
+
+## Assessing balance before and after matching/weighting
+
+A plot showing covariate balance is often constructed to demonstrate the balancing effect of matching and/or weighting. Given the same propensity score model, the matching weight method often achieves better covariate balance than matching.
+
+```{r}
+
+## Construct a data frame containing variable name and SMD from all methods
+dataPlot <- data.frame(variable  = names(ExtractSmd(tabUnmatched)),
+                       Unmatched = ExtractSmd(tabUnmatched),
+                       Matched   = ExtractSmd(tabMatched),
+                       Weighted  = ExtractSmd(tabWeighted))
+
+## Create long-format data for ggplot2
+dataPlotMelt <- melt(data          = dataPlot,
+                     id.vars       = c("variable"),
+                     variable.name = "Method",
+                     value.name    = "SMD")
+
+## Order variable names by magnitude of SMD
+varNames <- as.character(dataPlot$variable)[order(dataPlot$Unmatched)]
+
+## Order factor levels in the same order
+dataPlotMelt$variable <- factor(dataPlotMelt$variable,
+                                levels = varNames)
+
+## Plot using ggplot2
+ggplot(data = dataPlotMelt, mapping = aes(x = variable, y = SMD,
+                                          group = Method, color = Method)) +
+layer(geom = "line") +
+layer(geom = "point") +
+layer(geom = "hline", yintercept = 0.1, color = "black", size = 0.1) +
+coord_flip() +
+theme_bw() + theme(legend.key = element_blank())
+
+```
+
+To construct a side-by-side table, data can be extracted as a matrix and combined using the print() method, which actually invisibly returns a matrix.
+
+```{r}
+
+## Column bind tables
+resCombo <- cbind(print(tabUnmatched, printToggle = FALSE),
+                  print(tabMatched,   printToggle = FALSE),
+                  print(tabWeighted,  printToggle = FALSE))
+
+## Add group name row, and rewrite column names
+resCombo <- rbind(Group = rep(c("No RHC","RHC"), 3), resCombo)
+colnames(resCombo) <- c("Unmatched","","Matched","","Weighted","")
+print(resCombo, quote = FALSE)
+
+```
+
+
+## Outcome analysis
+
+The final analysis can be conducted using matched and weighted data. The results from the matching and matching weight are similar. ShowRegTable() function may come in handly.
+
+
+```{r}
+
+## Unmatched model (unadjsuted)
+glmUnmatched <- glm(formula = (death == "Yes") ~ swang1,
+                    family  = binomial(link = "logit"),
+                    data    = rhc)
+## Matched model
+glmMatched <- glm(formula = (death == "Yes") ~ swang1,
+                  family  = binomial(link = "logit"),
+                  data    = rhcMatched)
+## Weighted model
+glmWeighted <- svyglm(formula = (death == "Yes") ~ swang1,
+                      family  = binomial(link = "logit"),
+                      design    = rhcSvy)
+
+## Show results together
+resTogether <- list(Unmatched = ShowRegTable(glmUnmatched, printToggle = FALSE),
+                    Matched   = ShowRegTable(glmMatched, printToggle = FALSE),
+                    Weighted  = ShowRegTable(glmWeighted, printToggle = FALSE))
+print(resTogether, quote = FALSE)
+
+```
+
+--------------------
+- Authored by Kazuki Yoshida
+- CRAN page: http://cran.r-project.org/package=tableone
+- github page: https://github.com/kaz-yos/tableone

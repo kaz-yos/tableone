@@ -1,6 +1,6 @@
 
-R version 3.1.2 (2014-10-31) -- "Pumpkin Helmet"
-Copyright (C) 2014 The R Foundation for Statistical Computing
+R version 3.2.1 (2015-06-18) -- "World-Famous Astronaut"
+Copyright (C) 2015 The R Foundation for Statistical Computing
 Platform: x86_64-apple-darwin13.4.0 (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -53,7 +53,6 @@ Type 'q()' to quit R.
 > 
 > ## Load Mayo Clinic Primary Biliary Cirrhosis Data
 > library(survival)
-Loading required package: splines
 > data(pbc)
 > ## Check variables
 > head(pbc)
@@ -222,7 +221,7 @@ strata: Overall
 > 
 > ## print now includes p-values which are by default calculated by chisq.test.
 > ## It is formatted at the decimal place specified by the pDigits argument
-> ## (3 by default). It does <0.001 for you.
+> ## (3 by default). It is formatted like <0.001 if very small.
 > catTableBySexTrt
                  Stratified by sex:trt
                   m:1        f:1         m:2        f:2         p      test
@@ -381,6 +380,22 @@ hepato  0.20805680 0.20480121
 spiders 0.08898575 0.08569292
 edema   0.90584197 0.84833223
 stage   0.64630048         NA
+
+Standardize mean differences
+          average    1 vs 2     1 vs 3     1 vs 4    2 vs 3     2 vs 4
+status  0.5770647 0.8748771 0.79644734 0.83097631 0.4375075 0.06043662
+ascites 0.1755851 0.1845375 0.30219043 0.04452096 0.1211310 0.14105454
+hepato  0.1598214 0.2544151 0.05802589 0.02073917 0.3135916 0.23336861
+spiders 0.4018377 0.3999925 0.25073566 0.42200838 0.6471968 0.02154469
+edema   0.2122338 0.1624118 0.37625250 0.18063879 0.2420277 0.04705137
+stage   0.2773411 0.1333844 0.21945509 0.35632272 0.3000785 0.26275030
+            3 vs 4
+status  0.46214324
+ascites 0.26007640
+hepato  0.07878788
+spiders 0.66954801
+edema   0.26502087
+stage   0.39205566
 > 
 > ## If your work flow includes copying to Excel and Word when writing manuscripts,
 > ## you may benefit from the quote argument. This will quote everything so that
@@ -472,7 +487,7 @@ stage   0.64630048         NA
 > base::cat("CreateCatTable", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 
-detaching ‘package:survival’, ‘package:splines’
+detaching ‘package:survival’
 
 > nameEx("CreateContTable")
 > ### * CreateContTable
@@ -491,7 +506,6 @@ detaching ‘package:survival’, ‘package:splines’
 > 
 > ## Load Mayo Clinic Primary Biliary Cirrhosis Data
 > library(survival)
-Loading required package: splines
 > data(pbc)
 > ## Check variables
 > head(pbc)
@@ -805,6 +819,32 @@ ast      5.982898e-01 5.086616e-01
 trig     3.701073e-01 5.827726e-02
 platelet 3.624740e-01 4.451277e-01
 protime  1.365463e-01 8.114383e-02
+
+Standardize mean differences
+           average     1 vs 2     1 vs 3     1 vs 4     2 vs 3     2 vs 4
+time     0.1556365 0.22071813 0.27083134 0.15677410 0.08450703 0.06369595
+age      0.5214974 0.40993004 0.13353519 0.70700091 0.60864596 0.30853876
+bili     0.1352025 0.04023105 0.11373946 0.18444097 0.04265701 0.18855913
+chol     0.2950579 0.21756422 0.62108339 0.09219212 0.33996564 0.09881382
+albumin  0.1637683 0.30878937 0.28262444 0.26228013 0.01074465 0.06658036
+copper   0.5416574 0.94378898 0.50727571 0.86116098 0.46259003 0.11048709
+alk.phos 0.1633259 0.23603622 0.30907333 0.23332162 0.09290687 0.00733728
+ast      0.1818681 0.18797132 0.34614452 0.04399580 0.12602823 0.12777729
+trig     0.2940632 0.38944815 0.63360898 0.33242327 0.09194315 0.09085446
+platelet 0.2340433 0.30251429 0.08655951 0.37226635 0.25448008 0.05557853
+protime  0.3283721 0.24596092 0.40162254 0.08476002 0.66430044 0.12924857
+             3 vs 4
+time     0.13729269
+age      0.96133382
+bili     0.24158721
+chol     0.40072828
+albumin  0.05159074
+copper   0.36464167
+alk.phos 0.10128012
+ast      0.25929154
+trig     0.22610097
+platelet 0.33286083
+protime  0.44433997
 > 
 > ## If your work flow includes copying to Excel and Word when writing manuscripts,
 > ## you may benefit from the quote argument. This will quote everything so that
@@ -932,7 +972,7 @@ protime  1.365463e-01 8.114383e-02
 > base::cat("CreateContTable", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 
-detaching ‘package:survival’, ‘package:splines’
+detaching ‘package:survival’
 
 > nameEx("CreateTableOne")
 > ### * CreateTableOne
@@ -941,7 +981,7 @@ detaching ‘package:survival’, ‘package:splines’
 > 
 > base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: CreateTableOne
-> ### Title: Create an object summarizing both categorical and continuous
+> ### Title: Create an object summarizing both continuous and categorical
 > ###   variables
 > ### Aliases: CreateTableOne
 > 
@@ -952,7 +992,6 @@ detaching ‘package:survival’, ‘package:splines’
 > 
 > ## Load Mayo Clinic Primary Biliary Cirrhosis Data
 > library(survival)
-Loading required package: splines
 > data(pbc)
 > ## Check variables
 > head(pbc)
@@ -992,7 +1031,7 @@ c("id", "time", "status", "trt", "age", "sex", "ascites", "hepato",
 > tableOne
                       Stratified by trt
                        1                 2                 p      test
-  n                    158               154                          
+  n                        158               154                      
   time (mean (sd))     2015.62 (1094.12) 1996.86 (1155.93)  0.883     
   status (%)                                                0.894     
      0                      83 (52.5)         85 (55.2)               
@@ -1000,7 +1039,7 @@ c("id", "time", "status", "trt", "age", "sex", "ascites", "hepato",
      2                      65 (41.1)         60 (39.0)               
   age (mean (sd))        51.42 (11.01)     48.58 (9.96)     0.018     
   sex = f (%)              137 (86.7)        139 (90.3)     0.421     
-  ascites = 1 (%)           14 (8.9)          10 (6.5)      0.567     
+  ascites = 1 (%)           14 ( 8.9)         10 ( 6.5)     0.567     
   hepato = 1 (%)            73 (46.2)         87 (56.5)     0.088     
   spiders = 1 (%)           45 (28.5)         45 (29.2)     0.985     
   edema (%)                                                 0.877     
@@ -1024,12 +1063,13 @@ c("id", "time", "status", "trt", "age", "sex", "ascites", "hepato",
 > 
 > ## Specifying nonnormal variables will show the variables appropriately,
 > ## and show nonparametric test p-values. Specify variables in the exact
-> ## argument to obtain the exact test p-values.
+> ## argument to obtain the exact test p-values. cramVars can be used to
+> ## show both levels for a 2-level categorical variables.
 > print(tableOne, nonnormal = c("bili","chol","copper","alk.phos","trig"),
-+       exact = c("status","stage"))
++       exact = c("status","stage"), cramVars = "hepato", smd = TRUE)
                          Stratified by trt
                           1                         2                        
-  n                       158                       154                      
+  n                           158                       154                  
   time (mean (sd))        2015.62 (1094.12)         1996.86 (1155.93)        
   status (%)                                                                 
      0                         83 (52.5)                 85 (55.2)           
@@ -1037,8 +1077,8 @@ c("id", "time", "status", "trt", "age", "sex", "ascites", "hepato",
      2                         65 (41.1)                 60 (39.0)           
   age (mean (sd))           51.42 (11.01)             48.58 (9.96)           
   sex = f (%)                 137 (86.7)                139 (90.3)           
-  ascites = 1 (%)              14 (8.9)                  10 (6.5)            
-  hepato = 1 (%)               73 (46.2)                 87 (56.5)           
+  ascites = 1 (%)              14 ( 8.9)                 10 ( 6.5)           
+  hepato = 0/1 (%)          85/73 (53.8/46.2)         67/87 (43.5/56.5)      
   spiders = 1 (%)              45 (28.5)                 45 (29.2)           
   edema (%)                                                                  
      0                        132 (83.5)                131 (85.1)           
@@ -1059,36 +1099,36 @@ c("id", "time", "status", "trt", "age", "sex", "ascites", "hepato",
      3                         56 (35.4)                 64 (41.6)           
      4                         55 (34.8)                 54 (35.1)           
                          Stratified by trt
-                          p      test   
-  n                                     
-  time (mean (sd))         0.883        
-  status (%)               0.884 exact  
-     0                                  
-     1                                  
-     2                                  
-  age (mean (sd))          0.018        
-  sex = f (%)              0.421        
-  ascites = 1 (%)          0.567        
-  hepato = 1 (%)           0.088        
-  spiders = 1 (%)          0.985        
-  edema (%)                0.877        
-     0                                  
-     0.5                                
-     1                                  
-  bili (median [IQR])      0.842 nonnorm
-  chol (median [IQR])      0.544 nonnorm
-  albumin (mean (sd))      0.874        
-  copper (median [IQR])    0.717 nonnorm
-  alk.phos (median [IQR])  0.812 nonnorm
-  ast (mean (sd))          0.460        
-  trig (median [IQR])      0.370 nonnorm
-  platelet (mean (sd))     0.555        
-  protime (mean (sd))      0.197        
-  stage (%)                0.205 exact  
-     1                                  
-     2                                  
-     3                                  
-     4                                  
+                          p      test    SMD   
+  n                                            
+  time (mean (sd))         0.883          0.017
+  status (%)               0.884 exact    0.054
+     0                                         
+     1                                         
+     2                                         
+  age (mean (sd))          0.018          0.270
+  sex = f (%)              0.421          0.111
+  ascites = 1 (%)          0.567          0.089
+  hepato = 0/1 (%)         0.088          0.207
+  spiders = 1 (%)          0.985          0.016
+  edema (%)                0.877          0.058
+     0                                         
+     0.5                                       
+     1                                         
+  bili (median [IQR])      0.842 nonnorm  0.171
+  chol (median [IQR])      0.544 nonnorm  0.038
+  albumin (mean (sd))      0.874          0.018
+  copper (median [IQR])    0.717 nonnorm <0.001
+  alk.phos (median [IQR])  0.812 nonnorm  0.037
+  ast (mean (sd))          0.460          0.084
+  trig (median [IQR])      0.370 nonnorm  0.017
+  platelet (mean (sd))     0.555          0.067
+  protime (mean (sd))      0.197          0.146
+  stage (%)                0.205 exact    0.246
+     1                                         
+     2                                         
+     3                                         
+     4                                         
 > 
 > ## Use the summary.TableOne method for detailed summary
 > summary(tableOne)
@@ -1136,6 +1176,20 @@ ast      0.45969842 0.45892358
 trig     0.88604213 0.36980434
 platelet 0.55451136 0.45482564
 protime  0.19714026 0.58802048
+
+Standardize mean differences
+               1 vs 2
+time     0.0166658751
+age      0.2702619258
+bili     0.1710905651
+chol     0.0382210537
+albumin  0.0180021838
+copper   0.0001200022
+alk.phos 0.0365323630
+ast      0.0837836058
+trig     0.0170615337
+platelet 0.0674763888
+protime  0.1460939117
 
 =======================================================================================
 
@@ -1206,6 +1260,16 @@ hepato  0.08820884 0.07137522
 spiders 0.98466036 0.90113734
 edema   0.87681949 0.89370131
 stage   0.20129629 0.20455558
+
+Standardize mean differences
+            1 vs 2
+status  0.05375763
+sex     0.11141161
+ascites 0.08900618
+hepato  0.20699413
+spiders 0.01632844
+edema   0.05811659
+stage   0.24600834
 > 
 > ## See the categorical part only using $ operator
 > tableOne$CatTable
@@ -1295,6 +1359,16 @@ hepato  0.08820884 0.07137522
 spiders 0.98466036 0.90113734
 edema   0.87681949 0.89370131
 stage   0.20129629 0.20455558
+
+Standardize mean differences
+            1 vs 2
+status  0.05375763
+sex     0.11141161
+ascites 0.08900618
+hepato  0.20699413
+spiders 0.01632844
+edema   0.05811659
+stage   0.24600834
 > 
 > ## See the continuous part only using $ operator
 > tableOne$ContTable
@@ -1378,6 +1452,20 @@ ast      0.45969842 0.45892358
 trig     0.88604213 0.36980434
 platelet 0.55451136 0.45482564
 protime  0.19714026 0.58802048
+
+Standardize mean differences
+               1 vs 2
+time     0.0166658751
+age      0.2702619258
+bili     0.1710905651
+chol     0.0382210537
+albumin  0.0180021838
+copper   0.0001200022
+alk.phos 0.0365323630
+ast      0.0837836058
+trig     0.0170615337
+platelet 0.0674763888
+protime  0.1460939117
 > 
 > ## If your work flow includes copying to Excel and Word when writing manuscripts,
 > ## you may benefit from the quote argument. This will quote everything so that
@@ -1386,15 +1474,15 @@ protime  0.19714026 0.58802048
 +       exact = c("status","stage"), quote = TRUE)
                            "Stratified by trt"
  ""                         "1"                        
-  "n"                       "158"                      
+  "n"                       "    158"                  
   "time (mean (sd))"        "2015.62 (1094.12)"        
-  "status (%)"              "     "                    
+  "status (%)"              "    "                     
   "   0"                    "     83 (52.5) "          
   "   1"                    "     10 ( 6.3) "          
   "   2"                    "     65 (41.1) "          
   "age (mean (sd))"         "  51.42 (11.01)"          
   "sex = f (%)"             "    137 (86.7) "          
-  "ascites = 1 (%)"         "     14 (8.9) "           
+  "ascites = 1 (%)"         "     14 ( 8.9) "          
   "hepato = 1 (%)"          "     73 (46.2) "          
   "spiders = 1 (%)"         "     45 (28.5) "          
   "edema (%)"               "    "                     
@@ -1410,22 +1498,22 @@ protime  0.19714026 0.58802048
   "trig (median [IQR])"     " 106.00 [84.50, 146.00]"  
   "platelet (mean (sd))"    " 258.75 (100.32)"         
   "protime (mean (sd))"     "  10.65 (0.85)"           
-  "stage (%)"               "     "                    
+  "stage (%)"               "    "                     
   "   1"                    "     12 ( 7.6) "          
   "   2"                    "     35 (22.2) "          
   "   3"                    "     56 (35.4) "          
   "   4"                    "     55 (34.8) "          
                            "Stratified by trt"
  ""                         "2"                         "p"      "test"   
-  "n"                       "154"                       ""       ""       
+  "n"                       "    154"                   ""       ""       
   "time (mean (sd))"        "1996.86 (1155.93)"         " 0.883" ""       
-  "status (%)"              "     "                     " 0.884" "exact"  
+  "status (%)"              "    "                      " 0.884" "exact"  
   "   0"                    "     85 (55.2) "           ""       ""       
   "   1"                    "      9 ( 5.8) "           ""       ""       
   "   2"                    "     60 (39.0) "           ""       ""       
   "age (mean (sd))"         "  48.58 (9.96)"            " 0.018" ""       
   "sex = f (%)"             "    139 (90.3) "           " 0.421" ""       
-  "ascites = 1 (%)"         "     10 (6.5) "            " 0.567" ""       
+  "ascites = 1 (%)"         "     10 ( 6.5) "           " 0.567" ""       
   "hepato = 1 (%)"          "     87 (56.5) "           " 0.088" ""       
   "spiders = 1 (%)"         "     45 (29.2) "           " 0.985" ""       
   "edema (%)"               "    "                      " 0.877" ""       
@@ -1441,7 +1529,7 @@ protime  0.19714026 0.58802048
   "trig (median [IQR])"     " 113.00 [84.50, 155.00]"   " 0.370" "nonnorm"
   "platelet (mean (sd))"    " 265.20 (90.73)"           " 0.555" ""       
   "protime (mean (sd))"     "  10.80 (1.14)"            " 0.197" ""       
-  "stage (%)"               "     "                     " 0.205" "exact"  
+  "stage (%)"               "    "                      " 0.205" "exact"  
   "   1"                    "      4 ( 2.6) "           ""       ""       
   "   2"                    "     32 (20.8) "           ""       ""       
   "   3"                    "     64 (41.6) "           ""       ""       
@@ -1513,14 +1601,43 @@ protime  0.19714026 0.58802048
   "   3"                    "64 (41.6)"                 ""      ""       
   "   4"                    "54 (35.1)"                 ""      ""       
 > 
+> ## If SMDs are needed as numericals, use ExtractSmd()
+> ExtractSmd(tableOne)
+        time       status          age          sex      ascites       hepato 
+0.0166658751 0.0537576290 0.2702619258 0.1114116116 0.0890061759 0.2069941350 
+     spiders        edema         bili         chol      albumin       copper 
+0.0163284440 0.0581165880 0.1710905651 0.0382210537 0.0180021838 0.0001200022 
+    alk.phos          ast         trig     platelet      protime        stage 
+0.0365323630 0.0837836058 0.0170615337 0.0674763888 0.1460939117 0.2460083410 
+> 
 > 
 > 
 > base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
 > base::cat("CreateTableOne", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 
-detaching ‘package:survival’, ‘package:splines’
+detaching ‘package:survival’
 
+> nameEx("ExtractSmd")
+> ### * ExtractSmd
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: ExtractSmd
+> ### Title: Extract standardized mean differences from a (svy)TableOne
+> ###   object
+> ### Aliases: ExtractSmd
+> 
+> ### ** Examples
+> 
+> ## See examples for CreateTableOne and svyCreateTableOne
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("ExtractSmd", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
 > nameEx("ShowRegTable")
 > ### * ShowRegTable
 > 
@@ -1538,7 +1655,6 @@ detaching ‘package:survival’, ‘package:splines’
 > 
 > ## Load Mayo Clinic Primary Biliary Cirrhosis Data
 > library(survival)
-Loading required package: splines
 > data(pbc)
 > ## Check variables
 > head(pbc)
@@ -1563,7 +1679,7 @@ Loading required package: splines
 > 
 > ## Show the simple table
 > ShowRegTable(objCoxph)
-        exp(beta) [confint] p     
+        exp(coef) [confint] p     
 trt     1.03 [0.72, 1.47]    0.891
 age     1.03 [1.01, 1.05]    0.005
 albumin 0.26 [0.17, 0.41]   <0.001
@@ -1571,7 +1687,7 @@ ascites 2.93 [1.68, 5.11]   <0.001
 > 
 > ## Show with quote to ease copy and paste
 > ShowRegTable(objCoxph, quote = TRUE)
-          "exp(beta) [confint]" "p"     
+          "exp(coef) [confint]" "p"     
 "trt"     "1.03 [0.72, 1.47]"   " 0.891"
 "age"     "1.03 [1.01, 1.05]"   " 0.005"
 "albumin" "0.26 [0.17, 0.41]"   "<0.001"
@@ -1583,7 +1699,7 @@ ascites 2.93 [1.68, 5.11]   <0.001
 > base::cat("ShowRegTable", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 
-detaching ‘package:survival’, ‘package:splines’
+detaching ‘package:survival’
 
 > nameEx("print.CatTable")
 > ### * print.CatTable
@@ -1592,7 +1708,7 @@ detaching ‘package:survival’, ‘package:splines’
 > 
 > base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: print.CatTable
-> ### Title: Format and print the 'CatTable' class objects
+> ### Title: Format and print 'CatTable' class objects
 > ### Aliases: print.CatTable
 > 
 > ### ** Examples
@@ -1602,7 +1718,6 @@ detaching ‘package:survival’, ‘package:splines’
 > 
 > ## Load Mayo Clinic Primary Biliary Cirrhosis Data
 > library(survival)
-Loading required package: splines
 > data(pbc)
 > ## Check variables
 > head(pbc)
@@ -1929,6 +2044,22 @@ hepato  0.20805680 0.20480121
 spiders 0.08898575 0.08569292
 edema   0.90584197 0.84833223
 stage   0.64630048         NA
+
+Standardize mean differences
+          average    1 vs 2     1 vs 3     1 vs 4    2 vs 3     2 vs 4
+status  0.5770647 0.8748771 0.79644734 0.83097631 0.4375075 0.06043662
+ascites 0.1755851 0.1845375 0.30219043 0.04452096 0.1211310 0.14105454
+hepato  0.1598214 0.2544151 0.05802589 0.02073917 0.3135916 0.23336861
+spiders 0.4018377 0.3999925 0.25073566 0.42200838 0.6471968 0.02154469
+edema   0.2122338 0.1624118 0.37625250 0.18063879 0.2420277 0.04705137
+stage   0.2773411 0.1333844 0.21945509 0.35632272 0.3000785 0.26275030
+            3 vs 4
+status  0.46214324
+ascites 0.26007640
+hepato  0.07878788
+spiders 0.66954801
+edema   0.26502087
+stage   0.39205566
 > 
 > ## If your work flow includes copying to Excel and Word when writing manuscripts,
 > ## you may benefit from the quote argument. This will quote everything so that
@@ -2020,7 +2151,7 @@ stage   0.64630048         NA
 > base::cat("print.CatTable", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 
-detaching ‘package:survival’, ‘package:splines’
+detaching ‘package:survival’
 
 > nameEx("print.ContTable")
 > ### * print.ContTable
@@ -2029,7 +2160,7 @@ detaching ‘package:survival’, ‘package:splines’
 > 
 > base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: print.ContTable
-> ### Title: Format and print the 'ContTable' class objects
+> ### Title: Format and print 'ContTable' class objects
 > ### Aliases: print.ContTable
 > 
 > ### ** Examples
@@ -2039,7 +2170,6 @@ detaching ‘package:survival’, ‘package:splines’
 > 
 > ## Load Mayo Clinic Primary Biliary Cirrhosis Data
 > library(survival)
-Loading required package: splines
 > data(pbc)
 > ## Check variables
 > head(pbc)
@@ -2412,6 +2542,32 @@ ast      5.982898e-01 5.086616e-01
 trig     3.701073e-01 5.827726e-02
 platelet 3.624740e-01 4.451277e-01
 protime  1.365463e-01 8.114383e-02
+
+Standardize mean differences
+           average     1 vs 2     1 vs 3     1 vs 4     2 vs 3     2 vs 4
+time     0.1556365 0.22071813 0.27083134 0.15677410 0.08450703 0.06369595
+age      0.5214974 0.40993004 0.13353519 0.70700091 0.60864596 0.30853876
+bili     0.1352025 0.04023105 0.11373946 0.18444097 0.04265701 0.18855913
+chol     0.2950579 0.21756422 0.62108339 0.09219212 0.33996564 0.09881382
+albumin  0.1637683 0.30878937 0.28262444 0.26228013 0.01074465 0.06658036
+copper   0.5416574 0.94378898 0.50727571 0.86116098 0.46259003 0.11048709
+alk.phos 0.1633259 0.23603622 0.30907333 0.23332162 0.09290687 0.00733728
+ast      0.1818681 0.18797132 0.34614452 0.04399580 0.12602823 0.12777729
+trig     0.2940632 0.38944815 0.63360898 0.33242327 0.09194315 0.09085446
+platelet 0.2340433 0.30251429 0.08655951 0.37226635 0.25448008 0.05557853
+protime  0.3283721 0.24596092 0.40162254 0.08476002 0.66430044 0.12924857
+             3 vs 4
+time     0.13729269
+age      0.96133382
+bili     0.24158721
+chol     0.40072828
+albumin  0.05159074
+copper   0.36464167
+alk.phos 0.10128012
+ast      0.25929154
+trig     0.22610097
+platelet 0.33286083
+protime  0.44433997
 > 
 > ## If your work flow includes copying to Excel and Word when writing manuscripts,
 > ## you may benefit from the quote argument. This will quote everything so that
@@ -2539,7 +2695,7 @@ protime  1.365463e-01 8.114383e-02
 > base::cat("print.ContTable", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 
-detaching ‘package:survival’, ‘package:splines’
+detaching ‘package:survival’
 
 > nameEx("print.TableOne")
 > ### * print.TableOne
@@ -2548,948 +2704,56 @@ detaching ‘package:survival’, ‘package:splines’
 > 
 > base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: print.TableOne
-> ### Title: Format and print the 'TableOne' class objects
+> ### Title: Format and print 'TableOne' class objects
 > ### Aliases: print.TableOne
 > 
 > ### ** Examples
 > 
-> ## Load
-> library(tableone)
-> 
-> ## Load Mayo Clinic Primary Biliary Cirrhosis Data
-> library(survival)
-Loading required package: splines
-> data(pbc)
-> ## Check variables
-> head(pbc)
-  id time status trt      age sex ascites hepato spiders edema bili chol
-1  1  400      2   1 58.76523   f       1      1       1   1.0 14.5  261
-2  2 4500      0   1 56.44627   f       0      1       1   0.0  1.1  302
-3  3 1012      2   1 70.07255   m       0      0       0   0.5  1.4  176
-4  4 1925      2   1 54.74059   f       0      1       1   0.5  1.8  244
-5  5 1504      1   2 38.10541   f       0      1       1   0.0  3.4  279
-6  6 2503      2   2 66.25873   f       0      1       0   0.0  0.8  248
-  albumin copper alk.phos    ast trig platelet protime stage
-1    2.60    156   1718.0 137.95  172      190    12.2     4
-2    4.14     54   7394.8 113.52   88      221    10.6     3
-3    3.48    210    516.0  96.10   55      151    12.0     4
-4    2.54     64   6121.8  60.63   92      183    10.3     4
-5    3.53    143    671.0 113.15   72      136    10.9     3
-6    3.98     50    944.0  93.00   63       NA    11.0     3
-> 
-> ## Make categorical variables factors
-> varsToFactor <- c("status","trt","ascites","hepato","spiders","edema","stage")
-> pbc[varsToFactor] <- lapply(pbc[varsToFactor], factor)
-> 
-> ## Create Table 1 stratified by sex and trt
-> tableOne <- CreateTableOne(vars = c("time","status","age","ascites","hepato",
-+                                     "spiders","edema","bili","chol","albumin",
-+                                     "copper","alk.phos","ast","trig","platelet",
-+                                     "protime","stage"),
-+                            strata = c("sex","trt"), data = pbc)
-> 
-> ## Just typing the object name will invoke the print.TableOne method
-> tableOne
-                      Stratified by sex:trt
-                       m:1               f:1               m:2              
-  n                    21                137               15               
-  time (mean (sd))     1793.48 (1244.70) 2049.67 (1070.20) 2156.33 (1428.56)
-  status (%)                                                                
-     0                       4 (19.0)         79 (57.7)          7 (46.7)   
-     1                       3 (14.3)          7 ( 5.1)          0 ( 0.0)   
-     2                      14 (66.7)         51 (37.2)          8 (53.3)   
-  age (mean (sd))        55.57 (12.61)     50.78 (10.65)     57.09 (10.07)  
-  ascites = 1 (%)            1 (4.8)          13 (9.5)           2 (13.3)   
-  hepato = 1 (%)            12 (57.1)         61 (44.5)          9 (60.0)   
-  spiders = 1 (%)            3 (14.3)         42 (30.7)          1 (6.7)    
-  edema (%)                                                                 
-     0                      17 (81.0)        115 (83.9)         12 (80.0)   
-     0.5                     3 (14.3)         13 ( 9.5)          1 ( 6.7)   
-     1                       1 ( 4.8)          9 ( 6.6)          2 (13.3)   
-  bili (mean (sd))        2.98 (2.11)       2.86 (3.81)       2.72 (2.46)   
-  chol (mean (sd))      403.43 (204.95)   358.24 (210.46)   301.00 (111.32) 
-  albumin (mean (sd))     3.63 (0.43)       3.50 (0.44)       3.50 (0.49)   
-  copper (mean (sd))    174.90 (105.33)    85.71 (82.27)    125.40 (89.18)  
-  alk.phos (mean (sd)) 2486.16 (2385.32) 1950.04 (2151.35) 1734.45 (2478.07)
-  ast (mean (sd))       128.71 (48.74)    118.91 (55.40)    112.58 (44.38)  
-  trig (mean (sd))      145.81 (56.62)    120.28 (73.41)    114.86 (39.59)  
-  platelet (mean (sd))  232.65 (97.38)    262.59 (100.53)   240.13 (73.93)  
-  protime (mean (sd))    10.84 (0.94)      10.62 (0.84)      11.23 (0.97)   
-  stage (%)                                                                 
-     1                       2 ( 9.5)         10 ( 7.3)          1 ( 6.7)   
-     2                       4 (19.0)         31 (22.6)          2 (13.3)   
-     3                       7 (33.3)         49 (35.8)          5 (33.3)   
-     4                       8 (38.1)         47 (34.3)          7 (46.7)   
-                      Stratified by sex:trt
-                       f:2               p      test
-  n                    139                          
-  time (mean (sd))     1979.65 (1127.52)  0.730     
-  status (%)                              0.033     
-     0                      78 (56.1)               
-     1                       9 ( 6.5)               
-     2                      52 (37.4)               
-  age (mean (sd))        47.66 (9.54)    <0.001     
-  ascites = 1 (%)            8 (5.8)      0.516     
-  hepato = 1 (%)            78 (56.1)     0.208     
-  spiders = 1 (%)           44 (31.7)     0.089     
-  edema (%)                               0.906     
-     0                     119 (85.6)               
-     0.5                    12 ( 8.6)               
-     1                       8 ( 5.8)               
-  bili (mean (sd))        3.75 (5.50)     0.394     
-  chol (mean (sd))      381.73 (262.26)   0.512     
-  albumin (mean (sd))     3.53 (0.39)     0.585     
-  copper (mean (sd))     94.64 (79.25)   <0.001     
-  alk.phos (mean (sd)) 1965.52 (2066.15)  0.706     
-  ast (mean (sd))       126.30 (60.27)    0.598     
-  trig (mean (sd))      126.38 (60.22)    0.370     
-  platelet (mean (sd))  267.95 (92.20)    0.362     
-  protime (mean (sd))    10.75 (1.15)     0.137     
-  stage (%)                               0.646     
-     1                       3 ( 2.2)               
-     2                      30 (21.6)               
-     3                      59 (42.4)               
-     4                      47 (33.8)               
-> 
-> ## Specifying nonnormal variables will show the variables appropriately,
-> ## and show nonparametric test p-values. Specify variables in the exact
-> ## argument to obtain the exact test p-values. cramVars can be used to
-> ## show both levels for a 2-level categorical variables.
-> print(tableOne, nonnormal = c("bili","chol","copper","alk.phos","trig"),
-+       exact = c("status","stage"), cramVars = "hepato")
-                         Stratified by sex:trt
-                          m:1                       f:1                      
-  n                       21                        137                      
-  time (mean (sd))        1793.48 (1244.70)         2049.67 (1070.20)        
-  status (%)                                                                 
-     0                          4 (19.0)                 79 (57.7)           
-     1                          3 (14.3)                  7 ( 5.1)           
-     2                         14 (66.7)                 51 (37.2)           
-  age (mean (sd))           55.57 (12.61)             50.78 (10.65)          
-  ascites = 1 (%)               1 (4.8)                  13 (9.5)            
-  hepato = 0/1 (%)           9/12 (42.9/57.1)         76/61 (55.5/44.5)      
-  spiders = 1 (%)               3 (14.3)                 42 (30.7)           
-  edema (%)                                                                  
-     0                         17 (81.0)                115 (83.9)           
-     0.5                        3 (14.3)                 13 ( 9.5)           
-     1                          1 ( 4.8)                  9 ( 6.6)           
-  bili (median [IQR])        2.30 [1.40, 4.00]         1.30 [0.80, 3.20]     
-  chol (median [IQR])      376.00 [251.00, 456.00]   309.00 [247.50, 399.50] 
-  albumin (mean (sd))        3.63 (0.43)               3.50 (0.44)           
-  copper (median [IQR])    158.00 [100.00, 225.00]    67.00 [36.75, 105.00]  
-  alk.phos (median [IQR]) 1664.00 [983.00, 2496.00] 1212.00 [823.00, 1877.00]
-  ast (mean (sd))          128.71 (48.74)            118.91 (55.40)          
-  trig (median [IQR])      142.00 [107.00, 194.00]   101.00 [84.00, 134.00]  
-  platelet (mean (sd))     232.65 (97.38)            262.59 (100.53)         
-  protime (mean (sd))       10.84 (0.94)              10.62 (0.84)           
-  stage (%)                                                                  
-     1                          2 ( 9.5)                 10 ( 7.3)           
-     2                          4 (19.0)                 31 (22.6)           
-     3                          7 (33.3)                 49 (35.8)           
-     4                          8 (38.1)                 47 (34.3)           
-                         Stratified by sex:trt
-                          m:2                       f:2                      
-  n                       15                        139                      
-  time (mean (sd))        2156.33 (1428.56)         1979.65 (1127.52)        
-  status (%)                                                                 
-     0                          7 (46.7)                 78 (56.1)           
-     1                          0 ( 0.0)                  9 ( 6.5)           
-     2                          8 (53.3)                 52 (37.4)           
-  age (mean (sd))           57.09 (10.07)             47.66 (9.54)           
-  ascites = 1 (%)               2 (13.3)                  8 (5.8)            
-  hepato = 0/1 (%)            6/9 (40.0/60.0)         61/78 (43.9/56.1)      
-  spiders = 1 (%)               1 (6.7)                  44 (31.7)           
-  edema (%)                                                                  
-     0                         12 (80.0)                119 (85.6)           
-     0.5                        1 ( 6.7)                 12 ( 8.6)           
-     1                          2 (13.3)                  8 ( 5.8)           
-  bili (median [IQR])        1.90 [1.10, 2.85]         1.30 [0.70, 3.60]     
-  chol (median [IQR])      259.00 [235.75, 342.25]   306.50 [258.00, 381.00] 
-  albumin (mean (sd))        3.50 (0.49)               3.53 (0.39)           
-  copper (median [IQR])     84.00 [52.50, 198.00]     69.50 [42.50, 127.25]  
-  alk.phos (median [IQR]) 1070.00 [737.00, 1211.50] 1345.00 [941.00, 1992.00]
-  ast (mean (sd))          112.58 (44.38)            126.30 (60.27)          
-  trig (median [IQR])      108.50 [90.25, 137.00]    113.00 [84.00, 157.00]  
-  platelet (mean (sd))     240.13 (73.93)            267.95 (92.20)          
-  protime (mean (sd))       11.23 (0.97)              10.75 (1.15)           
-  stage (%)                                                                  
-     1                          1 ( 6.7)                  3 ( 2.2)           
-     2                          2 (13.3)                 30 (21.6)           
-     3                          5 (33.3)                 59 (42.4)           
-     4                          7 (46.7)                 47 (33.8)           
-                         Stratified by sex:trt
-                          p      test   
-  n                                     
-  time (mean (sd))         0.730        
-  status (%)               0.024 exact  
-     0                                  
-     1                                  
-     2                                  
-  age (mean (sd))         <0.001        
-  ascites = 1 (%)          0.516        
-  hepato = 0/1 (%)         0.208        
-  spiders = 1 (%)          0.089        
-  edema (%)                0.906        
-     0                                  
-     0.5                                
-     1                                  
-  bili (median [IQR])      0.205 nonnorm
-  chol (median [IQR])      0.458 nonnorm
-  albumin (mean (sd))      0.585        
-  copper (median [IQR])   <0.001 nonnorm
-  alk.phos (median [IQR])  0.180 nonnorm
-  ast (mean (sd))          0.598        
-  trig (median [IQR])      0.058 nonnorm
-  platelet (mean (sd))     0.362        
-  protime (mean (sd))      0.137        
-  stage (%)                NA    exact  
-     1                                  
-     2                                  
-     3                                  
-     4                                  
-> 
-> ## Use the summary.TableOne method for detailed summary
-> summary(tableOne)
-
-     ### Summary of continuous variables ###
-
-sex: m
-trt: 1
-          n miss p.miss mean    sd median p25  p75   min   max  skew kurt
-time     21    0      0 1793 1e+03   1302 999 2386 140.0  4459  1.04  0.1
-age      21    0      0   56 1e+01     56  46   66  33.5    78 -0.20 -0.7
-bili     21    0      0    3 2e+00      2   1    4   0.6     7  1.02 -0.1
-chol     21    0      0  403 2e+02    376 251  456 168.0  1000  1.33  2.2
-albumin  21    0      0    4 4e-01      4   3    4   2.6     4 -0.97  0.3
-copper   21    0      0  175 1e+02    158 100  225  25.0   444  1.08  1.0
-alk.phos 21    0      0 2486 2e+03   1664 983 2496 516.0 10165  2.05  4.5
-ast      21    0      0  129 5e+01    127  86  158  56.8   222  0.31 -0.9
-trig     21    0      0  146 6e+01    142 107  194  55.0   242  0.16 -1.0
-platelet 21    1      5  233 1e+02    228 148  314  70.0   394 -0.05 -1.2
-protime  21    0      0   11 9e-01     11  10   11   9.7    14  2.11  6.8
------------------------------------------------------------- 
-sex: f
-trt: 1
-           n miss p.miss mean    sd median   p25  p75   min   max  skew kurt
-time     137    0    0.0 2050 1e+03   1945 1e+03 2644  41.0  4556  0.32 -0.4
-age      137    0    0.0   51 1e+01     51 4e+01   57  26.3    77  0.05 -0.5
-bili     137    0    0.0    3 4e+00      1 8e-01    3   0.3    20  2.65  7.1
-chol     137   18   13.1  358 2e+02    309 2e+02  400 127.0  1712  4.28 23.8
-albumin  137    0    0.0    3 4e-01      4 3e+00    4   2.1     5 -0.33  0.4
-copper   137    1    0.7   86 8e+01     67 4e+01  105   9.0   588  3.18 13.9
-alk.phos 137    0    0.0 1950 2e+03   1212 8e+02 1877 369.0 11552  2.88  8.4
-ast      137    0    0.0  119 6e+01    108 7e+01  150  26.4   338  1.20  1.9
-trig     137   19   13.9  120 7e+01    101 8e+01  134  33.0   598  3.28 16.0
-platelet 137    1    0.7  263 1e+02    258 2e+02  322  62.0   563  0.57  0.3
-protime  137    0    0.0   11 8e-01     11 1e+01   11   9.0    13  0.92  0.6
------------------------------------------------------------- 
-sex: m
-trt: 2
-          n miss p.miss mean    sd median  p25  p75   min   max skew kurt
-time     15    0      0 2156 1e+03   1656 1054 3420 191.0  4427  0.3 -1.4
-age      15    0      0   57 1e+01     53   49   66  43.9    75  0.5 -1.3
-bili     15    0      0    3 2e+00      2    1    3   0.6     9  1.5  1.4
-chol     15    1      7  301 1e+02    259  236  342 151.0   546  0.9  0.4
-albumin  15    0      0    4 5e-01      4    3    4   2.3     4 -1.0  1.9
-copper   15    0      0  125 9e+01     84   52  198  13.0   281  0.5 -1.1
-alk.phos 15    0      0 1734 2e+03   1070  737 1212 577.0 10397  3.5 12.7
-ast      15    0      0  113 4e+01    110   74  129  46.5   188  0.3 -0.8
-trig     15    1      7  115 4e+01    108   90  137  49.0   188  0.4 -0.4
-platelet 15    0      0  240 7e+01    214  190  294 119.0   360  0.2 -1.0
-protime  15    0      0   11 1e+00     11   11   12  10.0    13  0.7  0.2
------------------------------------------------------------- 
-sex: f
-trt: 2
-           n miss p.miss mean    sd median   p25  p75   min   max skew kurt
-time     139    0    0.0 1980 1e+03   1832 1e+03 2717  51.0  4523  0.3 -0.6
-age      139    0    0.0   48 1e+01     47 4e+01   55  30.6    71  0.2 -0.7
-bili     139    0    0.0    4 5e+00      1 7e-01    4   0.3    28  2.6  6.5
-chol     139    9    6.5  382 3e+02    306 3e+02  381 120.0  1775  3.0 10.1
-albumin  139    0    0.0    4 4e-01      4 3e+00    4   2.0     4 -0.8  2.1
-copper   139    1    0.7   95 8e+01     70 4e+01  127   4.0   558  2.2  8.3
-alk.phos 139    0    0.0 1966 2e+03   1345 9e+02 1992 289.0 13862  3.4 13.6
-ast      139    0    0.0  126 6e+01    118 8e+01  153  28.4   457  1.8  6.2
-trig     139   10    7.2  126 6e+01    113 8e+01  157  44.0   432  1.7  5.3
-platelet 139    2    1.4  268 9e+01    265 2e+02  324  71.0   487  0.2 -0.4
-protime  139    0    0.0   11 1e+00     11 1e+01   11   9.2    17  2.0  7.2
-
-p-values
-              pNormal   pNonNormal
-time     7.300496e-01 5.566440e-01
-age      1.286381e-04 6.517437e-04
-bili     3.937430e-01 2.049525e-01
-chol     5.122223e-01 4.578773e-01
-albumin  5.853926e-01 4.041206e-01
-copper   6.237989e-05 4.712924e-05
-alk.phos 7.063812e-01 1.801480e-01
-ast      5.982898e-01 5.086616e-01
-trig     3.701073e-01 5.827726e-02
-platelet 3.624740e-01 4.451277e-01
-protime  1.365463e-01 8.114383e-02
-
-=======================================================================================
-
-     ### Summary of categorical variables ### 
-
-sex: m
-trt: 1
-     var  n miss p.miss level freq percent cum.percent
-  status 21    0    0.0     0    4    19.0        19.0
-                            1    3    14.3        33.3
-                            2   14    66.7       100.0
-                                                      
- ascites 21    0    0.0     0   20    95.2        95.2
-                            1    1     4.8       100.0
-                                                      
-  hepato 21    0    0.0     0    9    42.9        42.9
-                            1   12    57.1       100.0
-                                                      
- spiders 21    0    0.0     0   18    85.7        85.7
-                            1    3    14.3       100.0
-                                                      
-   edema 21    0    0.0     0   17    81.0        81.0
-                          0.5    3    14.3        95.2
-                            1    1     4.8       100.0
-                                                      
-   stage 21    0    0.0     1    2     9.5         9.5
-                            2    4    19.0        28.6
-                            3    7    33.3        61.9
-                            4    8    38.1       100.0
-                                                      
------------------------------------------------------------- 
-sex: f
-trt: 1
-     var   n miss p.miss level freq percent cum.percent
-  status 137    0    0.0     0   79    57.7        57.7
-                             1    7     5.1        62.8
-                             2   51    37.2       100.0
-                                                       
- ascites 137    0    0.0     0  124    90.5        90.5
-                             1   13     9.5       100.0
-                                                       
-  hepato 137    0    0.0     0   76    55.5        55.5
-                             1   61    44.5       100.0
-                                                       
- spiders 137    0    0.0     0   95    69.3        69.3
-                             1   42    30.7       100.0
-                                                       
-   edema 137    0    0.0     0  115    83.9        83.9
-                           0.5   13     9.5        93.4
-                             1    9     6.6       100.0
-                                                       
-   stage 137    0    0.0     1   10     7.3         7.3
-                             2   31    22.6        29.9
-                             3   49    35.8        65.7
-                             4   47    34.3       100.0
-                                                       
------------------------------------------------------------- 
-sex: m
-trt: 2
-     var  n miss p.miss level freq percent cum.percent
-  status 15    0    0.0     0    7    46.7        46.7
-                            1    0     0.0        46.7
-                            2    8    53.3       100.0
-                                                      
- ascites 15    0    0.0     0   13    86.7        86.7
-                            1    2    13.3       100.0
-                                                      
-  hepato 15    0    0.0     0    6    40.0        40.0
-                            1    9    60.0       100.0
-                                                      
- spiders 15    0    0.0     0   14    93.3        93.3
-                            1    1     6.7       100.0
-                                                      
-   edema 15    0    0.0     0   12    80.0        80.0
-                          0.5    1     6.7        86.7
-                            1    2    13.3       100.0
-                                                      
-   stage 15    0    0.0     1    1     6.7         6.7
-                            2    2    13.3        20.0
-                            3    5    33.3        53.3
-                            4    7    46.7       100.0
-                                                      
------------------------------------------------------------- 
-sex: f
-trt: 2
-     var   n miss p.miss level freq percent cum.percent
-  status 139    0    0.0     0   78    56.1        56.1
-                             1    9     6.5        62.6
-                             2   52    37.4       100.0
-                                                       
- ascites 139    0    0.0     0  131    94.2        94.2
-                             1    8     5.8       100.0
-                                                       
-  hepato 139    0    0.0     0   61    43.9        43.9
-                             1   78    56.1       100.0
-                                                       
- spiders 139    0    0.0     0   95    68.3        68.3
-                             1   44    31.7       100.0
-                                                       
-   edema 139    0    0.0     0  119    85.6        85.6
-                           0.5   12     8.6        94.2
-                             1    8     5.8       100.0
-                                                       
-   stage 139    0    0.0     1    3     2.2         2.2
-                             2   30    21.6        23.7
-                             3   59    42.4        66.2
-                             4   47    33.8       100.0
-                                                       
-
-p-values
-           pApprox     pExact
-status  0.03269881 0.02420814
-ascites 0.51569424 0.43540746
-hepato  0.20805680 0.20480121
-spiders 0.08898575 0.08569292
-edema   0.90584197 0.84833223
-stage   0.64630048         NA
-> 
-> ## See the categorical part only using $ operator
-> tableOne$CatTable
-                 Stratified by sex:trt
-                  m:1        f:1         m:2        f:2         p      test
-  n               21         137         15         139                    
-  status (%)                                                     0.033     
-     0             4 (19.0)   79 (57.7)   7 (46.7)   78 (56.1)             
-     1             3 (14.3)    7 ( 5.1)   0 ( 0.0)    9 ( 6.5)             
-     2            14 (66.7)   51 (37.2)   8 (53.3)   52 (37.4)             
-  ascites = 1 (%)  1 ( 4.8)   13 ( 9.5)   2 (13.3)    8 ( 5.8)   0.516     
-  hepato = 1 (%)  12 (57.1)   61 (44.5)   9 (60.0)   78 (56.1)   0.208     
-  spiders = 1 (%)  3 (14.3)   42 (30.7)   1 ( 6.7)   44 (31.7)   0.089     
-  edema (%)                                                      0.906     
-     0            17 (81.0)  115 (83.9)  12 (80.0)  119 (85.6)             
-     0.5           3 (14.3)   13 ( 9.5)   1 ( 6.7)   12 ( 8.6)             
-     1             1 ( 4.8)    9 ( 6.6)   2 (13.3)    8 ( 5.8)             
-  stage (%)                                                      0.646     
-     1             2 ( 9.5)   10 ( 7.3)   1 ( 6.7)    3 ( 2.2)             
-     2             4 (19.0)   31 (22.6)   2 (13.3)   30 (21.6)             
-     3             7 (33.3)   49 (35.8)   5 (33.3)   59 (42.4)             
-     4             8 (38.1)   47 (34.3)   7 (46.7)   47 (33.8)             
-> summary(tableOne$CatTable)
-sex: m
-trt: 1
-     var  n miss p.miss level freq percent cum.percent
-  status 21    0    0.0     0    4    19.0        19.0
-                            1    3    14.3        33.3
-                            2   14    66.7       100.0
-                                                      
- ascites 21    0    0.0     0   20    95.2        95.2
-                            1    1     4.8       100.0
-                                                      
-  hepato 21    0    0.0     0    9    42.9        42.9
-                            1   12    57.1       100.0
-                                                      
- spiders 21    0    0.0     0   18    85.7        85.7
-                            1    3    14.3       100.0
-                                                      
-   edema 21    0    0.0     0   17    81.0        81.0
-                          0.5    3    14.3        95.2
-                            1    1     4.8       100.0
-                                                      
-   stage 21    0    0.0     1    2     9.5         9.5
-                            2    4    19.0        28.6
-                            3    7    33.3        61.9
-                            4    8    38.1       100.0
-                                                      
------------------------------------------------------------- 
-sex: f
-trt: 1
-     var   n miss p.miss level freq percent cum.percent
-  status 137    0    0.0     0   79    57.7        57.7
-                             1    7     5.1        62.8
-                             2   51    37.2       100.0
-                                                       
- ascites 137    0    0.0     0  124    90.5        90.5
-                             1   13     9.5       100.0
-                                                       
-  hepato 137    0    0.0     0   76    55.5        55.5
-                             1   61    44.5       100.0
-                                                       
- spiders 137    0    0.0     0   95    69.3        69.3
-                             1   42    30.7       100.0
-                                                       
-   edema 137    0    0.0     0  115    83.9        83.9
-                           0.5   13     9.5        93.4
-                             1    9     6.6       100.0
-                                                       
-   stage 137    0    0.0     1   10     7.3         7.3
-                             2   31    22.6        29.9
-                             3   49    35.8        65.7
-                             4   47    34.3       100.0
-                                                       
------------------------------------------------------------- 
-sex: m
-trt: 2
-     var  n miss p.miss level freq percent cum.percent
-  status 15    0    0.0     0    7    46.7        46.7
-                            1    0     0.0        46.7
-                            2    8    53.3       100.0
-                                                      
- ascites 15    0    0.0     0   13    86.7        86.7
-                            1    2    13.3       100.0
-                                                      
-  hepato 15    0    0.0     0    6    40.0        40.0
-                            1    9    60.0       100.0
-                                                      
- spiders 15    0    0.0     0   14    93.3        93.3
-                            1    1     6.7       100.0
-                                                      
-   edema 15    0    0.0     0   12    80.0        80.0
-                          0.5    1     6.7        86.7
-                            1    2    13.3       100.0
-                                                      
-   stage 15    0    0.0     1    1     6.7         6.7
-                            2    2    13.3        20.0
-                            3    5    33.3        53.3
-                            4    7    46.7       100.0
-                                                      
------------------------------------------------------------- 
-sex: f
-trt: 2
-     var   n miss p.miss level freq percent cum.percent
-  status 139    0    0.0     0   78    56.1        56.1
-                             1    9     6.5        62.6
-                             2   52    37.4       100.0
-                                                       
- ascites 139    0    0.0     0  131    94.2        94.2
-                             1    8     5.8       100.0
-                                                       
-  hepato 139    0    0.0     0   61    43.9        43.9
-                             1   78    56.1       100.0
-                                                       
- spiders 139    0    0.0     0   95    68.3        68.3
-                             1   44    31.7       100.0
-                                                       
-   edema 139    0    0.0     0  119    85.6        85.6
-                           0.5   12     8.6        94.2
-                             1    8     5.8       100.0
-                                                       
-   stage 139    0    0.0     1    3     2.2         2.2
-                             2   30    21.6        23.7
-                             3   59    42.4        66.2
-                             4   47    33.8       100.0
-                                                       
-
-p-values
-           pApprox     pExact
-status  0.03269881 0.02420814
-ascites 0.51569424 0.43540746
-hepato  0.20805680 0.20480121
-spiders 0.08898575 0.08569292
-edema   0.90584197 0.84833223
-stage   0.64630048         NA
-> 
-> ## See the continuous part only using $ operator
-> tableOne$ContTable
-                      Stratified by sex:trt
-                       m:1               f:1               m:2              
-  n                    21                137               15               
-  time (mean (sd))     1793.48 (1244.70) 2049.67 (1070.20) 2156.33 (1428.56)
-  age (mean (sd))        55.57 (12.61)     50.78 (10.65)     57.09 (10.07)  
-  bili (mean (sd))        2.98 (2.11)       2.86 (3.81)       2.72 (2.46)   
-  chol (mean (sd))      403.43 (204.95)   358.24 (210.46)   301.00 (111.32) 
-  albumin (mean (sd))     3.63 (0.43)       3.50 (0.44)       3.50 (0.49)   
-  copper (mean (sd))    174.90 (105.33)    85.71 (82.27)    125.40 (89.18)  
-  alk.phos (mean (sd)) 2486.16 (2385.32) 1950.04 (2151.35) 1734.45 (2478.07)
-  ast (mean (sd))       128.71 (48.74)    118.91 (55.40)    112.58 (44.38)  
-  trig (mean (sd))      145.81 (56.62)    120.28 (73.41)    114.86 (39.59)  
-  platelet (mean (sd))  232.65 (97.38)    262.59 (100.53)   240.13 (73.93)  
-  protime (mean (sd))    10.84 (0.94)      10.62 (0.84)      11.23 (0.97)   
-                      Stratified by sex:trt
-                       f:2               p      test
-  n                    139                          
-  time (mean (sd))     1979.65 (1127.52)  0.730     
-  age (mean (sd))        47.66 (9.54)    <0.001     
-  bili (mean (sd))        3.75 (5.50)     0.394     
-  chol (mean (sd))      381.73 (262.26)   0.512     
-  albumin (mean (sd))     3.53 (0.39)     0.585     
-  copper (mean (sd))     94.64 (79.25)   <0.001     
-  alk.phos (mean (sd)) 1965.52 (2066.15)  0.706     
-  ast (mean (sd))       126.30 (60.27)    0.598     
-  trig (mean (sd))      126.38 (60.22)    0.370     
-  platelet (mean (sd))  267.95 (92.20)    0.362     
-  protime (mean (sd))    10.75 (1.15)     0.137     
-> summary(tableOne$ContTable)
-sex: m
-trt: 1
-          n miss p.miss   mean      sd median   p25    p75   min     max   skew
-time     21    0    0.0 1793.5 1244.70 1302.0 999.0 2386.0 140.0  4459.0  1.042
-age      21    0    0.0   55.6   12.61   56.0  46.5   65.8  33.5    78.4 -0.200
-bili     21    0    0.0    3.0    2.11    2.3   1.4    4.0   0.6     7.3  1.019
-chol     21    0    0.0  403.4  204.95  376.0 251.0  456.0 168.0  1000.0  1.329
-albumin  21    0    0.0    3.6    0.43    3.8   3.4    3.9   2.6     4.2 -0.966
-copper   21    0    0.0  174.9  105.33  158.0 100.0  225.0  25.0   444.0  1.082
-alk.phos 21    0    0.0 2486.2 2385.32 1664.0 983.0 2496.0 516.0 10165.0  2.051
-ast      21    0    0.0  128.7   48.74  127.0  86.0  158.1  56.8   221.9  0.309
-trig     21    0    0.0  145.8   56.62  142.0 107.0  194.0  55.0   242.0  0.164
-platelet 21    1    4.8  232.7   97.38  227.5 148.2  313.8  70.0   394.0 -0.045
-protime  21    0    0.0   10.8    0.94   10.8  10.3   11.0   9.7    14.1  2.113
-          kurt
-time      0.10
-age      -0.71
-bili     -0.12
-chol      2.15
-albumin   0.34
-copper    0.97
-alk.phos  4.49
-ast      -0.86
-trig     -1.04
-platelet -1.16
-protime   6.84
------------------------------------------------------------- 
-sex: f
-trt: 1
-           n miss p.miss   mean      sd median    p25    p75   min     max
-time     137    0   0.00 2049.7 1070.20 1945.0 1293.0 2644.0  41.0  4556.0
-age      137    0   0.00   50.8   10.65   51.2   42.5   57.0  26.3    76.7
-bili     137    0   0.00    2.9    3.81    1.3    0.8    3.2   0.3    20.0
-chol     137   18  13.14  358.2  210.46  309.0  247.5  399.5 127.0  1712.0
-albumin  137    0   0.00    3.5    0.44    3.5    3.2    3.8   2.1     4.6
-copper   137    1   0.73   85.7   82.27   67.0   36.8  105.0   9.0   588.0
-alk.phos 137    0   0.00 1950.0 2151.35 1212.0  823.0 1877.0 369.0 11552.0
-ast      137    0   0.00  118.9   55.40  108.5   74.4  150.0  26.4   338.0
-trig     137   19  13.87  120.3   73.41  101.0   84.0  134.0  33.0   598.0
-platelet 137    1   0.73  262.6  100.53  258.5  194.2  322.0  62.0   563.0
-protime  137    0   0.00   10.6    0.84   10.6   10.0   11.0   9.0    13.0
-           skew  kurt
-time      0.318 -0.41
-age       0.045 -0.48
-bili      2.652  7.10
-chol      4.281 23.79
-albumin  -0.327  0.42
-copper    3.181 13.92
-alk.phos  2.876  8.39
-ast       1.196  1.91
-trig      3.278 16.03
-platelet  0.565  0.34
-protime   0.916  0.57
------------------------------------------------------------- 
-sex: m
-trt: 2
-          n miss p.miss   mean      sd median    p25    p75   min     max  skew
-time     15    0    0.0 2156.3 1428.56 1656.0 1053.5 3420.0 191.0  4427.0  0.30
-age      15    0    0.0   57.1   10.07   52.8   49.4   65.8  43.9    74.5  0.45
-bili     15    0    0.0    2.7    2.46    1.9    1.1    2.9   0.6     8.6  1.54
-chol     15    1    6.7  301.0  111.32  259.0  235.8  342.2 151.0   546.0  0.91
-albumin  15    0    0.0    3.5    0.49    3.6    3.3    3.8   2.3     4.3 -0.96
-copper   15    0    0.0  125.4   89.18   84.0   52.5  198.0  13.0   281.0  0.50
-alk.phos 15    0    0.0 1734.5 2478.07 1070.0  737.0 1211.5 577.0 10396.8  3.49
-ast      15    0    0.0  112.6   44.38  110.0   74.2  129.4  46.5   188.3  0.32
-trig     15    1    6.7  114.9   39.59  108.5   90.2  137.0  49.0   188.0  0.44
-platelet 15    0    0.0  240.1   73.93  214.0  189.5  294.5 119.0   360.0  0.18
-protime  15    0    0.0   11.2    0.97   11.2   10.6   11.6  10.0    13.2  0.72
-          kurt
-time     -1.39
-age      -1.29
-bili      1.43
-chol      0.36
-albumin   1.88
-copper   -1.13
-alk.phos 12.68
-ast      -0.80
-trig     -0.36
-platelet -1.02
-protime   0.18
------------------------------------------------------------- 
-sex: f
-trt: 2
-           n miss p.miss   mean      sd median    p25    p75   min     max
-time     139    0   0.00 1979.7 1127.52 1832.0 1157.0 2717.0  51.0  4523.0
-age      139    0   0.00   47.7    9.54   47.2   41.3   55.5  30.6    70.6
-bili     139    0   0.00    3.7    5.50    1.3    0.7    3.6   0.3    28.0
-chol     139    9   6.47  381.7  262.26  306.5  258.0  381.0 120.0  1775.0
-albumin  139    0   0.00    3.5    0.39    3.5    3.3    3.8   2.0     4.4
-copper   139    1   0.72   94.6   79.25   69.5   42.5  127.2   4.0   558.0
-alk.phos 139    0   0.00 1965.5 2066.15 1345.0  941.0 1992.0 289.0 13862.4
-ast      139    0   0.00  126.3   60.27  117.8   84.5  152.7  28.4   457.2
-trig     139   10   7.19  126.4   60.22  113.0   84.0  157.0  44.0   432.0
-platelet 139    2   1.44  267.9   92.20  265.0  213.0  324.0  71.0   487.0
-protime  139    0   0.00   10.8    1.15   10.6    9.9   11.2   9.2    17.1
-          skew  kurt
-time      0.34 -0.64
-age       0.16 -0.74
-bili      2.57  6.54
-chol      3.01 10.13
-albumin  -0.83  2.06
-copper    2.25  8.30
-alk.phos  3.39 13.57
-ast       1.76  6.24
-trig      1.71  5.27
-platelet  0.21 -0.36
-protime   2.02  7.15
-
-p-values
-              pNormal   pNonNormal
-time     7.300496e-01 5.566440e-01
-age      1.286381e-04 6.517437e-04
-bili     3.937430e-01 2.049525e-01
-chol     5.122223e-01 4.578773e-01
-albumin  5.853926e-01 4.041206e-01
-copper   6.237989e-05 4.712924e-05
-alk.phos 7.063812e-01 1.801480e-01
-ast      5.982898e-01 5.086616e-01
-trig     3.701073e-01 5.827726e-02
-platelet 3.624740e-01 4.451277e-01
-protime  1.365463e-01 8.114383e-02
-> 
-> ## If your work flow includes copying to Excel and Word when writing manuscripts,
-> ## you may benefit from the quote argument. This will quote everything so that
-> ## Excel does not mess up the cells.
-> print(tableOne, nonnormal = c("bili","chol","copper","alk.phos","trig"),
-+       exact = c("status","stage"), cramVars = "hepato", quote = TRUE)
-                           "Stratified by sex:trt"
- ""                         "m:1"                      
-  "n"                       "21"                       
-  "time (mean (sd))"        "1793.48 (1244.70)"        
-  "status (%)"              "     "                    
-  "   0"                    "      4 (19.0) "          
-  "   1"                    "      3 (14.3) "          
-  "   2"                    "     14 (66.7) "          
-  "age (mean (sd))"         "  55.57 (12.61)"          
-  "ascites = 1 (%)"         "      1 (4.8) "           
-  "hepato = 0/1 (%)"        "   9/12 (42.9/57.1) "     
-  "spiders = 1 (%)"         "      3 (14.3) "          
-  "edema (%)"               "     "                    
-  "   0"                    "     17 (81.0) "          
-  "   0.5"                  "      3 (14.3) "          
-  "   1"                    "      1 ( 4.8) "          
-  "bili (median [IQR])"     "   2.30 [1.40, 4.00]"     
-  "chol (median [IQR])"     " 376.00 [251.00, 456.00]" 
-  "albumin (mean (sd))"     "   3.63 (0.43)"           
-  "copper (median [IQR])"   " 158.00 [100.00, 225.00]" 
-  "alk.phos (median [IQR])" "1664.00 [983.00, 2496.00]"
-  "ast (mean (sd))"         " 128.71 (48.74)"          
-  "trig (median [IQR])"     " 142.00 [107.00, 194.00]" 
-  "platelet (mean (sd))"    " 232.65 (97.38)"          
-  "protime (mean (sd))"     "  10.84 (0.94)"           
-  "stage (%)"               "      "                   
-  "   1"                    "      2 ( 9.5) "          
-  "   2"                    "      4 (19.0) "          
-  "   3"                    "      7 (33.3) "          
-  "   4"                    "      8 (38.1) "          
-                           "Stratified by sex:trt"
- ""                         "f:1"                      
-  "n"                       "137"                      
-  "time (mean (sd))"        "2049.67 (1070.20)"        
-  "status (%)"              "     "                    
-  "   0"                    "     79 (57.7) "          
-  "   1"                    "      7 ( 5.1) "          
-  "   2"                    "     51 (37.2) "          
-  "age (mean (sd))"         "  50.78 (10.65)"          
-  "ascites = 1 (%)"         "     13 (9.5) "           
-  "hepato = 0/1 (%)"        "  76/61 (55.5/44.5) "     
-  "spiders = 1 (%)"         "     42 (30.7) "          
-  "edema (%)"               "    "                     
-  "   0"                    "    115 (83.9) "          
-  "   0.5"                  "     13 ( 9.5) "          
-  "   1"                    "      9 ( 6.6) "          
-  "bili (median [IQR])"     "   1.30 [0.80, 3.20]"     
-  "chol (median [IQR])"     " 309.00 [247.50, 399.50]" 
-  "albumin (mean (sd))"     "   3.50 (0.44)"           
-  "copper (median [IQR])"   "  67.00 [36.75, 105.00]"  
-  "alk.phos (median [IQR])" "1212.00 [823.00, 1877.00]"
-  "ast (mean (sd))"         " 118.91 (55.40)"          
-  "trig (median [IQR])"     " 101.00 [84.00, 134.00]"  
-  "platelet (mean (sd))"    " 262.59 (100.53)"         
-  "protime (mean (sd))"     "  10.62 (0.84)"           
-  "stage (%)"               "     "                    
-  "   1"                    "     10 ( 7.3) "          
-  "   2"                    "     31 (22.6) "          
-  "   3"                    "     49 (35.8) "          
-  "   4"                    "     47 (34.3) "          
-                           "Stratified by sex:trt"
- ""                         "m:2"                      
-  "n"                       "15"                       
-  "time (mean (sd))"        "2156.33 (1428.56)"        
-  "status (%)"              "      "                   
-  "   0"                    "      7 (46.7) "          
-  "   1"                    "      0 ( 0.0) "          
-  "   2"                    "      8 (53.3) "          
-  "age (mean (sd))"         "  57.09 (10.07)"          
-  "ascites = 1 (%)"         "      2 (13.3) "          
-  "hepato = 0/1 (%)"        "    6/9 (40.0/60.0) "     
-  "spiders = 1 (%)"         "      1 (6.7) "           
-  "edema (%)"               "     "                    
-  "   0"                    "     12 (80.0) "          
-  "   0.5"                  "      1 ( 6.7) "          
-  "   1"                    "      2 (13.3) "          
-  "bili (median [IQR])"     "   1.90 [1.10, 2.85]"     
-  "chol (median [IQR])"     " 259.00 [235.75, 342.25]" 
-  "albumin (mean (sd))"     "   3.50 (0.49)"           
-  "copper (median [IQR])"   "  84.00 [52.50, 198.00]"  
-  "alk.phos (median [IQR])" "1070.00 [737.00, 1211.50]"
-  "ast (mean (sd))"         " 112.58 (44.38)"          
-  "trig (median [IQR])"     " 108.50 [90.25, 137.00]"  
-  "platelet (mean (sd))"    " 240.13 (73.93)"          
-  "protime (mean (sd))"     "  11.23 (0.97)"           
-  "stage (%)"               "      "                   
-  "   1"                    "      1 ( 6.7) "          
-  "   2"                    "      2 (13.3) "          
-  "   3"                    "      5 (33.3) "          
-  "   4"                    "      7 (46.7) "          
-                           "Stratified by sex:trt"
- ""                         "f:2"                       "p"      "test"   
-  "n"                       "139"                       ""       ""       
-  "time (mean (sd))"        "1979.65 (1127.52)"         " 0.730" ""       
-  "status (%)"              "     "                     " 0.024" "exact"  
-  "   0"                    "     78 (56.1) "           ""       ""       
-  "   1"                    "      9 ( 6.5) "           ""       ""       
-  "   2"                    "     52 (37.4) "           ""       ""       
-  "age (mean (sd))"         "  47.66 (9.54)"            "<0.001" ""       
-  "ascites = 1 (%)"         "      8 (5.8) "            " 0.516" ""       
-  "hepato = 0/1 (%)"        "  61/78 (43.9/56.1) "      " 0.208" ""       
-  "spiders = 1 (%)"         "     44 (31.7) "           " 0.089" ""       
-  "edema (%)"               "    "                      " 0.906" ""       
-  "   0"                    "    119 (85.6) "           ""       ""       
-  "   0.5"                  "     12 ( 8.6) "           ""       ""       
-  "   1"                    "      8 ( 5.8) "           ""       ""       
-  "bili (median [IQR])"     "   1.30 [0.70, 3.60]"      " 0.205" "nonnorm"
-  "chol (median [IQR])"     " 306.50 [258.00, 381.00]"  " 0.458" "nonnorm"
-  "albumin (mean (sd))"     "   3.53 (0.39)"            " 0.585" ""       
-  "copper (median [IQR])"   "  69.50 [42.50, 127.25]"   "<0.001" "nonnorm"
-  "alk.phos (median [IQR])" "1345.00 [941.00, 1992.00]" " 0.180" "nonnorm"
-  "ast (mean (sd))"         " 126.30 (60.27)"           " 0.598" ""       
-  "trig (median [IQR])"     " 113.00 [84.00, 157.00]"   " 0.058" "nonnorm"
-  "platelet (mean (sd))"    " 267.95 (92.20)"           " 0.362" ""       
-  "protime (mean (sd))"     "  10.75 (1.15)"            " 0.137" ""       
-  "stage (%)"               "     "                     " NA"    "exact"  
-  "   1"                    "      3 ( 2.2) "           ""       ""       
-  "   2"                    "     30 (21.6) "           ""       ""       
-  "   3"                    "     59 (42.4) "           ""       ""       
-  "   4"                    "     47 (33.8) "           ""       ""       
-> 
-> ## If you want to center-align values in Word, use noSpaces option.
-> print(tableOne, nonnormal = c("bili","chol","copper","alk.phos","trig"),
-+       exact = c("status","stage"), cramVars = "hepato", quote = TRUE, noSpaces = TRUE)
-                           "Stratified by sex:trt"
- ""                         "m:1"                      
-  "n"                       "21"                       
-  "time (mean (sd))"        "1793.48 (1244.70)"        
-  "status (%)"              ""                         
-  "   0"                    "4 (19.0)"                 
-  "   1"                    "3 (14.3)"                 
-  "   2"                    "14 (66.7)"                
-  "age (mean (sd))"         "55.57 (12.61)"            
-  "ascites = 1 (%)"         "1 (4.8)"                  
-  "hepato = 0/1 (%)"        "9/12 (42.9/57.1)"         
-  "spiders = 1 (%)"         "3 (14.3)"                 
-  "edema (%)"               ""                         
-  "   0"                    "17 (81.0)"                
-  "   0.5"                  "3 (14.3)"                 
-  "   1"                    "1 (4.8)"                  
-  "bili (median [IQR])"     "2.30 [1.40, 4.00]"        
-  "chol (median [IQR])"     "376.00 [251.00, 456.00]"  
-  "albumin (mean (sd))"     "3.63 (0.43)"              
-  "copper (median [IQR])"   "158.00 [100.00, 225.00]"  
-  "alk.phos (median [IQR])" "1664.00 [983.00, 2496.00]"
-  "ast (mean (sd))"         "128.71 (48.74)"           
-  "trig (median [IQR])"     "142.00 [107.00, 194.00]"  
-  "platelet (mean (sd))"    "232.65 (97.38)"           
-  "protime (mean (sd))"     "10.84 (0.94)"             
-  "stage (%)"               ""                         
-  "   1"                    "2 (9.5)"                  
-  "   2"                    "4 (19.0)"                 
-  "   3"                    "7 (33.3)"                 
-  "   4"                    "8 (38.1)"                 
-                           "Stratified by sex:trt"
- ""                         "f:1"                      
-  "n"                       "137"                      
-  "time (mean (sd))"        "2049.67 (1070.20)"        
-  "status (%)"              ""                         
-  "   0"                    "79 (57.7)"                
-  "   1"                    "7 (5.1)"                  
-  "   2"                    "51 (37.2)"                
-  "age (mean (sd))"         "50.78 (10.65)"            
-  "ascites = 1 (%)"         "13 (9.5)"                 
-  "hepato = 0/1 (%)"        "76/61 (55.5/44.5)"        
-  "spiders = 1 (%)"         "42 (30.7)"                
-  "edema (%)"               ""                         
-  "   0"                    "115 (83.9)"               
-  "   0.5"                  "13 (9.5)"                 
-  "   1"                    "9 (6.6)"                  
-  "bili (median [IQR])"     "1.30 [0.80, 3.20]"        
-  "chol (median [IQR])"     "309.00 [247.50, 399.50]"  
-  "albumin (mean (sd))"     "3.50 (0.44)"              
-  "copper (median [IQR])"   "67.00 [36.75, 105.00]"    
-  "alk.phos (median [IQR])" "1212.00 [823.00, 1877.00]"
-  "ast (mean (sd))"         "118.91 (55.40)"           
-  "trig (median [IQR])"     "101.00 [84.00, 134.00]"   
-  "platelet (mean (sd))"    "262.59 (100.53)"          
-  "protime (mean (sd))"     "10.62 (0.84)"             
-  "stage (%)"               ""                         
-  "   1"                    "10 (7.3)"                 
-  "   2"                    "31 (22.6)"                
-  "   3"                    "49 (35.8)"                
-  "   4"                    "47 (34.3)"                
-                           "Stratified by sex:trt"
- ""                         "m:2"                      
-  "n"                       "15"                       
-  "time (mean (sd))"        "2156.33 (1428.56)"        
-  "status (%)"              ""                         
-  "   0"                    "7 (46.7)"                 
-  "   1"                    "0 (0.0)"                  
-  "   2"                    "8 (53.3)"                 
-  "age (mean (sd))"         "57.09 (10.07)"            
-  "ascites = 1 (%)"         "2 (13.3)"                 
-  "hepato = 0/1 (%)"        "6/9 (40.0/60.0)"          
-  "spiders = 1 (%)"         "1 (6.7)"                  
-  "edema (%)"               ""                         
-  "   0"                    "12 (80.0)"                
-  "   0.5"                  "1 (6.7)"                  
-  "   1"                    "2 (13.3)"                 
-  "bili (median [IQR])"     "1.90 [1.10, 2.85]"        
-  "chol (median [IQR])"     "259.00 [235.75, 342.25]"  
-  "albumin (mean (sd))"     "3.50 (0.49)"              
-  "copper (median [IQR])"   "84.00 [52.50, 198.00]"    
-  "alk.phos (median [IQR])" "1070.00 [737.00, 1211.50]"
-  "ast (mean (sd))"         "112.58 (44.38)"           
-  "trig (median [IQR])"     "108.50 [90.25, 137.00]"   
-  "platelet (mean (sd))"    "240.13 (73.93)"           
-  "protime (mean (sd))"     "11.23 (0.97)"             
-  "stage (%)"               ""                         
-  "   1"                    "1 (6.7)"                  
-  "   2"                    "2 (13.3)"                 
-  "   3"                    "5 (33.3)"                 
-  "   4"                    "7 (46.7)"                 
-                           "Stratified by sex:trt"
- ""                         "f:2"                       "p"      "test"   
-  "n"                       "139"                       ""       ""       
-  "time (mean (sd))"        "1979.65 (1127.52)"         "0.730"  ""       
-  "status (%)"              ""                          "0.024"  "exact"  
-  "   0"                    "78 (56.1)"                 ""       ""       
-  "   1"                    "9 (6.5)"                   ""       ""       
-  "   2"                    "52 (37.4)"                 ""       ""       
-  "age (mean (sd))"         "47.66 (9.54)"              "<0.001" ""       
-  "ascites = 1 (%)"         "8 (5.8)"                   "0.516"  ""       
-  "hepato = 0/1 (%)"        "61/78 (43.9/56.1)"         "0.208"  ""       
-  "spiders = 1 (%)"         "44 (31.7)"                 "0.089"  ""       
-  "edema (%)"               ""                          "0.906"  ""       
-  "   0"                    "119 (85.6)"                ""       ""       
-  "   0.5"                  "12 (8.6)"                  ""       ""       
-  "   1"                    "8 (5.8)"                   ""       ""       
-  "bili (median [IQR])"     "1.30 [0.70, 3.60]"         "0.205"  "nonnorm"
-  "chol (median [IQR])"     "306.50 [258.00, 381.00]"   "0.458"  "nonnorm"
-  "albumin (mean (sd))"     "3.53 (0.39)"               "0.585"  ""       
-  "copper (median [IQR])"   "69.50 [42.50, 127.25]"     "<0.001" "nonnorm"
-  "alk.phos (median [IQR])" "1345.00 [941.00, 1992.00]" "0.180"  "nonnorm"
-  "ast (mean (sd))"         "126.30 (60.27)"            "0.598"  ""       
-  "trig (median [IQR])"     "113.00 [84.00, 157.00]"    "0.058"  "nonnorm"
-  "platelet (mean (sd))"    "267.95 (92.20)"            "0.362"  ""       
-  "protime (mean (sd))"     "10.75 (1.15)"              "0.137"  ""       
-  "stage (%)"               ""                          "NA"     "exact"  
-  "   1"                    "3 (2.2)"                   ""       ""       
-  "   2"                    "30 (21.6)"                 ""       ""       
-  "   3"                    "59 (42.4)"                 ""       ""       
-  "   4"                    "47 (33.8)"                 ""       ""       
+> ## See examples for CreateTableOne and svyCreateTableOne
 > 
 > 
 > 
 > base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
 > base::cat("print.TableOne", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
-
-detaching ‘package:survival’, ‘package:splines’
-
+> nameEx("print.svyCatTable")
+> ### * print.svyCatTable
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: print.svyCatTable
+> ### Title: Format and print 'svyCatTable' class objects
+> ### Aliases: print.svyCatTable
+> 
+> ### ** Examples
+> 
+> ## See the examples for svyCreateTableOne()
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("print.svyCatTable", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("print.svyContTable")
+> ### * print.svyContTable
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: print.svyContTable
+> ### Title: Format and print 'svyContTable' class objects
+> ### Aliases: print.svyContTable
+> 
+> ### ** Examples
+> 
+> ## See the examples for svyCreateTableOne()
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("print.svyContTable", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
 > nameEx("summary.CatTable")
 > ### * summary.CatTable
 > 
@@ -3502,94 +2766,13 @@ detaching ‘package:survival’, ‘package:splines’
 > 
 > ### ** Examples
 > 
-> ## Load
-> library(tableone)
-> 
-> ## Load Mayo Clinic Primary Biliary Cirrhosis Data
-> library(survival)
-Loading required package: splines
-> data(pbc)
-> ## Check variables
-> head(pbc)
-  id time status trt      age sex ascites hepato spiders edema bili chol
-1  1  400      2   1 58.76523   f       1      1       1   1.0 14.5  261
-2  2 4500      0   1 56.44627   f       0      1       1   0.0  1.1  302
-3  3 1012      2   1 70.07255   m       0      0       0   0.5  1.4  176
-4  4 1925      2   1 54.74059   f       0      1       1   0.5  1.8  244
-5  5 1504      1   2 38.10541   f       0      1       1   0.0  3.4  279
-6  6 2503      2   2 66.25873   f       0      1       0   0.0  0.8  248
-  albumin copper alk.phos    ast trig platelet protime stage
-1    2.60    156   1718.0 137.95  172      190    12.2     4
-2    4.14     54   7394.8 113.52   88      221    10.6     3
-3    3.48    210    516.0  96.10   55      151    12.0     4
-4    2.54     64   6121.8  60.63   92      183    10.3     4
-5    3.53    143    671.0 113.15   72      136    10.9     3
-6    3.98     50    944.0  93.00   63       NA    11.0     3
-> 
-> ## Create an overall table for categorical variables
-> catVars <- c("status","ascites","hepato","spiders","edema","stage")
-> catTableOverall <- CreateCatTable(vars = catVars, data = pbc)
-> 
-> ## Simply typing the object name will invoke the print.CatTable method,
-> ## which will show the sample size, frequencies and percentages.
-> ## For 2-level variables, only the higher level is shown for simplicity.
-> catTableOverall
-                 
-                  Overall    
-  n               418        
-  status (%)                 
-     0            232 (55.5) 
-     1             25 ( 6.0) 
-     2            161 (38.5) 
-  ascites = 1 (%)  24 ( 7.7) 
-  hepato = 1 (%)  160 (51.3) 
-  spiders = 1 (%)  90 (28.8) 
-  edema (%)                  
-     0            354 (84.7) 
-     0.5           44 (10.5) 
-     1             20 ( 4.8) 
-  stage (%)                  
-     1             21 ( 5.1) 
-     2             92 (22.3) 
-     3            155 (37.6) 
-     4            144 (35.0) 
-> 
-> ## To further examine the variables, use the summary.CatTable method,
-> ## which will show more details.
-> summary(catTableOverall)
-strata: Overall
-     var   n miss p.miss level freq percent cum.percent
-  status 418    0    0.0     0  232    55.5        55.5
-                             1   25     6.0        61.5
-                             2  161    38.5       100.0
-                                                       
- ascites 418  106   25.4     0  288    92.3        92.3
-                             1   24     7.7       100.0
-                                                       
-  hepato 418  106   25.4     0  152    48.7        48.7
-                             1  160    51.3       100.0
-                                                       
- spiders 418  106   25.4     0  222    71.2        71.2
-                             1   90    28.8       100.0
-                                                       
-   edema 418    0    0.0     0  354    84.7        84.7
-                           0.5   44    10.5        95.2
-                             1   20     4.8       100.0
-                                                       
-   stage 418    6    1.4     1   21     5.1         5.1
-                             2   92    22.3        27.4
-                             3  155    37.6        65.0
-                             4  144    35.0       100.0
-                                                       
+> ## See examples for CreateTableOne
 > 
 > 
 > 
 > base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
 > base::cat("summary.CatTable", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
-
-detaching ‘package:survival’, ‘package:splines’
-
 > nameEx("summary.ContTable")
 > ### * summary.ContTable
 > 
@@ -3602,90 +2785,13 @@ detaching ‘package:survival’, ‘package:splines’
 > 
 > ### ** Examples
 > 
-> ## Load
-> library(tableone)
-> 
-> ## Load Mayo Clinic Primary Biliary Cirrhosis Data
-> library(survival)
-Loading required package: splines
-> data(pbc)
-> ## Check variables
-> head(pbc)
-  id time status trt      age sex ascites hepato spiders edema bili chol
-1  1  400      2   1 58.76523   f       1      1       1   1.0 14.5  261
-2  2 4500      0   1 56.44627   f       0      1       1   0.0  1.1  302
-3  3 1012      2   1 70.07255   m       0      0       0   0.5  1.4  176
-4  4 1925      2   1 54.74059   f       0      1       1   0.5  1.8  244
-5  5 1504      1   2 38.10541   f       0      1       1   0.0  3.4  279
-6  6 2503      2   2 66.25873   f       0      1       0   0.0  0.8  248
-  albumin copper alk.phos    ast trig platelet protime stage
-1    2.60    156   1718.0 137.95  172      190    12.2     4
-2    4.14     54   7394.8 113.52   88      221    10.6     3
-3    3.48    210    516.0  96.10   55      151    12.0     4
-4    2.54     64   6121.8  60.63   92      183    10.3     4
-5    3.53    143    671.0 113.15   72      136    10.9     3
-6    3.98     50    944.0  93.00   63       NA    11.0     3
-> 
-> ## Create an overall table for continuous variables
-> contVars <- c("time","age","bili","chol","albumin","copper",
-+               "alk.phos","ast","trig","platelet","protime")
-> contTableOverall <- CreateContTable(vars = contVars, data = pbc)
-> 
-> ## Simply typing the object name will invoke the print.ContTable method,
-> ## which will show the sample size, means and standard deviations.
-> contTableOverall
-                      
-                       Overall          
-  n                    418              
-  time (mean (sd))     1917.78 (1104.67)
-  age (mean (sd))        50.74 (10.45)  
-  bili (mean (sd))        3.22 (4.41)   
-  chol (mean (sd))      369.51 (231.94) 
-  albumin (mean (sd))     3.50 (0.42)   
-  copper (mean (sd))     97.65 (85.61)  
-  alk.phos (mean (sd)) 1982.66 (2140.39)
-  ast (mean (sd))       122.56 (56.70)  
-  trig (mean (sd))      124.70 (65.15)  
-  platelet (mean (sd))  257.02 (98.33)  
-  protime (mean (sd))    10.73 (1.02)   
-> 
-> ## To further examine the variables, use the summary.ContTable method,
-> ## which will show more details.
-> summary(contTableOverall)
-strata: Overall
-           n miss p.miss   mean      sd median    p25    p75   min     max
-time     418    0   0.00 1917.8 1104.67 1730.0 1092.8 2613.5  41.0  4795.0
-age      418    0   0.00   50.7   10.45   51.0   42.8   58.2  26.3    78.4
-bili     418    0   0.00    3.2    4.41    1.4    0.8    3.4   0.3    28.0
-chol     418  134  32.06  369.5  231.94  309.5  249.5  400.0 120.0  1775.0
-albumin  418    0   0.00    3.5    0.42    3.5    3.2    3.8   2.0     4.6
-copper   418  108  25.84   97.6   85.61   73.0   41.2  123.0   4.0   588.0
-alk.phos 418  106  25.36 1982.7 2140.39 1259.0  871.5 1980.0 289.0 13862.4
-ast      418  106  25.36  122.6   56.70  114.7   80.6  151.9  26.4   457.2
-trig     418  136  32.54  124.7   65.15  108.0   84.2  151.0  33.0   598.0
-platelet 418   11   2.63  257.0   98.33  251.0  188.5  318.0  62.0   721.0
-protime  418    2   0.48   10.7    1.02   10.6   10.0   11.1   9.0    18.0
-           skew  kurt
-time      0.473 -0.48
-age       0.087 -0.62
-bili      2.718  8.07
-chol      3.409 14.34
-albumin  -0.468  0.57
-copper    2.304  7.62
-alk.phos  2.993  9.66
-ast       1.449  4.31
-trig      2.524 11.80
-platelet  0.627  0.86
-protime   2.223 10.04
+> ## See examples for CreateTableOne
 > 
 > 
 > 
 > base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
 > base::cat("summary.ContTable", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
-
-detaching ‘package:survival’, ‘package:splines’
-
 > nameEx("summary.TableOne")
 > ### * summary.TableOne
 > 
@@ -3693,312 +2799,457 @@ detaching ‘package:survival’, ‘package:splines’
 > 
 > base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: summary.TableOne
-> ### Title: Shows all results in a 'TableOne' class object
+> ### Title: Shows all results in a '(svy)TableOne' class object
 > ### Aliases: summary.TableOne
 > 
 > ### ** Examples
 > 
-> ## Load
-> library(tableone)
-> 
-> ## Load Mayo Clinic Primary Biliary Cirrhosis Data
-> library(survival)
-Loading required package: splines
-> data(pbc)
-> ## Check variables
-> head(pbc)
-  id time status trt      age sex ascites hepato spiders edema bili chol
-1  1  400      2   1 58.76523   f       1      1       1   1.0 14.5  261
-2  2 4500      0   1 56.44627   f       0      1       1   0.0  1.1  302
-3  3 1012      2   1 70.07255   m       0      0       0   0.5  1.4  176
-4  4 1925      2   1 54.74059   f       0      1       1   0.5  1.8  244
-5  5 1504      1   2 38.10541   f       0      1       1   0.0  3.4  279
-6  6 2503      2   2 66.25873   f       0      1       0   0.0  0.8  248
-  albumin copper alk.phos    ast trig platelet protime stage
-1    2.60    156   1718.0 137.95  172      190    12.2     4
-2    4.14     54   7394.8 113.52   88      221    10.6     3
-3    3.48    210    516.0  96.10   55      151    12.0     4
-4    2.54     64   6121.8  60.63   92      183    10.3     4
-5    3.53    143    671.0 113.15   72      136    10.9     3
-6    3.98     50    944.0  93.00   63       NA    11.0     3
-> 
-> ## Make categorical variables factors
-> varsToFactor <- c("status","trt","ascites","hepato","spiders","edema","stage")
-> pbc[varsToFactor] <- lapply(pbc[varsToFactor], factor)
-> 
-> ## Create Table 1 stratified by sex and trt
-> tableOne <- CreateTableOne(vars = c("time","status","age","ascites","hepato",
-+                                     "spiders","edema","bili","chol","albumin",
-+                                     "copper","alk.phos","ast","trig","platelet",
-+                                     "protime","stage"),
-+                            strata = c("sex","trt"), data = pbc)
-> 
-> ## Just typing the object name will invoke the print.TableOne method
-> tableOne
-                      Stratified by sex:trt
-                       m:1               f:1               m:2              
-  n                    21                137               15               
-  time (mean (sd))     1793.48 (1244.70) 2049.67 (1070.20) 2156.33 (1428.56)
-  status (%)                                                                
-     0                       4 (19.0)         79 (57.7)          7 (46.7)   
-     1                       3 (14.3)          7 ( 5.1)          0 ( 0.0)   
-     2                      14 (66.7)         51 (37.2)          8 (53.3)   
-  age (mean (sd))        55.57 (12.61)     50.78 (10.65)     57.09 (10.07)  
-  ascites = 1 (%)            1 (4.8)          13 (9.5)           2 (13.3)   
-  hepato = 1 (%)            12 (57.1)         61 (44.5)          9 (60.0)   
-  spiders = 1 (%)            3 (14.3)         42 (30.7)          1 (6.7)    
-  edema (%)                                                                 
-     0                      17 (81.0)        115 (83.9)         12 (80.0)   
-     0.5                     3 (14.3)         13 ( 9.5)          1 ( 6.7)   
-     1                       1 ( 4.8)          9 ( 6.6)          2 (13.3)   
-  bili (mean (sd))        2.98 (2.11)       2.86 (3.81)       2.72 (2.46)   
-  chol (mean (sd))      403.43 (204.95)   358.24 (210.46)   301.00 (111.32) 
-  albumin (mean (sd))     3.63 (0.43)       3.50 (0.44)       3.50 (0.49)   
-  copper (mean (sd))    174.90 (105.33)    85.71 (82.27)    125.40 (89.18)  
-  alk.phos (mean (sd)) 2486.16 (2385.32) 1950.04 (2151.35) 1734.45 (2478.07)
-  ast (mean (sd))       128.71 (48.74)    118.91 (55.40)    112.58 (44.38)  
-  trig (mean (sd))      145.81 (56.62)    120.28 (73.41)    114.86 (39.59)  
-  platelet (mean (sd))  232.65 (97.38)    262.59 (100.53)   240.13 (73.93)  
-  protime (mean (sd))    10.84 (0.94)      10.62 (0.84)      11.23 (0.97)   
-  stage (%)                                                                 
-     1                       2 ( 9.5)         10 ( 7.3)          1 ( 6.7)   
-     2                       4 (19.0)         31 (22.6)          2 (13.3)   
-     3                       7 (33.3)         49 (35.8)          5 (33.3)   
-     4                       8 (38.1)         47 (34.3)          7 (46.7)   
-                      Stratified by sex:trt
-                       f:2               p      test
-  n                    139                          
-  time (mean (sd))     1979.65 (1127.52)  0.730     
-  status (%)                              0.033     
-     0                      78 (56.1)               
-     1                       9 ( 6.5)               
-     2                      52 (37.4)               
-  age (mean (sd))        47.66 (9.54)    <0.001     
-  ascites = 1 (%)            8 (5.8)      0.516     
-  hepato = 1 (%)            78 (56.1)     0.208     
-  spiders = 1 (%)           44 (31.7)     0.089     
-  edema (%)                               0.906     
-     0                     119 (85.6)               
-     0.5                    12 ( 8.6)               
-     1                       8 ( 5.8)               
-  bili (mean (sd))        3.75 (5.50)     0.394     
-  chol (mean (sd))      381.73 (262.26)   0.512     
-  albumin (mean (sd))     3.53 (0.39)     0.585     
-  copper (mean (sd))     94.64 (79.25)   <0.001     
-  alk.phos (mean (sd)) 1965.52 (2066.15)  0.706     
-  ast (mean (sd))       126.30 (60.27)    0.598     
-  trig (mean (sd))      126.38 (60.22)    0.370     
-  platelet (mean (sd))  267.95 (92.20)    0.362     
-  protime (mean (sd))    10.75 (1.15)     0.137     
-  stage (%)                               0.646     
-     1                       3 ( 2.2)               
-     2                      30 (21.6)               
-     3                      59 (42.4)               
-     4                      47 (33.8)               
-> 
-> ## Use the summary.TableOne method for detailed summary
-> summary(tableOne)
-
-     ### Summary of continuous variables ###
-
-sex: m
-trt: 1
-          n miss p.miss mean    sd median p25  p75   min   max  skew kurt
-time     21    0      0 1793 1e+03   1302 999 2386 140.0  4459  1.04  0.1
-age      21    0      0   56 1e+01     56  46   66  33.5    78 -0.20 -0.7
-bili     21    0      0    3 2e+00      2   1    4   0.6     7  1.02 -0.1
-chol     21    0      0  403 2e+02    376 251  456 168.0  1000  1.33  2.2
-albumin  21    0      0    4 4e-01      4   3    4   2.6     4 -0.97  0.3
-copper   21    0      0  175 1e+02    158 100  225  25.0   444  1.08  1.0
-alk.phos 21    0      0 2486 2e+03   1664 983 2496 516.0 10165  2.05  4.5
-ast      21    0      0  129 5e+01    127  86  158  56.8   222  0.31 -0.9
-trig     21    0      0  146 6e+01    142 107  194  55.0   242  0.16 -1.0
-platelet 21    1      5  233 1e+02    228 148  314  70.0   394 -0.05 -1.2
-protime  21    0      0   11 9e-01     11  10   11   9.7    14  2.11  6.8
------------------------------------------------------------- 
-sex: f
-trt: 1
-           n miss p.miss mean    sd median   p25  p75   min   max  skew kurt
-time     137    0    0.0 2050 1e+03   1945 1e+03 2644  41.0  4556  0.32 -0.4
-age      137    0    0.0   51 1e+01     51 4e+01   57  26.3    77  0.05 -0.5
-bili     137    0    0.0    3 4e+00      1 8e-01    3   0.3    20  2.65  7.1
-chol     137   18   13.1  358 2e+02    309 2e+02  400 127.0  1712  4.28 23.8
-albumin  137    0    0.0    3 4e-01      4 3e+00    4   2.1     5 -0.33  0.4
-copper   137    1    0.7   86 8e+01     67 4e+01  105   9.0   588  3.18 13.9
-alk.phos 137    0    0.0 1950 2e+03   1212 8e+02 1877 369.0 11552  2.88  8.4
-ast      137    0    0.0  119 6e+01    108 7e+01  150  26.4   338  1.20  1.9
-trig     137   19   13.9  120 7e+01    101 8e+01  134  33.0   598  3.28 16.0
-platelet 137    1    0.7  263 1e+02    258 2e+02  322  62.0   563  0.57  0.3
-protime  137    0    0.0   11 8e-01     11 1e+01   11   9.0    13  0.92  0.6
------------------------------------------------------------- 
-sex: m
-trt: 2
-          n miss p.miss mean    sd median  p25  p75   min   max skew kurt
-time     15    0      0 2156 1e+03   1656 1054 3420 191.0  4427  0.3 -1.4
-age      15    0      0   57 1e+01     53   49   66  43.9    75  0.5 -1.3
-bili     15    0      0    3 2e+00      2    1    3   0.6     9  1.5  1.4
-chol     15    1      7  301 1e+02    259  236  342 151.0   546  0.9  0.4
-albumin  15    0      0    4 5e-01      4    3    4   2.3     4 -1.0  1.9
-copper   15    0      0  125 9e+01     84   52  198  13.0   281  0.5 -1.1
-alk.phos 15    0      0 1734 2e+03   1070  737 1212 577.0 10397  3.5 12.7
-ast      15    0      0  113 4e+01    110   74  129  46.5   188  0.3 -0.8
-trig     15    1      7  115 4e+01    108   90  137  49.0   188  0.4 -0.4
-platelet 15    0      0  240 7e+01    214  190  294 119.0   360  0.2 -1.0
-protime  15    0      0   11 1e+00     11   11   12  10.0    13  0.7  0.2
------------------------------------------------------------- 
-sex: f
-trt: 2
-           n miss p.miss mean    sd median   p25  p75   min   max skew kurt
-time     139    0    0.0 1980 1e+03   1832 1e+03 2717  51.0  4523  0.3 -0.6
-age      139    0    0.0   48 1e+01     47 4e+01   55  30.6    71  0.2 -0.7
-bili     139    0    0.0    4 5e+00      1 7e-01    4   0.3    28  2.6  6.5
-chol     139    9    6.5  382 3e+02    306 3e+02  381 120.0  1775  3.0 10.1
-albumin  139    0    0.0    4 4e-01      4 3e+00    4   2.0     4 -0.8  2.1
-copper   139    1    0.7   95 8e+01     70 4e+01  127   4.0   558  2.2  8.3
-alk.phos 139    0    0.0 1966 2e+03   1345 9e+02 1992 289.0 13862  3.4 13.6
-ast      139    0    0.0  126 6e+01    118 8e+01  153  28.4   457  1.8  6.2
-trig     139   10    7.2  126 6e+01    113 8e+01  157  44.0   432  1.7  5.3
-platelet 139    2    1.4  268 9e+01    265 2e+02  324  71.0   487  0.2 -0.4
-protime  139    0    0.0   11 1e+00     11 1e+01   11   9.2    17  2.0  7.2
-
-p-values
-              pNormal   pNonNormal
-time     7.300496e-01 5.566440e-01
-age      1.286381e-04 6.517437e-04
-bili     3.937430e-01 2.049525e-01
-chol     5.122223e-01 4.578773e-01
-albumin  5.853926e-01 4.041206e-01
-copper   6.237989e-05 4.712924e-05
-alk.phos 7.063812e-01 1.801480e-01
-ast      5.982898e-01 5.086616e-01
-trig     3.701073e-01 5.827726e-02
-platelet 3.624740e-01 4.451277e-01
-protime  1.365463e-01 8.114383e-02
-
-=======================================================================================
-
-     ### Summary of categorical variables ### 
-
-sex: m
-trt: 1
-     var  n miss p.miss level freq percent cum.percent
-  status 21    0    0.0     0    4    19.0        19.0
-                            1    3    14.3        33.3
-                            2   14    66.7       100.0
-                                                      
- ascites 21    0    0.0     0   20    95.2        95.2
-                            1    1     4.8       100.0
-                                                      
-  hepato 21    0    0.0     0    9    42.9        42.9
-                            1   12    57.1       100.0
-                                                      
- spiders 21    0    0.0     0   18    85.7        85.7
-                            1    3    14.3       100.0
-                                                      
-   edema 21    0    0.0     0   17    81.0        81.0
-                          0.5    3    14.3        95.2
-                            1    1     4.8       100.0
-                                                      
-   stage 21    0    0.0     1    2     9.5         9.5
-                            2    4    19.0        28.6
-                            3    7    33.3        61.9
-                            4    8    38.1       100.0
-                                                      
------------------------------------------------------------- 
-sex: f
-trt: 1
-     var   n miss p.miss level freq percent cum.percent
-  status 137    0    0.0     0   79    57.7        57.7
-                             1    7     5.1        62.8
-                             2   51    37.2       100.0
-                                                       
- ascites 137    0    0.0     0  124    90.5        90.5
-                             1   13     9.5       100.0
-                                                       
-  hepato 137    0    0.0     0   76    55.5        55.5
-                             1   61    44.5       100.0
-                                                       
- spiders 137    0    0.0     0   95    69.3        69.3
-                             1   42    30.7       100.0
-                                                       
-   edema 137    0    0.0     0  115    83.9        83.9
-                           0.5   13     9.5        93.4
-                             1    9     6.6       100.0
-                                                       
-   stage 137    0    0.0     1   10     7.3         7.3
-                             2   31    22.6        29.9
-                             3   49    35.8        65.7
-                             4   47    34.3       100.0
-                                                       
------------------------------------------------------------- 
-sex: m
-trt: 2
-     var  n miss p.miss level freq percent cum.percent
-  status 15    0    0.0     0    7    46.7        46.7
-                            1    0     0.0        46.7
-                            2    8    53.3       100.0
-                                                      
- ascites 15    0    0.0     0   13    86.7        86.7
-                            1    2    13.3       100.0
-                                                      
-  hepato 15    0    0.0     0    6    40.0        40.0
-                            1    9    60.0       100.0
-                                                      
- spiders 15    0    0.0     0   14    93.3        93.3
-                            1    1     6.7       100.0
-                                                      
-   edema 15    0    0.0     0   12    80.0        80.0
-                          0.5    1     6.7        86.7
-                            1    2    13.3       100.0
-                                                      
-   stage 15    0    0.0     1    1     6.7         6.7
-                            2    2    13.3        20.0
-                            3    5    33.3        53.3
-                            4    7    46.7       100.0
-                                                      
------------------------------------------------------------- 
-sex: f
-trt: 2
-     var   n miss p.miss level freq percent cum.percent
-  status 139    0    0.0     0   78    56.1        56.1
-                             1    9     6.5        62.6
-                             2   52    37.4       100.0
-                                                       
- ascites 139    0    0.0     0  131    94.2        94.2
-                             1    8     5.8       100.0
-                                                       
-  hepato 139    0    0.0     0   61    43.9        43.9
-                             1   78    56.1       100.0
-                                                       
- spiders 139    0    0.0     0   95    68.3        68.3
-                             1   44    31.7       100.0
-                                                       
-   edema 139    0    0.0     0  119    85.6        85.6
-                           0.5   12     8.6        94.2
-                             1    8     5.8       100.0
-                                                       
-   stage 139    0    0.0     1    3     2.2         2.2
-                             2   30    21.6        23.7
-                             3   59    42.4        66.2
-                             4   47    33.8       100.0
-                                                       
-
-p-values
-           pApprox     pExact
-status  0.03269881 0.02420814
-ascites 0.51569424 0.43540746
-hepato  0.20805680 0.20480121
-spiders 0.08898575 0.08569292
-edema   0.90584197 0.84833223
-stage   0.64630048         NA
+> ## See examples for CreateTableOne and svyCreateTableOne
 > 
 > 
 > 
 > base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
 > base::cat("summary.TableOne", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
+> nameEx("summary.svyCatTable")
+> ### * summary.svyCatTable
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: summary.svyCatTable
+> ### Title: Shows all results in a 'svyCatTable' class object
+> ### Aliases: summary.svyCatTable
+> 
+> ### ** Examples
+> 
+> ## See the examples for svyCreateTableOne()
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("summary.svyCatTable", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("summary.svyContTable")
+> ### * summary.svyContTable
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: summary.svyContTable
+> ### Title: Shows all results in a 'svyContTable' class object
+> ### Aliases: summary.svyContTable
+> 
+> ### ** Examples
+> 
+> ## See the examples for svyCreateTableOne()
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("summary.svyContTable", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("svyCreateCatTable")
+> ### * svyCreateCatTable
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: svyCreateCatTable
+> ### Title: Create an object summarizing categorical variables for weighted
+> ###   data
+> ### Aliases: svyCreateCatTable
+> 
+> ### ** Examples
+> 
+> ## See the examples for svyCreateTableOne()
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("svyCreateCatTable", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("svyCreateContTable")
+> ### * svyCreateContTable
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: svyCreateContTable
+> ### Title: Create an object summarizing continous variables for weighted
+> ###   dataset
+> ### Aliases: svyCreateContTable
+> 
+> ### ** Examples
+> 
+> ## See the examples for svyCreateTableOne()
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("svyCreateContTable", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("svyCreateTableOne")
+> ### * svyCreateTableOne
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: svyCreateTableOne
+> ### Title: Create an object summarizing both continuous and categorical
+> ###   variables for weighted data
+> ### Aliases: svyCreateTableOne
+> 
+> ### ** Examples
+> 
+> ## Load packages
+> library(tableone)
+> library(survey)
+Loading required package: grid
 
-detaching ‘package:survival’, ‘package:splines’
+Attaching package: ‘survey’
+
+The following object is masked from ‘package:graphics’:
+
+    dotchart
+
+> 
+> ## Create a weighted survey design object
+> data(nhanes)
+> nhanesSvy <- svydesign(ids = ~ SDMVPSU, strata = ~ SDMVSTRA, weights = ~ WTMEC2YR,
++                        nest = TRUE, data = nhanes)
+> 
+> ## Create a table object
+> ## factorVars are converted to factors; no need for variables already factors
+> ## strata will stratify summaries; leave it unspecified for overall summaries
+> tab1 <- svyCreateTableOne(vars = c("HI_CHOL","race","agecat","RIAGENDR"),
++                           strata = "RIAGENDR", data = nhanesSvy,
++                           factorVars = c("race","RIAGENDR"))
+> 
+> ## Detailed output
+> summary(tab1)
+
+     ### Summary of continuous variables ###
+
+RIAGENDR: 1
+            n  miss p.miss mean  sd median p25 p75 min max
+HI_CHOL 1e+08 1e+07      7  0.1 0.3      0   0   0   0   1
+------------------------------------------------------------ 
+RIAGENDR: 2
+            n  miss p.miss mean  sd median p25 p75 min max
+HI_CHOL 1e+08 1e+07      8  0.1 0.3      0   0   0   0   1
+
+p-values
+            pNormal  pNonNormal
+HI_CHOL 0.009221135 0.009221135
+
+Standardize mean differences
+            1 vs 2
+HI_CHOL 0.07093003
+
+=======================================================================================
+
+     ### Summary of categorical variables ### 
+
+RIAGENDR: 1
+      var           n miss p.miss    level        freq percent cum.percent
+     race 134944553.9  0.0    0.0        1  21381884.2    15.8        15.8
+                                         2  89315751.4    66.2        82.0
+                                         3  15045455.5    11.1        93.2
+                                         4   9201462.9     6.8       100.0
+                                                                          
+   agecat 134944553.9  0.0    0.0   (0,19]  29299546.1    21.7        21.7
+                                   (19,39]  40497613.1    30.0        51.7
+                                   (39,59]  41053579.4    30.4        82.1
+                                  (59,Inf]  24093815.3    17.9       100.0
+                                                                          
+ RIAGENDR 134944553.9  0.0    0.0        1 134944553.9   100.0       100.0
+                                         2         0.0     0.0       100.0
+                                                                          
+------------------------------------------------------------ 
+RIAGENDR: 2
+      var           n miss p.miss    level        freq percent cum.percent
+     race 141591892.0  0.0    0.0        1  20251367.4    14.3        14.3
+                                         2  92486945.1    65.3        79.6
+                                         3  17967228.3    12.7        92.3
+                                         4  10886351.1     7.7       100.0
+                                                                          
+   agecat 141591892.0  0.0    0.0   (0,19]  28150760.5    19.9        19.9
+                                   (19,39]  40640361.5    28.7        48.6
+                                   (39,59]  42817044.0    30.2        78.8
+                                  (59,Inf]  29983725.9    21.2       100.0
+                                                                          
+ RIAGENDR 141591892.0  0.0    0.0        1         0.0     0.0         0.0
+                                         2 141591892.0   100.0       100.0
+                                                                          
+
+p-values
+              pApprox pExact
+race     4.162884e-02     NA
+agecat   1.175703e-03     NA
+RIAGENDR 2.688704e-49     NA
+
+Standardize mean differences
+             1 vs 2
+race     0.06878329
+agecat   0.08873652
+RIAGENDR        NaN
+> 
+> ## Default formatted printing
+> tab1
+                     Stratified by RIAGENDR
+                      1                    2                     p      test
+  n                   134944553.92         141591892.00                     
+  HI_CHOL (mean (sd))         0.10 (0.30)          0.12 (0.33)    0.009     
+  race (%)                                                        0.042     
+     1                  21381884.2 (15.8)    20251367.4 ( 14.3)             
+     2                  89315751.4 (66.2)    92486945.1 ( 65.3)             
+     3                  15045455.5 (11.1)    17967228.3 ( 12.7)             
+     4                   9201462.9 ( 6.8)    10886351.1 (  7.7)             
+  agecat (%)                                                      0.001     
+     (0,19]             29299546.1 (21.7)    28150760.5 ( 19.9)             
+     (19,39]            40497613.1 (30.0)    40640361.5 ( 28.7)             
+     (39,59]            41053579.4 (30.4)    42817044.0 ( 30.2)             
+     (59,Inf]           24093815.3 (17.9)    29983725.9 ( 21.2)             
+  RIAGENDR = 2 (%)             0.0 ( 0.0)   141591892.0 (100.0)  <0.001     
+> 
+> ## nonnormal specifies variables to be shown as median [IQR]
+> print(tab1, nonnormal = "HI_CHOL", contDigits = 3, catDigits = 2,
++       pDigits = 4, smd = TRUE)
+                        Stratified by RIAGENDR
+                         1                           
+  n                      134944553.923               
+  HI_CHOL (median [IQR])         0.000 [0.000, 0.000]
+  race (%)                                           
+     1                     21381884.19 (15.84)       
+     2                     89315751.41 (66.19)       
+     3                     15045455.46 (11.15)       
+     4                      9201462.86 ( 6.82)       
+  agecat (%)                                         
+     (0,19]                29299546.11 (21.71)       
+     (19,39]               40497613.07 (30.01)       
+     (39,59]               41053579.41 (30.42)       
+     (59,Inf]              24093815.33 (17.85)       
+  RIAGENDR = 2 (%)                0.00 ( 0.00)       
+                        Stratified by RIAGENDR
+                         2                            p       test    SMD    
+  n                      141591891.998                                       
+  HI_CHOL (median [IQR])         0.000 [0.000, 0.000]  0.0092 nonnorm  0.0709
+  race (%)                                             0.0416          0.0688
+     1                     20251367.39 ( 14.30)                              
+     2                     92486945.14 ( 65.32)                              
+     3                     17967228.32 ( 12.69)                              
+     4                     10886351.15 (  7.69)                              
+  agecat (%)                                           0.0012          0.0887
+     (0,19]                28150760.54 ( 19.88)                              
+     (19,39]               40640361.53 ( 28.70)                              
+     (39,59]               42817044.01 ( 30.24)                              
+     (59,Inf]              29983725.90 ( 21.18)                              
+  RIAGENDR = 2 (%)        141591892.00 (100.00)       <0.0001          NaN   
+> 
+> ## minMax changes it to median [min, max]
+> print(tab1, nonnormal = "HI_CHOL", minMax = TRUE, contDigits = 3,
++       catDigits = 2, pDigits = 4, smd = TRUE)
+                          Stratified by RIAGENDR
+                           1                           
+  n                        134944553.923               
+  HI_CHOL (median [range])         0.000 [0.000, 1.000]
+  race (%)                                             
+     1                       21381884.19 (15.84)       
+     2                       89315751.41 (66.19)       
+     3                       15045455.46 (11.15)       
+     4                        9201462.86 ( 6.82)       
+  agecat (%)                                           
+     (0,19]                  29299546.11 (21.71)       
+     (19,39]                 40497613.07 (30.01)       
+     (39,59]                 41053579.41 (30.42)       
+     (59,Inf]                24093815.33 (17.85)       
+  RIAGENDR = 2 (%)                  0.00 ( 0.00)       
+                          Stratified by RIAGENDR
+                           2                            p       test    SMD    
+  n                        141591891.998                                       
+  HI_CHOL (median [range])         0.000 [0.000, 1.000]  0.0092 nonnorm  0.0709
+  race (%)                                               0.0416          0.0688
+     1                       20251367.39 ( 14.30)                              
+     2                       92486945.14 ( 65.32)                              
+     3                       17967228.32 ( 12.69)                              
+     4                       10886351.15 (  7.69)                              
+  agecat (%)                                             0.0012          0.0887
+     (0,19]                  28150760.54 ( 19.88)                              
+     (19,39]                 40640361.53 ( 28.70)                              
+     (39,59]                 42817044.01 ( 30.24)                              
+     (59,Inf]                29983725.90 ( 21.18)                              
+  RIAGENDR = 2 (%)          141591892.00 (100.00)       <0.0001          NaN   
+> 
+> ## showAllLevels can be used tow show levels for all categorical variables
+> print(tab1, showAllLevels = TRUE, smd = TRUE)
+                     Stratified by RIAGENDR
+                      level    1                     2                    
+  n                            134944553.92          141591892.00         
+  HI_CHOL (mean (sd))                  0.10 (0.30)           0.12 (0.33)  
+  race (%)            1          21381884.2 ( 15.8)    20251367.4 ( 14.3) 
+                      2          89315751.4 ( 66.2)    92486945.1 ( 65.3) 
+                      3          15045455.5 ( 11.1)    17967228.3 ( 12.7) 
+                      4           9201462.9 (  6.8)    10886351.1 (  7.7) 
+  agecat (%)          (0,19]     29299546.1 ( 21.7)    28150760.5 ( 19.9) 
+                      (19,39]    40497613.1 ( 30.0)    40640361.5 ( 28.7) 
+                      (39,59]    41053579.4 ( 30.4)    42817044.0 ( 30.2) 
+                      (59,Inf]   24093815.3 ( 17.9)    29983725.9 ( 21.2) 
+  RIAGENDR (%)        1         134944553.9 (100.0)           0.0 (  0.0) 
+                      2                 0.0 (  0.0)   141591892.0 (100.0) 
+                     Stratified by RIAGENDR
+                      p      test SMD   
+  n                                     
+  HI_CHOL (mean (sd))  0.009       0.071
+  race (%)             0.042       0.069
+                                        
+                                        
+                                        
+  agecat (%)           0.001       0.089
+                                        
+                                        
+                                        
+  RIAGENDR (%)        <0.001       NaN  
+                                        
+> 
+> ## To see all printing options
+> ?print.TableOne
+print.TableOne            package:tableone             R Documentation
+
+_F_o_r_m_a_t _a_n_d _p_r_i_n_t '_T_a_b_l_e_O_n_e' _c_l_a_s_s _o_b_j_e_c_t_s
+
+_D_e_s_c_r_i_p_t_i_o_n:
+
+     ‘print’ method for the ‘TableOne’ class objects created by
+     ‘CreateTableOne’ function.
+
+_U_s_a_g_e:
+
+     ## S3 method for class 'TableOne'
+     print(x, catDigits = 1, contDigits = 2, pDigits = 3,
+       quote = FALSE, missing = FALSE, explain = TRUE, printToggle = TRUE,
+       test = TRUE, smd = FALSE, noSpaces = FALSE, format = c("fp", "f", "p",
+       "pf")[1], showAllLevels = FALSE, cramVars = NULL, exact = NULL,
+       nonnormal = NULL, minMax = FALSE, ...)
+     
+_A_r_g_u_m_e_n_t_s:
+
+       x: Object returned by ‘CreateTableOne’ function.
+
+catDigits: Number of digits to print for proportions. Default 1.
+
+contDigits: Number of digits to print for continuous variables. Default
+          2.
+
+ pDigits: Number of digits to print for p-values (also used for
+          standardized mean differences). Default 3.
+
+   quote: Whether to show everything in quotes. The default is FALSE.
+          If TRUE, everything including the row and column names are
+          quoted so that you can copy it to Excel easily.
+
+ missing: Whether to show missing data information (not implemented
+          yet, placeholder)
+
+ explain: Whether to add explanation to the variable names, i.e., (%)
+          is added to the variable names when percentage is shown.
+
+printToggle: Whether to print the output. If FLASE, no output is
+          created, and a matrix is invisibly returned.
+
+    test: Whether to show p-values. TRUE by default. If FALSE, only the
+          numerical summaries are shown.
+
+     smd: Whether to show standardized mean differences. FALSE by
+          default. If there are more than one contrasts, the average of
+          all possible standardized mean differences is shown. For
+          individual contrasts, use ‘summary’.
+
+noSpaces: Whether to remove spaces added for alignment. Use this option
+          if you prefer to align numbers yourself in other software.
+
+  format: The default is "fp" frequency (percentage). You can also
+          choose from "f" frequency only, "p" percentage only, and "pf"
+          percentage (frequency).
+
+showAllLevels: Whether to show all levels. FALSE by default, i.e., for
+          2-level categorical variables, only the higher level is shown
+          to avoid redundant information.
+
+cramVars: A character vector to specify the two-level categorical
+          variables, for which both levels should be shown in one row.
+
+   exact: A character vector to specify the variables for which the
+          p-values should be those of exact tests. By default all
+          p-values are from large sample approximation tests
+          (chisq.test).
+
+nonnormal: A character vector to specify the variables for which the
+          p-values should be those of nonparametric tests. By default
+          all p-values are from normal assumption-based tests
+          (oneway.test).
+
+  minMax: Whether to use [min,max] instead of [p25,p75] for nonnormal
+          variables. The default is FALSE.
+
+     ...: For compatibility with generic. Ignored.
+
+_V_a_l_u_e:
+
+     A matrix object containing what you see is also invisibly
+     returned. This can be assinged a name and exported via
+     ‘write.csv’.
+
+_A_u_t_h_o_r(_s):
+
+     Kazuki Yoshida, Justin Bohn
+
+_S_e_e _A_l_s_o:
+
+     ‘CreateTableOne’, ‘CreateTableOne’, ‘summary.TableOne’
+
+_E_x_a_m_p_l_e_s:
+
+     ## See examples for CreateTableOne and svyCreateTableOne
+     
+
+> 
+> ## To examine categorical variables only
+> tab1$CatTable
+                  Stratified by RIAGENDR
+                   1                  2                    p      test
+  n                134944553.9        141591892.0                     
+  race (%)                                                  0.042     
+     1             21381884.2 (15.8)   20251367.4 ( 14.3)             
+     2             89315751.4 (66.2)   92486945.1 ( 65.3)             
+     3             15045455.5 (11.1)   17967228.3 ( 12.7)             
+     4              9201462.9 ( 6.8)   10886351.1 (  7.7)             
+  agecat (%)                                                0.001     
+     (0,19]        29299546.1 (21.7)   28150760.5 ( 19.9)             
+     (19,39]       40497613.1 (30.0)   40640361.5 ( 28.7)             
+     (39,59]       41053579.4 (30.4)   42817044.0 ( 30.2)             
+     (59,Inf]      24093815.3 (17.9)   29983725.9 ( 21.2)             
+  RIAGENDR = 2 (%)        0.0 ( 0.0)  141591892.0 (100.0)  <0.001     
+> 
+> ## To examine continuous variables only
+> tab1$ContTable
+                     Stratified by RIAGENDR
+                      1            2            p      test
+  n                   134944553.92 141591892.00            
+  HI_CHOL (mean (sd)) 0.10 (0.30)  0.12 (0.33)   0.009     
+> 
+> ## If SMDs are needed as numericals, use ExtractSmd()
+> ExtractSmd(tab1)
+   HI_CHOL       race     agecat   RIAGENDR 
+0.07093003 0.06878329 0.08873652        NaN 
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("svyCreateTableOne", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+
+detaching ‘package:survey’, ‘package:grid’
 
 > nameEx("tableone-package")
 > ### * tableone-package
@@ -4012,575 +3263,7 @@ detaching ‘package:survival’, ‘package:splines’
 > 
 > ### ** Examples
 > 
-> ## Load
-> library(tableone)
-> 
-> ## Load Mayo Clinic Primary Biliary Cirrhosis Data
-> library(survival)
-Loading required package: splines
-> data(pbc)
-> ## Check variables
-> head(pbc)
-  id time status trt      age sex ascites hepato spiders edema bili chol
-1  1  400      2   1 58.76523   f       1      1       1   1.0 14.5  261
-2  2 4500      0   1 56.44627   f       0      1       1   0.0  1.1  302
-3  3 1012      2   1 70.07255   m       0      0       0   0.5  1.4  176
-4  4 1925      2   1 54.74059   f       0      1       1   0.5  1.8  244
-5  5 1504      1   2 38.10541   f       0      1       1   0.0  3.4  279
-6  6 2503      2   2 66.25873   f       0      1       0   0.0  0.8  248
-  albumin copper alk.phos    ast trig platelet protime stage
-1    2.60    156   1718.0 137.95  172      190    12.2     4
-2    4.14     54   7394.8 113.52   88      221    10.6     3
-3    3.48    210    516.0  96.10   55      151    12.0     4
-4    2.54     64   6121.8  60.63   92      183    10.3     4
-5    3.53    143    671.0 113.15   72      136    10.9     3
-6    3.98     50    944.0  93.00   63       NA    11.0     3
-> 
-> ## List numerically coded categorical variables for later conversion.
-> ## Factor variables are automatically handled as categorical variables.
-> factorVars <- c("status","trt","ascites","hepato","spiders","edema","stage")
-> 
-> ## Create a variable list
-> dput(names(pbc))    # This shows a character vector-creating syntax.
-c("id", "time", "status", "trt", "age", "sex", "ascites", "hepato", 
-"spiders", "edema", "bili", "chol", "albumin", "copper", "alk.phos", 
-"ast", "trig", "platelet", "protime", "stage")
-> vars <- c("time","status","age","sex","ascites","hepato",
-+           "spiders","edema","bili","chol","albumin",
-+           "copper","alk.phos","ast","trig","platelet",
-+           "protime","stage")
-> 
-> ## Create Table 1 stratified by trt. Use factorVars to convert numerically
-> ## coded categorical variables as factors without changing the dataset.
-> tableOne <- CreateTableOne(vars = vars, strata = c("trt"), data = pbc,
-+                            factorVars = factorVars)
-> 
-> ## Just typing the object name will invoke the print.TableOne method
-> tableOne
-                      Stratified by trt
-                       1                 2                 p      test
-  n                    158               154                          
-  time (mean (sd))     2015.62 (1094.12) 1996.86 (1155.93)  0.883     
-  status (%)                                                0.894     
-     0                      83 (52.5)         85 (55.2)               
-     1                      10 ( 6.3)          9 ( 5.8)               
-     2                      65 (41.1)         60 (39.0)               
-  age (mean (sd))        51.42 (11.01)     48.58 (9.96)     0.018     
-  sex = f (%)              137 (86.7)        139 (90.3)     0.421     
-  ascites = 1 (%)           14 (8.9)          10 (6.5)      0.567     
-  hepato = 1 (%)            73 (46.2)         87 (56.5)     0.088     
-  spiders = 1 (%)           45 (28.5)         45 (29.2)     0.985     
-  edema (%)                                                 0.877     
-     0                     132 (83.5)        131 (85.1)               
-     0.5                    16 (10.1)         13 ( 8.4)               
-     1                      10 ( 6.3)         10 ( 6.5)               
-  bili (mean (sd))        2.87 (3.63)       3.65 (5.28)     0.131     
-  chol (mean (sd))      365.01 (209.54)   373.88 (252.48)   0.748     
-  albumin (mean (sd))     3.52 (0.44)       3.52 (0.40)     0.874     
-  copper (mean (sd))     97.64 (90.59)     97.65 (80.49)    0.999     
-  alk.phos (mean (sd)) 2021.30 (2183.44) 1943.01 (2101.69)  0.747     
-  ast (mean (sd))       120.21 (54.52)    124.97 (58.93)    0.460     
-  trig (mean (sd))      124.14 (71.54)    125.25 (58.52)    0.886     
-  platelet (mean (sd))  258.75 (100.32)   265.20 (90.73)    0.555     
-  protime (mean (sd))    10.65 (0.85)      10.80 (1.14)     0.197     
-  stage (%)                                                 0.201     
-     1                      12 ( 7.6)          4 ( 2.6)               
-     2                      35 (22.2)         32 (20.8)               
-     3                      56 (35.4)         64 (41.6)               
-     4                      55 (34.8)         54 (35.1)               
-> 
-> ## Specifying nonnormal variables will show the variables appropriately,
-> ## and show nonparametric test p-values. Specify variables in the exact
-> ## argument to obtain the exact test p-values. For two-level categorical
-> ## variables specified in cramVars, both levels are shown. Use minMax
-> ## argument to show median [min, max] for nonnormal variables.
-> print(tableOne, nonnormal = c("bili","chol","copper","alk.phos","trig"),
-+       exact = c("status","stage"), cramVars = "sex")
-                         Stratified by trt
-                          1                         2                        
-  n                       158                       154                      
-  time (mean (sd))        2015.62 (1094.12)         1996.86 (1155.93)        
-  status (%)                                                                 
-     0                         83 (52.5)                 85 (55.2)           
-     1                         10 ( 6.3)                  9 ( 5.8)           
-     2                         65 (41.1)                 60 (39.0)           
-  age (mean (sd))           51.42 (11.01)             48.58 (9.96)           
-  sex = m/f (%)            21/137 (13.3/86.7)        15/139 (9.7/90.3)       
-  ascites = 1 (%)              14 (8.9)                  10 (6.5)            
-  hepato = 1 (%)               73 (46.2)                 87 (56.5)           
-  spiders = 1 (%)              45 (28.5)                 45 (29.2)           
-  edema (%)                                                                  
-     0                        132 (83.5)                131 (85.1)           
-     0.5                       16 (10.1)                 13 ( 8.4)           
-     1                         10 ( 6.3)                 10 ( 6.5)           
-  bili (median [IQR])        1.40 [0.80, 3.20]         1.30 [0.72, 3.60]     
-  chol (median [IQR])      315.50 [247.75, 417.00]   303.50 [254.25, 377.00] 
-  albumin (mean (sd))        3.52 (0.44)               3.52 (0.40)           
-  copper (median [IQR])     73.00 [40.00, 121.00]     73.00 [43.00, 139.00]  
-  alk.phos (median [IQR]) 1214.50 [840.75, 2028.00] 1283.00 [922.50, 1949.75]
-  ast (mean (sd))          120.21 (54.52)            124.97 (58.93)          
-  trig (median [IQR])      106.00 [84.50, 146.00]    113.00 [84.50, 155.00]  
-  platelet (mean (sd))     258.75 (100.32)           265.20 (90.73)          
-  protime (mean (sd))       10.65 (0.85)              10.80 (1.14)           
-  stage (%)                                                                  
-     1                         12 ( 7.6)                  4 ( 2.6)           
-     2                         35 (22.2)                 32 (20.8)           
-     3                         56 (35.4)                 64 (41.6)           
-     4                         55 (34.8)                 54 (35.1)           
-                         Stratified by trt
-                          p      test   
-  n                                     
-  time (mean (sd))         0.883        
-  status (%)               0.884 exact  
-     0                                  
-     1                                  
-     2                                  
-  age (mean (sd))          0.018        
-  sex = m/f (%)            0.421        
-  ascites = 1 (%)          0.567        
-  hepato = 1 (%)           0.088        
-  spiders = 1 (%)          0.985        
-  edema (%)                0.877        
-     0                                  
-     0.5                                
-     1                                  
-  bili (median [IQR])      0.842 nonnorm
-  chol (median [IQR])      0.544 nonnorm
-  albumin (mean (sd))      0.874        
-  copper (median [IQR])    0.717 nonnorm
-  alk.phos (median [IQR])  0.812 nonnorm
-  ast (mean (sd))          0.460        
-  trig (median [IQR])      0.370 nonnorm
-  platelet (mean (sd))     0.555        
-  protime (mean (sd))      0.197        
-  stage (%)                0.205 exact  
-     1                                  
-     2                                  
-     3                                  
-     4                                  
-> 
-> ## Use the summary.TableOne method for detailed summary
-> summary(tableOne)
-
-     ### Summary of continuous variables ###
-
-trt: 1
-           n miss p.miss mean    sd median   p25  p75   min   max  skew kurt
-time     158    0    0.0 2016 1e+03   1895 1e+03 2632  41.0  4556  0.41 -0.4
-age      158    0    0.0   51 1e+01     52 4e+01   59  26.3    78  0.06 -0.5
-bili     158    0    0.0    3 4e+00      1 8e-01    3   0.3    20  2.67  7.6
-chol     158   18   11.4  365 2e+02    316 2e+02  417 127.0  1712  3.83 20.2
-albumin  158    0    0.0    4 4e-01      4 3e+00    4   2.1     5 -0.40  0.3
-copper   158    1    0.6   98 9e+01     73 4e+01  121   9.0   588  2.50  8.2
-alk.phos 158    0    0.0 2021 2e+03   1214 8e+02 2028 369.0 11552  2.71  7.4
-ast      158    0    0.0  120 5e+01    112 8e+01  152  26.4   338  1.09  1.6
-trig     158   19   12.0  124 7e+01    106 8e+01  146  33.0   598  2.95 14.3
-platelet 158    2    1.3  259 1e+02    255 2e+02  322  62.0   563  0.50  0.2
-protime  158    0    0.0   11 9e-01     11 1e+01   11   9.0    14  1.10  1.6
------------------------------------------------------------- 
-trt: 2
-           n miss p.miss mean    sd median   p25  p75   min   max skew kurt
-time     154    0    0.0 1997 1e+03   1811 1e+03 2771  51.0  4523  0.4 -0.7
-age      154    0    0.0   49 1e+01     48 4e+01   56  30.6    75  0.2 -0.5
-bili     154    0    0.0    4 5e+00      1 7e-01    4   0.3    28  2.7  7.3
-chol     154   10    6.5  374 3e+02    304 3e+02  377 120.0  1775  3.1 11.1
-albumin  154    0    0.0    4 4e-01      4 3e+00    4   2.0     4 -0.8  2.0
-copper   154    1    0.6   98 8e+01     73 4e+01  139   4.0   558  2.0  6.6
-alk.phos 154    0    0.0 1943 2e+03   1283 9e+02 1950 289.0 13862  3.3 12.8
-ast      154    0    0.0  125 6e+01    117 8e+01  152  28.4   457  1.7  6.3
-trig     154   11    7.1  125 6e+01    113 8e+01  155  44.0   432  1.7  5.5
-platelet 154    2    1.3  265 9e+01    260 2e+02  322  71.0   487  0.2 -0.3
-protime  154    0    0.0   11 1e+00     11 1e+01   11   9.2    17  1.9  6.4
-
-p-values
-            pNormal pNonNormal
-time     0.88304691 0.82661809
-age      0.01767247 0.01962155
-bili     0.13093942 0.84168460
-chol     0.74799072 0.54433899
-albumin  0.87388074 0.95045176
-copper   0.99915849 0.71745444
-alk.phos 0.74726165 0.81198200
-ast      0.45969842 0.45892358
-trig     0.88604213 0.36980434
-platelet 0.55451136 0.45482564
-protime  0.19714026 0.58802048
-
-=======================================================================================
-
-     ### Summary of categorical variables ### 
-
-trt: 1
-     var   n miss p.miss level freq percent cum.percent
-  status 158    0    0.0     0   83    52.5        52.5
-                             1   10     6.3        58.9
-                             2   65    41.1       100.0
-                                                       
-     sex 158    0    0.0     m   21    13.3        13.3
-                             f  137    86.7       100.0
-                                                       
- ascites 158    0    0.0     0  144    91.1        91.1
-                             1   14     8.9       100.0
-                                                       
-  hepato 158    0    0.0     0   85    53.8        53.8
-                             1   73    46.2       100.0
-                                                       
- spiders 158    0    0.0     0  113    71.5        71.5
-                             1   45    28.5       100.0
-                                                       
-   edema 158    0    0.0     0  132    83.5        83.5
-                           0.5   16    10.1        93.7
-                             1   10     6.3       100.0
-                                                       
-   stage 158    0    0.0     1   12     7.6         7.6
-                             2   35    22.2        29.7
-                             3   56    35.4        65.2
-                             4   55    34.8       100.0
-                                                       
------------------------------------------------------------- 
-trt: 2
-     var   n miss p.miss level freq percent cum.percent
-  status 154    0    0.0     0   85    55.2        55.2
-                             1    9     5.8        61.0
-                             2   60    39.0       100.0
-                                                       
-     sex 154    0    0.0     m   15     9.7         9.7
-                             f  139    90.3       100.0
-                                                       
- ascites 154    0    0.0     0  144    93.5        93.5
-                             1   10     6.5       100.0
-                                                       
-  hepato 154    0    0.0     0   67    43.5        43.5
-                             1   87    56.5       100.0
-                                                       
- spiders 154    0    0.0     0  109    70.8        70.8
-                             1   45    29.2       100.0
-                                                       
-   edema 154    0    0.0     0  131    85.1        85.1
-                           0.5   13     8.4        93.5
-                             1   10     6.5       100.0
-                                                       
-   stage 154    0    0.0     1    4     2.6         2.6
-                             2   32    20.8        23.4
-                             3   64    41.6        64.9
-                             4   54    35.1       100.0
-                                                       
-
-p-values
-           pApprox     pExact
-status  0.89350975 0.88422188
-sex     0.42122610 0.37743235
-ascites 0.56728647 0.52558267
-hepato  0.08820884 0.07137522
-spiders 0.98466036 0.90113734
-edema   0.87681949 0.89370131
-stage   0.20129629 0.20455558
-> 
-> ## See the categorical part only using $ operator
-> tableOne$CatTable
-                 Stratified by trt
-                  1           2           p      test
-  n               158         154                    
-  status (%)                               0.894     
-     0             83 (52.5)   85 (55.2)             
-     1             10 ( 6.3)    9 ( 5.8)             
-     2             65 (41.1)   60 (39.0)             
-  sex = f (%)     137 (86.7)  139 (90.3)   0.421     
-  ascites = 1 (%)  14 ( 8.9)   10 ( 6.5)   0.567     
-  hepato = 1 (%)   73 (46.2)   87 (56.5)   0.088     
-  spiders = 1 (%)  45 (28.5)   45 (29.2)   0.985     
-  edema (%)                                0.877     
-     0            132 (83.5)  131 (85.1)             
-     0.5           16 (10.1)   13 ( 8.4)             
-     1             10 ( 6.3)   10 ( 6.5)             
-  stage (%)                                0.201     
-     1             12 ( 7.6)    4 ( 2.6)             
-     2             35 (22.2)   32 (20.8)             
-     3             56 (35.4)   64 (41.6)             
-     4             55 (34.8)   54 (35.1)             
-> summary(tableOne$CatTable)
-trt: 1
-     var   n miss p.miss level freq percent cum.percent
-  status 158    0    0.0     0   83    52.5        52.5
-                             1   10     6.3        58.9
-                             2   65    41.1       100.0
-                                                       
-     sex 158    0    0.0     m   21    13.3        13.3
-                             f  137    86.7       100.0
-                                                       
- ascites 158    0    0.0     0  144    91.1        91.1
-                             1   14     8.9       100.0
-                                                       
-  hepato 158    0    0.0     0   85    53.8        53.8
-                             1   73    46.2       100.0
-                                                       
- spiders 158    0    0.0     0  113    71.5        71.5
-                             1   45    28.5       100.0
-                                                       
-   edema 158    0    0.0     0  132    83.5        83.5
-                           0.5   16    10.1        93.7
-                             1   10     6.3       100.0
-                                                       
-   stage 158    0    0.0     1   12     7.6         7.6
-                             2   35    22.2        29.7
-                             3   56    35.4        65.2
-                             4   55    34.8       100.0
-                                                       
------------------------------------------------------------- 
-trt: 2
-     var   n miss p.miss level freq percent cum.percent
-  status 154    0    0.0     0   85    55.2        55.2
-                             1    9     5.8        61.0
-                             2   60    39.0       100.0
-                                                       
-     sex 154    0    0.0     m   15     9.7         9.7
-                             f  139    90.3       100.0
-                                                       
- ascites 154    0    0.0     0  144    93.5        93.5
-                             1   10     6.5       100.0
-                                                       
-  hepato 154    0    0.0     0   67    43.5        43.5
-                             1   87    56.5       100.0
-                                                       
- spiders 154    0    0.0     0  109    70.8        70.8
-                             1   45    29.2       100.0
-                                                       
-   edema 154    0    0.0     0  131    85.1        85.1
-                           0.5   13     8.4        93.5
-                             1   10     6.5       100.0
-                                                       
-   stage 154    0    0.0     1    4     2.6         2.6
-                             2   32    20.8        23.4
-                             3   64    41.6        64.9
-                             4   54    35.1       100.0
-                                                       
-
-p-values
-           pApprox     pExact
-status  0.89350975 0.88422188
-sex     0.42122610 0.37743235
-ascites 0.56728647 0.52558267
-hepato  0.08820884 0.07137522
-spiders 0.98466036 0.90113734
-edema   0.87681949 0.89370131
-stage   0.20129629 0.20455558
-> 
-> ## See the continuous part only using $ operator
-> tableOne$ContTable
-                      Stratified by trt
-                       1                 2                 p      test
-  n                    158               154                          
-  time (mean (sd))     2015.62 (1094.12) 1996.86 (1155.93)  0.883     
-  age (mean (sd))        51.42 (11.01)     48.58 (9.96)     0.018     
-  bili (mean (sd))        2.87 (3.63)       3.65 (5.28)     0.131     
-  chol (mean (sd))      365.01 (209.54)   373.88 (252.48)   0.748     
-  albumin (mean (sd))     3.52 (0.44)       3.52 (0.40)     0.874     
-  copper (mean (sd))     97.64 (90.59)     97.65 (80.49)    0.999     
-  alk.phos (mean (sd)) 2021.30 (2183.44) 1943.01 (2101.69)  0.747     
-  ast (mean (sd))       120.21 (54.52)    124.97 (58.93)    0.460     
-  trig (mean (sd))      124.14 (71.54)    125.25 (58.52)    0.886     
-  platelet (mean (sd))  258.75 (100.32)   265.20 (90.73)    0.555     
-  protime (mean (sd))    10.65 (0.85)      10.80 (1.14)     0.197     
-> summary(tableOne$ContTable)
-trt: 1
-           n miss p.miss   mean      sd median    p25    p75   min     max
-time     158    0   0.00 2015.6 1094.12 1895.0 1231.0 2632.5  41.0  4556.0
-age      158    0   0.00   51.4   11.01   51.9   43.0   58.9  26.3    78.4
-bili     158    0   0.00    2.9    3.63    1.4    0.8    3.2   0.3    20.0
-chol     158   18  11.39  365.0  209.54  315.5  247.8  417.0 127.0  1712.0
-albumin  158    0   0.00    3.5    0.44    3.6    3.2    3.8   2.1     4.6
-copper   158    1   0.63   97.6   90.59   73.0   40.0  121.0   9.0   588.0
-alk.phos 158    0   0.00 2021.3 2183.44 1214.5  840.8 2028.0 369.0 11552.0
-ast      158    0   0.00  120.2   54.52  111.6   76.7  151.5  26.4   338.0
-trig     158   19  12.03  124.1   71.54  106.0   84.5  146.0  33.0   598.0
-platelet 158    2   1.27  258.8  100.32  255.0  189.5  322.0  62.0   563.0
-protime  158    0   0.00   10.7    0.85   10.6   10.0   11.0   9.0    14.1
-           skew  kurt
-time      0.412 -0.44
-age       0.056 -0.53
-bili      2.675  7.61
-chol      3.831 20.21
-albumin  -0.395  0.30
-copper    2.503  8.21
-alk.phos  2.707  7.36
-ast       1.095  1.60
-trig      2.947 14.29
-platelet  0.498  0.25
-protime   1.103  1.62
------------------------------------------------------------- 
-trt: 2
-           n miss p.miss   mean     sd median     p25    p75   min     max
-time     154    0   0.00 1996.9 1155.9 1811.0 1153.00 2771.2  51.0  4523.0
-age      154    0   0.00   48.6   10.0   48.1   41.43   55.8  30.6    74.5
-bili     154    0   0.00    3.6    5.3    1.3    0.72    3.6   0.3    28.0
-chol     154   10   6.49  373.9  252.5  303.5  254.25  377.0 120.0  1775.0
-albumin  154    0   0.00    3.5    0.4    3.5    3.34    3.8   2.0     4.4
-copper   154    1   0.65   97.7   80.5   73.0   43.00  139.0   4.0   558.0
-alk.phos 154    0   0.00 1943.0 2101.7 1283.0  922.50 1949.8 289.0 13862.4
-ast      154    0   0.00  125.0   58.9  117.4   83.78  151.9  28.4   457.2
-trig     154   11   7.14  125.3   58.5  113.0   84.50  155.0  44.0   432.0
-platelet 154    2   1.30  265.2   90.7  259.5  206.75  322.5  71.0   487.0
-protime  154    0   0.00   10.8    1.1   10.6   10.00   11.4   9.2    17.1
-          skew  kurt
-time      0.35 -0.72
-age       0.24 -0.53
-bili      2.67  7.27
-chol      3.12 11.14
-albumin  -0.85  1.96
-copper    2.01  6.65
-alk.phos  3.35 12.81
-ast       1.73  6.31
-trig      1.72  5.51
-platelet  0.23 -0.35
-protime   1.87  6.39
-
-p-values
-            pNormal pNonNormal
-time     0.88304691 0.82661809
-age      0.01767247 0.01962155
-bili     0.13093942 0.84168460
-chol     0.74799072 0.54433899
-albumin  0.87388074 0.95045176
-copper   0.99915849 0.71745444
-alk.phos 0.74726165 0.81198200
-ast      0.45969842 0.45892358
-trig     0.88604213 0.36980434
-platelet 0.55451136 0.45482564
-protime  0.19714026 0.58802048
-> 
-> ## If your work flow includes copying to Excel and Word when writing manuscripts,
-> ## you may benefit from the quote argument. This will quote everything so that
-> ## Excel does not mess up the cells.
-> print(tableOne, nonnormal = c("bili","chol","copper","alk.phos","trig"),
-+       exact = c("status","stage"), cramVars = "sex", quote = TRUE)
-                           "Stratified by trt"
- ""                         "1"                        
-  "n"                       "158"                      
-  "time (mean (sd))"        "2015.62 (1094.12)"        
-  "status (%)"              "     "                    
-  "   0"                    "     83 (52.5) "          
-  "   1"                    "     10 ( 6.3) "          
-  "   2"                    "     65 (41.1) "          
-  "age (mean (sd))"         "  51.42 (11.01)"          
-  "sex = m/f (%)"           " 21/137 (13.3/86.7) "     
-  "ascites = 1 (%)"         "     14 (8.9) "           
-  "hepato = 1 (%)"          "     73 (46.2) "          
-  "spiders = 1 (%)"         "     45 (28.5) "          
-  "edema (%)"               "    "                     
-  "   0"                    "    132 (83.5) "          
-  "   0.5"                  "     16 (10.1) "          
-  "   1"                    "     10 ( 6.3) "          
-  "bili (median [IQR])"     "   1.40 [0.80, 3.20]"     
-  "chol (median [IQR])"     " 315.50 [247.75, 417.00]" 
-  "albumin (mean (sd))"     "   3.52 (0.44)"           
-  "copper (median [IQR])"   "  73.00 [40.00, 121.00]"  
-  "alk.phos (median [IQR])" "1214.50 [840.75, 2028.00]"
-  "ast (mean (sd))"         " 120.21 (54.52)"          
-  "trig (median [IQR])"     " 106.00 [84.50, 146.00]"  
-  "platelet (mean (sd))"    " 258.75 (100.32)"         
-  "protime (mean (sd))"     "  10.65 (0.85)"           
-  "stage (%)"               "     "                    
-  "   1"                    "     12 ( 7.6) "          
-  "   2"                    "     35 (22.2) "          
-  "   3"                    "     56 (35.4) "          
-  "   4"                    "     55 (34.8) "          
-                           "Stratified by trt"
- ""                         "2"                         "p"      "test"   
-  "n"                       "154"                       ""       ""       
-  "time (mean (sd))"        "1996.86 (1155.93)"         " 0.883" ""       
-  "status (%)"              "     "                     " 0.884" "exact"  
-  "   0"                    "     85 (55.2) "           ""       ""       
-  "   1"                    "      9 ( 5.8) "           ""       ""       
-  "   2"                    "     60 (39.0) "           ""       ""       
-  "age (mean (sd))"         "  48.58 (9.96)"            " 0.018" ""       
-  "sex = m/f (%)"           " 15/139 (9.7/90.3) "       " 0.421" ""       
-  "ascites = 1 (%)"         "     10 (6.5) "            " 0.567" ""       
-  "hepato = 1 (%)"          "     87 (56.5) "           " 0.088" ""       
-  "spiders = 1 (%)"         "     45 (29.2) "           " 0.985" ""       
-  "edema (%)"               "    "                      " 0.877" ""       
-  "   0"                    "    131 (85.1) "           ""       ""       
-  "   0.5"                  "     13 ( 8.4) "           ""       ""       
-  "   1"                    "     10 ( 6.5) "           ""       ""       
-  "bili (median [IQR])"     "   1.30 [0.72, 3.60]"      " 0.842" "nonnorm"
-  "chol (median [IQR])"     " 303.50 [254.25, 377.00]"  " 0.544" "nonnorm"
-  "albumin (mean (sd))"     "   3.52 (0.40)"            " 0.874" ""       
-  "copper (median [IQR])"   "  73.00 [43.00, 139.00]"   " 0.717" "nonnorm"
-  "alk.phos (median [IQR])" "1283.00 [922.50, 1949.75]" " 0.812" "nonnorm"
-  "ast (mean (sd))"         " 124.97 (58.93)"           " 0.460" ""       
-  "trig (median [IQR])"     " 113.00 [84.50, 155.00]"   " 0.370" "nonnorm"
-  "platelet (mean (sd))"    " 265.20 (90.73)"           " 0.555" ""       
-  "protime (mean (sd))"     "  10.80 (1.14)"            " 0.197" ""       
-  "stage (%)"               "     "                     " 0.205" "exact"  
-  "   1"                    "      4 ( 2.6) "           ""       ""       
-  "   2"                    "     32 (20.8) "           ""       ""       
-  "   3"                    "     64 (41.6) "           ""       ""       
-  "   4"                    "     54 (35.1) "           ""       ""       
-> 
-> ## If you want to center-align values in Word, use noSpaces option.
-> print(tableOne, nonnormal = c("bili","chol","copper","alk.phos","trig"),
-+       exact = c("status","stage"), cramVars = "sex", quote = TRUE, noSpaces = TRUE)
-                           "Stratified by trt"
- ""                         "1"                        
-  "n"                       "158"                      
-  "time (mean (sd))"        "2015.62 (1094.12)"        
-  "status (%)"              ""                         
-  "   0"                    "83 (52.5)"                
-  "   1"                    "10 (6.3)"                 
-  "   2"                    "65 (41.1)"                
-  "age (mean (sd))"         "51.42 (11.01)"            
-  "sex = m/f (%)"           "21/137 (13.3/86.7)"       
-  "ascites = 1 (%)"         "14 (8.9)"                 
-  "hepato = 1 (%)"          "73 (46.2)"                
-  "spiders = 1 (%)"         "45 (28.5)"                
-  "edema (%)"               ""                         
-  "   0"                    "132 (83.5)"               
-  "   0.5"                  "16 (10.1)"                
-  "   1"                    "10 (6.3)"                 
-  "bili (median [IQR])"     "1.40 [0.80, 3.20]"        
-  "chol (median [IQR])"     "315.50 [247.75, 417.00]"  
-  "albumin (mean (sd))"     "3.52 (0.44)"              
-  "copper (median [IQR])"   "73.00 [40.00, 121.00]"    
-  "alk.phos (median [IQR])" "1214.50 [840.75, 2028.00]"
-  "ast (mean (sd))"         "120.21 (54.52)"           
-  "trig (median [IQR])"     "106.00 [84.50, 146.00]"   
-  "platelet (mean (sd))"    "258.75 (100.32)"          
-  "protime (mean (sd))"     "10.65 (0.85)"             
-  "stage (%)"               ""                         
-  "   1"                    "12 (7.6)"                 
-  "   2"                    "35 (22.2)"                
-  "   3"                    "56 (35.4)"                
-  "   4"                    "55 (34.8)"                
-                           "Stratified by trt"
- ""                         "2"                         "p"     "test"   
-  "n"                       "154"                       ""      ""       
-  "time (mean (sd))"        "1996.86 (1155.93)"         "0.883" ""       
-  "status (%)"              ""                          "0.884" "exact"  
-  "   0"                    "85 (55.2)"                 ""      ""       
-  "   1"                    "9 (5.8)"                   ""      ""       
-  "   2"                    "60 (39.0)"                 ""      ""       
-  "age (mean (sd))"         "48.58 (9.96)"              "0.018" ""       
-  "sex = m/f (%)"           "15/139 (9.7/90.3)"         "0.421" ""       
-  "ascites = 1 (%)"         "10 (6.5)"                  "0.567" ""       
-  "hepato = 1 (%)"          "87 (56.5)"                 "0.088" ""       
-  "spiders = 1 (%)"         "45 (29.2)"                 "0.985" ""       
-  "edema (%)"               ""                          "0.877" ""       
-  "   0"                    "131 (85.1)"                ""      ""       
-  "   0.5"                  "13 (8.4)"                  ""      ""       
-  "   1"                    "10 (6.5)"                  ""      ""       
-  "bili (median [IQR])"     "1.30 [0.72, 3.60]"         "0.842" "nonnorm"
-  "chol (median [IQR])"     "303.50 [254.25, 377.00]"   "0.544" "nonnorm"
-  "albumin (mean (sd))"     "3.52 (0.40)"               "0.874" ""       
-  "copper (median [IQR])"   "73.00 [43.00, 139.00]"     "0.717" "nonnorm"
-  "alk.phos (median [IQR])" "1283.00 [922.50, 1949.75]" "0.812" "nonnorm"
-  "ast (mean (sd))"         "124.97 (58.93)"            "0.460" ""       
-  "trig (median [IQR])"     "113.00 [84.50, 155.00]"    "0.370" "nonnorm"
-  "platelet (mean (sd))"    "265.20 (90.73)"            "0.555" ""       
-  "protime (mean (sd))"     "10.80 (1.14)"              "0.197" ""       
-  "stage (%)"               ""                          "0.205" "exact"  
-  "   1"                    "4 (2.6)"                   ""      ""       
-  "   2"                    "32 (20.8)"                 ""      ""       
-  "   3"                    "64 (41.6)"                 ""      ""       
-  "   4"                    "54 (35.1)"                 ""      ""       
+> ## See examples for CreateTableOne and svyCreateTableOne
 > 
 > 
 > 
@@ -4590,7 +3273,7 @@ protime  0.19714026 0.58802048
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  6.968 0.167 7.23 0 0 
+Time elapsed:  4.533 0.144 4.746 0.005 0.007 
 > grDevices::dev.off()
 null device 
           1 

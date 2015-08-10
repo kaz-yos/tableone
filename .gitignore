@@ -1,0 +1,7 @@
+*~
+*.DS_Store
+*.zip
+*.pdf
+*.Rhistory
+*.tar.gz
+*.Rcheck

@@ -1,3 +1,60 @@
+tableone 0.7.0 (2015-08-10)
+----------------------------------------------------------------
+
+NEW FEATURES
+
+* Weighted data are now supported via the survey package.
+  svydesign() should be used to create a survey design object,
+  and this object should be used for svyCreateTableOne() instead
+  of a data frame. Other options are essentially the same. All
+  results will be weighted results.
+
+* Standardized mean differences are calculated. print() methods
+  include smd option, which defaults to FALSE for backward
+  compatibility. If TRUE, SMD is shown on the right side of the
+  table. To suppress p-values, use test = FALSE option.
+  summary() methods also print SMDs. If there are more than two
+  strata, all possible pairwise contrasts are shown along with the
+  average SMD across all contrats. In this case, print methods only
+  prints the average SMD for brevity. For categorical variables
+  Yang and Dalton's suggested method (A unified approach to
+  measuring the effect size between two groups using SAS.
+  SAS Paper 335-2012) is used. SMDs for weighted data are
+  experimental.
+
+* ExtractSmd() function can be used to extract SMD values as a
+  numeric matrix, which then can be used for plotting, etc.
+
+* An new RMarkdown vignette explains the use of standardized
+  mean differences.
+
+* The includeNA option for CreateTableOne() and svyCreateTableOne()
+  make NA's in factors treated as a regular level.
+
+* ShowRegTable() now has ciFun option, which allows use of
+  the confint.default function if calculation is too slow for
+  glm results.
+
+* print.TableOne() aligns the sample size with other summaries.
+
+
+OTHER CHANGES
+
+* ShowRegTable() uses coef to refer to coefficients.
+
+* Unit tests were extended to cover more functions.
+
+* CreateTableOne() was refactored to avoid redundant calculation.
+
+* New dependencies: survey, MASS, and zoo
+
+
+BUG FIXES
+
+* Fixed pDigits option in print.ContTable(), which was not correctly
+  functional as advertised.
+
+
 tableone 0.6.3 (2014-12-28)
 ----------------------------------------------------------------
 
