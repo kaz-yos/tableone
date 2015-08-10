@@ -11,8 +11,8 @@
 * ERRORs: None
 * WARNINGs: None
 * NOTEs:
- - e-mail confirmation.
+ - Package author e-mail confirmation.
  - "No repository set, so cyclic dependency check skipped" on R 3.2.1 on win-builder (not a package problem)
 
 ## Downstream dependencies
-RcmdrPlugin.EZR GUI frontend: Manually examined "Summary table of sample characteristics" for compatibility
+RcmdrPlugin.EZR GUI frontend: Manually examined "Summary table of sample characteristics" for compatibility; EZR author also examined compatibility.
