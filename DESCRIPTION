@@ -1,7 +1,7 @@
 Package: tableone
 Type: Package
 Title: Create "Table 1" to Describe Baseline Characteristics
-Version: 0.7.0
+Version: 0.7.1
 Date: 2015-08-10
 Author: Kazuki Yoshida, Justin Bohn.
 Maintainer: Kazuki Yoshida <kazukiyoshida@mail.harvard.edu>
