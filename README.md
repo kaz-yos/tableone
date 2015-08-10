@@ -1,7 +1,7 @@
 tableone (release repo)
 ===============================================================================
 
-[![Travis-CI Build Status](https://travis-ci.org/kaz-yos/tableone.svg?branch=develop)](https://travis-ci.org/kaz-yos/tableone)
+[![Travis-CI Build Status](https://travis-ci.org/kaz-yos/tableone.svg?branch=master)](https://travis-ci.org/kaz-yos/tableone)
 
 **An R package to create "Table 1", description of baseline characteristics**
 
