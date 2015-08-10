@@ -1,6 +1,8 @@
 tableone (developmental repo)
 ===============================================================================
 
+[![Travis-CI Build Status](https://travis-ci.org/kaz-yos/tableone.svg?branch=develop)](https://travis-ci.org/kaz-yos/tableone)
+
 **An R package to create "Table 1", description of baseline characteristics**
 
 Creates "Table 1", i.e., description of baseline patient characteristics, which is essential in every medical research. Supports both continuous and categorical variables, as well as p-values and standardized mean differences. Weighted data are supported via the survey package.

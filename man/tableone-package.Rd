@@ -26,7 +26,7 @@ Members of the Facebook Organization of R Users for Medical Statistics in Japan 
 
 Developmental repository is on github. Your contributions are appreciated.
 
-https://github.com/kaz-yos/tableone
+\url{https://github.com/kaz-yos/tableone}
 }
 \examples{
 ## See examples for CreateTableOne and svyCreateTableOne

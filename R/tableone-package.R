@@ -5,7 +5,9 @@
 ##' @name tableone-package
 ##' @aliases tableone-package tableone
 ##' @docType package
-##' @import survey MASS e1071 zoo gmodels
+##' @import survey
+##' @importFrom stats as.formula chisq.test coef confint fisher.test kruskal.test median oneway.test quantile sd var xtabs
+##' @importFrom utils combn
 ##' @note Acknowledgement:
 ##'
 ##' Ian Fellows for developing the \code{deducer} package, which this package is based on.
@@ -23,7 +25,7 @@
 ##'
 ##' Developmental repository is on github. Your contributions are appreciated.
 ##'
-##' https://github.com/kaz-yos/tableone
+##' \url{https://github.com/kaz-yos/tableone}
 ##'
 ##' @author Kazuki Yoshida, Justin Bohn
 ##'

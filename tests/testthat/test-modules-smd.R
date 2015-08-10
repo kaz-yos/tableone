@@ -22,6 +22,7 @@
 library(testthat)
 library(survey)
 library(Matrix)
+library(dummies)
 
 
 ###

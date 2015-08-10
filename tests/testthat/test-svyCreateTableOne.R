@@ -273,12 +273,16 @@ test_that("p values are correctly calculated", {
     ## no exact tests
     expect_equal(attr(mwByE$CatTable, "pValues")[, "pExact"], c(NA, NA))
 
-    ## svyglm to do ANOVA equivalent
+    ## svyglm to do ANOVA equivalent (first is removed to avoid singularity error on i386)
     pValuesTestNormal <-
-    c(svyTestNormal("E ~ factor(E)", datSvy, test.terms = "factor(E)", method = "Wald")$p.value,
-             svyTestNormal("C ~ factor(E)", datSvy, test.terms = "factor(E)", method = "Wald")$p.value,
-             svyTestNormal("C2 ~ factor(E)", datSvy, test.terms = "factor(E)", method = "Wald")$p.value)
-    expect_equal(attr(mwByE$ContTable, "pValues")[, "pNormal"], pValuesTestNormal)
+    c(svyTestNormal("C ~ factor(E)", datSvy, test.terms = "factor(E)", method = "Wald")$p.value,
+      svyTestNormal("C2 ~ factor(E)", datSvy, test.terms = "factor(E)", method = "Wald")$p.value)
+    expect_equal(attr(mwByE$ContTable, "pValues")[, "pNormal"][-1], pValuesTestNormal)
+
+    ## svyglm to do ANOVA equivalent (only solvable on non-i386 systems)
+    if (R.Version()$arch != "i386") {
+        expect_equal(attr(mwByE$ContTable, "pValues")[, "pNormal"][1],
+                     svyTestNormal("E ~ factor(E)", datSvy, test.terms = "factor(E)", method = "Wald")$p.value)           }
 
     ## svyranktest
     pValuesTestNonNormal <-

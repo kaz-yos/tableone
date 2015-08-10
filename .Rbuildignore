@@ -4,9 +4,11 @@
 ## Avoid git(hub) related files
 \.git/*
 README.md
+cran-comment.md
 
 ## Avoid Makefile, testing-related files, and archives
 Makefile
+revdep_check.txt
 tableone.Rcheck
 .*.tar.gz
 .*.gif
@@ -17,3 +19,5 @@ tests/testthat/ref-*
 
 ## CRAN compatibility check
 cran-check.txt
+## Travis-CI
+^\.travis\.yml$

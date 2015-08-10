@@ -18,10 +18,10 @@ showWarning <- FALSE
 set_alias(w = "fig.width", h = "fig.height", res = "results")
 opts_chunk$set(comment = "", error= TRUE, warning = showWarning, message = showMessage,
                tidy = FALSE, cache = F, echo = T,
-               fig.width = 7, fig.height = 7, dev.args = list(family = "sans"))
+               fig.width = 10, fig.height = 10, dev.args = list(family = "sans"))
 
 ## R configuration
-options(width = 116, scipen = 5)
+options(width = 130, scipen = 5)
 ```
 
 ## Standardized mean difference
@@ -204,6 +204,22 @@ layer(geom = "point") +
 layer(geom = "hline", yintercept = 0.1, color = "black", size = 0.1) +
 coord_flip() +
 theme_bw() + theme(legend.key = element_blank())
+
+```
+
+To construct a side-by-side table, data can be extracted as a matrix and combined using the print() method, which actually invisibly returns a matrix.
+
+```{r}
+
+## Column bind tables
+resCombo <- cbind(print(tabUnmatched, printToggle = FALSE),
+                  print(tabMatched,   printToggle = FALSE),
+                  print(tabWeighted,  printToggle = FALSE))
+
+## Add group name row, and rewrite column names
+resCombo <- rbind(Group = rep(c("No RHC","RHC"), 3), resCombo)
+colnames(resCombo) <- c("Unmatched","","Matched","","Weighted","")
+print(resCombo, quote = FALSE)
 
 ```
 
