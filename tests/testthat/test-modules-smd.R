@@ -459,7 +459,7 @@ test_that("decent results are returned for anomalous/difficult data", {
     ## NaN due to division by zero variance
     by(nhanes$onlyOne, nhanes$race, summary)
     expect_equal(StdDiff(nhanes$onlyOne, group = nhanes$race), rep(NaN, 6))
-    ## 0 because [0]^-  = 0, and [1]^T [0]^-1 [1] = 0
+    ## 0 because [0]^-  = 0, and [1]^T [0]^-1 [1] = 0; defined NaN in (svy)StdDiffMulti
     expect_equal(StdDiffMulti(nhanes$onlyOne, group = nhanes$race), rep(NaN, 6))
     ## When weighted problematic; not in this case??
     means2 <- svyby(~ onlyOne, by = ~ race, nhanesSvy, FUN = svymean)[,2]
@@ -496,7 +496,7 @@ test_that("decent results are returned for anomalous/difficult data", {
     expect_warning(expect_equal(svyStdDiff("onlyNa", "RIAGENDR", nhanesSvy),
                                 as.numeric(NA)),
                    "onlyNa has only NA's in at least one stratum. na.rm turned off.")
-    ## 0 because [0]^-  = 0, and [1]^T [0]^-1 [1] = 0
+    ## 0 because [0]^-  = 0, and [1]^T [0]^-1 [1] = 0; defined NaN in (svy)StdDiffMulti
     expect_warning(expect_equal(svyStdDiffMulti("onlyNa", "RIAGENDR", nhanesSvy), NaN),
                    "onlyNa has only NA's in all strata. Regarding NA as a level.")
 
@@ -504,7 +504,7 @@ test_that("decent results are returned for anomalous/difficult data", {
     ## NaN due to division by zero variance
     expect_warning(expect_equal(StdDiff(nhanes$onlyNa, group = nhanes$race), rep(NaN, 6)),
                    "Variable has only NA's in at least one stratum. na.rm turned off.")
-    ## 0 because [0]^-  = 0, and [1]^T [0]^-1 [1] = 0
+    ## 0 because [0]^-  = 0, and [1]^T [0]^-1 [1] = 0; defined NaN in (svy)StdDiffMulti
     expect_warning(expect_equal(StdDiffMulti(nhanes$onlyNa, group = nhanes$race), rep(NaN, 6)),
                    "Variable has only NA's in all strata. Regarding NA as a level.")
     ## When weighted problematic; not in this case??
@@ -520,7 +520,7 @@ test_that("decent results are returned for anomalous/difficult data", {
                    "onlyNa has only NA's in at least one stratum. na.rm turned off.")
     expect_warning(expect_equal(svyStdDiff("onlyNa", "race", nhanesSvy), rep(NaN, 6)),
                    "onlyNa has only NA's in at least one stratum. na.rm turned off.")
-    ## 0 because [0]^-  = 0, and [1]^T [0]^-1 [1] = 0
+    ## 0 because [0]^-  = 0, and [1]^T [0]^-1 [1] = 0; defined NaN in (svy)StdDiffMulti
     expect_warning(expect_equal(svyStdDiffMulti("onlyNa", "race", nhanesSvy), rep(NaN, 6)),
                    "onlyNa has only NA's in all strata. Regarding NA as a level.")
 
