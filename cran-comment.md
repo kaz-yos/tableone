@@ -1,5 +1,5 @@
 ## What's new
-* Solve problems with unit testing on the sparc architecture without extended-precision arithmetic support.
+* Solve problems with unit testing on the sparc architecture without extended-precision arithmetic support at request of a CRAN maintainer.
 * Fix title for second vignette.
 
 ## Test environments
