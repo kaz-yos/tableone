@@ -1,18 +1,18 @@
 ## What's new
-* Weighted data support
-* Standardized mean difference support
+* Solve problems with unit testing on the sparc architecture without extended-precision arithmetic support.
+* Fix title for second vignette.
 
 ## Test environments
-* Local OS X 10.10.4, R 3.2.1; R-devel (2015-08-06 r68871)
+* Local OS X 10.10.4, R 3.2.1
 * Ubuntu Linux (on Travis-CI), R 3.2.1
-* winb-builder (devel and release)
+* win-builder (devel and release)
 
 ## R CMD check results
 * ERRORs: None
 * WARNINGs: None
 * NOTEs:
- - Package author e-mail confirmation.
- - "No repository set, so cyclic dependency check skipped" on R 3.2.1 on win-builder (not a package problem)
+ - Author e-mail check
+ - Short interval from last submission (0.7.0 on 2015-08-10)
 
 ## Downstream dependencies
-RcmdrPlugin.EZR GUI frontend: Manually examined "Summary table of sample characteristics" for compatibility; EZR author also examined compatibility.
+RcmdrPlugin.EZR GUI frontend: No change was made to APIs.

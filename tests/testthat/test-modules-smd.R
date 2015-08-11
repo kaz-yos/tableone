@@ -440,8 +440,11 @@ test_that("decent results are returned for anomalous/difficult data", {
     means1 <- svyby(~ onlyOne, by = ~ RIAGENDR, nhanesSvy, FUN = svymean)[,2]
     vars1  <- svyby(~ onlyOne, by = ~ RIAGENDR, nhanesSvy, FUN = svyvar)[,2]
     ## Very small difference is inflated by even smaller variance
-    expect_equal(svyStdDiff("onlyOne", "RIAGENDR", nhanesSvy),
-    (means1[1] - means1[2]) / sqrt(sum(vars1)  / 2))
+    if (!grepl("sparc", R.Version()$platform, ignore.case = TRUE)) {
+        ## Cannot run on sparc-sun-solaris due to lack of extended precision arithmetic
+        expect_equal(svyStdDiff("onlyOne", "RIAGENDR", nhanesSvy),
+        (means1[1] - means1[2]) / sqrt(sum(vars1)  / 2))
+    }
     ## NaN should be the case, but it's not, but it's consistent with survey
     ## expect_equal(svyStdDiff("onlyOne", "RIAGENDR", nhanesSvy), NaN)
 
@@ -467,8 +470,11 @@ test_that("decent results are returned for anomalous/difficult data", {
                     (means2[2] - means2[3]) / sqrt((vars2[2] + vars2[3]) / 2),
                     (means2[2] - means2[4]) / sqrt((vars2[2] + vars2[4]) / 2),
                     (means2[3] - means2[4]) / sqrt((vars2[3] + vars2[4]) / 2))
-    expect_equal(svyStdDiff("onlyOne", "race", nhanesSvy),  meanDiffs2)
-    expect_equal(svyStdDiff("onlyOne", "race", nhanesSvy), rep(NaN, 6))
+    if (!grepl("sparc", R.Version()$platform, ignore.case = TRUE)) {
+        ## Cannot run on sparc-sun-solaris due to lack of extended precision arithmetic
+        expect_equal(svyStdDiff("onlyOne", "race", nhanesSvy), meanDiffs2)
+        expect_equal(svyStdDiff("onlyOne", "race", nhanesSvy), rep(NaN, 6))
+    }
     ## 0 because [0]^-  = 0, and [1]^T [0]^-1 [1] = 0
     expect_equal(svyStdDiffMulti("onlyOne", "race", nhanesSvy), rep(NaN, 6))
 
