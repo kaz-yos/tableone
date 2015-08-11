@@ -433,22 +433,21 @@ test_that("decent results are returned for anomalous/difficult data", {
     ## NaN due to division by zero variance
     by(nhanes$onlyOne, nhanes$RIAGENDR, summary)
     expect_equal(StdDiff(nhanes$onlyOne, group = nhanes$RIAGENDR), NaN)
-    ## 0 because [0]^-  = 0, and [1]^T [0]^-1 [1] = 0
+    ## 0 because [0]^-  = 0, and [1]^T [0]^-1 [1] = 0; defined NaN in (svy)StdDiffMulti
     table(nhanes$onlyOne, nhanes$RIAGENDR)
     expect_equal(StdDiffMulti(nhanes$onlyOne, group = nhanes$RIAGENDR), NaN)
     ## When weighted problematic
     means1 <- svyby(~ onlyOne, by = ~ RIAGENDR, nhanesSvy, FUN = svymean)[,2]
     vars1  <- svyby(~ onlyOne, by = ~ RIAGENDR, nhanesSvy, FUN = svyvar)[,2]
     ## Very small difference is inflated by even smaller variance
-    if (!grepl("sparc", R.Version()$platform, ignore.case = TRUE)) {
-        ## Cannot run on sparc-sun-solaris due to lack of extended precision arithmetic
-        expect_equal(svyStdDiff("onlyOne", "RIAGENDR", nhanesSvy),
-        (means1[1] - means1[2]) / sqrt(sum(vars1)  / 2))
-    }
+    ## on sparc-sun-solaris sign was opposite; abs() solves this issue
+    ## as svyStdDiff() uses abs() internally
+    expect_equal(svyStdDiff("onlyOne", "RIAGENDR", nhanesSvy),
+                 abs((means1[1] - means1[2]) / sqrt(sum(vars1)  / 2)))
     ## NaN should be the case, but it's not, but it's consistent with survey
     ## expect_equal(svyStdDiff("onlyOne", "RIAGENDR", nhanesSvy), NaN)
 
-    ## 0 because [0]^-  = 0, and [1]^T [0]^-1 [1] = 0
+    ## 0 because [0]^-  = 0, and [1]^T [0]^-1 [1] = 0; defined NaN in (svy)StdDiffMulti
     ## No error even with a single level variable (constant) as redundant
     ## level drop from table occurs only when 2+ levels are present.
     ## If any group has more than 2 levels, then strata-by-level table
@@ -470,12 +469,15 @@ test_that("decent results are returned for anomalous/difficult data", {
                     (means2[2] - means2[3]) / sqrt((vars2[2] + vars2[3]) / 2),
                     (means2[2] - means2[4]) / sqrt((vars2[2] + vars2[4]) / 2),
                     (means2[3] - means2[4]) / sqrt((vars2[3] + vars2[4]) / 2))
+    ## on sparc-sun-solaris sign was opposite; abs() solves this issue
+    ## as svyStdDiff() uses abs() internally
+    expect_equal(svyStdDiff("onlyOne", "race", nhanesSvy), abs(meanDiffs2))
+
     if (!grepl("sparc", R.Version()$platform, ignore.case = TRUE)) {
         ## Cannot run on sparc-sun-solaris due to lack of extended precision arithmetic
-        expect_equal(svyStdDiff("onlyOne", "race", nhanesSvy), meanDiffs2)
         expect_equal(svyStdDiff("onlyOne", "race", nhanesSvy), rep(NaN, 6))
     }
-    ## 0 because [0]^-  = 0, and [1]^T [0]^-1 [1] = 0
+    ## 0 because [0]^-  = 0, and [1]^T [0]^-1 [1] = 0; defined NaN in (svy)StdDiffMulti
     expect_equal(svyStdDiffMulti("onlyOne", "race", nhanesSvy), rep(NaN, 6))
 
 
