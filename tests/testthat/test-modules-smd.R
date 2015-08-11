@@ -472,7 +472,7 @@ test_that("decent results are returned for anomalous/difficult data", {
     ## on sparc-sun-solaris sign was opposite; abs() solves this issue
     ## as svyStdDiff() uses abs() internally
     expect_equal(svyStdDiff("onlyOne", "race", nhanesSvy), abs(meanDiffs2))
-
+    ## This one is rep(NaN,6) for most platforms except for sparc-sun-solaris
     if (!grepl("sparc", R.Version()$platform, ignore.case = TRUE)) {
         ## Cannot run on sparc-sun-solaris due to lack of extended precision arithmetic
         expect_equal(svyStdDiff("onlyOne", "race", nhanesSvy), rep(NaN, 6))
