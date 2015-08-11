@@ -473,7 +473,11 @@ test_that("decent results are returned for anomalous/difficult data", {
     ## as svyStdDiff() uses abs() internally
     expect_equal(svyStdDiff("onlyOne", "race", nhanesSvy), abs(meanDiffs2))
     ## This one is rep(NaN,6) for most platforms except for sparc-sun-solaris
-    if (!grepl("sparc", R.Version()$platform, ignore.case = TRUE)) {
+    ## where ./configure --disable-long-double is used.
+    ## capabilities()["long.double"] was added in R 3.1.3.
+    ## As of 2015-08-11, only r-oldrel-windows-ix86+x86_64 is R 3.1.3.
+    ## https://cran.r-project.org/web/checks/check_results_tableone.html
+    if (capabilities()["long.double"]) {
         ## Cannot run on sparc-sun-solaris due to lack of extended precision arithmetic
         expect_equal(svyStdDiff("onlyOne", "race", nhanesSvy), rep(NaN, 6))
     }
