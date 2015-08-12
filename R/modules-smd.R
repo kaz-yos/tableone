@@ -191,6 +191,8 @@ StdDiff <- function(variable, group, binary = FALSE, na.rm = TRUE) {
 
     out <- meanDiffs / sqrt(varMeans)
 
+    ## This lower.tri() approach is actually giving 2vs1, 3vs1, etc
+    ## opposite of stated 1vs2, 1vs3. Only correct if abs() is used.
     abs(out[lower.tri(out)])
 }
 
@@ -277,6 +279,8 @@ svyStdDiff <- function(varName, groupName, design, binary = FALSE, na.rm = TRUE)
 
     out <- meanDiffs / sqrt(varMeans)
 
+    ## This lower.tri() approach is actually giving 2vs1, 3vs1, etc
+    ## opposite of stated 1vs2, 1vs3. Only correct if abs() is used.
     abs(out[lower.tri(out)])
 }
 
