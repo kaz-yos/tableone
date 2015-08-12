@@ -4,7 +4,7 @@ author: "Kazuki Yoshida"
 date: "2015-08-07"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Introduction to tableone}
+  %\VignetteIndexEntry{Using standardized mean differences}
   %\VignetteEngine{knitr::rmarkdown}
   \usepackage[utf8]{inputenc}
 ---

@@ -1,3 +1,14 @@
+tableone 0.7.1 (2015-08-11)
+----------------------------------------------------------------
+
+BUG FIXES
+
+* Solve problems with unit testing on the sparc architecture
+  without extended-precision arithmetic support.
+
+* Fix title for second vignette.
+
+
 tableone 0.7.0 (2015-08-10)
 ----------------------------------------------------------------
 

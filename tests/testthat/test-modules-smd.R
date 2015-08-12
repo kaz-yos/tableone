@@ -433,19 +433,21 @@ test_that("decent results are returned for anomalous/difficult data", {
     ## NaN due to division by zero variance
     by(nhanes$onlyOne, nhanes$RIAGENDR, summary)
     expect_equal(StdDiff(nhanes$onlyOne, group = nhanes$RIAGENDR), NaN)
-    ## 0 because [0]^-  = 0, and [1]^T [0]^-1 [1] = 0
+    ## 0 because [0]^-  = 0, and [1]^T [0]^-1 [1] = 0; defined NaN in (svy)StdDiffMulti
     table(nhanes$onlyOne, nhanes$RIAGENDR)
     expect_equal(StdDiffMulti(nhanes$onlyOne, group = nhanes$RIAGENDR), NaN)
     ## When weighted problematic
     means1 <- svyby(~ onlyOne, by = ~ RIAGENDR, nhanesSvy, FUN = svymean)[,2]
     vars1  <- svyby(~ onlyOne, by = ~ RIAGENDR, nhanesSvy, FUN = svyvar)[,2]
     ## Very small difference is inflated by even smaller variance
+    ## on sparc-sun-solaris sign was opposite; abs() solves this issue
+    ## as svyStdDiff() uses abs() internally
     expect_equal(svyStdDiff("onlyOne", "RIAGENDR", nhanesSvy),
-    (means1[1] - means1[2]) / sqrt(sum(vars1)  / 2))
+                 abs((means1[1] - means1[2]) / sqrt(sum(vars1)  / 2)))
     ## NaN should be the case, but it's not, but it's consistent with survey
     ## expect_equal(svyStdDiff("onlyOne", "RIAGENDR", nhanesSvy), NaN)
 
-    ## 0 because [0]^-  = 0, and [1]^T [0]^-1 [1] = 0
+    ## 0 because [0]^-  = 0, and [1]^T [0]^-1 [1] = 0; defined NaN in (svy)StdDiffMulti
     ## No error even with a single level variable (constant) as redundant
     ## level drop from table occurs only when 2+ levels are present.
     ## If any group has more than 2 levels, then strata-by-level table
@@ -456,7 +458,7 @@ test_that("decent results are returned for anomalous/difficult data", {
     ## NaN due to division by zero variance
     by(nhanes$onlyOne, nhanes$race, summary)
     expect_equal(StdDiff(nhanes$onlyOne, group = nhanes$race), rep(NaN, 6))
-    ## 0 because [0]^-  = 0, and [1]^T [0]^-1 [1] = 0
+    ## 0 because [0]^-  = 0, and [1]^T [0]^-1 [1] = 0; defined NaN in (svy)StdDiffMulti
     expect_equal(StdDiffMulti(nhanes$onlyOne, group = nhanes$race), rep(NaN, 6))
     ## When weighted problematic; not in this case??
     means2 <- svyby(~ onlyOne, by = ~ race, nhanesSvy, FUN = svymean)[,2]
@@ -467,9 +469,19 @@ test_that("decent results are returned for anomalous/difficult data", {
                     (means2[2] - means2[3]) / sqrt((vars2[2] + vars2[3]) / 2),
                     (means2[2] - means2[4]) / sqrt((vars2[2] + vars2[4]) / 2),
                     (means2[3] - means2[4]) / sqrt((vars2[3] + vars2[4]) / 2))
-    expect_equal(svyStdDiff("onlyOne", "race", nhanesSvy),  meanDiffs2)
-    expect_equal(svyStdDiff("onlyOne", "race", nhanesSvy), rep(NaN, 6))
-    ## 0 because [0]^-  = 0, and [1]^T [0]^-1 [1] = 0
+    ## on sparc-sun-solaris sign was opposite; abs() solves this issue
+    ## as svyStdDiff() uses abs() internally
+    expect_equal(svyStdDiff("onlyOne", "race", nhanesSvy), abs(meanDiffs2))
+    ## This one is rep(NaN,6) for most platforms except for sparc-sun-solaris
+    ## where ./configure --disable-long-double is used.
+    ## capabilities()["long.double"] was added in R 3.1.3.
+    ## As of 2015-08-11, only r-oldrel-windows-ix86+x86_64 is R 3.1.3.
+    ## https://cran.r-project.org/web/checks/check_results_tableone.html
+    if (capabilities()["long.double"]) {
+        ## Cannot run on sparc-sun-solaris due to lack of extended precision arithmetic
+        expect_equal(svyStdDiff("onlyOne", "race", nhanesSvy), rep(NaN, 6))
+    }
+    ## 0 because [0]^-  = 0, and [1]^T [0]^-1 [1] = 0; defined NaN in (svy)StdDiffMulti
     expect_equal(svyStdDiffMulti("onlyOne", "race", nhanesSvy), rep(NaN, 6))
 
 
@@ -490,7 +502,7 @@ test_that("decent results are returned for anomalous/difficult data", {
     expect_warning(expect_equal(svyStdDiff("onlyNa", "RIAGENDR", nhanesSvy),
                                 as.numeric(NA)),
                    "onlyNa has only NA's in at least one stratum. na.rm turned off.")
-    ## 0 because [0]^-  = 0, and [1]^T [0]^-1 [1] = 0
+    ## 0 because [0]^-  = 0, and [1]^T [0]^-1 [1] = 0; defined NaN in (svy)StdDiffMulti
     expect_warning(expect_equal(svyStdDiffMulti("onlyNa", "RIAGENDR", nhanesSvy), NaN),
                    "onlyNa has only NA's in all strata. Regarding NA as a level.")
 
@@ -498,7 +510,7 @@ test_that("decent results are returned for anomalous/difficult data", {
     ## NaN due to division by zero variance
     expect_warning(expect_equal(StdDiff(nhanes$onlyNa, group = nhanes$race), rep(NaN, 6)),
                    "Variable has only NA's in at least one stratum. na.rm turned off.")
-    ## 0 because [0]^-  = 0, and [1]^T [0]^-1 [1] = 0
+    ## 0 because [0]^-  = 0, and [1]^T [0]^-1 [1] = 0; defined NaN in (svy)StdDiffMulti
     expect_warning(expect_equal(StdDiffMulti(nhanes$onlyNa, group = nhanes$race), rep(NaN, 6)),
                    "Variable has only NA's in all strata. Regarding NA as a level.")
     ## When weighted problematic; not in this case??
@@ -514,7 +526,7 @@ test_that("decent results are returned for anomalous/difficult data", {
                    "onlyNa has only NA's in at least one stratum. na.rm turned off.")
     expect_warning(expect_equal(svyStdDiff("onlyNa", "race", nhanesSvy), rep(NaN, 6)),
                    "onlyNa has only NA's in at least one stratum. na.rm turned off.")
-    ## 0 because [0]^-  = 0, and [1]^T [0]^-1 [1] = 0
+    ## 0 because [0]^-  = 0, and [1]^T [0]^-1 [1] = 0; defined NaN in (svy)StdDiffMulti
     expect_warning(expect_equal(svyStdDiffMulti("onlyNa", "race", nhanesSvy), rep(NaN, 6)),
                    "onlyNa has only NA's in all strata. Regarding NA as a level.")
 
