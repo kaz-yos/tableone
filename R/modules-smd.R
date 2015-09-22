@@ -79,7 +79,7 @@ StdDiffFromLstMeans <- function(lstMeans) {
                 ## Pooled vcov
                 S   <- lstCovMeans[[i]][[j]]
 
-                if (all(S == 0)) {
+                if (all(S[!is.na(S)] %in% 0)) {
                     ## If S is a zero matrix, ginv is a zero matrix
                     ## which gives a zero SMD regardless of mean
                     ## difference. Such case should be NaN.
