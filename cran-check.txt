@@ -1,15 +1,13 @@
 * using log directory ‘/Users/kazuki/Documents/programming/r/tableone/tableone.Rcheck’
-* using R version 3.2.1 (2015-06-18)
+* using R version 3.2.2 (2015-08-14)
 * using platform: x86_64-apple-darwin13.4.0 (64-bit)
 * using session charset: UTF-8
 * using option ‘--as-cran’
 * checking for file ‘tableone/DESCRIPTION’ ... OK
 * checking extension type ... Package
-* this is package ‘tableone’ version ‘0.7.1’
-* checking CRAN incoming feasibility ... NOTE
+* this is package ‘tableone’ version ‘0.7.2’
+* checking CRAN incoming feasibility ... Note_to_CRAN_maintainers
 Maintainer: ‘Kazuki Yoshida <kazukiyoshida@mail.harvard.edu>’
-
-Days since last update: 1
 * checking package namespace information ... OK
 * checking package dependencies ... OK
 * checking if this is a source package ... OK
@@ -64,4 +62,4 @@ Days since last update: 1
 * checking re-building of vignette outputs ... OK
 * checking PDF version of manual ... OK
 * DONE
-Status: 1 NOTE
+Status: OK
