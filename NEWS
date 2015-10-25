@@ -1,3 +1,12 @@
+tableone 0.7.2 (2015-10-25)
+----------------------------------------------------------------
+
+BUG FIXES
+
+* Solve errors with abnormal pooled variance-covariance matrices
+  in standardized mean difference calculation.
+
+
 tableone 0.7.1 (2015-08-11)
 ----------------------------------------------------------------
 

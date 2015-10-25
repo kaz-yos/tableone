@@ -18,7 +18,7 @@
 ##'
 ##' H.Tachibana and Hiroki Matsui for inputs regarding standardized mean differences.
 ##'
-##' jomuller, Raja Sriswan Mamidi, and Atsushi Shiraishi for bug reports and/or feature suggestions.
+##' jomuller, Raja Sriswan Mamidi, Atsushi Shiraishi, and Jacques Ropers for bug reports and/or feature suggestions.
 ##'
 ##' Members of the Facebook Organization of R Users for Medical Statistics in Japan (FORUMS-J) for testing pre-release versions and suggestions.
 ##'
