@@ -79,10 +79,14 @@ StdDiffFromLstMeans <- function(lstMeans) {
                 ## Pooled vcov
                 S   <- lstCovMeans[[i]][[j]]
 
-                if (all(S == 0)) {
+                if (all(S[!is.na(S)] %in% 0)) {
                     ## If S is a zero matrix, ginv is a zero matrix
                     ## which gives a zero SMD regardless of mean
-                    ## difference. Such case should be NaN.
+                    ## difference. Such a case should be NaN.
+                    ## NOTE: NA's are dropped first. Non-NA elements
+                    ## are assessed for 0's. If all remaining
+                    ## are zeros or no element remained (all NA),
+                    ## all() returns TRUE, and sqMD is forced to NaN.
                     sqMD <- NaN
                 } else {
                     ## Squared Mahalanobis distance

@@ -1,8 +1,8 @@
 Package: tableone
 Type: Package
 Title: Create "Table 1" to Describe Baseline Characteristics
-Version: 0.7.1
-Date: 2015-08-11
+Version: 0.7.2
+Date: 2015-10-25
 Author: Kazuki Yoshida, Justin Bohn.
 Maintainer: Kazuki Yoshida <kazukiyoshida@mail.harvard.edu>
 Description: Creates "Table 1", i.e., description of baseline patient
