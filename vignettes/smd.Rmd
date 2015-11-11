@@ -199,9 +199,9 @@ dataPlotMelt$variable <- factor(dataPlotMelt$variable,
 ## Plot using ggplot2
 ggplot(data = dataPlotMelt, mapping = aes(x = variable, y = SMD,
                                           group = Method, color = Method)) +
-layer(geom = "line") +
-layer(geom = "point") +
-layer(geom = "hline", yintercept = 0.1, color = "black", size = 0.1) +
+geom_line() +
+geom_point() +
+geom_hline(yintercept = 0.1, color = "black", size = 0.1) +
 coord_flip() +
 theme_bw() + theme(legend.key = element_blank())
 

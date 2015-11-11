@@ -5,7 +5,7 @@
 * using option ‘--as-cran’
 * checking for file ‘tableone/DESCRIPTION’ ... OK
 * checking extension type ... Package
-* this is package ‘tableone’ version ‘0.7.2’
+* this is package ‘tableone’ version ‘0.7.3’
 * checking CRAN incoming feasibility ... Note_to_CRAN_maintainers
 Maintainer: ‘Kazuki Yoshida <kazukiyoshida@mail.harvard.edu>’
 * checking package namespace information ... OK
