@@ -1,5 +1,5 @@
 ## What's new
-* Solve errors with abnormal pooled variance-covariance matrices in standardized mean difference calculation.
+* Fix a minor problem in the vignette with the upcoming release of ggplot2
 
 ## Test environments
 * Local OS X 10.11.1, R 3.2.2
