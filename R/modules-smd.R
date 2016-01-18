@@ -87,7 +87,15 @@ StdDiffFromLstMeans <- function(lstMeans) {
                     ## are assessed for 0's. If all remaining
                     ## are zeros or no element remained (all NA),
                     ## all() returns TRUE, and sqMD is forced to NaN.
-                    sqMD <- NaN
+
+                    if (all(!is.na(T_C) & (T_C == 0))) {
+                        ## If the mean difference vector is a zero vector,
+                        ## the distance can be defined 0.
+                        sqMD <- 0
+                    } else {
+                        sqMD <- NaN
+                    }
+
                 } else {
                     ## Squared Mahalanobis distance
                     sqMD <- t(T_C) %*% MASS::ginv(S) %*% T_C
