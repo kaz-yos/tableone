@@ -45,7 +45,12 @@ ShowRegTable <- function(model, exp = TRUE, digits = 2, pDigits = 3, printToggle
     ## The model must have summary and confint methods
     modelCoef       <- coef(model)
     modelConfInt    <- suppressMessages(ciFun(model))
-    modelSummaryMat <- coef(summary(model))
+    ## nlme needs special handling
+    if (any(class(model) %in% c("gls"))) {
+        modelSummaryMat <- summary(model)$tTable
+    } else {
+        modelSummaryMat <- coef(summary(model))
+    }
     modelP          <- modelSummaryMat[,ncol(modelSummaryMat)]
 
     ## Create the result matrix with beta and two columns of confidence interval
