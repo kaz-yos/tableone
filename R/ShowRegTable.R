@@ -42,7 +42,13 @@ ShowRegTable <- function(model, exp = TRUE, digits = 2, pDigits = 3, printToggle
     fmt2 <- paste0("%.", pDigits, "f")
 
     ## Extract coefficients
-    modelCoef       <- coef(model)
+    if (any(class(model) %in% c("lme"))) {
+        ## nlme needs special handling
+        ## Use column 2 because it is the point estimate
+        modelCoef <- nlme::intervals(model)[[1]][, 2]
+    } else {
+        modelCoef <- coef(model)
+    }
 
     ## Extract confidence intervals
     if (any(class(model) %in% c("lme"))) {
