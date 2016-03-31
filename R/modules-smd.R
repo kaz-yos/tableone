@@ -87,7 +87,15 @@ StdDiffFromLstMeans <- function(lstMeans) {
                     ## are assessed for 0's. If all remaining
                     ## are zeros or no element remained (all NA),
                     ## all() returns TRUE, and sqMD is forced to NaN.
-                    sqMD <- NaN
+
+                    if (all(!is.na(T_C) & (T_C == 0))) {
+                        ## If the mean difference vector is a zero vector,
+                        ## the distance can be defined 0.
+                        sqMD <- 0
+                    } else {
+                        sqMD <- NaN
+                    }
+
                 } else {
                     ## Squared Mahalanobis distance
                     sqMD <- t(T_C) %*% MASS::ginv(S) %*% T_C
@@ -195,6 +203,11 @@ StdDiff <- function(variable, group, binary = FALSE, na.rm = TRUE) {
 
     out <- meanDiffs / sqrt(varMeans)
 
+    ## If mean difference is zero and variance is zero,
+    ## only one constant exists across two groups.
+    ## In this case, the SMD can be defined zero, rather than NaN from 0/0.
+    out[is.na(out) & !is.na(meanDiffs) & (meanDiffs == 0) & !is.na(varMeans) & (varMeans == 0)] <- 0
+
     ## This lower.tri() approach is actually giving 2vs1, 3vs1, etc
     ## opposite of stated 1vs2, 1vs3. Only correct if abs() is used.
     abs(out[lower.tri(out)])
@@ -282,6 +295,11 @@ svyStdDiff <- function(varName, groupName, design, binary = FALSE, na.rm = TRUE)
     varMeans  <- outer(X = vars, Y = vars, FUN = "+") / 2
 
     out <- meanDiffs / sqrt(varMeans)
+
+    ## If mean difference is zero and variance is zero,
+    ## only one constant exists across two groups.
+    ## In this case, the SMD can be defined zero, rather than NaN from 0/0.
+    out[is.na(out) & !is.na(meanDiffs) & (meanDiffs == 0) & !is.na(varMeans) & (varMeans == 0)] <- 0
 
     ## This lower.tri() approach is actually giving 2vs1, 3vs1, etc
     ## opposite of stated 1vs2, 1vs3. Only correct if abs() is used.
