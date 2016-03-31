@@ -1548,7 +1548,7 @@ stage   6.463005e-01           NA
 Standardize mean differences
           average     1 vs 2    1 vs 3     1 vs 4    2 vs 3     2 vs 4     3 vs 4
 status  0.5770647 0.79644734 0.8748771 0.83097631 0.4375075 0.46214324 0.06043662
-sex           NaN        NaN       NaN        NaN       NaN        NaN        NaN
+sex           NaN 0.00000000       NaN        NaN       NaN        NaN 0.00000000
 ascites 0.1755851 0.30219043 0.1845375 0.04452096 0.1211310 0.26007640 0.14105454
 hepato  0.1598214 0.05802589 0.2544151 0.02073917 0.3135916 0.07878788 0.23336861
 spiders 0.4018377 0.25073566 0.3999925 0.42200838 0.6471968 0.66954801 0.02154469
@@ -1664,14 +1664,14 @@ sex    2.514569e-67 4.934035e-48
 Standardize mean differences
          average    1 vs 2    1 vs 3    1 vs 4    2 vs 3    2 vs 4     3 vs 4
 status 0.5770647 0.7964473 0.8748771 0.8309763 0.4375075 0.4621432 0.06043662
-trt          NaN       NaN       NaN       NaN       NaN       NaN        NaN
-sex          NaN       NaN       NaN       NaN       NaN       NaN        NaN
+trt          NaN       NaN 0.0000000       NaN       NaN 0.0000000        NaN
+sex          NaN 0.0000000       NaN       NaN       NaN       NaN 0.00000000
 .
 Unit tests for the ExtractSmd function : .....           average     1 vs 2     1 vs 3     1 vs 4     2 vs 3     2 vs 4     3 vs 4
 time     0.1556365 0.27083134 0.22071813 0.15677410 0.08450703 0.13729269 0.06369595
 status   0.5770647 0.79644734 0.87487707 0.83097631 0.43750751 0.46214324 0.06043662
 age      0.5214974 0.13353519 0.40993004 0.70700091 0.60864596 0.96133382 0.30853876
-sex            NaN        NaN        NaN        NaN        NaN        NaN        NaN
+sex            NaN 0.00000000        NaN        NaN        NaN        NaN 0.00000000
 ascites  0.1755851 0.30219043 0.18453749 0.04452096 0.12113103 0.26007640 0.14105454
 hepato   0.1598214 0.05802589 0.25441512 0.02073917 0.31359163 0.07878788 0.23336861
 spiders  0.4018377 0.25073566 0.39999254 0.42200838 0.64719678 0.66954801 0.02154469
@@ -1692,7 +1692,7 @@ race            NaN        NaN        NaN         NaN        NaN        NaN     
 agecat   0.26102029 0.47958417 0.21054511 0.163093544 0.26927031 0.33972601 0.103902581
 RIAGENDR 0.06902841 0.04460885 0.11590734 0.111246698 0.07120651 0.06655532 0.004645715
 ....
-Tests for functions for standardized mean differences : .....................................................................................................................................................
+Tests for functions for standardized mean differences : ....................................................................................................................................................
      ### Summary of continuous variables ###
 
 HI_CHOL: 0
@@ -2453,11 +2453,11 @@ C2  1.950910e-37 1.95091e-37
 
 Standardize mean differences
      average       1 vs 2      1 vs 3    1 vs 4    1 vs 5    1 vs 6       2 vs 3       2 vs 4    2 vs 5
-E        NaN 6.350292e+15         Inf       NaN       Inf       Inf 6.350292e+15 6.350292e+15 1.4100480
+E        Inf 6.350292e+15         Inf 0.0000000       Inf       Inf 6.350292e+15 6.350292e+15 1.4100480
 C  2.1373647 1.710913e-04 0.000146495 3.5608223 3.5673100 3.5708236 2.439672e-05 3.556921e+00 3.5633882
 C2 0.5343248 1.710913e-04 0.000146495 0.8900053 0.8916269 0.8925051 2.439672e-05 8.892636e-01 0.8908805
          2 vs 6    3 vs 4    3 vs 5    3 vs 6 4 vs 5 4 vs 6 5 vs 6
-E  6.350292e+15       Inf       Inf       NaN    Inf    Inf    Inf
+E  6.350292e+15       Inf       Inf 0.0000000    Inf    Inf    Inf
 C  3.566891e+00 3.5525326 3.5589756 3.5624649      0      0      0
 C2 8.917561e-01 0.8881331 0.8897439 0.8906162      0      0      0
 
@@ -2527,10 +2527,10 @@ C1 4.640660e-128     NA
 Standardize mean differences
      average      1 vs 2      1 vs 3   1 vs 4   1 vs 5   1 vs 6         2 vs 3   2 vs 4   2 vs 5   2 vs 6   3 vs 4
 Y  0.7311319 0.001480611 0.001486405 1.216879 1.216879 1.216879 0.000005793469 1.218891 1.218891 1.218891 1.218899
-C1       NaN         NaN         NaN      NaN      NaN      NaN            NaN      NaN      NaN      NaN      NaN
+C1       NaN 0.000000000 0.000000000      NaN      NaN      NaN 0.000000000000      NaN      NaN      NaN      NaN
      3 vs 5   3 vs 6 4 vs 5 4 vs 6 5 vs 6
 Y  1.218899 1.218899      0      0      0
-C1      NaN      NaN    NaN    NaN    NaN
+C1      NaN      NaN      0      0      0
 .
      ### Summary of continuous variables ###
 
@@ -2571,10 +2571,10 @@ C 2.518377e-307          0
 
 Standardize mean differences
    average       1 vs 2      1 vs 3   1 vs 4  1 vs 5   1 vs 6       2 vs 3       2 vs 4   2 vs 5       2 vs 6
-E      NaN 6.350292e+15         Inf      NaN     Inf      Inf 6.350292e+15 6.350292e+15 1.410048 6.350292e+15
+E      Inf 6.350292e+15         Inf 0.000000     Inf      Inf 6.350292e+15 6.350292e+15 1.410048 6.350292e+15
 C 2.137365 1.710913e-04 0.000146495 3.560822 3.56731 3.570824 2.439672e-05 3.556921e+00 3.563388 3.566891e+00
     3 vs 4   3 vs 5   3 vs 6 4 vs 5 4 vs 6 5 vs 6
-E      Inf      Inf      NaN    Inf    Inf    Inf
+E      Inf      Inf 0.000000    Inf    Inf    Inf
 C 3.552533 3.558976 3.562465      0      0      0
 .
      ### Summary of categorical variables ### 
@@ -2641,10 +2641,10 @@ C1 4.640660e-128     NA
 Standardize mean differences
      average      1 vs 2      1 vs 3   1 vs 4   1 vs 5   1 vs 6         2 vs 3   2 vs 4   2 vs 5   2 vs 6   3 vs 4
 Y  0.7311319 0.001480611 0.001486405 1.216879 1.216879 1.216879 0.000005793469 1.218891 1.218891 1.218891 1.218899
-C1       NaN         NaN         NaN      NaN      NaN      NaN            NaN      NaN      NaN      NaN      NaN
+C1       NaN 0.000000000 0.000000000      NaN      NaN      NaN 0.000000000000      NaN      NaN      NaN      NaN
      3 vs 5   3 vs 6 4 vs 5 4 vs 6 5 vs 6
 Y  1.218899 1.218899      0      0      0
-C1      NaN      NaN    NaN    NaN    NaN
+C1      NaN      NaN      0      0      0
 .
 
 DONE 
