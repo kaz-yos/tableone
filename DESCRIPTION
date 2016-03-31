@@ -1,8 +1,8 @@
 Package: tableone
 Type: Package
 Title: Create "Table 1" to Describe Baseline Characteristics
-Version: 0.7.3
-Date: 2015-11-10
+Version: 0.7.4
+Date: 2016-03-31
 Author: Kazuki Yoshida, Justin Bohn.
 Maintainer: Kazuki Yoshida <kazukiyoshida@mail.harvard.edu>
 Description: Creates "Table 1", i.e., description of baseline patient
@@ -31,4 +31,4 @@ Suggests:
     knitr
 URL: https://github.com/kaz-yos/tableone
 VignetteBuilder: knitr
-RoxygenNote: 5.0.0
+RoxygenNote: 5.0.1
