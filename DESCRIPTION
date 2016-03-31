@@ -28,8 +28,7 @@ Suggests:
     Matching,
     reshape2,
     ggplot2,
-    knitr,
     rmarkdown
 URL: https://github.com/kaz-yos/tableone
-VignetteBuilder: knitr
+VignetteBuilder: rmarkdown
 RoxygenNote: 5.0.1
