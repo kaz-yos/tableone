@@ -91,3 +91,92 @@ test_that("lm works", {
                   "-275.07261, 174.27950")
 
 })
+
+
+###
+### Clustered data
+################################################################################
+
+## Ordinal Data from Koch
+data(koch, package = "geepack")
+
+
+### geepack
+test_that("geepack works", {
+
+    library(geepack)
+
+    ## Log-linear GEE
+    geeglm1 <- geeglm(formula   = y ~ trt + day,
+                      family    = poisson(link = "log"),
+                      id        = id,
+                      data      = koch,
+                      corstr    = "exchangeable",
+                      scale.fix = FALSE)
+
+    ## confint.default does not work for geepack
+    ciGeeglm1 <- confint(geeglm1)
+
+    ## confint
+    ShowRegTable(geeglm1, digits = 5, exp = TRUE)
+    expect_output(ShowRegTable(geeglm1, digits = 5, exp = TRUE),
+                  sprintf("%.5f, %.5f",
+                          exp(ciGeeglm1)[2,1],
+                          exp(ciGeeglm1)[2,2]))
+
+})
+
+
+### nlme
+test_that("nlme works", {
+
+    library(nlme)
+
+    ## Linear LME
+    lme1 <- lme(fixed  = y ~ trt + day,
+                data   = koch,
+                random = ~ 1 | id,
+                method = "REML")
+
+    ## intervals instead of confint [lower, est, upper] format
+    ShowRegTable(lme1, digits = 5, exp = FALSE)
+    expect_output(ShowRegTable(lme1, digits = 5, exp = FALSE),
+                  sprintf("%.5f, %.5f",
+                          intervals(lme1)$fixed[2,1],
+                          intervals(lme1)$fixed[2,3]))
+})
+
+
+### lme4
+test_that("nlme works", {
+
+    library(lme4)
+
+    ## Linear LME
+    lmer1 <- lmer(formula = y ~ trt + day + (1 | id),
+                  data = koch)
+
+    ciLmer1 <- tail(confint(lmer1), nrow(coef(summary(lmer1))))
+
+    ## confint
+    ShowRegTable(lmer1, digits = 5, exp = FALSE)
+    expect_output(ShowRegTable(lmer1, digits = 5, exp = FALSE),
+                  sprintf("%.5f, %.5f",
+                          ciLmer1[2,1],
+                          ciLmer1[2,2]))
+
+    ## GLMM
+    glmer1 <- glmer(formula = y ~ trt + day + (1 | id),
+                    data = koch,
+                    family = poisson(link = "log"))
+    ## Last rows correspond to fixed effects
+    ciGlmer1 <- tail(confint(glmer1), nrow(coef(summary(lmer1))))
+
+    ## confint
+    ShowRegTable(glmer1, digits = 5, exp = TRUE)
+    expect_output(ShowRegTable(glmer1, digits = 5, exp = TRUE),
+                  sprintf("%.5f, %.5f",
+                          exp(ciGlmer1[2,1]),
+                          exp(ciGlmer1[2,2])))
+
+})
