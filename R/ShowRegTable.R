@@ -46,6 +46,9 @@ ShowRegTable <- function(model, exp = TRUE, digits = 2, pDigits = 3, printToggle
         ## nlme needs special handling
         ## Use column 2 because it is the point estimate
         modelCoef <- nlme::intervals(model)[[1]][, 2]
+    } else if (any(class(model) %in% c("lmerMod","glmerMod"))) {
+        ## (g)lmer gives confint for other extra parameters
+        modelCoef <- coef(summary(model))[,1]
     } else {
         modelCoef <- coef(model)
     }
@@ -55,6 +58,9 @@ ShowRegTable <- function(model, exp = TRUE, digits = 2, pDigits = 3, printToggle
         ## nlme needs special handling
         ## Drop column 2 because it is the point estimate
         modelConfInt <- nlme::intervals(model)[[1]][, -2]
+    } else if (any(class(model) %in% c("lmerMod","glmerMod"))) {
+        ## (g)lmer gives confint for other extra parameters
+        modelConfInt <- tail(suppressMessages(ciFun(model)), length(modelCoef))
     } else {
         modelConfInt <- suppressMessages(ciFun(model))
     }
