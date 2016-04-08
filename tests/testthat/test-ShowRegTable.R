@@ -148,6 +148,10 @@ test_that("geepack works", {
                           exp(ciGeeglm1)[2,1],
                           exp(ciGeeglm1)[2,2]))
 
+    ## coef
+    expect_output(ShowRegTable(geeglm1, digits = 5, exp = TRUE),
+                  sprintf("%.5f", exp(coef(geeglm1))[2]))
+
 })
 
 
@@ -168,6 +172,10 @@ test_that("nlme works", {
                   sprintf("%.5f, %.5f",
                           intervals(lme1)$fixed[2,1],
                           intervals(lme1)$fixed[2,3]))
+
+    ## coef
+    expect_output(ShowRegTable(lme1, digits = 5, exp = TRUE),
+                  sprintf("%.5f", exp(intervals(lme1)$fixed[2,2])))
 
 })
 
@@ -190,6 +198,11 @@ test_that("nlme works", {
                           ciLmer1[2,1],
                           ciLmer1[2,2]))
 
+    ## coef
+    expect_output(ShowRegTable(lmer1, digits = 5, exp = FALSE),
+                  sprintf("%.5f", coef(summary(lmer1))[2,1]))
+
+
     ## GLMM
     glmer1 <- glmer(formula = y ~ trt + day + (1 | id),
                     data = koch,
@@ -203,5 +216,9 @@ test_that("nlme works", {
                   sprintf("%.5f, %.5f",
                           exp(ciGlmer1[2,1]),
                           exp(ciGlmer1[2,2])))
+
+    ## coef
+    expect_output(ShowRegTable(glmer1, digits = 5, exp = TRUE),
+                  sprintf("%.5f", exp(coef(summary(glmer1)))[2,1]))
 
 })
