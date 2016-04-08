@@ -22,18 +22,13 @@ context("Unit tests for regression summary function")
 ## Load Mayo Clinic Primary Biliary Cirrhosis Data
 data(pbc)
 
-## Cox
-coxph1 <- coxph(formula = Surv(time, status == 2) ~ trt + age + albumin + ascites,
-                data    = pbc)
-## Logistic
-glm1 <- glm(formula = (status == 2) ~ trt + age + albumin + ascites,
-            family  = binomial(link = "logit"),
-            data    = pbc)
-## Linear
-lm1 <- lm(formula = time ~ trt + age + albumin + ascites,
-          data    = pbc)
 
+### coxph
 test_that("coxph works", {
+
+    ## Cox
+    coxph1 <- coxph(formula = Surv(time, status == 2) ~ trt + age + albumin + ascites,
+                    data    = pbc)
 
     ## For coxph normal approximation is uses
     expect_true(all(confint(coxph1) == confint.default(coxph1)))
@@ -51,7 +46,13 @@ test_that("coxph works", {
 })
 
 
+### glm
 test_that("glm works", {
+
+    ## Logistic
+    glm1 <- glm(formula = (status == 2) ~ trt + age + albumin + ascites,
+                family  = binomial(link = "logit"),
+                data    = pbc)
 
     ## For GLM profile likelihood method and naive approximation differ
     expect_true(!all(confint(glm1) == confint.default(glm1)))
@@ -69,7 +70,12 @@ test_that("glm works", {
 })
 
 
+### lm
 test_that("lm works", {
+
+    ## Linear
+    lm1 <- lm(formula = time ~ trt + age + albumin + ascites,
+              data    = pbc)
 
     ## For lm t-distribution based method and naive approximation differ
     expect_true(!all(confint(lm1) == confint.default(lm1)))
@@ -85,5 +91,3 @@ test_that("lm works", {
                   "-275.07261, 174.27950")
 
 })
-
-
