@@ -5,9 +5,11 @@
 ## Author: Kazuki Yoshida
 ################################################################################
 
+###
 ### Structure
 ## expectations within tests within context
 
+###
 ### Prepare environment
 ################################################################################
 library(testthat)
@@ -15,11 +17,15 @@ library(survey)
 library(survival)
 
 
+###
 ### Context (1 for each file)
 ################################################################################
 context("Unit tests for regression summary function")
 
-## Load Mayo Clinic Primary Biliary Cirrhosis Data
+
+###
+### Independent observations
+################################################################################
 data(pbc)
 
 
