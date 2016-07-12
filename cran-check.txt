@@ -5,13 +5,11 @@
 * using option ‘--as-cran’
 * checking for file ‘tableone/DESCRIPTION’ ... OK
 * checking extension type ... Package
-* this is package ‘tableone’ version ‘0.7.5’
+* this is package ‘tableone’ version ‘0.7.6’
 * checking CRAN incoming feasibility ... NOTE
 Maintainer: ‘Kazuki Yoshida <kazukiyoshida@mail.harvard.edu>’
 
 Package has a VignetteBuilder field but no prebuilt vignette index.
-
-The Date field is over a month old.
 * checking package namespace information ... OK
 * checking package dependencies ... OK
 * checking if this is a source package ... OK
@@ -40,16 +38,7 @@ The Date field is over a month old.
 * checking S3 generic/method consistency ... OK
 * checking replacement functions ... OK
 * checking foreign function calls ... OK
-* checking R code for possible problems ... NOTE
-ShowRegTable: no visible global function definition for ‘tail’
-confint.geeglm: no visible global function definition for ‘vcov’
-confint.geeglm: no visible global function definition for ‘qnorm’
-Undefined global functions or variables:
-  qnorm tail vcov
-Consider adding
-  importFrom("stats", "qnorm", "vcov")
-  importFrom("utils", "tail")
-to your NAMESPACE file.
+* checking R code for possible problems ... OK
 * checking Rd files ... OK
 * checking Rd metadata ... OK
 * checking Rd line widths ... OK
@@ -66,4 +55,4 @@ to your NAMESPACE file.
  OK
 * checking PDF version of manual ... OK
 * DONE
-Status: 2 NOTEs
+Status: 1 NOTE

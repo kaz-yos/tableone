@@ -7,7 +7,11 @@ BUG FIXES
   CreateTableOne and svyCreateTableOne were changed for clarity.
   When factor variables are included in the argument, they are
   releveled to exlude empty levels. This was not clearly documented
-  in the previous documentation.
+  in the previous documentation. Thanks @eribul.
+
+* svyrep.design objects (survey design objects with replicate weights)
+  are allowed for the data argument in svyTableOne. This is considered
+  experimental. Thanks @przemo.
 
 
 tableone 0.7.5 (2016-04-10)
