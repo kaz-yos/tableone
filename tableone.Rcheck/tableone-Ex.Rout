@@ -3311,7 +3311,7 @@ detaching ‘package:survey’, ‘package:grid’
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  5.671 0.219 6.479 0.004 0.006 
+Time elapsed:  4.147 0.194 4.451 0.004 0.004 
 > grDevices::dev.off()
 null device 
           1 
