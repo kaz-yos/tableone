@@ -1,3 +1,15 @@
+tableone 0.7.6 (2016-07-12)
+----------------------------------------------------------------
+
+BUG FIXES
+
+* The explanation for the "factorVars" argument for the functions
+  CreateTableOne and svyCreateTableOne were changed for clarity.
+  When factor variables are included in the argument, they are
+  releveled to exlude empty levels. This was not clearly documented
+  in the previous documentation.
+
+
 tableone 0.7.5 (2016-04-10)
 ----------------------------------------------------------------
 
