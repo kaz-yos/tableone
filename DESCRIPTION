@@ -29,7 +29,9 @@ Suggests:
     Matching,
     reshape2,
     ggplot2,
-    rmarkdown
+    rmarkdown,
+    geepack,
+    lme4
 URL: https://github.com/kaz-yos/tableone
 VignetteBuilder: rmarkdown
 RoxygenNote: 5.0.1
