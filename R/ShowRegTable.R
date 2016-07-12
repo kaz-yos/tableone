@@ -41,12 +41,39 @@ ShowRegTable <- function(model, exp = TRUE, digits = 2, pDigits = 3, printToggle
     fmt1 <- paste0("%.",  digits, "f")
     fmt2 <- paste0("%.", pDigits, "f")
 
-    ## Obtain necessary data
-    ## The model must have summary and confint methods
-    modelCoef       <- coef(model)
-    modelConfInt    <- suppressMessages(ciFun(model))
-    modelSummaryMat <- coef(summary(model))
-    modelP          <- modelSummaryMat[,ncol(modelSummaryMat)]
+    ## Extract coefficients
+    if (any(class(model) %in% c("lme"))) {
+        ## nlme needs special handling
+        ## Use column 2 because it is the point estimate
+        modelCoef <- nlme::intervals(model)[[1]][, 2]
+    } else if (any(class(model) %in% c("lmerMod","glmerMod"))) {
+        ## (g)lmer gives confint for other extra parameters
+        modelCoef <- coef(summary(model))[,1]
+    } else {
+        modelCoef <- coef(model)
+    }
+
+    ## Extract confidence intervals
+    if (any(class(model) %in% c("lme"))) {
+        ## nlme needs special handling
+        ## Drop column 2 because it is the point estimate
+        modelConfInt <- nlme::intervals(model)[[1]][, -2]
+    } else if (any(class(model) %in% c("lmerMod","glmerMod"))) {
+        ## (g)lmer gives confint for other extra parameters
+        modelConfInt <- tail(suppressMessages(ciFun(model)), length(modelCoef))
+    } else {
+        modelConfInt <- suppressMessages(ciFun(model))
+    }
+
+    ## P-value extraction
+    if (any(class(model) %in% c("gls", "lme"))) {
+        ## nlme needs special handling
+        modelSummaryMat <- summary(model)$tTable
+    } else {
+        modelSummaryMat <- coef(summary(model))
+    }
+    ## Extract p value from
+    modelP <- modelSummaryMat[,ncol(modelSummaryMat)]
 
     ## Create the result matrix with beta and two columns of confidence interval
     resMat <- cbind(beta = modelCoef,
