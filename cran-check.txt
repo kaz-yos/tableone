@@ -1,13 +1,17 @@
 * using log directory ‘/Users/kazuki/Documents/programming/r/tableone/tableone.Rcheck’
-* using R version 3.2.4 (2016-03-10)
+* using R version 3.3.0 (2016-05-03)
 * using platform: x86_64-apple-darwin13.4.0 (64-bit)
 * using session charset: UTF-8
 * using option ‘--as-cran’
 * checking for file ‘tableone/DESCRIPTION’ ... OK
 * checking extension type ... Package
-* this is package ‘tableone’ version ‘0.7.4’
-* checking CRAN incoming feasibility ... Note_to_CRAN_maintainers
+* this is package ‘tableone’ version ‘0.7.5’
+* checking CRAN incoming feasibility ... NOTE
 Maintainer: ‘Kazuki Yoshida <kazukiyoshida@mail.harvard.edu>’
+
+Package has a VignetteBuilder field but no prebuilt vignette index.
+
+The Date field is over a month old.
 * checking package namespace information ... OK
 * checking package dependencies ... OK
 * checking if this is a source package ... OK
@@ -19,7 +23,6 @@ Maintainer: ‘Kazuki Yoshida <kazukiyoshida@mail.harvard.edu>’
 * checking whether package ‘tableone’ can be installed ... OK
 * checking installed package size ... OK
 * checking package directory ... OK
-* checking ‘build’ directory ... OK
 * checking DESCRIPTION meta-information ... OK
 * checking top-level files ... OK
 * checking for left-over files ... OK
@@ -37,7 +40,16 @@ Maintainer: ‘Kazuki Yoshida <kazukiyoshida@mail.harvard.edu>’
 * checking S3 generic/method consistency ... OK
 * checking replacement functions ... OK
 * checking foreign function calls ... OK
-* checking R code for possible problems ... OK
+* checking R code for possible problems ... NOTE
+ShowRegTable: no visible global function definition for ‘tail’
+confint.geeglm: no visible global function definition for ‘vcov’
+confint.geeglm: no visible global function definition for ‘qnorm’
+Undefined global functions or variables:
+  qnorm tail vcov
+Consider adding
+  importFrom("stats", "qnorm", "vcov")
+  importFrom("utils", "tail")
+to your NAMESPACE file.
 * checking Rd files ... OK
 * checking Rd metadata ... OK
 * checking Rd line widths ... OK
@@ -47,19 +59,11 @@ Maintainer: ‘Kazuki Yoshida <kazukiyoshida@mail.harvard.edu>’
 * checking Rd \usage sections ... OK
 * checking Rd contents ... OK
 * checking for unstated dependencies in examples ... OK
-* checking installed files from ‘inst/doc’ ... OK
 * checking files in ‘vignettes’ ... OK
 * checking examples ... OK
 * checking for unstated dependencies in ‘tests’ ... OK
 * checking tests ...
  OK
-* checking for unstated dependencies in vignettes ... OK
-* checking package vignettes in ‘inst/doc’ ... OK
-* checking running R code from vignettes ...
-   ‘introduction.Rmd’ using ‘UTF-8’ ... OK
-   ‘smd.Rmd’ using ‘UTF-8’ ... OK
- OK
-* checking re-building of vignette outputs ... OK
 * checking PDF version of manual ... OK
 * DONE
-Status: OK
+Status: 2 NOTEs
