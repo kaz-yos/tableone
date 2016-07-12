@@ -19,7 +19,8 @@ Imports:
     MASS,
     e1071,
     zoo,
-    gmodels
+    gmodels,
+    nlme
 Suggests:
     survival,
     testthat,
