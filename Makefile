@@ -30,7 +30,7 @@ PKG_FILES := DESCRIPTION NAMESPACE NEWS $(R_FILES) $(TST_FILES) $(SRC_FILES) $(V
 
 ## test just runs testthat scripts. No dependencies.
 test: NAMESPACE
-	Rscript -e "devtools::test()" | tee test-all.txt
+	Rscript -e "options(width = 120); devtools::test()" | tee test-all.txt
 
 ## build_win always build regardless of file update status
 ## Links to results e-mailed (no useful output locally)
