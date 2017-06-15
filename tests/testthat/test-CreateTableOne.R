@@ -188,13 +188,13 @@ test_that("Missing percentages are correctly stored and printed", {
         as.character(Filter(f = function(elt) {!(elt == "")}, x = x))
     }
     ## Check against gold standard
-    expect_equal(DropEmptyString(print(pbcOverall, missing = TRUE, printToggle = FALSE)[,"Missing"]),
+    expect_equal(DropEmptyString(print(pbcOverall, missing = TRUE)[,"Missing"]),
                  percentMissingString)
-    expect_equal(DropEmptyString(print(pbcInclNa, missing = TRUE, printToggle = FALSE)[,"Missing"]),
+    expect_equal(DropEmptyString(print(pbcInclNa, missing = TRUE)[,"Missing"]),
                  percentMissingString)
-    expect_equal(DropEmptyString(print(pbcByTrt, missing = TRUE, printToggle = FALSE)[,"Missing"]),
+    expect_equal(DropEmptyString(print(pbcByTrt, missing = TRUE)[,"Missing"]),
                  percentMissingString)
-    expect_equal(DropEmptyString(print(pbcByTrtSex, missing = TRUE, printToggle = FALSE)[,"Missing"]),
+    expect_equal(DropEmptyString(print(pbcByTrtSex, missing = TRUE)[,"Missing"]),
                  percentMissingString)
 
 })
