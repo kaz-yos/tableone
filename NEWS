@@ -1,3 +1,20 @@
+tableone 0.8.0 (2017-06-15)
+----------------------------------------------------------------
+
+NEW FEATURES
+
+* The "missing" option for the print methods was implemented. If
+  TRUE, a column called "Missing" is added as the rightmost column
+  of the formatted table. This represents percentage of missing
+  observation in each variable. Please note this is the percentage
+  with respect to the unweighted raw observations even in weighted
+  tables.
+
+* The "padColnames" option was added the print.TableOne method. If
+  TRUE, the column names of the formatted table become space-padded
+  to center them.
+
+
 tableone 0.7.6 (2016-07-12)
 ----------------------------------------------------------------
 
