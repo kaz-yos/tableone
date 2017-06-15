@@ -116,7 +116,7 @@ function(vars,                                   # character vector of variable 
     smd  <- ModuleReturnFalseIfNoStrata(strata, smd)
 
     ## Get the missing percentage for each variable (no strata).
-    percentMissing <- unlist(lapply(data$variables[vars], function(x) {sum(is.na(x)) / length(x) * 100}))
+    percentMissing <- ModulePercentMissing(data$variables[vars])
 
     ## Get the classes of the variables
     varClasses  <- lapply(data$variables[vars], class)
