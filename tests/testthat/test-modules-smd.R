@@ -1075,7 +1075,8 @@ test_that("SMDs are correctly shown in print()", {
                  StdDiffMulti(nhanes$agecat, nhanes$strataVar))
 
     out1 <- print(tab1, smd = TRUE)
-    expect_equal(as.vector(out1[,"SMD"][2:3]),
+    ## With default test = TRUE, missing = FALSE, last column should be SMD.
+    expect_equal(as.vector(out1[,ncol(out1)][2:3]),
                  c(sprintf(" %.3f", attr(tab1$ContTable, "smd")[1,1]),
                    sprintf(" %.3f", attr(tab1$CatTable, "smd")[1,1])))
 
