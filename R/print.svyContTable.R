@@ -183,9 +183,8 @@ function(x,                       # ContTable object
         ## Create an empty column
         out <- cbind(out,
                      Missing = rep("", nrow(out))) # Column for p-values
-        ## Put the values at the non-empty positions
-        fmt1 <- paste0("%.", 1, "f")
-        out[,"Missing"] <- sprintf(fmt1, attr(ContTable, "percentMissing"))
+        ## Put the values
+        out[,"Missing"] <- ModuleFormatPercents(attr(ContTable, "percentMissing"), 1)
     }
 
 

@@ -139,7 +139,7 @@ test_that("Missing percentages are correctly stored and printed", {
 
     ## Check printing
     ## Gold standard
-    percentMissingString <- sprintf("%.1f", percentMissing)
+    percentMissingString <- format(sprintf("%.1f", percentMissing), justify = "right")
     ## Function to drop empty "" elements.
     DropEmptyString <- function(x) {
         ## as.character() drops names.

@@ -64,6 +64,17 @@ ModuleCreateStrataNames <- function(TableObject) {
 }
 
 
+## Percentage formatter
+ModuleFormatPercents <- function(percents, digits) {
+
+    fmt <- paste0("%.", digits, "f")
+    out <- sprintf(fmt = fmt, percents)
+
+    ## right justify by adding spaces
+    format(out, justify = "right")
+}
+
+
 ## p-value formatter
 ModuleFormatPValues <- function(pValues, pDigits) {
 
