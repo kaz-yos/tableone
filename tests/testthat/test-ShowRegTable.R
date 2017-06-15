@@ -181,7 +181,7 @@ test_that("nlme works", {
 
 
 ### lme4
-test_that("nlme works", {
+test_that("lme4 works", {
 
     library(lme4)
 
