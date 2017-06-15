@@ -40,6 +40,10 @@ function(vars,                      # character vector of variable names
     ## Abort if no variables exist at this point
     ModuleStopIfNoVarsLeft(vars)
 
+    ## Get the missing percentage for each variable (no strata).
+    ## This has to happen before includeNA is used.
+    percentMissing <- ModulePercentMissing(data$variables[vars])
+
     ## Toggle test FALSE if no strata
     test <- ModuleReturnFalseIfNoStrata(strata, test)
     smd  <- ModuleReturnFalseIfNoStrata(strata, smd)

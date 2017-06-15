@@ -100,6 +100,10 @@ function(vars,                                  # character vector of variable n
     ## Abort if no variables exist at this point
     ModuleStopIfNoVarsLeft(vars)
 
+    ## Get the missing percentage for each variable (no strata).
+    ## This has to happen before includeNA is used.
+    percentMissing <- ModulePercentMissing(data[vars])
+
     ## Extract necessary variables (unused variables are not included in dat)
     dat <- data[c(vars)]
 
