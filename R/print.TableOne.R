@@ -13,13 +13,13 @@
 ##' @param test Whether to show p-values. TRUE by default. If FALSE, only the numerical summaries are shown.
 ##' @param smd Whether to show standardized mean differences. FALSE by default. If there are more than one contrasts, the average of all possible standardized mean differences is shown. For individual contrasts, use \code{summary}.
 ##' @param noSpaces Whether to remove spaces added for alignment. Use this option if you prefer to align numbers yourself in other software.
+##' @param padColnames Whether to pad column names with spaces to center justify. The default is FALSE. It is not conducted if noSpaces = TRUE.
 ##' @param format The default is "fp" frequency (percentage). You can also choose from "f" frequency only, "p" percentage only, and "pf" percentage (frequency).
 ##' @param showAllLevels Whether to show all levels. FALSE by default, i.e., for 2-level categorical variables, only the higher level is shown to avoid redundant information.
 ##' @param cramVars A character vector to specify the two-level categorical variables, for which both levels should be shown in one row.
 ##' @param exact A character vector to specify the variables for which the p-values should be those of exact tests. By default all p-values are from large sample approximation tests (chisq.test).
 ##' @param nonnormal A character vector to specify the variables for which the p-values should be those of nonparametric tests. By default all p-values are from normal assumption-based tests (oneway.test).
 ##' @param minMax Whether to use [min,max] instead of [p25,p75] for nonnormal variables. The default is FALSE.
-##' @param padColnames Whether to pad column names with spaces to center justify.
 ##' @param ... For compatibility with generic. Ignored.
 ##' @return A matrix object containing what you see is also invisibly returned. This can be assinged a name and exported via \code{write.csv}.
 ##' @author Kazuki Yoshida, Justin Bohn
@@ -40,8 +40,9 @@ function(x,                   # TableOne object
          explain       = TRUE,  # Whether to show explanation in variable names
          printToggle   = TRUE,  # Whether to print the result visibly
          test          = TRUE,  # Whether to add p-values
-         smd           = FALSE,  # Whether to add standardized mean differences
+         smd           = FALSE, # Whether to add standardized mean differences
          noSpaces      = FALSE, # Whether to remove spaces for alignments
+         padColnames   = FALSE, # Whether to pad column names for alignments
 
          ## Categorical options
          format        = c("fp","f","p","pf")[1], # Format f_requency and/or p_ercent

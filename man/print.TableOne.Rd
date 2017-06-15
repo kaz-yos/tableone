@@ -6,9 +6,9 @@
 \usage{
 \method{print}{TableOne}(x, catDigits = 1, contDigits = 2, pDigits = 3,
   quote = FALSE, missing = FALSE, explain = TRUE, printToggle = TRUE,
-  test = TRUE, smd = FALSE, noSpaces = FALSE, format = c("fp", "f", "p",
-  "pf")[1], showAllLevels = FALSE, cramVars = NULL, exact = NULL,
-  nonnormal = NULL, minMax = FALSE, ...)
+  test = TRUE, smd = FALSE, noSpaces = FALSE, padColnames = FALSE,
+  format = c("fp", "f", "p", "pf")[1], showAllLevels = FALSE,
+  cramVars = NULL, exact = NULL, nonnormal = NULL, minMax = FALSE, ...)
 }
 \arguments{
 \item{x}{Object returned by \code{\link{CreateTableOne}} function.}
@@ -32,6 +32,8 @@
 \item{smd}{Whether to show standardized mean differences. FALSE by default. If there are more than one contrasts, the average of all possible standardized mean differences is shown. For individual contrasts, use \code{summary}.}
 
 \item{noSpaces}{Whether to remove spaces added for alignment. Use this option if you prefer to align numbers yourself in other software.}
+
+\item{padColnames}{Whether to pad column names with spaces to center justify. The default is FALSE. It is not conducted if noSpaces = TRUE.}
 
 \item{format}{The default is "fp" frequency (percentage). You can also choose from "f" frequency only, "p" percentage only, and "pf" percentage (frequency).}
 
