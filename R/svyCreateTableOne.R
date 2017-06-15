@@ -115,6 +115,9 @@ function(vars,                                   # character vector of variable 
     test <- ModuleReturnFalseIfNoStrata(strata, test)
     smd  <- ModuleReturnFalseIfNoStrata(strata, smd)
 
+    ## Get the missing percentage for each variable (no strata).
+    percentMissing <- ModulePercentMissing(data$variables[vars])
+
     ## Get the classes of the variables
     varClasses  <- lapply(data$variables[vars], class)
 
@@ -210,7 +213,9 @@ function(vars,                                   # character vector of variable 
                                             logiFactors = logiFactors,
                                             ## names of vars of each type
                                             varFactors  = varFactors,
-                                            varNumerics = varNumerics))
+                                            varNumerics = varNumerics,
+                                            ## Missing data percentage for each variable (no strata).
+                                            percentMissing = percentMissing))
 
     ## Give a class
     class(TableOneObject) <- c("svyTableOne", "TableOne")

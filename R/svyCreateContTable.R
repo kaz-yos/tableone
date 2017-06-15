@@ -43,6 +43,9 @@ function(vars,                                  # character vector of variable n
     ## Abort if no variables exist at this point
     ModuleStopIfNoVarsLeft(vars)
 
+    ## Get the missing percentage for each variable (no strata).
+    percentMissing <- ModulePercentMissing(data$variables[vars])
+
     ## Toggle test FALSE if no strata
     test <- ModuleReturnFalseIfNoStrata(strata, test)
     smd  <- ModuleReturnFalseIfNoStrata(strata, smd)
@@ -153,7 +156,8 @@ function(vars,                                  # character vector of variable n
     ## Give additional attributes
     attributes(result) <- c(attributes(result),
                             list(pValues = pValues),
-                            list(smd     = smds))
+                            list(smd     = smds),
+                            list(percentMissing = percentMissing))
 
     ## Return
     return(result)

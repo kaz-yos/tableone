@@ -201,6 +201,17 @@ function(x,                        # CatTable object
     }
 
 
+    ## Add percentMissing when requested and available
+    if (missing & !is.null(attr(CatTable, "percentMissing"))) {
+
+        ## Create an empty column
+        out <- cbind(out,
+                     Missing = rep("", nrow(out))) # Column for p-values
+        ## Put the values at the non-empty positions
+        out[logiNonEmptyRowNames,"Missing"] <- ModuleFormatPercents(attr(CatTable, "percentMissing"), 1)
+    }
+
+
     ## Add freq () explanation if requested
     if (explain) {
         ## Choose the format of the explanation string

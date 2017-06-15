@@ -164,6 +164,42 @@ test_that("TableOne objects are always returned", {
 })
 
 
+test_that("Missing percentages are correctly stored and printed", {
+
+    ## Extract from dataset
+    percentMissing <- unlist(lapply(pbc[vars], function(x) {sum(is.na(x)) / length(x) * 100}))
+    ## Sanity check for the standard.
+    expect_equal(length(percentMissing), length(vars))
+
+    ## Unstratified table
+    expect_equal(pbcOverall$MetaData$percentMissing, percentMissing)
+    ## Including NA as a category should not matter.
+    expect_equal(pbcInclNa$MetaData$percentMissing, percentMissing)
+    ## Stratification should not matter
+    expect_equal(pbcByTrt$MetaData$percentMissing, percentMissing)
+    expect_equal(pbcByTrtSex$MetaData$percentMissing, percentMissing)
+
+    ## Check printing
+    ## Gold standard
+    percentMissingString <- format(sprintf("%.1f", percentMissing), justify = "right")
+    ## Function to drop empty "" elements.
+    DropEmptyString <- function(x) {
+        ## as.character() drops names.
+        as.character(Filter(f = function(elt) {!(elt == "")}, x = x))
+    }
+    ## Check against gold standard
+    expect_equal(DropEmptyString(print(pbcOverall, missing = TRUE)[,"Missing"]),
+                 percentMissingString)
+    expect_equal(DropEmptyString(print(pbcInclNa, missing = TRUE)[,"Missing"]),
+                 percentMissingString)
+    expect_equal(DropEmptyString(print(pbcByTrt, missing = TRUE)[,"Missing"]),
+                 percentMissingString)
+    expect_equal(DropEmptyString(print(pbcByTrtSex, missing = TRUE)[,"Missing"]),
+                 percentMissingString)
+
+})
+
+
 test_that("printing of a TableOne object does not regress", {
 
     ## Expectations

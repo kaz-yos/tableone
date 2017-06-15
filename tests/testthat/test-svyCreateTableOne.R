@@ -122,6 +122,42 @@ test_that("svyTableOne objects are always returned", {
 })
 
 
+test_that("Missing percentages are correctly stored and printed", {
+
+    ## Extract from dataset
+    percentMissing <- unlist(lapply(datMw[vars], function(x) {sum(is.na(x)) / length(x) * 100}))
+    ## Sanity check for the standard.
+    expect_equal(length(percentMissing), length(vars))
+
+    ## Unstratified table
+    expect_equal(mwOverall$MetaData$percentMissing, percentMissing)
+    ## Including NA as a category should not matter.
+    expect_equal(mwInclNa$MetaData$percentMissing, percentMissing)
+    ## Stratification should not matter
+    expect_equal(mwByE$MetaData$percentMissing, percentMissing)
+    expect_equal(mwByEC1$MetaData$percentMissing, percentMissing)
+
+    ## Check printing
+    ## Gold standard
+    percentMissingString <- format(sprintf("%.1f", percentMissing), justify = "right")
+    ## Function to drop empty "" elements.
+    DropEmptyString <- function(x) {
+        ## as.character() drops names.
+        as.character(Filter(f = function(elt) {!(elt == "")}, x = x))
+    }
+    ## Check against gold standard
+    expect_equal(DropEmptyString(print(mwOverall, missing = TRUE)[,"Missing"]),
+                 percentMissingString)
+    expect_equal(DropEmptyString(print(mwInclNa, missing = TRUE)[,"Missing"]),
+                 percentMissingString)
+    expect_equal(DropEmptyString(print(mwByE, missing = TRUE)[,"Missing"]),
+                 percentMissingString)
+    expect_equal(DropEmptyString(print(mwByEC1, missing = TRUE)[,"Missing"]),
+                 percentMissingString)
+
+})
+
+
 test_that("printing of a svyTableOne object does not regress", {
 
     ## Expectations
