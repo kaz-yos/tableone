@@ -231,6 +231,17 @@ function(x,                       # ContTable object
     }
 
 
+    ## Add percentMissing when requested and available
+    if (missing & !is.null(attr(ContTable, "percentMissing"))) {
+
+        ## Create an empty column
+        out <- cbind(out,
+                     Missing = rep("", nrow(out))) # Column for p-values
+        ## Put the values at the non-empty positions
+        fmt1 <- paste0("%.", digits, "f")
+        out[,"Missing"] <- sprintf(fmt1, attr(ContTable, "percentMissing"))
+    }
+
 
     ## Add mean (sd) or median [IQR]/median [range] explanation if requested
     if (explain) {
