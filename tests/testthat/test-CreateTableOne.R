@@ -164,6 +164,24 @@ test_that("TableOne objects are always returned", {
 })
 
 
+test_that("Missing percentages are correctly stored", {
+
+    ## Extract from dataset
+    percentMissing <- unlist(lapply(pbc[vars], function(x) {sum(is.na(x)) / length(x) * 100}))
+    ## Sanity check for the standard.
+    expect_equal(length(percentMissing), length(vars))
+
+    ## Unstratified table
+    expect_equal(pbcOverall$MetaData$percentMissing, percentMissing)
+    ## Including NA as a category should not matter.
+    expect_equal(pbcInclNa$MetaData$percentMissing, percentMissing)
+    ## Stratification should not matter
+    expect_equal(pbcByTrt$MetaData$percentMissing, percentMissing)
+    expect_equal(pbcByTrtSex$MetaData$percentMissing, percentMissing)
+
+})
+
+
 test_that("printing of a TableOne object does not regress", {
 
     ## Expectations

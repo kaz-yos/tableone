@@ -122,6 +122,24 @@ test_that("svyTableOne objects are always returned", {
 })
 
 
+test_that("Missing percentages are correctly stored", {
+
+    ## Extract from dataset
+    percentMissing <- unlist(lapply(datMw[vars], function(x) {sum(is.na(x)) / length(x) * 100}))
+    ## Sanity check for the standard.
+    expect_equal(length(percentMissing), length(vars))
+
+    ## Unstratified table
+    expect_equal(mwOverall$MetaData$percentMissing, percentMissing)
+    ## Including NA as a category should not matter.
+    expect_equal(mwInclNa$MetaData$percentMissing, percentMissing)
+    ## Stratification should not matter
+    expect_equal(mwByE$MetaData$percentMissing, percentMissing)
+    expect_equal(mwByEC1$MetaData$percentMissing, percentMissing)
+
+})
+
+
 test_that("printing of a svyTableOne object does not regress", {
 
     ## Expectations
