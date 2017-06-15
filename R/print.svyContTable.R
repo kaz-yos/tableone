@@ -184,7 +184,7 @@ function(x,                       # ContTable object
         out <- cbind(out,
                      Missing = rep("", nrow(out))) # Column for p-values
         ## Put the values at the non-empty positions
-        fmt1 <- paste0("%.", digits, "f")
+        fmt1 <- paste0("%.", 1, "f")
         out[,"Missing"] <- sprintf(fmt1, attr(ContTable, "percentMissing"))
     }
 
