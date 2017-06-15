@@ -137,7 +137,8 @@ function(vars,                      # character vector of variable names
     attributes(result) <- c(attributes(result),
                             list(pValues = pValues),
                             list(xtabs   = listXtabs),
-                            list(smd     = smds))
+                            list(smd     = smds),
+                            list(percentMissing = percentMissing))
 
     ## Return
     return(result)
