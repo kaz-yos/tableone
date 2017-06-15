@@ -2,8 +2,8 @@
 % Please edit documentation in R/tableone-package.R
 \docType{package}
 \name{tableone-package}
-\alias{tableone}
 \alias{tableone-package}
+\alias{tableone}
 \title{Create "Table 1" to describe baseline characteristics}
 \description{
 Creates "Table 1", i.e., description of baseline patient characteristics, which is essential in every medical research. Supports both continuous and categorical variables, as well as p-values and standardized mean differences. Weighted data are supported via the survey package. See github for a screencast. tableone was inspired by descriptive statistics functions in Deducer , a Java-based GUI package by Ian Fellows. This package does not require GUI or Java, and intended for command-line users. Most important functions are \code{\link{CreateTableOne}} and \code{\link{svyCreateTableOne}}.
@@ -33,12 +33,11 @@ Developmental repository is on github. Your contributions are appreciated.
 ## See examples for CreateTableOne and svyCreateTableOne
 
 }
+\seealso{
+\code{\link{CreateTableOne}}, \code{\link{svyCreateTableOne}}, \code{\link{print.TableOne}}, \code{\link{summary.TableOne}}, \code{\link{ShowRegTable}}
+}
 \author{
 Kazuki Yoshida, Justin Bohn
 
 Maintainer: Kazuki Yoshida <kazukiyoshida@mail.harvard.edu>
 }
-\seealso{
-\code{\link{CreateTableOne}}, \code{\link{svyCreateTableOne}}, \code{\link{print.TableOne}}, \code{\link{summary.TableOne}}, \code{\link{ShowRegTable}}
-}
-

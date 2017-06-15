@@ -109,10 +109,9 @@ print(catTableBySexTrt, exact = "ascites", quote = TRUE)
 print(catTableBySexTrt, exact = "ascites", quote = TRUE, noSpaces = TRUE)
 
 }
-\author{
-Kazuki Yoshida
-}
 \seealso{
 \code{\link{CreateTableOne}}, \code{\link{CreateCatTable}}, \code{\link{summary.CatTable}}
 }
-
+\author{
+Kazuki Yoshida
+}

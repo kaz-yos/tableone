@@ -24,10 +24,9 @@ Shows all data a \code{CatTable} class object has. This includes the (optionally
 ## See examples for CreateTableOne
 
 }
-\author{
-Kazuki Yoshida
-}
 \seealso{
 \code{\link{CreateTableOne}}, \code{\link{CreateCatTable}}, \code{\link{print.CatTable}},
 }
-
+\author{
+Kazuki Yoshida
+}

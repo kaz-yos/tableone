@@ -58,10 +58,9 @@ A matrix object containing what you see is also invisibly returned. This can be 
 ## See examples for CreateTableOne and svyCreateTableOne
 
 }
-\author{
-Kazuki Yoshida, Justin Bohn
-}
 \seealso{
 \code{\link{CreateTableOne}}, \code{\link{CreateTableOne}}, \code{\link{summary.TableOne}}
 }
-
+\author{
+Kazuki Yoshida, Justin Bohn
+}

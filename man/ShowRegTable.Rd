@@ -53,4 +53,3 @@ ShowRegTable(objCoxph, quote = TRUE)
 \author{
 Kazuki Yoshida
 }
-

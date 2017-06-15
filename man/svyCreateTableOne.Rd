@@ -99,10 +99,9 @@ tab1$ContTable
 ExtractSmd(tab1)
 
 }
-\author{
-Kazuki Yoshida
-}
 \seealso{
 \code{\link{print.TableOne}}, \code{\link{summary.TableOne}}
 }
-
+\author{
+Kazuki Yoshida
+}

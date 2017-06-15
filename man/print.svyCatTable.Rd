@@ -54,10 +54,9 @@ A matrix object containing what you see is also invisibly returned. This can be 
 ## See the examples for svyCreateTableOne()
 
 }
-\author{
-Kazuki Yoshida
-}
 \seealso{
 \code{\link{svyCreateTableOne}}, \code{\link{svyCreateCatTable}}, \code{\link{summary.svyCatTable}}
 }
-
+\author{
+Kazuki Yoshida
+}

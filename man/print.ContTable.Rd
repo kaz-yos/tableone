@@ -105,10 +105,9 @@ print(contTableBySexTrt, nonnormal = nonNormalVars, quote = TRUE)
 print(contTableBySexTrt, nonnormal = nonNormalVars, quote = TRUE, noSpaces = TRUE)
 
 }
-\author{
-Kazuki Yoshida
-}
 \seealso{
 \code{\link{CreateTableOne}}, \code{\link{CreateContTable}}, \code{\link{summary.ContTable}}
 }
-
+\author{
+Kazuki Yoshida
+}

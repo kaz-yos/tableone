@@ -97,10 +97,9 @@ print(catTableBySexTrt, exact = "ascites", quote = TRUE)
 print(catTableBySexTrt, exact = "ascites", quote = TRUE, noSpaces = TRUE)
 
 }
-\author{
-Kazuki Yoshida (based on \code{Deducer::frequencies()})
-}
 \seealso{
 \code{\link{CreateTableOne}}, \code{\link{print.CatTable}},  \code{\link{summary.CatTable}}
 }
-
+\author{
+Kazuki Yoshida (based on \code{Deducer::frequencies()})
+}

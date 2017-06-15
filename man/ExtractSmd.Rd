@@ -20,10 +20,9 @@ Extracts standardized mean differences data as a vector or matrix from a (svy)Ta
 ## See examples for CreateTableOne and svyCreateTableOne
 
 }
-\author{
-Kazuki Yoshida
-}
 \seealso{
 \code{\link{CreateTableOne}}, \code{\link{svyCreateTableOne}}
 }
-
+\author{
+Kazuki Yoshida
+}

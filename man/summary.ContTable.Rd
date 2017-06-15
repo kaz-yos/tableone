@@ -24,10 +24,9 @@ Shows all data a \code{ContTable} class object has. This includes the (optionall
 ## See examples for CreateTableOne
 
 }
-\author{
-Kazuki Yoshida
-}
 \seealso{
 \code{\link{CreateTableOne}}, \code{\link{CreateContTable}}, \code{\link{print.ContTable}}
 }
-
+\author{
+Kazuki Yoshida
+}
