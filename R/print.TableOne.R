@@ -19,6 +19,7 @@
 ##' @param exact A character vector to specify the variables for which the p-values should be those of exact tests. By default all p-values are from large sample approximation tests (chisq.test).
 ##' @param nonnormal A character vector to specify the variables for which the p-values should be those of nonparametric tests. By default all p-values are from normal assumption-based tests (oneway.test).
 ##' @param minMax Whether to use [min,max] instead of [p25,p75] for nonnormal variables. The default is FALSE.
+##' @param padColnames Whether to pad column names with spaces to center justify.
 ##' @param ... For compatibility with generic. Ignored.
 ##' @return A matrix object containing what you see is also invisibly returned. This can be assinged a name and exported via \code{write.csv}.
 ##' @author Kazuki Yoshida, Justin Bohn
@@ -131,7 +132,10 @@ function(x,                   # TableOne object
         names(dimnames(out)) <- c("", "")
     }
 
-    out <- ModuleMidJustifyColnames(mat = out)
+    ## Center-justify column names if asked and not removing spaces.
+    if (padColnames & !noSpaces) {
+        out <- ModuleMidJustifyColnames(mat = out)
+    }
 
     ## Remove spaces if asked.
     out <- ModuleRemoveSpaces(mat = out, noSpaces = noSpaces)
