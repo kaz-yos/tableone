@@ -1,4 +1,4 @@
-Unit tests for the CreateTableOne function: ..................                      Stratified by trt
+Unit tests for the CreateTableOne function: .......................                      Stratified by trt
                        1                 2                 p      test
   n                        158               154                      
   time (mean (sd))     2015.62 (1094.12) 1996.86 (1155.93)  0.883     
@@ -1837,7 +1837,7 @@ day         -0.06464 [-0.07905, -0.05022]  -8.807
 trt         0.82903 [0.70232, 0.97777]  0.026
 day         0.96758 [0.94787, 0.98762]  0.002
 ..
-Unit tests for svy* user functions: ............                Stratified by E
+Unit tests for svy* user functions: .................                Stratified by E
                  1              2              3              p      test
   n              150.01         150.00         150.00                    
   E (mean (sd))    1.00 (0.00)    2.00 (0.00)    3.00 (0.00)  <0.001     
@@ -2661,6 +2661,6 @@ C1      NaN      NaN      0      0      0
 ..
 
 Warnings ---------------------------------------------------------------------------------------------------------------
-1. svyrep.design is allowed (@test-svyCreateTableOne.R#468) - No sampling weights provided: equal probability assumed
+1. svyrep.design is allowed (@test-svyCreateTableOne.R#486) - No sampling weights provided: equal probability assumed
 
 DONE ===================================================================================================================
