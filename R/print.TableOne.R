@@ -57,7 +57,7 @@ function(x,                   # TableOne object
     ## Extract Cont/CatTable elements of x and dispatch print() appropriately
     FmtTables <- ModuleFormatTables(x,
                                     catDigits = catDigits, contDigits = contDigits,
-                                    test = test, smd = smd,
+                                    test = test, smd = smd, missing = missing,
                                     explain = explain, pDigits = pDigits,
 
                                     ## print.CatTable arguments passed

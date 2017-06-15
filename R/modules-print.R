@@ -582,8 +582,8 @@ ModuleAddSpacesToTable <- function(FmtElementTables, nSpacesToAdd, showAllLevels
 
 ## Extract Cont/CatTable elements of x and dispatch print() appropriately
 ModuleFormatTables <- function(x, catDigits, contDigits,
-                               ## Generic argumetns passed
-                               test, smd,
+                               ## Generic arguments passed
+                               test, smd, missing,
                                explain, pDigits,
                                ## print.CatTable arguments passed
                                format, exact,
@@ -628,7 +628,7 @@ ModuleFormatTables <- function(x, catDigits, contDigits,
 
                      ## The rests are just passed
                      ## generic arguments passed
-                     test = test, smd = smd,
+                     test = test, smd = smd, missing = missing,
                      explain = explain, pDigits = pDigits,
 
                      ## print.CatTable arguments passed
