@@ -131,6 +131,8 @@ function(x,                   # TableOne object
         names(dimnames(out)) <- c("", "")
     }
 
+    out <- ModuleMidJustifyColnames(mat = out)
+
     ## Remove spaces if asked.
     out <- ModuleRemoveSpaces(mat = out, noSpaces = noSpaces)
 

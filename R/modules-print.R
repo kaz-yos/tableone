@@ -139,6 +139,40 @@ ModuleReturnDimHeaders <- function(TableObject) {
 }
 
 
+## Module to mid justify column names considering max width
+ModuleMidJustifyColnames <- function(mat) {
+
+    ## Extract column names
+    colNames <- colnames(mat)
+
+    ## Widths of column names
+    widthsColNames <- nchar(colNames)
+
+    ## Obtain max width for each column
+    maxWidths <- unlist(lapply(seq_len(ncol(mat)), function(i) {
+        max(nchar(mat[,i]))
+    }))
+
+    ## Half of the difference should be padded to the left.
+    nPads <- ceiling((maxWidths - widthsColNames) / 2)
+    ## Do not allow negative numbers
+    nPads <- nPads * as.numeric(nPads >= 0)
+
+    ## Create a vector of padding spaces
+    pads <- unlist(lapply(nPads, function(n) {
+        ifelse(n > 0,
+               paste0(rep(" ", n), collapse = ""),
+               "")
+    }))
+
+    ## Manipulate
+    colnames(mat) <- paste0(pads, colNames)
+
+    ## Return matrix
+    mat
+}
+
+
 ## Module to remove spaces from the result matrix
 ModuleRemoveSpaces <- function(mat, noSpaces) {
 
