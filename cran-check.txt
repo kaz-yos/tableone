@@ -3,7 +3,7 @@
 * checking DESCRIPTION meta-information ... OK
 * checking for LF line-endings in source and make files
 * checking for empty or unneeded directories
-* building ‘tableone_0.8.0.tar.gz’
+* building ‘tableone_0.8.1.tar.gz’
 * using log directory ‘/Users/kazuki/Documents/programming/r/tableone/tableone.Rcheck’
 * using R version 3.4.0 (2017-04-21)
 * using platform: x86_64-apple-darwin15.6.0 (64-bit)
@@ -11,7 +11,7 @@
 * using option ‘--as-cran’
 * checking for file ‘tableone/DESCRIPTION’ ... OK
 * checking extension type ... Package
-* this is package ‘tableone’ version ‘0.8.0’
+* this is package ‘tableone’ version ‘0.8.1’
 * checking package namespace information ... OK
 * checking package dependencies ... OK
 * checking if this is a source package ... OK

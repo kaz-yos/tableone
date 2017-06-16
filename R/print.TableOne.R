@@ -133,6 +133,11 @@ function(x,                   # TableOne object
         names(dimnames(out)) <- c("", "")
     }
 
+    ## Right-justify Missing column if showing and not removing spaces.
+    if (missing & !noSpaces) {
+        out[,"Missing"] <- format(out[,"Missing"], justify = "right")
+    }
+
     ## Center-justify column names if asked and not removing spaces.
     if (padColnames & !noSpaces) {
         out <- ModuleMidJustifyColnames(mat = out)
