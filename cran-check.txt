@@ -1,11 +1,11 @@
 * using log directory ‘/Users/kazuki/Documents/programming/r/tableone/tableone.Rcheck’
-* using R version 3.3.0 (2016-05-03)
-* using platform: x86_64-apple-darwin13.4.0 (64-bit)
+* using R version 3.4.0 (2017-04-21)
+* using platform: x86_64-apple-darwin15.6.0 (64-bit)
 * using session charset: UTF-8
 * using option ‘--as-cran’
 * checking for file ‘tableone/DESCRIPTION’ ... OK
 * checking extension type ... Package
-* this is package ‘tableone’ version ‘0.7.6’
+* this is package ‘tableone’ version ‘0.8.0’
 * checking CRAN incoming feasibility ... NOTE
 Maintainer: ‘Kazuki Yoshida <kazukiyoshida@mail.harvard.edu>’
 
@@ -48,11 +48,13 @@ Package has a VignetteBuilder field but no prebuilt vignette index.
 * checking Rd \usage sections ... OK
 * checking Rd contents ... OK
 * checking for unstated dependencies in examples ... OK
-* checking files in ‘vignettes’ ... OK
+* checking files in ‘vignettes’ ... WARNING
+Files in the 'vignettes' directory but no files in 'inst/doc':
+  ‘introduction.Rmd’, ‘smd.Rmd’
 * checking examples ... OK
 * checking for unstated dependencies in ‘tests’ ... OK
 * checking tests ...
  OK
 * checking PDF version of manual ... OK
 * DONE
-Status: 1 NOTE
+Status: 1 WARNING, 1 NOTE

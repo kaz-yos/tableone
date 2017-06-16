@@ -1,7 +1,7 @@
 
-R version 3.3.0 (2016-05-03) -- "Supposedly Educational"
-Copyright (C) 2016 The R Foundation for Statistical Computing
-Platform: x86_64-apple-darwin13.4.0 (64-bit)
+R version 3.4.0 (2017-04-21) -- "You Stupid Darkness"
+Copyright (C) 2017 The R Foundation for Statistical Computing
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -2941,6 +2941,8 @@ detaching ‘package:survival’
 > library(tableone)
 > library(survey)
 Loading required package: grid
+Loading required package: Matrix
+Loading required package: survival
 
 Attaching package: ‘survey’
 
@@ -3163,9 +3165,9 @@ _U_s_a_g_e:
      ## S3 method for class 'TableOne'
      print(x, catDigits = 1, contDigits = 2, pDigits = 3,
        quote = FALSE, missing = FALSE, explain = TRUE, printToggle = TRUE,
-       test = TRUE, smd = FALSE, noSpaces = FALSE, format = c("fp", "f", "p",
-       "pf")[1], showAllLevels = FALSE, cramVars = NULL, exact = NULL,
-       nonnormal = NULL, minMax = FALSE, ...)
+       test = TRUE, smd = FALSE, noSpaces = FALSE, padColnames = FALSE,
+       format = c("fp", "f", "p", "pf")[1], showAllLevels = FALSE,
+       cramVars = NULL, exact = NULL, nonnormal = NULL, minMax = FALSE, ...)
      
 _A_r_g_u_m_e_n_t_s:
 
@@ -3183,8 +3185,7 @@ contDigits: Number of digits to print for continuous variables. Default
           If TRUE, everything including the row and column names are
           quoted so that you can copy it to Excel easily.
 
- missing: Whether to show missing data information (not implemented
-          yet, placeholder)
+ missing: Whether to show missing data information.
 
  explain: Whether to add explanation to the variable names, i.e., (%)
           is added to the variable names when percentage is shown.
@@ -3202,6 +3203,9 @@ printToggle: Whether to print the output. If FLASE, no output is
 
 noSpaces: Whether to remove spaces added for alignment. Use this option
           if you prefer to align numbers yourself in other software.
+
+padColnames: Whether to pad column names with spaces to center justify.
+          The default is FALSE. It is not conducted if noSpaces = TRUE.
 
   format: The default is "fp" frequency (percentage). You can also
           choose from "f" frequency only, "p" percentage only, and "pf"
@@ -3285,7 +3289,8 @@ _E_x_a_m_p_l_e_s:
 > base::cat("svyCreateTableOne", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 
-detaching ‘package:survey’, ‘package:grid’
+detaching ‘package:survey’, ‘package:survival’, ‘package:Matrix’,
+  ‘package:grid’
 
 > nameEx("tableone-package")
 > ### * tableone-package
@@ -3295,7 +3300,7 @@ detaching ‘package:survey’, ‘package:grid’
 > base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: tableone-package
 > ### Title: Create "Table 1" to describe baseline characteristics
-> ### Aliases: tableone tableone-package
+> ### Aliases: tableone-package tableone
 > 
 > ### ** Examples
 > 
@@ -3311,7 +3316,7 @@ detaching ‘package:survey’, ‘package:grid’
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  5.334 0.2 5.632 0.004 0.007 
+Time elapsed:  8.205 0.282 9.907 0.005 0.005 
 > grDevices::dev.off()
 null device 
           1 
