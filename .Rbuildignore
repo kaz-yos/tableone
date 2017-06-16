@@ -8,6 +8,7 @@ cran-comment.md
 
 ## Avoid Makefile, testing-related files, and archives
 Makefile
+revdep
 revdep_check.txt
 tableone.Rcheck
 .*.tar.gz
