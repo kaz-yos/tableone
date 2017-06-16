@@ -45,7 +45,8 @@ build: $(PKG_NAME)_$(PKG_VERSION).tar.gz
 ## (file target) The *.tar.gz file depends on package files including NAMESPACE,
 ## and build *.tar.gz file from these.
 $(PKG_NAME)_$(PKG_VERSION).tar.gz: $(PKG_FILES)
-	R CMD build ../${PKG_NAME}
+	cp -a ${VIG_FILES} inst/doc/
+	Rscript -e "devtools::build(pkg = '.', path = '.', manual = TRUE)"
 
 ## (file target) NAMESPACE depends on *.R files, and excecute roxygen2 on these.
 ## methods::is() is not automatically loaded by roxygen2 version 4
@@ -54,20 +55,20 @@ NAMESPACE: $(R_FILES)
 
 ## check requires the *.tar.gz file, and execute strict tests on it.
 check: $(PKG_NAME)_$(PKG_VERSION).tar.gz
-	R CMD check --as-cran ./$(PKG_NAME)_$(PKG_VERSION).tar.gz | tee cran-check.txt
+	Rscript -e "options(width = 120); devtools::check(pkg = '.', check_dir = '.', manual = TRUE)" | tee cran-check.txt
 
 ## revdep requires the *.tar.gz file, and execute strict tests on it.
 revdep: $(PKG_NAME)_$(PKG_VERSION).tar.gz
-	Rscript -e "devtools::revdep_check()" | tee revdep_check.txt
+	Rscript -e "options(width = 120); devtools::revdep_check()" | tee revdep_check.txt
 
 ## install requires the *.tar.gz file, and execute installation using it.
 install: $(PKG_NAME)_$(PKG_VERSION).tar.gz
-	R CMD install ./$(PKG_NAME)_$(PKG_VERSION).tar.gz
+	Rscript -e "devtools::install('.')"
 
 
 ## clean has no dependency, and execute removal of make output files.
 clean:
-	-rm    -f $(PKG_NAME)_*.tar.gz
+	-rm    -f $(PKG_NAME)_$(PKG_VERSION).tar.gz
 	-rm -r -f $(PKG_NAME).Rcheck
 	-rm -r -f man/*.Rd
 	-rm -r -f NAMESPACE
