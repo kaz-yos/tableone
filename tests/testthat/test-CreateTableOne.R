@@ -197,6 +197,21 @@ test_that("Missing percentages are correctly stored and printed", {
     expect_equal(DropEmptyString(print(pbcByTrtSex, missing = TRUE)[,"Missing"]),
                  percentMissingString)
 
+    ## Regression test for missing column
+    ## This corner case breaks alignment.
+    data(pbc)
+    vars <- names(pbc)[-1]
+    ## Create Table 1 stratified by trt (can add more stratifying variables)
+    tableOne <- CreateTableOne(vars = vars, strata = c("trt"), data = pbc,
+                               factorVars = c("status","edema","stage"))
+    ## Specifying nonnormal variables will show the variables appropriately,
+    ## and show nonparametric test p-values. Specify variables in the exact
+    ## argument to obtain the exact test p-values.
+    expect_equal_to_reference(print(tableOne, nonnormal = c("bili","chol","copper","alk.phos","trig"),
+                                    exact = c("status","stage"), test = FALSE, smd = TRUE, missing = TRUE,
+                                    printToggle = TRUE),
+                              "ref-TableOne_print_missing")
+
 })
 
 
