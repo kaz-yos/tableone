@@ -182,10 +182,13 @@ test_that("Missing percentages are correctly stored and printed", {
     ## Check printing
     ## Gold standard
     percentMissingString <- format(sprintf("%.1f", percentMissing), justify = "right")
-    ## Function to drop empty "" elements.
+    ## Function to drop empty elements like "" or "   ".
     DropEmptyString <- function(x) {
         ## as.character() drops names.
-        as.character(Filter(f = function(elt) {!(elt == "")}, x = x))
+        as.character(Filter(f = function(elt) {
+            !grepl("^ *$", elt)
+        },
+        x = x))
     }
     ## Check against gold standard
     expect_equal(DropEmptyString(print(pbcOverall, missing = TRUE)[,"Missing"]),
