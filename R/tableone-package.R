@@ -6,8 +6,8 @@
 ##' @aliases tableone-package tableone
 ##' @docType package
 ##' @import survey
-##' @importFrom stats as.formula chisq.test coef confint fisher.test kruskal.test median oneway.test quantile sd var xtabs
-##' @importFrom utils combn
+##' @importFrom stats as.formula chisq.test coef confint fisher.test kruskal.test median oneway.test quantile sd var xtabs qnorm vcov
+##' @importFrom utils combn tail
 ##' @note Acknowledgement:
 ##'
 ##' Ian Fellows for developing the \code{deducer} package, which this package is based on.

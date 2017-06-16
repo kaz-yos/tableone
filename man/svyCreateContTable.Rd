@@ -38,10 +38,9 @@ Create an object summarizing continous variables optionally stratifying by one o
 ## See the examples for svyCreateTableOne()
 
 }
-\author{
-Kazuki Yoshida
-}
 \seealso{
 \code{\link{svyCreateTableOne}}, \code{\link{print.svyContTable}}, \code{\link{summary.svyContTable}},
 }
-
+\author{
+Kazuki Yoshida
+}

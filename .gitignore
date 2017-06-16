@@ -5,3 +5,4 @@
 *.Rhistory
 *.tar.gz
 *.Rcheck
+revdep

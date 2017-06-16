@@ -6,7 +6,7 @@
 ##' @param digits Number of digits to print in the table.
 ##' @param pDigits Number of digits to print for p-values (also used for standardized mean differences).
 ##' @param quote Whether to show everything in quotes. The default is FALSE. If TRUE, everything including the row and column names are quoted so that you can copy it to Excel easily.
-##' @param missing Whether to show missing data information (not implemented yet, placeholder)
+##' @param missing Whether to show missing data information.
 ##' @param explain Whether to add explanation to the variable names, i.e., (\%) is added to the variable names when percentage is shown.
 ##' @param printToggle Whether to print the output. If FLASE, no output is created, and a matrix is invisibly returned.
 ##' @param noSpaces Whether to remove spaces added for alignment. Use this option if you prefer to align numbers yourself in other software.
@@ -254,6 +254,17 @@ function(x,                        # CatTable object
         out[logiNonEmptyRowNames,"SMD"] <-
         ModuleFormatPValues(attr(CatTable, "smd")[,1],
                             pDigits = pDigits)
+    }
+
+
+    ## Add percentMissing when requested and available
+    if (missing & !is.null(attr(CatTable, "percentMissing"))) {
+
+        ## Create an empty column
+        out <- cbind(out,
+                     Missing = rep("", nrow(out))) # Column for p-values
+        ## Put the values at the non-empty positions
+        out[logiNonEmptyRowNames,"Missing"] <- ModuleFormatPercents(attr(CatTable, "percentMissing"), 1)
     }
 
 

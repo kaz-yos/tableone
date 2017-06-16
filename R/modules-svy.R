@@ -36,7 +36,7 @@ FormulaString <- function(vars) {
 ## Check for survey data; fail if not
 StopIfNotSurveyDesign <- function(data) {
 
-    if (!("survey.design2" %in% class(data))) {
+    if (!any(c("svyrep.design", "survey.design2", "survey.design") %in% class(data))) {
         stop("The data argument needs to be a survey design object.")
     }
 

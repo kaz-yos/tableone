@@ -5,21 +5,24 @@
 ## Author: Kazuki Yoshida
 ################################################################################
 
+###
 ### Structure
 ## expectations within tests within context
 
+###
 ### Prepare environment
 ################################################################################
 library(testthat)
 library(survey)
 
 
+###
 ### Context (1 for each file)
 ################################################################################
 context("Unit tests for svy* user functions")
 
 
-
+###
 ### Provide data
 ################################################################################
 
@@ -50,6 +53,7 @@ vars <- c("E", "C", "Y", "C1", "C2")
 factorVars <- c("Y","C1")
 
 
+###
 ### Tests
 ################################################################################
 ## A test should group together expectations for one functionality.
@@ -114,6 +118,42 @@ test_that("svyTableOne objects are always returned", {
     expect_equal(class(mwByEC1),         c("svyTableOne","TableOne"))
     expect_equal(class(mwContOnlyByEC1), c("svyTableOne","TableOne"))
     expect_equal(class(mwCatOnlyByEC1),  c("svyTableOne","TableOne"))
+
+})
+
+
+test_that("Missing percentages are correctly stored and printed", {
+
+    ## Extract from dataset
+    percentMissing <- unlist(lapply(datMw[vars], function(x) {sum(is.na(x)) / length(x) * 100}))
+    ## Sanity check for the standard.
+    expect_equal(length(percentMissing), length(vars))
+
+    ## Unstratified table
+    expect_equal(mwOverall$MetaData$percentMissing, percentMissing)
+    ## Including NA as a category should not matter.
+    expect_equal(mwInclNa$MetaData$percentMissing, percentMissing)
+    ## Stratification should not matter
+    expect_equal(mwByE$MetaData$percentMissing, percentMissing)
+    expect_equal(mwByEC1$MetaData$percentMissing, percentMissing)
+
+    ## Check printing
+    ## Gold standard
+    percentMissingString <- format(sprintf("%.1f", percentMissing), justify = "right")
+    ## Function to drop empty "" elements.
+    DropEmptyString <- function(x) {
+        ## as.character() drops names.
+        as.character(Filter(f = function(elt) {!(elt == "")}, x = x))
+    }
+    ## Check against gold standard
+    expect_equal(DropEmptyString(print(mwOverall, missing = TRUE)[,"Missing"]),
+                 percentMissingString)
+    expect_equal(DropEmptyString(print(mwInclNa, missing = TRUE)[,"Missing"]),
+                 percentMissingString)
+    expect_equal(DropEmptyString(print(mwByE, missing = TRUE)[,"Missing"]),
+                 percentMissingString)
+    expect_equal(DropEmptyString(print(mwByEC1, missing = TRUE)[,"Missing"]),
+                 percentMissingString)
 
 })
 
@@ -442,5 +482,42 @@ test_that("summary method works without errors", {
     summary(mwCatOnlyByEC1)
     expect_output(summary(mwCatOnlyByEC1),
                   "Standardize mean differences")
+
+})
+
+
+test_that("svyrep.design is allowed", {
+
+###  Replication weight data
+    ## http://www.ats.ucla.edu/stat/stata/library/replicate_weights.htm
+    ## http://r-survey.r-forge.r-project.org/survey/html/svrepdesign.html
+
+    ## Survival in cardiac arrest (in survey)
+    data(scd)
+    scd
+
+    ## use BRR replicate weights from Levy and Lemeshow
+    repweights <- 2 * cbind(c(1,0,1,0,1,0),
+                            c(1,0,0,1,0,1),
+                            c(0,1,1,0,0,1),
+                            c(0,1,0,1,1,0))
+    scdrep <- svrepdesign(data = scd, type = "BRR", repweights = repweights, combined.weights = FALSE)
+
+    ## Standard construction
+    ans_means <- svyby(formula = ~ alive, by = ~ ESA, design = scdrep, FUN = svymean)[,2]
+    ans_sds   <- sqrt(svyby(formula = ~ alive, by = ~ ESA, design = scdrep, FUN = svyvar)[,2])
+    ans_props <- svyby(formula = ~ I(ambulance - 1), by = ~ ESA, design = scdrep, FUN = svymean)[,2]
+
+    ## Table construction
+    tab1 <- svyCreateTableOne(vars = c("alive", "ambulance"), strata = c("ESA"),
+                              factorVars = "ambulance", data = scdrep)
+    tab1_print <- print(tab1, format = "p")
+
+    ## Expectations
+    expect_equal(as.character(tab1_print[2, 1:3]),
+                 sprintf("%.2f (%.2f)", ans_means, ans_sds))
+
+    expect_equal(as.character(gsub(" ", "", tab1_print[3, 1:3])),
+                 sprintf("%.1f", ans_props * 100))
 
 })

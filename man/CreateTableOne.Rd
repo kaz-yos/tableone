@@ -17,7 +17,7 @@ CreateTableOne(vars, strata, data, factorVars, includeNA = FALSE,
 
 \item{data}{A data frame in which these variables exist. All variables (both vars and strata) must be in this data frame.}
 
-\item{factorVars}{Numerically coded variables that should be handled as categorical variables given as a character vector. If omitted, only factors are considered categorical variables. If all categorical variables in the dataset are already factors, this option is not necessary. The variables specified here must also be specified in the \code{vars} argument.}
+\item{factorVars}{Numerically coded variables that should be handled as categorical variables given as a character vector. Do not include factors, unless you need to relevel them by removing empty levels. If omitted, only factors are considered categorical variables. The variables specified here must also be specified in the \code{vars} argument.}
 
 \item{includeNA}{If TRUE, NA is handled as a regular factor level rather than missing. NA is shown as the last factor level in the table. Only effective for categorical variables.}
 
@@ -116,9 +116,6 @@ print(tableOne, nonnormal = c("bili","chol","copper","alk.phos","trig"),
 ExtractSmd(tableOne)
 
 }
-\author{
-Kazuki Yoshida, Justin Bohn
-}
 \references{
 Flury, BK. and Riedwyl, H. (1986). Standard distance in univariate and multivariate analysis. \emph{The American Statistician}, \bold{40}, 249-251.
 
@@ -133,4 +130,6 @@ Austin, PC. and Stuart, EA. (2015). Moving towards best practice when using inve
 \seealso{
 \code{\link{print.TableOne}}, \code{\link{summary.TableOne}}
 }
-
+\author{
+Kazuki Yoshida, Justin Bohn
+}

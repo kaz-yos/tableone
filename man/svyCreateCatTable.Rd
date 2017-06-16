@@ -35,10 +35,9 @@ Create an object summarizing categorical variables optionally stratifying by one
 ## See the examples for svyCreateTableOne()
 
 }
-\author{
-Kazuki Yoshida
-}
 \seealso{
 \code{\link{svyCreateTableOne}}, \code{\link{print.svyCatTable}}, \code{\link{summary.svyCatTable}},
 }
-
+\author{
+Kazuki Yoshida
+}

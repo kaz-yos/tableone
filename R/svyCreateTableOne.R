@@ -3,18 +3,14 @@
 ##' Create an object summarizing all baseline variables (both continuous and categorical) optionally stratifying by one or more startifying variables and performing statistical tests. The object gives a table that is easy to use in medical research papers.
 ##'
 ##' @param vars Variables to be summarized given as a character vector. Factors are handled as categorical variables, whereas numeric variables are handled as continuous variables. If empty, all variables in the survey design object specified in the data argument are used.
-##' @param strata Stratifying (grouping) variable name(s) given as a character vector. If omitted, the overall results are returned.
+##' @inheritParams CreateTableOne
 ##' @param data A survey design object in which these variables exist. All variables (both vars and strata) must be in this survey design object. It is created with the \code{svydesign} function in the \code{survey} package.
-##' @param factorVars Numerically coded variables that should be handled as categorical variables given as a character vector. If omitted, only factors are considered categorical variables. If all categorical variables in the dataset are already factors, this option is not necessary. The variables specified here must also be specified in the \code{vars} argument.
-##' @param includeNA If TRUE, NA is handled as a regular factor level rather than missing. NA is shown as the last factor level in the table. Only effective for categorical variables.
-##' @param test If TRUE, as in the default and there are more than two groups, groupwise comparisons are performed.
 ##' @param testNormal A function used to perform the normal assumption based tests. The default is multiple degrees of freedom test using \code{svyglm} and \code{regTermTest}. This is equivalent of the \code{svyttest} when there are only two groups.
 ##' @param argsNormal A named list of arguments passed to the function specified in \code{testNormal}.
 ##' @param testNonNormal A function used to perform the nonparametric tests. The default is \code{svyranktest}.
 ##' @param argsNonNormal A named list of arguments passed to the function specified in \code{testNonNormal}.
 ##' @param testApprox A function used to perform the large sample approximation based tests. The default is \code{svychisq}.
 ##' @param argsApprox A named list of arguments passed to the function specified in testApprox.
-##' @param smd If TRUE, as in the default and there are more than two groups, standardized mean differences for all pairwise comparisons are calculated.
 ##'
 ##' @details See the details for \code{\link{CreateTableOne}}.
 ##'
@@ -119,6 +115,9 @@ function(vars,                                   # character vector of variable 
     test <- ModuleReturnFalseIfNoStrata(strata, test)
     smd  <- ModuleReturnFalseIfNoStrata(strata, smd)
 
+    ## Get the missing percentage for each variable (no strata).
+    percentMissing <- ModulePercentMissing(data$variables[vars])
+
     ## Get the classes of the variables
     varClasses  <- lapply(data$variables[vars], class)
 
@@ -214,7 +213,9 @@ function(vars,                                   # character vector of variable 
                                             logiFactors = logiFactors,
                                             ## names of vars of each type
                                             varFactors  = varFactors,
-                                            varNumerics = varNumerics))
+                                            varNumerics = varNumerics,
+                                            ## Missing data percentage for each variable (no strata).
+                                            percentMissing = percentMissing))
 
     ## Give a class
     class(TableOneObject) <- c("svyTableOne", "TableOne")

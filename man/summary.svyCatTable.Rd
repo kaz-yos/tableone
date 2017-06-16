@@ -24,10 +24,9 @@ Shows all data a \code{svyCatTable} class object has. This includes the (optiona
 ## See the examples for svyCreateTableOne()
 
 }
-\author{
-Kazuki Yoshida
-}
 \seealso{
 \code{\link{svyCreateTableOne}}, \code{\link{svyCreateCatTable}},  \code{\link{print.svyCatTable}}
 }
-
+\author{
+Kazuki Yoshida
+}

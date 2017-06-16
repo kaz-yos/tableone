@@ -97,10 +97,9 @@ print(contTableBySexTrt, nonnormal = nonNormalVars, quote = TRUE)
 print(contTableBySexTrt, nonnormal = nonNormalVars, quote = TRUE, noSpaces = TRUE)
 
 }
-\author{
-Kazuki Yoshida (based on \code{Deducer::descriptive.table()})
-}
 \seealso{
 \code{\link{CreateTableOne}}, \code{\link{print.ContTable}}, \code{\link{summary.ContTable}}
 }
-
+\author{
+Kazuki Yoshida (based on \code{Deducer::descriptive.table()})
+}

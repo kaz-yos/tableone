@@ -64,6 +64,17 @@ ModuleCreateStrataNames <- function(TableObject) {
 }
 
 
+## Percentage formatter
+ModuleFormatPercents <- function(percents, digits) {
+
+    fmt <- paste0("%.", digits, "f")
+    out <- sprintf(fmt = fmt, percents)
+
+    ## right justify by adding spaces
+    format(out, justify = "right")
+}
+
+
 ## p-value formatter
 ModuleFormatPValues <- function(pValues, pDigits) {
 
@@ -125,6 +136,40 @@ ModuleReturnDimHeaders <- function(TableObject) {
 
     ## Return the dim header a vector of length 2
     return(dimHeaders)
+}
+
+
+## Module to mid justify column names considering max width
+ModuleMidJustifyColnames <- function(mat) {
+
+    ## Extract column names
+    colNames <- colnames(mat)
+
+    ## Widths of column names
+    widthsColNames <- nchar(colNames)
+
+    ## Obtain max width for each column
+    maxWidths <- unlist(lapply(seq_len(ncol(mat)), function(i) {
+        max(nchar(mat[,i]))
+    }))
+
+    ## Half of the difference should be padded to the left.
+    nPads <- ceiling((maxWidths - widthsColNames) / 2)
+    ## Do not allow negative numbers
+    nPads <- nPads * as.numeric(nPads >= 0)
+
+    ## Create a vector of padding spaces
+    pads <- unlist(lapply(nPads, function(n) {
+        ifelse(n > 0,
+               paste0(rep(" ", n), collapse = ""),
+               "")
+    }))
+
+    ## Manipulate
+    colnames(mat) <- paste0(pads, colNames)
+
+    ## Return matrix
+    mat
 }
 
 
@@ -582,8 +627,8 @@ ModuleAddSpacesToTable <- function(FmtElementTables, nSpacesToAdd, showAllLevels
 
 ## Extract Cont/CatTable elements of x and dispatch print() appropriately
 ModuleFormatTables <- function(x, catDigits, contDigits,
-                               ## Generic argumetns passed
-                               test, smd,
+                               ## Generic arguments passed
+                               test, smd, missing,
                                explain, pDigits,
                                ## print.CatTable arguments passed
                                format, exact,
@@ -628,7 +673,7 @@ ModuleFormatTables <- function(x, catDigits, contDigits,
 
                      ## The rests are just passed
                      ## generic arguments passed
-                     test = test, smd = smd,
+                     test = test, smd = smd, missing = missing,
                      explain = explain, pDigits = pDigits,
 
                      ## print.CatTable arguments passed

@@ -5,7 +5,7 @@
 ##' @param vars Variables to be summarized given as a character vector. Factors are handled as categorical variables, whereas numeric variables are handled as continuous variables. If empty, all variables in the data frame specified in the data argument are used.
 ##' @param strata Stratifying (grouping) variable name(s) given as a character vector. If omitted, the overall results are returned.
 ##' @param data A data frame in which these variables exist. All variables (both vars and strata) must be in this data frame.
-##' @param factorVars Numerically coded variables that should be handled as categorical variables given as a character vector. If omitted, only factors are considered categorical variables. If all categorical variables in the dataset are already factors, this option is not necessary. The variables specified here must also be specified in the \code{vars} argument.
+##' @param factorVars Numerically coded variables that should be handled as categorical variables given as a character vector. Do not include factors, unless you need to relevel them by removing empty levels. If omitted, only factors are considered categorical variables. The variables specified here must also be specified in the \code{vars} argument.
 ##' @param includeNA If TRUE, NA is handled as a regular factor level rather than missing. NA is shown as the last factor level in the table. Only effective for categorical variables.
 ##' @param test If TRUE, as in the default and there are more than two groups, groupwise comparisons are performed.
 ##' @param testNormal A function used to perform the normal assumption based tests. The default is \code{oneway.test}. This is equivalent of the t-test when there are only two groups.
@@ -141,6 +141,9 @@ function(vars,                                      # character vector of variab
     test <- ModuleReturnFalseIfNoStrata(strata, test)
     smd  <- ModuleReturnFalseIfNoStrata(strata, smd)
 
+    ## Get the missing percentage for each variable (no strata).
+    percentMissing <- ModulePercentMissing(data[vars])
+
     ## Get the classes of the variables
     varClasses  <- lapply(data[vars], class)
 
@@ -238,7 +241,9 @@ function(vars,                                      # character vector of variab
                                             logiFactors = logiFactors,
                                             ## names of vars of each type
                                             varFactors  = varFactors,
-                                            varNumerics = varNumerics))
+                                            varNumerics = varNumerics,
+                                            ## Missing data percentage for each variable (no strata).
+                                            percentMissing = percentMissing))
 
     ## Give a class
     class(TableOneObject) <- "TableOne"

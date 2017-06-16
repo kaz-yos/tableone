@@ -19,7 +19,7 @@
 
 \item{quote}{Whether to show everything in quotes. The default is FALSE. If TRUE, everything including the row and column names are quoted so that you can copy it to Excel easily.}
 
-\item{missing}{Whether to show missing data information (not implemented yet, placeholder)}
+\item{missing}{Whether to show missing data information.}
 
 \item{explain}{Whether to add explanation to the variable names, i.e., (\%) is added to the variable names when percentage is shown.}
 
@@ -54,10 +54,9 @@ A matrix object containing what you see is also invisibly returned. This can be 
 ## See the examples for svyCreateTableOne()
 
 }
-\author{
-Kazuki Yoshida
-}
 \seealso{
 \code{\link{svyCreateTableOne}}, \code{\link{svyCreateCatTable}}, \code{\link{summary.svyCatTable}}
 }
-
+\author{
+Kazuki Yoshida
+}

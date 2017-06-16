@@ -320,3 +320,13 @@ ModuleApproxExactTests <- function(result, strata, dat, strataVarName,
     ## Return both xtabs and p value df
     list(pValues = pValues, xtabs = listXtabs)
 }
+
+
+###
+### Module for marginal missing percentage handling
+################################################################################
+
+## Returns a vector of missing percentage given data frame
+ModulePercentMissing <- function(data) {
+    unlist(lapply(data, function(x) {sum(is.na(x)) / length(x) * 100}))
+}
