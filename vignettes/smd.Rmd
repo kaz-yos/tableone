@@ -1,11 +1,10 @@
 ---
-title: "Using standardized mean differences"
 author: "Kazuki Yoshida"
 date: "2015-08-07"
 output: rmarkdown::html_vignette
 vignette: >
+  %\VignetteEngine{knitr::knitr}
   %\VignetteIndexEntry{Using standardized mean differences}
-  %\VignetteEngine{knitr::rmarkdown}
   %\usepackage[utf8]{inputenc}
 ---
 
