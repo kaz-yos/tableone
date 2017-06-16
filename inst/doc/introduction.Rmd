@@ -1,11 +1,12 @@
 ---
+title: "Introduction to tableone"
 author: "Kazuki Yoshida"
 date: "2014-12-28"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteEngine{knitr::knitr}
   %\VignetteIndexEntry{Introduction to tableone}
-  %\usepackage[utf8]{inputenc}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
 ---
 
 ```{r, message = FALSE, tidy = FALSE, echo = F}
