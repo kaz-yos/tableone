@@ -1,10 +1,14 @@
-tableone 0.8.1 (2017-06-16)
+tableone 0.8.1 (2017-06-17)
 ----------------------------------------------------------------
 
-BUG FIX
+BUG FIXES
 
 * Fix alignment issue with the Missing column. Note currently the
   percentage is shown with 1 decimal and this is hard-coded.
+
+* Change vignetteBuilder to knitr to form the index correctly.
+
+* Single-quote package names in DESCRIPTION.
 
 
 tableone 0.8.0 (2017-06-15)
