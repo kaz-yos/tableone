@@ -152,7 +152,7 @@ addmargins(table(ExtractSmd(tabMatched) > 0.1))
 
 ## Propensity score matching weight
 
-The matching weight method is a weighting analogue to the 1:1 pairwise algorithmic matching (http://www.ncbi.nlm.nih.gov/pubmed/23902694 ). An earlier version of the paper is available free (http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.359.4724&rep=rep1&type=pdf ). The matching weight is defined as the smaller of the predicted probabilities of receiving or not receiving the treatment over the predicted probability of being assigned to the arm the patient is actually in. After weighting, all the standardized mean differences are below 0.1. The standardized mean differences in weighted data are explained in http://onlinelibrary.wiley.com/doi/10.1002/sim.6607/full .
+The matching weight method is a weighting analogue to the 1:1 pairwise algorithmic matching (http://www.ncbi.nlm.nih.gov/pubmed/23902694 ). The matching weight is defined as the smaller of the predicted probabilities of receiving or not receiving the treatment over the predicted probability of being assigned to the arm the patient is actually in. After weighting, all the standardized mean differences are below 0.1. The standardized mean differences in weighted data are explained in http://onlinelibrary.wiley.com/doi/10.1002/sim.6607/full .
 
 ```{r}
 
@@ -254,5 +254,5 @@ print(resTogether, quote = FALSE)
 
 --------------------
 - Authored by Kazuki Yoshida
-- CRAN page: http://cran.r-project.org/package=tableone
+- CRAN page: https://cran.r-project.org/package=tableone
 - github page: https://github.com/kaz-yos/tableone
