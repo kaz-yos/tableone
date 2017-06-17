@@ -23,4 +23,5 @@ BUG FIX
 
 
 ## Downstream dependencies
-RcmdrPlugin.EZR GUI frontend: No change was made to APIs.
+Checked RcmdrPlugin.EZR: 0 errors | 0 warnings | 0 notes
+Checked rpsftm         : 0 errors | 0 warnings | 0 notes
