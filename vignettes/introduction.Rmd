@@ -162,5 +162,5 @@ print(tab3$ContTable, nonnormal = biomarkers)
 
 --------------------
 - Authored by Kazuki Yoshida
-- CRAN page: http://cran.r-project.org/package=tableone
+- CRAN page: https://cran.r-project.org/package=tableone
 - github page: https://github.com/kaz-yos/tableone
