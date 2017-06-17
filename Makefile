@@ -23,7 +23,7 @@ PKG_FILES := DESCRIPTION NAMESPACE NEWS $(R_FILES) $(TST_FILES) $(SRC_FILES) $(V
 
 ## .PHONY to allow non-file targets (file targets should not be here)
 ## https://www.gnu.org/software/make/manual/html_node/Phony-Targets.html
-.PHONY: test build_win vignettes build check revdep install clean
+.PHONY: test winbuild vignettes build check check_devtools revdep install clean
 
 
 ### Define targets
@@ -32,12 +32,13 @@ PKG_FILES := DESCRIPTION NAMESPACE NEWS $(R_FILES) $(TST_FILES) $(SRC_FILES) $(V
 test: NAMESPACE
 	Rscript -e "options(width = 120); devtools::test()" | tee test-all.txt
 
-## build_win always build regardless of file update status
+## winbuild always build regardless of file update status
 ## Links to results e-mailed (no useful output locally)
-build_win:
+winbuild:
 	Rscript -e "devtools::build_win(version = 'R-devel')"
 	Rscript -e "devtools::build_win(version = 'R-release')"
 
+## Build vignettes in inst/doc
 vignettes:
 	Rscript -e "devtools::build_vignettes()"
 
@@ -57,6 +58,9 @@ NAMESPACE: $(R_FILES)
 
 ## check requires the *.tar.gz file, and execute strict tests on it.
 check: $(PKG_NAME)_$(PKG_VERSION).tar.gz
+	R CMD check --as-cran ./$(PKG_NAME)_$(PKG_VERSION).tar.gz | tee cran-check.txt
+
+check_devtools: $(PKG_NAME)_$(PKG_VERSION).tar.gz
 	Rscript -e "options(width = 120); devtools::check(pkg = '.', check_dir = '.', manual = TRUE)" | tee cran-check.txt
 
 ## revdep requires the *.tar.gz file, and execute strict tests on it.
