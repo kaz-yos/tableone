@@ -9,7 +9,7 @@ Description: Creates 'Table 1', i.e., description of baseline patient
     characteristics, which is essential in every medical research.
     Supports both continuous and categorical variables, as well as
     p-values and standardized mean differences. Weighted data are
-    supported via the 'survey' package. See github for a screencast.
+    supported via the 'survey' package. See 'github' for a screen cast.
     'tableone' was inspired by descriptive statistics functions in
     'Deducer' , a Java-based GUI package by Ian Fellows. This package
     does not require GUI or Java, and intended for command-line users.
