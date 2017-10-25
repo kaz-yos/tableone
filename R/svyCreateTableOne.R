@@ -118,6 +118,9 @@ function(vars,                                   # character vector of variable 
     ## Get the missing percentage for each variable (no strata).
     percentMissing <- ModulePercentMissing(data$variables[vars])
 
+    ## Get variable labels (list)
+    varLabels <- labelled::var_label(data$variables[vars])
+
     ## Get the classes of the variables
     varClasses  <- lapply(data$variables[vars], class)
 
@@ -215,7 +218,9 @@ function(vars,                                   # character vector of variable 
                                             varFactors  = varFactors,
                                             varNumerics = varNumerics,
                                             ## Missing data percentage for each variable (no strata).
-                                            percentMissing = percentMissing))
+                                            percentMissing = percentMissing,
+                                            ## Variable labels
+                                            varLabels = varLabels))
 
     ## Give a class
     class(TableOneObject) <- c("svyTableOne", "TableOne")
