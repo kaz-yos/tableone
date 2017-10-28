@@ -20,7 +20,8 @@ Imports:
     e1071,
     zoo,
     gmodels,
-    nlme
+    nlme,
+    labelled
 Suggests:
     survival,
     testthat,
