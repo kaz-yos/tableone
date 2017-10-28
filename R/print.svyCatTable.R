@@ -13,6 +13,7 @@
 ##' @param format The default is "fp" frequency (percentage). You can also choose from "f" frequency only, "p" percentage only, and "pf" percentage (frequency).
 ##' @param showAllLevels Whether to show all levels. FALSE by default, i.e., for 2-level categorical variables, only the higher level is shown to avoid redundant information.
 ##' @param cramVars A character vector to specify the two-level categorical variables, for which both levels should be shown in one row.
+##' @param dropEqual Whether to drop " = second level name" description indicating which level is shown for two-level categorical variables.
 ##' @param test Whether to show p-values. TRUE by default. If FALSE, only the numerical summaries are shown.
 ##' @param exact This option is not available for tables from weighted data.
 ##' @param smd Whether to show standardized mean differences. FALSE by default. If there are more than one contrasts, the average of all possible standardized mean differences is shown. For individual contrasts, use \code{summary}.
@@ -40,6 +41,7 @@ function(x,                        # CatTable object
          format        = c("fp","f","p","pf")[1], # Format f_requency and/or p_ercent
          showAllLevels = FALSE,
          cramVars      = NULL,     # variables to be crammed into one row
+         dropEqual     = FALSE,    # Do not show " = second level" for two-level variables
 
          test          = TRUE,     # Whether to add p-values
          exact         = NULL,     # Which variables should be tested with exact tests
@@ -109,6 +111,7 @@ function(x,                        # CatTable object
                           digits        = digits,
                           varsToFormat  = varsToFormat,
                           cramVars      = cramVars,
+                          dropEqual     = dropEqual,
                           showAllLevels = showAllLevels)
 
 
