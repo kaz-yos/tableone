@@ -14,6 +14,7 @@
 ##' @param smd Whether to show standardized mean differences. FALSE by default. If there are more than one contrasts, the average of all possible standardized mean differences is shown. For individual contrasts, use \code{summary}.
 ##' @param noSpaces Whether to remove spaces added for alignment. Use this option if you prefer to align numbers yourself in other software.
 ##' @param padColnames Whether to pad column names with spaces to center justify. The default is FALSE. It is not conducted if noSpaces = TRUE.
+##' @param varLabels Whether to replace variable names with variable labels obtained from \code{labelled::var_label()} function.
 ##' @param format The default is "fp" frequency (percentage). You can also choose from "f" frequency only, "p" percentage only, and "pf" percentage (frequency).
 ##' @param showAllLevels Whether to show all levels. FALSE by default, i.e., for 2-level categorical variables, only the higher level is shown to avoid redundant information.
 ##' @param cramVars A character vector to specify the two-level categorical variables, for which both levels should be shown in one row.
@@ -44,6 +45,7 @@ function(x,                   # TableOne object
          smd           = FALSE, # Whether to add standardized mean differences
          noSpaces      = FALSE, # Whether to remove spaces for alignments
          padColnames   = FALSE, # Whether to pad column names for alignments
+         varLabels     = FALSE, # Whether to show variable labels instead of names.
 
          ## Categorical options
          format        = c("fp","f","p","pf")[1], # Format f_requency and/or p_ercent
@@ -94,10 +96,32 @@ function(x,                   # TableOne object
     spcFmtEltTables <- ModuleAddSpacesToTable(FmtElementTables, nSpacesToAdd, showAllLevels)
 
 
-    ## Create a list of one variable tables excluding sample size row
+    ## Create a list of one variable tables excluding sample size row.
+    ## This is based on the variable order in the MetaData.
     lstOneVarTables <- ModuleListOfOneVarTables(spcFmtEltTables,
                                                 MetaData = x$MetaData)
 
+    ## Replace variable names with variable labels if requested.
+    ## Loop over the variable replacing its name with its label.
+    if (varLabels) {
+        lstOneVarTables <-
+            lapply(seq_along(lstOneVarTables),
+                   function(i) {
+                       ## Each element is a string matrix.
+                       mat <- lstOneVarTables[[i]]
+                       ## Manipulate if a non-NULL label is available.
+                       ## Note MetaData$varLabels is a list.
+                       if (!is.null(x$MetaData$varLabels[[i]])) {
+                           ## The first row name contains the variable name
+                           ## without preceding space. Replace by exact matching.
+                           rownames(mat)[1] <- gsub(paste0("^", x$MetaData$vars[i]),
+                                                    x$MetaData$varLabels[[i]],
+                                                    rownames(mat)[1])
+                       }
+                       ## Return the entire matrix.
+                       mat
+                   })
+    }
 
     ## Check if the first row is CatTable element
     ## if so, pick sample size row from space-padded CatTable element
