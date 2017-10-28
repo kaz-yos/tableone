@@ -5,19 +5,21 @@
 ## Author: Kazuki Yoshida
 ################################################################################
 
-### Structure
-## expectations within tests within context
-
+###
 ### Prepare environment
 ################################################################################
 library(testthat)
 
+
+###
 ### Context (1 for each file)
+################################################################################
 context("Unit tests for the CreateTableOne function")
 
 
+###
 ### Load data
-
+################################################################################
 library(survival)
 data(pbc)
 
@@ -33,7 +35,10 @@ vars <- c("time","status","age","sex","ascites","hepato",
 varsContOnly <- c("time","age","protime")
 varsCatOnly  <- c("status","trt","sex")
 
+
+###
 ### Tests for data checkers
+################################################################################
 
 test_that("abnormal data are correctly detected", {
 
@@ -65,7 +70,9 @@ test_that("abnormal data are correctly detected", {
 })
 
 
+###
 ### Tests for ModuleTestSafe, a wrapper for test functions such as oneway.test and chisq.test
+################################################################################
 
 ## Create a dataset for a table
 dat <- read.table(header = TRUE, text = "
@@ -134,8 +141,8 @@ test_that("P-values should be NA for 1xM xtabs", {
 })
 
 
-
-### Regression tests
+###
+### Table construction and printing tests
 ################################################################################
 
 ## Create a table to test
@@ -239,6 +246,10 @@ test_that("dropEqual options correctly retail two-level categorical variable nam
     expect_equal(mat_modified, mat_dropEqual)
 })
 
+
+###
+### Regression tests for the print method
+################################################################################
 
 test_that("printing of a TableOne object does not regress", {
 
@@ -379,6 +390,9 @@ test_that("printing of a TableOne$ContTable object do not regress", {
 })
 
 
+###
+### Tests for the summary method
+################################################################################
 test_that("summary method works without errors", {
 
     ## Expectations
