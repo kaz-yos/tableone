@@ -3,6 +3,12 @@ tableone 0.9.0 (2017-10-28)
 
 NEW FEATURES
 
+* The "varLabels" option for the print.TableOne method was added.
+  When TRUE, instead of printing the variable names, their
+  corresponding variable labels are used. Variable labels must be
+  stored in the data frame to be used via labelled::var_label
+  function.
+
 * The "dropEqual" option for the print methods was implemented. If
   TRUE, the level description for two-level variables such as " = 1"
   and " = TRUE" are not shown. This can obscure what level is being
