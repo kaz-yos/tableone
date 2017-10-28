@@ -247,6 +247,45 @@ test_that("dropEqual options correctly retail two-level categorical variable nam
 })
 
 
+test_that("variable labels are correctly shown", {
+
+    ## Construct a dataset with some variable labels.
+    pbc_labeled <- pbc
+    ## Continuous
+    age_label <- "Age in Years"
+    ## Two-level categorical
+    sex_label <- "Female Sex"
+    ## Multi-level categorical
+    stage_label <- "Stage of the Disease"
+    ## Apply labels
+    labelled::var_label(pbc_labeled$age) <- age_label
+    labelled::var_label(pbc_labeled$sex) <- sex_label
+    labelled::var_label(pbc_labeled$stage) <-stage_label
+    ## Show
+    labelled::var_label(pbc_labeled)
+
+    ## Construct a TableOne object.
+    pbcOverall  <- CreateTableOne(vars = vars, data = pbc_labeled)
+
+    mat_default  <- print(pbcOverall)
+    mat_labelled <- print(pbcOverall, varLabels = TRUE)
+
+    ## Expectations
+    ## These must differ.
+    expect_false(identical(mat_default, mat_labelled))
+    expect_false(identical(rownames(mat_default), rownames(mat_labelled)))
+    ## These labels should not exist in the original row names.
+    expect_true(sum(grepl(age_label, rownames(mat_default))) == 0)
+    expect_true(sum(grepl(sex_label, rownames(mat_default))) == 0)
+    expect_true(sum(grepl(stage_label, rownames(mat_default))) == 0)
+    ## These labels should appear only once in labelled table.
+    expect_true(sum(grepl(age_label, rownames(mat_labelled))) == 1)
+    expect_true(sum(grepl(sex_label, rownames(mat_labelled))) == 1)
+    expect_true(sum(grepl(stage_label, rownames(mat_labelled))) == 1)
+
+})
+
+
 ###
 ### Regression tests for the print method
 ################################################################################
