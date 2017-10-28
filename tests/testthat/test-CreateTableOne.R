@@ -218,6 +218,28 @@ test_that("Missing percentages are correctly stored and printed", {
 })
 
 
+test_that("dropEqual options correctly retail two-level categorical variable names", {
+
+    ## Default table matrix
+    mat_default <- print(pbcOverall)
+    mat_modified <- mat_default
+    ## Drop " = 1" etc by regex
+    rownames(mat_modified) <- gsub(" = .* \\(", " (", rownames(mat_modified))
+
+    ## dropEqual = TRUE to avoid creation of " = 1"
+    mat_dropEqual <- print(pbcOverall, dropEqual = TRUE)
+
+    ## Expectations
+    ## These must differ.
+    expect_false(identical(mat_default, mat_modified))
+    expect_false(identical(rownames(mat_default), rownames(mat_modified)))
+    expect_false(all(rownames(mat_default) == rownames(mat_modified)))
+    ## These must match.
+    expect_equal(rownames(mat_modified), rownames(mat_dropEqual))
+    expect_equal(mat_modified, mat_dropEqual)
+})
+
+
 test_that("printing of a TableOne object does not regress", {
 
     ## Expectations
