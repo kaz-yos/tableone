@@ -17,6 +17,7 @@
 ##' @param format The default is "fp" frequency (percentage). You can also choose from "f" frequency only, "p" percentage only, and "pf" percentage (frequency).
 ##' @param showAllLevels Whether to show all levels. FALSE by default, i.e., for 2-level categorical variables, only the higher level is shown to avoid redundant information.
 ##' @param cramVars A character vector to specify the two-level categorical variables, for which both levels should be shown in one row.
+##' @param dropEqual Whether to drop " = second level name" description indicating which level is shown for two-level categorical variables.
 ##' @param exact A character vector to specify the variables for which the p-values should be those of exact tests. By default all p-values are from large sample approximation tests (chisq.test).
 ##' @param nonnormal A character vector to specify the variables for which the p-values should be those of nonparametric tests. By default all p-values are from normal assumption-based tests (oneway.test).
 ##' @param minMax Whether to use [min,max] instead of [p25,p75] for nonnormal variables. The default is FALSE.
@@ -48,6 +49,7 @@ function(x,                   # TableOne object
          format        = c("fp","f","p","pf")[1], # Format f_requency and/or p_ercent
          showAllLevels = FALSE, # Show all levels of a categorical variable
          cramVars      = NULL,  # Which 2-level variables to show both levels in one row
+         dropEqual     = FALSE, # Do not show " = second level" for two-level variables
          exact         = NULL,  # Which variables should be tested with exact tests
 
          ## Continuous options
@@ -67,6 +69,7 @@ function(x,                   # TableOne object
                                     ## Returns one more column if TRUE
                                     showAllLevels = showAllLevels,
                                     cramVars = cramVars,
+                                    dropEqual = dropEqual,
 
                                     ## print.ContTable arguments passed
                                     nonnormal = nonnormal, minMax = minMax,

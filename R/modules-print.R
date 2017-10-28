@@ -322,7 +322,7 @@ ModuleContFormatStrata <- function(ContTable, nVars, listOfFunctions, digits) {
 ################################################################################
 
 ## Module to loop over variables within a stratum formatting categorical variables
-ModuleCatFormatVariables <- function(lstVars, varsToFormat, fmt, level, cramVars, showAllLevels) {
+ModuleCatFormatVariables <- function(lstVars, varsToFormat, fmt, level, cramVars, dropEqual, showAllLevels) {
 
     ## Loop over variables within a stratum
     ## Each list element is a data frame summarizing levels
@@ -378,9 +378,12 @@ ModuleCatFormatVariables <- function(lstVars, varsToFormat, fmt, level, cramVars
                        DF[1,"crammedRowInd"] <- "crammed"
 
                    } else {
-                       ## Otherwise, keep the second level only
-                       ## change variable name, and delete the first level.
-                       DF$var <- sprintf("%s = %s", DF$var, DF$level)
+                       ## Otherwise, keep the second level only.
+                       ## Change variable name if dropEqual = FALSE.
+                       if (!dropEqual) {
+                           DF$var <- sprintf("%s = %s", DF$var, DF$level)
+                       }
+                       ## Delete the first level.
                        DF <- DF[-1, , drop = FALSE]
                    }
 
@@ -412,7 +415,7 @@ ModuleCatFormatVariables <- function(lstVars, varsToFormat, fmt, level, cramVars
 
 
 ## Module to loop over strata formatting categorical variables
-ModuleCatFormatStrata <- function(CatTable, digits, varsToFormat, cramVars, showAllLevels) {
+ModuleCatFormatStrata <- function(CatTable, digits, varsToFormat, cramVars, dropEqual, showAllLevels) {
 
     ## Create format for percent used in the loop
     fmt1 <- paste0("%.", digits, "f")
@@ -433,6 +436,7 @@ ModuleCatFormatStrata <- function(CatTable, digits, varsToFormat, cramVars, show
                                             varsToFormat  = varsToFormat,
                                             fmt           = fmt1,
                                             cramVars      = cramVars,
+                                            dropEqual     = dropEqual,
                                             showAllLevels = showAllLevels)
 
 
@@ -632,7 +636,7 @@ ModuleFormatTables <- function(x, catDigits, contDigits,
                                explain, pDigits,
                                ## print.CatTable arguments passed
                                format, exact,
-                               showAllLevels, cramVars,
+                               showAllLevels, cramVars, dropEqual,
                                ## print.ContTable arguments passed
                                nonnormal, minMax, insertLevel
                                ) {
@@ -680,6 +684,7 @@ ModuleFormatTables <- function(x, catDigits, contDigits,
                      format = format, exact = exact,
                      showAllLevels = showAllLevels,  # Returns one more column if TRUE
                      cramVars = cramVars,
+                     dropEqual = dropEqual,
 
                      ## print.ContTable arguments passed
                      nonnormal = nonnormal, minMax = minMax, insertLevel = showAllLevels
