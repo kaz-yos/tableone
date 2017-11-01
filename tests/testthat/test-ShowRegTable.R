@@ -184,8 +184,6 @@ test_that("nlme works", {
 test_that("lme4 works", {
 
     library(lme4)
-    ## Need this for p-values
-    library(lmerTest)
 
     ## Linear LME
     lmer1 <- lmer(formula = y ~ trt + day + (1 | id),
@@ -203,6 +201,32 @@ test_that("lme4 works", {
     ## coef
     expect_output(ShowRegTable(lmer1, digits = 5, exp = FALSE),
                   sprintf("%.5f", coef(summary(lmer1))[2,1]))
+
+
+    ## For p-values
+    ## lmerTest::lmer() masks lme4::lmer()
+    library(lmerTest)
+
+    ## Linear LME
+    lmer2 <- lmer(formula = y ~ trt + day + (1 | id),
+                  data = koch)
+
+    ciLmer2 <- tail(confint(lmer2), nrow(coef(summary(lmer2))))
+
+    ## confint
+    ShowRegTable(lmer2, digits = 5, exp = FALSE)
+    expect_output(ShowRegTable(lmer2, digits = 5, exp = FALSE),
+                  sprintf("%.5f, %.5f",
+                          ciLmer2[2,1],
+                          ciLmer2[2,2]))
+
+    ## coef
+    expect_output(ShowRegTable(lmer2, digits = 5, exp = FALSE),
+                  sprintf("%.5f", coef(summary(lmer2))[2,1]))
+
+    ## p-value
+    expect_output(ShowRegTable(lmer2, digits = 5, exp = FALSE),
+                  sprintf("%.5f", coef(summary(lmer2))[2,4]))
 
 
     ## GLMM
