@@ -184,6 +184,8 @@ test_that("nlme works", {
 test_that("lme4 works", {
 
     library(lme4)
+    ## Need this for p-values
+    library(lmerTest)
 
     ## Linear LME
     lmer1 <- lmer(formula = y ~ trt + day + (1 | id),

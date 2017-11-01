@@ -32,7 +32,8 @@ Suggests:
     ggplot2,
     knitr,
     geepack,
-    lme4
+    lme4,
+    lmerTest
 URL: https://github.com/kaz-yos/tableone
 VignetteBuilder: knitr
 RoxygenNote: 6.0.1
