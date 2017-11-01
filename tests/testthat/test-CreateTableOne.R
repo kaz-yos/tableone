@@ -265,7 +265,8 @@ test_that("variable labels are correctly shown", {
     labelled::var_label(pbc_labeled)
 
     ## Construct a TableOne object.
-    pbcOverall  <- CreateTableOne(vars = vars, data = pbc_labeled)
+    ## Using factorVars should not break
+    pbcOverall  <- CreateTableOne(vars = vars, data = pbc_labeled, factorVars = "stage")
 
     mat_default  <- print(pbcOverall)
     mat_labelled <- print(pbcOverall, varLabels = TRUE)
