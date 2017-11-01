@@ -129,6 +129,10 @@ function(vars,                                      # character vector of variab
     ## Abort if no variables exist at this point
     ModuleStopIfNoVarsLeft(vars)
 
+    ## Get variable labels (named list of label string or NULL)
+    ## Need to occur before applying factor().
+    varLabels <- labelled::var_label(data[vars])
+
     ## Factor conversions if the factorVars argument exist
     if (!missing(factorVars)) {
         ## Check if variables exist. Drop them if not.
@@ -143,9 +147,6 @@ function(vars,                                      # character vector of variab
 
     ## Get the missing percentage for each variable (no strata).
     percentMissing <- ModulePercentMissing(data[vars])
-
-    ## Get variable labels (named list of label string or NULL)
-    varLabels <- labelled::var_label(data[vars])
 
     ## Get the classes of the variables
     varClasses  <- lapply(data[vars], class)
