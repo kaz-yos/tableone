@@ -283,12 +283,12 @@ Unit tests for the CreateTableOne function: .......................
   trig (mean (sd))          124.70 (65.15)  
   platelet (mean (sd))      257.02 (98.33)  
   protime (mean (sd))        10.73 (1.02)   
-  Stage of the Disease (%)                  
+  stage (%)                                 
      1                          21 ( 5.1)   
      2                          92 (22.3)   
      3                         155 (37.6)   
      4                         144 (35.0)   
-........                      Stratified by trt
+.......1                      Stratified by trt
                        1                 2                 p      test
   n                        158               154                      
   time (mean (sd))     2015.62 (1094.12) 1996.86 (1155.93)  0.883     
@@ -3027,5 +3027,10 @@ Warnings -----------------------------------------------------------------------
 16. lme4 works (@test-ShowRegTable.R#221) - the condition has length > 1 and only the first element will be used
 
 17. svyrep.design is allowed (@test-svyCreateTableOne.R#507) - No sampling weights provided: equal probability assumed
+
+Failed -----------------------------------------------------------------------------------------------------------------
+1. Failure: variable labels are correctly shown (@test-CreateTableOne.R#284) -------------------------------------------
+sum(grepl(stage_label, rownames(mat_labelled))) == 1 isn't true.
+
 
 DONE ===================================================================================================================
