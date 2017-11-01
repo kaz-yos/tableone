@@ -46,8 +46,9 @@ ShowRegTable <- function(model, exp = TRUE, digits = 2, pDigits = 3, printToggle
         ## nlme needs special handling
         ## Use column 2 because it is the point estimate
         modelCoef <- nlme::intervals(model)[[1]][, 2]
-    } else if (any(class(model) %in% c("lmerMod","glmerMod"))) {
+    } else if (any(class(model) %in% c("lmerMod","glmerMod","merModLmerTest"))) {
         ## (g)lmer gives confint for other extra parameters
+        ## lmerTest::lmer() gives a merModLmerTest object.
         modelCoef <- coef(summary(model))[,1]
     } else {
         modelCoef <- coef(model)
@@ -58,8 +59,9 @@ ShowRegTable <- function(model, exp = TRUE, digits = 2, pDigits = 3, printToggle
         ## nlme needs special handling
         ## Drop column 2 because it is the point estimate
         modelConfInt <- nlme::intervals(model)[[1]][, -2]
-    } else if (any(class(model) %in% c("lmerMod","glmerMod"))) {
-        ## (g)lmer gives confint for other extra parameters
+    } else if (any(class(model) %in% c("lmerMod","glmerMod","merModLmerTest"))) {
+        ## (g)lmer gives confint for other extra parameters.
+        ## The bottom ones are for fixed effects.
         modelConfInt <- tail(suppressMessages(ciFun(model)), length(modelCoef))
     } else {
         modelConfInt <- suppressMessages(ciFun(model))
@@ -69,6 +71,11 @@ ShowRegTable <- function(model, exp = TRUE, digits = 2, pDigits = 3, printToggle
     if (any(class(model) %in% c("gls", "lme"))) {
         ## nlme needs special handling
         modelSummaryMat <- summary(model)$tTable
+    } else if (any(class(model) %in% c("lmerMod"))) {
+        ## lmerMod does not have p-values, add NA's
+        modelSummaryMat <- coef(summary(model))
+        modelSummaryMat <- cbind(modelSummaryMat,
+                                 rep(NA, nrow(modelSummaryMat)))
     } else {
         modelSummaryMat <- coef(summary(model))
     }
