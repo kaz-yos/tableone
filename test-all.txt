@@ -2997,10 +2997,10 @@ Warnings -----------------------------------------------------------------------
 1. svyrep.design is allowed (@test-svyCreateTableOne.R#507) - No sampling weights provided: equal probability assumed
 
 Failed -----------------------------------------------------------------------------------------------------------------
-1. Error: lme4 works (@test-ShowRegTable.R#228) ------------------------------------------------------------------------
+1. Error: lme4 works (@test-ShowRegTable.R#232) ------------------------------------------------------------------------
 subscript out of bounds
-1: expect_output(ShowRegTable(lmer2, digits = 5, exp = FALSE), sprintf("%.5f", coef(summary(lmer2))[2, 4])) at /Users/kazuki/Documents/programming/r/tableone/tests/testthat/test-ShowRegTable.R:228
+1: expect_output(ShowRegTable(lmer2, pDigits = 5, exp = FALSE), sprintf("%.5f", coef(summary(lmer2))[2, 5])) at /Users/kazuki/Documents/programming/r/tableone/tests/testthat/test-ShowRegTable.R:232
 2: identical(regexp, NA)
-3: sprintf("%.5f", coef(summary(lmer2))[2, 4])
+3: sprintf("%.5f", coef(summary(lmer2))[2, 5])
 
 DONE ===================================================================================================================
