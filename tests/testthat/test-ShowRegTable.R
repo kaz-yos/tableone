@@ -225,8 +225,8 @@ test_that("lme4 works", {
                   sprintf("%.5f", coef(summary(lmer2))[2,1]))
 
     ## p-value
-    expect_output(ShowRegTable(lmer2, digits = 5, exp = FALSE),
-                  sprintf("%.5f", coef(summary(lmer2))[2,4]))
+    expect_output(ShowRegTable(lmer2, pDigits = 5, exp = FALSE),
+                  sprintf("%.5f", coef(summary(lmer2))[2,5]))
 
 
     ## GLMM

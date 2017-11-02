@@ -67,7 +67,7 @@ ShowRegTable <- function(model, exp = TRUE, digits = 2, pDigits = 3, printToggle
         modelConfInt <- suppressMessages(ciFun(model))
     }
 
-    ## P-value extraction
+    ## Extract p-values
     if (any(class(model) %in% c("gls", "lme"))) {
         ## nlme needs special handling
         modelSummaryMat <- summary(model)$tTable
