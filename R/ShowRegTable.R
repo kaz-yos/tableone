@@ -76,6 +76,9 @@ ShowRegTable <- function(model, exp = TRUE, digits = 2, pDigits = 3, printToggle
         modelSummaryMat <- coef(summary(model))
         modelSummaryMat <- cbind(modelSummaryMat,
                                  rep(NA, nrow(modelSummaryMat)))
+    } else if (any(class(model) %in% c("merModLmerTest"))) {
+        ## Need to specify explicitly to invoke the correct summary method.
+        modelSummaryMat <- coef(lmerTest::summary(model))
     } else {
         modelSummaryMat <- coef(summary(model))
     }

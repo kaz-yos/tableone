@@ -229,8 +229,9 @@ test_that("lme4 works", {
                       sprintf("%.5f", coef(summary(lmer2))[2,1]))
 
         ## p-value
+        ## For some reason, need to specify summary explicitly.
         expect_output(ShowRegTable(lmer2, pDigits = 5, exp = FALSE),
-                      sprintf("%.5f", coef(summary(lmer2))[2,5]))
+                      sprintf("%.5f", coef(lmerTest::summary(lmer2))[2,5]))
     }
 
     ## GLMM
