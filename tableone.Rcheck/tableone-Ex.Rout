@@ -1,5 +1,5 @@
 
-R version 3.4.1 (2017-06-30) -- "Single Candle"
+R version 3.4.2 (2017-09-28) -- "Short Summer"
 Copyright (C) 2017 The R Foundation for Statistical Computing
 Platform: x86_64-apple-darwin15.6.0 (64-bit)
 
@@ -3166,8 +3166,9 @@ _U_s_a_g_e:
      print(x, catDigits = 1, contDigits = 2, pDigits = 3,
        quote = FALSE, missing = FALSE, explain = TRUE, printToggle = TRUE,
        test = TRUE, smd = FALSE, noSpaces = FALSE, padColnames = FALSE,
-       format = c("fp", "f", "p", "pf")[1], showAllLevels = FALSE,
-       cramVars = NULL, exact = NULL, nonnormal = NULL, minMax = FALSE, ...)
+       varLabels = FALSE, format = c("fp", "f", "p", "pf")[1],
+       showAllLevels = FALSE, cramVars = NULL, dropEqual = FALSE,
+       exact = NULL, nonnormal = NULL, minMax = FALSE, ...)
      
 _A_r_g_u_m_e_n_t_s:
 
@@ -3207,6 +3208,9 @@ noSpaces: Whether to remove spaces added for alignment. Use this option
 padColnames: Whether to pad column names with spaces to center justify.
           The default is FALSE. It is not conducted if noSpaces = TRUE.
 
+varLabels: Whether to replace variable names with variable labels
+          obtained from ‘labelled::var_label()’ function.
+
   format: The default is "fp" frequency (percentage). You can also
           choose from "f" frequency only, "p" percentage only, and "pf"
           percentage (frequency).
@@ -3217,6 +3221,10 @@ showAllLevels: Whether to show all levels. FALSE by default, i.e., for
 
 cramVars: A character vector to specify the two-level categorical
           variables, for which both levels should be shown in one row.
+
+dropEqual: Whether to drop " = second level name" description
+          indicating which level is shown for two-level categorical
+          variables.
 
    exact: A character vector to specify the variables for which the
           p-values should be those of exact tests. By default all
@@ -3316,7 +3324,7 @@ detaching ‘package:survey’, ‘package:survival’, ‘package:Matrix’,
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  6.262 0.206 6.628 0.004 0.003 
+Time elapsed:  6.538 0.228 7.029 0.005 0.004 
 > grDevices::dev.off()
 null device 
           1 
