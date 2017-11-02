@@ -2122,11 +2122,15 @@ day         -0.06464 [-0.07910, -0.05017] <0.001
 (Intercept)  2.70219 [2.51320, 2.89118]    NA
 trt         -0.36806 [-0.57306, -0.16305]  NA
 day         -0.06464 [-0.07905, -0.05022]  NA
-..            coef [confint]                p      
-(Intercept)  2.70219 [2.51320, 2.89118]    27.917
-trt         -0.36806 [-0.57306, -0.16305]  -3.516
-day         -0.06464 [-0.07905, -0.05022]  -8.807
-..1
+..            coef [confint]                p     
+(Intercept)  2.70219 [2.51320, 2.89118]   <0.001
+trt         -0.36806 [-0.57306, -0.16305]  0.001
+day         -0.06464 [-0.07905, -0.05022] <0.001
+...            exp(coef) [confint]        p     
+(Intercept) 2.82371 [2.31045, 3.43231] <0.001
+trt         0.82903 [0.70232, 0.97777]  0.026
+day         0.96758 [0.94787, 0.98762]  0.002
+..
 Unit tests for svy* user functions: .................                
                  Overall        Missing
   n              450.01                
@@ -2995,12 +2999,5 @@ C1      NaN      NaN      0      0      0
 
 Warnings ---------------------------------------------------------------------------------------------------------------
 1. svyrep.design is allowed (@test-svyCreateTableOne.R#507) - No sampling weights provided: equal probability assumed
-
-Failed -----------------------------------------------------------------------------------------------------------------
-1. Error: lme4 works (@test-ShowRegTable.R#232) ------------------------------------------------------------------------
-subscript out of bounds
-1: expect_output(ShowRegTable(lmer2, pDigits = 5, exp = FALSE), sprintf("%.5f", coef(summary(lmer2))[2, 5])) at /Users/kazuki/Documents/programming/r/tableone/tests/testthat/test-ShowRegTable.R:232
-2: identical(regexp, NA)
-3: sprintf("%.5f", coef(summary(lmer2))[2, 5])
 
 DONE ===================================================================================================================
