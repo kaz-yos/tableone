@@ -185,49 +185,53 @@ test_that("lme4 works", {
 
     library(lme4)
 
-    ## Linear LME
-    lmer1 <- lmer(formula = y ~ trt + day + (1 | id),
-                  data = koch)
+    ## Do not test in version 1.1-14 to avoid warnings.
+    ## https://github.com/lme4/lme4/issues/440
+    if (sessionInfo()$otherPkgs$lme4$Version != "1.1-14") {
 
-    ciLmer1 <- tail(confint(lmer1), nrow(coef(summary(lmer1))))
+        ## Linear LME
+        lmer1 <- lmer(formula = y ~ trt + day + (1 | id),
+                      data = koch)
 
-    ## confint
-    ShowRegTable(lmer1, digits = 5, exp = FALSE)
-    expect_output(ShowRegTable(lmer1, digits = 5, exp = FALSE),
-                  sprintf("%.5f, %.5f",
-                          ciLmer1[2,1],
-                          ciLmer1[2,2]))
+        ciLmer1 <- tail(confint(lmer1), nrow(coef(summary(lmer1))))
 
-    ## coef
-    expect_output(ShowRegTable(lmer1, digits = 5, exp = FALSE),
-                  sprintf("%.5f", coef(summary(lmer1))[2,1]))
+        ## confint
+        ShowRegTable(lmer1, digits = 5, exp = FALSE)
+        expect_output(ShowRegTable(lmer1, digits = 5, exp = FALSE),
+                      sprintf("%.5f, %.5f",
+                              ciLmer1[2,1],
+                              ciLmer1[2,2]))
+
+        ## coef
+        expect_output(ShowRegTable(lmer1, digits = 5, exp = FALSE),
+                      sprintf("%.5f", coef(summary(lmer1))[2,1]))
 
 
-    ## For p-values
-    ## lmerTest::lmer() masks lme4::lmer()
-    library(lmerTest)
+        ## For p-values
+        ## lmerTest::lmer() masks lme4::lmer()
+        library(lmerTest)
 
-    ## Linear LME
-    lmer2 <- lmer(formula = y ~ trt + day + (1 | id),
-                  data = koch)
+        ## Linear LME
+        lmer2 <- lmer(formula = y ~ trt + day + (1 | id),
+                      data = koch)
 
-    ciLmer2 <- tail(confint(lmer2), nrow(coef(summary(lmer2))))
+        ciLmer2 <- tail(confint(lmer2), nrow(coef(summary(lmer2))))
 
-    ## confint
-    ShowRegTable(lmer2, digits = 5, exp = FALSE)
-    expect_output(ShowRegTable(lmer2, digits = 5, exp = FALSE),
-                  sprintf("%.5f, %.5f",
-                          ciLmer2[2,1],
-                          ciLmer2[2,2]))
+        ## confint
+        ShowRegTable(lmer2, digits = 5, exp = FALSE)
+        expect_output(ShowRegTable(lmer2, digits = 5, exp = FALSE),
+                      sprintf("%.5f, %.5f",
+                              ciLmer2[2,1],
+                              ciLmer2[2,2]))
 
-    ## coef
-    expect_output(ShowRegTable(lmer2, digits = 5, exp = FALSE),
-                  sprintf("%.5f", coef(summary(lmer2))[2,1]))
+        ## coef
+        expect_output(ShowRegTable(lmer2, digits = 5, exp = FALSE),
+                      sprintf("%.5f", coef(summary(lmer2))[2,1]))
 
-    ## p-value
-    expect_output(ShowRegTable(lmer2, pDigits = 5, exp = FALSE),
-                  sprintf("%.5f", coef(summary(lmer2))[2,5]))
-
+        ## p-value
+        expect_output(ShowRegTable(lmer2, pDigits = 5, exp = FALSE),
+                      sprintf("%.5f", coef(summary(lmer2))[2,5]))
+    }
 
     ## GLMM
     glmer1 <- glmer(formula = y ~ trt + day + (1 | id),
