@@ -187,7 +187,7 @@ test_that("lme4 works", {
 
     ## Do not test in version 1.1-14 to avoid warnings.
     ## https://github.com/lme4/lme4/issues/440
-    if (sessionInfo()$otherPkgs$lme4$Version != "1.1-14") {
+    if (installed.packages()["lme4","Version"] != "1.1-14") {
 
         ## Linear LME
         lmer1 <- lmer(formula = y ~ trt + day + (1 | id),
