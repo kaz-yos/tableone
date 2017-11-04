@@ -189,11 +189,14 @@ test_that("lme4 works", {
     ## https://github.com/lme4/lme4/issues/440
     if (installed.packages()["lme4","Version"] != "1.1-14") {
 
+        cat("### Testing lmer lme4 is version", installed.packages()["lme4","Version"], "\n")
+
         ## Linear LME
         lmer1 <- lmer(formula = y ~ trt + day + (1 | id),
                       data = koch)
 
         ciLmer1 <- tail(confint(lmer1), nrow(coef(summary(lmer1))))
+        summary(lmer1)
 
         ## confint
         ShowRegTable(lmer1, digits = 5, exp = FALSE)
@@ -214,6 +217,7 @@ test_that("lme4 works", {
         ## Linear LME
         lmer2 <- lmer(formula = y ~ trt + day + (1 | id),
                       data = koch)
+        summary(lmer2)
 
         ciLmer2 <- tail(confint(lmer2), nrow(coef(summary(lmer2))))
 
@@ -238,6 +242,7 @@ test_that("lme4 works", {
     glmer1 <- glmer(formula = y ~ trt + day + (1 | id),
                     data = koch,
                     family = poisson(link = "log"))
+    summary(glmer1)
     ## Last rows correspond to fixed effects
     ciGlmer1 <- tail(confint(glmer1), nrow(coef(summary(glmer1))))
 
