@@ -4,10 +4,12 @@
 \alias{ExtractSmd}
 \title{Extract standardized mean differences from a (svy)TableOne object}
 \usage{
-ExtractSmd(x)
+ExtractSmd(x, varLabels = FALSE)
 }
 \arguments{
 \item{x}{A stratified (svy)TableOne object containing standardized mean differences.}
+
+\item{varLabels}{Whether to replace variable names with variable labels obtained from \code{labelled::var_label()} function.}
 }
 \value{
 A vector or matrix containing the average standardized mean differences (if more than two contrasts exist) as well as the all possible pairwise standardized mean differences. Variables are ordered in the same order as the printed table.
