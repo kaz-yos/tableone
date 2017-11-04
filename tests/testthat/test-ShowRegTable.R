@@ -239,7 +239,7 @@ test_that("lme4 works", {
                     data = koch,
                     family = poisson(link = "log"))
     ## Last rows correspond to fixed effects
-    ciGlmer1 <- tail(confint(glmer1), nrow(coef(summary(lmer1))))
+    ciGlmer1 <- tail(confint(glmer1), nrow(coef(summary(glmer1))))
 
     ## confint
     ShowRegTable(glmer1, digits = 5, exp = TRUE)
