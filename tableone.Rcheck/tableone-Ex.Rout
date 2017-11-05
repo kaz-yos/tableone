@@ -3324,7 +3324,7 @@ detaching ‘package:survey’, ‘package:survival’, ‘package:Matrix’,
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  20.461 1.128 28.547 0.013 0.014 
+Time elapsed:  5.798 0.292 6.183 0.004 0.006 
 > grDevices::dev.off()
 null device 
           1 
