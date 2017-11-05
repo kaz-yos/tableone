@@ -25,7 +25,7 @@ BUG FIXES
 
 ## Test environments
 * Local OS X 10.12.6, R 3.4.2
-* Ubuntu Linux on Travis-CI (oldrel, release, and devel)
+* Ubuntu Linux on Travis-CI (release and devel)
 * win-builder (release and devel)
 
 
