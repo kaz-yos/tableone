@@ -14,9 +14,11 @@
 ##' @param smd Whether to show standardized mean differences. FALSE by default. If there are more than one contrasts, the average of all possible standardized mean differences is shown. For individual contrasts, use \code{summary}.
 ##' @param noSpaces Whether to remove spaces added for alignment. Use this option if you prefer to align numbers yourself in other software.
 ##' @param padColnames Whether to pad column names with spaces to center justify. The default is FALSE. It is not conducted if noSpaces = TRUE.
+##' @param varLabels Whether to replace variable names with variable labels obtained from \code{labelled::var_label()} function.
 ##' @param format The default is "fp" frequency (percentage). You can also choose from "f" frequency only, "p" percentage only, and "pf" percentage (frequency).
 ##' @param showAllLevels Whether to show all levels. FALSE by default, i.e., for 2-level categorical variables, only the higher level is shown to avoid redundant information.
 ##' @param cramVars A character vector to specify the two-level categorical variables, for which both levels should be shown in one row.
+##' @param dropEqual Whether to drop " = second level name" description indicating which level is shown for two-level categorical variables.
 ##' @param exact A character vector to specify the variables for which the p-values should be those of exact tests. By default all p-values are from large sample approximation tests (chisq.test).
 ##' @param nonnormal A character vector to specify the variables for which the p-values should be those of nonparametric tests. By default all p-values are from normal assumption-based tests (oneway.test).
 ##' @param minMax Whether to use [min,max] instead of [p25,p75] for nonnormal variables. The default is FALSE.
@@ -43,11 +45,13 @@ function(x,                   # TableOne object
          smd           = FALSE, # Whether to add standardized mean differences
          noSpaces      = FALSE, # Whether to remove spaces for alignments
          padColnames   = FALSE, # Whether to pad column names for alignments
+         varLabels     = FALSE, # Whether to show variable labels instead of names.
 
          ## Categorical options
          format        = c("fp","f","p","pf")[1], # Format f_requency and/or p_ercent
          showAllLevels = FALSE, # Show all levels of a categorical variable
          cramVars      = NULL,  # Which 2-level variables to show both levels in one row
+         dropEqual     = FALSE, # Do not show " = second level" for two-level variables
          exact         = NULL,  # Which variables should be tested with exact tests
 
          ## Continuous options
@@ -67,6 +71,7 @@ function(x,                   # TableOne object
                                     ## Returns one more column if TRUE
                                     showAllLevels = showAllLevels,
                                     cramVars = cramVars,
+                                    dropEqual = dropEqual,
 
                                     ## print.ContTable arguments passed
                                     nonnormal = nonnormal, minMax = minMax,
@@ -91,10 +96,32 @@ function(x,                   # TableOne object
     spcFmtEltTables <- ModuleAddSpacesToTable(FmtElementTables, nSpacesToAdd, showAllLevels)
 
 
-    ## Create a list of one variable tables excluding sample size row
+    ## Create a list of one variable tables excluding sample size row.
+    ## This is based on the variable order in the MetaData.
     lstOneVarTables <- ModuleListOfOneVarTables(spcFmtEltTables,
                                                 MetaData = x$MetaData)
 
+    ## Replace variable names with variable labels if requested.
+    ## Loop over the variable replacing its name with its label.
+    if (varLabels) {
+        lstOneVarTables <-
+            lapply(seq_along(lstOneVarTables),
+                   function(i) {
+                       ## Each element is a string matrix.
+                       mat <- lstOneVarTables[[i]]
+                       ## Manipulate if a non-NULL label is available.
+                       ## Note MetaData$varLabels is a list.
+                       if (!is.null(x$MetaData$varLabels[[i]])) {
+                           ## The first row name contains the variable name
+                           ## without preceding space. Replace by exact matching.
+                           rownames(mat)[1] <- gsub(paste0("^", x$MetaData$vars[i]),
+                                                    x$MetaData$varLabels[[i]],
+                                                    rownames(mat)[1])
+                       }
+                       ## Return the entire matrix.
+                       mat
+                   })
+    }
 
     ## Check if the first row is CatTable element
     ## if so, pick sample size row from space-padded CatTable element

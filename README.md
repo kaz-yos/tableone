@@ -1,7 +1,7 @@
-tableone (release repo)
+tableone (developmental repo)
 ===============================================================================
 
-[![Travis-CI Build Status](https://travis-ci.org/kaz-yos/tableone.svg?branch=master)](https://travis-ci.org/kaz-yos/tableone)
+[![Travis-CI Build Status](https://travis-ci.org/kaz-yos/tableone.svg?branch=develop)](https://travis-ci.org/kaz-yos/tableone)
 
 **An R package to create "Table 1", description of baseline characteristics**
 
@@ -80,10 +80,21 @@ stage (%)                                                                    0.2
 Installation
 -------------------------------------------------------------------------------
 
-This is the release version of the tableone package either to be released on CRAN or is already on CRAN. The installation can be done by the usual package installation via CRAN.
+This version of tableone package for R is developmetal, and may not be available from the CRAN. You can install it using one of the following way.
 
-- https://cran.r-project.org/package=tableone
+**Direct installation from github**
 
-If you prefer to follow the latest development, please see the developmetal repo:
+You first need to install the devtools package to do the following. You can choose from the latest stable version and the latest development version.
 
-- https://github.com/kaz-yos/tableone/tree/develop
+```
+
+## Install devtools (if you do not have it already)
+> install.packages("devtools")
+## Install directly from github (develop branch)
+> devtools::install_github(repo = "kaz-yos/tableone", ref = "develop")
+
+```
+
+Using devtools may requires some preparation, please see the following link for information.
+
+http://www.rstudio.com/projects/devtools/

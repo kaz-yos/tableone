@@ -164,7 +164,131 @@ Unit tests for the CreateTableOne function: .......................
      2                         35 (22.2)                 32 ( 20.8)                         
      3                         56 (35.4)                 64 ( 41.6)                         
      4                         55 (34.8)                 54 ( 35.1)                         
-.                      Stratified by trt
+.                      
+                       Overall          
+  n                        418          
+  time (mean (sd))     1917.78 (1104.67)
+  status (%)                            
+     0                     232 (55.5)   
+     1                      25 ( 6.0)   
+     2                     161 (38.5)   
+  age (mean (sd))        50.74 (10.45)  
+  sex = f (%)              374 (89.5)   
+  ascites = 1 (%)           24 ( 7.7)   
+  hepato = 1 (%)           160 (51.3)   
+  spiders = 1 (%)           90 (28.8)   
+  edema (%)                             
+     0                     354 (84.7)   
+     0.5                    44 (10.5)   
+     1                      20 ( 4.8)   
+  bili (mean (sd))        3.22 (4.41)   
+  chol (mean (sd))      369.51 (231.94) 
+  albumin (mean (sd))     3.50 (0.42)   
+  copper (mean (sd))     97.65 (85.61)  
+  alk.phos (mean (sd)) 1982.66 (2140.39)
+  ast (mean (sd))       122.56 (56.70)  
+  trig (mean (sd))      124.70 (65.15)  
+  platelet (mean (sd))  257.02 (98.33)  
+  protime (mean (sd))    10.73 (1.02)   
+  stage (%)                             
+     1                      21 ( 5.1)   
+     2                      92 (22.3)   
+     3                     155 (37.6)   
+     4                     144 (35.0)   
+                      
+                       Overall          
+  n                        418          
+  time (mean (sd))     1917.78 (1104.67)
+  status (%)                            
+     0                     232 (55.5)   
+     1                      25 ( 6.0)   
+     2                     161 (38.5)   
+  age (mean (sd))        50.74 (10.45)  
+  sex (%)                  374 (89.5)   
+  ascites (%)               24 ( 7.7)   
+  hepato (%)               160 (51.3)   
+  spiders (%)               90 (28.8)   
+  edema (%)                             
+     0                     354 (84.7)   
+     0.5                    44 (10.5)   
+     1                      20 ( 4.8)   
+  bili (mean (sd))        3.22 (4.41)   
+  chol (mean (sd))      369.51 (231.94) 
+  albumin (mean (sd))     3.50 (0.42)   
+  copper (mean (sd))     97.65 (85.61)  
+  alk.phos (mean (sd)) 1982.66 (2140.39)
+  ast (mean (sd))       122.56 (56.70)  
+  trig (mean (sd))      124.70 (65.15)  
+  platelet (mean (sd))  257.02 (98.33)  
+  protime (mean (sd))    10.73 (1.02)   
+  stage (%)                             
+     1                      21 ( 5.1)   
+     2                      92 (22.3)   
+     3                     155 (37.6)   
+     4                     144 (35.0)   
+.....                      
+                       Overall          
+  n                        418          
+  time (mean (sd))     1917.78 (1104.67)
+  status (%)                            
+     0                     232 (55.5)   
+     1                      25 ( 6.0)   
+     2                     161 (38.5)   
+  age (mean (sd))        50.74 (10.45)  
+  sex = f (%)              374 (89.5)   
+  ascites = 1 (%)           24 ( 7.7)   
+  hepato = 1 (%)           160 (51.3)   
+  spiders = 1 (%)           90 (28.8)   
+  edema (%)                             
+     0                     354 (84.7)   
+     0.5                    44 (10.5)   
+     1                      20 ( 4.8)   
+  bili (mean (sd))        3.22 (4.41)   
+  chol (mean (sd))      369.51 (231.94) 
+  albumin (mean (sd))     3.50 (0.42)   
+  copper (mean (sd))     97.65 (85.61)  
+  alk.phos (mean (sd)) 1982.66 (2140.39)
+  ast (mean (sd))       122.56 (56.70)  
+  trig (mean (sd))      124.70 (65.15)  
+  platelet (mean (sd))  257.02 (98.33)  
+  protime (mean (sd))    10.73 (1.02)   
+  stage (%)                             
+     1                      21 ( 5.1)   
+     2                      92 (22.3)   
+     3                     155 (37.6)   
+     4                     144 (35.0)   
+                          
+                           Overall          
+  n                            418          
+  time (mean (sd))         1917.78 (1104.67)
+  status (%)                                
+     0                         232 (55.5)   
+     1                          25 ( 6.0)   
+     2                         161 (38.5)   
+  Age in Years (mean (sd))   50.74 (10.45)  
+  Female Sex = f (%)           374 (89.5)   
+  ascites = 1 (%)               24 ( 7.7)   
+  hepato = 1 (%)               160 (51.3)   
+  spiders = 1 (%)               90 (28.8)   
+  edema (%)                                 
+     0                         354 (84.7)   
+     0.5                        44 (10.5)   
+     1                          20 ( 4.8)   
+  bili (mean (sd))            3.22 (4.41)   
+  chol (mean (sd))          369.51 (231.94) 
+  albumin (mean (sd))         3.50 (0.42)   
+  copper (mean (sd))         97.65 (85.61)  
+  alk.phos (mean (sd))     1982.66 (2140.39)
+  ast (mean (sd))           122.56 (56.70)  
+  trig (mean (sd))          124.70 (65.15)  
+  platelet (mean (sd))      257.02 (98.33)  
+  protime (mean (sd))        10.73 (1.02)   
+  Stage of the Disease (%)                  
+     1                          21 ( 5.1)   
+     2                          92 (22.3)   
+     3                         155 (37.6)   
+     4                         144 (35.0)   
+........                      Stratified by trt
                        1                 2                 p      test
   n                        158               154                      
   time (mean (sd))     2015.62 (1094.12) 1996.86 (1155.93)  0.883     
@@ -1994,11 +2118,16 @@ day         0.96758 [0.96225, 0.97295] <0.001
 (Intercept)  2.70219 [2.51140, 2.89298]   <0.001
 trt         -0.36806 [-0.57681, -0.15930]  0.001
 day         -0.06464 [-0.07910, -0.05017] <0.001
-..            coef [confint]                p      
-(Intercept)  2.70219 [2.51320, 2.89118]    27.917
-trt         -0.36806 [-0.57306, -0.16305]  -3.516
-day         -0.06464 [-0.07905, -0.05022]  -8.807
-..            exp(coef) [confint]        p     
+..### The lme4 version is  1.1-15 
+            coef [confint]                p  
+(Intercept)  2.70219 [2.51320, 2.89118]    NA
+trt         -0.36806 [-0.57306, -0.16305]  NA
+day         -0.06464 [-0.07905, -0.05022]  NA
+..            coef [confint]                p     
+(Intercept)  2.70219 [2.51320, 2.89118]   <0.001
+trt         -0.36806 [-0.57306, -0.16305]  0.001
+day         -0.06464 [-0.07905, -0.05022] <0.001
+...            exp(coef) [confint]        p     
 (Intercept) 2.82371 [2.31045, 3.43231] <0.001
 trt         0.82903 [0.70232, 0.97777]  0.026
 day         0.96758 [0.94787, 0.98762]  0.002

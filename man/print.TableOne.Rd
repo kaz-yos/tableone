@@ -7,8 +7,9 @@
 \method{print}{TableOne}(x, catDigits = 1, contDigits = 2, pDigits = 3,
   quote = FALSE, missing = FALSE, explain = TRUE, printToggle = TRUE,
   test = TRUE, smd = FALSE, noSpaces = FALSE, padColnames = FALSE,
-  format = c("fp", "f", "p", "pf")[1], showAllLevels = FALSE,
-  cramVars = NULL, exact = NULL, nonnormal = NULL, minMax = FALSE, ...)
+  varLabels = FALSE, format = c("fp", "f", "p", "pf")[1],
+  showAllLevels = FALSE, cramVars = NULL, dropEqual = FALSE,
+  exact = NULL, nonnormal = NULL, minMax = FALSE, ...)
 }
 \arguments{
 \item{x}{Object returned by \code{\link{CreateTableOne}} function.}
@@ -35,11 +36,15 @@
 
 \item{padColnames}{Whether to pad column names with spaces to center justify. The default is FALSE. It is not conducted if noSpaces = TRUE.}
 
+\item{varLabels}{Whether to replace variable names with variable labels obtained from \code{labelled::var_label()} function.}
+
 \item{format}{The default is "fp" frequency (percentage). You can also choose from "f" frequency only, "p" percentage only, and "pf" percentage (frequency).}
 
 \item{showAllLevels}{Whether to show all levels. FALSE by default, i.e., for 2-level categorical variables, only the higher level is shown to avoid redundant information.}
 
 \item{cramVars}{A character vector to specify the two-level categorical variables, for which both levels should be shown in one row.}
+
+\item{dropEqual}{Whether to drop " = second level name" description indicating which level is shown for two-level categorical variables.}
 
 \item{exact}{A character vector to specify the variables for which the p-values should be those of exact tests. By default all p-values are from large sample approximation tests (chisq.test).}
 

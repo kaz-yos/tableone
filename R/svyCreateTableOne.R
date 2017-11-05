@@ -103,6 +103,10 @@ function(vars,                                   # character vector of variable 
     ## Abort if no variables exist at this point
     ModuleStopIfNoVarsLeft(vars)
 
+    ## Get variable labels (named list of label string or NULL)
+    ## Need to occur before applying factor().
+    varLabels <- labelled::var_label(data$variables[vars])
+
     ## Factor conversions if the factorVars argument exist
     if (!missing(factorVars)) {
         ## Check if variables exist. Drop them if not.
@@ -123,7 +127,7 @@ function(vars,                                   # character vector of variable 
 
     ## Classify as varFactors if any one of these classes are contained
     varFactors <- sapply(varClasses, function(VEC) {
-        any(VEC %in% c("factor", "ordered", "logical", "character"))
+        any(VEC %in% c("factor", "ordered", "logical", "character", "labelled"))
     })
     varFactors <- names(varFactors)[varFactors]
 
@@ -215,7 +219,9 @@ function(vars,                                   # character vector of variable 
                                             varFactors  = varFactors,
                                             varNumerics = varNumerics,
                                             ## Missing data percentage for each variable (no strata).
-                                            percentMissing = percentMissing))
+                                            percentMissing = percentMissing,
+                                            ## Variable labels
+                                            varLabels = varLabels))
 
     ## Give a class
     class(TableOneObject) <- c("svyTableOne", "TableOne")

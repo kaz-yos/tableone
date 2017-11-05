@@ -5,19 +5,21 @@
 ## Author: Kazuki Yoshida
 ################################################################################
 
-### Structure
-## expectations within tests within context
-
+###
 ### Prepare environment
 ################################################################################
 library(testthat)
 
+
+###
 ### Context (1 for each file)
+################################################################################
 context("Unit tests for the CreateTableOne function")
 
 
+###
 ### Load data
-
+################################################################################
 library(survival)
 data(pbc)
 
@@ -33,7 +35,10 @@ vars <- c("time","status","age","sex","ascites","hepato",
 varsContOnly <- c("time","age","protime")
 varsCatOnly  <- c("status","trt","sex")
 
+
+###
 ### Tests for data checkers
+################################################################################
 
 test_that("abnormal data are correctly detected", {
 
@@ -65,7 +70,9 @@ test_that("abnormal data are correctly detected", {
 })
 
 
+###
 ### Tests for ModuleTestSafe, a wrapper for test functions such as oneway.test and chisq.test
+################################################################################
 
 ## Create a dataset for a table
 dat <- read.table(header = TRUE, text = "
@@ -134,8 +141,8 @@ test_that("P-values should be NA for 1xM xtabs", {
 })
 
 
-
-### Regression tests
+###
+### Table construction and printing tests
 ################################################################################
 
 ## Create a table to test
@@ -217,6 +224,72 @@ test_that("Missing percentages are correctly stored and printed", {
 
 })
 
+
+test_that("dropEqual options correctly retail two-level categorical variable names", {
+
+    ## Default table matrix
+    mat_default <- print(pbcOverall)
+    mat_modified <- mat_default
+    ## Drop " = 1" etc by regex
+    rownames(mat_modified) <- gsub(" = .* \\(", " (", rownames(mat_modified))
+
+    ## dropEqual = TRUE to avoid creation of " = 1"
+    mat_dropEqual <- print(pbcOverall, dropEqual = TRUE)
+
+    ## Expectations
+    ## These must differ.
+    expect_false(identical(mat_default, mat_modified))
+    expect_false(identical(rownames(mat_default), rownames(mat_modified)))
+    expect_false(all(rownames(mat_default) == rownames(mat_modified)))
+    ## These must match.
+    expect_equal(rownames(mat_modified), rownames(mat_dropEqual))
+    expect_equal(mat_modified, mat_dropEqual)
+})
+
+
+test_that("variable labels are correctly shown", {
+
+    ## Construct a dataset with some variable labels.
+    pbc_labeled <- pbc
+    ## Continuous
+    age_label <- "Age in Years"
+    ## Two-level categorical
+    sex_label <- "Female Sex"
+    ## Multi-level categorical
+    stage_label <- "Stage of the Disease"
+    ## Apply labels
+    labelled::var_label(pbc_labeled$age) <- age_label
+    labelled::var_label(pbc_labeled$sex) <- sex_label
+    labelled::var_label(pbc_labeled$stage) <-stage_label
+    ## Show
+    labelled::var_label(pbc_labeled)
+
+    ## Construct a TableOne object.
+    ## Using factorVars should not break
+    pbcOverall  <- CreateTableOne(vars = vars, data = pbc_labeled, factorVars = "stage")
+
+    mat_default  <- print(pbcOverall)
+    mat_labelled <- print(pbcOverall, varLabels = TRUE)
+
+    ## Expectations
+    ## These must differ.
+    expect_false(identical(mat_default, mat_labelled))
+    expect_false(identical(rownames(mat_default), rownames(mat_labelled)))
+    ## These labels should not exist in the original row names.
+    expect_true(sum(grepl(age_label, rownames(mat_default))) == 0)
+    expect_true(sum(grepl(sex_label, rownames(mat_default))) == 0)
+    expect_true(sum(grepl(stage_label, rownames(mat_default))) == 0)
+    ## These labels should appear only once in labelled table.
+    expect_true(sum(grepl(age_label, rownames(mat_labelled))) == 1)
+    expect_true(sum(grepl(sex_label, rownames(mat_labelled))) == 1)
+    expect_true(sum(grepl(stage_label, rownames(mat_labelled))) == 1)
+
+})
+
+
+###
+### Regression tests for the print method
+################################################################################
 
 test_that("printing of a TableOne object does not regress", {
 
@@ -357,6 +430,9 @@ test_that("printing of a TableOne$ContTable object do not regress", {
 })
 
 
+###
+### Tests for the summary method
+################################################################################
 test_that("summary method works without errors", {
 
     ## Expectations
