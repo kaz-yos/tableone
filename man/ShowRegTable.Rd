@@ -16,7 +16,7 @@ ShowRegTable(model, exp = TRUE, digits = 2, pDigits = 3,
 
 \item{pDigits}{Number of digits to print for the p-values.}
 
-\item{printToggle}{Whether to print the output. If FLASE, no output is created, and a matrix is invisibly returned.}
+\item{printToggle}{Whether to print the output. If FALSE, no output is created, and a matrix is invisibly returned.}
 
 \item{quote}{Whether to show everything in quotes. The default is FALSE. If TRUE, everything including the row and column names are quoted so that you can copy it to Excel easily.}
 
