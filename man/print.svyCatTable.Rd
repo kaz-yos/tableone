@@ -23,7 +23,7 @@
 
 \item{explain}{Whether to add explanation to the variable names, i.e., (\%) is added to the variable names when percentage is shown.}
 
-\item{printToggle}{Whether to print the output. If FLASE, no output is created, and a matrix is invisibly returned.}
+\item{printToggle}{Whether to print the output. If FALSE, no output is created, and a matrix is invisibly returned.}
 
 \item{noSpaces}{Whether to remove spaces added for alignment. Use this option if you prefer to align numbers yourself in other software.}
 

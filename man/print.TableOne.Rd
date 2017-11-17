@@ -26,7 +26,7 @@
 
 \item{explain}{Whether to add explanation to the variable names, i.e., (\%) is added to the variable names when percentage is shown.}
 
-\item{printToggle}{Whether to print the output. If FLASE, no output is created, and a matrix is invisibly returned.}
+\item{printToggle}{Whether to print the output. If FALSE, no output is created, and a matrix is invisibly returned.}
 
 \item{test}{Whether to show p-values. TRUE by default. If FALSE, only the numerical summaries are shown.}
 

@@ -8,7 +8,7 @@
 ##' @param quote Whether to show everything in quotes. The default is FALSE. If TRUE, everything including the row and column names are quoted so that you can copy it to Excel easily.
 ##' @param missing Whether to show missing data information.
 ##' @param explain Whether to add explanation to the variable names, i.e., (mean (sd) or median [IQR]) is added to the variable names.
-##' @param printToggle Whether to print the output. If FLASE, no output is created, and a matrix is invisibly returned.
+##' @param printToggle Whether to print the output. If FALSE, no output is created, and a matrix is invisibly returned.
 ##' @param noSpaces Whether to remove spaces added for alignment. Use this option if you prefer to align numbers yourself in other software.
 ##' @param nonnormal A character vector to specify the variables for which the p-values should be those of nonparametric tests. By default all p-values are from normal assumption-based tests (oneway.test).
 ##' @param minMax Whether to use [min,max] instead of [p25,p75] for nonnormal variables. The default is FALSE.
