@@ -1,8 +1,14 @@
 ## What's new
 The following changes are included.
 
-tableone 0.9.0 (2017-11-03)
+tableone 0.9.2 (2018-01-24)
 ----------------------------------------------------------------
+
+BUG FIXES
+
+* Avoid issues with --without-long-double and alternative BLAS.
+* Handling of lme4 models was improved in ShowRegTable.
+* Do not reduce dimension of SMD matrix when only one contrast exists.
 
 NEW FEATURES
 
@@ -18,13 +24,9 @@ NEW FEATURES
   shown depending on the variable naming scheme, thus, should only
   be used after the initial results were checked for correctness.
 
-BUG FIXES
-
-* Handling of lme4 models was improved in ShowRegTable.
-
 
 ## Test environments
-* Local OS X 10.12.6, R 3.4.2
+* Local OS X 10.13.2, R 3.4.3
 * Ubuntu Linux on Travis-CI (release and devel)
 * win-builder (release and devel)
 

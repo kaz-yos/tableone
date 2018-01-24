@@ -322,10 +322,19 @@ test_that("p values are correctly calculated", {
       svyTestNormal("C2 ~ factor(E)", datSvy, test.terms = "factor(E)", method = "Wald")$p.value)
     expect_equal(attr(mwByE$ContTable, "pValues")[, "pNormal"][-1], pValuesTestNormal)
 
-    ## svyglm to do ANOVA equivalent (only solvable on non-i386 systems)
-    if (R.Version()$arch != "i386") {
-        expect_equal(attr(mwByE$ContTable, "pValues")[, "pNormal"][1],
-                     svyTestNormal("E ~ factor(E)", datSvy, test.terms = "factor(E)", method = "Wald")$p.value)           }
+    ## svyglm to do ANOVA equivalent
+    ## Call stack
+    ## svyTestNormal
+    ##  svyGlmTermTest
+    ##   survey::regTermTest
+    ##    solve
+    ##     solve.default
+    ## solve.default() can error on some systems: i386, MLK, OpenBLAS
+    ## system is computationally singular: reciprocal condition number = 5.45299e-17
+    ## if (R.Version()$arch != "i386") {
+        ## expect_equal(attr(mwByE$ContTable, "pValues")[, "pNormal"][1],
+        ##              svyTestNormal("E ~ factor(E)", datSvy, test.terms = "factor(E)", method = "Wald")$p.value)
+    ## }
 
     ## svyranktest
     pValuesTestNonNormal <-

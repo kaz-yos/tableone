@@ -471,10 +471,26 @@ test_that("decent results are returned for anomalous/difficult data", {
                     (means2[2] - means2[4]) / sqrt((vars2[2] + vars2[4]) / 2),
                     (means2[3] - means2[4]) / sqrt((vars2[3] + vars2[4]) / 2))
     ## Redefined as 0 as T-C is a zero vector
-    expect_equal(svyStdDiff("onlyOne", "race", nhanesSvy), rep(0,6))
+    ## Fails if no long double is available in R.
+    ##
+    ## noLD: Tests without long double (tests on x86_64 Linux with R-devel configured --without-long-double)
+    ## ── 1. Failure: decent results are returned for anomalous/difficult data (@test-m
+    ## svyStdDiff("onlyOne", "race", nhanesSvy) not equal to rep(0, 6).
+    ## 6/6 mismatches (average diff: 1.33)
+    ## [1] 0.117 - 0 == 0.117
+    ## [2] 1.987 - 0 == 1.987
+    ## [3] 1.129 - 0 == 1.129
+    ## [4] 1.997 - 0 == 1.997
+    ## [5] 1.162 - 0 == 1.162
+    ## [6] 1.608 - 0 == 1.608
+    ##
+    ## base::.Machine$sizeof.longdouble: the number of bytes in a C long double type. Will be zero if there is no such type (or its use was disabled when R was built), otherwise possibly 12 (most 32-bit builds) or 16 (most 64-bit builds).
+    if (base::.Machine$sizeof.longdouble >= 16) {
+        ## Test only when long double is available in 64bit system.
+        expect_equal(svyStdDiff("onlyOne", "race", nhanesSvy), rep(0,6))
+    }
     ## 0 because [0]^-  = 0, and [1]^T [0]^-1 [1] = 0; defined NaN in (svy)StdDiffMulti
     expect_equal(svyStdDiffMulti("onlyOne", "race", nhanesSvy), rep(0, 6))
-
 
     ## onlyNa
     ## NA as na.rm is turned off
