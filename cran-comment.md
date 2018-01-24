@@ -6,7 +6,7 @@ tableone 0.9.2 (2018-01-24)
 
 BUG FIXES
 
-* Avoid issues with --without-long-double and alternative BLAS.
+* Avoid issues with --disable-long-double and alternative BLAS.
 * Handling of lme4 models was improved in ShowRegTable.
 * Do not reduce dimension of SMD matrix when only one contrast exists.
 
