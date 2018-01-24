@@ -1,5 +1,5 @@
 
-R version 3.4.2 (2017-09-28) -- "Short Summer"
+R version 3.4.3 (2017-11-30) -- "Kite-Eating Tree"
 Copyright (C) 2017 The R Foundation for Statistical Computing
 Platform: x86_64-apple-darwin15.6.0 (64-bit)
 
@@ -1608,12 +1608,25 @@ protime  0.1460939117
 > 
 > ## If SMDs are needed as numericals, use ExtractSmd()
 > ExtractSmd(tableOne)
-        time       status          age          sex      ascites       hepato 
-0.0166658751 0.0537576290 0.2702619258 0.1114116116 0.0890061759 0.2069941350 
-     spiders        edema         bili         chol      albumin       copper 
-0.0163284440 0.0581165880 0.1710905651 0.0382210537 0.0180021838 0.0001200022 
-    alk.phos          ast         trig     platelet      protime        stage 
-0.0365323630 0.0837836058 0.0170615337 0.0674763888 0.1460939117 0.2460083410 
+               1 vs 2
+time     0.0166658751
+status   0.0537576290
+age      0.2702619258
+sex      0.1114116116
+ascites  0.0890061759
+hepato   0.2069941350
+spiders  0.0163284440
+edema    0.0581165880
+bili     0.1710905651
+chol     0.0382210537
+albumin  0.0180021838
+copper   0.0001200022
+alk.phos 0.0365323630
+ast      0.0837836058
+trig     0.0170615337
+platelet 0.0674763888
+protime  0.1460939117
+stage    0.2460083410
 > 
 > 
 > 
@@ -3191,7 +3204,7 @@ contDigits: Number of digits to print for continuous variables. Default
  explain: Whether to add explanation to the variable names, i.e., (%)
           is added to the variable names when percentage is shown.
 
-printToggle: Whether to print the output. If FLASE, no output is
+printToggle: Whether to print the output. If FALSE, no output is
           created, and a matrix is invisibly returned.
 
     test: Whether to show p-values. TRUE by default. If FALSE, only the
@@ -3287,8 +3300,11 @@ _E_x_a_m_p_l_e_s:
 > 
 > ## If SMDs are needed as numericals, use ExtractSmd()
 > ExtractSmd(tab1)
-   HI_CHOL       race     agecat   RIAGENDR 
-0.07093003 0.06878329 0.08873652        NaN 
+             1 vs 2
+HI_CHOL  0.07093003
+race     0.06878329
+agecat   0.08873652
+RIAGENDR        NaN
 > 
 > 
 > 
@@ -3324,7 +3340,7 @@ detaching ‘package:survey’, ‘package:survival’, ‘package:Matrix’,
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  5.798 0.292 6.183 0.004 0.006 
+Time elapsed:  7.431 0.364 8.118 0.006 0.009 
 > grDevices::dev.off()
 null device 
           1 
