@@ -24,7 +24,7 @@ ExtractSmd <- function(x, varLabels = FALSE) {
                         attr(x$CatTable,  "smd"))
 
         ## Order by table variable order
-        matSmd <- matSmd[x$MetaData$vars,]
+        matSmd <- matSmd[x$MetaData$vars, , drop = FALSE]
 
         ## Use variable labels if requested.
         if (varLabels) {
