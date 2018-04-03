@@ -238,7 +238,7 @@ test_that("lme4 works", {
         ## p-value
         ## For some reason, need to specify summary explicitly.
         expect_output(ShowRegTable(lmer2, pDigits = 5, exp = FALSE),
-                      sprintf("%.5f", coef(lmerTest::summary(lmer2))[2,5]))
+                      sprintf("%.5f", coef(lmerTest_summary(lmer2))[2,5]))
 
         ## GLMM
         glmer1 <- glmer(formula = y ~ trt + day + (1 | id),

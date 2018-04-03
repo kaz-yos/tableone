@@ -22,7 +22,8 @@ Imports:
     gmodels,
     nlme,
     lmerTest,
-    labelled
+    labelled,
+    methods
 Suggests:
     survival,
     testthat,
