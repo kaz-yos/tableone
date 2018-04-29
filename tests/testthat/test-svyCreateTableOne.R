@@ -513,7 +513,10 @@ test_that("svyrep.design is allowed", {
                             c(1,0,0,1,0,1),
                             c(0,1,1,0,0,1),
                             c(0,1,0,1,1,0))
-    scdrep <- svrepdesign(data = scd, type = "BRR", repweights = repweights, combined.weights = FALSE)
+    ## Suppress the following warning.
+    ## In svrepdesign.default(data = scd, type = "BRR", repweights = repweights,  :
+    ##   No sampling weights provided: equal probability assumed
+    scdrep <- suppressWarnings(svrepdesign(data = scd, type = "BRR", repweights = repweights, combined.weights = FALSE))
 
     ## Standard construction
     ans_means <- svyby(formula = ~ alive, by = ~ ESA, design = scdrep, FUN = svymean)[,2]
