@@ -1,8 +1,8 @@
 Package: tableone
 Type: Package
 Title: Create 'Table 1' to Describe Baseline Characteristics
-Version: 0.9.2
-Date: 2018-01-24
+Version: 0.9.3
+Date: 2018-04-28
 Author: Kazuki Yoshida, Justin Bohn.
 Maintainer: Kazuki Yoshida <kazukiyoshida@mail.harvard.edu>
 Description: Creates 'Table 1', i.e., description of baseline patient
@@ -22,7 +22,8 @@ Imports:
     gmodels,
     nlme,
     lmerTest,
-    labelled
+    labelled,
+    methods
 Suggests:
     survival,
     testthat,
