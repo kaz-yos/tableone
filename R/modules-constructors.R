@@ -291,7 +291,7 @@ ModuleApproxExactTests <- function(result, strata, dat, strataVarName,
     listXtabs <- sapply(X = names(dat),
                         FUN = function(var) {
                             ## Create a formula
-                            formula <- as.formula(paste0("~ ", var, " + ", "strataVar"))
+                            formula <- as.formula(paste0("~ `", var, "` + ", "strataVar"))
 
                             ## Create a 2-dimensional crosstable
                             xtabs(formula = formula, data = dat)
