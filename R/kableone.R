@@ -1,7 +1,7 @@
 #' Export TableOne Objects to Markdown
 #'
 #' @param x an object created by a tableone function
-#' @param ... arguments passed to \code{knitr::\link{kable}()}
+#' @param ... arguments passed to \code{\link[knitr]{kable}}
 #'
 #' @return A character vector of the table source code
 #' @export
@@ -15,6 +15,7 @@
 #' 
 #' kableone(tableOne)
 #' 
+#' @importFrom utils capture.output
 kableone <- function(x, ...) {
   capture.output(x <- print(x))
   knitr::kable(x, ...)

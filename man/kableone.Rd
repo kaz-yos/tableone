@@ -9,7 +9,7 @@ kableone(x, ...)
 \arguments{
 \item{x}{an object created by a tableone function}
 
-\item{...}{arguments passed to \code{knitr::\link{kable}()}}
+\item{...}{arguments passed to \code{\link[knitr]{kable}}}
 }
 \value{
 A character vector of the table source code
