@@ -64,10 +64,8 @@ svyMiss <- function(vars, design) {
     ## Rewrite variables locally to missing 0,1 indicators
     design$variables[vars] <- lapply(design$variables[vars], miss)
 
-    ## Same for all variables, just use first
-    form <- FormulaString(vars)
-
-    res <- svytotal(x = as.formula(form), design = design)
+    ## For each var find number of missingness
+    res <- sapply(design$variables[vars], svytotal, design = design, na.rm=TRUE)
     out <- as.vector(res)
     names(out) <- vars
     out
@@ -80,11 +78,9 @@ svyPMiss <- function(vars, design) {
 
 
 svyMean <- function(vars, design) {
-    ## Same for all variables, just use first
-    form <- FormulaString(vars)
-    ## Remove missingness and mean
-    ## Bad behavior, but consistent with the unweighted version
-    res <- svymean(x = as.formula(form), design = design, na.rm = TRUE)
+
+    ## For each var find weighted mean
+    res <- sapply(design$variables[vars], svymean, design = design, na.rm=TRUE)
     out <- as.vector(res)
     names(out) <- vars
     out
@@ -92,36 +88,24 @@ svyMean <- function(vars, design) {
 
 
 svySd <- function(vars, design) {
-    ## Same for all variables, just use first
-    form <- FormulaString(vars)
-    ## Remove missingness and var
-    ## Bad behavior, but consistent with the unweighted version
-    res <- svyvar(x = as.formula(form), design = design, na.rm = TRUE)
 
-
-    ## Diagnonal elements are variances given 2+ variables
-    if (length(vars) == 1) {
-
-        out <- as.vector(sqrt(res))
-
-    } else if (length(vars) > 1) {
-
-        ## Matrix if vars is of length 2+
-        out <- sqrt(diag(res))
-    }
-
+    ## For each var find weighted variance (ie, not a variance, covariance matrix)
+    res <- sapply(design$variables[vars],svyvar, design = design, na.rm=TRUE)
+    out <- as.vector(sqrt(res))
     names(out) <- vars
     out
 }
 
 
 svyQuant <- function(vars, design, q = 0.5) {
-    ## Same for all variables, just use first
-    form <- FormulaString(vars)
-    ## Remove missingness and mean
-    ## Bad behavior, but consistent with the unweighted version
+
     ## Use only one quantile
-    res <- svyquantile(x = as.formula(form), quantiles = q[1], design = design, na.rm = TRUE)
+    ## Not as elegant as sapply, though sapply with svyquantile failed to run
+    res <- vector()
+    for ( i in 1:length(vars)) {
+      var    <- vars[i]
+      res[i] <- svyquantile(design$variables[var], design = design, quantiles = q[1], na.rm = TRUE)
+    }
     out <- as.vector(res)
     names(out) <- vars
     out
