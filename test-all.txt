@@ -2,12 +2,12 @@
 ⠏ |  0       | Unit tests for the CreateTableOne function⠋ |  1       | Unit tests for the CreateTableOne function⠙ |  2       | Unit tests for the CreateTableOne function⠹ |  3       | Unit tests for the CreateTableOne function⠸ |  4       | Unit tests for the CreateTableOne function⠼ |  5       | Unit tests for the CreateTableOne function⠴ |  6       | Unit tests for the CreateTableOne function⠦ |  7       | Unit tests for the CreateTableOne function⠧ |  8       | Unit tests for the CreateTableOne function⠇ |  9       | Unit tests for the CreateTableOne function⠏ | 10       | Unit tests for the CreateTableOne function⠋ | 11       | Unit tests for the CreateTableOne function⠙ | 12       | Unit tests for the CreateTableOne function⠹ | 13       | Unit tests for the CreateTableOne function⠸ | 14       | Unit tests for the CreateTableOne function⠼ | 15       | Unit tests for the CreateTableOne function⠴ | 16       | Unit tests for the CreateTableOne function⠦ | 17       | Unit tests for the CreateTableOne function⠧ | 18       | Unit tests for the CreateTableOne function⠇ | 19       | Unit tests for the CreateTableOne function⠏ | 20       | Unit tests for the CreateTableOne function⠋ | 21       | Unit tests for the CreateTableOne function⠙ | 22       | Unit tests for the CreateTableOne function⠹ | 23       | Unit tests for the CreateTableOne function                      
                        Overall           Missing
   n                        418                  
-  time (mean (sd))     1917.78 (1104.67)  0.0   
+  time (mean (SD))     1917.78 (1104.67)  0.0   
   status (%)                              0.0   
      0                     232 (55.5)           
      1                      25 ( 6.0)           
      2                     161 (38.5)           
-  age (mean (sd))        50.74 (10.45)    0.0   
+  age (mean (SD))        50.74 (10.45)    0.0   
   sex = f (%)              374 (89.5)     0.0   
   ascites = 1 (%)           24 ( 7.7)    25.4   
   hepato = 1 (%)           160 (51.3)    25.4   
@@ -16,15 +16,15 @@
      0                     354 (84.7)           
      0.5                    44 (10.5)           
      1                      20 ( 4.8)           
-  bili (mean (sd))        3.22 (4.41)     0.0   
-  chol (mean (sd))      369.51 (231.94)  32.1   
-  albumin (mean (sd))     3.50 (0.42)     0.0   
-  copper (mean (sd))     97.65 (85.61)   25.8   
-  alk.phos (mean (sd)) 1982.66 (2140.39) 25.4   
-  ast (mean (sd))       122.56 (56.70)   25.4   
-  trig (mean (sd))      124.70 (65.15)   32.5   
-  platelet (mean (sd))  257.02 (98.33)    2.6   
-  protime (mean (sd))    10.73 (1.02)     0.5   
+  bili (mean (SD))        3.22 (4.41)     0.0   
+  chol (mean (SD))      369.51 (231.94)  32.1   
+  albumin (mean (SD))     3.50 (0.42)     0.0   
+  copper (mean (SD))     97.65 (85.61)   25.8   
+  alk.phos (mean (SD)) 1982.66 (2140.39) 25.4   
+  ast (mean (SD))       122.56 (56.70)   25.4   
+  trig (mean (SD))      124.70 (65.15)   32.5   
+  platelet (mean (SD))  257.02 (98.33)    2.6   
+  protime (mean (SD))    10.73 (1.02)     0.5   
   stage (%)                               1.4   
      1                      21 ( 5.1)           
      2                      92 (22.3)           
@@ -33,12 +33,12 @@
 ⠸ | 24       | Unit tests for the CreateTableOne function                      
                        Overall           Missing
   n                        418                  
-  time (mean (sd))     1917.78 (1104.67)  0.0   
+  time (mean (SD))     1917.78 (1104.67)  0.0   
   status (%)                              0.0   
      0                     232 (55.5)           
      1                      25 ( 6.0)           
      2                     161 (38.5)           
-  age (mean (sd))        50.74 (10.45)    0.0   
+  age (mean (SD))        50.74 (10.45)    0.0   
   sex = f (%)              374 (89.5)     0.0   
   ascites (%)                            25.4   
      0                     288 (68.9)           
@@ -56,15 +56,15 @@
      0                     354 (84.7)           
      0.5                    44 (10.5)           
      1                      20 ( 4.8)           
-  bili (mean (sd))        3.22 (4.41)     0.0   
-  chol (mean (sd))      369.51 (231.94)  32.1   
-  albumin (mean (sd))     3.50 (0.42)     0.0   
-  copper (mean (sd))     97.65 (85.61)   25.8   
-  alk.phos (mean (sd)) 1982.66 (2140.39) 25.4   
-  ast (mean (sd))       122.56 (56.70)   25.4   
-  trig (mean (sd))      124.70 (65.15)   32.5   
-  platelet (mean (sd))  257.02 (98.33)    2.6   
-  protime (mean (sd))    10.73 (1.02)     0.5   
+  bili (mean (SD))        3.22 (4.41)     0.0   
+  chol (mean (SD))      369.51 (231.94)  32.1   
+  albumin (mean (SD))     3.50 (0.42)     0.0   
+  copper (mean (SD))     97.65 (85.61)   25.8   
+  alk.phos (mean (SD)) 1982.66 (2140.39) 25.4   
+  ast (mean (SD))       122.56 (56.70)   25.4   
+  trig (mean (SD))      124.70 (65.15)   32.5   
+  platelet (mean (SD))  257.02 (98.33)    2.6   
+  protime (mean (SD))    10.73 (1.02)     0.5   
   stage (%)                               1.4   
      1                      21 ( 5.0)           
      2                      92 (22.0)           
@@ -74,12 +74,12 @@
 ⠼ | 25       | Unit tests for the CreateTableOne function                      Stratified by trt
                        1                 2                 p      test Missing
   n                        158               154                              
-  time (mean (sd))     2015.62 (1094.12) 1996.86 (1155.93)  0.883       0.0   
+  time (mean (SD))     2015.62 (1094.12) 1996.86 (1155.93)  0.883       0.0   
   status (%)                                                0.894       0.0   
      0                      83 (52.5)         85 (55.2)                       
      1                      10 ( 6.3)          9 ( 5.8)                       
      2                      65 (41.1)         60 (39.0)                       
-  age (mean (sd))        51.42 (11.01)     48.58 (9.96)     0.018       0.0   
+  age (mean (SD))        51.42 (11.01)     48.58 (9.96)     0.018       0.0   
   sex = f (%)              137 (86.7)        139 (90.3)     0.421       0.0   
   ascites = 1 (%)           14 ( 8.9)         10 ( 6.5)     0.567      25.4   
   hepato = 1 (%)            73 (46.2)         87 (56.5)     0.088      25.4   
@@ -88,15 +88,15 @@
      0                     132 (83.5)        131 (85.1)                       
      0.5                    16 (10.1)         13 ( 8.4)                       
      1                      10 ( 6.3)         10 ( 6.5)                       
-  bili (mean (sd))        2.87 (3.63)       3.65 (5.28)     0.131       0.0   
-  chol (mean (sd))      365.01 (209.54)   373.88 (252.48)   0.748      32.1   
-  albumin (mean (sd))     3.52 (0.44)       3.52 (0.40)     0.874       0.0   
-  copper (mean (sd))     97.64 (90.59)     97.65 (80.49)    0.999      25.8   
-  alk.phos (mean (sd)) 2021.30 (2183.44) 1943.01 (2101.69)  0.747      25.4   
-  ast (mean (sd))       120.21 (54.52)    124.97 (58.93)    0.460      25.4   
-  trig (mean (sd))      124.14 (71.54)    125.25 (58.52)    0.886      32.5   
-  platelet (mean (sd))  258.75 (100.32)   265.20 (90.73)    0.555       2.6   
-  protime (mean (sd))    10.65 (0.85)      10.80 (1.14)     0.197       0.5   
+  bili (mean (SD))        2.87 (3.63)       3.65 (5.28)     0.131       0.0   
+  chol (mean (SD))      365.01 (209.54)   373.88 (252.48)   0.748      32.1   
+  albumin (mean (SD))     3.52 (0.44)       3.52 (0.40)     0.874       0.0   
+  copper (mean (SD))     97.64 (90.59)     97.65 (80.49)    0.999      25.8   
+  alk.phos (mean (SD)) 2021.30 (2183.44) 1943.01 (2101.69)  0.747      25.4   
+  ast (mean (SD))       120.21 (54.52)    124.97 (58.93)    0.460      25.4   
+  trig (mean (SD))      124.14 (71.54)    125.25 (58.52)    0.886      32.5   
+  platelet (mean (SD))  258.75 (100.32)   265.20 (90.73)    0.555       2.6   
+  protime (mean (SD))    10.65 (0.85)      10.80 (1.14)     0.197       0.5   
   stage (%)                                                 0.201       1.4   
      1                      12 ( 7.6)          4 ( 2.6)                       
      2                      35 (22.2)         32 (20.8)                       
@@ -105,12 +105,12 @@
 ⠴ | 26       | Unit tests for the CreateTableOne function                      Stratified by trt:sex
                        1:m               2:m               1:f               2:f               p      test Missing
   n                         21                15               137               139                              
-  time (mean (sd))     1793.48 (1244.70) 2156.33 (1428.56) 2049.67 (1070.20) 1979.65 (1127.52)  0.730       0.0   
+  time (mean (SD))     1793.48 (1244.70) 2156.33 (1428.56) 2049.67 (1070.20) 1979.65 (1127.52)  0.730       0.0   
   status (%)                                                                                    0.033       0.0   
      0                       4 (19.0)          7 (46.7)         79 ( 57.7)        78 ( 56.1)                      
      1                       3 (14.3)          0 ( 0.0)          7 (  5.1)         9 (  6.5)                      
      2                      14 (66.7)          8 (53.3)         51 ( 37.2)        52 ( 37.4)                      
-  age (mean (sd))        55.57 (12.61)     57.09 (10.07)     50.78 (10.65)     47.66 (9.54)    <0.001       0.0   
+  age (mean (SD))        55.57 (12.61)     57.09 (10.07)     50.78 (10.65)     47.66 (9.54)    <0.001       0.0   
   sex = f (%)                0 ( 0.0)          0 ( 0.0)        137 (100.0)       139 (100.0)   <0.001       0.0   
   ascites = 1 (%)            1 ( 4.8)          2 (13.3)         13 (  9.5)         8 (  5.8)    0.516      25.4   
   hepato = 1 (%)            12 (57.1)          9 (60.0)         61 ( 44.5)        78 ( 56.1)    0.208      25.4   
@@ -119,15 +119,15 @@
      0                      17 (81.0)         12 (80.0)        115 ( 83.9)       119 ( 85.6)                      
      0.5                     3 (14.3)          1 ( 6.7)         13 (  9.5)        12 (  8.6)                      
      1                       1 ( 4.8)          2 (13.3)          9 (  6.6)         8 (  5.8)                      
-  bili (mean (sd))        2.98 (2.11)       2.72 (2.46)       2.86 (3.81)       3.75 (5.50)     0.394       0.0   
-  chol (mean (sd))      403.43 (204.95)   301.00 (111.32)   358.24 (210.46)   381.73 (262.26)   0.512      32.1   
-  albumin (mean (sd))     3.63 (0.43)       3.50 (0.49)       3.50 (0.44)       3.53 (0.39)     0.585       0.0   
-  copper (mean (sd))    174.90 (105.33)   125.40 (89.18)     85.71 (82.27)     94.64 (79.25)   <0.001      25.8   
-  alk.phos (mean (sd)) 2486.16 (2385.32) 1734.45 (2478.07) 1950.04 (2151.35) 1965.52 (2066.15)  0.706      25.4   
-  ast (mean (sd))       128.71 (48.74)    112.58 (44.38)    118.91 (55.40)    126.30 (60.27)    0.598      25.4   
-  trig (mean (sd))      145.81 (56.62)    114.86 (39.59)    120.28 (73.41)    126.38 (60.22)    0.370      32.5   
-  platelet (mean (sd))  232.65 (97.38)    240.13 (73.93)    262.59 (100.53)   267.95 (92.20)    0.362       2.6   
-  protime (mean (sd))    10.84 (0.94)      11.23 (0.97)      10.62 (0.84)      10.75 (1.15)     0.137       0.5   
+  bili (mean (SD))        2.98 (2.11)       2.72 (2.46)       2.86 (3.81)       3.75 (5.50)     0.394       0.0   
+  chol (mean (SD))      403.43 (204.95)   301.00 (111.32)   358.24 (210.46)   381.73 (262.26)   0.512      32.1   
+  albumin (mean (SD))     3.63 (0.43)       3.50 (0.49)       3.50 (0.44)       3.53 (0.39)     0.585       0.0   
+  copper (mean (SD))    174.90 (105.33)   125.40 (89.18)     85.71 (82.27)     94.64 (79.25)   <0.001      25.8   
+  alk.phos (mean (SD)) 2486.16 (2385.32) 1734.45 (2478.07) 1950.04 (2151.35) 1965.52 (2066.15)  0.706      25.4   
+  ast (mean (SD))       128.71 (48.74)    112.58 (44.38)    118.91 (55.40)    126.30 (60.27)    0.598      25.4   
+  trig (mean (SD))      145.81 (56.62)    114.86 (39.59)    120.28 (73.41)    126.38 (60.22)    0.370      32.5   
+  platelet (mean (SD))  232.65 (97.38)    240.13 (73.93)    262.59 (100.53)   267.95 (92.20)    0.362       2.6   
+  protime (mean (SD))    10.84 (0.94)      11.23 (0.97)      10.62 (0.84)      10.75 (1.15)     0.137       0.5   
   stage (%)                                                                                     0.646       1.4   
      1                       2 ( 9.5)          1 ( 6.7)         10 (  7.3)         3 (  2.2)                      
      2                       4 (19.0)          2 (13.3)         31 ( 22.6)        30 ( 21.6)                      
@@ -136,13 +136,13 @@
 ⠦ | 27       | Unit tests for the CreateTableOne function                         Stratified by trt
                           1                         2                         SMD    Missing
   n                           158                       154                                 
-  time (mean (sd))        2015.62 (1094.12)         1996.86 (1155.93)          0.017  0.0   
+  time (mean (SD))        2015.62 (1094.12)         1996.86 (1155.93)          0.017  0.0   
   status (%)                                                                   0.054  0.0   
      0                         83 (52.5)                 85 ( 55.2)                         
      1                         10 ( 6.3)                  9 (  5.8)                         
      2                         65 (41.1)                 60 ( 39.0)                         
   trt = 2 (%)                   0 ( 0.0)                154 (100.0)            NaN   25.4   
-  age (mean (sd))           51.42 (11.01)             48.58 (9.96)             0.270  0.0   
+  age (mean (SD))           51.42 (11.01)             48.58 (9.96)             0.270  0.0   
   sex = f (%)                 137 (86.7)                139 ( 90.3)            0.111  0.0   
   ascites = 1 (%)              14 ( 8.9)                 10 (  6.5)            0.089 25.4   
   hepato = 1 (%)               73 (46.2)                 87 ( 56.5)            0.207 25.4   
@@ -153,13 +153,13 @@
      1                         10 ( 6.3)                 10 (  6.5)                         
   bili (median [IQR])        1.40 [0.80, 3.20]         1.30 [0.72, 3.60]       0.171  0.0   
   chol (median [IQR])      315.50 [247.75, 417.00]   303.50 [254.25, 377.00]   0.038 32.1   
-  albumin (mean (sd))        3.52 (0.44)               3.52 (0.40)             0.018  0.0   
+  albumin (mean (SD))        3.52 (0.44)               3.52 (0.40)             0.018  0.0   
   copper (median [IQR])     73.00 [40.00, 121.00]     73.00 [43.00, 139.00]   <0.001 25.8   
   alk.phos (median [IQR]) 1214.50 [840.75, 2028.00] 1283.00 [922.50, 1949.75]  0.037 25.4   
-  ast (mean (sd))          120.21 (54.52)            124.97 (58.93)            0.084 25.4   
+  ast (mean (SD))          120.21 (54.52)            124.97 (58.93)            0.084 25.4   
   trig (median [IQR])      106.00 [84.50, 146.00]    113.00 [84.50, 155.00]    0.017 32.5   
-  platelet (mean (sd))     258.75 (100.32)           265.20 (90.73)            0.067  2.6   
-  protime (mean (sd))       10.65 (0.85)              10.80 (1.14)             0.146  0.5   
+  platelet (mean (SD))     258.75 (100.32)           265.20 (90.73)            0.067  2.6   
+  protime (mean (SD))       10.65 (0.85)              10.80 (1.14)             0.146  0.5   
   stage (%)                                                                    0.246  1.4   
      1                         12 ( 7.6)                  4 (  2.6)                         
      2                         35 (22.2)                 32 ( 20.8)                         
@@ -168,12 +168,12 @@
 ⠧ | 28       | Unit tests for the CreateTableOne function                      
                        Overall          
   n                        418          
-  time (mean (sd))     1917.78 (1104.67)
+  time (mean (SD))     1917.78 (1104.67)
   status (%)                            
      0                     232 (55.5)   
      1                      25 ( 6.0)   
      2                     161 (38.5)   
-  age (mean (sd))        50.74 (10.45)  
+  age (mean (SD))        50.74 (10.45)  
   sex = f (%)              374 (89.5)   
   ascites = 1 (%)           24 ( 7.7)   
   hepato = 1 (%)           160 (51.3)   
@@ -182,15 +182,15 @@
      0                     354 (84.7)   
      0.5                    44 (10.5)   
      1                      20 ( 4.8)   
-  bili (mean (sd))        3.22 (4.41)   
-  chol (mean (sd))      369.51 (231.94) 
-  albumin (mean (sd))     3.50 (0.42)   
-  copper (mean (sd))     97.65 (85.61)  
-  alk.phos (mean (sd)) 1982.66 (2140.39)
-  ast (mean (sd))       122.56 (56.70)  
-  trig (mean (sd))      124.70 (65.15)  
-  platelet (mean (sd))  257.02 (98.33)  
-  protime (mean (sd))    10.73 (1.02)   
+  bili (mean (SD))        3.22 (4.41)   
+  chol (mean (SD))      369.51 (231.94) 
+  albumin (mean (SD))     3.50 (0.42)   
+  copper (mean (SD))     97.65 (85.61)  
+  alk.phos (mean (SD)) 1982.66 (2140.39)
+  ast (mean (SD))       122.56 (56.70)  
+  trig (mean (SD))      124.70 (65.15)  
+  platelet (mean (SD))  257.02 (98.33)  
+  protime (mean (SD))    10.73 (1.02)   
   stage (%)                             
      1                      21 ( 5.1)   
      2                      92 (22.3)   
@@ -199,12 +199,12 @@
                       
                        Overall          
   n                        418          
-  time (mean (sd))     1917.78 (1104.67)
+  time (mean (SD))     1917.78 (1104.67)
   status (%)                            
      0                     232 (55.5)   
      1                      25 ( 6.0)   
      2                     161 (38.5)   
-  age (mean (sd))        50.74 (10.45)  
+  age (mean (SD))        50.74 (10.45)  
   sex (%)                  374 (89.5)   
   ascites (%)               24 ( 7.7)   
   hepato (%)               160 (51.3)   
@@ -213,15 +213,15 @@
      0                     354 (84.7)   
      0.5                    44 (10.5)   
      1                      20 ( 4.8)   
-  bili (mean (sd))        3.22 (4.41)   
-  chol (mean (sd))      369.51 (231.94) 
-  albumin (mean (sd))     3.50 (0.42)   
-  copper (mean (sd))     97.65 (85.61)  
-  alk.phos (mean (sd)) 1982.66 (2140.39)
-  ast (mean (sd))       122.56 (56.70)  
-  trig (mean (sd))      124.70 (65.15)  
-  platelet (mean (sd))  257.02 (98.33)  
-  protime (mean (sd))    10.73 (1.02)   
+  bili (mean (SD))        3.22 (4.41)   
+  chol (mean (SD))      369.51 (231.94) 
+  albumin (mean (SD))     3.50 (0.42)   
+  copper (mean (SD))     97.65 (85.61)  
+  alk.phos (mean (SD)) 1982.66 (2140.39)
+  ast (mean (SD))       122.56 (56.70)  
+  trig (mean (SD))      124.70 (65.15)  
+  platelet (mean (SD))  257.02 (98.33)  
+  protime (mean (SD))    10.73 (1.02)   
   stage (%)                             
      1                      21 ( 5.1)   
      2                      92 (22.3)   
@@ -230,12 +230,12 @@
 ⠇ | 29       | Unit tests for the CreateTableOne function⠏ | 30       | Unit tests for the CreateTableOne function⠋ | 31       | Unit tests for the CreateTableOne function⠙ | 32       | Unit tests for the CreateTableOne function⠹ | 33       | Unit tests for the CreateTableOne function                      
                        Overall          
   n                        418          
-  time (mean (sd))     1917.78 (1104.67)
+  time (mean (SD))     1917.78 (1104.67)
   status (%)                            
      0                     232 (55.5)   
      1                      25 ( 6.0)   
      2                     161 (38.5)   
-  age (mean (sd))        50.74 (10.45)  
+  age (mean (SD))        50.74 (10.45)  
   sex = f (%)              374 (89.5)   
   ascites = 1 (%)           24 ( 7.7)   
   hepato = 1 (%)           160 (51.3)   
@@ -244,15 +244,15 @@
      0                     354 (84.7)   
      0.5                    44 (10.5)   
      1                      20 ( 4.8)   
-  bili (mean (sd))        3.22 (4.41)   
-  chol (mean (sd))      369.51 (231.94) 
-  albumin (mean (sd))     3.50 (0.42)   
-  copper (mean (sd))     97.65 (85.61)  
-  alk.phos (mean (sd)) 1982.66 (2140.39)
-  ast (mean (sd))       122.56 (56.70)  
-  trig (mean (sd))      124.70 (65.15)  
-  platelet (mean (sd))  257.02 (98.33)  
-  protime (mean (sd))    10.73 (1.02)   
+  bili (mean (SD))        3.22 (4.41)   
+  chol (mean (SD))      369.51 (231.94) 
+  albumin (mean (SD))     3.50 (0.42)   
+  copper (mean (SD))     97.65 (85.61)  
+  alk.phos (mean (SD)) 1982.66 (2140.39)
+  ast (mean (SD))       122.56 (56.70)  
+  trig (mean (SD))      124.70 (65.15)  
+  platelet (mean (SD))  257.02 (98.33)  
+  protime (mean (SD))    10.73 (1.02)   
   stage (%)                             
      1                      21 ( 5.1)   
      2                      92 (22.3)   
@@ -261,12 +261,12 @@
                           
                            Overall          
   n                            418          
-  time (mean (sd))         1917.78 (1104.67)
+  time (mean (SD))         1917.78 (1104.67)
   status (%)                                
      0                         232 (55.5)   
      1                          25 ( 6.0)   
      2                         161 (38.5)   
-  Age in Years (mean (sd))   50.74 (10.45)  
+  Age in Years (mean (SD))   50.74 (10.45)  
   Female Sex = f (%)           374 (89.5)   
   ascites = 1 (%)               24 ( 7.7)   
   hepato = 1 (%)               160 (51.3)   
@@ -275,15 +275,15 @@
      0                         354 (84.7)   
      0.5                        44 (10.5)   
      1                          20 ( 4.8)   
-  bili (mean (sd))            3.22 (4.41)   
-  chol (mean (sd))          369.51 (231.94) 
-  albumin (mean (sd))         3.50 (0.42)   
-  copper (mean (sd))         97.65 (85.61)  
-  alk.phos (mean (sd))     1982.66 (2140.39)
-  ast (mean (sd))           122.56 (56.70)  
-  trig (mean (sd))          124.70 (65.15)  
-  platelet (mean (sd))      257.02 (98.33)  
-  protime (mean (sd))        10.73 (1.02)   
+  bili (mean (SD))            3.22 (4.41)   
+  chol (mean (SD))          369.51 (231.94) 
+  albumin (mean (SD))         3.50 (0.42)   
+  copper (mean (SD))         97.65 (85.61)  
+  alk.phos (mean (SD))     1982.66 (2140.39)
+  ast (mean (SD))           122.56 (56.70)  
+  trig (mean (SD))          124.70 (65.15)  
+  platelet (mean (SD))      257.02 (98.33)  
+  protime (mean (SD))        10.73 (1.02)   
   Stage of the Disease (%)                  
      1                          21 ( 5.1)   
      2                          92 (22.3)   
@@ -292,12 +292,12 @@
 ⠸ | 34       | Unit tests for the CreateTableOne function⠼ | 35       | Unit tests for the CreateTableOne function⠴ | 36       | Unit tests for the CreateTableOne function⠦ | 37       | Unit tests for the CreateTableOne function⠧ | 38       | Unit tests for the CreateTableOne function⠇ | 39       | Unit tests for the CreateTableOne function⠏ | 40       | Unit tests for the CreateTableOne function⠋ | 41       | Unit tests for the CreateTableOne function                      Stratified by trt
                        1                 2                 p      test
   n                        158               154                      
-  time (mean (sd))     2015.62 (1094.12) 1996.86 (1155.93)  0.883     
+  time (mean (SD))     2015.62 (1094.12) 1996.86 (1155.93)  0.883     
   status (%)                                                0.894     
      0                      83 (52.5)         85 (55.2)               
      1                      10 ( 6.3)          9 ( 5.8)               
      2                      65 (41.1)         60 (39.0)               
-  age (mean (sd))        51.42 (11.01)     48.58 (9.96)     0.018     
+  age (mean (SD))        51.42 (11.01)     48.58 (9.96)     0.018     
   sex = f (%)              137 (86.7)        139 (90.3)     0.421     
   ascites = 1 (%)           14 ( 8.9)         10 ( 6.5)     0.567     
   hepato = 1 (%)            73 (46.2)         87 (56.5)     0.088     
@@ -306,15 +306,15 @@
      0                     132 (83.5)        131 (85.1)               
      0.5                    16 (10.1)         13 ( 8.4)               
      1                      10 ( 6.3)         10 ( 6.5)               
-  bili (mean (sd))        2.87 (3.63)       3.65 (5.28)     0.131     
-  chol (mean (sd))      365.01 (209.54)   373.88 (252.48)   0.748     
-  albumin (mean (sd))     3.52 (0.44)       3.52 (0.40)     0.874     
-  copper (mean (sd))     97.64 (90.59)     97.65 (80.49)    0.999     
-  alk.phos (mean (sd)) 2021.30 (2183.44) 1943.01 (2101.69)  0.747     
-  ast (mean (sd))       120.21 (54.52)    124.97 (58.93)    0.460     
-  trig (mean (sd))      124.14 (71.54)    125.25 (58.52)    0.886     
-  platelet (mean (sd))  258.75 (100.32)   265.20 (90.73)    0.555     
-  protime (mean (sd))    10.65 (0.85)      10.80 (1.14)     0.197     
+  bili (mean (SD))        2.87 (3.63)       3.65 (5.28)     0.131     
+  chol (mean (SD))      365.01 (209.54)   373.88 (252.48)   0.748     
+  albumin (mean (SD))     3.52 (0.44)       3.52 (0.40)     0.874     
+  copper (mean (SD))     97.64 (90.59)     97.65 (80.49)    0.999     
+  alk.phos (mean (SD)) 2021.30 (2183.44) 1943.01 (2101.69)  0.747     
+  ast (mean (SD))       120.21 (54.52)    124.97 (58.93)    0.460     
+  trig (mean (SD))      124.14 (71.54)    125.25 (58.52)    0.886     
+  platelet (mean (SD))  258.75 (100.32)   265.20 (90.73)    0.555     
+  protime (mean (SD))    10.65 (0.85)      10.80 (1.14)     0.197     
   stage (%)                                                 0.201     
      1                      12 ( 7.6)          4 ( 2.6)               
      2                      35 (22.2)         32 (20.8)               
@@ -323,12 +323,12 @@
 ⠙ | 42       | Unit tests for the CreateTableOne function                      
                        Overall          
   n                        418          
-  time (mean (sd))     1917.78 (1104.67)
+  time (mean (SD))     1917.78 (1104.67)
   status (%)                            
      0                     232 (55.5)   
      1                      25 ( 6.0)   
      2                     161 (38.5)   
-  age (mean (sd))        50.74 (10.45)  
+  age (mean (SD))        50.74 (10.45)  
   sex = f (%)              374 (89.5)   
   ascites = 1 (%)           24 ( 7.7)   
   hepato = 1 (%)           160 (51.3)   
@@ -337,15 +337,15 @@
      0                     354 (84.7)   
      0.5                    44 (10.5)   
      1                      20 ( 4.8)   
-  bili (mean (sd))        3.22 (4.41)   
-  chol (mean (sd))      369.51 (231.94) 
-  albumin (mean (sd))     3.50 (0.42)   
-  copper (mean (sd))     97.65 (85.61)  
-  alk.phos (mean (sd)) 1982.66 (2140.39)
-  ast (mean (sd))       122.56 (56.70)  
-  trig (mean (sd))      124.70 (65.15)  
-  platelet (mean (sd))  257.02 (98.33)  
-  protime (mean (sd))    10.73 (1.02)   
+  bili (mean (SD))        3.22 (4.41)   
+  chol (mean (SD))      369.51 (231.94) 
+  albumin (mean (SD))     3.50 (0.42)   
+  copper (mean (SD))     97.65 (85.61)  
+  alk.phos (mean (SD)) 1982.66 (2140.39)
+  ast (mean (SD))       122.56 (56.70)  
+  trig (mean (SD))      124.70 (65.15)  
+  platelet (mean (SD))  257.02 (98.33)  
+  protime (mean (SD))    10.73 (1.02)   
   stage (%)                             
      1                      21 ( 5.1)   
      2                      92 (22.3)   
@@ -354,12 +354,12 @@
 ⠹ | 43       | Unit tests for the CreateTableOne function                      
                        Overall          
   n                        418          
-  time (mean (sd))     1917.78 (1104.67)
+  time (mean (SD))     1917.78 (1104.67)
   status (%)                            
      0                     232 (55.5)   
      1                      25 ( 6.0)   
      2                     161 (38.5)   
-  age (mean (sd))        50.74 (10.45)  
+  age (mean (SD))        50.74 (10.45)  
   sex = f (%)              374 (89.5)   
   ascites (%)                           
      0                     288 (68.9)   
@@ -377,15 +377,15 @@
      0                     354 (84.7)   
      0.5                    44 (10.5)   
      1                      20 ( 4.8)   
-  bili (mean (sd))        3.22 (4.41)   
-  chol (mean (sd))      369.51 (231.94) 
-  albumin (mean (sd))     3.50 (0.42)   
-  copper (mean (sd))     97.65 (85.61)  
-  alk.phos (mean (sd)) 1982.66 (2140.39)
-  ast (mean (sd))       122.56 (56.70)  
-  trig (mean (sd))      124.70 (65.15)  
-  platelet (mean (sd))  257.02 (98.33)  
-  protime (mean (sd))    10.73 (1.02)   
+  bili (mean (SD))        3.22 (4.41)   
+  chol (mean (SD))      369.51 (231.94) 
+  albumin (mean (SD))     3.50 (0.42)   
+  copper (mean (SD))     97.65 (85.61)  
+  alk.phos (mean (SD)) 1982.66 (2140.39)
+  ast (mean (SD))       122.56 (56.70)  
+  trig (mean (SD))      124.70 (65.15)  
+  platelet (mean (SD))  257.02 (98.33)  
+  protime (mean (SD))    10.73 (1.02)   
   stage (%)                             
      1                      21 ( 5.0)   
      2                      92 (22.0)   
@@ -395,12 +395,12 @@
 ⠸ | 44       | Unit tests for the CreateTableOne function                      Stratified by trt:sex
                        1:m               2:m               1:f               2:f               p      test
   n                         21                15               137               139                      
-  time (mean (sd))     1793.48 (1244.70) 2156.33 (1428.56) 2049.67 (1070.20) 1979.65 (1127.52)  0.730     
+  time (mean (SD))     1793.48 (1244.70) 2156.33 (1428.56) 2049.67 (1070.20) 1979.65 (1127.52)  0.730     
   status (%)                                                                                    0.033     
      0                       4 (19.0)          7 (46.7)         79 ( 57.7)        78 ( 56.1)              
      1                       3 (14.3)          0 ( 0.0)          7 (  5.1)         9 (  6.5)              
      2                      14 (66.7)          8 (53.3)         51 ( 37.2)        52 ( 37.4)              
-  age (mean (sd))        55.57 (12.61)     57.09 (10.07)     50.78 (10.65)     47.66 (9.54)    <0.001     
+  age (mean (SD))        55.57 (12.61)     57.09 (10.07)     50.78 (10.65)     47.66 (9.54)    <0.001     
   sex = f (%)                0 ( 0.0)          0 ( 0.0)        137 (100.0)       139 (100.0)   <0.001     
   ascites = 1 (%)            1 ( 4.8)          2 (13.3)         13 (  9.5)         8 (  5.8)    0.516     
   hepato = 1 (%)            12 (57.1)          9 (60.0)         61 ( 44.5)        78 ( 56.1)    0.208     
@@ -409,15 +409,15 @@
      0                      17 (81.0)         12 (80.0)        115 ( 83.9)       119 ( 85.6)              
      0.5                     3 (14.3)          1 ( 6.7)         13 (  9.5)        12 (  8.6)              
      1                       1 ( 4.8)          2 (13.3)          9 (  6.6)         8 (  5.8)              
-  bili (mean (sd))        2.98 (2.11)       2.72 (2.46)       2.86 (3.81)       3.75 (5.50)     0.394     
-  chol (mean (sd))      403.43 (204.95)   301.00 (111.32)   358.24 (210.46)   381.73 (262.26)   0.512     
-  albumin (mean (sd))     3.63 (0.43)       3.50 (0.49)       3.50 (0.44)       3.53 (0.39)     0.585     
-  copper (mean (sd))    174.90 (105.33)   125.40 (89.18)     85.71 (82.27)     94.64 (79.25)   <0.001     
-  alk.phos (mean (sd)) 2486.16 (2385.32) 1734.45 (2478.07) 1950.04 (2151.35) 1965.52 (2066.15)  0.706     
-  ast (mean (sd))       128.71 (48.74)    112.58 (44.38)    118.91 (55.40)    126.30 (60.27)    0.598     
-  trig (mean (sd))      145.81 (56.62)    114.86 (39.59)    120.28 (73.41)    126.38 (60.22)    0.370     
-  platelet (mean (sd))  232.65 (97.38)    240.13 (73.93)    262.59 (100.53)   267.95 (92.20)    0.362     
-  protime (mean (sd))    10.84 (0.94)      11.23 (0.97)      10.62 (0.84)      10.75 (1.15)     0.137     
+  bili (mean (SD))        2.98 (2.11)       2.72 (2.46)       2.86 (3.81)       3.75 (5.50)     0.394     
+  chol (mean (SD))      403.43 (204.95)   301.00 (111.32)   358.24 (210.46)   381.73 (262.26)   0.512     
+  albumin (mean (SD))     3.63 (0.43)       3.50 (0.49)       3.50 (0.44)       3.53 (0.39)     0.585     
+  copper (mean (SD))    174.90 (105.33)   125.40 (89.18)     85.71 (82.27)     94.64 (79.25)   <0.001     
+  alk.phos (mean (SD)) 2486.16 (2385.32) 1734.45 (2478.07) 1950.04 (2151.35) 1965.52 (2066.15)  0.706     
+  ast (mean (SD))       128.71 (48.74)    112.58 (44.38)    118.91 (55.40)    126.30 (60.27)    0.598     
+  trig (mean (SD))      145.81 (56.62)    114.86 (39.59)    120.28 (73.41)    126.38 (60.22)    0.370     
+  platelet (mean (SD))  232.65 (97.38)    240.13 (73.93)    262.59 (100.53)   267.95 (92.20)    0.362     
+  protime (mean (SD))    10.84 (0.94)      11.23 (0.97)      10.62 (0.84)      10.75 (1.15)     0.137     
   stage (%)                                                                                     0.646     
      1                       2 ( 9.5)          1 ( 6.7)         10 (  7.3)         3 (  2.2)              
      2                       4 (19.0)          2 (13.3)         31 ( 22.6)        30 ( 21.6)              
@@ -426,12 +426,12 @@
 ⠼ | 45       | Unit tests for the CreateTableOne function                      Stratified by trt
                        1                     2                     p        test
   n                          158                   154                          
-  time (mean (sd))     2015.6203 (1094.1233) 1996.8636 (1155.9289)  0.88305     
+  time (mean (SD))     2015.6203 (1094.1233) 1996.8636 (1155.9289)  0.88305     
   status (%)                                                        0.89351     
      0                        83 (52.532)           85 (55.195)                 
      1                        10 ( 6.329)            9 ( 5.844)                 
      2                        65 (41.139)           60 (38.961)                 
-  age (mean (sd))        51.4191 (11.0072)     48.5825 (9.9578)     0.01767     
+  age (mean (SD))        51.4191 (11.0072)     48.5825 (9.9578)     0.01767     
   sex = f (%)                137 (86.709)          139 (90.260)     0.42123     
   ascites = 1 (%)             14 ( 8.861)           10 ( 6.494)     0.56729     
   hepato = 1 (%)              73 (46.203)           87 (56.494)     0.08821     
@@ -440,15 +440,15 @@
      0                       132 (83.544)          131 (85.065)                 
      0.5                      16 (10.127)           13 ( 8.442)                 
      1                        10 ( 6.329)           10 ( 6.494)                 
-  bili (mean (sd))        2.8734 (3.6289)       3.6487 (5.2819)     0.13094     
-  chol (mean (sd))      365.0143 (209.5439)   373.8819 (252.4846)   0.74799     
-  albumin (mean (sd))     3.5163 (0.4433)       3.5238 (0.3958)     0.87388     
-  copper (mean (sd))     97.6433 (90.5901)     97.6536 (80.4865)    0.99916     
-  alk.phos (mean (sd)) 2021.2975 (2183.4358) 1943.0104 (2101.6873)  0.74726     
-  ast (mean (sd))       120.2087 (54.5214)    124.9650 (58.9313)    0.45970     
-  trig (mean (sd))      124.1367 (71.5391)    125.2517 (58.5211)    0.88604     
-  platelet (mean (sd))  258.7500 (100.3247)   265.2039 (90.7294)    0.55451     
-  protime (mean (sd))    10.6532 (0.8514)      10.8000 (1.1382)     0.19714     
+  bili (mean (SD))        2.8734 (3.6289)       3.6487 (5.2819)     0.13094     
+  chol (mean (SD))      365.0143 (209.5439)   373.8819 (252.4846)   0.74799     
+  albumin (mean (SD))     3.5163 (0.4433)       3.5238 (0.3958)     0.87388     
+  copper (mean (SD))     97.6433 (90.5901)     97.6536 (80.4865)    0.99916     
+  alk.phos (mean (SD)) 2021.2975 (2183.4358) 1943.0104 (2101.6873)  0.74726     
+  ast (mean (SD))       120.2087 (54.5214)    124.9650 (58.9313)    0.45970     
+  trig (mean (SD))      124.1367 (71.5391)    125.2517 (58.5211)    0.88604     
+  platelet (mean (SD))  258.7500 (100.3247)   265.2039 (90.7294)    0.55451     
+  protime (mean (SD))    10.6532 (0.8514)      10.8000 (1.1382)     0.19714     
   stage (%)                                                         0.20130     
      1                        12 ( 7.595)            4 ( 2.597)                 
      2                        35 (22.152)           32 (20.779)                 
@@ -457,12 +457,12 @@
 ⠴ | 46       | Unit tests for the CreateTableOne function                      Stratified by trt
                        1                 2                
   n                        158               154          
-  time (mean (sd))     2015.62 (1094.12) 1996.86 (1155.93)
+  time (mean (SD))     2015.62 (1094.12) 1996.86 (1155.93)
   status (%)                                              
      0                      83 (52.5)         85 (55.2)   
      1                      10 ( 6.3)          9 ( 5.8)   
      2                      65 (41.1)         60 (39.0)   
-  age (mean (sd))        51.42 (11.01)     48.58 (9.96)   
+  age (mean (SD))        51.42 (11.01)     48.58 (9.96)   
   sex = f (%)              137 (86.7)        139 (90.3)   
   ascites = 1 (%)           14 ( 8.9)         10 ( 6.5)   
   hepato = 1 (%)            73 (46.2)         87 (56.5)   
@@ -471,15 +471,15 @@
      0                     132 (83.5)        131 (85.1)   
      0.5                    16 (10.1)         13 ( 8.4)   
      1                      10 ( 6.3)         10 ( 6.5)   
-  bili (mean (sd))        2.87 (3.63)       3.65 (5.28)   
-  chol (mean (sd))      365.01 (209.54)   373.88 (252.48) 
-  albumin (mean (sd))     3.52 (0.44)       3.52 (0.40)   
-  copper (mean (sd))     97.64 (90.59)     97.65 (80.49)  
-  alk.phos (mean (sd)) 2021.30 (2183.44) 1943.01 (2101.69)
-  ast (mean (sd))       120.21 (54.52)    124.97 (58.93)  
-  trig (mean (sd))      124.14 (71.54)    125.25 (58.52)  
-  platelet (mean (sd))  258.75 (100.32)   265.20 (90.73)  
-  protime (mean (sd))    10.65 (0.85)      10.80 (1.14)   
+  bili (mean (SD))        2.87 (3.63)       3.65 (5.28)   
+  chol (mean (SD))      365.01 (209.54)   373.88 (252.48) 
+  albumin (mean (SD))     3.52 (0.44)       3.52 (0.40)   
+  copper (mean (SD))     97.64 (90.59)     97.65 (80.49)  
+  alk.phos (mean (SD)) 2021.30 (2183.44) 1943.01 (2101.69)
+  ast (mean (SD))       120.21 (54.52)    124.97 (58.93)  
+  trig (mean (SD))      124.14 (71.54)    125.25 (58.52)  
+  platelet (mean (SD))  258.75 (100.32)   265.20 (90.73)  
+  protime (mean (SD))    10.65 (0.85)      10.80 (1.14)   
   stage (%)                                               
      1                      12 ( 7.6)          4 ( 2.6)   
      2                      35 (22.2)         32 (20.8)   
@@ -488,12 +488,12 @@
 ⠦ | 47       | Unit tests for the CreateTableOne function                         Stratified by trt
                           1                         2                         p      test   
   n                           158                       154                                 
-  time (mean (sd))        2015.62 (1094.12)         1996.86 (1155.93)          0.883        
+  time (mean (SD))        2015.62 (1094.12)         1996.86 (1155.93)          0.883        
   status (%)                                                                   0.884 exact  
      0                         83 (52.5)                 85 (55.2)                          
      1                         10 ( 6.3)                  9 ( 5.8)                          
      2                         65 (41.1)                 60 (39.0)                          
-  age (mean (sd))           51.42 (11.01)             48.58 (9.96)             0.018        
+  age (mean (SD))           51.42 (11.01)             48.58 (9.96)             0.018        
   sex = f (%)                 137 (86.7)                139 (90.3)             0.421        
   ascites = 1 (%)              14 ( 8.9)                 10 ( 6.5)             0.567        
   hepato = 1 (%)               73 (46.2)                 87 (56.5)             0.088        
@@ -504,13 +504,13 @@
      1                         10 ( 6.3)                 10 ( 6.5)                          
   bili (median [IQR])        1.40 [0.80, 3.20]         1.30 [0.72, 3.60]       0.842 nonnorm
   chol (median [IQR])      315.50 [247.75, 417.00]   303.50 [254.25, 377.00]   0.544 nonnorm
-  albumin (mean (sd))        3.52 (0.44)               3.52 (0.40)             0.874        
+  albumin (mean (SD))        3.52 (0.44)               3.52 (0.40)             0.874        
   copper (median [IQR])     73.00 [40.00, 121.00]     73.00 [43.00, 139.00]    0.717 nonnorm
   alk.phos (median [IQR]) 1214.50 [840.75, 2028.00] 1283.00 [922.50, 1949.75]  0.812 nonnorm
-  ast (mean (sd))          120.21 (54.52)            124.97 (58.93)            0.460        
+  ast (mean (SD))          120.21 (54.52)            124.97 (58.93)            0.460        
   trig (median [IQR])      106.00 [84.50, 146.00]    113.00 [84.50, 155.00]    0.370 nonnorm
-  platelet (mean (sd))     258.75 (100.32)           265.20 (90.73)            0.555        
-  protime (mean (sd))       10.65 (0.85)              10.80 (1.14)             0.197        
+  platelet (mean (SD))     258.75 (100.32)           265.20 (90.73)            0.555        
+  protime (mean (SD))       10.65 (0.85)              10.80 (1.14)             0.197        
   stage (%)                                                                    0.205 exact  
      1                         12 ( 7.6)                  4 ( 2.6)                          
      2                         35 (22.2)                 32 (20.8)                          
@@ -519,12 +519,12 @@
 ⠧ | 48       | Unit tests for the CreateTableOne function                           Stratified by trt
                             1                          2                          p      test   
   n                             158                        154                                  
-  time (mean (sd))          2015.62 (1094.12)          1996.86 (1155.93)           0.883        
+  time (mean (SD))          2015.62 (1094.12)          1996.86 (1155.93)           0.883        
   status (%)                                                                       0.894        
      0                           83 (52.5)                  85 (55.2)                           
      1                           10 ( 6.3)                   9 ( 5.8)                           
      2                           65 (41.1)                  60 (39.0)                           
-  age (mean (sd))             51.42 (11.01)              48.58 (9.96)              0.018        
+  age (mean (SD))             51.42 (11.01)              48.58 (9.96)              0.018        
   sex = f (%)                   137 (86.7)                 139 (90.3)              0.421        
   ascites = 1 (%)                14 ( 8.9)                  10 ( 6.5)              0.567        
   hepato = 1 (%)                 73 (46.2)                  87 (56.5)              0.088        
@@ -535,13 +535,13 @@
      1                           10 ( 6.3)                  10 ( 6.5)                           
   bili (median [range])        1.40 [0.30, 20.00]         1.30 [0.30, 28.00]       0.842 nonnorm
   chol (median [range])      315.50 [127.00, 1712.00]   303.50 [120.00, 1775.00]   0.544 nonnorm
-  albumin (mean (sd))          3.52 (0.44)                3.52 (0.40)              0.874        
+  albumin (mean (SD))          3.52 (0.44)                3.52 (0.40)              0.874        
   copper (median [range])     73.00 [9.00, 588.00]       73.00 [4.00, 558.00]      0.717 nonnorm
   alk.phos (median [range]) 1214.50 [369.00, 11552.00] 1283.00 [289.00, 13862.40]  0.812 nonnorm
-  ast (mean (sd))            120.21 (54.52)             124.97 (58.93)             0.460        
+  ast (mean (SD))            120.21 (54.52)             124.97 (58.93)             0.460        
   trig (median [range])      106.00 [33.00, 598.00]     113.00 [44.00, 432.00]     0.370 nonnorm
-  platelet (mean (sd))       258.75 (100.32)            265.20 (90.73)             0.555        
-  protime (mean (sd))         10.65 (0.85)               10.80 (1.14)              0.197        
+  platelet (mean (SD))       258.75 (100.32)            265.20 (90.73)             0.555        
+  protime (mean (SD))         10.65 (0.85)               10.80 (1.14)              0.197        
   stage (%)                                                                        0.201        
      1                           12 ( 7.6)                   4 ( 2.6)                           
      2                           35 (22.2)                  32 (20.8)                           
@@ -550,12 +550,12 @@
 ⠇ | 49       | Unit tests for the CreateTableOne function                         Stratified by trt
                           1                         2                         p     test   
   n                       158                       154                                    
-  time (mean (sd))        2015.62 (1094.12)         1996.86 (1155.93)         0.883        
+  time (mean (SD))        2015.62 (1094.12)         1996.86 (1155.93)         0.883        
   status (%)                                                                  0.884 exact  
      0                    83 (52.5)                 85 (55.2)                              
      1                    10 (6.3)                  9 (5.8)                                
      2                    65 (41.1)                 60 (39.0)                              
-  age (mean (sd))         51.42 (11.01)             48.58 (9.96)              0.018        
+  age (mean (SD))         51.42 (11.01)             48.58 (9.96)              0.018        
   sex = f (%)             137 (86.7)                139 (90.3)                0.421        
   ascites = 1 (%)         14 (8.9)                  10 (6.5)                  0.567        
   hepato = 1 (%)          73 (46.2)                 87 (56.5)                 0.088        
@@ -566,13 +566,13 @@
      1                    10 (6.3)                  10 (6.5)                               
   bili (median [IQR])     1.40 [0.80, 3.20]         1.30 [0.72, 3.60]         0.842 nonnorm
   chol (median [IQR])     315.50 [247.75, 417.00]   303.50 [254.25, 377.00]   0.544 nonnorm
-  albumin (mean (sd))     3.52 (0.44)               3.52 (0.40)               0.874        
+  albumin (mean (SD))     3.52 (0.44)               3.52 (0.40)               0.874        
   copper (median [IQR])   73.00 [40.00, 121.00]     73.00 [43.00, 139.00]     0.717 nonnorm
   alk.phos (median [IQR]) 1214.50 [840.75, 2028.00] 1283.00 [922.50, 1949.75] 0.812 nonnorm
-  ast (mean (sd))         120.21 (54.52)            124.97 (58.93)            0.460        
+  ast (mean (SD))         120.21 (54.52)            124.97 (58.93)            0.460        
   trig (median [IQR])     106.00 [84.50, 146.00]    113.00 [84.50, 155.00]    0.370 nonnorm
-  platelet (mean (sd))    258.75 (100.32)           265.20 (90.73)            0.555        
-  protime (mean (sd))     10.65 (0.85)              10.80 (1.14)              0.197        
+  platelet (mean (SD))    258.75 (100.32)           265.20 (90.73)            0.555        
+  protime (mean (SD))     10.65 (0.85)              10.80 (1.14)              0.197        
   stage (%)                                                                   0.205 exact  
      1                    12 (7.6)                  4 (2.6)                                
      2                    35 (22.2)                 32 (20.8)                              
@@ -581,11 +581,11 @@
 ⠏ | 50       | Unit tests for the CreateTableOne function                         Stratified by trt
                           level 1                         2                         p      test   
   n                                 158                       154                                 
-  time (mean (sd))              2015.62 (1094.12)         1996.86 (1155.93)          0.883        
+  time (mean (SD))              2015.62 (1094.12)         1996.86 (1155.93)          0.883        
   status (%)              0          83 (52.5)                 85 (55.2)             0.884 exact  
                           1          10 ( 6.3)                  9 ( 5.8)                          
                           2          65 (41.1)                 60 (39.0)                          
-  age (mean (sd))                 51.42 (11.01)             48.58 (9.96)             0.018        
+  age (mean (SD))                 51.42 (11.01)             48.58 (9.96)             0.018        
   sex (%)                 m          21 (13.3)                 15 ( 9.7)             0.421        
                           f         137 (86.7)                139 (90.3)                          
   ascites (%)             0         144 (91.1)                144 (93.5)             0.567        
@@ -599,13 +599,13 @@
                           1          10 ( 6.3)                 10 ( 6.5)                          
   bili (median [IQR])              1.40 [0.80, 3.20]         1.30 [0.72, 3.60]       0.842 nonnorm
   chol (median [IQR])            315.50 [247.75, 417.00]   303.50 [254.25, 377.00]   0.544 nonnorm
-  albumin (mean (sd))              3.52 (0.44)               3.52 (0.40)             0.874        
+  albumin (mean (SD))              3.52 (0.44)               3.52 (0.40)             0.874        
   copper (median [IQR])           73.00 [40.00, 121.00]     73.00 [43.00, 139.00]    0.717 nonnorm
   alk.phos (median [IQR])       1214.50 [840.75, 2028.00] 1283.00 [922.50, 1949.75]  0.812 nonnorm
-  ast (mean (sd))                120.21 (54.52)            124.97 (58.93)            0.460        
+  ast (mean (SD))                120.21 (54.52)            124.97 (58.93)            0.460        
   trig (median [IQR])            106.00 [84.50, 146.00]    113.00 [84.50, 155.00]    0.370 nonnorm
-  platelet (mean (sd))           258.75 (100.32)           265.20 (90.73)            0.555        
-  protime (mean (sd))             10.65 (0.85)              10.80 (1.14)             0.197        
+  platelet (mean (SD))           258.75 (100.32)           265.20 (90.73)            0.555        
+  protime (mean (SD))             10.65 (0.85)              10.80 (1.14)             0.197        
   stage (%)               1          12 ( 7.6)                  4 ( 2.6)             0.205 exact  
                           2          35 (22.2)                 32 (20.8)                          
                           3          56 (35.4)                 64 (41.6)                          
@@ -613,12 +613,12 @@
 ⠋ | 51       | Unit tests for the CreateTableOne function                           "Stratified by trt"
  ""                         "1"                         "2"                         "p"     "test"   
   "n"                       "158"                       "154"                       ""      ""       
-  "time (mean (sd))"        "2015.62 (1094.12)"         "1996.86 (1155.93)"         "0.883" ""       
+  "time (mean (SD))"        "2015.62 (1094.12)"         "1996.86 (1155.93)"         "0.883" ""       
   "status (%)"              ""                          ""                          "0.884" "exact"  
   "   0"                    "83 (52.5)"                 "85 (55.2)"                 ""      ""       
   "   1"                    "10 (6.3)"                  "9 (5.8)"                   ""      ""       
   "   2"                    "65 (41.1)"                 "60 (39.0)"                 ""      ""       
-  "age (mean (sd))"         "51.42 (11.01)"             "48.58 (9.96)"              "0.018" ""       
+  "age (mean (SD))"         "51.42 (11.01)"             "48.58 (9.96)"              "0.018" ""       
   "sex = f (%)"             "137 (86.7)"                "139 (90.3)"                "0.421" ""       
   "ascites = 1 (%)"         "14 (8.9)"                  "10 (6.5)"                  "0.567" ""       
   "hepato = 1 (%)"          "73 (46.2)"                 "87 (56.5)"                 "0.088" ""       
@@ -629,13 +629,13 @@
   "   1"                    "10 (6.3)"                  "10 (6.5)"                  ""      ""       
   "bili (median [IQR])"     "1.40 [0.80, 3.20]"         "1.30 [0.72, 3.60]"         "0.842" "nonnorm"
   "chol (median [IQR])"     "315.50 [247.75, 417.00]"   "303.50 [254.25, 377.00]"   "0.544" "nonnorm"
-  "albumin (mean (sd))"     "3.52 (0.44)"               "3.52 (0.40)"               "0.874" ""       
+  "albumin (mean (SD))"     "3.52 (0.44)"               "3.52 (0.40)"               "0.874" ""       
   "copper (median [IQR])"   "73.00 [40.00, 121.00]"     "73.00 [43.00, 139.00]"     "0.717" "nonnorm"
   "alk.phos (median [IQR])" "1214.50 [840.75, 2028.00]" "1283.00 [922.50, 1949.75]" "0.812" "nonnorm"
-  "ast (mean (sd))"         "120.21 (54.52)"            "124.97 (58.93)"            "0.460" ""       
+  "ast (mean (SD))"         "120.21 (54.52)"            "124.97 (58.93)"            "0.460" ""       
   "trig (median [IQR])"     "106.00 [84.50, 146.00]"    "113.00 [84.50, 155.00]"    "0.370" "nonnorm"
-  "platelet (mean (sd))"    "258.75 (100.32)"           "265.20 (90.73)"            "0.555" ""       
-  "protime (mean (sd))"     "10.65 (0.85)"              "10.80 (1.14)"              "0.197" ""       
+  "platelet (mean (SD))"    "258.75 (100.32)"           "265.20 (90.73)"            "0.555" ""       
+  "protime (mean (SD))"     "10.65 (0.85)"              "10.80 (1.14)"              "0.197" ""       
   "stage (%)"               ""                          ""                          "0.205" "exact"  
   "   1"                    "12 (7.6)"                  "4 (2.6)"                   ""      ""       
   "   2"                    "35 (22.2)"                 "32 (20.8)"                 ""      ""       
@@ -644,9 +644,9 @@
 ⠙ | 52       | Unit tests for the CreateTableOne function                     Stratified by trt:sex
                       1:m               2:m               1:f               2:f               p      test
   n                        21                15               137               139                      
-  time (mean (sd))    1793.48 (1244.70) 2156.33 (1428.56) 2049.67 (1070.20) 1979.65 (1127.52)  0.730     
-  age (mean (sd))       55.57 (12.61)     57.09 (10.07)     50.78 (10.65)     47.66 (9.54)    <0.001     
-  protime (mean (sd))   10.84 (0.94)      11.23 (0.97)      10.62 (0.84)      10.75 (1.15)     0.137     
+  time (mean (SD))    1793.48 (1244.70) 2156.33 (1428.56) 2049.67 (1070.20) 1979.65 (1127.52)  0.730     
+  age (mean (SD))       55.57 (12.61)     57.09 (10.07)     50.78 (10.65)     47.66 (9.54)    <0.001     
+  protime (mean (SD))   10.84 (0.94)      11.23 (0.97)      10.62 (0.84)      10.75 (1.15)     0.137     
 ⠹ | 53       | Unit tests for the CreateTableOne function             Stratified by trt:sex
               1:m        2:m         1:f          2:f          p      test
   n           21         15          137          139                     
@@ -1240,115 +1240,115 @@ Column Total |       158 |       154 |       312 |
 ⠇ | 69       | Unit tests for the CreateTableOne function                      Stratified by trt
                        1                 2                 p      test
   n                    158               154                          
-  time (mean (sd))     2015.62 (1094.12) 1996.86 (1155.93)  0.883     
-  age (mean (sd))        51.42 (11.01)     48.58 (9.96)     0.018     
-  bili (mean (sd))        2.87 (3.63)       3.65 (5.28)     0.131     
-  chol (mean (sd))      365.01 (209.54)   373.88 (252.48)   0.748     
-  albumin (mean (sd))     3.52 (0.44)       3.52 (0.40)     0.874     
-  copper (mean (sd))     97.64 (90.59)     97.65 (80.49)    0.999     
-  alk.phos (mean (sd)) 2021.30 (2183.44) 1943.01 (2101.69)  0.747     
-  ast (mean (sd))       120.21 (54.52)    124.97 (58.93)    0.460     
-  trig (mean (sd))      124.14 (71.54)    125.25 (58.52)    0.886     
-  platelet (mean (sd))  258.75 (100.32)   265.20 (90.73)    0.555     
-  protime (mean (sd))    10.65 (0.85)      10.80 (1.14)     0.197     
+  time (mean (SD))     2015.62 (1094.12) 1996.86 (1155.93)  0.883     
+  age (mean (SD))        51.42 (11.01)     48.58 (9.96)     0.018     
+  bili (mean (SD))        2.87 (3.63)       3.65 (5.28)     0.131     
+  chol (mean (SD))      365.01 (209.54)   373.88 (252.48)   0.748     
+  albumin (mean (SD))     3.52 (0.44)       3.52 (0.40)     0.874     
+  copper (mean (SD))     97.64 (90.59)     97.65 (80.49)    0.999     
+  alk.phos (mean (SD)) 2021.30 (2183.44) 1943.01 (2101.69)  0.747     
+  ast (mean (SD))       120.21 (54.52)    124.97 (58.93)    0.460     
+  trig (mean (SD))      124.14 (71.54)    125.25 (58.52)    0.886     
+  platelet (mean (SD))  258.75 (100.32)   265.20 (90.73)    0.555     
+  protime (mean (SD))    10.65 (0.85)      10.80 (1.14)     0.197     
 ⠏ | 70       | Unit tests for the CreateTableOne function                      
                        Overall          
   n                    418              
-  time (mean (sd))     1917.78 (1104.67)
-  age (mean (sd))        50.74 (10.45)  
-  bili (mean (sd))        3.22 (4.41)   
-  chol (mean (sd))      369.51 (231.94) 
-  albumin (mean (sd))     3.50 (0.42)   
-  copper (mean (sd))     97.65 (85.61)  
-  alk.phos (mean (sd)) 1982.66 (2140.39)
-  ast (mean (sd))       122.56 (56.70)  
-  trig (mean (sd))      124.70 (65.15)  
-  platelet (mean (sd))  257.02 (98.33)  
-  protime (mean (sd))    10.73 (1.02)   
+  time (mean (SD))     1917.78 (1104.67)
+  age (mean (SD))        50.74 (10.45)  
+  bili (mean (SD))        3.22 (4.41)   
+  chol (mean (SD))      369.51 (231.94) 
+  albumin (mean (SD))     3.50 (0.42)   
+  copper (mean (SD))     97.65 (85.61)  
+  alk.phos (mean (SD)) 1982.66 (2140.39)
+  ast (mean (SD))       122.56 (56.70)  
+  trig (mean (SD))      124.70 (65.15)  
+  platelet (mean (SD))  257.02 (98.33)  
+  protime (mean (SD))    10.73 (1.02)   
 ⠋ | 71       | Unit tests for the CreateTableOne function                      Stratified by trt:sex
                        1:m               2:m               1:f               2:f               p      test
   n                    21                15                137               139                          
-  time (mean (sd))     1793.48 (1244.70) 2156.33 (1428.56) 2049.67 (1070.20) 1979.65 (1127.52)  0.730     
-  age (mean (sd))        55.57 (12.61)     57.09 (10.07)     50.78 (10.65)     47.66 (9.54)    <0.001     
-  bili (mean (sd))        2.98 (2.11)       2.72 (2.46)       2.86 (3.81)       3.75 (5.50)     0.394     
-  chol (mean (sd))      403.43 (204.95)   301.00 (111.32)   358.24 (210.46)   381.73 (262.26)   0.512     
-  albumin (mean (sd))     3.63 (0.43)       3.50 (0.49)       3.50 (0.44)       3.53 (0.39)     0.585     
-  copper (mean (sd))    174.90 (105.33)   125.40 (89.18)     85.71 (82.27)     94.64 (79.25)   <0.001     
-  alk.phos (mean (sd)) 2486.16 (2385.32) 1734.45 (2478.07) 1950.04 (2151.35) 1965.52 (2066.15)  0.706     
-  ast (mean (sd))       128.71 (48.74)    112.58 (44.38)    118.91 (55.40)    126.30 (60.27)    0.598     
-  trig (mean (sd))      145.81 (56.62)    114.86 (39.59)    120.28 (73.41)    126.38 (60.22)    0.370     
-  platelet (mean (sd))  232.65 (97.38)    240.13 (73.93)    262.59 (100.53)   267.95 (92.20)    0.362     
-  protime (mean (sd))    10.84 (0.94)      11.23 (0.97)      10.62 (0.84)      10.75 (1.15)     0.137     
+  time (mean (SD))     1793.48 (1244.70) 2156.33 (1428.56) 2049.67 (1070.20) 1979.65 (1127.52)  0.730     
+  age (mean (SD))        55.57 (12.61)     57.09 (10.07)     50.78 (10.65)     47.66 (9.54)    <0.001     
+  bili (mean (SD))        2.98 (2.11)       2.72 (2.46)       2.86 (3.81)       3.75 (5.50)     0.394     
+  chol (mean (SD))      403.43 (204.95)   301.00 (111.32)   358.24 (210.46)   381.73 (262.26)   0.512     
+  albumin (mean (SD))     3.63 (0.43)       3.50 (0.49)       3.50 (0.44)       3.53 (0.39)     0.585     
+  copper (mean (SD))    174.90 (105.33)   125.40 (89.18)     85.71 (82.27)     94.64 (79.25)   <0.001     
+  alk.phos (mean (SD)) 2486.16 (2385.32) 1734.45 (2478.07) 1950.04 (2151.35) 1965.52 (2066.15)  0.706     
+  ast (mean (SD))       128.71 (48.74)    112.58 (44.38)    118.91 (55.40)    126.30 (60.27)    0.598     
+  trig (mean (SD))      145.81 (56.62)    114.86 (39.59)    120.28 (73.41)    126.38 (60.22)    0.370     
+  platelet (mean (SD))  232.65 (97.38)    240.13 (73.93)    262.59 (100.53)   267.95 (92.20)    0.362     
+  protime (mean (SD))    10.84 (0.94)      11.23 (0.97)      10.62 (0.84)      10.75 (1.15)     0.137     
 ⠙ | 72       | Unit tests for the CreateTableOne function                      Stratified by trt
                        1                   2                   p        test
   n                    158                 154                              
-  time (mean (sd))     2015.620 (1094.123) 1996.864 (1155.929)  0.88305     
-  age (mean (sd))        51.419 (11.007)     48.583 (9.958)     0.01767     
-  bili (mean (sd))        2.873 (3.629)       3.649 (5.282)     0.13094     
-  chol (mean (sd))      365.014 (209.544)   373.882 (252.485)   0.74799     
-  albumin (mean (sd))     3.516 (0.443)       3.524 (0.396)     0.87388     
-  copper (mean (sd))     97.643 (90.590)     97.654 (80.486)    0.99916     
-  alk.phos (mean (sd)) 2021.297 (2183.436) 1943.010 (2101.687)  0.74726     
-  ast (mean (sd))       120.209 (54.521)    124.965 (58.931)    0.45970     
-  trig (mean (sd))      124.137 (71.539)    125.252 (58.521)    0.88604     
-  platelet (mean (sd))  258.750 (100.325)   265.204 (90.729)    0.55451     
-  protime (mean (sd))    10.653 (0.851)      10.800 (1.138)     0.19714     
+  time (mean (SD))     2015.620 (1094.123) 1996.864 (1155.929)  0.88305     
+  age (mean (SD))        51.419 (11.007)     48.583 (9.958)     0.01767     
+  bili (mean (SD))        2.873 (3.629)       3.649 (5.282)     0.13094     
+  chol (mean (SD))      365.014 (209.544)   373.882 (252.485)   0.74799     
+  albumin (mean (SD))     3.516 (0.443)       3.524 (0.396)     0.87388     
+  copper (mean (SD))     97.643 (90.590)     97.654 (80.486)    0.99916     
+  alk.phos (mean (SD)) 2021.297 (2183.436) 1943.010 (2101.687)  0.74726     
+  ast (mean (SD))       120.209 (54.521)    124.965 (58.931)    0.45970     
+  trig (mean (SD))      124.137 (71.539)    125.252 (58.521)    0.88604     
+  platelet (mean (SD))  258.750 (100.325)   265.204 (90.729)    0.55451     
+  protime (mean (SD))    10.653 (0.851)      10.800 (1.138)     0.19714     
 ⠹ | 73       | Unit tests for the CreateTableOne function                      Stratified by trt
                        1                 2                
   n                    158               154              
-  time (mean (sd))     2015.62 (1094.12) 1996.86 (1155.93)
-  age (mean (sd))        51.42 (11.01)     48.58 (9.96)   
-  bili (mean (sd))        2.87 (3.63)       3.65 (5.28)   
-  chol (mean (sd))      365.01 (209.54)   373.88 (252.48) 
-  albumin (mean (sd))     3.52 (0.44)       3.52 (0.40)   
-  copper (mean (sd))     97.64 (90.59)     97.65 (80.49)  
-  alk.phos (mean (sd)) 2021.30 (2183.44) 1943.01 (2101.69)
-  ast (mean (sd))       120.21 (54.52)    124.97 (58.93)  
-  trig (mean (sd))      124.14 (71.54)    125.25 (58.52)  
-  platelet (mean (sd))  258.75 (100.32)   265.20 (90.73)  
-  protime (mean (sd))    10.65 (0.85)      10.80 (1.14)   
+  time (mean (SD))     2015.62 (1094.12) 1996.86 (1155.93)
+  age (mean (SD))        51.42 (11.01)     48.58 (9.96)   
+  bili (mean (SD))        2.87 (3.63)       3.65 (5.28)   
+  chol (mean (SD))      365.01 (209.54)   373.88 (252.48) 
+  albumin (mean (SD))     3.52 (0.44)       3.52 (0.40)   
+  copper (mean (SD))     97.64 (90.59)     97.65 (80.49)  
+  alk.phos (mean (SD)) 2021.30 (2183.44) 1943.01 (2101.69)
+  ast (mean (SD))       120.21 (54.52)    124.97 (58.93)  
+  trig (mean (SD))      124.14 (71.54)    125.25 (58.52)  
+  platelet (mean (SD))  258.75 (100.32)   265.20 (90.73)  
+  protime (mean (SD))    10.65 (0.85)      10.80 (1.14)   
 ⠸ | 74       | Unit tests for the CreateTableOne function                         Stratified by trt
                           1                         2                         p      test   
   n                       158                       154                                     
-  time (mean (sd))        2015.62 (1094.12)         1996.86 (1155.93)          0.883        
-  age (mean (sd))           51.42 (11.01)             48.58 (9.96)             0.018        
+  time (mean (SD))        2015.62 (1094.12)         1996.86 (1155.93)          0.883        
+  age (mean (SD))           51.42 (11.01)             48.58 (9.96)             0.018        
   bili (median [IQR])        1.40 [0.80, 3.20]         1.30 [0.72, 3.60]       0.842 nonnorm
   chol (median [IQR])      315.50 [247.75, 417.00]   303.50 [254.25, 377.00]   0.544 nonnorm
-  albumin (mean (sd))        3.52 (0.44)               3.52 (0.40)             0.874        
+  albumin (mean (SD))        3.52 (0.44)               3.52 (0.40)             0.874        
   copper (median [IQR])     73.00 [40.00, 121.00]     73.00 [43.00, 139.00]    0.717 nonnorm
   alk.phos (median [IQR]) 1214.50 [840.75, 2028.00] 1283.00 [922.50, 1949.75]  0.812 nonnorm
-  ast (mean (sd))          120.21 (54.52)            124.97 (58.93)            0.460        
+  ast (mean (SD))          120.21 (54.52)            124.97 (58.93)            0.460        
   trig (median [IQR])      106.00 [84.50, 146.00]    113.00 [84.50, 155.00]    0.370 nonnorm
-  platelet (mean (sd))     258.75 (100.32)           265.20 (90.73)            0.555        
-  protime (mean (sd))       10.65 (0.85)              10.80 (1.14)             0.197        
+  platelet (mean (SD))     258.75 (100.32)           265.20 (90.73)            0.555        
+  protime (mean (SD))       10.65 (0.85)              10.80 (1.14)             0.197        
 ⠼ | 75       | Unit tests for the CreateTableOne function                           Stratified by trt
                             1                          2                          p      test   
   n                         158                        154                                      
-  time (mean (sd))          2015.62 (1094.12)          1996.86 (1155.93)           0.883        
-  age (mean (sd))             51.42 (11.01)              48.58 (9.96)              0.018        
+  time (mean (SD))          2015.62 (1094.12)          1996.86 (1155.93)           0.883        
+  age (mean (SD))             51.42 (11.01)              48.58 (9.96)              0.018        
   bili (median [range])        1.40 [0.30, 20.00]         1.30 [0.30, 28.00]       0.842 nonnorm
   chol (median [range])      315.50 [127.00, 1712.00]   303.50 [120.00, 1775.00]   0.544 nonnorm
-  albumin (mean (sd))          3.52 (0.44)                3.52 (0.40)              0.874        
+  albumin (mean (SD))          3.52 (0.44)                3.52 (0.40)              0.874        
   copper (median [range])     73.00 [9.00, 588.00]       73.00 [4.00, 558.00]      0.717 nonnorm
   alk.phos (median [range]) 1214.50 [369.00, 11552.00] 1283.00 [289.00, 13862.40]  0.812 nonnorm
-  ast (mean (sd))            120.21 (54.52)             124.97 (58.93)             0.460        
+  ast (mean (SD))            120.21 (54.52)             124.97 (58.93)             0.460        
   trig (median [range])      106.00 [33.00, 598.00]     113.00 [44.00, 432.00]     0.370 nonnorm
-  platelet (mean (sd))       258.75 (100.32)            265.20 (90.73)             0.555        
-  protime (mean (sd))         10.65 (0.85)               10.80 (1.14)              0.197        
+  platelet (mean (SD))       258.75 (100.32)            265.20 (90.73)             0.555        
+  protime (mean (SD))         10.65 (0.85)               10.80 (1.14)              0.197        
 ⠴ | 76       | Unit tests for the CreateTableOne function                      Stratified by trt
                        1                 2                 p     test
   n                    158               154                         
-  time (mean (sd))     2015.62 (1094.12) 1996.86 (1155.93) 0.883     
-  age (mean (sd))      51.42 (11.01)     48.58 (9.96)      0.018     
-  bili (mean (sd))     2.87 (3.63)       3.65 (5.28)       0.131     
-  chol (mean (sd))     365.01 (209.54)   373.88 (252.48)   0.748     
-  albumin (mean (sd))  3.52 (0.44)       3.52 (0.40)       0.874     
-  copper (mean (sd))   97.64 (90.59)     97.65 (80.49)     0.999     
-  alk.phos (mean (sd)) 2021.30 (2183.44) 1943.01 (2101.69) 0.747     
-  ast (mean (sd))      120.21 (54.52)    124.97 (58.93)    0.460     
-  trig (mean (sd))     124.14 (71.54)    125.25 (58.52)    0.886     
-  platelet (mean (sd)) 258.75 (100.32)   265.20 (90.73)    0.555     
-  protime (mean (sd))  10.65 (0.85)      10.80 (1.14)      0.197     
+  time (mean (SD))     2015.62 (1094.12) 1996.86 (1155.93) 0.883     
+  age (mean (SD))      51.42 (11.01)     48.58 (9.96)      0.018     
+  bili (mean (SD))     2.87 (3.63)       3.65 (5.28)       0.131     
+  chol (mean (SD))     365.01 (209.54)   373.88 (252.48)   0.748     
+  albumin (mean (SD))  3.52 (0.44)       3.52 (0.40)       0.874     
+  copper (mean (SD))   97.64 (90.59)     97.65 (80.49)     0.999     
+  alk.phos (mean (SD)) 2021.30 (2183.44) 1943.01 (2101.69) 0.747     
+  ast (mean (SD))      120.21 (54.52)    124.97 (58.93)    0.460     
+  trig (mean (SD))     124.14 (71.54)    125.25 (58.52)    0.886     
+  platelet (mean (SD)) 258.75 (100.32)   265.20 (90.73)    0.555     
+  protime (mean (SD))  10.65 (0.85)      10.80 (1.14)      0.197     
 ⠦ | 77       | Unit tests for the CreateTableOne function          Stratified by trt
            1                 2                 p      test
   n        158               154                          
@@ -1366,17 +1366,17 @@ Column Total |       158 |       154 |       312 |
 ⠧ | 78       | Unit tests for the CreateTableOne function                        "Stratified by trt"
  ""                      "1"                 "2"                 "p"     "test"
   "n"                    "158"               "154"               ""      ""    
-  "time (mean (sd))"     "2015.62 (1094.12)" "1996.86 (1155.93)" "0.883" ""    
-  "age (mean (sd))"      "51.42 (11.01)"     "48.58 (9.96)"      "0.018" ""    
-  "bili (mean (sd))"     "2.87 (3.63)"       "3.65 (5.28)"       "0.131" ""    
-  "chol (mean (sd))"     "365.01 (209.54)"   "373.88 (252.48)"   "0.748" ""    
-  "albumin (mean (sd))"  "3.52 (0.44)"       "3.52 (0.40)"       "0.874" ""    
-  "copper (mean (sd))"   "97.64 (90.59)"     "97.65 (80.49)"     "0.999" ""    
-  "alk.phos (mean (sd))" "2021.30 (2183.44)" "1943.01 (2101.69)" "0.747" ""    
-  "ast (mean (sd))"      "120.21 (54.52)"    "124.97 (58.93)"    "0.460" ""    
-  "trig (mean (sd))"     "124.14 (71.54)"    "125.25 (58.52)"    "0.886" ""    
-  "platelet (mean (sd))" "258.75 (100.32)"   "265.20 (90.73)"    "0.555" ""    
-  "protime (mean (sd))"  "10.65 (0.85)"      "10.80 (1.14)"      "0.197" ""    
+  "time (mean (SD))"     "2015.62 (1094.12)" "1996.86 (1155.93)" "0.883" ""    
+  "age (mean (SD))"      "51.42 (11.01)"     "48.58 (9.96)"      "0.018" ""    
+  "bili (mean (SD))"     "2.87 (3.63)"       "3.65 (5.28)"       "0.131" ""    
+  "chol (mean (SD))"     "365.01 (209.54)"   "373.88 (252.48)"   "0.748" ""    
+  "albumin (mean (SD))"  "3.52 (0.44)"       "3.52 (0.40)"       "0.874" ""    
+  "copper (mean (SD))"   "97.64 (90.59)"     "97.65 (80.49)"     "0.999" ""    
+  "alk.phos (mean (SD))" "2021.30 (2183.44)" "1943.01 (2101.69)" "0.747" ""    
+  "ast (mean (SD))"      "120.21 (54.52)"    "124.97 (58.93)"    "0.460" ""    
+  "trig (mean (SD))"     "124.14 (71.54)"    "125.25 (58.52)"    "0.886" ""    
+  "platelet (mean (SD))" "258.75 (100.32)"   "265.20 (90.73)"    "0.555" ""    
+  "protime (mean (SD))"  "10.65 (0.85)"      "10.80 (1.14)"      "0.197" ""    
 ⠇ | 79       | Unit tests for the CreateTableOne function
      ### Summary of continuous variables ###
 
@@ -1957,7 +1957,7 @@ Standardize mean differences
 status 0.5770647 0.7964473 0.8748771 0.8309763 0.4375075 0.4621432 0.06043662
 trt          NaN       NaN 0.0000000       NaN       NaN 0.0000000        NaN
 sex          NaN 0.0000000       NaN       NaN       NaN       NaN 0.00000000
-⠼ | 85       | Unit tests for the CreateTableOne function✔ | 85       | Unit tests for the CreateTableOne function [2.5 s]
+⠼ | 85       | Unit tests for the CreateTableOne function✔ | 85       | Unit tests for the CreateTableOne function [3.0 s]
 ⠏ |  0       | Unit tests for the ExtractSmd function⠋ |  1       | Unit tests for the ExtractSmd function⠙ |  2       | Unit tests for the ExtractSmd function⠹ |  3       | Unit tests for the ExtractSmd function⠸ |  4       | Unit tests for the ExtractSmd function⠼ |  5       | Unit tests for the ExtractSmd function           average     1 vs 2     1 vs 3     1 vs 4     2 vs 3     2 vs 4     3 vs 4
 time     0.1556365 0.27083134 0.22071813 0.15677410 0.08450703 0.13729269 0.06369595
 status   0.5770647 0.79644734 0.87487707 0.83097631 0.43750751 0.46214324 0.06043662
@@ -2064,17 +2064,17 @@ agecat 0.702331 0.9040822 0.109801 0.985333 0.8536402 0.3838583 0.9772713
 ⠧ | 158       | Tests for functions for standardized mean differences⠇ | 159       | Tests for functions for standardized mean differences                  Stratified by HI_CHOL:RIAGENDR
                    0:1         1:1         0:2         1:2         p      test
   n                3526        363         3533        424                    
-  race (mean (sd)) 1.98 (0.85) 1.95 (0.90) 1.98 (0.87) 1.92 (0.76)  0.507     
+  race (mean (SD)) 1.98 (0.85) 1.95 (0.90) 1.98 (0.87) 1.92 (0.76)  0.507     
 ⠏ | 160       | Tests for functions for standardized mean differences⠋ | 161       | Tests for functions for standardized mean differences⠙ | 162       | Tests for functions for standardized mean differences                  Stratified by HI_CHOL:RIAGENDR
                    0:1          1:1          0:2          1:2          p      test SMD   
   n                3526          363         3533          424                           
-  race (mean (sd)) 1.98 (0.85)  1.95 (0.90)  1.98 (0.87)  1.92 (0.76)   0.507       0.042
+  race (mean (SD)) 1.98 (0.85)  1.95 (0.90)  1.98 (0.87)  1.92 (0.76)   0.507       0.042
   agecat (%)                                                           <0.001       0.702
      (0,19]        1119 (31.7)    10 ( 2.8)  1015 (28.7)     6 ( 1.4)                    
      (19,39]        797 (22.6)    88 (24.2)   950 (26.9)    70 (16.5)                    
      (39,59]        775 (22.0)   173 (47.7)   796 (22.5)   167 (39.4)                    
      (59,Inf]       835 (23.7)    92 (25.3)   772 (21.9)   181 (42.7)                    
-⠹ | 163       | Tests for functions for standardized mean differences✔ | 163       | Tests for functions for standardized mean differences [5.1 s]
+⠹ | 163       | Tests for functions for standardized mean differences✔ | 163       | Tests for functions for standardized mean differences [4.8 s]
 ⠏ |  0       | Unit tests for the survey-related modules⠋ |  1       | Unit tests for the survey-related modules⠙ |  2       | Unit tests for the survey-related modules⠹ |  3       | Unit tests for the survey-related modules⠸ |  4       | Unit tests for the survey-related modules⠼ |  5       | Unit tests for the survey-related modules⠴ |  6       | Unit tests for the survey-related modules⠦ |  7       | Unit tests for the survey-related modules⠧ |  8       | Unit tests for the survey-related modules⠇ |  9       | Unit tests for the survey-related modules⠏ | 10       | Unit tests for the survey-related modules⠋ | 11       | Unit tests for the survey-related modules⠙ | 12       | Unit tests for the survey-related modules⠹ | 13       | Unit tests for the survey-related modules⠸ | 14       | Unit tests for the survey-related modules⠼ | 15       | Unit tests for the survey-related modules⠴ | 16       | Unit tests for the survey-related modules⠦ | 17       | Unit tests for the survey-related modules⠧ | 18       | Unit tests for the survey-related modules⠇ | 19       | Unit tests for the survey-related modules⠏ | 20       | Unit tests for the survey-related modules⠋ | 21       | Unit tests for the survey-related modules⠙ | 22       | Unit tests for the survey-related modules⠹ | 23       | Unit tests for the survey-related modules⠸ | 24       | Unit tests for the survey-related modules⠼ | 25       | Unit tests for the survey-related modules⠴ | 26       | Unit tests for the survey-related modules⠦ | 27       | Unit tests for the survey-related modules⠧ | 28       | Unit tests for the survey-related modules⠇ | 29       | Unit tests for the survey-related modules⠏ | 30       | Unit tests for the survey-related modules⠋ | 31       | Unit tests for the survey-related modules⠙ | 32       | Unit tests for the survey-related modules⠹ | 33       | Unit tests for the survey-related modules⠸ | 34       | Unit tests for the survey-related modules⠼ | 35       | Unit tests for the survey-related modules⠴ | 36       | Unit tests for the survey-related modules⠦ | 37       | Unit tests for the survey-related modules⠧ | 38       | Unit tests for the survey-related modules⠇ | 39       | Unit tests for the survey-related modules⠏ | 40       | Unit tests for the survey-related modules⠋ | 41       | Unit tests for the survey-related modules⠙ | 42       | Unit tests for the survey-related modules⠹ | 43       | Unit tests for the survey-related modules⠸ | 44       | Unit tests for the survey-related modules⠼ | 45       | Unit tests for the survey-related modules⠴ | 46       | Unit tests for the survey-related modules⠦ | 47       | Unit tests for the survey-related modules⠧ | 48       | Unit tests for the survey-related modules✔ | 48       | Unit tests for the survey-related modules [0.2 s]
 ⠏ |  0       | Unit tests for the modules⠋ |  1       | Unit tests for the modules⠙ |  2       | Unit tests for the modules⠹ |  3       | Unit tests for the modules⠸ |  4       | Unit tests for the modules⠼ |  5       | Unit tests for the modules⠴ |  6       | Unit tests for the modules⠦ |  7       | Unit tests for the modules⠧ |  8       | Unit tests for the modules✔ |  8       | Unit tests for the modules
 ⠏ |  0       | Unit tests for regression summary function⠋ |  1       | Unit tests for regression summary function        exp(coef) [confint] p     
@@ -2132,148 +2132,148 @@ day         -0.06464 [-0.07905, -0.05022] <0.001
 (Intercept) 2.82371 [2.31045, 3.43231] <0.001
 trt         0.82903 [0.70232, 0.97777]  0.026
 day         0.96758 [0.94787, 0.98762]  0.002
-⠇ | 19       | Unit tests for regression summary function⠏ | 20       | Unit tests for regression summary function✔ | 20       | Unit tests for regression summary function [24.5 s]
+⠇ | 19       | Unit tests for regression summary function⠏ | 20       | Unit tests for regression summary function✔ | 20       | Unit tests for regression summary function [23.8 s]
 ⠏ |  0       | Unit tests for svy* user functions⠋ |  1       | Unit tests for svy* user functions⠙ |  2       | Unit tests for svy* user functions⠹ |  3       | Unit tests for svy* user functions⠸ |  4       | Unit tests for svy* user functions⠼ |  5       | Unit tests for svy* user functions⠴ |  6       | Unit tests for svy* user functions⠦ |  7       | Unit tests for svy* user functions⠧ |  8       | Unit tests for svy* user functions⠇ |  9       | Unit tests for svy* user functions⠏ | 10       | Unit tests for svy* user functions⠋ | 11       | Unit tests for svy* user functions⠙ | 12       | Unit tests for svy* user functions⠹ | 13       | Unit tests for svy* user functions⠸ | 14       | Unit tests for svy* user functions⠼ | 15       | Unit tests for svy* user functions⠴ | 16       | Unit tests for svy* user functions⠦ | 17       | Unit tests for svy* user functions                
                  Overall        Missing
   n              450.01                
-  E (mean (sd))    2.00 (0.82)  0.0    
-  C (mean (sd))    2.13 (0.88)  0.0    
+  E (mean (SD))    2.00 (0.82)  0.0    
+  C (mean (SD))    2.13 (0.88)  0.0    
   Y = 1 (%)       177.0 (39.4)  0.2    
   C1 = 1 (%)      150.0 (33.3)  0.0    
-  C2 (mean (sd))   0.47 (0.50)  0.0    
+  C2 (mean (SD))   0.47 (0.50)  0.0    
 ⠧ | 18       | Unit tests for svy* user functions                
                  Overall        Missing
   n              450.01                
-  E (mean (sd))    2.00 (0.82)  0.0    
-  C (mean (sd))    2.13 (0.88)  0.0    
+  E (mean (SD))    2.00 (0.82)  0.0    
+  C (mean (SD))    2.13 (0.88)  0.0    
   Y (%)                         0.2    
      0            272.7 (60.6)         
      1            177.0 (39.3)         
      NA             0.3 ( 0.1)         
   C1 = 1 (%)      150.0 (33.3)  0.0    
-  C2 (mean (sd))   0.47 (0.50)  0.0    
+  C2 (mean (SD))   0.47 (0.50)  0.0    
 ⠇ | 19       | Unit tests for svy* user functions                Stratified by E
                  1              2              3              p      test Missing
   n              150.01         150.00         150.00                            
-  E (mean (sd))    1.00 (0.00)    2.00 (0.00)    3.00 (0.00)  <0.001      0.0    
-  C (mean (sd))    2.13 (0.89)    2.13 (0.89)    2.13 (0.89)   1.000      0.0    
+  E (mean (SD))    1.00 (0.00)    2.00 (0.00)    3.00 (0.00)  <0.001      0.0    
+  C (mean (SD))    2.13 (0.89)    2.13 (0.89)    2.13 (0.89)   1.000      0.0    
   Y = 1 (%)        59.0 (39.4)    59.0 (39.3)    59.0 (39.3)   1.000      0.2    
   C1 = 1 (%)       50.0 (33.3)    50.0 (33.3)    50.0 (33.3)   1.000      0.0    
-  C2 (mean (sd))   0.47 (0.50)    0.47 (0.50)    0.47 (0.50)   1.000      0.0    
+  C2 (mean (SD))   0.47 (0.50)    0.47 (0.50)    0.47 (0.50)   1.000      0.0    
 ⠏ | 20       | Unit tests for svy* user functions                Stratified by E:C1
                  1:0            2:0            3:0            1:1            2:1            3:1            p      test
   n              100.01         100.00         100.00         50.00          50.00          50.00                     
-  E (mean (sd))    1.00 (0.00)    2.00 (0.00)    3.00 (0.00)   1.00 (0.00)    2.00 (0.00)    3.00 (0.00)   <0.001     
-  C (mean (sd))    1.60 (0.49)    1.60 (0.49)    1.60 (0.49)   3.20 (0.40)    3.20 (0.40)    3.20 (0.40)   <0.001     
+  E (mean (SD))    1.00 (0.00)    2.00 (0.00)    3.00 (0.00)   1.00 (0.00)    2.00 (0.00)    3.00 (0.00)   <0.001     
+  C (mean (SD))    1.60 (0.49)    1.60 (0.49)    1.60 (0.49)   3.20 (0.40)    3.20 (0.40)    3.20 (0.40)   <0.001     
   Y = 1 (%)        22.0 (22.1)    22.0 (22.0)    22.0 (22.0)   37.0 ( 74.0)   37.0 ( 74.0)   37.0 ( 74.0)  <0.001     
   C1 = 1 (%)        0.0 ( 0.0)     0.0 ( 0.0)     0.0 ( 0.0)   50.0 (100.0)   50.0 (100.0)   50.0 (100.0)  <0.001     
-  C2 (mean (sd))   0.60 (0.49)    0.60 (0.49)    0.60 (0.49)   0.20 (0.40)    0.20 (0.40)    0.20 (0.40)   <0.001     
+  C2 (mean (SD))   0.60 (0.49)    0.60 (0.49)    0.60 (0.49)   0.20 (0.40)    0.20 (0.40)    0.20 (0.40)   <0.001     
                 Stratified by E:C1
                  Missing
   n                     
-  E (mean (sd))  0.0    
-  C (mean (sd))  0.0    
+  E (mean (SD))  0.0    
+  C (mean (SD))  0.0    
   Y = 1 (%)      0.2    
   C1 = 1 (%)     0.0    
-  C2 (mean (sd)) 0.0    
+  C2 (mean (SD)) 0.0    
 ⠋ | 21       | Unit tests for svy* user functions                Stratified by E
                  1              2              3              p      test
   n              150.01         150.00         150.00                    
-  E (mean (sd))    1.00 (0.00)    2.00 (0.00)    3.00 (0.00)  <0.001     
-  C (mean (sd))    2.13 (0.89)    2.13 (0.89)    2.13 (0.89)   1.000     
+  E (mean (SD))    1.00 (0.00)    2.00 (0.00)    3.00 (0.00)  <0.001     
+  C (mean (SD))    2.13 (0.89)    2.13 (0.89)    2.13 (0.89)   1.000     
   Y = 1 (%)        59.0 (39.4)    59.0 (39.3)    59.0 (39.3)   1.000     
   C1 = 1 (%)       50.0 (33.3)    50.0 (33.3)    50.0 (33.3)   1.000     
-  C2 (mean (sd))   0.47 (0.50)    0.47 (0.50)    0.47 (0.50)   1.000     
+  C2 (mean (SD))   0.47 (0.50)    0.47 (0.50)    0.47 (0.50)   1.000     
 ⠙ | 22       | Unit tests for svy* user functions                
                  Overall       
   n              450.01        
-  E (mean (sd))    2.00 (0.82) 
-  C (mean (sd))    2.13 (0.88) 
+  E (mean (SD))    2.00 (0.82) 
+  C (mean (SD))    2.13 (0.88) 
   Y = 1 (%)       177.0 (39.4) 
   C1 = 1 (%)      150.0 (33.3) 
-  C2 (mean (sd))   0.47 (0.50) 
+  C2 (mean (SD))   0.47 (0.50) 
 ⠹ | 23       | Unit tests for svy* user functions                
                  Overall       
   n              450.01        
-  E (mean (sd))    2.00 (0.82) 
-  C (mean (sd))    2.13 (0.88) 
+  E (mean (SD))    2.00 (0.82) 
+  C (mean (SD))    2.13 (0.88) 
   Y (%)                        
      0            272.7 (60.6) 
      1            177.0 (39.3) 
      NA             0.3 ( 0.1) 
   C1 = 1 (%)      150.0 (33.3) 
-  C2 (mean (sd))   0.47 (0.50) 
+  C2 (mean (SD))   0.47 (0.50) 
 ⠸ | 24       | Unit tests for svy* user functions                Stratified by E:C1
                  1:0            2:0            3:0            1:1            2:1            3:1            p      test
   n              100.01         100.00         100.00         50.00          50.00          50.00                     
-  E (mean (sd))    1.00 (0.00)    2.00 (0.00)    3.00 (0.00)   1.00 (0.00)    2.00 (0.00)    3.00 (0.00)   <0.001     
-  C (mean (sd))    1.60 (0.49)    1.60 (0.49)    1.60 (0.49)   3.20 (0.40)    3.20 (0.40)    3.20 (0.40)   <0.001     
+  E (mean (SD))    1.00 (0.00)    2.00 (0.00)    3.00 (0.00)   1.00 (0.00)    2.00 (0.00)    3.00 (0.00)   <0.001     
+  C (mean (SD))    1.60 (0.49)    1.60 (0.49)    1.60 (0.49)   3.20 (0.40)    3.20 (0.40)    3.20 (0.40)   <0.001     
   Y = 1 (%)        22.0 (22.1)    22.0 (22.0)    22.0 (22.0)   37.0 ( 74.0)   37.0 ( 74.0)   37.0 ( 74.0)  <0.001     
   C1 = 1 (%)        0.0 ( 0.0)     0.0 ( 0.0)     0.0 ( 0.0)   50.0 (100.0)   50.0 (100.0)   50.0 (100.0)  <0.001     
-  C2 (mean (sd))   0.60 (0.49)    0.60 (0.49)    0.60 (0.49)   0.20 (0.40)    0.20 (0.40)    0.20 (0.40)   <0.001     
+  C2 (mean (SD))   0.60 (0.49)    0.60 (0.49)    0.60 (0.49)   0.20 (0.40)    0.20 (0.40)    0.20 (0.40)   <0.001     
 ⠼ | 25       | Unit tests for svy* user functions                Stratified by E
                  1                  2                  3                  p        test
   n              150.0120           150.0030           150.0000                        
-  E (mean (sd))    1.0000 (0.0000)    2.0000 (0.0000)    3.0000 (0.0000)  <0.00001     
-  C (mean (sd))    2.1332 (0.8854)    2.1333 (0.8861)    2.1333 (0.8861)   1.00000     
+  E (mean (SD))    1.0000 (0.0000)    2.0000 (0.0000)    3.0000 (0.0000)  <0.00001     
+  C (mean (SD))    2.1332 (0.8854)    2.1333 (0.8861)    2.1333 (0.8861)   1.00000     
   Y = 1 (%)        59.001 (39.406)    59.001 (39.333)    59.000 (39.333)   0.99982     
   C1 = 1 (%)       50.000 (33.331)    50.000 (33.333)    50.000 (33.333)   1.00000     
-  C2 (mean (sd))   0.4666 (0.4994)    0.4667 (0.4999)    0.4667 (0.4998)   1.00000     
+  C2 (mean (SD))   0.4666 (0.4994)    0.4667 (0.4999)    0.4667 (0.4998)   1.00000     
 ⠴ | 26       | Unit tests for svy* user functions                Stratified by E
                  1              2              3             
   n              150.01         150.00         150.00        
-  E (mean (sd))    1.00 (0.00)    2.00 (0.00)    3.00 (0.00) 
-  C (mean (sd))    2.13 (0.89)    2.13 (0.89)    2.13 (0.89) 
+  E (mean (SD))    1.00 (0.00)    2.00 (0.00)    3.00 (0.00) 
+  C (mean (SD))    2.13 (0.89)    2.13 (0.89)    2.13 (0.89) 
   Y = 1 (%)        59.0 (39.4)    59.0 (39.3)    59.0 (39.3) 
   C1 = 1 (%)       50.0 (33.3)    50.0 (33.3)    50.0 (33.3) 
-  C2 (mean (sd))   0.47 (0.50)    0.47 (0.50)    0.47 (0.50) 
+  C2 (mean (SD))   0.47 (0.50)    0.47 (0.50)    0.47 (0.50) 
 ⠦ | 27       | Unit tests for svy* user functions                  Stratified by E
                    1                   2                   3                   p      test   
   n                150.01              150.00              150.00                            
-  E (mean (sd))      1.00 (0.00)         2.00 (0.00)         3.00 (0.00)       <0.001        
+  E (mean (SD))      1.00 (0.00)         2.00 (0.00)         3.00 (0.00)       <0.001        
   C (median [IQR])   2.00 [1.00, 3.00]   2.00 [1.00, 3.00]   2.00 [1.00, 3.00]  1.000 nonnorm
   Y = 1 (%)          59.0 (39.4)         59.0 (39.3)         59.0 (39.3)        NA    exact  
   C1 = 1 (%)         50.0 (33.3)         50.0 (33.3)         50.0 (33.3)        1.000        
-  C2 (mean (sd))     0.47 (0.50)         0.47 (0.50)         0.47 (0.50)        1.000        
+  C2 (mean (SD))     0.47 (0.50)         0.47 (0.50)         0.47 (0.50)        1.000        
 ⠧ | 28       | Unit tests for svy* user functions                    Stratified by E
                      1                   2                   3                   p      test   
   n                  150.01              150.00              150.00                            
-  E (mean (sd))        1.00 (0.00)         2.00 (0.00)         3.00 (0.00)       <0.001        
+  E (mean (SD))        1.00 (0.00)         2.00 (0.00)         3.00 (0.00)       <0.001        
   C (median [range])   2.00 [1.00, 4.00]   2.00 [1.00, 4.00]   2.00 [1.00, 4.00]  1.000 nonnorm
   Y = 1 (%)            59.0 (39.4)         59.0 (39.3)         59.0 (39.3)        1.000        
   C1 = 1 (%)           50.0 (33.3)         50.0 (33.3)         50.0 (33.3)        1.000        
-  C2 (mean (sd))       0.47 (0.50)         0.47 (0.50)         0.47 (0.50)        1.000        
+  C2 (mean (SD))       0.47 (0.50)         0.47 (0.50)         0.47 (0.50)        1.000        
 ⠇ | 29       | Unit tests for svy* user functions                Stratified by E
                  1               2               3               p      test
   n              150.01          150.00          150.00                     
-  E (mean (sd))  1.00 (0.00)     2.00 (0.00)     3.00 (0.00)     <0.001     
-  C (mean (sd))  2.13 (0.89)     2.13 (0.89)     2.13 (0.89)     1.000      
+  E (mean (SD))  1.00 (0.00)     2.00 (0.00)     3.00 (0.00)     <0.001     
+  C (mean (SD))  2.13 (0.89)     2.13 (0.89)     2.13 (0.89)     1.000      
   Y = 1 (%)      59.001 (39.406) 59.001 (39.333) 59.000 (39.333) 1.000      
   C1 = 1 (%)     50.000 (33.331) 50.000 (33.333) 50.000 (33.333) 1.000      
-  C2 (mean (sd)) 0.47 (0.50)     0.47 (0.50)     0.47 (0.50)     1.000      
+  C2 (mean (SD)) 0.47 (0.50)     0.47 (0.50)     0.47 (0.50)     1.000      
 ⠏ | 30       | Unit tests for svy* user functions                  Stratified by E
                    level 1                   2                   3                   p      test   
   n                      150.01              150.00              150.00                            
-  E (mean (sd))            1.00 (0.00)         2.00 (0.00)         3.00 (0.00)       <0.001        
+  E (mean (SD))            1.00 (0.00)         2.00 (0.00)         3.00 (0.00)       <0.001        
   C (median [IQR])         2.00 [1.00, 3.00]   2.00 [1.00, 3.00]   2.00 [1.00, 3.00]  1.000 nonnorm
   Y (%)            0       90.7 (60.6)         91.0 (60.7)         91.0 (60.7)        NA    exact  
                    1       59.0 (39.4)         59.0 (39.3)         59.0 (39.3)                     
   C1 (%)           0      100.0 (66.7)        100.0 (66.7)        100.0 (66.7)        1.000        
                    1       50.0 (33.3)         50.0 (33.3)         50.0 (33.3)                     
-  C2 (mean (sd))           0.47 (0.50)         0.47 (0.50)         0.47 (0.50)        1.000        
+  C2 (mean (SD))           0.47 (0.50)         0.47 (0.50)         0.47 (0.50)        1.000        
 ⠋ | 31       | Unit tests for svy* user functions                    "Stratified by E"
  ""                  "1"                 "2"                 "3"                 "p"      "test"   
   "n"                "150.01"            "150.00"            "150.00"            ""       ""       
-  "E (mean (sd))"    "1.00 (0.00)"       "2.00 (0.00)"       "3.00 (0.00)"       "<0.001" ""       
+  "E (mean (SD))"    "1.00 (0.00)"       "2.00 (0.00)"       "3.00 (0.00)"       "<0.001" ""       
   "C (median [IQR])" "2.00 [1.00, 3.00]" "2.00 [1.00, 3.00]" "2.00 [1.00, 3.00]" "1.000"  "nonnorm"
   "Y = 1 (%)"        "59.001 (39.406)"   "59.001 (39.333)"   "59.000 (39.333)"   "NA"     "exact"  
   "C1 = 1 (%)"       "50.000 (33.331)"   "50.000 (33.333)"   "50.000 (33.333)"   "1.000"  ""       
-  "C2 (mean (sd))"   "0.47 (0.50)"       "0.47 (0.50)"       "0.47 (0.50)"       "1.000"  ""       
+  "C2 (mean (SD))"   "0.47 (0.50)"       "0.47 (0.50)"       "0.47 (0.50)"       "1.000"  ""       
 ⠙ | 32       | Unit tests for svy* user functions               Stratified by E:C1
                 1:0           2:0           3:0           1:1          2:1          3:1          p      test
   n             100.01        100.00        100.00        50.00        50.00        50.00                   
-  E (mean (sd))   1.00 (0.00)   2.00 (0.00)   3.00 (0.00)  1.00 (0.00)  2.00 (0.00)  3.00 (0.00) <0.001     
-  C (mean (sd))   1.60 (0.49)   1.60 (0.49)   1.60 (0.49)  3.20 (0.40)  3.20 (0.40)  3.20 (0.40) <0.001     
+  E (mean (SD))   1.00 (0.00)   2.00 (0.00)   3.00 (0.00)  1.00 (0.00)  2.00 (0.00)  3.00 (0.00) <0.001     
+  C (mean (SD))   1.60 (0.49)   1.60 (0.49)   1.60 (0.49)  3.20 (0.40)  3.20 (0.40)  3.20 (0.40) <0.001     
 ⠹ | 33       | Unit tests for svy* user functions            Stratified by E:C1
              1:0           2:0           3:0           1:1           2:1           3:1           p      test
   n          100.0         100.0         100.0         50.0          50.0          50.0                     
@@ -2439,51 +2439,51 @@ Column Total |       100 |       100 |       100 |        50 |        50 |      
 ⠇ | 49       | Unit tests for svy* user functions                Stratified by E
                  1           2           3           p      test
   n              150.01      150.00      150.00                 
-  E (mean (sd))  1.00 (0.00) 2.00 (0.00) 3.00 (0.00) <0.001     
-  C (mean (sd))  2.13 (0.89) 2.13 (0.89) 2.13 (0.89)  1.000     
-  C2 (mean (sd)) 0.47 (0.50) 0.47 (0.50) 0.47 (0.50)  1.000     
+  E (mean (SD))  1.00 (0.00) 2.00 (0.00) 3.00 (0.00) <0.001     
+  C (mean (SD))  2.13 (0.89) 2.13 (0.89) 2.13 (0.89)  1.000     
+  C2 (mean (SD)) 0.47 (0.50) 0.47 (0.50) 0.47 (0.50)  1.000     
 ⠏ | 50       | Unit tests for svy* user functions                Stratified by 
                  Overall    
   n              450.01     
-  E (mean (sd))  2.00 (0.82)
-  C (mean (sd))  2.13 (0.88)
-  C2 (mean (sd)) 0.47 (0.50)
+  E (mean (SD))  2.00 (0.82)
+  C (mean (SD))  2.13 (0.88)
+  C2 (mean (SD)) 0.47 (0.50)
 ⠋ | 51       | Unit tests for svy* user functions                Stratified by E:C1
                  1:0         2:0         3:0         1:1         2:1         3:1         p      test
   n              100.01      100.00      100.00      50.00       50.00       50.00                  
-  E (mean (sd))  1.00 (0.00) 2.00 (0.00) 3.00 (0.00) 1.00 (0.00) 2.00 (0.00) 3.00 (0.00) <0.001     
-  C (mean (sd))  1.60 (0.49) 1.60 (0.49) 1.60 (0.49) 3.20 (0.40) 3.20 (0.40) 3.20 (0.40) <0.001     
-  C2 (mean (sd)) 0.60 (0.49) 0.60 (0.49) 0.60 (0.49) 0.20 (0.40) 0.20 (0.40) 0.20 (0.40) <0.001     
+  E (mean (SD))  1.00 (0.00) 2.00 (0.00) 3.00 (0.00) 1.00 (0.00) 2.00 (0.00) 3.00 (0.00) <0.001     
+  C (mean (SD))  1.60 (0.49) 1.60 (0.49) 1.60 (0.49) 3.20 (0.40) 3.20 (0.40) 3.20 (0.40) <0.001     
+  C2 (mean (SD)) 0.60 (0.49) 0.60 (0.49) 0.60 (0.49) 0.20 (0.40) 0.20 (0.40) 0.20 (0.40) <0.001     
 ⠙ | 52       | Unit tests for svy* user functions                Stratified by E
                  1             2             3             p        test
   n              150.012       150.003       150.000                    
-  E (mean (sd))  1.000 (0.000) 2.000 (0.000) 3.000 (0.000) <0.00001     
-  C (mean (sd))  2.133 (0.885) 2.133 (0.886) 2.133 (0.886)  1.00000     
-  C2 (mean (sd)) 0.467 (0.499) 0.467 (0.500) 0.467 (0.500)  1.00000     
+  E (mean (SD))  1.000 (0.000) 2.000 (0.000) 3.000 (0.000) <0.00001     
+  C (mean (SD))  2.133 (0.885) 2.133 (0.886) 2.133 (0.886)  1.00000     
+  C2 (mean (SD)) 0.467 (0.499) 0.467 (0.500) 0.467 (0.500)  1.00000     
 ⠹ | 53       | Unit tests for svy* user functions                Stratified by E
                  1           2           3          
   n              150.01      150.00      150.00     
-  E (mean (sd))  1.00 (0.00) 2.00 (0.00) 3.00 (0.00)
-  C (mean (sd))  2.13 (0.89) 2.13 (0.89) 2.13 (0.89)
-  C2 (mean (sd)) 0.47 (0.50) 0.47 (0.50) 0.47 (0.50)
+  E (mean (SD))  1.00 (0.00) 2.00 (0.00) 3.00 (0.00)
+  C (mean (SD))  2.13 (0.89) 2.13 (0.89) 2.13 (0.89)
+  C2 (mean (SD)) 0.47 (0.50) 0.47 (0.50) 0.47 (0.50)
 ⠸ | 54       | Unit tests for svy* user functions                  Stratified by E
                    1                 2                 3                 p      test   
   n                150.01            150.00            150.00                          
-  E (mean (sd))    1.00 (0.00)       2.00 (0.00)       3.00 (0.00)       <0.001        
+  E (mean (SD))    1.00 (0.00)       2.00 (0.00)       3.00 (0.00)       <0.001        
   C (median [IQR]) 2.00 [1.00, 3.00] 2.00 [1.00, 3.00] 2.00 [1.00, 3.00]  1.000 nonnorm
-  C2 (mean (sd))   0.47 (0.50)       0.47 (0.50)       0.47 (0.50)        1.000        
+  C2 (mean (SD))   0.47 (0.50)       0.47 (0.50)       0.47 (0.50)        1.000        
 ⠼ | 55       | Unit tests for svy* user functions                    Stratified by E
                      1                 2                 3                 p      test   
   n                  150.01            150.00            150.00                          
-  E (mean (sd))      1.00 (0.00)       2.00 (0.00)       3.00 (0.00)       <0.001        
+  E (mean (SD))      1.00 (0.00)       2.00 (0.00)       3.00 (0.00)       <0.001        
   C (median [range]) 2.00 [1.00, 4.00] 2.00 [1.00, 4.00] 2.00 [1.00, 4.00]  1.000 nonnorm
-  C2 (mean (sd))     0.47 (0.50)       0.47 (0.50)       0.47 (0.50)        1.000        
+  C2 (mean (SD))     0.47 (0.50)       0.47 (0.50)       0.47 (0.50)        1.000        
 ⠴ | 56       | Unit tests for svy* user functions                Stratified by E
                  1           2           3           p      test
   n              150.01      150.00      150.00                 
-  E (mean (sd))  1.00 (0.00) 2.00 (0.00) 3.00 (0.00) <0.001     
-  C (mean (sd))  2.13 (0.89) 2.13 (0.89) 2.13 (0.89) 1.000      
-  C2 (mean (sd)) 0.47 (0.50) 0.47 (0.50) 0.47 (0.50) 1.000      
+  E (mean (SD))  1.00 (0.00) 2.00 (0.00) 3.00 (0.00) <0.001     
+  C (mean (SD))  2.13 (0.89) 2.13 (0.89) 2.13 (0.89) 1.000      
+  C2 (mean (SD)) 0.47 (0.50) 0.47 (0.50) 0.47 (0.50) 1.000      
 ⠦ | 57       | Unit tests for svy* user functions    Stratified by E
      1           2           3           p      test
   n  150.01      150.00      150.00                 
@@ -2493,17 +2493,17 @@ Column Total |       100 |       100 |       100 |        50 |        50 |      
 ⠧ | 58       | Unit tests for svy* user functions                  "Stratified by E"
  ""                "1"           "2"           "3"           "p"      "test"
   "n"              "150.01"      "150.00"      "150.00"      ""       ""    
-  "E (mean (sd))"  "1.00 (0.00)" "2.00 (0.00)" "3.00 (0.00)" "<0.001" ""    
-  "C (mean (sd))"  "2.13 (0.89)" "2.13 (0.89)" "2.13 (0.89)" "1.000"  ""    
-  "C2 (mean (sd))" "0.47 (0.50)" "0.47 (0.50)" "0.47 (0.50)" "1.000"  ""    
+  "E (mean (SD))"  "1.00 (0.00)" "2.00 (0.00)" "3.00 (0.00)" "<0.001" ""    
+  "C (mean (SD))"  "2.13 (0.89)" "2.13 (0.89)" "2.13 (0.89)" "1.000"  ""    
+  "C2 (mean (SD))" "0.47 (0.50)" "0.47 (0.50)" "0.47 (0.50)" "1.000"  ""    
 ⠇ | 59       | Unit tests for svy* user functions⠏ | 60       | Unit tests for svy* user functions⠋ | 61       | Unit tests for svy* user functions⠙ | 62       | Unit tests for svy* user functions⠹ | 63       | Unit tests for svy* user functions⠸ | 64       | Unit tests for svy* user functions⠼ | 65       | Unit tests for svy* user functions                     Stratified by RIAGENDR
                       1            2            p      test
   n                   134944553.92 141591892.00            
-  HI_CHOL (mean (sd)) 0.10 (0.30)  0.12 (0.33)   0.009     
+  HI_CHOL (mean (SD)) 0.10 (0.30)  0.12 (0.33)   0.009     
 ⠴ | 66       | Unit tests for svy* user functions⠦ | 67       | Unit tests for svy* user functions⠧ | 68       | Unit tests for svy* user functions                     Stratified by RIAGENDR
                       1            2            p      test
   n                   134944553.92 141591892.00            
-  HI_CHOL (mean (sd)) 0.10 (0.30)  0.12 (0.33)   0.009     
+  HI_CHOL (mean (SD)) 0.10 (0.30)  0.12 (0.33)   0.009     
 ⠇ | 69       | Unit tests for svy* user functions                        Stratified by RIAGENDR
                          1                 2                 p      test   
   n                      134944553.92      141591892.00                    
@@ -2515,7 +2515,7 @@ Column Total |       100 |       100 |       100 |        50 |        50 |      
 ⠋ | 71       | Unit tests for svy* user functions                     Stratified by RIAGENDR
                       1            2            p          test
   n                   134944553.92 141591892.00                
-  HI_CHOL (mean (sd)) 0.10 (0.30)  0.12 (0.33)   0.0092211     
+  HI_CHOL (mean (SD)) 0.10 (0.30)  0.12 (0.33)   0.0092211     
 ⠙ | 72       | Unit tests for svy* user functions                        Stratified by RIAGENDR
                          1                 2                 p          test   
   n                      134944553.92      141591892.00                        
@@ -2565,7 +2565,7 @@ Column Total |       100 |       100 |       100 |        50 |        50 |      
 ⠴ | 76       | Unit tests for svy* user functions                     Stratified by RIAGENDR
                       1                    2                     p          test
   n                   134944553.92         141591892.00                         
-  HI_CHOL (mean (sd))         0.10 (0.30)          0.12 (0.33)    0.0092211     
+  HI_CHOL (mean (SD))         0.10 (0.30)          0.12 (0.33)    0.0092211     
   race (%)                                                        0.0416288     
      1                  21381884.2 (15.8)    20251367.4 ( 14.3)                 
      2                  89315751.4 (66.2)    92486945.1 ( 65.3)                 
@@ -2580,7 +2580,7 @@ Column Total |       100 |       100 |       100 |        50 |        50 |      
 ⠦ | 77       | Unit tests for svy* user functions                     Stratified by RIAGENDR
                       1                    2                     p          test
   n                   134944553.92         141591892.00                         
-  HI_CHOL (mean (sd))         0.10 (0.30)          0.12 (0.33)    0.0092211     
+  HI_CHOL (mean (SD))         0.10 (0.30)          0.12 (0.33)    0.0092211     
   race (%)                                                        0.0416288     
      1                  21381884.2 (15.8)    20251367.4 ( 14.3)                 
      2                  89315751.4 (66.2)    92486945.1 ( 65.3)                 
@@ -2610,7 +2610,7 @@ Column Total |       100 |       100 |       100 |        50 |        50 |      
 ⠇ | 79       | Unit tests for svy* user functions                     Stratified by RIAGENDR
                       1                       2                        p      test
   n                    134944553.92            141591892.00                       
-  HI_CHOL (mean (sd))          0.10 (0.30)             0.12 (0.33)      0.009     
+  HI_CHOL (mean (SD))          0.10 (0.30)             0.12 (0.33)      0.009     
   race (%)                                                              0.042     
      1                 21381884.189 (15.845)   20251367.389 ( 14.303)             
      2                 89315751.415 (66.187)   92486945.142 ( 65.319)             
@@ -2995,12 +2995,12 @@ C1      NaN      NaN      0      0      0
 ⠧ | 88       | Unit tests for svy* user functions                   Stratified by ESA
                     1            2             3            p      test
   n                  2.00         2.00          2.00                   
-  alive (mean (sd)) 24.50 (0.71) 39.50 (13.44) 75.00 (7.07)  0.098     
+  alive (mean (SD)) 24.50 (0.71) 39.50 (13.44) 75.00 (7.07)  0.098     
   ambulance = 2 (%)  50.0         50.0          50.0         1.000     
-⠇ | 89       | Unit tests for svy* user functions⠏ | 90       | Unit tests for svy* user functions✔ | 90       | Unit tests for svy* user functions [2.9 s]
+⠇ | 89       | Unit tests for svy* user functions⠏ | 90       | Unit tests for svy* user functions✔ | 90       | Unit tests for svy* user functions [2.8 s]
 
 ══ Results ═════════════════════════════════════════════════════════════════════════════════════════════════════════════
-Duration: 36.6 s
+Duration: 36.0 s
 
 OK:       427
 Failed:   0
