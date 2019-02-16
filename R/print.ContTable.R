@@ -7,7 +7,7 @@
 ##' @param pDigits Number of digits to print for p-values (also used for standardized mean differences).
 ##' @param quote Whether to show everything in quotes. The default is FALSE. If TRUE, everything including the row and column names are quoted so that you can copy it to Excel easily.
 ##' @param missing Whether to show missing data information.
-##' @param explain Whether to add explanation to the variable names, i.e., (mean (sd) or median [IQR]) is added to the variable names.
+##' @param explain Whether to add explanation to the variable names, i.e., (mean (SD) or median [IQR]) is added to the variable names.
 ##' @param printToggle Whether to print the output. If FALSE, no output is created, and a matrix is invisibly returned.
 ##' @param noSpaces Whether to remove spaces added for alignment. Use this option if you prefer to align numbers yourself in other software.
 ##' @param nonnormal A character vector to specify the variables for which the p-values should be those of nonparametric tests. By default all p-values are from normal assumption-based tests (oneway.test).
@@ -242,13 +242,13 @@ function(x,                       # ContTable object
     }
 
 
-    ## Add mean (sd) or median [IQR]/median [range] explanation if requested
+    ## Add mean (SD) or median [IQR]/median [range] explanation if requested
     if (explain) {
         ## Create a vector of explanations to be pasted
         if (minMax == FALSE) {
-            what <- c(" (mean (sd))"," (median [IQR])")[nonnormal]
+            what <- c(" (mean (SD))"," (median [IQR])")[nonnormal]
         } else if (minMax == TRUE) {
-            what <- c(" (mean (sd))"," (median [range])")[nonnormal]
+            what <- c(" (mean (SD))"," (median [range])")[nonnormal]
         }
         ## Paste to the rownames
         rownames(out) <- paste0(rownames(out), what)

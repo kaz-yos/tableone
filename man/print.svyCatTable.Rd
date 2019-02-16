@@ -4,11 +4,12 @@
 \alias{print.svyCatTable}
 \title{Format and print \code{svyCatTable} class objects}
 \usage{
-\method{print}{svyCatTable}(x, digits = 1, pDigits = 3, quote = FALSE,
-  missing = FALSE, explain = TRUE, printToggle = TRUE, noSpaces = FALSE,
-  format = c("fp", "f", "p", "pf")[1], showAllLevels = FALSE,
-  cramVars = NULL, dropEqual = FALSE, test = TRUE, exact = NULL,
-  smd = FALSE, CrossTable = FALSE, ...)
+\method{print}{svyCatTable}(x, digits = 1, pDigits = 3,
+  quote = FALSE, missing = FALSE, explain = TRUE,
+  printToggle = TRUE, noSpaces = FALSE, format = c("fp", "f", "p",
+  "pf")[1], showAllLevels = FALSE, cramVars = NULL,
+  dropEqual = FALSE, test = TRUE, exact = NULL, smd = FALSE,
+  CrossTable = FALSE, ...)
 }
 \arguments{
 \item{x}{The result of a call to the \code{\link{svyCreateCatTable}} function.}

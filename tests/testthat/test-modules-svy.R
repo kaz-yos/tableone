@@ -165,11 +165,16 @@ test_that("Quantiles are correct", {
 
 test_that("Regression test for svyContSummary", {
 
+    ## https://stackoverflow.com/questions/10049402/calculating-weighted-mean-and-standard-deviation
+    weighted_mean_E <- weighted.mean(datSvy$variables$E, datSvy$variables$Mw)
+    weighted_mean_Y <- weighted.mean(datSvy$variables$Y, datSvy$variables$Mw, na.rm = TRUE)
     res1 <- structure(c(450.015, 450.015, 0, 0.2858, 0, 0.0635089941446396,
-                        2.00060881081326, 0.39357484459537, 0.816777838825025, 0.488786864487986,
-                        2, 0, 1, 0, 3, 1, 1, 0, 3, 1), .Dim = c(2L, 10L), .Dimnames = list(
-    c("E", "Y"), c("n", "miss", "p.miss", "mean", "sd", "median",
-    "p25", "p75", "min", "max")))
+                        weighted_mean_E, weighted_mean_Y,
+                        0.816907858145951, 0.488786864487986,
+                        2, 0, 1, 0, 3, 1, 1, 0, 3, 1), .Dim = c(2L, 10L),
+                      .Dimnames = list(
+                          c("E", "Y"), c("n", "miss", "p.miss", "mean", "sd", "median",
+                                         "p25", "p75", "min", "max")))
     expect_equal(svyContSummary(vars = c("E","Y"), datSvy), res1)
 })
 
