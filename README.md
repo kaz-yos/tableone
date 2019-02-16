@@ -127,9 +127,9 @@ Contributors
 
 I would like to thank all the contributors!
 
-- Jonathan J Chipman @chipmanj
-- Justin Bohn @jmb01
-- Lucy D'Agostino McGowan @LucyMcGowan
-- Malcolm Barrett @malcolmbarrett
-- Rune Haubo B Christensen @runehaubo
-- @gbouzill
+- Jonathan J Chipman [chipmanj](https://github.com/chipmanj)
+- Justin Bohn [jmb01](https://github.com/jmb01)
+- Lucy D'Agostino McGowan [LucyMcGowan](https://github.com/LucyMcGowan)
+- Malcolm Barrett [malcolmbarrett](https://github.com/malcolmbarrett)
+- Rune Haubo B Christensen [runehaubo](https://github.com/runehaubo)
+- [gbouzill](https://github.com/gbouzill)
