@@ -5,10 +5,11 @@
 \title{Create an object summarizing both continuous and categorical variables}
 \usage{
 CreateTableOne(vars, strata, data, factorVars, includeNA = FALSE,
-  test = TRUE, testApprox = chisq.test, argsApprox = list(correct = TRUE),
-  testExact = fisher.test, argsExact = list(workspace = 2 * 10^5),
-  testNormal = oneway.test, argsNormal = list(var.equal = TRUE),
-  testNonNormal = kruskal.test, argsNonNormal = list(NULL), smd = TRUE)
+  test = TRUE, testApprox = chisq.test, argsApprox = list(correct =
+  TRUE), testExact = fisher.test, argsExact = list(workspace = 2 *
+  10^5), testNormal = oneway.test, argsNormal = list(var.equal = TRUE),
+  testNonNormal = kruskal.test, argsNonNormal = list(NULL),
+  smd = TRUE)
 }
 \arguments{
 \item{vars}{Variables to be summarized given as a character vector. Factors are handled as categorical variables, whereas numeric variables are handled as continuous variables. If empty, all variables in the data frame specified in the data argument are used.}

@@ -5,9 +5,9 @@
 \title{Format and print \code{ContTable} class objects}
 \usage{
 \method{print}{ContTable}(x, digits = 2, pDigits = 3, quote = FALSE,
-  missing = FALSE, explain = TRUE, printToggle = TRUE, noSpaces = FALSE,
-  nonnormal = NULL, minMax = FALSE, insertLevel = FALSE, test = TRUE,
-  smd = FALSE, ...)
+  missing = FALSE, explain = TRUE, printToggle = TRUE,
+  noSpaces = FALSE, nonnormal = NULL, minMax = FALSE,
+  insertLevel = FALSE, test = TRUE, smd = FALSE, ...)
 }
 \arguments{
 \item{x}{Object returned by \code{\link{CreateContTable}} function.}
