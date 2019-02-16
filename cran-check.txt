@@ -1,11 +1,11 @@
 * using log directory ‘/Users/kazuki/Documents/programming/r/tableone/tableone.Rcheck’
-* using R version 3.4.4 (2018-03-15)
+* using R version 3.5.1 (2018-07-02)
 * using platform: x86_64-apple-darwin15.6.0 (64-bit)
 * using session charset: UTF-8
 * using option ‘--as-cran’
 * checking for file ‘tableone/DESCRIPTION’ ... OK
 * checking extension type ... Package
-* this is package ‘tableone’ version ‘0.9.3’
+* this is package ‘tableone’ version ‘0.10.0’
 * checking CRAN incoming feasibility ... Note_to_CRAN_maintainers
 Maintainer: ‘Kazuki Yoshida <kazukiyoshida@mail.harvard.edu>’
 * checking package namespace information ... OK
@@ -16,6 +16,7 @@ Maintainer: ‘Kazuki Yoshida <kazukiyoshida@mail.harvard.edu>’
 * checking for hidden files and directories ... OK
 * checking for portable file names ... OK
 * checking for sufficient/correct file permissions ... OK
+* checking serialization versions ... OK
 * checking whether package ‘tableone’ can be installed ... OK
 * checking installed package size ... OK
 * checking package directory ... OK
@@ -49,10 +50,7 @@ Maintainer: ‘Kazuki Yoshida <kazukiyoshida@mail.harvard.edu>’
 * checking for unstated dependencies in examples ... OK
 * checking installed files from ‘inst/doc’ ... OK
 * checking files in ‘vignettes’ ... OK
-* checking examples ... NOTE
-Examples with CPU or elapsed time > 5s
-                   user system elapsed
-svyCreateTableOne 6.607  0.245   6.961
+* checking examples ... OK
 * checking for unstated dependencies in ‘tests’ ... OK
 * checking tests ...
  OK
@@ -61,4 +59,4 @@ svyCreateTableOne 6.607  0.245   6.961
 * checking re-building of vignette outputs ... OK
 * checking PDF version of manual ... OK
 * DONE
-Status: 1 NOTE
+Status: OK
