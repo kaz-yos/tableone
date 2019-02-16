@@ -1,9 +1,29 @@
+tableone 0.10.0 (2019-02-16)
+----------------------------------------------------------------
+
+BUG FIXES
+
+* Fix a missing value handling issue (via @chipmanj).
+  Closes issue #26.
+
+* mean (sd) was changed to mean (SD) to be consistent with
+  median [IQR].
+
+NEW FEATURES
+
+* Add a helper for exporting TableOne objects to Markdown
+  (via @malcolmbarrett). Currently, this is very basic. We hope
+  to extend its functionalities.
+
+* README.md now lists similar or complementary projects.
+
+
 tableone 0.9.3 (2018-04-28)
 ----------------------------------------------------------------
 
 BUG FIXES
 
-* Fix incompatibility with lmerTest package (via runehaubo).
+* Fix incompatibility with lmerTest package (via @runehaubo).
 * Suppressed "No sampling weights provided" warning on svrepdesign.
 
 

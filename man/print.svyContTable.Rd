@@ -4,10 +4,11 @@
 \alias{print.svyContTable}
 \title{Format and print \code{svyContTable} class objects}
 \usage{
-\method{print}{svyContTable}(x, digits = 2, pDigits = 3, quote = FALSE,
-  missing = FALSE, explain = TRUE, printToggle = TRUE, noSpaces = FALSE,
-  nonnormal = NULL, minMax = FALSE, insertLevel = FALSE, test = TRUE,
-  smd = FALSE, ...)
+\method{print}{svyContTable}(x, digits = 2, pDigits = 3,
+  quote = FALSE, missing = FALSE, explain = TRUE,
+  printToggle = TRUE, noSpaces = FALSE, nonnormal = NULL,
+  minMax = FALSE, insertLevel = FALSE, test = TRUE, smd = FALSE,
+  ...)
 }
 \arguments{
 \item{x}{Object returned by \code{\link{svyCreateContTable}} function.}
@@ -20,7 +21,7 @@
 
 \item{missing}{Whether to show missing data information.}
 
-\item{explain}{Whether to add explanation to the variable names, i.e., (mean (sd) or median [IQR]) is added to the variable names.}
+\item{explain}{Whether to add explanation to the variable names, i.e., (mean (SD) or median [IQR]) is added to the variable names.}
 
 \item{printToggle}{Whether to print the output. If FALSE, no output is created, and a matrix is invisibly returned.}
 

@@ -44,30 +44,30 @@ In this table, continuous and categorical variables can be placed in any order. 
                         Stratified by trt
                         1                         2                         p      test    SMD
 n                           158                       154
-time (mean (sd))        2015.62 (1094.12)         1996.86 (1155.93)          0.883          0.017
+time (mean (SD))        2015.62 (1094.12)         1996.86 (1155.93)          0.883          0.017
 status (%)                                                                   0.884 exact    0.054
    0                         83 (52.5)                 85 (55.2)
    1                         10 ( 6.3)                  9 ( 5.8)
    2                         65 (41.1)                 60 (39.0)
-trt (mean (sd))            1.00 (0.00)               2.00 (0.00)            <0.001          Inf
-age (mean (sd))           51.42 (11.01)             48.58 (9.96)             0.018          0.270
+trt (mean (SD))            1.00 (0.00)               2.00 (0.00)            <0.001          Inf
+age (mean (SD))           51.42 (11.01)             48.58 (9.96)             0.018          0.270
 sex = f (%)                 137 (86.7)                139 (90.3)             0.421          0.111
-ascites (mean (sd))        0.09 (0.29)               0.06 (0.25)             0.434          0.089
-hepato (mean (sd))         0.46 (0.50)               0.56 (0.50)             0.069          0.206
-spiders (mean (sd))        0.28 (0.45)               0.29 (0.46)             0.886          0.016
+ascites (mean (SD))        0.09 (0.29)               0.06 (0.25)             0.434          0.089
+hepato (mean (SD))         0.46 (0.50)               0.56 (0.50)             0.069          0.206
+spiders (mean (SD))        0.28 (0.45)               0.29 (0.46)             0.886          0.016
 edema (%)                                                                    0.877          0.058
    0                        132 (83.5)                131 (85.1)
    0.5                       16 (10.1)                 13 ( 8.4)
    1                         10 ( 6.3)                 10 ( 6.5)
 bili (median [IQR])        1.40 [0.80, 3.20]         1.30 [0.72, 3.60]       0.842 nonnorm  0.171
 chol (median [IQR])      315.50 [247.75, 417.00]   303.50 [254.25, 377.00]   0.544 nonnorm  0.038
-albumin (mean (sd))        3.52 (0.44)               3.52 (0.40)             0.874          0.018
+albumin (mean (SD))        3.52 (0.44)               3.52 (0.40)             0.874          0.018
 copper (median [IQR])     73.00 [40.00, 121.00]     73.00 [43.00, 139.00]    0.717 nonnorm <0.001
 alk.phos (median [IQR]) 1214.50 [840.75, 2028.00] 1283.00 [922.50, 1949.75]  0.812 nonnorm  0.037
-ast (mean (sd))          120.21 (54.52)            124.97 (58.93)            0.460          0.084
+ast (mean (SD))          120.21 (54.52)            124.97 (58.93)            0.460          0.084
 trig (median [IQR])      106.00 [84.50, 146.00]    113.00 [84.50, 155.00]    0.370 nonnorm  0.017
-platelet (mean (sd))     258.75 (100.32)           265.20 (90.73)            0.555          0.067
-protime (mean (sd))       10.65 (0.85)              10.80 (1.14)             0.197          0.146
+platelet (mean (SD))     258.75 (100.32)           265.20 (90.73)            0.555          0.067
+protime (mean (SD))       10.65 (0.85)              10.80 (1.14)             0.197          0.146
 stage (%)                                                                    0.205 exact    0.246
    1                         12 ( 7.6)                  4 ( 2.6)
    2                         35 (22.2)                 32 (20.8)
@@ -98,3 +98,38 @@ You first need to install the devtools package to do the following. You can choo
 Using devtools may requires some preparation, please see the following link for information.
 
 http://www.rstudio.com/projects/devtools/
+
+
+Similar projects
+-------------------------------------------------------------------------------
+
+There are multiple similar or complementary projects of interest.
+
+- DescTools: Tools for Descriptive Statistics. https://cran.r-project.org/web/packages/DescTools/index.html
+- Gmisc: Descriptive Statistics, Transition Plots, and More. https://cran.r-project.org/web/packages/Gmisc/
+- arsenal: An Arsenal of 'R' Functions for Large-Scale Statistical Summaries. https://github.com/eheinzen/arsenal
+- compareGroups: Descriptive Analysis by Groups. http://www.comparegroups.eu
+- expss: Tables with Labels and Some Useful Functions from Spreadsheets and 'SPSS' Statistics. https://github.com/gdemin/expss
+- furniture: Furniture for Quantitative Scientists. https://cran.r-project.org/web/packages/furniture/
+- htmlTable: An R package for generating advanced tables. https://github.com/gforge/htmlTable
+- kableExtra: Construct Complex Table with 'kable' and Pipe Syntax. https://github.com/haozhu233/kableExtra
+- qwraps2: quickly placing data summaries and formatted regression results into .Rnw or .Rmd files. https://github.com/dewittpe/qwraps2/
+- stargazer: Well-Formatted Regression and Summary Statistics Tables. https://cran.r-project.org/web/packages/stargazer/index.html
+- table1: Tables of Descriptive Statistics in HTML. https://github.com/benjaminrich/table1
+- table1xls: Exports Reproducible Summary Tables to Multi-Tab Spreadsheet Files. https://cran.r-project.org/web/packages/table1xls/index.html
+- xtable: Export Tables to LaTeX or HTML. https://cran.r-project.org/web/packages/xtable/index.html
+
+- (Python) tableone: Create "Table 1" for research papers in Python. https://github.com/tompollard/tableone
+
+
+Contributors
+-------------------------------------------------------------------------------
+
+I would like to thank all the contributors!
+
+- Jonathan J Chipman [chipmanj](https://github.com/chipmanj)
+- Justin Bohn [jmb01](https://github.com/jmb01)
+- Lucy D'Agostino McGowan [LucyMcGowan](https://github.com/LucyMcGowan)
+- Malcolm Barrett [malcolmbarrett](https://github.com/malcolmbarrett)
+- Rune Haubo B Christensen [runehaubo](https://github.com/runehaubo)
+- [gbouzill](https://github.com/gbouzill)

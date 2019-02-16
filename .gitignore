@@ -6,7 +6,3 @@
 *.tar.gz
 *.Rcheck
 revdep
-/inst/doc/introduction.R
-/inst/doc/introduction.html
-/inst/doc/smd.R
-/inst/doc/smd.html

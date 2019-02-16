@@ -276,7 +276,7 @@ ModuleContFormatStrata <- function(ContTable, nVars, listOfFunctions, digits) {
                } else {
 
                    ## Apply row by row within each non-empty stratum
-                   ## This row-by-row operation is necessary to handle mean (sd) and median [IQR]
+                   ## This row-by-row operation is necessary to handle mean (SD) and median [IQR]
                    out <- sapply(seq_len(nVars),
                                  FUN = function(i) {
 
