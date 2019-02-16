@@ -20,7 +20,7 @@
 
 \item{missing}{Whether to show missing data information.}
 
-\item{explain}{Whether to add explanation to the variable names, i.e., (mean (sd) or median [IQR]) is added to the variable names.}
+\item{explain}{Whether to add explanation to the variable names, i.e., (mean (SD) or median [IQR]) is added to the variable names.}
 
 \item{printToggle}{Whether to print the output. If FALSE, no output is created, and a matrix is invisibly returned.}
 
