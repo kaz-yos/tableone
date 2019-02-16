@@ -98,3 +98,38 @@ You first need to install the devtools package to do the following. You can choo
 Using devtools may requires some preparation, please see the following link for information.
 
 http://www.rstudio.com/projects/devtools/
+
+
+Similar projects
+-------------------------------------------------------------------------------
+
+There are multiple similar or complementary projects of interest.
+
+- DescTools: Tools for Descriptive Statistics. https://cran.r-project.org/web/packages/DescTools/index.html
+- Gmisc: Descriptive Statistics, Transition Plots, and More. https://cran.r-project.org/web/packages/Gmisc/
+- arsenal: An Arsenal of 'R' Functions for Large-Scale Statistical Summaries. https://github.com/eheinzen/arsenal
+- compareGroups: Descriptive Analysis by Groups. http://www.comparegroups.eu
+- expss: Tables with Labels and Some Useful Functions from Spreadsheets and 'SPSS' Statistics. https://github.com/gdemin/expss
+- furniture: Furniture for Quantitative Scientists. https://cran.r-project.org/web/packages/furniture/
+- htmlTable: An R package for generating advanced tables. https://github.com/gforge/htmlTable
+- kableExtra: Construct Complex Table with 'kable' and Pipe Syntax. https://github.com/haozhu233/kableExtra
+- qwraps2: quickly placing data summaries and formatted regression results into .Rnw or .Rmd files. https://github.com/dewittpe/qwraps2/
+- stargazer: Well-Formatted Regression and Summary Statistics Tables. https://cran.r-project.org/web/packages/stargazer/index.html
+- table1: Tables of Descriptive Statistics in HTML. https://github.com/benjaminrich/table1
+- table1xls: Exports Reproducible Summary Tables to Multi-Tab Spreadsheet Files. https://cran.r-project.org/web/packages/table1xls/index.html
+- xtable: Export Tables to LaTeX or HTML. https://cran.r-project.org/web/packages/xtable/index.html
+
+- (Python) tableone: Create "Table 1" for research papers in Python. https://github.com/tompollard/tableone
+
+
+Contributors
+-------------------------------------------------------------------------------
+
+I would like to thank all the contributors!
+
+- Jonathan J Chipman @chipmanj
+- Justin Bohn @jmb01
+- Lucy D'Agostino McGowan @LucyMcGowan
+- Malcolm Barrett @malcolmbarrett
+- Rune Haubo B Christensen @runehaubo
+- @gbouzill
