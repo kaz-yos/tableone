@@ -1,5 +1,5 @@
 
-R version 3.4.4 (2018-03-15) -- "Someone to Lean On"
+R version 3.5.1 (2018-07-02) -- "Feather Spray"
 Copyright (C) 2018 The R Foundation for Statistical Computing
 Platform: x86_64-apple-darwin15.6.0 (64-bit)
 
@@ -35,6 +35,7 @@ Type 'q()' to quit R.
 > library('tableone')
 > 
 > base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
 > cleanEx()
 > nameEx("CreateCatTable")
 > ### * CreateCatTable
@@ -1724,6 +1725,60 @@ ascites 2.93 [1.68, 5.11]   <0.001
 
 detaching ‘package:survival’
 
+> nameEx("kableone")
+> ### * kableone
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: kableone
+> ### Title: Export TableOne Objects to Markdown
+> ### Aliases: kableone
+> 
+> ### ** Examples
+> 
+> 
+> library(survival)
+> data(pbc)
+> 
+> tableOne <- CreateTableOne(data = pbc)
+> 
+> kableone(tableOne)
+
+
+|                     |Overall           |
+|:--------------------|:-----------------|
+|n                    |418               |
+|id (mean (sd))       |209.50 (120.81)   |
+|time (mean (sd))     |1917.78 (1104.67) |
+|status (mean (sd))   |0.83 (0.96)       |
+|trt (mean (sd))      |1.49 (0.50)       |
+|age (mean (sd))      |50.74 (10.45)     |
+|sex = f (%)          |374 (89.5)        |
+|ascites (mean (sd))  |0.08 (0.27)       |
+|hepato (mean (sd))   |0.51 (0.50)       |
+|spiders (mean (sd))  |0.29 (0.45)       |
+|edema (mean (sd))    |0.10 (0.25)       |
+|bili (mean (sd))     |3.22 (4.41)       |
+|chol (mean (sd))     |369.51 (231.94)   |
+|albumin (mean (sd))  |3.50 (0.42)       |
+|copper (mean (sd))   |97.65 (85.61)     |
+|alk.phos (mean (sd)) |1982.66 (2140.39) |
+|ast (mean (sd))      |122.56 (56.70)    |
+|trig (mean (sd))     |124.70 (65.15)    |
+|platelet (mean (sd)) |257.02 (98.33)    |
+|protime (mean (sd))  |10.73 (1.02)      |
+|stage (mean (sd))    |3.02 (0.88)       |
+> 
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("kableone", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+
+detaching ‘package:survival’
+
 > nameEx("print.CatTable")
 > ### * print.CatTable
 > 
@@ -3338,9 +3393,10 @@ detaching ‘package:survey’, ‘package:survival’, ‘package:Matrix’,
 > base::cat("tableone-package", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > ### * <FOOTER>
 > ###
+> cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  17.853 0.983 19.141 0.011 0.011 
+Time elapsed:  3.049 0.227 3.318 0.003 0.005 
 > grDevices::dev.off()
 null device 
           1 
