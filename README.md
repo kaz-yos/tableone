@@ -100,7 +100,7 @@ Using devtools may requires some preparation, please see the following link for 
 http://www.rstudio.com/projects/devtools/
 
 
-Similar projects
+Similar or complementary projects
 -------------------------------------------------------------------------------
 
 There are multiple similar or complementary projects of interest.
