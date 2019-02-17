@@ -1,17 +1,28 @@
 ## What's new
 The following changes are included.
 
-tableone 0.9.3 (2018-04-28)
+tableone 0.10.0 (2019-02-16)
 ----------------------------------------------------------------
 
 BUG FIXES
 
-* Fix incompatibility with lmerTest package (via runehaubo).
-* Suppressed "No sampling weights provided" warning on svrepdesign.
+* Fix a missing value handling issue (via @chipmanj).
+  Closes issue #26.
+
+* mean (sd) was changed to mean (SD) to be consistent with
+  median [IQR].
+
+NEW FEATURES
+
+* Add a helper for exporting TableOne objects to Markdown
+  (via @malcolmbarrett). Currently, this is very basic. We hope
+  to extend its functionalities.
+
+* README.md now lists similar or complementary projects.
 
 
 ## Test environments
-* Local OS X 10.13.4, R 3.4.4
+* Local OS X 10.14.2, R 3.5.2
 * Ubuntu Linux on Travis-CI (release and devel)
 * win-builder (release and devel)
 
@@ -23,6 +34,11 @@ BUG FIXES
 
 
 ## Downstream dependencies
-Checked cvcrand        : 0 errors | 0 warnings | 0 notes
-Checked RcmdrPlugin.EZR: 1 error  | 0 warnings | 0 notes
-Checked rpsftm         : 0 errors | 0 warnings | 0 notes
+── CHECK ───────────────────────────────────────────────────────────────────────────────────────────────── 5 packages ──
+✔ CluMP 0.7                              ── E: 0     | W: 0     | N: 0
+✔ cvcrand 0.0.2                          ── E: 0     | W: 0     | N: 0
+✔ jstable 0.7.9                          ── E: 0     | W: 0     | N: 0
+✔ RcmdrPlugin.EZR 1.38                   ── E: 0     | W: 0     | N: 0
+✔ rpsftm 1.2.3                           ── E: 0     | W: 0     | N: 0
+OK: 5
+BROKEN: 0
