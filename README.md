@@ -107,12 +107,15 @@ There are multiple similar or complementary projects of interest.
 
 - DescTools: Tools for Descriptive Statistics. https://cran.r-project.org/web/packages/DescTools/index.html
 - Gmisc: Descriptive Statistics, Transition Plots, and More. https://cran.r-project.org/web/packages/Gmisc/
+- Hmisc (summary.formula): Advanced table making and many more. http://biostat.mc.vanderbilt.edu/wiki/Main/Hmisc
 - arsenal: An Arsenal of 'R' Functions for Large-Scale Statistical Summaries. https://github.com/eheinzen/arsenal
 - compareGroups: Descriptive Analysis by Groups. http://www.comparegroups.eu
 - expss: Tables with Labels and Some Useful Functions from Spreadsheets and 'SPSS' Statistics. https://github.com/gdemin/expss
+- finalfit: Quickly Create Elegant Regression Results Tables and Plots when Modelling. https://finalfit.org/index.html
 - furniture: Furniture for Quantitative Scientists. https://cran.r-project.org/web/packages/furniture/
 - htmlTable: An R package for generating advanced tables. https://github.com/gforge/htmlTable
 - kableExtra: Construct Complex Table with 'kable' and Pipe Syntax. https://github.com/haozhu233/kableExtra
+- pander: An R Pandoc Writer. http://rapporter.github.io/pander/
 - qwraps2: quickly placing data summaries and formatted regression results into .Rnw or .Rmd files. https://github.com/dewittpe/qwraps2/
 - stargazer: Well-Formatted Regression and Summary Statistics Tables. https://cran.r-project.org/web/packages/stargazer/index.html
 - table1: Tables of Descriptive Statistics in HTML. https://github.com/benjaminrich/table1
