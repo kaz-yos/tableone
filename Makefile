@@ -35,8 +35,8 @@ test: NAMESPACE
 ## winbuild always build regardless of file update status
 ## Links to results e-mailed (no useful output locally)
 winbuild:
-	Rscript -e "devtools::build_win(version = 'R-devel')"
-	Rscript -e "devtools::build_win(version = 'R-release')"
+	Rscript -e "devtools::check_win_devel()"
+	Rscript -e "devtools::check_win_release()"
 
 ## Build vignettes in inst/doc
 vignettes:
@@ -65,7 +65,7 @@ check_devtools: $(PKG_NAME)_$(PKG_VERSION).tar.gz
 
 ## revdep requires the *.tar.gz file, and execute strict tests on it.
 revdep: $(PKG_NAME)_$(PKG_VERSION).tar.gz
-	Rscript -e "options(width = 120); devtools::revdep_check()" | tee revdep_check.txt
+	Rscript -e "options(width = 120); revdepcheck::revdep_check()" | tee revdep_check.txt
 
 ## install requires the *.tar.gz file, and execute installation using it.
 install: $(PKG_NAME)_$(PKG_VERSION).tar.gz
