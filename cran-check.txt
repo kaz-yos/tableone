@@ -1,5 +1,5 @@
 * using log directory ‘/Users/kazuki/Documents/programming/r/tableone/tableone.Rcheck’
-* using R version 3.5.1 (2018-07-02)
+* using R version 3.5.2 (2018-12-20)
 * using platform: x86_64-apple-darwin15.6.0 (64-bit)
 * using session charset: UTF-8
 * using option ‘--as-cran’
