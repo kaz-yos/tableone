@@ -112,13 +112,15 @@ There are multiple similar or complementary projects of interest.
 - compareGroups: Descriptive Analysis by Groups. http://www.comparegroups.eu
 - expss: Tables with Labels and Some Useful Functions from Spreadsheets and 'SPSS' Statistics. https://github.com/gdemin/expss
 - finalfit: Quickly Create Elegant Regression Results Tables and Plots when Modelling. https://finalfit.org/index.html
+- framework for easily create tables for reporting: framework for easily create tables for reporting. https://davidgohel.github.io/flextable/
 - furniture: Furniture for Quantitative Scientists. https://cran.r-project.org/web/packages/furniture/
 - htmlTable: An R package for generating advanced tables. https://github.com/gforge/htmlTable
 - kableExtra: Construct Complex Table with 'kable' and Pipe Syntax. https://github.com/haozhu233/kableExtra
 - pander: An R Pandoc Writer. http://rapporter.github.io/pander/
+- pixiedust: Format models for console and to markdown, HTML, and LaTeX. https://github.com/nutterb/pixiedust
 - qwraps2: quickly placing data summaries and formatted regression results into .Rnw or .Rmd files. https://github.com/dewittpe/qwraps2/
 - stargazer: Well-Formatted Regression and Summary Statistics Tables. https://cran.r-project.org/web/packages/stargazer/index.html
-- tab: Functions for Creating Summary Tables for Statistical Reports. https://cran.r-project.org/package=tabg
+- tab: Functions for Creating Summary Tables for Statistical Reports. https://cran.r-project.org/package=tab
 - table1: Tables of Descriptive Statistics in HTML. https://github.com/benjaminrich/table1
 - table1xls: Exports Reproducible Summary Tables to Multi-Tab Spreadsheet Files. https://cran.r-project.org/web/packages/table1xls/index.html
 - xtable: Export Tables to LaTeX or HTML. https://cran.r-project.org/web/packages/xtable/index.html
