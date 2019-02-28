@@ -118,6 +118,7 @@ There are multiple similar or complementary projects of interest.
 - pander: An R Pandoc Writer. http://rapporter.github.io/pander/
 - qwraps2: quickly placing data summaries and formatted regression results into .Rnw or .Rmd files. https://github.com/dewittpe/qwraps2/
 - stargazer: Well-Formatted Regression and Summary Statistics Tables. https://cran.r-project.org/web/packages/stargazer/index.html
+- tab: Functions for Creating Summary Tables for Statistical Reports. https://cran.r-project.org/package=tabg
 - table1: Tables of Descriptive Statistics in HTML. https://github.com/benjaminrich/table1
 - table1xls: Exports Reproducible Summary Tables to Multi-Tab Spreadsheet Files. https://cran.r-project.org/web/packages/table1xls/index.html
 - xtable: Export Tables to LaTeX or HTML. https://cran.r-project.org/web/packages/xtable/index.html
