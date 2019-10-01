@@ -124,7 +124,7 @@ There are multiple similar or complementary projects of interest.
 - table1: Tables of Descriptive Statistics in HTML. https://github.com/benjaminrich/table1
 - table1xls: Exports Reproducible Summary Tables to Multi-Tab Spreadsheet Files. https://cran.r-project.org/web/packages/table1xls/index.html
 - xtable: Export Tables to LaTeX or HTML. https://cran.r-project.org/web/packages/xtable/index.html
-
+- gtsummary: Presentation-Ready Data Summary and Analytic Result Tables.  https://CRAN.R-project.org/package=gtsummary
 - (Python) tableone: Create "Table 1" for research papers in Python. https://github.com/tompollard/tableone
 
 
