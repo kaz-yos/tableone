@@ -216,6 +216,13 @@ ModuleCreateStrataVarAsFactor <- function(result, strata) {
     return(strataVar)
 }
 
+ModuleCreateOverallColumn <- function(call) {
+    ## Remove Strata und set addOverall to false
+    call$strata <- NULL
+    call$addOverall <- F
+    ## Recall function and return
+    return(eval(call))
+}
 
 
 ###
