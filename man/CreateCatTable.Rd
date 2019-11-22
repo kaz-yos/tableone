@@ -4,10 +4,19 @@
 \alias{CreateCatTable}
 \title{Create an object summarizing categorical variables}
 \usage{
-CreateCatTable(vars, strata, data, includeNA = FALSE, test = TRUE,
-  testApprox = chisq.test, argsApprox = list(correct = TRUE),
-  testExact = fisher.test, argsExact = list(workspace = 2 * 10^5),
-  smd = TRUE)
+CreateCatTable(
+  vars,
+  strata,
+  data,
+  includeNA = FALSE,
+  test = TRUE,
+  testApprox = chisq.test,
+  argsApprox = list(correct = TRUE),
+  testExact = fisher.test,
+  argsExact = list(workspace = 2 * 10^5),
+  smd = TRUE,
+  addOverall = FALSE
+)
 }
 \arguments{
 \item{vars}{Variable(s) to be summarized given as a character vector.}
@@ -29,6 +38,8 @@ CreateCatTable(vars, strata, data, includeNA = FALSE, test = TRUE,
 \item{argsExact}{A named list of arguments passed to the function specified in testExact. The default is \code{list(workspace = 2*10^5)}, which specifies the memory space allocated for \code{fisher.test}.}
 
 \item{smd}{If TRUE, as in the default and there are more than two groups, standardized mean differences for all pairwise comparisons are calculated.}
+
+\item{addOverall}{(optional, only used if strata are supplied) Adds an overall column to the table. Smd and p-value calculations are performed using only the stratifed clolumns.}
 }
 \value{
 An object of class \code{CatTable}.
