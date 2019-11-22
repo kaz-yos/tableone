@@ -4,9 +4,18 @@
 \alias{svyCreateContTable}
 \title{Create an object summarizing continous variables for weighted dataset}
 \usage{
-svyCreateContTable(vars, strata, data, test = TRUE,
-  testNormal = svyTestNormal, argsNormal = list(method = "Wald"),
-  testNonNormal = svyTestNonNormal, argsNonNormal = NULL, smd = TRUE)
+svyCreateContTable(
+  vars,
+  strata,
+  data,
+  test = TRUE,
+  testNormal = svyTestNormal,
+  argsNormal = list(method = "Wald"),
+  testNonNormal = svyTestNonNormal,
+  argsNonNormal = NULL,
+  smd = TRUE,
+  addOverall = FALSE
+)
 }
 \arguments{
 \item{vars}{Variable(s) to be summarized given as a character vector.}
@@ -26,6 +35,8 @@ svyCreateContTable(vars, strata, data, test = TRUE,
 \item{argsNonNormal}{A named list of arguments passed to the function specified in \code{testNonNormal}.}
 
 \item{smd}{If TRUE, as in the default and there are more than two groups, standardized mean differences for all pairwise comparisons are calculated.}
+
+\item{addOverall}{(optional, only used if strata are supplied) Adds an overall column to the table. Smd and p-value calculations are performed using only the stratifed clolumns.}
 }
 \value{
 An object of class \code{svyContTable}.
