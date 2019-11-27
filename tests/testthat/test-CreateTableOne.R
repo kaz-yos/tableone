@@ -152,6 +152,11 @@ pbcByTrt    <- CreateTableOne(vars = vars, strata = c("trt"), data = pbc)
 pbcByTrtSex <- CreateTableOne(vars = vars, strata = c("trt","sex"), data = pbc)
 pbcContOnlyByTrtSex <- CreateTableOne(vars = varsContOnly, strata = c("trt","sex"), data = pbc)
 pbcCatOnlyByTrtSex  <- CreateTableOne(vars = varsCatOnly, strata = c("trt","sex"), data = pbc)
+pbcByTrt_addOverall    <- CreateTableOne(vars = vars, strata = c("trt"), data = pbc, addOverall = T)
+pbcByTrtSex_addOverall <- CreateTableOne(vars = vars, strata = c("trt","sex"), data = pbc, addOverall = T)
+pbcContOnlyByTrtSex_addOverall <- CreateTableOne(vars = varsContOnly, strata = c("trt","sex"), data = pbc, addOverall = T)
+pbcCatOnlyByTrtSex_addOverall  <- CreateTableOne(vars = varsCatOnly, strata = c("trt","sex"), data = pbc, addOverall = T)
+
 
 
 ## Specify variables for special handling
@@ -167,6 +172,11 @@ test_that("TableOne objects are always returned", {
     expect_equal(class(pbcByTrtSex),         "TableOne")
     expect_equal(class(pbcContOnlyByTrtSex), "TableOne")
     expect_equal(class(pbcCatOnlyByTrtSex),  "TableOne")
+    ## Extra-Tests for addOverall Option
+    expect_equal(class(pbcByTrt_addOverall),            "TableOne")
+    expect_equal(class(pbcByTrtSex_addOverall),         "TableOne")
+    expect_equal(class(pbcContOnlyByTrtSex_addOverall), "TableOne")
+    expect_equal(class(pbcCatOnlyByTrtSex_addOverall),  "TableOne")
 
 })
 
@@ -185,7 +195,10 @@ test_that("Missing percentages are correctly stored and printed", {
     ## Stratification should not matter
     expect_equal(pbcByTrt$MetaData$percentMissing, percentMissing)
     expect_equal(pbcByTrtSex$MetaData$percentMissing, percentMissing)
-
+    ## addOverall should not matter
+    expect_equal(pbcByTrt_addOverall$MetaData$percentMissing, percentMissing)
+    expect_equal(pbcByTrtSex_addOverall$MetaData$percentMissing, percentMissing)
+    
     ## Check printing
     ## Gold standard
     percentMissingString <- format(sprintf("%.1f", percentMissing), justify = "right")
@@ -205,6 +218,10 @@ test_that("Missing percentages are correctly stored and printed", {
     expect_equal(DropEmptyString(print(pbcByTrt, missing = TRUE)[,"Missing"]),
                  percentMissingString)
     expect_equal(DropEmptyString(print(pbcByTrtSex, missing = TRUE)[,"Missing"]),
+                 percentMissingString)
+    expect_equal(DropEmptyString(print(pbcByTrt_addOverall, missing = TRUE)[,"Missing"]),
+                 percentMissingString)
+    expect_equal(DropEmptyString(print(pbcByTrtSex_addOverall, missing = TRUE)[,"Missing"]),
                  percentMissingString)
 
     ## Regression test for missing column
@@ -332,6 +349,19 @@ test_that("printing of a TableOne object does not regress", {
 
     expect_equal_to_reference(print(pbcCatOnlyByTrtSex),
                               "ref-TableOne_CatOnly")
+    
+    ## Add Overall Tests always with smd and tests
+    expect_equal_to_reference(print(pbcByTrt_addOverall, nonnormal = nonnormalVars, exact = exactVars, noSpaces = TRUE, showAllLevels = FALSE, quote = TRUE, printToggle = TRUE, smd = T, test = T),
+                              "ref-TableOne_noSpaces_showAllLevels_quote_addOverall")
+    
+    expect_equal_to_reference(print(pbcByTrtSex_addOverall, printToggle = TRUE, smd = T, test = T),
+                              "ref-TableOne_2StrataVars_addOverall")
+    
+    expect_equal_to_reference(print(pbcContOnlyByTrtSex_addOverall, smd = T, test = T),
+                              "ref-TableOne_ContOnly_addOverall")
+    
+    expect_equal_to_reference(print(pbcCatOnlyByTrtSex_addOverall, smd = T, test = T),
+                              "ref-TableOne_CatOnly_addOverall")
 
 })
 
@@ -380,6 +410,12 @@ test_that("printing of a TableOne$CatTable object do not regress", {
 
     expect_equal_to_reference(print(pbcByTrt$CatTable, noSpaces = TRUE, showAllLevels = TRUE, quote = TRUE, printToggle = TRUE),
                               "ref-CatTable_noSpaces_showAllLevels_quote")
+    
+    expect_equal_to_reference(print(pbcByTrt_addOverall$CatTable, noSpaces = TRUE, showAllLevels = TRUE, quote = TRUE, printToggle = TRUE),
+                              "ref-CatTable_noSpaces_showAllLevels_quote_addOverall")
+    
+    expect_equal_to_reference(print(pbcByTrtSex_addOverall$CatTable, printToggle = TRUE),
+                              "ref-CatTable_2StrataVars_addOverall")
 
     ## gmodels::CrossTable
     print(pbcByTrt$CatTable, CrossTable = TRUE)
@@ -427,6 +463,12 @@ test_that("printing of a TableOne$ContTable object do not regress", {
 
     expect_equal_to_reference(print(pbcByTrt$ContTable, noSpaces = TRUE, showAllLevels = TRUE, quote = TRUE, printToggle = TRUE),
                               "ref-ContTable_noSpaces_showAllLevels_quote")
+    
+    expect_equal_to_reference(print(pbcByTrt_addOverall$ContTable, noSpaces = TRUE, showAllLevels = TRUE, quote = TRUE, printToggle = TRUE, smd = T),
+                              "ref-ContTable_noSpaces_showAllLevels_quote_addOverall")
+    
+    expect_equal_to_reference(print(pbcByTrtSex_addOverall$ContTable, printToggle = TRUE),
+                              "ref-ContTable_2StrataVars_addOverall")
 })
 
 
