@@ -104,6 +104,11 @@ mwByE    <- svyCreateTableOne(vars = vars, strata = c("E"), data = datSvy, facto
 mwByEC1 <- svyCreateTableOne(vars = vars, strata = c("E","C1"), data = datSvy, factorVars = factorVars)
 mwContOnlyByEC1 <- svyCreateTableOne(vars = c("E","C"), strata = c("E","C1"), data = datSvy, factorVars = factorVars)
 mwCatOnlyByEC1 <- svyCreateTableOne(vars = c("Y","C1"), strata = c("E","C1"), data = datSvy, factorVars = factorVars)
+mwByE_addOverall    <- svyCreateTableOne(vars = vars, strata = c("E"), data = datSvy, factorVars = factorVars, addOverall = T)
+mwByEC1_addOverall <- svyCreateTableOne(vars = vars, strata = c("E","C1"), data = datSvy, factorVars = factorVars, addOverall = T)
+
+
+
 
 ## Specify variables for special handling
 nonnormalVars <- c("C")
@@ -118,6 +123,9 @@ test_that("svyTableOne objects are always returned", {
     expect_equal(class(mwByEC1),         c("svyTableOne","TableOne"))
     expect_equal(class(mwContOnlyByEC1), c("svyTableOne","TableOne"))
     expect_equal(class(mwCatOnlyByEC1),  c("svyTableOne","TableOne"))
+    ## Extra-Test addOverall
+    expect_equal(class(mwByE_addOverall),         c("svyTableOne","TableOne"))
+    expect_equal(class(mwByEC1_addOverall),         c("svyTableOne","TableOne"))
 
 })
 
@@ -136,6 +144,9 @@ test_that("Missing percentages are correctly stored and printed", {
     ## Stratification should not matter
     expect_equal(mwByE$MetaData$percentMissing, percentMissing)
     expect_equal(mwByEC1$MetaData$percentMissing, percentMissing)
+    ## addOverall should not matter
+    expect_equal(mwByEC1_addOverall$MetaData$percentMissing, percentMissing)
+    expect_equal(mwByE_addOverall$MetaData$percentMissing, percentMissing)
 
     ## Check printing
     ## Gold standard
@@ -156,6 +167,10 @@ test_that("Missing percentages are correctly stored and printed", {
     expect_equal(DropEmptyString(print(mwByE, missing = TRUE)[,"Missing"]),
                  percentMissingString)
     expect_equal(DropEmptyString(print(mwByEC1, missing = TRUE)[,"Missing"]),
+                 percentMissingString)
+    expect_equal(DropEmptyString(print(mwByE_addOverall, missing = TRUE)[,"Missing"]),
+                 percentMissingString)
+    expect_equal(DropEmptyString(print(mwByEC1_addOverall, missing = TRUE)[,"Missing"]),
                  percentMissingString)
 
 })
@@ -202,6 +217,12 @@ test_that("printing of a svyTableOne object does not regress", {
 
     expect_equal_to_reference(print(mwCatOnlyByEC1),
                               "ref-svyTableOne_CatOnly")
+    
+    expect_equal_to_reference(print(mwByE_addOverall, printToggle = TRUE, test = T, smd = T),
+                              "ref-svyTableOne_addOverall")
+    
+    expect_equal_to_reference(print(mwByEC1_addOverall, printToggle = TRUE, test = T, smd = T),
+                              "ref-svyTableOne_2StrataVars_addOverall")
 
 })
 
@@ -250,6 +271,12 @@ test_that("printing of a svyTableOne$CatTable object do not regress", {
 
     expect_equal_to_reference(print(mwByE$CatTable, noSpaces = TRUE, showAllLevels = TRUE, quote = TRUE, printToggle = TRUE),
                               "ref-svyCatTable_noSpaces_showAllLevels_quote")
+    
+    expect_equal_to_reference(print(mwByE_addOverall$CatTable, printToggle = TRUE, test = T, smd = T),
+                              "ref-svyCatTable_addOverall")
+    
+    expect_equal_to_reference(print(mwByEC1_addOverall$CatTable, printToggle = TRUE, test = T, smd = T),
+                              "ref-svyCatTable_2StrataVars_addOverall")
 
     ## gmodels::CrossTable
     print(mwByEC1$CatTable, CrossTable = TRUE)
@@ -299,6 +326,12 @@ test_that("printing of a svyTableOne$ContTable object do not regress", {
 
     expect_equal_to_reference(print(mwByE$ContTable, noSpaces = TRUE, showAllLevels = TRUE, quote = TRUE, printToggle = TRUE),
                               "ref-svyContTable_noSpaces_showAllLevels_quote")
+    
+    expect_equal_to_reference(print(mwByE_addOverall$ContTable, printToggle = TRUE, test = T, smd = T),
+                              "ref-svyContTable_addOverall")
+    
+    expect_equal_to_reference(print(mwByEC1_addOverall$ContTable, printToggle = TRUE, test = T, smd = T),
+                              "ref-svyContTable_2StrataVars_addOverall")
 })
 
 
@@ -321,6 +354,7 @@ test_that("p values are correctly calculated", {
     c(svyTestNormal("C ~ factor(E)", datSvy, test.terms = "factor(E)", method = "Wald")$p.value,
       svyTestNormal("C2 ~ factor(E)", datSvy, test.terms = "factor(E)", method = "Wald")$p.value)
     expect_equal(attr(mwByE$ContTable, "pValues")[, "pNormal"][-1], pValuesTestNormal)
+    expect_equal(attr(mwByE_addOverall$ContTable, "pValues")[, "pNormal"][-1], pValuesTestNormal)
 
     ## svyglm to do ANOVA equivalent
     ## Call stack
@@ -342,6 +376,7 @@ test_that("p values are correctly calculated", {
       svyTestNonNormal("C ~ factor(E)", datSvy)$p.value,
       svyTestNonNormal("C2 ~ factor(E)", datSvy)$p.value)
     expect_equal(attr(mwByE$ContTable, "pValues")[, "pNonNormal"], pValuesTestNonNormal)
+    expect_equal(attr(mwByE_addOverall$ContTable, "pValues")[, "pNonNormal"], pValuesTestNonNormal)
 
 })
 
