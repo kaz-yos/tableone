@@ -16,6 +16,15 @@
 ##' @export
 summary.CatTable <- function(object, digits = 1, ...) {
 
+    ## Check if addOverall was used -> this option would delete the dimnames
+    if (is.null(attr(object, "dimnames"))) {
+        ## recreate dim and dimnames attributes for print.by()
+        attr(object, "dim") <- length(attr(object, "names"))
+        overall_dimnames <- list()
+        overall_dimnames[[attr(object, "strataVarName")]] <- attr(object, "names")
+        attr(object, "dimnames") <- overall_dimnames
+    }
+    
     ## object and ... required to be consistent with generic summary(object, ...)
     CatTable <- object
 
