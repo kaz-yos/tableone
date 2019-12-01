@@ -529,6 +529,10 @@ test_that("summary method works without errors", {
     summary(mwCatOnlyByEC1)
     expect_output(summary(mwCatOnlyByEC1),
                   "Standardize mean differences")
+    
+    ## AddOverall Test
+    expect_output(summary(mwByEC1_addOverall), "E:C1: Overall")
+    expect_output(summary(mwByEC1_addOverall), "E:C1: 3:1")
 
 })
 

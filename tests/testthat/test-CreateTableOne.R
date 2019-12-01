@@ -492,5 +492,9 @@ test_that("summary method works without errors", {
                   "### Summary of continuous variables ###")
     summary(pbcCatOnlyByTrtSex)
     expect_output(summary(pbcCatOnlyByTrtSex), "3 vs 4")
+    
+    ## AddOverall Test
+    expect_output(summary(pbcByTrtSex_addOverall), "trt:sex: Overall")
+    expect_output(summary(pbcByTrtSex_addOverall), "trt:sex: 1:f")
 
 })
