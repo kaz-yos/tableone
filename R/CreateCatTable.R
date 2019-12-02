@@ -202,6 +202,11 @@ function(vars,                                  # character vector of variable n
         ## Fix attributes
         attributes(result)$names <- c(attributes(result)$names[1], levels(strataVar))
         attributes(result) <- c(attributes(result), list(strataVarName = strataVarName))
+        ## Fix Dims and Dimnames
+        attr(result, "dim") <- length(attr(result, "names"))
+        overall_dimnames <- list(attr(result, "names"))
+        names(overall_dimnames) <- attr(result, "strataVarName")
+        dimnames(result)<- overall_dimnames
     }
 
     ## Return object
