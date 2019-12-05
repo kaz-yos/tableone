@@ -216,7 +216,26 @@ ModuleCreateStrataVarAsFactor <- function(result, strata) {
     return(strataVar)
 }
 
+ModuleCreateOverallColumn <- function(call) {
+    ## Remove Strata und set addOverall to false
+    call$strata <- NULL
+    call$addOverall <- FALSE
+    ## Recall function and return
+    return(eval(call))
+}
 
+ModuleReapplyNameAndDimAttributes <- function(result, strataVarName, levelsStrataVar) {
+    ## Fix name and strataVerName Attributes
+    attributes(result)$names <- c(attributes(result)$names[1], levelsStrataVar)
+    attributes(result) <- c(attributes(result), list(strataVarName = strataVarName))
+    ## Fix Dims and Dimnames
+    attr(result, "dim") <- length(attr(result, "names"))
+    overall_dimnames <- list(attr(result, "names"))
+    names(overall_dimnames) <- attr(result, "strataVarName")
+    dimnames(result)<- overall_dimnames
+    ## Return
+    return(result)
+}
 
 ###
 ### Modules for safe hypothesis testing and numeric summaries

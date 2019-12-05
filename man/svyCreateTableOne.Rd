@@ -4,10 +4,22 @@
 \alias{svyCreateTableOne}
 \title{Create an object summarizing both continuous and categorical variables for weighted data}
 \usage{
-svyCreateTableOne(vars, strata, data, factorVars, includeNA = FALSE,
-  test = TRUE, testApprox = svyTestChisq, argsApprox = NULL,
-  testNormal = svyTestNormal, argsNormal = list(method = "Wald"),
-  testNonNormal = svyTestNonNormal, argsNonNormal = NULL, smd = TRUE)
+svyCreateTableOne(
+  vars,
+  strata,
+  data,
+  factorVars,
+  includeNA = FALSE,
+  test = TRUE,
+  testApprox = svyTestChisq,
+  argsApprox = NULL,
+  testNormal = svyTestNormal,
+  argsNormal = list(method = "Wald"),
+  testNonNormal = svyTestNonNormal,
+  argsNonNormal = NULL,
+  smd = TRUE,
+  addOverall = FALSE
+)
 }
 \arguments{
 \item{vars}{Variables to be summarized given as a character vector. Factors are handled as categorical variables, whereas numeric variables are handled as continuous variables. If empty, all variables in the survey design object specified in the data argument are used.}
@@ -35,6 +47,8 @@ svyCreateTableOne(vars, strata, data, factorVars, includeNA = FALSE,
 \item{argsNonNormal}{A named list of arguments passed to the function specified in \code{testNonNormal}.}
 
 \item{smd}{If TRUE, as in the default and there are more than two groups, standardized mean differences for all pairwise comparisons are calculated.}
+
+\item{addOverall}{(optional, only used if strata are supplied) Adds an overall column to the table. Smd and p-value calculations are performed using only the stratifed clolumns.}
 }
 \value{
 An object of class \code{svyTableOne}, which is a list of three objects.

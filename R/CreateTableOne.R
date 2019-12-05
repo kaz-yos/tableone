@@ -17,6 +17,7 @@
 ##' @param testExact A function used to perform the exact tests. The default is \code{fisher.test}. If the cells have large numbers, it will fail because of memory limitation. In this situation, the large sample approximation based should suffice.
 ##' @param argsExact A named list of arguments passed to the function specified in testExact. The default is \code{list(workspace = 2*10^5)}, which specifies the memory space allocated for \code{fisher.test}.
 ##' @param smd If TRUE, as in the default and there are more than two groups, standardized mean differences for all pairwise comparisons are calculated.
+##' @param addOverall (optional, only used if strata are supplied) Adds an overall column to the table. Smd and p-value calculations are performed using only the stratifed clolumns.
 ##'
 ##' @details The definitions of the standardized mean difference (SMD) are available in \href{http://www.tandfonline.com/doi/abs/10.1080/00031305.1986.10475403}{Flury \emph{et al} 1986} for the univariate case and the multivariate case (essentially the square root of the Mahalanobis distance). Extension to binary variables is discussed in \href{http://www.tandfonline.com/doi/abs/10.1080/03610910902859574}{Austin 2009} and extension to multinomival variables is suggested in \href{http://support.sas.com/resources/papers/proceedings12/335-2012.pdf}{Yang \emph{et al} 2012}. This multinomial extesion treats a single multinomial variable as multiple non-redundant dichotomous variables and use the Mahalanobis distance. The off diagonal elements of the covariance matrix on page 3 have an error, and need negation. In weighted data, the same definitions can be used except that the mean and standard deviation estimates are weighted estimates (\href{http://www.ncbi.nlm.nih.gov/pubmed/23902694}{Li \emph{et al} 2013} and \href{http://onlinelibrary.wiley.com/doi/10.1002/sim.6607/full}{Austin \emph{et al} 2015}). In tableone, all weighted estimates are calculated by weighted estimation functions in the \code{survey} package.
 ##'
@@ -111,7 +112,8 @@ function(vars,                                      # character vector of variab
          argsNormal    = list(var.equal = TRUE),    # arguments passed to testNormal
          testNonNormal = kruskal.test,              # test for nonnormally distributed variables
          argsNonNormal = list(NULL),                # arguments passed to testNonNormal
-         smd           = TRUE                       # whether to include standardize mean differences
+         smd           = TRUE,                      # whether to include standardize mean differences
+         addOverall    = FALSE
          ) {
 
 ### Data check
@@ -181,7 +183,8 @@ function(vars,                                      # character vector of variab
                                 argsNormal    = argsNormal,
                                 testNonNormal = testNonNormal,
                                 argsNonNormal = argsNonNormal,
-                                smd           = smd)
+                                smd           = smd,
+                                addOverall    = addOverall)
     argsCreateCatTable  <- list(data          = data,
                                 includeNA     = includeNA,
                                 test          = test,
@@ -189,7 +192,8 @@ function(vars,                                      # character vector of variab
                                 argsApprox    = argsApprox,
                                 testExact     = testExact,
                                 argsExact     = argsExact,
-                                smd           = smd)
+                                smd           = smd,
+                                addOverall    = addOverall)
 
     ## Add strata = strata for argument only if strata is given
     if (!missing(strata)) {

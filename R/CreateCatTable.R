@@ -12,6 +12,7 @@
 ##' @param testExact A function used to perform the exact tests. The default is \code{fisher.test}. If the cells have large numbers, it will fail because of memory limitation. In this situation, the large sample approximation based should suffice.
 ##' @param argsExact A named list of arguments passed to the function specified in testExact. The default is \code{list(workspace = 2*10^5)}, which specifies the memory space allocated for \code{fisher.test}.
 ##' @param smd If TRUE, as in the default and there are more than two groups, standardized mean differences for all pairwise comparisons are calculated.
+##' @param addOverall (optional, only used if strata are supplied) Adds an overall column to the table. Smd and p-value calculations are performed using only the stratifed clolumns.
 ##' @return An object of class \code{CatTable}.
 ##' @author Kazuki Yoshida (based on \code{Deducer::frequencies()})
 ##' @seealso
@@ -87,7 +88,8 @@ function(vars,                                  # character vector of variable n
          argsApprox = list(correct = TRUE),     # arguments passed to testApprox
          testExact  = fisher.test,              # function for exact test
          argsExact  = list(workspace = 2*10^5), # arguments passed to testExact
-         smd        = TRUE                      # whether to include standardize mean differences
+         smd           = TRUE,                   # whether to include standardize mean differences
+         addOverall    = FALSE
          ) {
 
 ### Data check
@@ -194,6 +196,14 @@ function(vars,                                  # character vector of variable n
         smds <- FormatLstSmds(smds, nStrata = length(result))
     }
 
+    if (isTRUE(addOverall) & is.list(strata)) {
+        ## Get Overall Table
+        result <- c(ModuleCreateOverallColumn(match.call()), result)
+        ## Fix attributes
+        result <- ModuleReapplyNameAndDimAttributes(result = result, 
+                                                    strataVarName = strataVarName, 
+                                                    levelsStrataVar = levels(strataVar))
+    }
 
     ## Return object
     ## Give an S3 class

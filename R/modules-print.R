@@ -119,21 +119,20 @@ ModulePickAndFormatPValues <- function(TableObject, switchVec, pDigits) {
 
 ## Module to return the dimention headers added to the out 2d matrix
 ModuleReturnDimHeaders <- function(TableObject) {
-
+    
     ## Add stratification information to the column header
     if (length(TableObject) > 1) {
         ## Create strata string
-        strataString <- paste0("Stratified by ",
-                               paste0(names(attr(TableObject, "dimnames")), collapse = ":"))
-
+        strataString <- paste0("Stratified by ", attr(TableObject, "strataVarName"))
+        
         ## Name the row dimension with it. 1st dimension name should be empty.
         dimHeaders <- c("", strataString)
-
+        
     }  else {
         ## If no stratification, no name for the second dimension
         dimHeaders <- c("", "")
     }
-
+    
     ## Return the dim header a vector of length 2
     return(dimHeaders)
 }

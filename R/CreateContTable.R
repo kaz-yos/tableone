@@ -13,6 +13,7 @@
 ##' @param testNonNormal A function used to perform the nonparametric tests. The default is \code{kruskal.test} (Kruskal-Wallis rank sum test). This is equivalent of the wilcox.test (Man-Whitney U test) when there are only two groups.
 ##' @param argsNonNormal A named list of arguments passed to the function specified in \code{testNonNormal}. The default is \code{list(NULL)}, which is just a placeholder.
 ##' @param smd If TRUE, as in the default and there are more than two groups, standardized mean differences for all pairwise comparisons are calculated.
+##' @param addOverall (optional, only used if strata are supplied) Adds an overall column to the table. Smd and p-value calculations are performed using only the stratifed clolumns.
 ##' @return An object of class \code{ContTable}.
 ##' @author Kazuki Yoshida (based on \code{Deducer::descriptive.table()})
 ##' @seealso
@@ -90,8 +91,9 @@ function(vars,                                   # character vector of variable 
          argsNormal    = list(var.equal = TRUE), # arguments passed to testNormal
          testNonNormal = kruskal.test,           # test for nonnormally distributed variables
          argsNonNormal = list(NULL),             # arguments passed to testNonNormal
-         smd           = TRUE                    # whether to include standardize mean differences
-         ) {
+         smd           = TRUE,                   # whether to include standardize mean differences
+         addOverall    = FALSE
+) {
 
 ### Data check
     ## Check if the data given is a dataframe
@@ -243,8 +245,15 @@ function(vars,                                   # character vector of variable 
         ## Give name and add mean column
         smds <- FormatLstSmds(smds, nStrata = length(result))
     }
-
-
+    
+    if (isTRUE(addOverall) & is.list(strata)) {
+        ## Get Overall Table
+        result <- c(ModuleCreateOverallColumn(match.call()), result)
+        ## Fix attributes
+        result <- ModuleReapplyNameAndDimAttributes(result = result, 
+                                                    strataVarName = strataVarName, 
+                                                    levelsStrataVar = levels(strataVar))
+    }
     ## Return object
     ## Give an S3 class
     class(result) <- c("ContTable", class(result))

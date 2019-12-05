@@ -10,6 +10,7 @@
 ##' @param testApprox A function used to perform the large sample approximation based tests. The default is \code{svychisq}.
 ##' @param argsApprox A named list of arguments passed to the function specified in testApprox.
 ##' @param smd If TRUE, as in the default and there are more than two groups, standardized mean differences for all pairwise comparisons are calculated.
+##' @param addOverall (optional, only used if strata are supplied) Adds an overall column to the table. Smd and p-value calculations are performed using only the stratifed clolumns.
 ##' @return An object of class \code{svyCatTable}.
 ##' @author Kazuki Yoshida
 ##' @seealso
@@ -27,7 +28,8 @@ function(vars,                      # character vector of variable names
          test       = TRUE,         # whether to include p-values
          testApprox = svyTestChisq, # function for approximation test (only choice)
          argsApprox = NULL,         # arguments passed to testApprox
-         smd        = TRUE          # whether to include standardize mean differences
+         smd        = TRUE,         # whether to include standardize mean differences
+         addOverall = FALSE
          ) {
 
 ### Data check
@@ -127,6 +129,14 @@ function(vars,                      # character vector of variable names
         }, simplify = FALSE)
         ## Give name and add mean column
         smds <- FormatLstSmds(smds, nStrata = length(result))
+    }
+
+    if (isTRUE(addOverall) & is.list(strata)) {
+        ## Get Overall Table
+        result <- c(ModuleCreateOverallColumn(match.call()), result)
+        ## Fix attributes
+        attributes(result)$names <- c(attributes(result)$names[1], strataVarLevels)
+        attributes(result) <- c(attributes(result), list(strataVarName = strataVarName))
     }
 
     ## Return object

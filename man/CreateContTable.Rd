@@ -4,11 +4,21 @@
 \alias{CreateContTable}
 \title{Create an object summarizing continous variables}
 \usage{
-CreateContTable(vars, strata, data, funcNames = c("n", "miss", "p.miss",
-  "mean", "sd", "median", "p25", "p75", "min", "max", "skew", "kurt"),
-  funcAdditional, test = TRUE, testNormal = oneway.test,
-  argsNormal = list(var.equal = TRUE), testNonNormal = kruskal.test,
-  argsNonNormal = list(NULL), smd = TRUE)
+CreateContTable(
+  vars,
+  strata,
+  data,
+  funcNames = c("n", "miss", "p.miss", "mean", "sd", "median", "p25", "p75", "min",
+    "max", "skew", "kurt"),
+  funcAdditional,
+  test = TRUE,
+  testNormal = oneway.test,
+  argsNormal = list(var.equal = TRUE),
+  testNonNormal = kruskal.test,
+  argsNonNormal = list(NULL),
+  smd = TRUE,
+  addOverall = FALSE
+)
 }
 \arguments{
 \item{vars}{Variable(s) to be summarized given as a character vector.}
@@ -32,6 +42,8 @@ CreateContTable(vars, strata, data, funcNames = c("n", "miss", "p.miss",
 \item{argsNonNormal}{A named list of arguments passed to the function specified in \code{testNonNormal}. The default is \code{list(NULL)}, which is just a placeholder.}
 
 \item{smd}{If TRUE, as in the default and there are more than two groups, standardized mean differences for all pairwise comparisons are calculated.}
+
+\item{addOverall}{(optional, only used if strata are supplied) Adds an overall column to the table. Smd and p-value calculations are performed using only the stratifed clolumns.}
 }
 \value{
 An object of class \code{ContTable}.
