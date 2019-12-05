@@ -104,8 +104,8 @@ mwByE    <- svyCreateTableOne(vars = vars, strata = c("E"), data = datSvy, facto
 mwByEC1 <- svyCreateTableOne(vars = vars, strata = c("E","C1"), data = datSvy, factorVars = factorVars)
 mwContOnlyByEC1 <- svyCreateTableOne(vars = c("E","C"), strata = c("E","C1"), data = datSvy, factorVars = factorVars)
 mwCatOnlyByEC1 <- svyCreateTableOne(vars = c("Y","C1"), strata = c("E","C1"), data = datSvy, factorVars = factorVars)
-mwByE_addOverall    <- svyCreateTableOne(vars = vars, strata = c("E"), data = datSvy, factorVars = factorVars, addOverall = T)
-mwByEC1_addOverall <- svyCreateTableOne(vars = vars, strata = c("E","C1"), data = datSvy, factorVars = factorVars, addOverall = T)
+mwByE_addOverall    <- svyCreateTableOne(vars = vars, strata = c("E"), data = datSvy, factorVars = factorVars, addOverall = TRUE)
+mwByEC1_addOverall <- svyCreateTableOne(vars = vars, strata = c("E","C1"), data = datSvy, factorVars = factorVars, addOverall = TRUE)
 
 
 
@@ -218,10 +218,10 @@ test_that("printing of a svyTableOne object does not regress", {
     expect_equal_to_reference(print(mwCatOnlyByEC1),
                               "ref-svyTableOne_CatOnly")
     
-    expect_equal_to_reference(print(mwByE_addOverall, printToggle = TRUE, test = T, smd = T),
+    expect_equal_to_reference(print(mwByE_addOverall, printToggle = TRUE, test = TRUE, smd = TRUE),
                               "ref-svyTableOne_addOverall")
     
-    expect_equal_to_reference(print(mwByEC1_addOverall, printToggle = TRUE, test = T, smd = T),
+    expect_equal_to_reference(print(mwByEC1_addOverall, printToggle = TRUE, test = TRUE, smd = TRUE),
                               "ref-svyTableOne_2StrataVars_addOverall")
 
 })
@@ -272,10 +272,10 @@ test_that("printing of a svyTableOne$CatTable object do not regress", {
     expect_equal_to_reference(print(mwByE$CatTable, noSpaces = TRUE, showAllLevels = TRUE, quote = TRUE, printToggle = TRUE),
                               "ref-svyCatTable_noSpaces_showAllLevels_quote")
     
-    expect_equal_to_reference(print(mwByE_addOverall$CatTable, printToggle = TRUE, test = T, smd = T),
+    expect_equal_to_reference(print(mwByE_addOverall$CatTable, printToggle = TRUE, test = TRUE, smd = TRUE),
                               "ref-svyCatTable_addOverall")
     
-    expect_equal_to_reference(print(mwByEC1_addOverall$CatTable, printToggle = TRUE, test = T, smd = T),
+    expect_equal_to_reference(print(mwByEC1_addOverall$CatTable, printToggle = TRUE, test = TRUE, smd = TRUE),
                               "ref-svyCatTable_2StrataVars_addOverall")
 
     ## gmodels::CrossTable
@@ -327,10 +327,10 @@ test_that("printing of a svyTableOne$ContTable object do not regress", {
     expect_equal_to_reference(print(mwByE$ContTable, noSpaces = TRUE, showAllLevels = TRUE, quote = TRUE, printToggle = TRUE),
                               "ref-svyContTable_noSpaces_showAllLevels_quote")
     
-    expect_equal_to_reference(print(mwByE_addOverall$ContTable, printToggle = TRUE, test = T, smd = T),
+    expect_equal_to_reference(print(mwByE_addOverall$ContTable, printToggle = TRUE, test = TRUE, smd = TRUE),
                               "ref-svyContTable_addOverall")
     
-    expect_equal_to_reference(print(mwByEC1_addOverall$ContTable, printToggle = TRUE, test = T, smd = T),
+    expect_equal_to_reference(print(mwByEC1_addOverall$ContTable, printToggle = TRUE, test = TRUE, smd = TRUE),
                               "ref-svyContTable_2StrataVars_addOverall")
 })
 

@@ -252,7 +252,7 @@ function(vars,                                   # character vector of variable 
         ## Fix attributes
         result <- ModuleReapplyNameAndDimAttributes(result = result, 
                                                     strataVarName = strataVarName, 
-                                                    levels_strataVar = levels(strataVar))
+                                                    levelsStrataVar = levels(strataVar))
     }
     ## Return object
     ## Give an S3 class

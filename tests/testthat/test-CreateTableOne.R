@@ -152,10 +152,10 @@ pbcByTrt    <- CreateTableOne(vars = vars, strata = c("trt"), data = pbc)
 pbcByTrtSex <- CreateTableOne(vars = vars, strata = c("trt","sex"), data = pbc)
 pbcContOnlyByTrtSex <- CreateTableOne(vars = varsContOnly, strata = c("trt","sex"), data = pbc)
 pbcCatOnlyByTrtSex  <- CreateTableOne(vars = varsCatOnly, strata = c("trt","sex"), data = pbc)
-pbcByTrt_addOverall    <- CreateTableOne(vars = vars, strata = c("trt"), data = pbc, addOverall = T)
-pbcByTrtSex_addOverall <- CreateTableOne(vars = vars, strata = c("trt","sex"), data = pbc, addOverall = T)
-pbcContOnlyByTrtSex_addOverall <- CreateTableOne(vars = varsContOnly, strata = c("trt","sex"), data = pbc, addOverall = T)
-pbcCatOnlyByTrtSex_addOverall  <- CreateTableOne(vars = varsCatOnly, strata = c("trt","sex"), data = pbc, addOverall = T)
+pbcByTrt_addOverall    <- CreateTableOne(vars = vars, strata = c("trt"), data = pbc, addOverall = TRUE)
+pbcByTrtSex_addOverall <- CreateTableOne(vars = vars, strata = c("trt","sex"), data = pbc, addOverall = TRUE)
+pbcContOnlyByTrtSex_addOverall <- CreateTableOne(vars = varsContOnly, strata = c("trt","sex"), data = pbc, addOverall = TRUE)
+pbcCatOnlyByTrtSex_addOverall  <- CreateTableOne(vars = varsCatOnly, strata = c("trt","sex"), data = pbc, addOverall = TRUE)
 
 
 
@@ -351,16 +351,16 @@ test_that("printing of a TableOne object does not regress", {
                               "ref-TableOne_CatOnly")
     
     ## Add Overall Tests always with smd and tests
-    expect_equal_to_reference(print(pbcByTrt_addOverall, nonnormal = nonnormalVars, exact = exactVars, noSpaces = TRUE, showAllLevels = FALSE, quote = TRUE, printToggle = TRUE, smd = T, test = T),
+    expect_equal_to_reference(print(pbcByTrt_addOverall, nonnormal = nonnormalVars, exact = exactVars, noSpaces = TRUE, showAllLevels = FALSE, quote = TRUE, printToggle = TRUE, smd = TRUE, test = TRUE),
                               "ref-TableOne_noSpaces_showAllLevels_quote_addOverall")
     
-    expect_equal_to_reference(print(pbcByTrtSex_addOverall, printToggle = TRUE, smd = T, test = T),
+    expect_equal_to_reference(print(pbcByTrtSex_addOverall, printToggle = TRUE, smd = TRUE, test = TRUE),
                               "ref-TableOne_2StrataVars_addOverall")
     
-    expect_equal_to_reference(print(pbcContOnlyByTrtSex_addOverall, smd = T, test = T),
+    expect_equal_to_reference(print(pbcContOnlyByTrtSex_addOverall, smd = TRUE, test = TRUE),
                               "ref-TableOne_ContOnly_addOverall")
     
-    expect_equal_to_reference(print(pbcCatOnlyByTrtSex_addOverall, smd = T, test = T),
+    expect_equal_to_reference(print(pbcCatOnlyByTrtSex_addOverall, smd = TRUE, test = TRUE),
                               "ref-TableOne_CatOnly_addOverall")
 
 })
@@ -464,7 +464,7 @@ test_that("printing of a TableOne$ContTable object do not regress", {
     expect_equal_to_reference(print(pbcByTrt$ContTable, noSpaces = TRUE, showAllLevels = TRUE, quote = TRUE, printToggle = TRUE),
                               "ref-ContTable_noSpaces_showAllLevels_quote")
     
-    expect_equal_to_reference(print(pbcByTrt_addOverall$ContTable, noSpaces = TRUE, showAllLevels = TRUE, quote = TRUE, printToggle = TRUE, smd = T),
+    expect_equal_to_reference(print(pbcByTrt_addOverall$ContTable, noSpaces = TRUE, showAllLevels = TRUE, quote = TRUE, printToggle = TRUE, smd = TRUE),
                               "ref-ContTable_noSpaces_showAllLevels_quote_addOverall")
     
     expect_equal_to_reference(print(pbcByTrtSex_addOverall$ContTable, printToggle = TRUE),

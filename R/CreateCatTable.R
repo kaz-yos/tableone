@@ -202,7 +202,7 @@ function(vars,                                  # character vector of variable n
         ## Fix attributes
         result <- ModuleReapplyNameAndDimAttributes(result = result, 
                                                     strataVarName = strataVarName, 
-                                                    levels_strataVar = levels(strataVar))
+                                                    levelsStrataVar = levels(strataVar))
     }
 
     ## Return object

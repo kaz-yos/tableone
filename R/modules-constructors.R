@@ -219,14 +219,14 @@ ModuleCreateStrataVarAsFactor <- function(result, strata) {
 ModuleCreateOverallColumn <- function(call) {
     ## Remove Strata und set addOverall to false
     call$strata <- NULL
-    call$addOverall <- F
+    call$addOverall <- FALSE
     ## Recall function and return
     return(eval(call))
 }
 
-ModuleReapplyNameAndDimAttributes <- function(result, strataVarName, levels_strataVar) {
+ModuleReapplyNameAndDimAttributes <- function(result, strataVarName, levelsStrataVar) {
     ## Fix name and strataVerName Attributes
-    attributes(result)$names <- c(attributes(result)$names[1], levels_strataVar)
+    attributes(result)$names <- c(attributes(result)$names[1], levelsStrataVar)
     attributes(result) <- c(attributes(result), list(strataVarName = strataVarName))
     ## Fix Dims and Dimnames
     attr(result, "dim") <- length(attr(result, "names"))
