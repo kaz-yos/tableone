@@ -47,4 +47,4 @@ Suggests:
     lme4
 URL: https://github.com/kaz-yos/tableone
 VignetteBuilder: knitr
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.1

@@ -4,13 +4,29 @@
 \alias{print.TableOne}
 \title{Format and print \code{TableOne} class objects}
 \usage{
-\method{print}{TableOne}(x, catDigits = 1, contDigits = 2,
-  pDigits = 3, quote = FALSE, missing = FALSE, explain = TRUE,
-  printToggle = TRUE, test = TRUE, smd = FALSE, noSpaces = FALSE,
-  padColnames = FALSE, varLabels = FALSE, format = c("fp", "f", "p",
-  "pf")[1], showAllLevels = FALSE, cramVars = NULL,
-  dropEqual = FALSE, exact = NULL, nonnormal = NULL,
-  minMax = FALSE, ...)
+\method{print}{TableOne}(
+  x,
+  catDigits = 1,
+  contDigits = 2,
+  pDigits = 3,
+  quote = FALSE,
+  missing = FALSE,
+  explain = TRUE,
+  printToggle = TRUE,
+  test = TRUE,
+  smd = FALSE,
+  noSpaces = FALSE,
+  padColnames = FALSE,
+  varLabels = FALSE,
+  format = c("fp", "f", "p", "pf")[1],
+  showAllLevels = FALSE,
+  cramVars = NULL,
+  dropEqual = FALSE,
+  exact = NULL,
+  nonnormal = NULL,
+  minMax = FALSE,
+  ...
+)
 }
 \arguments{
 \item{x}{Object returned by \code{\link{CreateTableOne}} function.}

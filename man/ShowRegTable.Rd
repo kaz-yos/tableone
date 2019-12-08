@@ -4,8 +4,15 @@
 \alias{ShowRegTable}
 \title{Format regression results in medically decent format}
 \usage{
-ShowRegTable(model, exp = TRUE, digits = 2, pDigits = 3,
-  printToggle = TRUE, quote = FALSE, ciFun = confint)
+ShowRegTable(
+  model,
+  exp = TRUE,
+  digits = 2,
+  pDigits = 3,
+  printToggle = TRUE,
+  quote = FALSE,
+  ciFun = confint
+)
 }
 \arguments{
 \item{model}{Regression model result objects that have the summary and confint methods.}
