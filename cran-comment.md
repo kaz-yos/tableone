@@ -1,28 +1,18 @@
 ## What's new
 The following changes are included.
 
-tableone 0.10.0 (2019-02-16)
+tableone 0.11.0 (2019-12-05)
 ----------------------------------------------------------------
-
-BUG FIXES
-
-* Fix a missing value handling issue (via @chipmanj).
-  Closes issue #26.
-
-* mean (sd) was changed to mean (SD) to be consistent with
-  median [IQR].
 
 NEW FEATURES
 
-* Add a helper for exporting TableOne objects to Markdown
-  (via @malcolmbarrett). Currently, this is very basic. We hope
-  to extend its functionalities.
-
-* README.md now lists similar or complementary projects.
+* @ndevln contributed addOverall option, which add the overall
+  column side-by-side with sratified columns when creating a
+  table object.
 
 
 ## Test environments
-* Local OS X 10.14.2, R 3.5.2
+* Local OS X 10.15.1, R 3.6.1
 * Ubuntu Linux on Travis-CI (release and devel)
 * win-builder (release and devel)
 
