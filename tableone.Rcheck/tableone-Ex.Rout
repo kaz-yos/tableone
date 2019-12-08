@@ -1,7 +1,7 @@
 
-R version 3.5.2 (2018-12-20) -- "Eggshell Igloo"
-Copyright (C) 2018 The R Foundation for Statistical Computing
-Platform: x86_64-apple-darwin15.6.0 (64-bit)
+R version 3.6.1 (2019-07-05) -- "Action of the Toes"
+Copyright (C) 2019 The R Foundation for Statistical Computing
+Platform: x86_64-apple-darwin19.0.0 (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -3231,13 +3231,29 @@ _D_e_s_c_r_i_p_t_i_o_n:
 _U_s_a_g_e:
 
      ## S3 method for class 'TableOne'
-     print(x, catDigits = 1, contDigits = 2,
-       pDigits = 3, quote = FALSE, missing = FALSE, explain = TRUE,
-       printToggle = TRUE, test = TRUE, smd = FALSE, noSpaces = FALSE,
-       padColnames = FALSE, varLabels = FALSE, format = c("fp", "f", "p",
-       "pf")[1], showAllLevels = FALSE, cramVars = NULL,
-       dropEqual = FALSE, exact = NULL, nonnormal = NULL,
-       minMax = FALSE, ...)
+     print(
+       x,
+       catDigits = 1,
+       contDigits = 2,
+       pDigits = 3,
+       quote = FALSE,
+       missing = FALSE,
+       explain = TRUE,
+       printToggle = TRUE,
+       test = TRUE,
+       smd = FALSE,
+       noSpaces = FALSE,
+       padColnames = FALSE,
+       varLabels = FALSE,
+       format = c("fp", "f", "p", "pf")[1],
+       showAllLevels = FALSE,
+       cramVars = NULL,
+       dropEqual = FALSE,
+       exact = NULL,
+       nonnormal = NULL,
+       minMax = FALSE,
+       ...
+     )
      
 _A_r_g_u_m_e_n_t_s:
 
@@ -3397,7 +3413,7 @@ detaching ‘package:survey’, ‘package:survival’, ‘package:Matrix’,
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  3.021 0.223 3.305 0.003 0.007 
+Time elapsed:  4.586 0.225 4.849 0.004 0.007 
 > grDevices::dev.off()
 null device 
           1 

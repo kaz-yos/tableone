@@ -1,11 +1,11 @@
-* using log directory ‘/Users/kazuki/Documents/programming/r/tableone/tableone.Rcheck’
-* using R version 3.5.2 (2018-12-20)
-* using platform: x86_64-apple-darwin15.6.0 (64-bit)
+* using log directory ‘/Users/kazuki/Dropbox/documents/programming/r/tableone/tableone.Rcheck’
+* using R version 3.6.1 (2019-07-05)
+* using platform: x86_64-apple-darwin19.0.0 (64-bit)
 * using session charset: UTF-8
 * using option ‘--as-cran’
 * checking for file ‘tableone/DESCRIPTION’ ... OK
 * checking extension type ... Package
-* this is package ‘tableone’ version ‘0.10.0’
+* this is package ‘tableone’ version ‘0.11.0’
 * checking CRAN incoming feasibility ... Note_to_CRAN_maintainers
 Maintainer: ‘Kazuki Yoshida <kazukiyoshida@mail.harvard.edu>’
 * checking package namespace information ... OK
@@ -20,6 +20,7 @@ Maintainer: ‘Kazuki Yoshida <kazukiyoshida@mail.harvard.edu>’
 * checking whether package ‘tableone’ can be installed ... OK
 * checking installed package size ... OK
 * checking package directory ... OK
+* checking for future file timestamps ... OK
 * checking ‘build’ directory ... OK
 * checking DESCRIPTION meta-information ... OK
 * checking top-level files ... OK
@@ -33,6 +34,7 @@ Maintainer: ‘Kazuki Yoshida <kazukiyoshida@mail.harvard.edu>’
 * checking whether the package can be unloaded cleanly ... OK
 * checking whether the namespace can be loaded with stated dependencies ... OK
 * checking whether the namespace can be unloaded cleanly ... OK
+* checking loading without being on the library search path ... OK
 * checking use of S3 registration ... OK
 * checking dependencies in R code ... OK
 * checking S3 generic/method consistency ... OK
