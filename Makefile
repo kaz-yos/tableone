@@ -64,8 +64,13 @@ check_devtools: $(PKG_NAME)_$(PKG_VERSION).tar.gz
 	Rscript -e "options(width = 120); devtools::check(pkg = '.', check_dir = '.', manual = TRUE)" | tee cran-check.txt
 
 ## revdep requires the *.tar.gz file, and execute strict tests on it.
+## https://github.com/r-lib/revdepcheck
 revdep: $(PKG_NAME)_$(PKG_VERSION).tar.gz
-	Rscript -e "options(width = 120); revdepcheck::revdep_check()" | tee revdep_check.txt
+	Rscript -e "devtools::revdep()"
+	Rscript -e "options(width = 120); revdepcheck::revdep_check(num_workers = 6); revdepcheck::revdep_summary()" | tee revdep_check.txt
+
+revdep_clean:
+	Rscript -e "revdepcheck::revdep_reset()"
 
 ## install requires the *.tar.gz file, and execute installation using it.
 install: $(PKG_NAME)_$(PKG_VERSION).tar.gz
@@ -73,7 +78,7 @@ install: $(PKG_NAME)_$(PKG_VERSION).tar.gz
 
 
 ## clean has no dependency, and execute removal of make output files.
-clean:
+clean: revdep_clean
 	-rm    -f $(PKG_NAME)_$(PKG_VERSION).tar.gz
 	-rm -r -f $(PKG_NAME).Rcheck
 	-rm -r -f man/*.Rd
