@@ -12,7 +12,7 @@ NEW FEATURES
 
 
 ## Test environments
-* Local OS X 10.15.1, R 3.6.1
+* Local OS X 10.15.3, R 3.6.2
 * Ubuntu Linux on Travis-CI (release and devel)
 * win-builder (release and devel)
 
