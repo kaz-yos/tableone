@@ -26,7 +26,7 @@ m       s
 f       s
 m       d
 f       d
-")
+", stringsAsFactors = TRUE)
 
 ## Increase numbers to avoid "cells are too small" warnings
 dat1   <- dat[rep(seq_len(nrow(dat)), 100), ]

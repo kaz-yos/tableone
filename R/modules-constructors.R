@@ -138,7 +138,9 @@ ModuleCreateTableForOneVar <- function(x) { # Give a vector
     freqRaw          <- table(x)
 
     ## Level names
-    freq <- data.frame(level = names(freqRaw))
+    freq <- data.frame(level = names(freqRaw),
+                       ## The order must be as is.
+                       stringsAsFactors = FALSE)
 
     ## Total n (duplicated as many times as there are levels)
     freq$n <- length(x)

@@ -167,12 +167,14 @@ svyCatSummaryForOneVar <- function(var, design) {
     data.frame(n           = nVec,
                miss        = missVec,
                p.miss      = missVec / nVec * 100,
+               ## Order must be as is.
                level       = names(freqTab),
                freq        = as.vector(freqTab),
                percent     = as.vector(propTab) * 100,
                cum.percent = cumsum(propTab) * 100,
                ## To protect against, level having <NA>
-               row.names   = NULL)
+               row.names   = NULL,
+               stringsAsFactors = FALSE)
 }
 
 
