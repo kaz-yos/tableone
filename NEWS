@@ -1,4 +1,4 @@
-tableone 0.11.0 (2019-12-05)
+tableone 0.11.0 (2020-03-01)
 ----------------------------------------------------------------
 
 NEW FEATURES
@@ -6,6 +6,15 @@ NEW FEATURES
 * @ndevln contributed addOverall option, which add the overall
   column side-by-side with sratified columns when creating a
   table object.
+
+BUG FIXES
+
+* test-only dependency (suggests) on dummies was dropped as it
+  produced warnings with model.matrix().
+
+* In preparation for R 4.0.0, ModuleCreateTableForOneVar and
+  svyCatSummaryForOneVar now use stringsAsFactors = FALSE.
+  Some internal representation of data changed as a result.
 
 
 tableone 0.10.0 (2019-02-16)

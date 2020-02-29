@@ -1,7 +1,7 @@
 ## What's new
 The following changes are included.
 
-tableone 0.11.0 (2019-12-05)
+tableone 0.11.0 (2020-03-01)
 ----------------------------------------------------------------
 
 NEW FEATURES
@@ -10,9 +10,17 @@ NEW FEATURES
   column side-by-side with sratified columns when creating a
   table object.
 
+BUG FIXES
+
+* test-only dependency (suggests) on dummies was dropped as it
+  produced warnings with model.matrix().
+
+* In preparation for R 4.0.0, ModuleCreateTableForOneVar and
+  svyCatSummaryForOneVar now use stringsAsFactors = FALSE.
+  Some internal representation of data changed as a result.
 
 ## Test environments
-* Local OS X 10.15.3, R 3.6.2
+* Local OS X 10.15.3: R 3.6.1, 3.6.2, 3.6.3 (patched), 4.0.0 Under (2020/02/29, r77878))
 * Ubuntu Linux on Travis-CI (release and devel)
 * win-builder (release and devel)
 
