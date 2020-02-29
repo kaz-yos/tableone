@@ -2,6 +2,8 @@ tableone (developmental repo)
 ===============================================================================
 
 [![Travis-CI Build Status](https://travis-ci.org/kaz-yos/tableone.svg?branch=develop)](https://travis-ci.org/kaz-yos/tableone)
+[![](http://www.r-pkg.org/badges/version/tableone)](http://www.r-pkg.org/pkg/tableone)
+[![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/tableone)](http://www.r-pkg.org/pkg/tableone)
 
 **An R package to create "Table 1", description of baseline characteristics**
 
@@ -100,6 +102,20 @@ Using devtools may requires some preparation, please see the following link for 
 http://www.rstudio.com/projects/devtools/
 
 
+Contributors
+-------------------------------------------------------------------------------
+
+I would like to thank all the contributors!
+
+- Alexander Bartel [ndevln](https://github.com/ndevln)
+- Jonathan J Chipman [chipmanj](https://github.com/chipmanj)
+- Justin Bohn [jmb01](https://github.com/jmb01)
+- Lucy D'Agostino McGowan [LucyMcGowan](https://github.com/LucyMcGowan)
+- Malcolm Barrett [malcolmbarrett](https://github.com/malcolmbarrett)
+- Rune Haubo B Christensen [runehaubo](https://github.com/runehaubo)
+- [gbouzill](https://github.com/gbouzill)
+
+
 Similar or complementary projects
 -------------------------------------------------------------------------------
 
@@ -126,16 +142,3 @@ There are multiple similar or complementary projects of interest.
 - xtable: Export Tables to LaTeX or HTML. https://cran.r-project.org/web/packages/xtable/index.html
 - gtsummary: Presentation-Ready Data Summary and Analytic Result Tables.  https://CRAN.R-project.org/package=gtsummary
 - (Python) tableone: Create "Table 1" for research papers in Python. https://github.com/tompollard/tableone
-
-
-Contributors
--------------------------------------------------------------------------------
-
-I would like to thank all the contributors!
-
-- Jonathan J Chipman [chipmanj](https://github.com/chipmanj)
-- Justin Bohn [jmb01](https://github.com/jmb01)
-- Lucy D'Agostino McGowan [LucyMcGowan](https://github.com/LucyMcGowan)
-- Malcolm Barrett [malcolmbarrett](https://github.com/malcolmbarrett)
-- Rune Haubo B Christensen [runehaubo](https://github.com/runehaubo)
-- [gbouzill](https://github.com/gbouzill)
