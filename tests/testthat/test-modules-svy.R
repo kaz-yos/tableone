@@ -208,21 +208,30 @@ test_that("Prop table works", {
 test_that("Regression test for one variable categorical summary", {
 
     ## Expectations
-    res1 <- structure(list(n = c(450.015, 450.015), miss = c(0.2858, 0.2858
-), p.miss = c(0.0635089941446396, 0.0635089941446396), level = structure(1:2, .Label = c("0",
-"1"), class = "factor"), freq = c(272.7271, 177.0021), percent = c(60.642515540463,
-39.357484459537), cum.percent = c(60.642515540463, 100)), .Names = c("n",
-"miss", "p.miss", "level", "freq", "percent", "cum.percent"), row.names = c(NA,
--2L), class = "data.frame")
+    res1 <- structure(
+        list(n = c(450.015, 450.015),
+             miss = c(0.2858, 0.2858),
+             p.miss = c(0.0635089941446396, 0.0635089941446396),
+             level = c("0","1"),
+             freq = c(272.7271, 177.0021),
+             percent = c(60.642515540463, 39.357484459537),
+             cum.percent = c(60.642515540463, 100)),
+        .Names = c("n", "miss", "p.miss", "level", "freq", "percent", "cum.percent"),
+        row.names = c(NA, -2L),
+        class = "data.frame")
     expect_equal(svyCatSummaryForOneVar("Y", datSvy), res1)
 
-    res2 <- structure(list(n = c(450.015, 450.015, 450.015), miss = c(0,
-0, 0), p.miss = c(0, 0, 0), level = structure(1:3, .Label = c("1",
-"2", "3"), class = "factor"), freq = c(150.012, 150.003, 150),
-    percent = c(33.3348888370388, 33.3328889037032, 33.332222259258
-    ), cum.percent = c(33.3348888370388, 66.667777740742, 100
-    )), .Names = c("n", "miss", "p.miss", "level", "freq", "percent",
-"cum.percent"), row.names = c(NA, -3L), class = "data.frame")
+    res2 <- structure(
+        list(n = c(450.015, 450.015, 450.015),
+             miss = c(0, 0, 0),
+             p.miss = c(0, 0, 0),
+             level = c("1", "2", "3"),
+             freq = c(150.012, 150.003, 150),
+             percent = c(33.3348888370388, 33.3328889037032, 33.332222259258),
+             cum.percent = c(33.3348888370388, 66.667777740742, 100)),
+        .Names = c("n", "miss", "p.miss", "level", "freq", "percent", "cum.percent"),
+        row.names = c(NA, -3L),
+        class = "data.frame")
     expect_equal(svyCatSummaryForOneVar("E", datSvy), res2)
 })
 
@@ -231,27 +240,39 @@ test_that("Regression test for multiple variable categorical summary", {
 
     ## Expectations
 
-    res1 <- structure(list(E = structure(list(n = c(450.015, 450.015, 450.015
-), miss = c(0, 0, 0), p.miss = c(0, 0, 0), level = structure(1:3, .Label = c("1",
-"2", "3"), class = "factor"), freq = c(150.012, 150.003, 150),
-    percent = c(33.3348888370388, 33.3328889037032, 33.332222259258
-    ), cum.percent = c(33.3348888370388, 66.667777740742, 100
-    )), .Names = c("n", "miss", "p.miss", "level", "freq", "percent",
-"cum.percent"), row.names = c(NA, -3L), class = "data.frame"),
-    Y = structure(list(n = c(450.015, 450.015), miss = c(0.2858,
-    0.2858), p.miss = c(0.0635089941446396, 0.0635089941446396
-    ), level = structure(1:2, .Label = c("0", "1"), class = "factor"),
-        freq = c(272.7271, 177.0021), percent = c(60.642515540463,
-        39.357484459537), cum.percent = c(60.642515540463, 100
-        )), .Names = c("n", "miss", "p.miss", "level", "freq",
-    "percent", "cum.percent"), row.names = c(NA, -2L), class = "data.frame"),
-    C1 = structure(list(n = c(450.015, 450.015), miss = c(0,
-    0), p.miss = c(0, 0), level = structure(1:2, .Label = c("0",
-    "1"), class = "factor"), freq = c(300.015, 150), percent = c(66.667777740742,
-    33.332222259258), cum.percent = c(66.667777740742, 100)), .Names = c("n",
-    "miss", "p.miss", "level", "freq", "percent", "cum.percent"
-    ), row.names = c(NA, -2L), class = "data.frame")), .Names = c("E",
-                                                                  "Y", "C1"))
+    res1 <- structure(
+        list(E = structure(
+                 list(n = c(450.015, 450.015, 450.015),
+                      miss = c(0, 0, 0), p.miss = c(0, 0, 0),
+                      level = c("1", "2", "3"),
+                      freq = c(150.012, 150.003, 150),
+                      percent = c(33.3348888370388, 33.3328889037032, 33.332222259258),
+                      cum.percent = c(33.3348888370388, 66.667777740742, 100)),
+                 .Names = c("n", "miss", "p.miss", "level", "freq", "percent", "cum.percent"),
+                 row.names = c(NA, -3L),
+                 class = "data.frame"),
+             Y = structure(
+                 list(n = c(450.015, 450.015),
+                      miss = c(0.2858, 0.2858),
+                      p.miss = c(0.0635089941446396, 0.0635089941446396),
+                      level = c("0", "1"),
+                      freq = c(272.7271, 177.0021),
+                      percent = c(60.642515540463, 39.357484459537),
+                      cum.percent = c(60.642515540463, 100)),
+                 .Names = c("n", "miss", "p.miss", "level", "freq", "percent", "cum.percent"),
+                 row.names = c(NA, -2L),
+                 class = "data.frame"),
+             C1 = structure(
+                 list(n = c(450.015, 450.015),
+                      miss = c(0, 0),
+                      p.miss = c(0, 0),
+                      level = c("0", "1"),
+                      freq = c(300.015, 150),
+                      percent = c(66.667777740742, 33.332222259258),
+                      cum.percent = c(66.667777740742, 100)),
+                 .Names = c("n", "miss", "p.miss", "level", "freq", "percent", "cum.percent"),
+                 row.names = c(NA, -2L), class = "data.frame")),
+        .Names = c("E", "Y", "C1"))
     expect_equal(svyCatSummary(c("E","Y","C1"), datSvy), res1)
 })
 
