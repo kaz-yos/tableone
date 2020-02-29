@@ -38,7 +38,6 @@ Suggests:
     survival,
     testthat,
     Matrix,
-    dummies,
     Matching,
     reshape2,
     ggplot2,
@@ -47,4 +46,4 @@ Suggests:
     lme4
 URL: https://github.com/kaz-yos/tableone
 VignetteBuilder: knitr
-RoxygenNote: 7.0.1
+RoxygenNote: 7.0.2

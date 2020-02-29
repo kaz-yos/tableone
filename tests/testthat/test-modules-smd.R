@@ -22,7 +22,6 @@
 library(testthat)
 library(survey)
 library(Matrix)
-library(dummies)
 
 
 ###
@@ -902,6 +901,11 @@ test_that("binary standardized difference is correct", {
 
 test_that("Multinomial SMD is correct", {
 
+    create_dummy <- function(x) {
+        df <- data.frame(x = factor(x))
+        model.matrix( ~ -1 + x, data = df)
+    }
+
     set.seed(102)
     ## 4-category variable
     probs <- c(0.1,0.3,0.5,0.2)
@@ -912,7 +916,7 @@ test_that("Multinomial SMD is correct", {
 
     ## Drop first column to avoid dependent column
     ## The result does not change if generalized inverse is used
-    dummyX <- dummies::dummy(X)[, -1, drop = FALSE]
+    dummyX <- create_dummy(X)[, -1, drop = FALSE]
 
     lstDummyX <- split(x = as.data.frame(dummyX), f = group, drop = FALSE)
 
@@ -942,7 +946,7 @@ test_that("Multinomial SMD is correct", {
 
     ##
     ## Repeat for dummy variable matrix with all columns (k-1 independent)
-    dummyX <- dummies::dummy(X)
+    dummyX <- create_dummy(X)
     lstDummyX <- split(x = as.data.frame(dummyX), f = group, drop = FALSE)
     ## Means for each indicator
     means <- lapply(lstDummyX, MultinomialMeans)
@@ -967,7 +971,7 @@ test_that("Multinomial SMD is correct", {
     X <- rbinom(n = 100, size = 1, prob = 0.2)
     group <- rep(c(0,1), c(20,80))
 
-    dummyX <- dummies::dummy(X)[, -1, drop = FALSE]
+    dummyX <- create_dummy(X)[, -1, drop = FALSE]
 
     lstDummyX <- split(x = as.data.frame(dummyX), f = group, drop = FALSE)
 
