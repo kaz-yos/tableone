@@ -389,10 +389,10 @@ test_that("p values are correctly calculated", {
     ##     solve.default
     ## solve.default() can error on some systems: i386, MLK, OpenBLAS
     ## system is computationally singular: reciprocal condition number = 5.45299e-17
-    ## if (R.Version()$arch != "i386") {
-        ## expect_equal(attr(mwByE$ContTable, "pValues")[, "pNormal"][1],
-        ##              svyTestNormal("E ~ factor(E)", datSvy, test.terms = "factor(E)", method = "Wald")$p.value)
-    ## }
+    if (R.Version()$arch != "i386") {
+        expect_equal(attr(mwByE$ContTable, "pValues")[, "pNormal"][1],
+                     svyTestNormal("E ~ factor(E)", datSvy, test.terms = "factor(E)", method = "Wald")$p.value)
+    }
 
     ## svyranktest
     pValuesTestNonNormal <-
