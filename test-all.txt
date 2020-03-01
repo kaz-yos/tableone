@@ -1,5 +1,5 @@
 ✔ |  OK F W S | Context
-⠏ |   0       | Unit tests for the CreateTableOne function⠹ |   3       | Unit tests for the CreateTableOne function⠇ |   9       | Unit tests for the CreateTableOne function⠹ |  13       | Unit tests for the CreateTableOne function                      
+⠏ |   0       | Unit tests for the CreateTableOne function⠹ |   3       | Unit tests for the CreateTableOne function⠹ |  13       | Unit tests for the CreateTableOne function                      
                        Overall           Missing
   n                        418                  
   time (mean (SD))     1917.78 (1104.67)  0.0   
@@ -811,7 +811,7 @@
   "   2"                    ""        ""      
   "   3"                    ""        ""      
   "   4"                    ""        ""      
-                      Stratified by trt:sex
+⠹ |  63       | Unit tests for the CreateTableOne function                      Stratified by trt:sex
                        Overall           1:m               2:m               1:f               2:f               p     
   n                        418                21                15               137               139                 
   time (mean (SD))     1917.78 (1104.67) 1793.48 (1244.70) 2156.33 (1428.56) 2049.67 (1070.20) 1979.65 (1127.52)  0.730
@@ -873,7 +873,7 @@
      2                            
      3                            
      4                            
-⠸ |  64       | Unit tests for the CreateTableOne function                     Stratified by trt:sex
+                     Stratified by trt:sex
                       Overall           1:m               2:m               1:f               2:f               p     
   n                       418                21                15               137               139                 
   time (mean (SD))    1917.78 (1104.67) 1793.48 (1244.70) 2156.33 (1428.56) 2049.67 (1070.20) 1979.65 (1127.52)  0.730
@@ -934,7 +934,7 @@
      2             92 (22.3) 
      3            155 (37.6) 
      4            144 (35.0) 
-             
+⠧ |  68       | Unit tests for the CreateTableOne function             
               Overall    
   n           418        
   status (%)             
@@ -984,7 +984,7 @@
      2             4 (19.0)   2 (13.3)   31 ( 22.6)   30 ( 21.6)             
      3             7 (33.3)   5 (33.3)   49 ( 35.8)   59 ( 42.4)             
      4             8 (38.1)   7 (46.7)   47 ( 34.3)   47 ( 33.8)             
-⠏ |  70       | Unit tests for the CreateTableOne function                 Stratified by trt:sex
+                 Stratified by trt:sex
                   1:m          2:m          1:f            2:f            p        test
   n               21           15           137            139                         
   status (%)                                                               0.03270     
@@ -1044,7 +1044,7 @@
      2            35 (22.2)  32 (20.8)            
      3            56 (35.4)  64 (41.6)            
      4            55 (34.8)  54 (35.1)            
-             Stratified by trt
+⠹ |  73       | Unit tests for the CreateTableOne function             Stratified by trt
               level 1           2           p      test
   n                 158         154                    
   status (%)  0      83 (52.5)   85 (55.2)   0.894     
@@ -1105,7 +1105,7 @@
      2         35  32            
      3         56  64            
      4         55  54            
-⠴ |  76       | Unit tests for the CreateTableOne function                 Stratified by trt
+                 Stratified by trt
                   1    2    p      test
   n               158  154             
   status (%)                 0.894     
@@ -1207,7 +1207,7 @@
   ""            "2"     "92 (22.3)"  "35 (22.2)"  "32 (20.8)"  ""      ""    
   ""            "3"     "155 (37.6)" "56 (35.4)"  "64 (41.6)"  ""      ""    
   ""            "4"     "144 (35.0)" "55 (34.8)"  "54 (35.1)"  ""      ""    
-                 Stratified by trt:sex
+⠋ |  81       | Unit tests for the CreateTableOne function                 Stratified by trt:sex
                   Overall     1:m        2:m        1:f          2:f          p      test
   n               418         21         15         137          139                     
   status (%)                                                                   0.033     
@@ -1227,7 +1227,7 @@
      2             92 (22.3)   4 (19.0)   2 (13.3)   31 ( 22.6)   30 ( 21.6)             
      3            155 (37.6)   7 (33.3)   5 (33.3)   49 ( 35.8)   59 ( 42.4)             
      4            144 (35.0)   8 (38.1)   7 (46.7)   47 ( 34.3)   47 ( 33.8)             
-⠙ |  82       | Unit tests for the CreateTableOne function                 Stratified by trt
+                 Stratified by trt
                   1           2           p      test
   n               158         154                    
   status (%)                               0.894     
@@ -2278,7 +2278,7 @@ Standardize mean differences
 status 0.5770647 0.7964473 0.8748771 0.8309763 0.4375075 0.4621432 0.06043662
 trt          NaN       NaN 0.0000000       NaN       NaN 0.0000000        NaN
 sex          NaN 0.0000000       NaN       NaN       NaN       NaN 0.00000000
-⠋ | 101       | Unit tests for the CreateTableOne function⠹ | 103       | Unit tests for the CreateTableOne function✔ | 103       | Unit tests for the CreateTableOne function [4.6 s]
+⠋ | 101       | Unit tests for the CreateTableOne function⠹ | 103       | Unit tests for the CreateTableOne function✔ | 103       | Unit tests for the CreateTableOne function [5.4 s]
 ⠏ |   0       | Unit tests for the ExtractSmd function⠋ |   1       | Unit tests for the ExtractSmd function           average     1 vs 2     1 vs 3     1 vs 4     2 vs 3     2 vs 4     3 vs 4
 time     0.1556365 0.27083134 0.22071813 0.15677410 0.08450703 0.13729269 0.06369595
 status   0.5770647 0.79644734 0.87487707 0.83097631 0.43750751 0.46214324 0.06043662
@@ -2303,7 +2303,7 @@ HI_CHOL  0.07290304 0.06404806 0.07986822 0.006024398 0.14361148 0.07003988 0.07
 race            NaN        NaN        NaN         NaN        NaN        NaN         NaN
 agecat   0.26102029 0.47958417 0.21054511 0.163093544 0.26927031 0.33972601 0.103902581
 RIAGENDR 0.06902841 0.04460885 0.11590734 0.111246698 0.07120651 0.06655532 0.004645715
-⠏ |  10       | Unit tests for the ExtractSmd function✔ |  13       | Unit tests for the ExtractSmd function [1.3 s]
+⠏ |  10       | Unit tests for the ExtractSmd function✔ |  13       | Unit tests for the ExtractSmd function [1.4 s]
 ⠏ |   0       | Unit tests for regression summary function        exp(coef) [confint] p     
 trt     1.03 [0.72, 1.47]    0.891
 age     1.03 [1.01, 1.05]    0.005
@@ -2359,8 +2359,8 @@ day         -0.06464 [-0.07905, -0.05022] <0.001
 (Intercept) 2.82371 [2.31045, 3.43231] <0.001
 trt         0.82903 [0.70232, 0.97777]  0.026
 day         0.96758 [0.94787, 0.98762]  0.002
-⠇ |  19       | Unit tests for regression summary function⠏ |  20       | Unit tests for regression summary function✔ |  20       | Unit tests for regression summary function [22.3 s]
-⠏ |   0       | Tests for functions for standardized mean differences⠹ |   3       | Tests for functions for standardized mean differences⠸ |   4       | Tests for functions for standardized mean differences⠼ |   5       | Tests for functions for standardized mean differences⠴ |   6       | Tests for functions for standardized mean differences⠏ |  10       | Tests for functions for standardized mean differences⠙ |  12       | Tests for functions for standardized mean differences⠦ |  27       | Tests for functions for standardized mean differences⠹ |  33       | Tests for functions for standardized mean differences⠧ |  38       | Tests for functions for standardized mean differences⠇ |  39       | Tests for functions for standardized mean differences⠹ |  43       | Tests for functions for standardized mean differences⠇ |  49       | Tests for functions for standardized mean differences⠴ |  56       | Tests for functions for standardized mean differences⠧ |  58       | Tests for functions for standardized mean differences⠏ |  60       | Tests for functions for standardized mean differences⠴ |  96       | Tests for functions for standardized mean differences⠇ | 119       | Tests for functions for standardized mean differences⠧ | 128       | Tests for functions for standardized mean differences⠏ | 130       | Tests for functions for standardized mean differences⠙ | 132       | Tests for functions for standardized mean differences⠹ | 133       | Tests for functions for standardized mean differences⠸ | 134       | Tests for functions for standardized mean differences⠼ | 135       | Tests for functions for standardized mean differences⠹ | 143       | Tests for functions for standardized mean differences
+⠇ |  19       | Unit tests for regression summary function⠏ |  20       | Unit tests for regression summary function✔ |  20       | Unit tests for regression summary function [22.2 s]
+⠏ |   0       | Tests for functions for standardized mean differences⠹ |   3       | Tests for functions for standardized mean differences⠸ |   4       | Tests for functions for standardized mean differences⠼ |   5       | Tests for functions for standardized mean differences⠴ |   6       | Tests for functions for standardized mean differences⠏ |  10       | Tests for functions for standardized mean differences⠙ |  12       | Tests for functions for standardized mean differences⠦ |  27       | Tests for functions for standardized mean differences⠹ |  33       | Tests for functions for standardized mean differences⠦ |  37       | Tests for functions for standardized mean differences⠇ |  39       | Tests for functions for standardized mean differences⠹ |  43       | Tests for functions for standardized mean differences⠇ |  49       | Tests for functions for standardized mean differences⠸ |  54       | Tests for functions for standardized mean differences⠧ |  58       | Tests for functions for standardized mean differences⠏ |  60       | Tests for functions for standardized mean differences⠴ |  96       | Tests for functions for standardized mean differences⠴ | 116       | Tests for functions for standardized mean differences⠧ | 128       | Tests for functions for standardized mean differences⠏ | 130       | Tests for functions for standardized mean differences⠋ | 131       | Tests for functions for standardized mean differences⠙ | 132       | Tests for functions for standardized mean differences⠹ | 133       | Tests for functions for standardized mean differences⠸ | 134       | Tests for functions for standardized mean differences⠼ | 135       | Tests for functions for standardized mean differences⠹ | 143       | Tests for functions for standardized mean differences
      ### Summary of continuous variables ###
 
 HI_CHOL: 0
@@ -2451,8 +2451,8 @@ agecat 0.702331 0.9040822 0.109801 0.985333 0.8536402 0.3838583 0.9772713
      (19,39]        797 (22.6)    88 (24.2)   950 (26.9)    70 (16.5)                    
      (39,59]        775 (22.0)   173 (47.7)   796 (22.5)   167 (39.4)                    
      (59,Inf]       835 (23.7)    92 (25.3)   772 (21.9)   181 (42.7)                    
-✔ | 163       | Tests for functions for standardized mean differences [5.0 s]
-⠏ |   0       | Unit tests for the survey-related modules⠹ |  33       | Unit tests for the survey-related modules⠧ |  48       | Unit tests for the survey-related modules✔ |  48       | Unit tests for the survey-related modules [0.2 s]
+✔ | 163       | Tests for functions for standardized mean differences [5.5 s]
+⠏ |   0       | Unit tests for the survey-related modules⠏ |  30       | Unit tests for the survey-related modules⠦ |  47       | Unit tests for the survey-related modules✔ |  48       | Unit tests for the survey-related modules [0.2 s]
 ⠏ |   0       | Unit tests for the modules✔ |   8       | Unit tests for the modules
 ⠏ |   0       | Unit tests for svy* user functions⠦ |   7       | Unit tests for svy* user functions                
                  Overall        Missing
@@ -2473,7 +2473,7 @@ agecat 0.702331 0.9040822 0.109801 0.985333 0.8536402 0.3838583 0.9772713
      NA             0.3 ( 0.1)         
   C1 = 1 (%)      150.0 (33.3)  0.0    
   C2 (mean (SD))   0.47 (0.50)  0.0    
-                Stratified by E
+⠹ |  23       | Unit tests for svy* user functions                Stratified by E
                  1              2              3              p      test Missing
   n              150.01         150.00         150.00                            
   E (mean (SD))    1.00 (0.00)    2.00 (0.00)    3.00 (0.00)  <0.001      0.0    
@@ -2481,10 +2481,10 @@ agecat 0.702331 0.9040822 0.109801 0.985333 0.8536402 0.3838583 0.9772713
   Y = 1 (%)        59.0 (39.4)    59.0 (39.3)    59.0 (39.3)   1.000      0.2    
   C1 = 1 (%)       50.0 (33.3)    50.0 (33.3)    50.0 (33.3)   1.000      0.0    
   C2 (mean (SD))   0.47 (0.50)    0.47 (0.50)    0.47 (0.50)   1.000      0.0    
-⠸ |  24       | Unit tests for svy* user functions                Stratified by E:C1
+                Stratified by E:C1
                  1:0            2:0            3:0            1:1            2:1            3:1            p      test
   n              100.01         100.00         100.00         50.00          50.00          50.00                     
-  E (mean (SD))    1.00 (0.00)    2.00 (0.00)    3.00 (0.00)   1.00 (0.00)    2.00 (0.00)    3.00 (0.00)    NA        
+  E (mean (SD))    1.00 (0.00)    2.00 (0.00)    3.00 (0.00)   1.00 (0.00)    2.00 (0.00)    3.00 (0.00)   <0.001     
   C (mean (SD))    1.60 (0.49)    1.60 (0.49)    1.60 (0.49)   3.20 (0.40)    3.20 (0.40)    3.20 (0.40)   <0.001     
   Y = 1 (%)        22.0 (22.1)    22.0 (22.0)    22.0 (22.0)   37.0 ( 74.0)   37.0 ( 74.0)   37.0 ( 74.0)  <0.001     
   C1 = 1 (%)        0.0 ( 0.0)     0.0 ( 0.0)     0.0 ( 0.0)   50.0 (100.0)   50.0 (100.0)   50.0 (100.0)  <0.001     
@@ -2516,7 +2516,7 @@ agecat 0.702331 0.9040822 0.109801 0.985333 0.8536402 0.3838583 0.9772713
                 Stratified by E:C1
                  3:1            p      test Missing
   n              50.00                             
-  E (mean (SD))   3.00 (0.00)    NA         0.0    
+  E (mean (SD))   3.00 (0.00)   <0.001      0.0    
   C (mean (SD))   3.20 (0.40)   <0.001      0.0    
   Y = 1 (%)       37.0 ( 74.0)  <0.001      0.2    
   C1 = 1 (%)      50.0 (100.0)  <0.001      0.0    
@@ -2537,7 +2537,7 @@ agecat 0.702331 0.9040822 0.109801 0.985333 0.8536402 0.3838583 0.9772713
   Y = 1 (%)       177.0 (39.4) 
   C1 = 1 (%)      150.0 (33.3) 
   C2 (mean (SD))   0.47 (0.50) 
-                
+⠇ |  29       | Unit tests for svy* user functions                
                  Overall       
   n              450.01        
   E (mean (SD))    2.00 (0.82) 
@@ -2551,12 +2551,12 @@ agecat 0.702331 0.9040822 0.109801 0.985333 0.8536402 0.3838583 0.9772713
                 Stratified by E:C1
                  1:0            2:0            3:0            1:1            2:1            3:1            p      test
   n              100.01         100.00         100.00         50.00          50.00          50.00                     
-  E (mean (SD))    1.00 (0.00)    2.00 (0.00)    3.00 (0.00)   1.00 (0.00)    2.00 (0.00)    3.00 (0.00)    NA        
+  E (mean (SD))    1.00 (0.00)    2.00 (0.00)    3.00 (0.00)   1.00 (0.00)    2.00 (0.00)    3.00 (0.00)   <0.001     
   C (mean (SD))    1.60 (0.49)    1.60 (0.49)    1.60 (0.49)   3.20 (0.40)    3.20 (0.40)    3.20 (0.40)   <0.001     
   Y = 1 (%)        22.0 (22.1)    22.0 (22.0)    22.0 (22.0)   37.0 ( 74.0)   37.0 ( 74.0)   37.0 ( 74.0)  <0.001     
   C1 = 1 (%)        0.0 ( 0.0)     0.0 ( 0.0)     0.0 ( 0.0)   50.0 (100.0)   50.0 (100.0)   50.0 (100.0)  <0.001     
   C2 (mean (SD))   0.60 (0.49)    0.60 (0.49)    0.60 (0.49)   0.20 (0.40)    0.20 (0.40)    0.20 (0.40)   <0.001     
-⠋ |  31       | Unit tests for svy* user functions                Stratified by E
+                Stratified by E
                  1                  2                  3                  p        test
   n              150.0120           150.0030           150.0000                        
   E (mean (SD))    1.0000 (0.0000)    2.0000 (0.0000)    3.0000 (0.0000)  <0.00001     
@@ -2588,7 +2588,7 @@ agecat 0.702331 0.9040822 0.109801 0.985333 0.8536402 0.3838583 0.9772713
   Y = 1 (%)            59.0 (39.4)         59.0 (39.3)         59.0 (39.3)        1.000        
   C1 = 1 (%)           50.0 (33.3)         50.0 (33.3)         50.0 (33.3)        1.000        
   C2 (mean (SD))       0.47 (0.50)         0.47 (0.50)         0.47 (0.50)        1.000        
-                Stratified by E
+⠼ |  35       | Unit tests for svy* user functions                Stratified by E
                  1               2               3               p      test
   n              150.01          150.00          150.00                     
   E (mean (SD))  1.00 (0.00)     2.00 (0.00)     3.00 (0.00)     <0.001     
@@ -2617,7 +2617,7 @@ agecat 0.702331 0.9040822 0.109801 0.985333 0.8536402 0.3838583 0.9772713
                Stratified by E:C1
                 1:0           2:0           3:0           1:1          2:1          3:1          p      test
   n             100.01        100.00        100.00        50.00        50.00        50.00                   
-  E (mean (SD))   1.00 (0.00)   2.00 (0.00)   3.00 (0.00)  1.00 (0.00)  2.00 (0.00)  3.00 (0.00)  NA        
+  E (mean (SD))   1.00 (0.00)   2.00 (0.00)   3.00 (0.00)  1.00 (0.00)  2.00 (0.00)  3.00 (0.00) <0.001     
   C (mean (SD))   1.60 (0.49)   1.60 (0.49)   1.60 (0.49)  3.20 (0.40)  3.20 (0.40)  3.20 (0.40) <0.001     
             Stratified by E:C1
              1:0           2:0           3:0           1:1           2:1           3:1           p      test
@@ -2632,7 +2632,7 @@ agecat 0.702331 0.9040822 0.109801 0.985333 0.8536402 0.3838583 0.9772713
   Y = 1 (%)       177.0 (39.4)    59.0 (39.4)    59.0 (39.3)    59.0 (39.3)   1.000       0.001
   C1 = 1 (%)      150.0 (33.3)    50.0 (33.3)    50.0 (33.3)    50.0 (33.3)   1.000      <0.001
   C2 (mean (SD))   0.47 (0.50)    0.47 (0.50)    0.47 (0.50)    0.47 (0.50)   1.000      <0.001
-⠋ |  41       | Unit tests for svy* user functions                Stratified by E:C1
+                Stratified by E:C1
                  Overall        1:0            2:0            3:0            1:1            2:1           
   n              450.01         100.01         100.00         100.00         50.00          50.00         
   E (mean (SD))    2.00 (0.82)    1.00 (0.00)    2.00 (0.00)    3.00 (0.00)   1.00 (0.00)    2.00 (0.00)  
@@ -2643,12 +2643,12 @@ agecat 0.702331 0.9040822 0.109801 0.985333 0.8536402 0.3838583 0.9772713
                 Stratified by E:C1
                  3:1            p      test SMD   
   n              50.00                            
-  E (mean (SD))   3.00 (0.00)    NA          Inf  
+  E (mean (SD))   3.00 (0.00)   <0.001       Inf  
   C (mean (SD))   3.20 (0.40)   <0.001       2.137
   Y = 1 (%)       37.0 ( 74.0)  <0.001       0.731
   C1 = 1 (%)      50.0 (100.0)  <0.001       NaN  
   C2 (mean (SD))  0.20 (0.40)   <0.001       0.534
-            Stratified by E
+⠙ |  42       | Unit tests for svy* user functions            Stratified by E
              1            2            3            p      test
   n          150.0        150.0        150.0                   
   Y = 1 (%)  59.0 (39.4)  59.0 (39.3)  59.0 (39.3)   1.000     
@@ -2698,7 +2698,7 @@ agecat 0.702331 0.9040822 0.109801 0.985333 0.8536402 0.3838583 0.9772713
          1      59.0 (39.4)   59.0 (39.3)   59.0 (39.3)             
   C1 (%) 0     100.0 (66.7)  100.0 (66.7)  100.0 (66.7)   1.000     
          1      50.0 (33.3)   50.0 (33.3)   50.0 (33.3)             
-⠏ |  50       | Unit tests for svy* user functions        Stratified by E
+        Stratified by E
          1            2            3            p      test
   n      150.0        150.0        150.0                   
   Y = 1  59.0 (39.4)  59.0 (39.3)  59.0 (39.3)   1.000     
@@ -2713,7 +2713,7 @@ agecat 0.702331 0.9040822 0.109801 0.985333 0.8536402 0.3838583 0.9772713
   n          150.0 150.0 150.0            
   Y = 1 (%)  39.4  39.3  39.3   1.000     
   C1 = 1 (%) 33.3  33.3  33.3   1.000     
-                 Stratified by E
+⠹ |  53       | Unit tests for svy* user functions                 Stratified by E
                   1            2            3            p      test
   n               150.0        150.0        150.0                   
   Y = 1 % (freq)  39.4 (59.0)  39.3 (59.0)  39.3 (59.0)   1.000     
@@ -2835,7 +2835,7 @@ Column Total |       100 |       100 |       100 |        50 |        50 |      
                 Stratified by E:C1
                  1:0         2:0         3:0         1:1         2:1         3:1         p      test
   n              100.01      100.00      100.00      50.00       50.00       50.00                  
-  E (mean (SD))  1.00 (0.00) 2.00 (0.00) 3.00 (0.00) 1.00 (0.00) 2.00 (0.00) 3.00 (0.00)  NA        
+  E (mean (SD))  1.00 (0.00) 2.00 (0.00) 3.00 (0.00) 1.00 (0.00) 2.00 (0.00) 3.00 (0.00) <0.001     
   C (mean (SD))  1.60 (0.49) 1.60 (0.49) 1.60 (0.49) 3.20 (0.40) 3.20 (0.40) 3.20 (0.40) <0.001     
   C2 (mean (SD)) 0.60 (0.49) 0.60 (0.49) 0.60 (0.49) 0.20 (0.40) 0.20 (0.40) 0.20 (0.40) <0.001     
                 Stratified by E
@@ -2889,10 +2889,10 @@ Column Total |       100 |       100 |       100 |        50 |        50 |      
                 Stratified by E:C1
                  Overall     1:0         2:0         3:0         1:1         2:1         3:1         p      test SMD   
   n              450.01      100.01      100.00      100.00      50.00       50.00       50.00                         
-  E (mean (SD))  2.00 (0.82) 1.00 (0.00) 2.00 (0.00) 3.00 (0.00) 1.00 (0.00) 2.00 (0.00) 3.00 (0.00)  NA          Inf  
+  E (mean (SD))  2.00 (0.82) 1.00 (0.00) 2.00 (0.00) 3.00 (0.00) 1.00 (0.00) 2.00 (0.00) 3.00 (0.00) <0.001       Inf  
   C (mean (SD))  2.13 (0.88) 1.60 (0.49) 1.60 (0.49) 1.60 (0.49) 3.20 (0.40) 3.20 (0.40) 3.20 (0.40) <0.001       2.137
   C2 (mean (SD)) 0.47 (0.50) 0.60 (0.49) 0.60 (0.49) 0.60 (0.49) 0.20 (0.40) 0.20 (0.40) 0.20 (0.40) <0.001       0.534
-⠇ |  79       | Unit tests for svy* user functions                     Stratified by RIAGENDR
+⠦ |  77       | Unit tests for svy* user functions⠇ |  79       | Unit tests for svy* user functions                     Stratified by RIAGENDR
                       1            2            p      test
   n                   134944553.92 141591892.00            
   HI_CHOL (mean (SD)) 0.10 (0.30)  0.12 (0.33)   0.009     
@@ -2944,7 +2944,7 @@ Column Total |       100 |       100 |       100 |        50 |        50 |      
      (39,59]       41053579.409 (30.423)   42817044.014 ( 30.240)             
      (59,Inf]      24093815.335 (17.855)   29983725.904 ( 21.176)             
   RIAGENDR = 2 (%)        0.000 ( 0.000)  141591891.998 (100.000)  <0.001     
-                  Stratified by RIAGENDR
+⠏ |  90       | Unit tests for svy* user functions                  Stratified by RIAGENDR
                    1                  2                    p          test
   n                134944553.9        141591892.0                         
   race (%)                                                  0.0416288     
@@ -2973,7 +2973,7 @@ Column Total |       100 |       100 |       100 |        50 |        50 |      
      (39,59]            41053579.4 (30.4)    42817044.0 ( 30.2)                 
      (59,Inf]           24093815.3 (17.9)    29983725.9 ( 21.2)                 
   RIAGENDR = 2 (%)             0.0 ( 0.0)   141591892.0 (100.0)  <0.0000001     
-⠙ |  92       | Unit tests for svy* user functions                     Stratified by RIAGENDR
+                     Stratified by RIAGENDR
                       1                    2                     p          test
   n                   134944553.92         141591892.00                         
   HI_CHOL (mean (SD))         0.10 (0.30)          0.12 (0.33)    0.0092211     
@@ -3149,7 +3149,7 @@ Standardize mean differences
          average        1 vs 2        1 vs 3         2 vs 3
 Y  0.00099495892 0.00149243839 0.00148861716 0.000003821227
 C1 0.00003770972 0.00004242269 0.00005656458 0.000014141888
-
+⠏ | 100       | Unit tests for svy* user functions
      ### Summary of continuous variables ###
 
 E:C1: 1:0
@@ -3190,7 +3190,7 @@ C2 50    0      0  0.2 0.4      0   0   0   0   1
 
 p-values
          pNormal  pNonNormal
-E             NA 0.00000e+00
+E   0.000000e+00 0.00000e+00
 C  2.518377e-307 0.00000e+00
 C2  1.950910e-37 1.95091e-37
 
@@ -3274,7 +3274,7 @@ C1       NaN 0.000000000 0.000000000      NaN      NaN      NaN 0.000000000000  
      3 vs 5   3 vs 6 4 vs 5 4 vs 6 5 vs 6
 Y  1.218899 1.218899      0      0      0
 C1      NaN      NaN      0      0      0
-⠋ | 101       | Unit tests for svy* user functions
+
      ### Summary of continuous variables ###
 
 E:C1: 1:0
@@ -3309,7 +3309,7 @@ C 50    0      0    3 0.4      3   3   3   3   4
 
 p-values
         pNormal pNonNormal
-E            NA          0
+E  0.000000e+00          0
 C 2.518377e-307          0
 
 Standardize mean differences
@@ -3388,15 +3388,15 @@ C1       NaN 0.000000000 0.000000000      NaN      NaN      NaN 0.000000000000  
      3 vs 5   3 vs 6 4 vs 5 4 vs 6 5 vs 6
 Y  1.218899 1.218899      0      0      0
 C1      NaN      NaN      0      0      0
-                   Stratified by ESA
+⠼ | 105       | Unit tests for svy* user functions                   Stratified by ESA
                     1            2             3            p      test
   n                  2.00         2.00          2.00                   
   alive (mean (SD)) 24.50 (0.71) 39.50 (13.44) 75.00 (7.07)  0.098     
   ambulance = 2 (%)  50.0         50.0          50.0         1.000     
-⠴ | 106       | Unit tests for svy* user functions✔ | 107       | Unit tests for svy* user functions [3.3 s]
+✔ | 107       | Unit tests for svy* user functions [3.5 s]
 
 ══ Results ═════════════════════════════════════════════════════════════════════════════════════════════════════════════
-Duration: 36.7 s
+Duration: 38.4 s
 
 OK:       462
 Failed:   0
