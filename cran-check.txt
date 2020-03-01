@@ -1,6 +1,6 @@
 * using log directory ‘/Users/kazuki/Dropbox (Personal)/documents/programming/r/tableone/tableone.Rcheck’
-* using R version 3.6.2 (2019-12-12)
-* using platform: x86_64-apple-darwin19.2.0 (64-bit)
+* using R version 3.6.3 Patched (2020-02-29 r77878)
+* using platform: x86_64-apple-darwin15.6.0 (64-bit)
 * using session charset: UTF-8
 * using option ‘--as-cran’
 * checking for file ‘tableone/DESCRIPTION’ ... OK
@@ -34,7 +34,6 @@ Maintainer: ‘Kazuki Yoshida <kazukiyoshida@mail.harvard.edu>’
 * checking whether the package can be unloaded cleanly ... OK
 * checking whether the namespace can be loaded with stated dependencies ... OK
 * checking whether the namespace can be unloaded cleanly ... OK
-* checking loading without being on the library search path ... OK
 * checking use of S3 registration ... OK
 * checking dependencies in R code ... OK
 * checking S3 generic/method consistency ... OK
