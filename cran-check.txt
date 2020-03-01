@@ -1,6 +1,6 @@
-* using log directory ‘/Users/kazuki/Dropbox/documents/programming/r/tableone/tableone.Rcheck’
-* using R version 3.6.1 (2019-07-05)
-* using platform: x86_64-apple-darwin19.0.0 (64-bit)
+* using log directory ‘/Users/kazuki/Dropbox (Personal)/documents/programming/r/tableone/tableone.Rcheck’
+* using R version 3.6.2 (2019-12-12)
+* using platform: x86_64-apple-darwin19.2.0 (64-bit)
 * using session charset: UTF-8
 * using option ‘--as-cran’
 * checking for file ‘tableone/DESCRIPTION’ ... OK
@@ -60,5 +60,6 @@ Maintainer: ‘Kazuki Yoshida <kazukiyoshida@mail.harvard.edu>’
 * checking package vignettes in ‘inst/doc’ ... OK
 * checking re-building of vignette outputs ... OK
 * checking PDF version of manual ... OK
+* checking for detritus in the temp directory ... OK
 * DONE
 Status: OK
