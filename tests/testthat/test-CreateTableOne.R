@@ -9,6 +9,7 @@
 ### Prepare environment
 ################################################################################
 library(testthat)
+source("./custom_expect_functions.R")
 
 
 ###

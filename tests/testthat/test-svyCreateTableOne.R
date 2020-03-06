@@ -14,6 +14,7 @@
 ################################################################################
 library(testthat)
 library(survey)
+source("./custom_expect_functions.R")
 
 
 ###
