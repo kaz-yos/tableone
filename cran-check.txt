@@ -5,9 +5,11 @@
 * using option ‘--as-cran’
 * checking for file ‘tableone/DESCRIPTION’ ... OK
 * checking extension type ... Package
-* this is package ‘tableone’ version ‘0.11.0’
-* checking CRAN incoming feasibility ... Note_to_CRAN_maintainers
+* this is package ‘tableone’ version ‘0.11.1’
+* checking CRAN incoming feasibility ... NOTE
 Maintainer: ‘Kazuki Yoshida <kazukiyoshida@mail.harvard.edu>’
+
+Days since last update: 6
 * checking package namespace information ... OK
 * checking package dependencies ... OK
 * checking if this is a source package ... OK
@@ -61,4 +63,4 @@ Maintainer: ‘Kazuki Yoshida <kazukiyoshida@mail.harvard.edu>’
 * checking PDF version of manual ... OK
 * checking for detritus in the temp directory ... OK
 * DONE
-Status: OK
+Status: 1 NOTE
