@@ -1,26 +1,24 @@
 ## What's new
-The following changes are included.
+The following changes were made to correct issues seen in
 
-tableone 0.11.0 (2020-03-01)
+Please see the problems shown on
+https://cran.r-project.org/web/checks/check_results_tableone.html
+Please correct before 2020-03-17 to safely retain your package on CRAN.
+The CRAN Team
+
+tableone 0.11.1 (2020-03-07)
 ----------------------------------------------------------------
-
-NEW FEATURES
-
-* @ndevln contributed addOverall option, which add the overall
-  column side-by-side with sratified columns when creating a
-  table object.
 
 BUG FIXES
 
-* test-only dependency (suggests) on dummies was dropped as it
-  produced warnings with model.matrix().
+* Revise tests to avoid failures occuring only on ATLAS, MLK, and
+  OpenBLAS.
 
-* In preparation for R 4.0.0, ModuleCreateTableForOneVar and
-  svyCatSummaryForOneVar now use stringsAsFactors = FALSE.
-  Some internal representation of data changed as a result.
+* Drop methods from Imports as it is no longer needed.
+
 
 ## Test environments
-* Local OS X 10.15.3: R 3.6.1, 3.6.2, 3.6.3 (patched), 4.0.0 Under (2020/02/29, r77878))
+* Local OS X 10.15.3: R 3.6.3 (patched)
 * Ubuntu Linux on Travis-CI (release and devel)
 * win-builder (release and devel)
 
@@ -28,7 +26,9 @@ BUG FIXES
 ## R CMD check results
 * ERRORs: None
 * WARNINGs: None
-* NOTEs: None
+* NOTEs: 6 days since last version.
+I hope this NOTE is ok as the change is being made following CRAN
+maintainers advice.
 
 
 ## Downstream dependencies
