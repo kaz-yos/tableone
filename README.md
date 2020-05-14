@@ -19,8 +19,6 @@ tableone in action
 
 The code being executed can be found in the introduction vignette.
 
-A higher quality version is available at YouTube: https://www.youtube.com/watch?v=IZgDKmOC0Wg&feature=youtu.be
-
 
 tableone code example
 -------------------------------------------------------------------------------
