@@ -276,6 +276,7 @@ test_that("variable labels are correctly shown", {
     stage_label <- "Stage of the Disease"
     ## Apply labels
     labelled::var_label(pbc_labeled$age) <- age_label
+    labelled::val_label(pbc_labeled$age, 1) <- "youngest"
     labelled::var_label(pbc_labeled$sex) <- sex_label
     labelled::var_label(pbc_labeled$stage) <-stage_label
     ## Show

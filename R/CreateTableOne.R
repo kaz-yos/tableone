@@ -161,7 +161,7 @@ function(vars,                                      # character vector of variab
 
     ## Classify as varNumerics if any one of these classes are contained
     varNumerics <-sapply(varClasses, function(VEC) {
-        any(VEC %in% c("numeric", "integer"))
+        any(VEC %in% c("numeric", "integer", "double"))
     })
     varNumerics <- names(varNumerics)[varNumerics]
 
