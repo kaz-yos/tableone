@@ -129,7 +129,7 @@ function(vars,                                   # character vector of variable 
 
     ## Classify as varFactors if any one of these classes are contained
     varFactors <- sapply(varClasses, function(VEC) {
-        any(VEC %in% c("factor", "ordered", "logical", "character", "labelled"))
+        any(VEC %in% c("factor", "ordered", "logical", "character"))
     })
     varFactors <- names(varFactors)[varFactors]
 
