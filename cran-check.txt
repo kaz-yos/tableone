@@ -1,15 +1,13 @@
-* using log directory ‘/Users/kazuki/Dropbox (Personal)/documents/programming/r/tableone/tableone.Rcheck’
-* using R version 3.6.3 Patched (2020-02-29 r77878)
-* using platform: x86_64-apple-darwin15.6.0 (64-bit)
+* using log directory ‘/Users/kazuki/Dropbox/documents/programming/r/tableone/tableone.Rcheck’
+* using R version 4.0.0 (2020-04-24)
+* using platform: x86_64-apple-darwin19.4.0 (64-bit)
 * using session charset: UTF-8
 * using option ‘--as-cran’
 * checking for file ‘tableone/DESCRIPTION’ ... OK
 * checking extension type ... Package
-* this is package ‘tableone’ version ‘0.11.1’
-* checking CRAN incoming feasibility ... NOTE
+* this is package ‘tableone’ version ‘0.11.2’
+* checking CRAN incoming feasibility ... Note_to_CRAN_maintainers
 Maintainer: ‘Kazuki Yoshida <kazukiyoshida@mail.harvard.edu>’
-
-Days since last update: 6
 * checking package namespace information ... OK
 * checking package dependencies ... OK
 * checking if this is a source package ... OK
@@ -61,6 +59,7 @@ Days since last update: 6
 * checking package vignettes in ‘inst/doc’ ... OK
 * checking re-building of vignette outputs ... OK
 * checking PDF version of manual ... OK
+* checking for non-standard things in the check directory ... OK
 * checking for detritus in the temp directory ... OK
 * DONE
-Status: 1 NOTE
+Status: OK
