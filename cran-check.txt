@@ -1,6 +1,6 @@
 * using log directory ‘/Users/kazuki/Dropbox/documents/programming/r/tableone/tableone.Rcheck’
-* using R version 4.0.0 (2020-04-24)
-* using platform: x86_64-apple-darwin19.4.0 (64-bit)
+* using R version 4.0.2 (2020-06-22)
+* using platform: x86_64-apple-darwin19.5.0 (64-bit)
 * using session charset: UTF-8
 * using option ‘--as-cran’
 * checking for file ‘tableone/DESCRIPTION’ ... OK

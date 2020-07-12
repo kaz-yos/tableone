@@ -1,7 +1,7 @@
 
-R version 3.6.3 Patched (2020-02-29 r77878) -- "Holding the Windsock"
+R version 4.0.2 (2020-06-22) -- "Taking Off Again"
 Copyright (C) 2020 The R Foundation for Statistical Computing
-Platform: x86_64-apple-darwin15.6.0 (64-bit)
+Platform: x86_64-apple-darwin19.5.0 (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -3413,7 +3413,7 @@ detaching ‘package:survey’, ‘package:survival’, ‘package:Matrix’,
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  4.671 0.205 4.892 0.002 0.004 
+Time elapsed:  4.822 0.208 5.057 0.005 0.006 
 > grDevices::dev.off()
 null device 
           1 
