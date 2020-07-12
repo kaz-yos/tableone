@@ -208,7 +208,8 @@ test_that("printing of a svyTableOne object does not regress", {
                               "ref-svyTableOne_IncludeNA")
 
     ## 2020-02-29 Error due to solve() behavior change in R 3.6.2.
-    if (as.numeric(R.Version()$major) >= 3 & as.numeric(R.Version()$minor) == 6.2) {
+    if (as.numeric(R.Version()$major) >= 3 & as.numeric(R.Version()$minor) == 6.2 |
+        as.numeric(R.Version()$major) >= 4) {
         expect_equal_to_reference(print(mwByEC1, printToggle = TRUE),
                                   "ref-svyTableOne_2StrataVars_new")
     } else {
@@ -238,7 +239,8 @@ test_that("printing of a svyTableOne object does not regress", {
                               "ref-svyTableOne_noSpaces_showAllLevels_quote")
 
     ## 2020-02-29 Error due to solve() behavior change in R 3.6.2.
-    if (as.numeric(R.Version()$major) >= 3 & as.numeric(R.Version()$minor) == 6.2) {
+    if (as.numeric(R.Version()$major) >= 3 & as.numeric(R.Version()$minor) == 6.2 |
+        as.numeric(R.Version()$major) >= 4) {
         expect_equal_to_reference(print(mwContOnlyByEC1),
                                   "ref-svyTableOne_ContOnly_new")
     } else {
@@ -253,7 +255,8 @@ test_that("printing of a svyTableOne object does not regress", {
                               "ref-svyTableOne_addOverall")
 
     ## 2020-02-29 Error due to solve() behavior change in R 3.6.2.
-    if (as.numeric(R.Version()$major) >= 3 & as.numeric(R.Version()$minor) == 6.2) {
+    if (as.numeric(R.Version()$major) >= 3 & as.numeric(R.Version()$minor) == 6.2 |
+        as.numeric(R.Version()$major) >= 4) {
         expect_equal_to_reference(print(mwByEC1_addOverall, printToggle = TRUE, test = TRUE, smd = TRUE),
                                   "ref-svyTableOne_2StrataVars_addOverall_new")
     } else {
@@ -339,7 +342,8 @@ test_that("printing of a svyTableOne$ContTable object do not regress", {
                               "ref-svyContTable_overallPrint")
 
     ## 2020-02-29 Error due to solve() behavior change in R 3.6.2.
-    if (as.numeric(R.Version()$major) >= 3 & as.numeric(R.Version()$minor) == 6.2) {
+    if (as.numeric(R.Version()$major) >= 3 & as.numeric(R.Version()$minor) == 6.2 |
+        as.numeric(R.Version()$major) >= 4) {
         expect_equal_to_reference(print(mwByEC1$ContTable, printToggle = TRUE),
                                   "ref-svyContTable_2StrataVars_new")
     } else {
@@ -374,7 +378,8 @@ test_that("printing of a svyTableOne$ContTable object do not regress", {
                               "ref-svyContTable_addOverall")
 
     ## 2020-02-29 Error due to solve() behavior change in R 3.6.2.
-    if (as.numeric(R.Version()$major) >= 3 & as.numeric(R.Version()$minor) == 6.2) {
+    if (as.numeric(R.Version()$major) >= 3 & as.numeric(R.Version()$minor) == 6.2 |
+        as.numeric(R.Version()$major) >= 4) {
         expect_equal_to_reference(print(mwByEC1_addOverall$ContTable, printToggle = TRUE, test = TRUE, smd = TRUE),
                                   "ref-svyContTable_2StrataVars_addOverall_new")
     } else {
