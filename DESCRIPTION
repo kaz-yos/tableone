@@ -1,6 +1,6 @@
 Package: tableone
 Type: Package
-Title: Create 'Table 1' to Describe Baseline Characteristics
+Title: Create 'Table 1' to Describe Baseline Characteristics with or without Propensity Score Weights
 Version: 0.11.2
 Date: 2020-07-12
 Authors@R: c(
@@ -20,9 +20,6 @@ Description: Creates 'Table 1', i.e., description of baseline patient
     Supports both continuous and categorical variables, as well as
     p-values and standardized mean differences. Weighted data are
     supported via the 'survey' package. See 'github' for a screen cast.
-    'tableone' was inspired by descriptive statistics functions in
-    'Deducer' , a Java-based GUI package by Ian Fellows. This package
-    does not require GUI or Java, and intended for command-line users.
 License: GPL-2
 Imports:
     survey,
