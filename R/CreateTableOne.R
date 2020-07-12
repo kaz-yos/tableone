@@ -155,13 +155,13 @@ function(vars,                                      # character vector of variab
 
     ## Classify as varFactors if any one of these classes are contained
     varFactors <-sapply(varClasses, function(VEC) {
-        any(VEC %in% c("factor", "ordered", "logical", "character", "labelled"))
+        any(VEC %in% c("factor", "ordered", "logical", "character"))
     })
     varFactors <- names(varFactors)[varFactors]
 
     ## Classify as varNumerics if any one of these classes are contained
     varNumerics <-sapply(varClasses, function(VEC) {
-        any(VEC %in% c("numeric", "integer"))
+        any(VEC %in% c("numeric", "integer", "double"))
     })
     varNumerics <- names(varNumerics)[varNumerics]
 
