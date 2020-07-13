@@ -34,7 +34,7 @@ The tableone package is an R package that eases the construction of "Table 1", *
 ```{r}
 ## tableone package itself
 library(tableone)
-## survival pcakge for Mayo Clinic's PBC data
+## survival package for Mayo Clinic's PBC data
 library(survival)
 data(pbc)
 ```
