@@ -1,24 +1,23 @@
 ## What's new
-The following changes were made to correct issues seen in
 
-Please see the problems shown on
-https://cran.r-project.org/web/checks/check_results_tableone.html
-Please correct before 2020-03-17 to safely retain your package on CRAN.
-The CRAN Team
-
-tableone 0.11.1 (2020-03-07)
+tableone 0.11.2 (2020-07-13)
 ----------------------------------------------------------------
 
-BUG FIXES
+BUG FIXES by @ndevln (PR #66)
 
-* Revise tests to avoid failures occuring only on ATLAS, MLK, and
-  OpenBLAS.
+* Hmisc labels no longer cause continuous vars to be treated as
+  factors (Closes Issue #64)
 
-* Drop methods from Imports as it is no longer needed.
+* Setting value labels via labelled no longer result in tableone
+  dropping variables.
+
+ADDITIONAL BUG FIXES
+
+* Add rmarkdown to Suggests.
 
 
 ## Test environments
-* Local OS X 10.15.3: R 3.6.3 (patched)
+* Local OS X 10.15.5: R 4.0.2
 * Ubuntu Linux on Travis-CI (release and devel)
 * win-builder (release and devel)
 
@@ -26,17 +25,7 @@ BUG FIXES
 ## R CMD check results
 * ERRORs: None
 * WARNINGs: None
-* NOTEs: 6 days since last version.
-I hope this NOTE is ok as the change is being made following CRAN
-maintainers advice.
+* NOTEs: None
 
 
 ## Downstream dependencies
-── CHECK ───────────────────────────────────────────────────────────────────────────────────────────────── 5 packages ──
-✔ CluMP 0.7                              ── E: 0     | W: 0     | N: 0
-✔ cvcrand 0.0.2                          ── E: 0     | W: 0     | N: 0
-✔ jstable 0.7.9                          ── E: 0     | W: 0     | N: 0
-✔ RcmdrPlugin.EZR 1.38                   ── E: 0     | W: 0     | N: 0
-✔ rpsftm 1.2.3                           ── E: 0     | W: 0     | N: 0
-OK: 5
-BROKEN: 0
