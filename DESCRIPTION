@@ -28,7 +28,6 @@ Imports:
     zoo,
     gmodels,
     nlme,
-    lmerTest,
     labelled
 Suggests:
     survival,
@@ -40,6 +39,7 @@ Suggests:
     knitr,
     geepack,
     lme4,
+    lmerTest,
     rmarkdown
 URL: https://github.com/kaz-yos/tableone
 VignetteBuilder: knitr
