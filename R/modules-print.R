@@ -658,7 +658,8 @@ ModuleFormatTables <- function(x, catDigits, contDigits,
                                format, exact,
                                showAllLevels, cramVars, dropEqual,
                                ## print.ContTable arguments passed
-                               nonnormal, minMax, insertLevel
+                               nonnormal, minMax, insertLevel,
+                               formatOptions
                                ) {
 
     ## Two-element list(ContTable, CatTable)
@@ -707,7 +708,10 @@ ModuleFormatTables <- function(x, catDigits, contDigits,
                      dropEqual = dropEqual,
 
                      ## print.ContTable arguments passed
-                     nonnormal = nonnormal, minMax = minMax, insertLevel = showAllLevels
+                     nonnormal = nonnormal, minMax = minMax, insertLevel = showAllLevels,
+                     
+                     ## formatOptions passed
+                     formatOptions = formatOptions
                      )  # Method dispatch at work
            },
            simplify = FALSE)

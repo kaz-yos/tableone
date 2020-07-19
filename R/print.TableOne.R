@@ -58,6 +58,7 @@ function(x,                   # TableOne object
          nonnormal     = NULL,  # Which variables should be treated as nonnormal
          minMax        = FALSE, # Whether to show median
 
+         formatOptions = list(scientific = FALSE), # Options for formatting
          ...) {
 
     ## Extract Cont/CatTable elements of x and dispatch print() appropriately
@@ -75,7 +76,10 @@ function(x,                   # TableOne object
 
                                     ## print.ContTable arguments passed
                                     nonnormal = nonnormal, minMax = minMax,
-                                    insertLevel = showAllLevels)
+                                    insertLevel = showAllLevels,
+                                    
+                                    ## FormatOptions passed
+                                    formatOptions = formatOptions)
 
     ## List of stratum sample size row only tables
     FmtStratumSizesTables <- sapply(FmtTables,
