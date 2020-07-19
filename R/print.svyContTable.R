@@ -169,7 +169,8 @@ function(x,                       # ContTable object
         ## Pick the p-values requested, and format like <0.001
         pVec <- ModulePickAndFormatPValues(TableObject = ContTable,
                                            switchVec   = nonnormal,
-                                           pDigits     = pDigits)
+                                           pDigits     = pDigits, 
+                                           formatOptions = formatOptions)
 
         ## Column combine with the output
         out <- cbind(out, p = pVec)
@@ -191,7 +192,7 @@ function(x,                       # ContTable object
                      SMD = rep("", nrow(out))) # Column for p-values
         ## Put the values at the non-empty positions
         out[,"SMD"] <- ModuleFormatPValues(attr(ContTable, "smd")[,1],
-                                           pDigits = pDigits)
+                                           pDigits = pDigits, formatOptions = formatOptions)
     }
 
 
@@ -202,7 +203,8 @@ function(x,                       # ContTable object
         out <- cbind(out,
                      Missing = rep("", nrow(out))) # Column for p-values
         ## Put the values
-        out[,"Missing"] <- ModuleFormatPercents(attr(ContTable, "percentMissing"), 1)
+        out[,"Missing"] <- ModuleFormatPercents(attr(ContTable, "percentMissing"),
+                                                digits = 1, formatOptions = formatOptions)
     }
 
 
