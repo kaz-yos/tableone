@@ -100,7 +100,7 @@ function(x,                       # ContTable object
          smd          = FALSE,    # Whether to add standardized mean differences
          
          format       = NULL,     # Catch CatTable Format option
-         formatOptions= list(scientific = FALSE),
+         formatOptions= list(scientific = FALSE),     # Options for formatting
 
          ...) {
 
@@ -153,6 +153,7 @@ function(x,                       # ContTable object
     formatOptions$digits  <- digits
     formatOptions$nsmall  <- digits
     formatOptions$justify <- NULL
+    formatOptions$trim    <- NULL
 
     ## Define the nonnormal formatter depending on the minMax status
     ConvertNormal <- function(rowMat) {

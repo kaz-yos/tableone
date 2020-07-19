@@ -309,7 +309,8 @@ ModuleContFormatStrata <- function(ContTable, nVars, listOfFunctions, digits, fo
                    out$col1 <- do.call(format, c(list(x = out$col1),
                                                  list(justify = "right"),
                                                  formatOptions
-                                                 ))
+                                                 )
+                                       )
 
                    ## Obtain the width of the mean/median column in characters
                    nCharMeanOrMedian <- nchar(out$col1[1])
@@ -335,7 +336,7 @@ ModuleContFormatStrata <- function(ContTable, nVars, listOfFunctions, digits, fo
 ################################################################################
 
 ## Module to loop over variables within a stratum formatting categorical variables
-ModuleCatFormatVariables <- function(lstVars, varsToFormat, fmt, level, cramVars, dropEqual, showAllLevels) {
+ModuleCatFormatVariables <- function(lstVars, varsToFormat, digits, level, cramVars, dropEqual, showAllLevels, formatOptions) {
 
     ## Loop over variables within a stratum
     ## Each list element is a data frame summarizing levels
@@ -356,8 +357,16 @@ ModuleCatFormatVariables <- function(lstVars, varsToFormat, fmt, level, cramVars
 
                ## Format percent and cum.percent as strings
                DF[varsToFormat] <- lapply(X = DF[varsToFormat],
-                                          FUN = sprintf,
-                                          fmt = fmt)
+                                          FUN = function(x, digits, formatOptions) {
+                                            x = round(x, digits = digits)
+                                            do.call(format, c(list(x = x,
+                                                                   trim = TRUE),
+                                                              formatOptions
+                                                              )
+                                                    )
+                                          } ,
+                                          digits = digits,
+                                          formatOptions = formatOptions)
 
                ## Make all variables strings (if freq is an integer, direct convert is ok)
                DF[] <- lapply(X = DF, FUN = as.character)
@@ -428,10 +437,7 @@ ModuleCatFormatVariables <- function(lstVars, varsToFormat, fmt, level, cramVars
 
 
 ## Module to loop over strata formatting categorical variables
-ModuleCatFormatStrata <- function(CatTable, digits, varsToFormat, cramVars, dropEqual, showAllLevels) {
-
-    ## Create format for percent used in the loop
-    fmt1 <- paste0("%.", digits, "f")
+ModuleCatFormatStrata <- function(CatTable, digits, varsToFormat, cramVars, dropEqual, showAllLevels, formatOptions = NULL) {
 
     ## Obtain collpased result
     CatTableCollapsed <-
@@ -447,10 +453,11 @@ ModuleCatFormatStrata <- function(CatTable, digits, varsToFormat, cramVars, drop
                    lstVarsFormatted <-
                    ModuleCatFormatVariables(lstVars       = lstVars,
                                             varsToFormat  = varsToFormat,
-                                            fmt           = fmt1,
+                                            digits        = digits,
                                             cramVars      = cramVars,
                                             dropEqual     = dropEqual,
-                                            showAllLevels = showAllLevels)
+                                            showAllLevels = showAllLevels,
+                                            formatOptions = formatOptions)
 
 
                    ## Collapse DFs within each stratum

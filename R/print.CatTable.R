@@ -104,7 +104,8 @@ function(x,                        # CatTable object
          smd           = FALSE,    # Whether to add standardized mean differences
 
          CrossTable    = FALSE,    # Whether to show gmodels::CrossTable
-
+         
+         formatOptions = list(scientific = FALSE),     # Options for formatting
          ...) {
 
     ## x and ... required to be consistent with generic print(x, ...)
@@ -153,7 +154,11 @@ function(x,                        # CatTable object
 
 
 ### Formatting for printing
-
+    formatOptions$digits  <- digits
+    formatOptions$nsmall  <- digits
+    formatOptions$justify <- NULL
+    formatOptions$trim    <- NULL
+    
     ## Variables to format using digits option
     ## Full list c("n","miss","p.miss","freq","percent","cum.percent")
     varsToFormat <- c("p.miss","percent","cum.percent")
@@ -166,7 +171,8 @@ function(x,                        # CatTable object
                           varsToFormat  = varsToFormat,
                           cramVars      = cramVars,
                           dropEqual     = dropEqual,
-                          showAllLevels = showAllLevels)
+                          showAllLevels = showAllLevels,
+                          formatOptions = formatOptions)
 
 
 ### Obtain the original column width in characters for alignment in print.TableOne
@@ -228,9 +234,10 @@ function(x,                        # CatTable object
         testTypes <- c("","exact")[exact]
 
         ## Pick the p-values requested, and format like <0.001
-        pVec <- ModulePickAndFormatPValues(TableObject = CatTable,
-                                           switchVec   = exact,
-                                           pDigits     = pDigits)
+        pVec <- ModulePickAndFormatPValues(TableObject   = CatTable,
+                                           switchVec     = exact,
+                                           pDigits       = pDigits,
+                                           formatOptions = formatOptions)
 
         ## Create an empty p-value column and test column
         out <- cbind(out,
@@ -256,7 +263,8 @@ function(x,                        # CatTable object
         ## Put the values at the non-empty positions
         out[logiNonEmptyRowNames,"SMD"] <-
         ModuleFormatPValues(attr(CatTable, "smd")[,1],
-                            pDigits = pDigits)
+                            pDigits         = pDigits,
+                            formatOptions   = formatOptions)
     }
 
 
@@ -267,7 +275,8 @@ function(x,                        # CatTable object
         out <- cbind(out,
                      Missing = rep("", nrow(out))) # Column for p-values
         ## Put the values at the non-empty positions
-        out[logiNonEmptyRowNames,"Missing"] <- ModuleFormatPercents(attr(CatTable, "percentMissing"), 1)
+        out[logiNonEmptyRowNames,"Missing"] <- ModuleFormatPercents(attr(CatTable, "percentMissing"), 
+                                                                    digits =  1, formatOptions = formatOptions)
     }
 
 
