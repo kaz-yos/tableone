@@ -137,6 +137,12 @@ function(x,                        # CatTable object
         warning("format only accepts one of fp, f, p, or pf. Choosing fp.")
         format <- "fp"
     }
+    
+    ## Set FormatOptions, delete reserved options
+    formatOptions$digits  <- digits
+    formatOptions$nsmall  <- digits
+    formatOptions$justify <- NULL
+    formatOptions$trim    <- NULL
 
     ## Obtain the strata sizes in a character vector. This has to be obtained from the original data
     ## Added as the top row later
@@ -148,17 +154,22 @@ function(x,                        # CatTable object
                           ## Pick the first non-null element
                           n[!is.null(n)][1]
                           ## Convert NULL to 0
-                          ifelse(is.null(n), "0", as.character(n))
+                          n <- ifelse(is.null(n), "0", n)
+                          ## Format n
+                          formatOptions$nsmall  <- 0
+                          n <- do.call(base::format, c(list(x = n,
+                                                            trim = TRUE),
+                                                       formatOptions
+                                                       )
+                                       )
+                          ## return as string
+                          as.character(n)
                       },
                       simplify = TRUE) # vector with as many elements as strata
 
 
 ### Formatting for printing
-    formatOptions$digits  <- digits
-    formatOptions$nsmall  <- digits
-    formatOptions$justify <- NULL
-    formatOptions$trim    <- NULL
-    
+
     ## Variables to format using digits option
     ## Full list c("n","miss","p.miss","freq","percent","cum.percent")
     varsToFormat <- c("p.miss","percent","cum.percent")

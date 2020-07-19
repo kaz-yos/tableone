@@ -76,6 +76,11 @@ function(x,                       # ContTable object
         stop("The object does not contain all necessary statistics. Use summary() method.")
     }
 
+    ## Set FormatOptions, delete reserved options
+    formatOptions$digits  <- digits
+    formatOptions$nsmall  <- digits
+    formatOptions$justify <- NULL
+    formatOptions$trim    <- NULL
 
     ## Obtain the strata sizes in a character vector. This has to be obtained from the original data
     ## Added as the top row later
@@ -87,9 +92,16 @@ function(x,                       # ContTable object
                           ## Pick the first non-null element
                           n[!is.null(n)][1]
                           ## Convert NULL to 0
-                          ifelse(is.null(n),
-                                 "0",
-                                 sprintf(fmt = paste0("%.", digits, "f"), n))
+                          n <- ifelse(is.null(n), "0", n)
+                          ## Format n
+                          n <- round(n, digits = digits)
+                          n <- do.call(base::format, c(list(x = n,
+                                                            trim = TRUE),
+                                                       formatOptions
+                                                       )
+                                       )
+                          ## return as string
+                          as.character(n)
                       },
                       simplify = TRUE) # vector with as many elements as strata
 
