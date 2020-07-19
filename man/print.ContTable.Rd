@@ -18,6 +18,7 @@
   insertLevel = FALSE,
   test = TRUE,
   smd = FALSE,
+  formatOptions = NULL,
   ...
 )
 }

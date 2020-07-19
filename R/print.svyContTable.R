@@ -42,7 +42,9 @@ function(x,                       # ContTable object
          test         = TRUE,     # Whether to add p-values
 
          smd          = FALSE,    # Whether to add standardized mean differences
-
+         
+         format       = NULL,     # Catch CatTable Format option
+         formatOptions= list(scientific = FALSE),
          ...) {
 
     ## x and ... required to be consistent with generic print(x, ...)
@@ -93,16 +95,19 @@ function(x,                       # ContTable object
 
 
 ### Conversion of data for printing
+    formatOptions$digits  <- as.integer(digits)
+    formatOptions$nsmall  <- as.integer(digits)
+    formatOptions$justify <- NULL
 
     ## Define the nonnormal formatter depending on the minMax status
     ConvertNormal <- function(rowMat) {
         ## Take minMax value from outside (NOT A STANDALONE FUNCTION!!)
-        ModuleConvertNormal(rowMat, digits)
+        ModuleConvertNormal(rowMat, digits = digits, formatOptions = formatOptions)
     }
     ## Define the nonnormal formatter depending on the minMax status
     ConvertNonNormal <- function(rowMat) {
         ## Take minMax value from outside (NOT A STANDALONE FUNCTION!!)
-        ModuleConvertNonNormal(rowMat, digits, minMax = minMax)
+        ModuleConvertNonNormal(rowMat, digits = digits, minMax = minMax, formatOptions = formatOptions)
     }
 
     ## Create a list of these two functions
@@ -115,7 +120,7 @@ function(x,                       # ContTable object
     out <- ModuleContFormatStrata(ContTable       = ContTable,
                                   nVars           = nVars,
                                   listOfFunctions = listOfFunctions,
-                                  digits          = digits)
+                                  formatOptions   = formatOptions)
 
 
 ### Obtain the original column width in characters for alignment in print.TableOne

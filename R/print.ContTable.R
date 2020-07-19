@@ -98,6 +98,9 @@ function(x,                       # ContTable object
          test         = TRUE,     # Whether to add p-values
 
          smd          = FALSE,    # Whether to add standardized mean differences
+         
+         format       = NULL,     # Catch CatTable Format option
+         formatOptions= list(scientific = FALSE),
 
          ...) {
 
@@ -147,16 +150,19 @@ function(x,                       # ContTable object
 
 
 ### Conversion of data for printing
+    formatOptions$digits  <- digits
+    formatOptions$nsmall  <- digits
+    formatOptions$justify <- NULL
 
     ## Define the nonnormal formatter depending on the minMax status
     ConvertNormal <- function(rowMat) {
         ## Take minMax value from outside (NOT A STANDALONE FUNCTION!!)
-        ModuleConvertNormal(rowMat, digits)
+        ModuleConvertNormal(rowMat, digits = digits, formatOptions = formatOptions)
     }
     ## Define the nonnormal formatter depending on the minMax status
     ConvertNonNormal <- function(rowMat) {
         ## Take minMax value from outside (NOT A STANDALONE FUNCTION!!)
-        ModuleConvertNonNormal(rowMat, digits, minMax = minMax)
+        ModuleConvertNonNormal(rowMat, digits = digits, minMax = minMax, formatOptions = formatOptions)
     }
 
     ## Create a list of these two functions
@@ -169,7 +175,7 @@ function(x,                       # ContTable object
     out <- ModuleContFormatStrata(ContTable       = ContTable,
                                   nVars           = nVars,
                                   listOfFunctions = listOfFunctions,
-                                  digits          = digits)
+                                  formatOptions   = formatOptions)
 
 
 ### Obtain the original column width in characters for alignment in print.TableOne
@@ -200,12 +206,13 @@ function(x,                       # ContTable object
     if (test == TRUE & !is.null(attr(ContTable, "pValues"))) {
 
         ## Pick test types used (used for annonation)
-        testTypes <- c("","nonnorm")[nonnormal]
+        testTypes <- c("","nonnorm")[nonnormal] # Here
 
         ## Pick the p-values requested, and format like <0.001
-        pVec <- ModulePickAndFormatPValues(TableObject = ContTable,
-                                           switchVec   = nonnormal,
-                                           pDigits     = pDigits)
+        pVec <- ModulePickAndFormatPValues(TableObject   = ContTable,
+                                           switchVec     = nonnormal,
+                                           pDigits       = pDigits,
+                                           formatOptions = formatOptions)
 
         ## Column combine with the output
         out <- cbind(out, p = pVec)
@@ -227,7 +234,8 @@ function(x,                       # ContTable object
                      SMD = rep("", nrow(out))) # Column for p-values
         ## Put the values at the non-empty positions
         out[,"SMD"] <- ModuleFormatPValues(attr(ContTable, "smd")[,1],
-                                           pDigits = pDigits)
+                                           pDigits = pDigits,
+                                           formatOptions = formatOptions)
     }
 
 
@@ -238,7 +246,8 @@ function(x,                       # ContTable object
         out <- cbind(out,
                      Missing = rep("", nrow(out))) # Column for p-values
         ## Put the values
-        out[,"Missing"] <- ModuleFormatPercents(attr(ContTable, "percentMissing"), 1)
+        out[,"Missing"] <- ModuleFormatPercents(attr(ContTable, "percentMissing"), 
+                                                digits = 1, formatOptions = formatOptions)
     }
 
 
