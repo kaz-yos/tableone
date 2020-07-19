@@ -15,6 +15,7 @@
 ##' @param insertLevel Whether to add an empty level column to the left of strata.
 ##' @param test Whether to show p-values. TRUE by default. If FALSE, only the numerical summaries are shown.
 ##' @param smd Whether to show standardized mean differences. FALSE by default. If there are more than one contrasts, the average of all possible standardized mean differences is shown. For individual contrasts, use \code{summary}.
+##' @param formatOptions A list of options, which will be passed to \code{\link[base]{format}}. Can be used to modify the \code{big.mark}, \code{decimal.mark}, \code{big.interval} etc. The default is \code{list(scientific = FALSE)}. The options digits, nsmall, justify and trim are not available. (Experimental)
 ##' @param ... For compatibility with generic. Ignored.
 ##' @return A matrix object containing what you see is also invisibly returned. This can be assinged a name and exported via \code{write.csv}.
 ##' @author Kazuki Yoshida
@@ -98,8 +99,7 @@ function(x,                       # ContTable object
          test         = TRUE,     # Whether to add p-values
 
          smd          = FALSE,    # Whether to add standardized mean differences
-         
-         format       = NULL,     # Catch CatTable Format option
+
          formatOptions= list(scientific = FALSE),     # Options for formatting
 
          ...) {
