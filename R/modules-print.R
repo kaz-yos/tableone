@@ -233,7 +233,10 @@ ModuleConvertNormal <- function(rowMat, digits, formatOptions = NULL) {
 
     ## Create a DF with numeric mean column and character (SD) column
     ## Turn off trim, TODO: maybe add decimal adjustment later
-    data.frame(col1 = round(rowMat[,"mean"], digits = digits),
+    ## No need to round col1, ModuleContFormatStrata should do this after
+    ## stacking up means and medians.
+    ## unname() not to leave mean as a data frame row name.
+    data.frame(col1 = unname(rowMat[,"mean"]),
                col2 = paste0(" (",
                              ModuleFormatNumericVector(rowMat[,"sd"], digits, formatOptions),
                              ")"),
@@ -246,9 +249,13 @@ ModuleConvertNonNormal <- function(rowMat, digits, minMax = FALSE, formatOptions
     ## Suppress leading blanks for justification for [IQR] and [min, max]
     formatOptions$trim <- TRUE
 
+    ## No need to round col1, ModuleContFormatStrata should do this after
+    ## stacking up means and medians.
+
     if (minMax == FALSE) {
         ## Create a DF with numeric median column and character [p25, p75] column
-        out <- data.frame(col1 = round(rowMat[,"median"], digits = digits),
+        ## unname() not to leave median as a data frame row name.
+        out <- data.frame(col1 = unname(rowMat[,"median"]),
                           col2 = paste0(" [",
                                         ModuleFormatNumericVector(rowMat[,"p25"], digits, formatOptions),
                                         ", ",
@@ -257,7 +264,8 @@ ModuleConvertNonNormal <- function(rowMat, digits, minMax = FALSE, formatOptions
                           stringsAsFactors = FALSE)
     } else if (minMax == TRUE) {
         ## Create a DF with numeric median column and character [min, max] column
-        out <- data.frame(col1 = round(rowMat[,"median"], digits = digits),
+        ## unname() not to leave median as a data frame row name.
+        out <- data.frame(col1 = unname(rowMat[,"median"]),
                           col2 = paste0(" [",
                                         ModuleFormatNumericVector(rowMat[,"min"], digits, formatOptions),
                                         ", ",
