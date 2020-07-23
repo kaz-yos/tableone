@@ -231,7 +231,7 @@ ModuleQuoteAndPrintMat <- function(matObj, quote = FALSE, printToggle = TRUE) {
 ################################################################################
 
 ## Define a function to format a normal variable
-ModuleConvertNormal <- function(rowMat, digits, formatOptions) {
+ModuleConvertNormal <- function(rowMat, digits, formatOptions = NULL) {
 
     ## Create a DF with numeric mean column and character (SD) column
     ## Turn off trim, TODO: maybe add decimal adjustment later
@@ -242,7 +242,7 @@ ModuleConvertNormal <- function(rowMat, digits, formatOptions) {
 }
 
 ## Define a function to format a nonnormal variable
-ModuleConvertNonNormal <- function(rowMat, digits, minMax = FALSE, formatOptions) {
+ModuleConvertNonNormal <- function(rowMat, digits, minMax = FALSE, formatOptions = NULL) {
 
     if (minMax == FALSE) {
         ## Create a DF with numeric median column and character [p25, p75] column
