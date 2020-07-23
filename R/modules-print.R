@@ -66,18 +66,18 @@ ModuleCreateStrataNames <- function(TableObject) {
 
 ## Percentage formatter for Missing %
 ModuleFormatPercents <- function(percents, digits, formatOptions = NULL) {
-    
+
     # Reset decimal places
     formatOptions$digits  <- digits
     formatOptions$nsmall  <- digits
-    
-    ## Format p value, 
+
+    ## Format p value,
     ## format uses significant digits logic, so rounding is needed first
     pVec <- round(percents, digits = digits)
     pVec <- do.call(format, c(list(x = percents),
-                              list(justify = "right"), 
+                              list(justify = "right"),
                               formatOptions))
-    
+
 }
 
 
@@ -87,8 +87,8 @@ ModuleFormatPValues <- function(pValues, pDigits, formatOptions = NULL) {
     # Reset decimal places
     formatOptions$digits  <- pDigits
     formatOptions$nsmall  <- pDigits
-    
-    ## Format p value, 
+
+    ## Format p value,
     ## format uses significant digits logic, so rounding is needed first
     pVec <- round(pValues, digits = pDigits)
     pVec <- do.call(format, c(list(x = pVec), formatOptions))
@@ -109,7 +109,7 @@ ModuleFormatPValues <- function(pValues, pDigits, formatOptions = NULL) {
 
 ## p-value picker/formatter
 ModulePickAndFormatPValues <- function(TableObject, switchVec, pDigits, formatOptions = NULL) {
-    
+
     ## nVarsiables x 2 (pNormal,pNonNormal) data frame
     pValues <- attr(TableObject, "pValues")
 
@@ -130,20 +130,20 @@ ModulePickAndFormatPValues <- function(TableObject, switchVec, pDigits, formatOp
 
 ## Module to return the dimention headers added to the out 2d matrix
 ModuleReturnDimHeaders <- function(TableObject) {
-    
+
     ## Add stratification information to the column header
     if (length(TableObject) > 1) {
         ## Create strata string
         strataString <- paste0("Stratified by ", attr(TableObject, "strataVarName"))
-        
+
         ## Name the row dimension with it. 1st dimension name should be empty.
         dimHeaders <- c("", strataString)
-        
+
     }  else {
         ## If no stratification, no name for the second dimension
         dimHeaders <- c("", "")
     }
-    
+
     ## Return the dim header a vector of length 2
     return(dimHeaders)
 }
@@ -236,7 +236,7 @@ ModuleConvertNormal <- function(rowMat, digits, formatOptions) {
     ## Create a DF with numeric mean column and character (SD) column
     ## Turn off trim, TODO: maybe add decimal adjustment later
     data.frame(col1 = round(rowMat[,"mean"], digits = digits),
-               col2 = paste0(" (", do.call(format, c(list(x = round(rowMat[,"sd"], digits = digits), 
+               col2 = paste0(" (", do.call(format, c(list(x = round(rowMat[,"sd"], digits = digits),
                                                           trim = TRUE), formatOptions)),")"),
                stringsAsFactors = FALSE)
 }
@@ -247,17 +247,17 @@ ModuleConvertNonNormal <- function(rowMat, digits, minMax = FALSE, formatOptions
     if (minMax == FALSE) {
         ## Create a DF with numeric median column and character [p25, p75] column
         out <- data.frame(col1 = round(rowMat[,"median"], digits = digits),
-                          col2 = paste0(" [", do.call(format, c(list(x = round(rowMat[,"p25"], digits = digits), 
+                          col2 = paste0(" [", do.call(format, c(list(x = round(rowMat[,"p25"], digits = digits),
                                                                      trim = TRUE), formatOptions)),
-                                        ", ", do.call(format, c(list(x = round(rowMat[,"p75"], digits = digits), 
+                                        ", ", do.call(format, c(list(x = round(rowMat[,"p75"], digits = digits),
                                                                      trim = TRUE), formatOptions)), "]"),
                           stringsAsFactors = FALSE)
     } else if (minMax == TRUE) {
         ## Create a DF with numeric median column and character [min, max] column
         out <- data.frame(col1 = round(rowMat[,"median"], digits = digits),
-                          col2 = paste0(" [", do.call(format, c(list(x = round(rowMat[,"min"], digits = digits), 
+                          col2 = paste0(" [", do.call(format, c(list(x = round(rowMat[,"min"], digits = digits),
                                                                      trim = TRUE), formatOptions)),
-                                        ", ", do.call(format, c(list(x = round(rowMat[,"max"], digits = digits), 
+                                        ", ", do.call(format, c(list(x = round(rowMat[,"max"], digits = digits),
                                                                      trim = TRUE), formatOptions)), "]"),
                           stringsAsFactors = FALSE)
     } else {
@@ -709,7 +709,7 @@ ModuleFormatTables <- function(x, catDigits, contDigits,
 
                      ## print.ContTable arguments passed
                      nonnormal = nonnormal, minMax = minMax, insertLevel = showAllLevels,
-                     
+
                      ## formatOptions passed
                      formatOptions = formatOptions
                      )  # Method dispatch at work
