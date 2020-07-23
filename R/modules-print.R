@@ -86,14 +86,7 @@ ModuleFormatPercents <- function(percents, digits, formatOptions = NULL) {
 ## p-value formatter
 ModuleFormatPValues <- function(pValues, pDigits, formatOptions = NULL) {
 
-    # Reset decimal places
-    formatOptions$digits  <- pDigits
-    formatOptions$nsmall  <- pDigits
-
-    ## Format p value,
-    ## format uses significant digits logic, so rounding is needed first
-    pVec <- round(pValues, digits = pDigits)
-    pVec <- do.call(format, c(list(x = pVec), formatOptions))
+    pVec <- ModuleFormatNumericVector(pValues, pDigits, formatOptions)
 
     ## Create a string like <0.001
     smallPString       <- paste0("<0.", paste0(rep("0", pDigits - 1), collapse = ""), "1")
@@ -235,32 +228,41 @@ ModuleQuoteAndPrintMat <- function(matObj, quote = FALSE, printToggle = TRUE) {
 ## Define a function to format a normal variable
 ModuleConvertNormal <- function(rowMat, digits, formatOptions = NULL) {
 
+    ## Suppress leading blanks for justification for (SD)
+    formatOptions$trim <- TRUE
+
     ## Create a DF with numeric mean column and character (SD) column
     ## Turn off trim, TODO: maybe add decimal adjustment later
     data.frame(col1 = round(rowMat[,"mean"], digits = digits),
-               col2 = paste0(" (", do.call(format, c(list(x = round(rowMat[,"sd"], digits = digits),
-                                                          trim = TRUE), formatOptions)),")"),
+               col2 = paste0(" (",
+                             ModuleFormatNumericVector(rowMat[,"sd"], digits, formatOptions),
+                             ")"),
                stringsAsFactors = FALSE)
 }
 
 ## Define a function to format a nonnormal variable
 ModuleConvertNonNormal <- function(rowMat, digits, minMax = FALSE, formatOptions = NULL) {
 
+    ## Suppress leading blanks for justification for [IQR] and [min, max]
+    formatOptions$trim <- TRUE
+
     if (minMax == FALSE) {
         ## Create a DF with numeric median column and character [p25, p75] column
         out <- data.frame(col1 = round(rowMat[,"median"], digits = digits),
-                          col2 = paste0(" [", do.call(format, c(list(x = round(rowMat[,"p25"], digits = digits),
-                                                                     trim = TRUE), formatOptions)),
-                                        ", ", do.call(format, c(list(x = round(rowMat[,"p75"], digits = digits),
-                                                                     trim = TRUE), formatOptions)), "]"),
+                          col2 = paste0(" [",
+                                        ModuleFormatNumericVector(rowMat[,"p25"], digits, formatOptions),
+                                        ", ",
+                                        ModuleFormatNumericVector(rowMat[,"p75"], digits, formatOptions),
+                                        "]"),
                           stringsAsFactors = FALSE)
     } else if (minMax == TRUE) {
         ## Create a DF with numeric median column and character [min, max] column
         out <- data.frame(col1 = round(rowMat[,"median"], digits = digits),
-                          col2 = paste0(" [", do.call(format, c(list(x = round(rowMat[,"min"], digits = digits),
-                                                                     trim = TRUE), formatOptions)),
-                                        ", ", do.call(format, c(list(x = round(rowMat[,"max"], digits = digits),
-                                                                     trim = TRUE), formatOptions)), "]"),
+                          col2 = paste0(" [",
+                                        ModuleFormatNumericVector(rowMat[,"min"], digits, formatOptions),
+                                        ", ",
+                                        ModuleFormatNumericVector(rowMat[,"max"], digits, formatOptions),
+                                        "]"),
                           stringsAsFactors = FALSE)
     } else {
         stop("minMax must be a logical vector of one: FALSE or TRUE")
@@ -308,11 +310,9 @@ ModuleContFormatStrata <- function(ContTable, nVars, listOfFunctions, digits, fo
 
                    ## Format decimal places and decimal mark (+ additonal format options)
                    ## right justify by adding spaces (to align at the decimal point of mean/median)
-                   out$col1 <- do.call(format, c(list(x = out$col1),
-                                                 list(justify = "right"),
-                                                 formatOptions
-                                                 )
-                                       )
+                   formatOptions$justify <- "right"
+                   ## ModuleFormatNumericVector performs rounding.
+                   out$col1 <- ModuleFormatNumericVector(out$col1, digits, formatOptions)
 
                    ## Obtain the width of the mean/median column in characters
                    nCharMeanOrMedian <- nchar(out$col1[1])
