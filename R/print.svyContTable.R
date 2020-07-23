@@ -133,6 +133,7 @@ function(x,                       # ContTable object
     out <- ModuleContFormatStrata(ContTable       = ContTable,
                                   nVars           = nVars,
                                   listOfFunctions = listOfFunctions,
+                                  digits          = digits,
                                   formatOptions   = formatOptions)
 
 
@@ -169,7 +170,7 @@ function(x,                       # ContTable object
         ## Pick the p-values requested, and format like <0.001
         pVec <- ModulePickAndFormatPValues(TableObject = ContTable,
                                            switchVec   = nonnormal,
-                                           pDigits     = pDigits, 
+                                           pDigits     = pDigits,
                                            formatOptions = formatOptions)
 
         ## Column combine with the output
