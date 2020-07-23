@@ -187,6 +187,7 @@ function(x,                       # ContTable object
     out <- ModuleContFormatStrata(ContTable       = ContTable,
                                   nVars           = nVars,
                                   listOfFunctions = listOfFunctions,
+                                  digits          = digits,
                                   formatOptions   = formatOptions)
 
 
@@ -258,7 +259,7 @@ function(x,                       # ContTable object
         out <- cbind(out,
                      Missing = rep("", nrow(out))) # Column for p-values
         ## Put the values
-        out[,"Missing"] <- ModuleFormatPercents(attr(ContTable, "percentMissing"), 
+        out[,"Missing"] <- ModuleFormatPercents(attr(ContTable, "percentMissing"),
                                                 digits = 1, formatOptions = formatOptions)
     }
 
