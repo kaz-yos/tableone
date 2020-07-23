@@ -64,22 +64,24 @@ ModuleCreateStrataNames <- function(TableObject) {
 }
 
 
-## Percentage formatter for Missing %
-ModuleFormatPercents <- function(percents, digits, formatOptions = NULL) {
+## A generic numeric vector formatter
+ModuleFormatNumericVector <- function(x, digits, formatOptions = NULL) {
 
-    # Reset decimal places
+    ## Reset decimal places
     formatOptions$digits  <- digits
     formatOptions$nsmall  <- digits
+    ## Only allow right justification
+    formatOptions$justify <- "right"
 
-    ## Format p value,
-    ## format uses significant digits logic, so rounding is needed first
-    pVec <- round(percents, digits = digits)
-    pVec <- do.call(format, c(list(x = percents),
-                              list(justify = "right"),
-                              formatOptions))
-
+    ## format() uses significant digits logic, so rounding is needed first
+    do.call(format, c(list(x = round(x, digits = digits)),
+                      formatOptions))
 }
 
+## Percentage formatter for Missing % (just an alias to keep the name)
+ModuleFormatPercents <- function(percents, digits, formatOptions = NULL) {
+    ModuleFormatNumericVector(percents, digits, formatOptions)
+}
 
 ## p-value formatter
 ModuleFormatPValues <- function(pValues, pDigits, formatOptions = NULL) {
