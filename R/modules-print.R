@@ -86,12 +86,31 @@ ModuleFormatPercents <- function(percents, digits, formatOptions = NULL) {
 ## p-value formatter
 ModuleFormatPValues <- function(pValues, pDigits, formatOptions = NULL) {
 
+    ## pDigits must be an integer larger than 1.
+    if (pDigits < 1) {
+        stop("pDigits must be an integer >= 1.")
+    }
+
+    ## If not set, set the default decimal.mark
+    if (is.null(formatOptions$decimal.mark)) {
+        ## getOption("OutDec") is the default used by format()
+        formatOptions$decimal.mark <- getOption("OutDec")
+    }
+
+    ## Format. Some can be all zero like 0.000
     pVec <- ModuleFormatNumericVector(pValues, pDigits, formatOptions)
 
+    ## Format 0 to obtain the all zero example to check agains.
+    pVecZero <- ModuleFormatNumericVector(0, pDigits, formatOptions)
+
     ## Create a string like <0.001
-    smallPString       <- paste0("<0.", paste0(rep("0", pDigits - 1), collapse = ""), "1")
+    smallPString       <- paste0("<0",
+                                 ## decimal.mark default or specified.
+                                 formatOptions$decimal.mark,
+                                 paste0(rep("0", pDigits - 1), collapse = ""),
+                                 "1")
     ## Check positions where it is all zero like 0.000
-    posAllZeros        <- grepl("^0\\.0*$", pVec)
+    posAllZeros        <- (pVec == pVecZero)
     ## Put the string where it is all zero like 0.000
     pVec[posAllZeros]  <- smallPString
     ## Put a preceding space where it is not like 0.000
