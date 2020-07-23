@@ -357,18 +357,14 @@ ModuleCatFormatVariables <- function(lstVars, varsToFormat, digits, level, cramV
                ## Add a variable name to the left as a character vector
                DF <- cbind(var = rep(varName, nRow), DF)
 
-               ## Format percent and cum.percent as strings
+               ## Format percent and cum.percent (specified via varsToFormat) as strings
+               formatOptions$trim <- TRUE
                DF[varsToFormat] <- lapply(X = DF[varsToFormat],
-                                          FUN = function(x, digits, formatOptions) {
-                                            x = round(x, digits = digits)
-                                            do.call(format, c(list(x = x,
-                                                                   trim = TRUE),
-                                                              formatOptions
-                                                              )
-                                                    )
-                                          } ,
-                                          digits = digits,
-                                          formatOptions = formatOptions)
+                                          FUN = function(x) {
+                                              ModuleFormatNumericVector(x,
+                                                                        digits,
+                                                                        formatOptions)
+                                          })
 
                ## Make all variables strings (if freq is an integer, direct convert is ok)
                DF[] <- lapply(X = DF, FUN = as.character)
