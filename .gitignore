@@ -6,3 +6,5 @@
 *.tar.gz
 *.Rcheck
 revdep
+doc
+Meta

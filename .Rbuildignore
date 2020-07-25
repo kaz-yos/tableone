@@ -22,3 +22,5 @@ tests/testthat/ref-*
 cran-check.txt
 ## Travis-CI
 ^\.travis\.yml$
+^doc$
+^Meta$
