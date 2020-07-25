@@ -25,6 +25,7 @@
   exact = NULL,
   nonnormal = NULL,
   minMax = FALSE,
+  formatOptions = list(scientific = FALSE),
   ...
 )
 }
@@ -68,6 +69,8 @@
 \item{nonnormal}{A character vector to specify the variables for which the p-values should be those of nonparametric tests. By default all p-values are from normal assumption-based tests (oneway.test).}
 
 \item{minMax}{Whether to use [min,max] instead of [p25,p75] for nonnormal variables. The default is FALSE.}
+
+\item{formatOptions}{A list of options, which will be passed to \code{\link[base]{format}}. Can be used to modify the \code{big.mark}, \code{decimal.mark}, \code{big.interval} etc. The default is \code{list(scientific = FALSE)}. The options digits, nsmall, justify and trim are not available. (Experimental)}
 
 \item{...}{For compatibility with generic. Ignored.}
 }

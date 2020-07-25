@@ -15,6 +15,7 @@
 ##' @param insertLevel Whether to add an empty level column to the left of strata.
 ##' @param test Whether to show p-values. TRUE by default. If FALSE, only the numerical summaries are shown.
 ##' @param smd Whether to show standardized mean differences. FALSE by default. If there are more than one contrasts, the average of all possible standardized mean differences is shown. For individual contrasts, use \code{summary}.
+##' @param formatOptions A list of options, which will be passed to \code{\link[base]{format}}. Can be used to modify the \code{big.mark}, \code{decimal.mark}, \code{big.interval} etc. The default is \code{list(scientific = FALSE)}. The options digits, nsmall, justify and trim are not available. (Experimental)
 ##' @param ... For compatibility with generic. Ignored.
 ##' @return A matrix object containing what you see is also invisibly returned. This can be assinged a name and exported via \code{write.csv}.
 ##' @author Kazuki Yoshida
@@ -43,6 +44,7 @@ function(x,                       # ContTable object
 
          smd          = FALSE,    # Whether to add standardized mean differences
 
+         formatOptions= list(scientific = FALSE),     # Options for formatting
          ...) {
 
     ## x and ... required to be consistent with generic print(x, ...)
@@ -74,6 +76,11 @@ function(x,                       # ContTable object
         stop("The object does not contain all necessary statistics. Use summary() method.")
     }
 
+    ## Set FormatOptions, delete reserved options
+    formatOptions$digits  <- digits
+    formatOptions$nsmall  <- digits
+    formatOptions$justify <- NULL
+    formatOptions$trim    <- NULL
 
     ## Obtain the strata sizes in a character vector. This has to be obtained from the original data
     ## Added as the top row later
@@ -85,24 +92,35 @@ function(x,                       # ContTable object
                           ## Pick the first non-null element
                           n[!is.null(n)][1]
                           ## Convert NULL to 0
-                          ifelse(is.null(n),
-                                 "0",
-                                 sprintf(fmt = paste0("%.", digits, "f"), n))
+                          n <- ifelse(is.null(n), "0", n)
+                          ## Format n
+                          n <- round(n, digits = digits)
+                          n <- do.call(base::format, c(list(x = n,
+                                                            trim = TRUE),
+                                                       formatOptions
+                                                       )
+                                       )
+                          ## return as string
+                          as.character(n)
                       },
                       simplify = TRUE) # vector with as many elements as strata
 
 
 ### Conversion of data for printing
+    formatOptions$digits  <- as.integer(digits)
+    formatOptions$nsmall  <- as.integer(digits)
+    formatOptions$justify <- NULL
+    formatOptions$trim    <- NULL
 
     ## Define the nonnormal formatter depending on the minMax status
     ConvertNormal <- function(rowMat) {
         ## Take minMax value from outside (NOT A STANDALONE FUNCTION!!)
-        ModuleConvertNormal(rowMat, digits)
+        ModuleConvertNormal(rowMat, digits = digits, formatOptions = formatOptions)
     }
     ## Define the nonnormal formatter depending on the minMax status
     ConvertNonNormal <- function(rowMat) {
         ## Take minMax value from outside (NOT A STANDALONE FUNCTION!!)
-        ModuleConvertNonNormal(rowMat, digits, minMax = minMax)
+        ModuleConvertNonNormal(rowMat, digits = digits, minMax = minMax, formatOptions = formatOptions)
     }
 
     ## Create a list of these two functions
@@ -115,7 +133,7 @@ function(x,                       # ContTable object
     out <- ModuleContFormatStrata(ContTable       = ContTable,
                                   nVars           = nVars,
                                   listOfFunctions = listOfFunctions,
-                                  digits          = digits)
+                                  formatOptions   = formatOptions)
 
 
 ### Obtain the original column width in characters for alignment in print.TableOne
@@ -151,7 +169,8 @@ function(x,                       # ContTable object
         ## Pick the p-values requested, and format like <0.001
         pVec <- ModulePickAndFormatPValues(TableObject = ContTable,
                                            switchVec   = nonnormal,
-                                           pDigits     = pDigits)
+                                           pDigits     = pDigits, 
+                                           formatOptions = formatOptions)
 
         ## Column combine with the output
         out <- cbind(out, p = pVec)
@@ -173,7 +192,7 @@ function(x,                       # ContTable object
                      SMD = rep("", nrow(out))) # Column for p-values
         ## Put the values at the non-empty positions
         out[,"SMD"] <- ModuleFormatPValues(attr(ContTable, "smd")[,1],
-                                           pDigits = pDigits)
+                                           pDigits = pDigits, formatOptions = formatOptions)
     }
 
 
@@ -184,7 +203,8 @@ function(x,                       # ContTable object
         out <- cbind(out,
                      Missing = rep("", nrow(out))) # Column for p-values
         ## Put the values
-        out[,"Missing"] <- ModuleFormatPercents(attr(ContTable, "percentMissing"), 1)
+        out[,"Missing"] <- ModuleFormatPercents(attr(ContTable, "percentMissing"),
+                                                digits = 1, formatOptions = formatOptions)
     }
 
 

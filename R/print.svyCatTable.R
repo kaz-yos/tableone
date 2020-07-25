@@ -18,6 +18,7 @@
 ##' @param exact This option is not available for tables from weighted data.
 ##' @param smd Whether to show standardized mean differences. FALSE by default. If there are more than one contrasts, the average of all possible standardized mean differences is shown. For individual contrasts, use \code{summary}.
 ##' @param CrossTable Whether to show the cross table objects held internally using gmodels::CrossTable function. This will give an output similar to the PROC FREQ in SAS.
+##' @param formatOptions A list of options, which will be passed to \code{\link[base]{format}}. Can be used to modify the \code{big.mark}, \code{decimal.mark}, \code{big.interval} etc. The default is \code{list(scientific = FALSE)}. The options digits, nsmall, justify and trim are not available. (Experimental)
 ##' @param ... For compatibility with generic. Ignored.
 ##' @return A matrix object containing what you see is also invisibly returned. This can be assinged a name and exported via \code{write.csv}.
 ##' @author Kazuki Yoshida
@@ -50,6 +51,7 @@ function(x,                        # CatTable object
 
          CrossTable    = FALSE,    # Whether to show gmodels::CrossTable
 
+         formatOptions = list(scientific = FALSE),     # Options for formatting
          ...) {
 
     ## x and ... required to be consistent with generic print(x, ...)
@@ -81,7 +83,13 @@ function(x,                        # CatTable object
         warning("format only accepts one of fp, f, p, or pf. Choosing fp.")
         format <- "fp"
     }
-
+    
+    ## Set FormatOptions, delete reserved options
+    formatOptions$digits  <- digits
+    formatOptions$nsmall  <- digits
+    formatOptions$justify <- NULL
+    formatOptions$trim    <- NULL
+    
     ## Obtain the strata sizes in a character vector. This has to be obtained from the original data
     ## Added as the top row later
     strataN <- sapply(CatTable,
@@ -92,9 +100,16 @@ function(x,                        # CatTable object
                           ## Pick the first non-null element
                           n[!is.null(n)][1]
                           ## Convert NULL to 0
-                          ifelse(is.null(n),
-                                 "0",
-                                 sprintf(fmt = paste0("%.", digits, "f"), n))
+                          n <- ifelse(is.null(n), "0", n)
+                          ## Format n
+                          n <- round(n, digits = digits)
+                          n <- do.call(base::format, c(list(x = n,
+                                                            trim = TRUE),
+                                                       formatOptions
+                                                       )
+                                       )
+                          ## return as string
+                          as.character(n)
                       },
                       simplify = TRUE) # vector with as many elements as strata
 
@@ -112,7 +127,8 @@ function(x,                        # CatTable object
                           varsToFormat  = varsToFormat,
                           cramVars      = cramVars,
                           dropEqual     = dropEqual,
-                          showAllLevels = showAllLevels)
+                          showAllLevels = showAllLevels,
+                          formatOptions = formatOptions)
 
 
 ### Obtain the original column width in characters for alignment in print.TableOne
@@ -173,9 +189,10 @@ function(x,                        # CatTable object
         testTypes <- c("","exact")[exact]
 
         ## Pick the p-values requested, and format like <0.001
-        pVec <- ModulePickAndFormatPValues(TableObject = CatTable,
-                                           switchVec   = exact,
-                                           pDigits     = pDigits)
+        pVec <- ModulePickAndFormatPValues(TableObject   = CatTable,
+                                           switchVec     = exact,
+                                           pDigits       = pDigits,
+                                           formatOptions = formatOptions)
 
         ## Create an empty p-value column and test column
         out <- cbind(out,
@@ -200,7 +217,9 @@ function(x,                        # CatTable object
                      SMD = rep("", nrow(out))) # Column for p-values
         ## Put the values at the non-empty positions
         out[logiNonEmptyRowNames,"SMD"] <-
-        ModuleFormatPValues(attr(CatTable, "smd")[,1], pDigits = pDigits)
+        ModuleFormatPValues(attr(CatTable, "smd")[,1], 
+                            pDigits = pDigits,
+                            formatOptions   = formatOptions)
     }
 
 
@@ -211,7 +230,8 @@ function(x,                        # CatTable object
         out <- cbind(out,
                      Missing = rep("", nrow(out))) # Column for p-values
         ## Put the values at the non-empty positions
-        out[logiNonEmptyRowNames,"Missing"] <- ModuleFormatPercents(attr(CatTable, "percentMissing"), 1)
+        out[logiNonEmptyRowNames,"Missing"] <- ModuleFormatPercents(attr(CatTable, "percentMissing"),
+                                                                    digits = 1, formatOptions   = formatOptions)
     }
 
 

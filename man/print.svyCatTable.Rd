@@ -21,6 +21,7 @@
   exact = NULL,
   smd = FALSE,
   CrossTable = FALSE,
+  formatOptions = list(scientific = FALSE),
   ...
 )
 }
@@ -56,6 +57,8 @@
 \item{smd}{Whether to show standardized mean differences. FALSE by default. If there are more than one contrasts, the average of all possible standardized mean differences is shown. For individual contrasts, use \code{summary}.}
 
 \item{CrossTable}{Whether to show the cross table objects held internally using gmodels::CrossTable function. This will give an output similar to the PROC FREQ in SAS.}
+
+\item{formatOptions}{A list of options, which will be passed to \code{\link[base]{format}}. Can be used to modify the \code{big.mark}, \code{decimal.mark}, \code{big.interval} etc. The default is \code{list(scientific = FALSE)}. The options digits, nsmall, justify and trim are not available. (Experimental)}
 
 \item{...}{For compatibility with generic. Ignored.}
 }

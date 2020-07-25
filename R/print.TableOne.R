@@ -22,6 +22,7 @@
 ##' @param exact A character vector to specify the variables for which the p-values should be those of exact tests. By default all p-values are from large sample approximation tests (chisq.test).
 ##' @param nonnormal A character vector to specify the variables for which the p-values should be those of nonparametric tests. By default all p-values are from normal assumption-based tests (oneway.test).
 ##' @param minMax Whether to use [min,max] instead of [p25,p75] for nonnormal variables. The default is FALSE.
+##' @param formatOptions A list of options, which will be passed to \code{\link[base]{format}}. Can be used to modify the \code{big.mark}, \code{decimal.mark}, \code{big.interval} etc. The default is \code{list(scientific = FALSE)}. The options digits, nsmall, justify and trim are not available. (Experimental)
 ##' @param ... For compatibility with generic. Ignored.
 ##' @return A matrix object containing what you see is also invisibly returned. This can be assinged a name and exported via \code{write.csv}.
 ##' @author Kazuki Yoshida, Justin Bohn
@@ -58,6 +59,7 @@ function(x,                   # TableOne object
          nonnormal     = NULL,  # Which variables should be treated as nonnormal
          minMax        = FALSE, # Whether to show median
 
+         formatOptions = list(scientific = FALSE), # Options for formatting
          ...) {
 
     ## Extract Cont/CatTable elements of x and dispatch print() appropriately
@@ -75,7 +77,10 @@ function(x,                   # TableOne object
 
                                     ## print.ContTable arguments passed
                                     nonnormal = nonnormal, minMax = minMax,
-                                    insertLevel = showAllLevels)
+                                    insertLevel = showAllLevels,
+                                    
+                                    ## FormatOptions passed
+                                    formatOptions = formatOptions)
 
     ## List of stratum sample size row only tables
     FmtStratumSizesTables <- sapply(FmtTables,

@@ -64,23 +64,34 @@ ModuleCreateStrataNames <- function(TableObject) {
 }
 
 
-## Percentage formatter
-ModuleFormatPercents <- function(percents, digits) {
-
-    fmt <- paste0("%.", digits, "f")
-    out <- sprintf(fmt = fmt, percents)
-
-    ## right justify by adding spaces
-    format(out, justify = "right")
+## Percentage formatter for Missing %
+ModuleFormatPercents <- function(percents, digits, formatOptions = NULL) {
+    
+    # Reset decimal places
+    formatOptions$digits  <- digits
+    formatOptions$nsmall  <- digits
+    
+    ## Format p value, 
+    ## format uses significant digits logic, so rounding is needed first
+    pVec <- round(percents, digits = digits)
+    pVec <- do.call(format, c(list(x = percents),
+                              list(justify = "right"), 
+                              formatOptions))
+    
 }
 
 
 ## p-value formatter
-ModuleFormatPValues <- function(pValues, pDigits) {
+ModuleFormatPValues <- function(pValues, pDigits, formatOptions = NULL) {
 
-    ## Format p value
-    fmt  <- paste0("%.", pDigits, "f")
-    pVec <- sprintf(fmt = fmt, pValues)
+    # Reset decimal places
+    formatOptions$digits  <- pDigits
+    formatOptions$nsmall  <- pDigits
+    
+    ## Format p value, 
+    ## format uses significant digits logic, so rounding is needed first
+    pVec <- round(pValues, digits = pDigits)
+    pVec <- do.call(format, c(list(x = pVec), formatOptions))
 
     ## Create a string like <0.001
     smallPString       <- paste0("<0.", paste0(rep("0", pDigits - 1), collapse = ""), "1")
@@ -97,8 +108,8 @@ ModuleFormatPValues <- function(pValues, pDigits) {
 
 
 ## p-value picker/formatter
-ModulePickAndFormatPValues <- function(TableObject, switchVec, pDigits) {
-
+ModulePickAndFormatPValues <- function(TableObject, switchVec, pDigits, formatOptions = NULL) {
+    
     ## nVarsiables x 2 (pNormal,pNonNormal) data frame
     pValues <- attr(TableObject, "pValues")
 
@@ -113,7 +124,7 @@ ModulePickAndFormatPValues <- function(TableObject, switchVec, pDigits) {
 
     ## Return formatted p-values (as many as there are variables)
     ## e.g. <0.001 if too small to show
-    ModuleFormatPValues(pValues, pDigits)
+    ModuleFormatPValues(pValues, pDigits, formatOptions)
 }
 
 
@@ -220,32 +231,34 @@ ModuleQuoteAndPrintMat <- function(matObj, quote = FALSE, printToggle = TRUE) {
 ################################################################################
 
 ## Define a function to format a normal variable
-ModuleConvertNormal <- function(rowMat, digits) {
-
-    ## Format for SD
-    fmt <- paste0(" (%.", digits,"f",")")
+ModuleConvertNormal <- function(rowMat, digits, formatOptions) {
 
     ## Create a DF with numeric mean column and character (SD) column
-    data.frame(col1 = rowMat[,"mean"],
-               col2 = sprintf(fmt = fmt, rowMat[,"sd"]),
+    ## Turn off trim, TODO: maybe add decimal adjustment later
+    data.frame(col1 = round(rowMat[,"mean"], digits = digits),
+               col2 = paste0(" (", do.call(format, c(list(x = round(rowMat[,"sd"], digits = digits), 
+                                                          trim = TRUE), formatOptions)),")"),
                stringsAsFactors = FALSE)
 }
 
 ## Define a function to format a nonnormal variable
-ModuleConvertNonNormal <- function(rowMat, digits, minMax = FALSE) {
-
-    ## Format for [p25, p75]
-    fmt <- paste0(" [%.", digits,"f, %.",digits,"f]")
+ModuleConvertNonNormal <- function(rowMat, digits, minMax = FALSE, formatOptions) {
 
     if (minMax == FALSE) {
         ## Create a DF with numeric median column and character [p25, p75] column
-        out <- data.frame(col1 = rowMat[,"median"],
-                          col2 = sprintf(fmt = fmt, rowMat[,"p25"], rowMat[,"p75"]),
+        out <- data.frame(col1 = round(rowMat[,"median"], digits = digits),
+                          col2 = paste0(" [", do.call(format, c(list(x = round(rowMat[,"p25"], digits = digits), 
+                                                                     trim = TRUE), formatOptions)),
+                                        ", ", do.call(format, c(list(x = round(rowMat[,"p75"], digits = digits), 
+                                                                     trim = TRUE), formatOptions)), "]"),
                           stringsAsFactors = FALSE)
     } else if (minMax == TRUE) {
-        ## Create a DF with numeric median column and character [p25, p75] column
-        out <- data.frame(col1 = rowMat[,"median"],
-                          col2 = sprintf(fmt = fmt, rowMat[,"min"], rowMat[,"max"]),
+        ## Create a DF with numeric median column and character [min, max] column
+        out <- data.frame(col1 = round(rowMat[,"median"], digits = digits),
+                          col2 = paste0(" [", do.call(format, c(list(x = round(rowMat[,"min"], digits = digits), 
+                                                                     trim = TRUE), formatOptions)),
+                                        ", ", do.call(format, c(list(x = round(rowMat[,"max"], digits = digits), 
+                                                                     trim = TRUE), formatOptions)), "]"),
                           stringsAsFactors = FALSE)
     } else {
         stop("minMax must be a logical vector of one: FALSE or TRUE")
@@ -257,7 +270,7 @@ ModuleConvertNonNormal <- function(rowMat, digits, minMax = FALSE) {
 
 ## Module to loop over strata formatting continuous variables
 ## No variable level looping here as each stratum is a matrix of all variables
-ModuleContFormatStrata <- function(ContTable, nVars, listOfFunctions, digits) {
+ModuleContFormatStrata <- function(ContTable, nVars, listOfFunctions, digits, formatOptions) {
 
     ## Return a formatted table looping over strata
     sapply(ContTable,
@@ -291,11 +304,13 @@ ModuleContFormatStrata <- function(ContTable, nVars, listOfFunctions, digits) {
                    ## nx2 data frame by row binding multiple 1-row data frames
                    out <- do.call(rbind, out)
 
-                   ## Format for decimals
-                   out$col1 <- sprintf(fmt = paste0("%.", digits, "f"), out$col1)
-
+                   ## Format decimal places and decimal mark (+ additonal format options)
                    ## right justify by adding spaces (to align at the decimal point of mean/median)
-                   out$col1 <- format(out$col1, justify = "right")
+                   out$col1 <- do.call(format, c(list(x = out$col1),
+                                                 list(justify = "right"),
+                                                 formatOptions
+                                                 )
+                                       )
 
                    ## Obtain the width of the mean/median column in characters
                    nCharMeanOrMedian <- nchar(out$col1[1])
@@ -321,7 +336,7 @@ ModuleContFormatStrata <- function(ContTable, nVars, listOfFunctions, digits) {
 ################################################################################
 
 ## Module to loop over variables within a stratum formatting categorical variables
-ModuleCatFormatVariables <- function(lstVars, varsToFormat, fmt, level, cramVars, dropEqual, showAllLevels) {
+ModuleCatFormatVariables <- function(lstVars, varsToFormat, digits, level, cramVars, dropEqual, showAllLevels, formatOptions) {
 
     ## Loop over variables within a stratum
     ## Each list element is a data frame summarizing levels
@@ -342,8 +357,16 @@ ModuleCatFormatVariables <- function(lstVars, varsToFormat, fmt, level, cramVars
 
                ## Format percent and cum.percent as strings
                DF[varsToFormat] <- lapply(X = DF[varsToFormat],
-                                          FUN = sprintf,
-                                          fmt = fmt)
+                                          FUN = function(x, digits, formatOptions) {
+                                            x = round(x, digits = digits)
+                                            do.call(format, c(list(x = x,
+                                                                   trim = TRUE),
+                                                              formatOptions
+                                                              )
+                                                    )
+                                          } ,
+                                          digits = digits,
+                                          formatOptions = formatOptions)
 
                ## Make all variables strings (if freq is an integer, direct convert is ok)
                DF[] <- lapply(X = DF, FUN = as.character)
@@ -414,10 +437,7 @@ ModuleCatFormatVariables <- function(lstVars, varsToFormat, fmt, level, cramVars
 
 
 ## Module to loop over strata formatting categorical variables
-ModuleCatFormatStrata <- function(CatTable, digits, varsToFormat, cramVars, dropEqual, showAllLevels) {
-
-    ## Create format for percent used in the loop
-    fmt1 <- paste0("%.", digits, "f")
+ModuleCatFormatStrata <- function(CatTable, digits, varsToFormat, cramVars, dropEqual, showAllLevels, formatOptions = NULL) {
 
     ## Obtain collpased result
     CatTableCollapsed <-
@@ -433,10 +453,11 @@ ModuleCatFormatStrata <- function(CatTable, digits, varsToFormat, cramVars, drop
                    lstVarsFormatted <-
                    ModuleCatFormatVariables(lstVars       = lstVars,
                                             varsToFormat  = varsToFormat,
-                                            fmt           = fmt1,
+                                            digits        = digits,
                                             cramVars      = cramVars,
                                             dropEqual     = dropEqual,
-                                            showAllLevels = showAllLevels)
+                                            showAllLevels = showAllLevels,
+                                            formatOptions = formatOptions)
 
 
                    ## Collapse DFs within each stratum
@@ -637,7 +658,8 @@ ModuleFormatTables <- function(x, catDigits, contDigits,
                                format, exact,
                                showAllLevels, cramVars, dropEqual,
                                ## print.ContTable arguments passed
-                               nonnormal, minMax, insertLevel
+                               nonnormal, minMax, insertLevel,
+                               formatOptions
                                ) {
 
     ## Two-element list(ContTable, CatTable)
@@ -686,7 +708,10 @@ ModuleFormatTables <- function(x, catDigits, contDigits,
                      dropEqual = dropEqual,
 
                      ## print.ContTable arguments passed
-                     nonnormal = nonnormal, minMax = minMax, insertLevel = showAllLevels
+                     nonnormal = nonnormal, minMax = minMax, insertLevel = showAllLevels,
+                     
+                     ## formatOptions passed
+                     formatOptions = formatOptions
                      )  # Method dispatch at work
            },
            simplify = FALSE)
