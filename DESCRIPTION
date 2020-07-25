@@ -1,12 +1,12 @@
 Package: tableone
 Type: Package
 Title: Create 'Table 1' to Describe Baseline Characteristics with or without Propensity Score Weights
-Version: 0.11.2
-Date: 2020-07-13
+Version: 0.12.0
+Date: 2020-07-25
 Authors@R: c(
     # http://r-pkgs.had.co.nz/description.html#author
     person('Kazuki', 'Yoshida', email = 'kazukiyoshida@mail.harvard.edu', role = c('cre','aut'), comment = c(ORCID = '0000-0002-2030-3549')),
-    person('Alexander', 'Bartel', role = 'ctb', comment = c(ORCID = '0000-0002-1280-6138')),
+    person('Alexander', 'Bartel', role = c('ctb','aut'), comment = c(ORCID = '0000-0002-1280-6138')),
     person('Jonathan', 'J Chipman', role = 'ctb'),
     person('Justin', 'Bohn', role = 'ctb'),
     person('Lucy', 'DAgostino McGowan', role = 'ctb'),
