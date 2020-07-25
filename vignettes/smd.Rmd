@@ -1,7 +1,7 @@
 ---
 title: "Using standardized mean differences"
 author: "Kazuki Yoshida"
-date: "2015-08-07"
+date: "2020-07-25"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Using standardized mean differences}
@@ -93,6 +93,7 @@ Usually a logistic regression model is used to estimate individual propensity sc
 
 ```{r}
 
+rhc$swang1 <- factor(rhc$swang1, levels = c("No RHC", "RHC"))
 ## Fit model
 psModel <- glm(formula = swang1 ~ age + sex + race + edu + income + ninsclas +
                          cat1 + das2d3pc + dnr1 + ca + surv2md1 + aps1 + scoma1 +
@@ -171,6 +172,27 @@ addmargins(table(ExtractSmd(tabWeighted) > 0.1))
 ```
 
 
+## Propensity score overlap weight
+
+The overlap weight method is another alternative weighitng method (https://amstat.tandfonline.com/doi/abs/10.1080/01621459.2016.1260466). After weighting, all the standardized mean differences are below 0.1.
+
+```{r}
+
+## Overlap weight
+rhc$ow <- (rhc$pAssign * (1 - rhc$pAssign)) / rhc$pAssign
+## Weighted data
+rhcSvyOw <- svydesign(ids = ~ 1, data = rhc, weights = ~ ow)
+
+## Construct a table (This is a bit slow.)
+tabWeightedOw <- svyCreateTableOne(vars = vars, strata = "swang1", data = rhcSvyOw, test = FALSE)
+## Show table with SMD
+print(tabWeightedOw, smd = TRUE)
+## Count covariates with important imbalance
+addmargins(table(ExtractSmd(tabWeightedOw) > 0.1))
+
+```
+
+
 ## Assessing balance before and after matching/weighting
 
 A plot showing covariate balance is often constructed to demonstrate the balancing effect of matching and/or weighting. Given the same propensity score model, the matching weight method often achieves better covariate balance than matching.
@@ -178,10 +200,11 @@ A plot showing covariate balance is often constructed to demonstrate the balanci
 ```{r}
 
 ## Construct a data frame containing variable name and SMD from all methods
-dataPlot <- data.frame(variable  = names(ExtractSmd(tabUnmatched)),
-                       Unmatched = ExtractSmd(tabUnmatched),
-                       Matched   = ExtractSmd(tabMatched),
-                       Weighted  = ExtractSmd(tabWeighted))
+dataPlot <- data.frame(variable  = rownames(ExtractSmd(tabUnmatched)),
+                       Unmatched = as.numeric(ExtractSmd(tabUnmatched)),
+                       Matched   = as.numeric(ExtractSmd(tabMatched)),
+                       Weighted  = as.numeric(ExtractSmd(tabWeighted)),
+                       WeightedOw = as.numeric(ExtractSmd(tabWeightedOw)))
 
 ## Create long-format data for ggplot2
 dataPlotMelt <- melt(data          = dataPlot,
@@ -197,13 +220,13 @@ dataPlotMelt$variable <- factor(dataPlotMelt$variable,
                                 levels = varNames)
 
 ## Plot using ggplot2
-ggplot(data = dataPlotMelt, mapping = aes(x = variable, y = SMD,
-                                          group = Method, color = Method)) +
-geom_line() +
-geom_point() +
-geom_hline(yintercept = 0.1, color = "black", size = 0.1) +
-coord_flip() +
-theme_bw() + theme(legend.key = element_blank())
+ggplot(data = dataPlotMelt,
+       mapping = aes(x = variable, y = SMD, group = Method, color = Method)) +
+    geom_line() +
+    geom_point() +
+    geom_hline(yintercept = 0.1, color = "black", size = 0.1) +
+    coord_flip() +
+    theme_bw() + theme(legend.key = element_blank())
 
 ```
 
@@ -214,11 +237,12 @@ To construct a side-by-side table, data can be extracted as a matrix and combine
 ## Column bind tables
 resCombo <- cbind(print(tabUnmatched, printToggle = FALSE),
                   print(tabMatched,   printToggle = FALSE),
-                  print(tabWeighted,  printToggle = FALSE))
+                  print(tabWeighted,  printToggle = FALSE),
+                  print(tabWeightedOw,  printToggle = FALSE))
 
 ## Add group name row, and rewrite column names
 resCombo <- rbind(Group = rep(c("No RHC","RHC"), 3), resCombo)
-colnames(resCombo) <- c("Unmatched","","Matched","","Weighted","")
+colnames(resCombo) <- c("Unmatched","","Matched","","MW","","OW","")
 print(resCombo, quote = FALSE)
 
 ```
