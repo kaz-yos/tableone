@@ -251,6 +251,7 @@ test_that("printing of a svyTableOne object does not regress", {
     expect_equal_to_reference(print(mwCatOnlyByEC1),
                               "ref/ref-svyTableOne_CatOnly.rds")
 
+    ## Regression tests for addOverall
     expect_equal_to_reference(print(mwByE_addOverall, printToggle = TRUE, test = TRUE, smd = TRUE),
                               "ref/ref-svyTableOne_addOverall.rds")
 
@@ -262,6 +263,26 @@ test_that("printing of a svyTableOne object does not regress", {
     } else {
         expect_equal_to_reference(print(mwByEC1_addOverall, printToggle = TRUE, test = TRUE, smd = TRUE),
                                   "ref/ref-svyTableOne_2StrataVars_addOverall.rds")
+    }
+
+    ## Regression tests for formatOptions
+    expect_equal_to_reference(
+        print(mwByE_addOverall, printToggle = TRUE, test = TRUE, smd = TRUE,
+              formatOptions = list(big.mark = ",", big.interval = 2, decimal.mark = "D")),
+        "ref/ref-svyTableOne_addOverall_formatOptions.rds")
+
+    ## 2020-02-29 Error due to solve() behavior change in R 3.6.2.
+    if (as.numeric(R.Version()$major) >= 3 & as.numeric(R.Version()$minor) == 6.2 |
+        as.numeric(R.Version()$major) >= 4) {
+        expect_equal_to_reference(
+            print(mwByEC1_addOverall, printToggle = TRUE, test = TRUE, smd = TRUE,
+                  formatOptions = list(big.mark = ",", big.interval = 2, decimal.mark = "D")),
+            "ref/ref-svyTableOne_2StrataVars_addOverall_new_formatOptions.rds")
+    } else {
+        expect_equal_to_reference(
+            print(mwByEC1_addOverall, printToggle = TRUE, test = TRUE, smd = TRUE,
+                  formatOptions = list(big.mark = ",", big.interval = 2, decimal.mark = "D")),
+            "ref/ref-svyTableOne_2StrataVars_addOverall_formatOptions.rds")
     }
 
 })
