@@ -1,0 +1,24 @@
+                Stratified by E:C1
+                 Overall         1:0             2:0            
+  n              4,50D02         1,00D01         1,00D00        
+  E (mean (SD))     2D00 (0D82)     1D00 (0D00)     2D00 (0D00) 
+  C (mean (SD))     2D13 (0D88)     1D60 (0D49)     1D60 (0D49) 
+  Y = 1 (%)       1,77D0 (39D4)     22D0 (22D1)     22D0 (22D0) 
+  C1 = 1 (%)      1,50D0 (33D3)      0D0 ( 0D0)      0D0 ( 0D0) 
+  C2 (mean (SD))    0D47 (0D50)     0D60 (0D49)     0D60 (0D49) 
+                Stratified by E:C1
+                 3:0             1:1             2:1            
+  n              1,00D00         50D00           50D00          
+  E (mean (SD))     3D00 (0D00)   1D00 (0D00)     2D00 (0D00)   
+  C (mean (SD))     1D60 (0D49)   3D20 (0D40)     3D20 (0D40)   
+  Y = 1 (%)         22D0 (22D0)   37D0 (  74D0)   37D0 (  74D0) 
+  C1 = 1 (%)         0D0 ( 0D0)   50D0 (1,00D0)   50D0 (1,00D0) 
+  C2 (mean (SD))    0D60 (0D49)   0D20 (0D40)     0D20 (0D40)   
+                Stratified by E:C1
+                 3:1             p      test SMD   
+  n              50D00                             
+  E (mean (SD))   3D00 (0D00)        NA         Inf
+  C (mean (SD))   3D20 (0D40)    <0D001       2D137
+  Y = 1 (%)       37D0 (  74D0)  <0D001       0D731
+  C1 = 1 (%)      50D0 (1,00D0)  <0D001         NaN
+  C2 (mean (SD))  0D20 (0D40)    <0D001       0D534

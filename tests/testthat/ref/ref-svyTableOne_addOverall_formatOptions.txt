@@ -1,0 +1,16 @@
+                Stratified by E
+                 Overall         1               2              
+  n              4,50D02         1,50D01         1,50D00        
+  E (mean (SD))     2D00 (0D82)     1D00 (0D00)     2D00 (0D00) 
+  C (mean (SD))     2D13 (0D88)     2D13 (0D89)     2D13 (0D89) 
+  Y = 1 (%)       1,77D0 (39D4)     59D0 (39D4)     59D0 (39D3) 
+  C1 = 1 (%)      1,50D0 (33D3)     50D0 (33D3)     50D0 (33D3) 
+  C2 (mean (SD))    0D47 (0D50)     0D47 (0D50)     0D47 (0D50) 
+                Stratified by E
+                 3               p      test SMD   
+  n              1,50D00                           
+  E (mean (SD))     3D00 (0D00)  <0D001         Inf
+  C (mean (SD))     2D13 (0D89)   1D000      <0D001
+  Y = 1 (%)         59D0 (39D3)   1D000       0D001
+  C1 = 1 (%)        50D0 (33D3)   1D000      <0D001
+  C2 (mean (SD))    0D47 (0D50)   1D000      <0D001
