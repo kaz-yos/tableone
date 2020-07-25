@@ -53,5 +53,5 @@ Create an object summarizing continous variables optionally stratifying by one o
 \code{\link{svyCreateTableOne}}, \code{\link{print.svyContTable}}, \code{\link{summary.svyContTable}},
 }
 \author{
-Kazuki Yoshida
+Kazuki Yoshida, Alexander Bartel
 }

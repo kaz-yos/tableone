@@ -37,7 +37,7 @@ Developmental repository is on github. Your contributions are appreciated.
 \code{\link{CreateTableOne}}, \code{\link{svyCreateTableOne}}, \code{\link{print.TableOne}}, \code{\link{summary.TableOne}}, \code{\link{ShowRegTable}}
 }
 \author{
-Kazuki Yoshida, Justin Bohn
+Kazuki Yoshida, Alexander Bartel, Jonathan J Chipman, Justin Bohn, Lucy DAgostino McGowan, Malcom Barrett, Rune Haubo B Christensen, gbouzill
 
 Maintainer: Kazuki Yoshida <kazukiyoshida@mail.harvard.edu>
 }

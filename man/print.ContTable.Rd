@@ -124,5 +124,5 @@ print(contTableBySexTrt, nonnormal = nonNormalVars, quote = TRUE, noSpaces = TRU
 \code{\link{CreateTableOne}}, \code{\link{CreateContTable}}, \code{\link{summary.ContTable}}
 }
 \author{
-Kazuki Yoshida
+Kazuki Yoshida, Alexander Bartel
 }

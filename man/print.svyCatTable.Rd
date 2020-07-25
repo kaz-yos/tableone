@@ -77,5 +77,5 @@ A matrix object containing what you see is also invisibly returned. This can be 
 \code{\link{svyCreateTableOne}}, \code{\link{svyCreateCatTable}}, \code{\link{summary.svyCatTable}}
 }
 \author{
-Kazuki Yoshida
+Kazuki Yoshida, Alexander Bartel
 }

@@ -50,5 +50,5 @@ Create an object summarizing categorical variables optionally stratifying by one
 \code{\link{svyCreateTableOne}}, \code{\link{print.svyCatTable}}, \code{\link{summary.svyCatTable}},
 }
 \author{
-Kazuki Yoshida
+Kazuki Yoshida, Alexander Bartel
 }

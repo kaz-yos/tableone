@@ -146,5 +146,5 @@ Austin, PC. and Stuart, EA. (2015). Moving towards best practice when using inve
 \code{\link{print.TableOne}}, \code{\link{summary.TableOne}}
 }
 \author{
-Kazuki Yoshida, Justin Bohn
+Kazuki Yoshida, Justin Bohn, Alexander Bartel
 }

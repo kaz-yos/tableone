@@ -89,5 +89,5 @@ A matrix object containing what you see is also invisibly returned. This can be 
 \code{\link{CreateTableOne}}, \code{\link{CreateTableOne}}, \code{\link{summary.TableOne}}
 }
 \author{
-Kazuki Yoshida, Justin Bohn
+Kazuki Yoshida, Justin Bohn, Alexander Bartel
 }

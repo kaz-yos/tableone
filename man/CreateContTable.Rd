@@ -113,5 +113,5 @@ print(contTableBySexTrt, nonnormal = nonNormalVars, quote = TRUE, noSpaces = TRU
 \code{\link{CreateTableOne}}, \code{\link{print.ContTable}}, \code{\link{summary.ContTable}}
 }
 \author{
-Kazuki Yoshida (based on \code{Deducer::descriptive.table()})
+Kazuki Yoshida (based on \code{Deducer::descriptive.table()}), Alexander Bartel
 }

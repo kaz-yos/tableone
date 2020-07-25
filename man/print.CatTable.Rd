@@ -132,5 +132,5 @@ print(catTableBySexTrt, exact = "ascites", quote = TRUE, noSpaces = TRUE)
 \code{\link{CreateTableOne}}, \code{\link{CreateCatTable}}, \code{\link{summary.CatTable}}
 }
 \author{
-Kazuki Yoshida
+Kazuki Yoshida, Alexander Bartel
 }

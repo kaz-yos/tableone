@@ -112,5 +112,5 @@ print(catTableBySexTrt, exact = "ascites", quote = TRUE, noSpaces = TRUE)
 \code{\link{CreateTableOne}}, \code{\link{print.CatTable}},  \code{\link{summary.CatTable}}
 }
 \author{
-Kazuki Yoshida (based on \code{Deducer::frequencies()})
+Kazuki Yoshida (based on \code{Deducer::frequencies()}), Alexander Bartel
 }
