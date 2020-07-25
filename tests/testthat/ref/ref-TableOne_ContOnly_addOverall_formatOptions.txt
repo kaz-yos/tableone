@@ -1,0 +1,12 @@
+                     Stratified by trt:sex
+                      Overall             1:m                 2:m                 1:f                
+  n                       4,18                  21                  15                1,37           
+  time (mean (SD))    19,17D78 (11,04D67) 17,93D48 (12,44D70) 21,56D33 (14,28D56) 20,49D67 (10,70D20)
+  age (mean (SD))        50D74 (10D45)       55D57 (12D61)       57D09 (10D07)       50D78 (10D65)   
+  protime (mean (SD))    10D73 (1D02)        10D84 (0D94)        11D23 (0D97)        10D62 (0D84)    
+                     Stratified by trt:sex
+                      2:f                 p      test SMD   
+  n                       1,39                              
+  time (mean (SD))    19,79D65 (11,27D52)  0D730       0D156
+  age (mean (SD))        47D66 (9D54)     <0D001       0D521
+  protime (mean (SD))    10D75 (1D15)      0D137       0D328
