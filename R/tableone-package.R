@@ -27,7 +27,7 @@
 ##'
 ##' \url{https://github.com/kaz-yos/tableone}
 ##'
-##' @author Kazuki Yoshida, Justin Bohn
+##' @author Kazuki Yoshida, Alexander Bartel, Jonathan J Chipman, Justin Bohn, Lucy DAgostino McGowan, Malcom Barrett, Rune Haubo B Christensen, gbouzill
 ##'
 ##' Maintainer: Kazuki Yoshida <kazukiyoshida@@mail.harvard.edu>
 ##' @seealso

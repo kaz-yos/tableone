@@ -15,7 +15,7 @@
 ##' @param smd If TRUE, as in the default and there are more than two groups, standardized mean differences for all pairwise comparisons are calculated.
 ##' @param addOverall (optional, only used if strata are supplied) Adds an overall column to the table. Smd and p-value calculations are performed using only the stratifed clolumns.
 ##' @return An object of class \code{ContTable}.
-##' @author Kazuki Yoshida (based on \code{Deducer::descriptive.table()})
+##' @author Kazuki Yoshida (based on \code{Deducer::descriptive.table()}), Alexander Bartel
 ##' @seealso
 ##' \code{\link{CreateTableOne}}, \code{\link{print.ContTable}}, \code{\link{summary.ContTable}}
 ##' @examples

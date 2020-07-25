@@ -32,7 +32,7 @@
 ##' @references Li, L. and Greene, T. (2013). A weighting analogue to pair matching in propensity score analysis. \emph{International Journal of Biostatistics}, \bold{9}, 215-234.
 ##' @references Austin, PC. and Stuart, EA. (2015). Moving towards best practice when using inverse probability of treatment weighting (IPTW) using the propensity score to estimate causal treatment effects in observational studies. \emph{Statistics in Medicine}, Online on August 3, 2015.
 ##'
-##' @author Kazuki Yoshida, Justin Bohn
+##' @author Kazuki Yoshida, Justin Bohn, Alexander Bartel
 ##' @seealso
 ##' \code{\link{print.TableOne}}, \code{\link{summary.TableOne}}
 ##' @examples

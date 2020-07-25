@@ -21,7 +21,7 @@
 ##' @param formatOptions A list of options, which will be passed to \code{\link[base]{format}}. Can be used to modify the \code{big.mark}, \code{decimal.mark}, \code{big.interval} etc. The default is \code{list(scientific = FALSE)}. The options digits, nsmall, justify and trim are not available. (Experimental)
 ##' @param ... For compatibility with generic. Ignored.
 ##' @return A matrix object containing what you see is also invisibly returned. This can be assinged a name and exported via \code{write.csv}.
-##' @author Kazuki Yoshida
+##' @author Kazuki Yoshida, Alexander Bartel
 ##' @seealso
 ##' \code{\link{CreateTableOne}}, \code{\link{CreateCatTable}}, \code{\link{summary.CatTable}}
 ##' @examples
