@@ -1,7 +1,7 @@
 ---
 title: "Introduction to tableone"
 author: "Kazuki Yoshida"
-date: "2014-12-28"
+date: "2020-07-25"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Introduction to tableone}
@@ -77,7 +77,7 @@ tab2
 If you want to show all levels, you can use showAllLevels argument to the print() method.
 
 ```{r}
-print(tab2, showAllLevels = TRUE)
+print(tab2, showAllLevels = TRUE, formatOptions = list(big.mark = ","))
 ```
 
 ### Detailed information including missingness
@@ -94,7 +94,7 @@ It looks like most of the continuous variables are highly skewed except time, ag
 
 ```{r}
 biomarkers <- c("bili","chol","copper","alk.phos","ast","trig","protime")
-print(tab2, nonnormal = biomarkers)
+print(tab2, nonnormal = biomarkers, formatOptions = list(big.mark = ","))
 ```
 
 ### Fine tuning
@@ -108,7 +108,7 @@ Often you want to group patients and summarize group by group. It's also pretty 
 
 ```{r}
 tab3 <- CreateTableOne(vars = myVars, strata = "trt" , data = pbc, factorVars = catVars)
-tab3
+print(tab3, nonnormal = biomarkers, formatOptions = list(big.mark = ","))
 ```
 
 ### Testing
@@ -130,7 +130,7 @@ My typical next step is to export the table to Excel for editing, and then to Wo
 
 ### Quick and dirty way
 
-The quick and dirty way that I usually use is copy and paste. Use the quote = TRUE argument to show the quotes and noSpaces = TRUE to remove spaces used to align text in the R console (the latter is optional). Now you can just copy and paste the whole thing to an Excel spread sheet. After pasting, click the small pasting icon to choose Use Text Import Wizard..., in the dialogue you can just click finish to fit the values in the appropriate cells. Then you can edit or re-align things as you like. I usualy center-align the group summaries, and right-aligh the p-values.
+The quick and dirty way that I used to do is copy and paste. Use the quote = TRUE argument to show the quotes and noSpaces = TRUE to remove spaces used to align text in the R console (the latter is optional). Now you can just copy and paste the whole thing to an Excel spread sheet. After pasting, click the small pasting icon to choose Use Text Import Wizard..., in the dialogue you can just click finish to fit the values in the appropriate cells. Then you can edit or re-align things as you like. I usualy center-align the group summaries, and right-aligh the p-values.
 
 ```{r}
 print(tab3, nonnormal = biomarkers, exact = "stage", quote = TRUE, noSpaces = TRUE)
