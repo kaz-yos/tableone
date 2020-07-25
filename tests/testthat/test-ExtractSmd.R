@@ -86,7 +86,7 @@ test_that("ExtractSmd work on unweighted data", {
 
     ## Regression test
     expect_equal_to_reference(ExtractSmd(pbcByTrtSex),
-                              "ref-ExtractSmd_TableOne")
+                              "ref/ref-ExtractSmd_TableOne.rds")
 
 })
 
@@ -125,6 +125,6 @@ test_that("ExtractSmd work on weighted data", {
 
     ## Regression test
     expect_equal_to_reference(ExtractSmd(nhanesByRace),
-                              "ref-ExtractSmd_svyTableOne")
+                              "ref/ref-ExtractSmd_svyTableOne.rds")
 
 })
