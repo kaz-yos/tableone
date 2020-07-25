@@ -417,6 +417,93 @@ test_that("printing of a svyTableOne$ContTable object do not regress", {
     }
 })
 
+test_that("printing of a svyTableOne object does not regress (readable)", {
+
+    ## Expectations
+    expect_known_output(print(mwByE, printToggle = TRUE),
+                        "ref/ref-svyTableOne_defaultPrint.txt")
+
+    expect_known_output(print(mwOverall, printToggle = TRUE),
+                        "ref/ref-svyTableOne_overallPrint.txt")
+
+    expect_known_output(print(mwInclNa, printToggle = TRUE),
+                        "ref/ref-svyTableOne_IncludeNA.txt")
+
+    ## 2020-02-29 Error due to solve() behavior change in R 3.6.2.
+    if (logical_na_expected) {
+        expect_known_output(print(mwByEC1, printToggle = TRUE),
+                            "ref/ref-svyTableOne_2StrataVars_na.txt")
+    } else {
+        expect_known_output(print(mwByEC1, printToggle = TRUE),
+                            "ref/ref-svyTableOne_2StrataVars.txt")
+    }
+
+    expect_known_output(print(mwByE, catDigits = 3, contDigits = 4, pDigits = 5, printToggle = TRUE),
+                        "ref/ref-svyTableOne_digits.txt")
+
+    expect_known_output(print(mwByE, test = FALSE, printToggle = TRUE),
+                        "ref/ref-svyTableOne_noTests.txt")
+
+    expect_known_output(print(mwByE, nonnormal = nonnormalVars, exact = exactVars, printToggle = TRUE),
+                        "ref/ref-svyTableOne_nonnormal_exact.txt")
+
+    expect_known_output(print(mwByE, nonnormal = nonnormalVars, minMax = TRUE, printToggle = TRUE),
+                        "ref/ref-svyTableOne_nonnormal_minMax.txt")
+
+    expect_known_output(print(mwByE, catDigits = 3, noSpaces = TRUE, printToggle = TRUE),
+                        "ref/ref-svyTableOne_noSpaces.txt")
+
+    expect_known_output(print(mwByE, nonnormal = nonnormalVars, exact = exactVars, showAllLevels = TRUE, printToggle = TRUE),
+                        "ref/ref-svyTableOne_showAllLevels.txt")
+
+    expect_known_output(print(mwByE, catDigits = 3, nonnormal = nonnormalVars, exact = exactVars, noSpaces = TRUE, showAllLevels = FALSE, quote = TRUE, printToggle = TRUE),
+                        "ref/ref-svyTableOne_noSpaces_showAllLevels_quote.txt")
+
+    ## 2020-02-29 Error due to solve() behavior change in R 3.6.2.
+    if (logical_na_expected) {
+        expect_known_output(print(mwContOnlyByEC1),
+                            "ref/ref-svyTableOne_ContOnly_na.txt")
+    } else {
+        expect_known_output(print(mwContOnlyByEC1),
+                            "ref/ref-svyTableOne_ContOnly.txt")
+    }
+
+    expect_known_output(print(mwCatOnlyByEC1),
+                        "ref/ref-svyTableOne_CatOnly.txt")
+
+    ## Regression tests for addOverall
+    expect_known_output(print(mwByE_addOverall, printToggle = TRUE, test = TRUE, smd = TRUE),
+                        "ref/ref-svyTableOne_addOverall.txt")
+
+    ## 2020-02-29 Error due to solve() behavior change in R 3.6.2.
+    if (logical_na_expected) {
+        expect_known_output(print(mwByEC1_addOverall, printToggle = TRUE, test = TRUE, smd = TRUE),
+                            "ref/ref-svyTableOne_2StrataVars_addOverall_na.txt")
+    } else {
+        expect_known_output(print(mwByEC1_addOverall, printToggle = TRUE, test = TRUE, smd = TRUE),
+                            "ref/ref-svyTableOne_2StrataVars_addOverall.txt")
+    }
+
+    ## Regression tests for formatOptions
+    expect_known_output(
+        print(mwByE_addOverall, printToggle = TRUE, test = TRUE, smd = TRUE,
+              formatOptions = list(big.mark = ",", big.interval = 2, decimal.mark = "D")),
+        "ref/ref-svyTableOne_addOverall_formatOptions.txt")
+
+    ## 2020-02-29 Error due to solve() behavior change in R 3.6.2.
+    if (logical_na_expected) {
+        expect_known_output(
+            print(mwByEC1_addOverall, printToggle = TRUE, test = TRUE, smd = TRUE,
+                  formatOptions = list(big.mark = ",", big.interval = 2, decimal.mark = "D")),
+            "ref/ref-svyTableOne_2StrataVars_addOverall_na_formatOptions.txt")
+    } else {
+        expect_known_output(
+            print(mwByEC1_addOverall, printToggle = TRUE, test = TRUE, smd = TRUE,
+                  formatOptions = list(big.mark = ",", big.interval = 2, decimal.mark = "D")),
+            "ref/ref-svyTableOne_2StrataVars_addOverall_formatOptions.txt")
+    }
+
+})
 
 
 ### p value calculations
