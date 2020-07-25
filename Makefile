@@ -23,7 +23,7 @@ PKG_FILES := DESCRIPTION NAMESPACE NEWS $(R_FILES) $(TST_FILES) $(SRC_FILES) $(V
 
 ## .PHONY to allow non-file targets (file targets should not be here)
 ## https://www.gnu.org/software/make/manual/html_node/Phony-Targets.html
-.PHONY: test winbuild vignettes build check check_devtools revdep install clean
+.PHONY: test winbuild vignettes readme pkgdown build check check_devtools revdep install clean
 
 
 ### Define targets
@@ -41,6 +41,15 @@ winbuild:
 ## Build vignettes in inst/doc
 vignettes:
 	Rscript -e "devtools::build_vignettes()"
+
+## Build README.md
+readme: README.Rmd
+	Rscript -e "rmarkdown::render('README.Rmd', output_format = 'md_document', output_file = 'README.md')"
+
+## Build website
+## https://pkgdown.r-lib.org
+pkgdown: vignettes readme NAMESPACE
+	Rscript -e "pkgdown::build_site()"
 
 ## build depends on the *.tar.gz file, i.e., its own product.
 ## *.tar.gz file is defined seprately to prevent build execution on every invocation.
