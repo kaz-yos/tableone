@@ -11,6 +11,11 @@
 library(testthat)
 
 
+expect_known_output <- function(...) {
+    testthat::expect_known_output(..., width = 120)
+}
+
+
 ###
 ### Context (1 for each file)
 ################################################################################
@@ -492,6 +497,90 @@ test_that("printing of a TableOne$ContTable object do not regress", {
 
     expect_equal_to_reference(print(pbcByTrtSex_addOverall$ContTable, printToggle = TRUE),
                               "ref/ref-ContTable_2StrataVars_addOverall.rds")
+})
+
+
+###
+### Regression tests for print.TableOne via git
+################################################################################
+
+test_that("printing of a TableOne object does not regress (via git)", {
+
+    ## Expectations
+    expect_known_output(print(pbcByTrt, printToggle = TRUE),
+                        "ref/ref-TableOne_defaultPrint.txt")
+
+    expect_known_output(print(pbcOverall, printToggle = TRUE),
+                        "ref/ref-TableOne_overallPrint.txt")
+
+    expect_known_output(print(pbcInclNa, printToggle = TRUE),
+                        "ref/ref-TableOne_IncludeNA.txt")
+
+    expect_known_output(print(pbcByTrtSex, printToggle = TRUE),
+                        "ref/ref-TableOne_2StrataVars.txt")
+
+    expect_known_output(print(pbcByTrt, catDigits = 3, contDigits = 4, pDigits = 5, printToggle = TRUE),
+                        "ref/ref-TableOne_digits.txt")
+
+    expect_known_output(print(pbcByTrt, test = FALSE, printToggle = TRUE),
+                        "ref/ref-TableOne_noTests.txt")
+
+    expect_known_output(print(pbcByTrt, nonnormal = nonnormalVars, exact = exactVars, printToggle = TRUE),
+                        "ref/ref-TableOne_nonnormal_exact.txt")
+
+    expect_known_output(print(pbcByTrt, nonnormal = nonnormalVars, minMax = TRUE, printToggle = TRUE),
+                        "ref/ref-TableOne_nonnormal_minMax.txt")
+
+    expect_known_output(print(pbcByTrt, nonnormal = nonnormalVars, exact = exactVars, noSpaces = TRUE, printToggle = TRUE),
+                        "ref/ref-TableOne_noSpaces.txt")
+
+    expect_known_output(print(pbcByTrt, nonnormal = nonnormalVars, exact = exactVars, showAllLevels = TRUE, printToggle = TRUE),
+                        "ref/ref-TableOne_showAllLevels.txt")
+
+    expect_known_output(print(pbcByTrt, nonnormal = nonnormalVars, exact = exactVars, noSpaces = TRUE, showAllLevels = FALSE, quote = TRUE, printToggle = TRUE),
+                        "ref/ref-TableOne_noSpaces_showAllLevels_quote.txt")
+
+    expect_known_output(print(pbcContOnlyByTrtSex),
+                        "ref/ref-TableOne_ContOnly.txt")
+
+    expect_known_output(print(pbcCatOnlyByTrtSex),
+                        "ref/ref-TableOne_CatOnly.txt")
+
+    ## Add Overall Tests always with smd and tests
+    expect_known_output(print(pbcByTrt_addOverall, nonnormal = nonnormalVars, exact = exactVars, noSpaces = TRUE, showAllLevels = FALSE, quote = TRUE, printToggle = TRUE, smd = TRUE, test = TRUE),
+                        "ref/ref-TableOne_noSpaces_showAllLevels_quote_addOverall.txt")
+
+    expect_known_output(print(pbcByTrtSex_addOverall, printToggle = TRUE, smd = TRUE, test = TRUE),
+                        "ref/ref-TableOne_2StrataVars_addOverall.txt")
+
+    expect_known_output(print(pbcContOnlyByTrtSex_addOverall, smd = TRUE, test = TRUE),
+                        "ref/ref-TableOne_ContOnly_addOverall.txt")
+
+    expect_known_output(print(pbcCatOnlyByTrtSex_addOverall, smd = TRUE, test = TRUE),
+                        "ref/ref-TableOne_CatOnly_addOverall.txt")
+
+    ## Regression tests for formatOptions always with smd and tests
+    expect_known_output(
+        print(pbcByTrt_addOverall, nonnormal = nonnormalVars, exact = exactVars,
+              noSpaces = TRUE, showAllLevels = FALSE, quote = TRUE,
+              printToggle = TRUE, smd = TRUE, test = TRUE,
+              formatOptions = list(big.mark = ",", big.interval = 2, decimal.mark = "D")),
+        "ref/ref-TableOne_noSpaces_showAllLevels_quote_addOverall_formatOptions.txt")
+
+    expect_known_output(
+        print(pbcByTrtSex_addOverall, printToggle = TRUE, smd = TRUE, test = TRUE,
+              formatOptions = list(big.mark = ",", big.interval = 2, decimal.mark = "D")),
+        "ref/ref-TableOne_2StrataVars_addOverall_formatOptions.txt")
+
+    expect_known_output(
+        print(pbcContOnlyByTrtSex_addOverall, smd = TRUE, test = TRUE,
+              formatOptions = list(big.mark = ",", big.interval = 2, decimal.mark = "D")),
+        "ref/ref-TableOne_ContOnly_addOverall_formatOptions.txt")
+
+    expect_known_output(
+        print(pbcCatOnlyByTrtSex_addOverall, smd = TRUE, test = TRUE,
+              formatOptions = list(big.mark = ",", big.interval = 2, decimal.mark = "D")),
+        "ref/ref-TableOne_CatOnly_addOverall_formatOptions.txt")
 })
 
 
