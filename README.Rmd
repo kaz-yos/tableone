@@ -20,8 +20,7 @@ opts_knit$set(animation.fun = hook_ffmpeg_html)
 options(width = 116, scipen = 5)
 ```
 
-tableone (developmental repo)
-===============================================================================
+# tableone
 
 [![Travis-CI Build Status](https://travis-ci.org/kaz-yos/tableone.svg?branch=develop)](https://travis-ci.org/kaz-yos/tableone)
 [![](http://www.r-pkg.org/badges/version/tableone)](http://www.r-pkg.org/pkg/tableone)
@@ -34,16 +33,14 @@ Creates "Table 1", i.e., description of baseline patient characteristics, which 
 tableone was inspired by descriptive statistics functions in Deducer , a Java-based GUI package by Ian Fellows. This package does not require GUI or Java, and intended for command-line users.
 
 
-tableone in action
--------------------------------------------------------------------------------
+# tableone in action
 
 ![screencast](tableone.gif "screencast")
 
 The code being executed can be found in the introduction vignette.
 
 
-tableone code example
--------------------------------------------------------------------------------
+# tableone code example
 
 In this table, continuous and categorical variables can be placed in any order. The p-valeus are from exact tests for pre-specified variables. For nonnormal variables, it shows median and IQR instead of mean and SD, and p-values are from nonparametric tests. Numerically coded categorical variables can be transformed on the fly with factorVars. SMD stands for standardized mean differences. For weighted data, first created a svydesign object, and use the svyCreateTableOne() function. Most other options remain the same.
 
@@ -66,8 +63,7 @@ print(tableOne, nonnormal = c("bili","chol","copper","alk.phos","trig"),
 ```
 
 
-Installation
--------------------------------------------------------------------------------
+# Installation
 
 This version of tableone package for R is developmetal, and may not be available from the CRAN. You can install it using one of the following way.
 
@@ -87,8 +83,7 @@ Using devtools may requires some preparation, please see the following link for 
 http://www.rstudio.com/projects/devtools/
 
 
-Contributors
--------------------------------------------------------------------------------
+# Contributors
 
 I would like to thank all the contributors!
 
@@ -101,8 +96,7 @@ I would like to thank all the contributors!
 - [gbouzill](https://github.com/gbouzill)
 
 
-Similar or complementary projects
--------------------------------------------------------------------------------
+# Similar or complementary projects
 
 There are multiple similar or complementary projects of interest.
 
