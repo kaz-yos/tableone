@@ -3,7 +3,7 @@ tableone 0.12.0 (2020-07-25)
 
 NEW FEATURE by by @ndevln (PR #69)
 
-* Adds formatOptions for the print method.
+* Add formatOptions for the print method.
   formatOptions = list(big.mark = ",") to add marks like 1,000.
 
 
