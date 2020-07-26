@@ -3,6 +3,7 @@
 
 ## Avoid git(hub) related files
 \.git/*
+README.Rmd
 README.md
 cran-comment.md
 
@@ -22,5 +23,7 @@ tests/testthat/ref-*
 cran-check.txt
 ## Travis-CI
 ^\.travis\.yml$
+
 ^doc$
+^docs$
 ^Meta$
