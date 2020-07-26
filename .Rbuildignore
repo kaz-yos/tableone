@@ -27,3 +27,4 @@ cran-check.txt
 ^doc$
 ^docs$
 ^Meta$
+^revdep$
