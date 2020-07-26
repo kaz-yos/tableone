@@ -1,5 +1,5 @@
-tableone (developmental repo)
-=============================
+tableone
+========
 
 [![Travis-CI Build
 Status](https://travis-ci.org/kaz-yos/tableone.svg?branch=develop)](https://travis-ci.org/kaz-yos/tableone)
@@ -21,14 +21,14 @@ Java-based GUI package by Ian Fellows. This package does not require GUI
 or Java, and intended for command-line users.
 
 tableone in action
-------------------
+==================
 
 ![screencast](tableone.gif "screencast")
 
 The code being executed can be found in the introduction vignette.
 
 tableone code example
----------------------
+=====================
 
 In this table, continuous and categorical variables can be placed in any
 order. The p-valeus are from exact tests for pre-specified variables.
@@ -89,7 +89,7 @@ options remain the same.
     ##      4                          55 (34.8)                   54 (35.1)
 
 Installation
-------------
+============
 
 This version of tableone package for R is developmetal, and may not be
 available from the CRAN. You can install it using one of the following
@@ -112,7 +112,7 @@ link for information.
 <a href="http://www.rstudio.com/projects/devtools/" class="uri">http://www.rstudio.com/projects/devtools/</a>
 
 Contributors
-------------
+============
 
 I would like to thank all the contributors!
 
@@ -126,7 +126,7 @@ I would like to thank all the contributors!
 -   [gbouzill](https://github.com/gbouzill)
 
 Similar or complementary projects
----------------------------------
+=================================
 
 There are multiple similar or complementary projects of interest.
 
