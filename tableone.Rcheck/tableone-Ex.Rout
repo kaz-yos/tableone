@@ -3150,7 +3150,7 @@ RIAGENDR        NaN
      (19,39]               40640361.53 ( 28.70)                              
      (39,59]               42817044.01 ( 30.24)                              
      (59,Inf]              29983725.90 ( 21.18)                              
-  RIAGENDR = 2 (%)        141591892.00 (100.00)       <0.0001          NaN   
+  RIAGENDR = 2 (%)        141591892.00 (100.00)       <0.0001             NaN
 > 
 > ## minMax changes it to median [min, max]
 > print(tab1, nonnormal = "HI_CHOL", minMax = TRUE, contDigits = 3,
@@ -3184,7 +3184,7 @@ RIAGENDR        NaN
      (19,39]                 40640361.53 ( 28.70)                              
      (39,59]                 42817044.01 ( 30.24)                              
      (59,Inf]                29983725.90 ( 21.18)                              
-  RIAGENDR = 2 (%)          141591892.00 (100.00)       <0.0001          NaN   
+  RIAGENDR = 2 (%)          141591892.00 (100.00)       <0.0001             NaN
 > 
 > ## showAllLevels can be used tow show levels for all categorical variables
 > print(tab1, showAllLevels = TRUE, smd = TRUE)
@@ -3214,7 +3214,7 @@ RIAGENDR        NaN
                                         
                                         
                                         
-  RIAGENDR (%)        <0.001       NaN  
+  RIAGENDR (%)        <0.001         NaN
                                         
 > 
 > ## To see all printing options
@@ -3252,6 +3252,7 @@ _U_s_a_g_e:
        exact = NULL,
        nonnormal = NULL,
        minMax = FALSE,
+       formatOptions = list(scientific = FALSE),
        ...
      )
      
@@ -3324,6 +3325,12 @@ nonnormal: A character vector to specify the variables for which the
   minMax: Whether to use [min,max] instead of [p25,p75] for nonnormal
           variables. The default is FALSE.
 
+formatOptions: A list of options, which will be passed to ‘format’. Can
+          be used to modify the ‘big.mark’, ‘decimal.mark’,
+          ‘big.interval’ etc. The default is ‘list(scientific =
+          FALSE)’. The options digits, nsmall, justify and trim are not
+          available. (Experimental)
+
      ...: For compatibility with generic. Ignored.
 
 _V_a_l_u_e:
@@ -3334,7 +3341,7 @@ _V_a_l_u_e:
 
 _A_u_t_h_o_r(_s):
 
-     Kazuki Yoshida, Justin Bohn
+     Kazuki Yoshida, Justin Bohn, Alexander Bartel
 
 _S_e_e _A_l_s_o:
 
@@ -3413,7 +3420,7 @@ detaching ‘package:survey’, ‘package:survival’, ‘package:Matrix’,
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  4.822 0.208 5.057 0.005 0.006 
+Time elapsed:  4.799 0.187 5.007 0.007 0.007 
 > grDevices::dev.off()
 null device 
           1 
