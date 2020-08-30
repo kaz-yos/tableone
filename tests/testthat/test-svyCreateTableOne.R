@@ -17,6 +17,19 @@ library(survey)
 
 
 ###
+### Use oldsvyquantile when available
+################################################################################
+
+## 2020-07-30 via Thomas Lumley
+## survey::svyquantile rewritten for survey 4.1
+## To get the old behaviour you can simply call survey::oldsvyquantile() instead.
+try_oldsvyquantile <- try(getFromNamespace(x = "oldsvyquantile", ns = "survey"))
+if (is.function(try_oldsvyquantile)) {
+    svyquantile <- survey::oldsvyquantile
+}
+
+
+###
 ### Context (1 for each file)
 ################################################################################
 context("Unit tests for svy* user functions")
