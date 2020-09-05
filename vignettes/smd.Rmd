@@ -241,7 +241,7 @@ resCombo <- cbind(print(tabUnmatched, printToggle = FALSE),
                   print(tabWeightedOw,  printToggle = FALSE))
 
 ## Add group name row, and rewrite column names
-resCombo <- rbind(Group = rep(c("No RHC","RHC"), 3), resCombo)
+resCombo <- rbind(Group = rep(c("No RHC","RHC"), 4), resCombo)
 colnames(resCombo) <- c("Unmatched","","Matched","","MW","","OW","")
 print(resCombo, quote = FALSE)
 
