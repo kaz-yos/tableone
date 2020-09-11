@@ -1,8 +1,8 @@
 Package: tableone
 Type: Package
 Title: Create 'Table 1' to Describe Baseline Characteristics with or without Propensity Score Weights
-Version: 0.12.0
-Date: 2020-07-25
+Version: 0.12.1
+Date: 2020-09-11
 Authors@R: c(
     # http://r-pkgs.had.co.nz/description.html#author
     person('Kazuki', 'Yoshida', email = 'kazukiyoshida@mail.harvard.edu', role = c('cre','aut'), comment = c(ORCID = '0000-0002-2030-3549')),
@@ -19,7 +19,7 @@ Description: Creates 'Table 1', i.e., description of baseline patient
     characteristics, which is essential in every medical research.
     Supports both continuous and categorical variables, as well as
     p-values and standardized mean differences. Weighted data are
-    supported via the 'survey' package. See 'github' for a screen cast.
+    supported via the 'survey' package.
 License: GPL-2
 Imports:
     survey,
