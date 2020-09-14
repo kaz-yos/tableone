@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tableone</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.12.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.12.1</span>
       </span>
     </div>
 
@@ -133,13 +133,13 @@
     </div>
 
     <pre class="usage"><span class='fu'>ShowRegTable</span>(
-  <span class='no'>model</span>,
-  <span class='kw'>exp</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>2</span>,
-  <span class='kw'>pDigits</span> <span class='kw'>=</span> <span class='fl'>3</span>,
-  <span class='kw'>printToggle</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>quote</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>ciFun</span> <span class='kw'>=</span> <span class='no'>confint</span>
+  <span class='kw'>model</span>,
+  exp = <span class='fl'>TRUE</span>,
+  digits = <span class='fl'>2</span>,
+  pDigits = <span class='fl'>3</span>,
+  printToggle = <span class='fl'>TRUE</span>,
+  quote = <span class='fl'>FALSE</span>,
+  ciFun = <span class='kw'>confint</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -178,17 +178,21 @@
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A matrix containing what you see is returned invisibly. You can capture it by assignment to an object.</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Kazuki Yoshida</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'>## Load</span>
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>tableone</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://github.com/kaz-yos/tableone'>tableone</a></span>)
 
 <span class='co'>## Load Mayo Clinic Primary Biliary Cirrhosis Data</span>
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>survival</span>)
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>pbc</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://github.com/therneau/survival'>survival</a></span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='kw'>pbc</span>)
 <span class='co'>## Check variables</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>pbc</span>)</div><div class='output co'>#&gt;   id time status trt      age sex ascites hepato spiders edema bili chol
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='kw'>pbc</span>)
+</div><div class='output co'>#&gt;   id time status trt      age sex ascites hepato spiders edema bili chol
 #&gt; 1  1  400      2   1 58.76523   f       1      1       1   1.0 14.5  261
 #&gt; 2  2 4500      0   1 56.44627   f       0      1       1   0.0  1.1  302
 #&gt; 3  3 1012      2   1 70.07255   m       0      0       0   0.5  1.4  176
@@ -203,17 +207,19 @@
 #&gt; 5    3.53    143    671.0 113.15   72      136    10.9     3
 #&gt; 6    3.98     50    944.0  93.00   63       NA    11.0     3</div><div class='input'>
 <span class='co'>## Fit a Cox regression model</span>
-<span class='no'>objCoxph</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/survival/man/coxph.html'>coxph</a></span>(<span class='kw'>formula</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/survival/man/Surv.html'>Surv</a></span>(<span class='no'>time</span>, <span class='no'>status</span> <span class='kw'>==</span> <span class='fl'>2</span>) ~ <span class='no'>trt</span> + <span class='no'>age</span> + <span class='no'>albumin</span> + <span class='no'>ascites</span>,
-                  <span class='kw'>data</span>    <span class='kw'>=</span> <span class='no'>pbc</span>)
+<span class='kw'>objCoxph</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/survival/man/coxph.html'>coxph</a></span>(formula = <span class='fu'><a href='https://rdrr.io/pkg/survival/man/Surv.html'>Surv</a></span>(<span class='kw'>time</span>, <span class='kw'>status</span> <span class='op'>==</span> <span class='fl'>2</span>) <span class='op'>~</span> <span class='kw'>trt</span> <span class='op'>+</span> <span class='kw'>age</span> <span class='op'>+</span> <span class='kw'>albumin</span> <span class='op'>+</span> <span class='kw'>ascites</span>,
+                  data    = <span class='kw'>pbc</span>)
 
 <span class='co'>## Show the simple table</span>
-<span class='fu'>ShowRegTable</span>(<span class='no'>objCoxph</span>)</div><div class='output co'>#&gt;         exp(coef) [confint] p     
+<span class='fu'>ShowRegTable</span>(<span class='kw'>objCoxph</span>)
+</div><div class='output co'>#&gt;         exp(coef) [confint] p     
 #&gt; trt     1.03 [0.72, 1.47]    0.891
 #&gt; age     1.03 [1.01, 1.05]    0.005
 #&gt; albumin 0.26 [0.17, 0.41]   &lt;0.001
 #&gt; ascites 2.93 [1.68, 5.11]   &lt;0.001</div><div class='input'>
 <span class='co'>## Show with quote to ease copy and paste</span>
-<span class='fu'>ShowRegTable</span>(<span class='no'>objCoxph</span>, <span class='kw'>quote</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;           "exp(coef) [confint]" "p"     
+<span class='fu'>ShowRegTable</span>(<span class='kw'>objCoxph</span>, quote = <span class='fl'>TRUE</span>)
+</div><div class='output co'>#&gt;           "exp(coef) [confint]" "p"     
 #&gt; "trt"     "1.03 [0.72, 1.47]"   " 0.891"
 #&gt; "age"     "1.03 [1.01, 1.05]"   " 0.005"
 #&gt; "albumin" "0.26 [0.17, 0.41]"   "&lt;0.001"
@@ -234,7 +240,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Format and print <code>TableOne</code> class objects — print.TableOne • tableone</title>
+<title>Format and print TableOne class objects — print.TableOne • tableone</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,7 @@
 
 
 
-<meta property="og:title" content="Format and print <code>TableOne</code> class objects — print.TableOne" />
+<meta property="og:title" content="Format and print TableOne class objects — print.TableOne" />
 <meta property="og:description" content="print method for the TableOne class objects created by CreateTableOne function." />
 
 
@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tableone</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.12.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.12.1</span>
       </span>
     </div>
 
@@ -134,28 +134,28 @@
 
     <pre class="usage"><span class='co'># S3 method for TableOne</span>
 <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(
-  <span class='no'>x</span>,
-  <span class='kw'>catDigits</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>contDigits</span> <span class='kw'>=</span> <span class='fl'>2</span>,
-  <span class='kw'>pDigits</span> <span class='kw'>=</span> <span class='fl'>3</span>,
-  <span class='kw'>quote</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>missing</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>explain</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>printToggle</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>test</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>smd</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>noSpaces</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>padColnames</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>varLabels</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>format</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"fp"</span>, <span class='st'>"f"</span>, <span class='st'>"p"</span>, <span class='st'>"pf"</span>)[<span class='fl'>1</span>],
-  <span class='kw'>showAllLevels</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>cramVars</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>dropEqual</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>exact</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>nonnormal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>minMax</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>formatOptions</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>scientific</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>),
-  <span class='no'>...</span>
+  <span class='kw'>x</span>,
+  catDigits = <span class='fl'>1</span>,
+  contDigits = <span class='fl'>2</span>,
+  pDigits = <span class='fl'>3</span>,
+  quote = <span class='fl'>FALSE</span>,
+  missing = <span class='fl'>FALSE</span>,
+  explain = <span class='fl'>TRUE</span>,
+  printToggle = <span class='fl'>TRUE</span>,
+  test = <span class='fl'>TRUE</span>,
+  smd = <span class='fl'>FALSE</span>,
+  noSpaces = <span class='fl'>FALSE</span>,
+  padColnames = <span class='fl'>FALSE</span>,
+  varLabels = <span class='fl'>FALSE</span>,
+  format = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"fp"</span>, <span class='st'>"f"</span>, <span class='st'>"p"</span>, <span class='st'>"pf"</span>)[<span class='fl'>1</span>],
+  showAllLevels = <span class='fl'>FALSE</span>,
+  cramVars = <span class='kw'>NULL</span>,
+  dropEqual = <span class='fl'>FALSE</span>,
+  exact = <span class='kw'>NULL</span>,
+  nonnormal = <span class='kw'>NULL</span>,
+  minMax = <span class='fl'>FALSE</span>,
+  formatOptions = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(scientific = <span class='fl'>FALSE</span>),
+  <span class='kw'>...</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -257,10 +257,13 @@
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='CreateTableOne.html'>CreateTableOne</a></code>, <code><a href='CreateTableOne.html'>CreateTableOne</a></code>, <code><a href='summary.TableOne.html'>summary.TableOne</a></code></p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Kazuki Yoshida, Justin Bohn, Alexander Bartel</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-## See examples for CreateTableOne and svyCreateTableOne
+<span class='co'>## See examples for CreateTableOne and svyCreateTableOne</span>
 
 </div></pre>
   </div>
@@ -278,7 +281,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

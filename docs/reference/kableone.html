@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tableone</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.12.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.12.1</span>
       </span>
     </div>
 
@@ -132,7 +132,7 @@
     <p>Export TableOne Objects to Markdown</p>
     </div>
 
-    <pre class="usage"><span class='fu'>kableone</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>kableone</span>(<span class='kw'>x</span>, <span class='kw'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -153,12 +153,13 @@
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>survival</span>)
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>pbc</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://github.com/therneau/survival'>survival</a></span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='kw'>pbc</span>)
 
-<span class='no'>tableOne</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='CreateTableOne.html'>CreateTableOne</a></span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>pbc</span>)
+<span class='kw'>tableOne</span> <span class='op'>&lt;-</span> <span class='fu'><a href='CreateTableOne.html'>CreateTableOne</a></span>(data = <span class='kw'>pbc</span>)
 
-<span class='fu'>kableone</span>(<span class='no'>tableOne</span>)</div><div class='output co'>#&gt; 
+<span class='fu'>kableone</span>(<span class='kw'>tableOne</span>)
+</div><div class='output co'>#&gt; 
 #&gt; 
 #&gt; |                     |Overall           |
 #&gt; |:--------------------|:-----------------|
@@ -199,7 +200,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

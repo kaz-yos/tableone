@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tableone</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.12.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.12.1</span>
       </span>
     </div>
 
@@ -133,22 +133,22 @@
     </div>
 
     <pre class="usage"><span class='fu'>CreateTableOne</span>(
-  <span class='no'>vars</span>,
-  <span class='no'>strata</span>,
-  <span class='no'>data</span>,
-  <span class='no'>factorVars</span>,
-  <span class='kw'>includeNA</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>test</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>testApprox</span> <span class='kw'>=</span> <span class='no'>chisq.test</span>,
-  <span class='kw'>argsApprox</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>correct</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>),
-  <span class='kw'>testExact</span> <span class='kw'>=</span> <span class='no'>fisher.test</span>,
-  <span class='kw'>argsExact</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>workspace</span> <span class='kw'>=</span> <span class='fl'>2</span> * <span class='fl'>10</span>^<span class='fl'>5</span>),
-  <span class='kw'>testNormal</span> <span class='kw'>=</span> <span class='no'>oneway.test</span>,
-  <span class='kw'>argsNormal</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>var.equal</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>),
-  <span class='kw'>testNonNormal</span> <span class='kw'>=</span> <span class='no'>kruskal.test</span>,
-  <span class='kw'>argsNonNormal</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>NULL</span>),
-  <span class='kw'>smd</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>addOverall</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+  <span class='kw'>vars</span>,
+  <span class='kw'>strata</span>,
+  <span class='kw'>data</span>,
+  <span class='kw'>factorVars</span>,
+  includeNA = <span class='fl'>FALSE</span>,
+  test = <span class='fl'>TRUE</span>,
+  testApprox = <span class='kw'>chisq.test</span>,
+  argsApprox = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(correct = <span class='fl'>TRUE</span>),
+  testExact = <span class='kw'>fisher.test</span>,
+  argsExact = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(workspace = <span class='fl'>2</span> <span class='op'>*</span> <span class='fl'>10</span><span class='op'>^</span><span class='fl'>5</span>),
+  testNormal = <span class='kw'>oneway.test</span>,
+  argsNormal = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(var.equal = <span class='fl'>TRUE</span>),
+  testNonNormal = <span class='kw'>kruskal.test</span>,
+  argsNonNormal = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>NULL</span>),
+  smd = <span class='fl'>TRUE</span>,
+  addOverall = <span class='fl'>FALSE</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -231,7 +231,7 @@
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The definitions of the standardized mean difference (SMD) are available in <a href='http://www.tandfonline.com/doi/abs/10.1080/00031305.1986.10475403'>Flury <em>et al</em> 1986</a> for the univariate case and the multivariate case (essentially the square root of the Mahalanobis distance). Extension to binary variables is discussed in <a href='http://www.tandfonline.com/doi/abs/10.1080/03610910902859574'>Austin 2009</a> and extension to multinomival variables is suggested in <a href='http://support.sas.com/resources/papers/proceedings12/335-2012.pdf'>Yang <em>et al</em> 2012</a>. This multinomial extesion treats a single multinomial variable as multiple non-redundant dichotomous variables and use the Mahalanobis distance. The off diagonal elements of the covariance matrix on page 3 have an error, and need negation. In weighted data, the same definitions can be used except that the mean and standard deviation estimates are weighted estimates (<a href='http://www.ncbi.nlm.nih.gov/pubmed/23902694'>Li <em>et al</em> 2013</a> and <a href='http://onlinelibrary.wiley.com/doi/10.1002/sim.6607/full'>Austin <em>et al</em> 2015</a>). In tableone, all weighted estimates are calculated by weighted estimation functions in the <code>survey</code> package.</p>
+    <p>The definitions of the standardized mean difference (SMD) are available in <a href='https://www.tandfonline.com/doi/abs/10.1080/00031305.1986.10475403'>Flury <em>et al</em> 1986</a> for the univariate case and the multivariate case (essentially the square root of the Mahalanobis distance). Extension to binary variables is discussed in <a href='https://www.tandfonline.com/doi/abs/10.1080/03610910902859574'>Austin 2009</a> and extension to multinomival variables is suggested in <a href='http://support.sas.com/resources/papers/proceedings12/335-2012.pdf'>Yang <em>et al</em> 2012</a>. This multinomial extesion treats a single multinomial variable as multiple non-redundant dichotomous variables and use the Mahalanobis distance. The off diagonal elements of the covariance matrix on page 3 have an error, and need negation. In weighted data, the same definitions can be used except that the mean and standard deviation estimates are weighted estimates (<a href='http://www.ncbi.nlm.nih.gov/pubmed/23902694'>Li <em>et al</em> 2013</a> and <a href='https://onlinelibrary.wiley.com/doi/10.1002/sim.6607/full'>Austin <em>et al</em> 2015</a>). In tableone, all weighted estimates are calculated by weighted estimation functions in the <code>survey</code> package.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Flury, BK. and Riedwyl, H. (1986). Standard distance in univariate and multivariate analysis. <em>The American Statistician</em>, <b>40</b>, 249-251.</p>
@@ -242,17 +242,21 @@
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='print.TableOne.html'>print.TableOne</a></code>, <code><a href='summary.TableOne.html'>summary.TableOne</a></code></p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Kazuki Yoshida, Justin Bohn, Alexander Bartel</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'>## Load</span>
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>tableone</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://github.com/kaz-yos/tableone'>tableone</a></span>)
 
 <span class='co'>## Load Mayo Clinic Primary Biliary Cirrhosis Data</span>
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>survival</span>)
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>pbc</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://github.com/therneau/survival'>survival</a></span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='kw'>pbc</span>)
 <span class='co'>## Check variables</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>pbc</span>)</div><div class='output co'>#&gt;   id time status trt      age sex ascites hepato spiders edema bili chol
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='kw'>pbc</span>)
+</div><div class='output co'>#&gt;   id time status trt      age sex ascites hepato spiders edema bili chol
 #&gt; 1  1  400      2   1 58.76523   f       1      1       1   1.0 14.5  261
 #&gt; 2  2 4500      0   1 56.44627   f       0      1       1   0.0  1.1  302
 #&gt; 3  3 1012      2   1 70.07255   m       0      0       0   0.5  1.4  176
@@ -267,22 +271,24 @@
 #&gt; 5    3.53    143    671.0 113.15   72      136    10.9     3
 #&gt; 6    3.98     50    944.0  93.00   63       NA    11.0     3</div><div class='input'>
 <span class='co'>## Make categorical variables factors</span>
-<span class='no'>varsToFactor</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"status"</span>,<span class='st'>"trt"</span>,<span class='st'>"ascites"</span>,<span class='st'>"hepato"</span>,<span class='st'>"spiders"</span>,<span class='st'>"edema"</span>,<span class='st'>"stage"</span>)
-<span class='no'>pbc</span>[<span class='no'>varsToFactor</span>] <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span>(<span class='no'>pbc</span>[<span class='no'>varsToFactor</span>], <span class='no'>factor</span>)
+<span class='kw'>varsToFactor</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"status"</span>,<span class='st'>"trt"</span>,<span class='st'>"ascites"</span>,<span class='st'>"hepato"</span>,<span class='st'>"spiders"</span>,<span class='st'>"edema"</span>,<span class='st'>"stage"</span>)
+<span class='kw'>pbc</span>[<span class='kw'>varsToFactor</span>] <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span>(<span class='kw'>pbc</span>[<span class='kw'>varsToFactor</span>], <span class='kw'>factor</span>)
 
 <span class='co'>## Create a variable list</span>
-<span class='fu'><a href='https://rdrr.io/r/base/dput.html'>dput</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='no'>pbc</span>))</div><div class='output co'>#&gt; c("id", "time", "status", "trt", "age", "sex", "ascites", "hepato", 
+<span class='fu'><a href='https://rdrr.io/r/base/dput.html'>dput</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='kw'>pbc</span>))
+</div><div class='output co'>#&gt; c("id", "time", "status", "trt", "age", "sex", "ascites", "hepato", 
 #&gt; "spiders", "edema", "bili", "chol", "albumin", "copper", "alk.phos", 
-#&gt; "ast", "trig", "platelet", "protime", "stage")</div><div class='input'><span class='no'>vars</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"time"</span>,<span class='st'>"status"</span>,<span class='st'>"age"</span>,<span class='st'>"sex"</span>,<span class='st'>"ascites"</span>,<span class='st'>"hepato"</span>,
+#&gt; "ast", "trig", "platelet", "protime", "stage")</div><div class='input'><span class='kw'>vars</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"time"</span>,<span class='st'>"status"</span>,<span class='st'>"age"</span>,<span class='st'>"sex"</span>,<span class='st'>"ascites"</span>,<span class='st'>"hepato"</span>,
           <span class='st'>"spiders"</span>,<span class='st'>"edema"</span>,<span class='st'>"bili"</span>,<span class='st'>"chol"</span>,<span class='st'>"albumin"</span>,
           <span class='st'>"copper"</span>,<span class='st'>"alk.phos"</span>,<span class='st'>"ast"</span>,<span class='st'>"trig"</span>,<span class='st'>"platelet"</span>,
           <span class='st'>"protime"</span>,<span class='st'>"stage"</span>)
 
 <span class='co'>## Create Table 1 stratified by trt</span>
-<span class='no'>tableOne</span> <span class='kw'>&lt;-</span> <span class='fu'>CreateTableOne</span>(<span class='kw'>vars</span> <span class='kw'>=</span> <span class='no'>vars</span>, <span class='kw'>strata</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"trt"</span>), <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>pbc</span>)
+<span class='kw'>tableOne</span> <span class='op'>&lt;-</span> <span class='fu'>CreateTableOne</span>(vars = <span class='kw'>vars</span>, strata = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"trt"</span>), data = <span class='kw'>pbc</span>)
 
 <span class='co'>## Just typing the object name will invoke the print.TableOne method</span>
-<span class='no'>tableOne</span></div><div class='output co'>#&gt;                       Stratified by trt
+<span class='kw'>tableOne</span>
+</div><div class='output co'>#&gt;                       Stratified by trt
 #&gt;                        1                 2                 p      test
 #&gt;   n                        158               154                      
 #&gt;   time (mean (SD))     2015.62 (1094.12) 1996.86 (1155.93)  0.883     
@@ -317,8 +323,9 @@
 <span class='co'>## and show nonparametric test p-values. Specify variables in the exact</span>
 <span class='co'>## argument to obtain the exact test p-values. cramVars can be used to</span>
 <span class='co'>## show both levels for a 2-level categorical variables.</span>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>tableOne</span>, <span class='kw'>nonnormal</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"bili"</span>,<span class='st'>"chol"</span>,<span class='st'>"copper"</span>,<span class='st'>"alk.phos"</span>,<span class='st'>"trig"</span>),
-      <span class='kw'>exact</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"status"</span>,<span class='st'>"stage"</span>), <span class='kw'>cramVars</span> <span class='kw'>=</span> <span class='st'>"hepato"</span>, <span class='kw'>smd</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;                          Stratified by trt
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='kw'>tableOne</span>, nonnormal = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"bili"</span>,<span class='st'>"chol"</span>,<span class='st'>"copper"</span>,<span class='st'>"alk.phos"</span>,<span class='st'>"trig"</span>),
+      exact = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"status"</span>,<span class='st'>"stage"</span>), cramVars = <span class='st'>"hepato"</span>, smd = <span class='fl'>TRUE</span>)
+</div><div class='output co'>#&gt;                          Stratified by trt
 #&gt;                           1                         2                        
 #&gt;   n                           158                       154                  
 #&gt;   time (mean (SD))        2015.62 (1094.12)         1996.86 (1155.93)        
@@ -381,7 +388,8 @@
 #&gt;      3                                         
 #&gt;      4                                         </div><div class='input'>
 <span class='co'>## Use the summary.TableOne method for detailed summary</span>
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>tableOne</span>)</div><div class='output co'>#&gt; 
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='kw'>tableOne</span>)
+</div><div class='output co'>#&gt; 
 #&gt;      ### Summary of continuous variables ###
 #&gt; 
 #&gt; trt: 1
@@ -520,7 +528,8 @@
 #&gt; edema   0.05811659
 #&gt; stage   0.24600834</div><div class='input'>
 <span class='co'>## See the categorical part only using $ operator</span>
-<span class='no'>tableOne</span>$<span class='no'>CatTable</span></div><div class='output co'>#&gt;                  Stratified by trt
+<span class='kw'>tableOne</span><span class='op'>$</span><span class='kw'>CatTable</span>
+</div><div class='output co'>#&gt;                  Stratified by trt
 #&gt;                   1           2           p      test
 #&gt;   n               158         154                    
 #&gt;   status (%)                               0.894     
@@ -539,7 +548,8 @@
 #&gt;      1             12 ( 7.6)    4 ( 2.6)             
 #&gt;      2             35 (22.2)   32 (20.8)             
 #&gt;      3             56 (35.4)   64 (41.6)             
-#&gt;      4             55 (34.8)   54 (35.1)             </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>tableOne</span>$<span class='no'>CatTable</span>)</div><div class='output co'>#&gt; trt: 1
+#&gt;      4             55 (34.8)   54 (35.1)             </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='kw'>tableOne</span><span class='op'>$</span><span class='kw'>CatTable</span>)
+</div><div class='output co'>#&gt; trt: 1
 #&gt;      var   n miss p.miss level freq percent cum.percent
 #&gt;   status 158    0    0.0     0   83    52.5        52.5
 #&gt;                              1   10     6.3        58.9
@@ -615,7 +625,8 @@
 #&gt; edema   0.05811659
 #&gt; stage   0.24600834</div><div class='input'>
 <span class='co'>## See the continuous part only using $ operator</span>
-<span class='no'>tableOne</span>$<span class='no'>ContTable</span></div><div class='output co'>#&gt;                       Stratified by trt
+<span class='kw'>tableOne</span><span class='op'>$</span><span class='kw'>ContTable</span>
+</div><div class='output co'>#&gt;                       Stratified by trt
 #&gt;                        1                 2                 p      test
 #&gt;   n                    158               154                          
 #&gt;   time (mean (SD))     2015.62 (1094.12) 1996.86 (1155.93)  0.883     
@@ -628,7 +639,8 @@
 #&gt;   ast (mean (SD))       120.21 (54.52)    124.97 (58.93)    0.460     
 #&gt;   trig (mean (SD))      124.14 (71.54)    125.25 (58.52)    0.886     
 #&gt;   platelet (mean (SD))  258.75 (100.32)   265.20 (90.73)    0.555     
-#&gt;   protime (mean (SD))    10.65 (0.85)      10.80 (1.14)     0.197     </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>tableOne</span>$<span class='no'>ContTable</span>)</div><div class='output co'>#&gt; trt: 1
+#&gt;   protime (mean (SD))    10.65 (0.85)      10.80 (1.14)     0.197     </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='kw'>tableOne</span><span class='op'>$</span><span class='kw'>ContTable</span>)
+</div><div class='output co'>#&gt; trt: 1
 #&gt;            n miss p.miss   mean      sd median    p25    p75   min     max
 #&gt; time     158    0   0.00 2015.6 1094.12 1895.0 1231.0 2632.5  41.0  4556.0
 #&gt; age      158    0   0.00   51.4   11.01   51.9   43.0   58.9  26.3    78.4
@@ -710,8 +722,9 @@
 <span class='co'>## If your work flow includes copying to Excel and Word when writing manuscripts,</span>
 <span class='co'>## you may benefit from the quote argument. This will quote everything so that</span>
 <span class='co'>## Excel does not mess up the cells.</span>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>tableOne</span>, <span class='kw'>nonnormal</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"bili"</span>,<span class='st'>"chol"</span>,<span class='st'>"copper"</span>,<span class='st'>"alk.phos"</span>,<span class='st'>"trig"</span>),
-      <span class='kw'>exact</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"status"</span>,<span class='st'>"stage"</span>), <span class='kw'>quote</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;                            "Stratified by trt"
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='kw'>tableOne</span>, nonnormal = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"bili"</span>,<span class='st'>"chol"</span>,<span class='st'>"copper"</span>,<span class='st'>"alk.phos"</span>,<span class='st'>"trig"</span>),
+      exact = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"status"</span>,<span class='st'>"stage"</span>), quote = <span class='fl'>TRUE</span>)
+</div><div class='output co'>#&gt;                            "Stratified by trt"
 #&gt;  ""                         "1"                        
 #&gt;   "n"                       "    158"                  
 #&gt;   "time (mean (SD))"        "2015.62 (1094.12)"        
@@ -774,8 +787,9 @@
 #&gt;   "   3"                    "     64 (41.6) "           ""       ""       
 #&gt;   "   4"                    "     54 (35.1) "           ""       ""       </div><div class='input'>
 <span class='co'>## If you want to center-align values in Word, use noSpaces option.</span>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>tableOne</span>, <span class='kw'>nonnormal</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"bili"</span>,<span class='st'>"chol"</span>,<span class='st'>"copper"</span>,<span class='st'>"alk.phos"</span>,<span class='st'>"trig"</span>),
-      <span class='kw'>exact</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"status"</span>,<span class='st'>"stage"</span>), <span class='kw'>quote</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>noSpaces</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;                            "Stratified by trt"
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='kw'>tableOne</span>, nonnormal = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"bili"</span>,<span class='st'>"chol"</span>,<span class='st'>"copper"</span>,<span class='st'>"alk.phos"</span>,<span class='st'>"trig"</span>),
+      exact = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"status"</span>,<span class='st'>"stage"</span>), quote = <span class='fl'>TRUE</span>, noSpaces = <span class='fl'>TRUE</span>)
+</div><div class='output co'>#&gt;                            "Stratified by trt"
 #&gt;  ""                         "1"                        
 #&gt;   "n"                       "158"                      
 #&gt;   "time (mean (SD))"        "2015.62 (1094.12)"        
@@ -838,7 +852,8 @@
 #&gt;   "   3"                    "64 (41.6)"                 ""      ""       
 #&gt;   "   4"                    "54 (35.1)"                 ""      ""       </div><div class='input'>
 <span class='co'>## If SMDs are needed as numericals, use ExtractSmd()</span>
-<span class='fu'><a href='ExtractSmd.html'>ExtractSmd</a></span>(<span class='no'>tableOne</span>)</div><div class='output co'>#&gt;                1 vs 2
+<span class='fu'><a href='ExtractSmd.html'>ExtractSmd</a></span>(<span class='kw'>tableOne</span>)
+</div><div class='output co'>#&gt;                1 vs 2
 #&gt; time     0.0166658751
 #&gt; status   0.0537576290
 #&gt; age      0.2702619258
@@ -873,7 +888,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

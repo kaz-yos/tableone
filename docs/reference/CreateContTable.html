@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tableone</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.12.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.12.1</span>
       </span>
     </div>
 
@@ -133,19 +133,19 @@
     </div>
 
     <pre class="usage"><span class='fu'>CreateContTable</span>(
-  <span class='no'>vars</span>,
-  <span class='no'>strata</span>,
-  <span class='no'>data</span>,
-  <span class='kw'>funcNames</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"n"</span>, <span class='st'>"miss"</span>, <span class='st'>"p.miss"</span>, <span class='st'>"mean"</span>, <span class='st'>"sd"</span>, <span class='st'>"median"</span>, <span class='st'>"p25"</span>, <span class='st'>"p75"</span>, <span class='st'>"min"</span>,
+  <span class='kw'>vars</span>,
+  <span class='kw'>strata</span>,
+  <span class='kw'>data</span>,
+  funcNames = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"n"</span>, <span class='st'>"miss"</span>, <span class='st'>"p.miss"</span>, <span class='st'>"mean"</span>, <span class='st'>"sd"</span>, <span class='st'>"median"</span>, <span class='st'>"p25"</span>, <span class='st'>"p75"</span>, <span class='st'>"min"</span>,
     <span class='st'>"max"</span>, <span class='st'>"skew"</span>, <span class='st'>"kurt"</span>),
-  <span class='no'>funcAdditional</span>,
-  <span class='kw'>test</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>testNormal</span> <span class='kw'>=</span> <span class='no'>oneway.test</span>,
-  <span class='kw'>argsNormal</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>var.equal</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>),
-  <span class='kw'>testNonNormal</span> <span class='kw'>=</span> <span class='no'>kruskal.test</span>,
-  <span class='kw'>argsNonNormal</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>NULL</span>),
-  <span class='kw'>smd</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>addOverall</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+  <span class='kw'>funcAdditional</span>,
+  test = <span class='fl'>TRUE</span>,
+  testNormal = <span class='kw'>oneway.test</span>,
+  argsNormal = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(var.equal = <span class='fl'>TRUE</span>),
+  testNonNormal = <span class='kw'>kruskal.test</span>,
+  argsNonNormal = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>NULL</span>),
+  smd = <span class='fl'>TRUE</span>,
+  addOverall = <span class='fl'>FALSE</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -207,17 +207,21 @@
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='CreateTableOne.html'>CreateTableOne</a></code>, <code><a href='print.ContTable.html'>print.ContTable</a></code>, <code><a href='summary.ContTable.html'>summary.ContTable</a></code></p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Kazuki Yoshida (based on <code>Deducer::descriptive.table()</code>), Alexander Bartel</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'>## Load</span>
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>tableone</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://github.com/kaz-yos/tableone'>tableone</a></span>)
 
 <span class='co'>## Load Mayo Clinic Primary Biliary Cirrhosis Data</span>
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>survival</span>)
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>pbc</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://github.com/therneau/survival'>survival</a></span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='kw'>pbc</span>)
 <span class='co'>## Check variables</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>pbc</span>)</div><div class='output co'>#&gt;   id time status trt      age sex ascites hepato spiders edema bili chol
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='kw'>pbc</span>)
+</div><div class='output co'>#&gt;   id time status trt      age sex ascites hepato spiders edema bili chol
 #&gt; 1  1  400      2   1 58.76523   f       1      1       1   1.0 14.5  261
 #&gt; 2  2 4500      0   1 56.44627   f       0      1       1   0.0  1.1  302
 #&gt; 3  3 1012      2   1 70.07255   m       0      0       0   0.5  1.4  176
@@ -232,13 +236,14 @@
 #&gt; 5    3.53    143    671.0 113.15   72      136    10.9     3
 #&gt; 6    3.98     50    944.0  93.00   63       NA    11.0     3</div><div class='input'>
 <span class='co'>## Create an overall table for continuous variables</span>
-<span class='no'>contVars</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"time"</span>,<span class='st'>"age"</span>,<span class='st'>"bili"</span>,<span class='st'>"chol"</span>,<span class='st'>"albumin"</span>,<span class='st'>"copper"</span>,
+<span class='kw'>contVars</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"time"</span>,<span class='st'>"age"</span>,<span class='st'>"bili"</span>,<span class='st'>"chol"</span>,<span class='st'>"albumin"</span>,<span class='st'>"copper"</span>,
               <span class='st'>"alk.phos"</span>,<span class='st'>"ast"</span>,<span class='st'>"trig"</span>,<span class='st'>"platelet"</span>,<span class='st'>"protime"</span>)
-<span class='no'>contTableOverall</span> <span class='kw'>&lt;-</span> <span class='fu'>CreateContTable</span>(<span class='kw'>vars</span> <span class='kw'>=</span> <span class='no'>contVars</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>pbc</span>)
+<span class='kw'>contTableOverall</span> <span class='op'>&lt;-</span> <span class='fu'>CreateContTable</span>(vars = <span class='kw'>contVars</span>, data = <span class='kw'>pbc</span>)
 
 <span class='co'>## Simply typing the object name will invoke the print.ContTable method,</span>
 <span class='co'>## which will show the sample size, means and standard deviations.</span>
-<span class='no'>contTableOverall</span></div><div class='output co'>#&gt;                       
+<span class='kw'>contTableOverall</span>
+</div><div class='output co'>#&gt;                       
 #&gt;                        Overall          
 #&gt;   n                    418              
 #&gt;   time (mean (SD))     1917.78 (1104.67)
@@ -254,7 +259,8 @@
 #&gt;   protime (mean (SD))    10.73 (1.02)   </div><div class='input'>
 <span class='co'>## To further examine the variables, use the summary.ContTable method,</span>
 <span class='co'>## which will show more details.</span>
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>contTableOverall</span>)</div><div class='output co'>#&gt; strata: Overall
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='kw'>contTableOverall</span>)
+</div><div class='output co'>#&gt; strata: Overall
 #&gt;            n miss p.miss   mean      sd median    p25    p75   min     max
 #&gt; time     418    0   0.00 1917.8 1104.67 1730.0 1092.8 2613.5  41.0  4795.0
 #&gt; age      418    0   0.00   50.7   10.45   51.0   42.8   58.2  26.3    78.4
@@ -282,8 +288,9 @@
 <span class='co'>## c("age","chol","copper","alk.phos","trig","protime") appear highly skewed.</span>
 <span class='co'>## Specify them in the nonnormal argument, and the display changes to the median,</span>
 <span class='co'>## and the [25th, 75th] percentile.</span>
-<span class='no'>nonNormalVars</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"age"</span>,<span class='st'>"chol"</span>,<span class='st'>"copper"</span>,<span class='st'>"alk.phos"</span>,<span class='st'>"trig"</span>,<span class='st'>"protime"</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>contTableOverall</span>, <span class='kw'>nonnormal</span> <span class='kw'>=</span> <span class='no'>nonNormalVars</span>)</div><div class='output co'>#&gt;                          
+<span class='kw'>nonNormalVars</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"age"</span>,<span class='st'>"chol"</span>,<span class='st'>"copper"</span>,<span class='st'>"alk.phos"</span>,<span class='st'>"trig"</span>,<span class='st'>"protime"</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='kw'>contTableOverall</span>, nonnormal = <span class='kw'>nonNormalVars</span>)
+</div><div class='output co'>#&gt;                          
 #&gt;                           Overall                  
 #&gt;   n                       418                      
 #&gt;   time (mean (SD))        1917.78 (1104.67)        
@@ -298,7 +305,8 @@
 #&gt;   platelet (mean (SD))     257.02 (98.33)          
 #&gt;   protime (median [IQR])    10.60 [10.00, 11.10]   </div><div class='input'>
 <span class='co'>## To show median [min,max] for nonnormal variables, use minMax = TRUE</span>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>contTableOverall</span>, <span class='kw'>nonnormal</span> <span class='kw'>=</span> <span class='no'>nonNormalVars</span>, <span class='kw'>minMax</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;                            
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='kw'>contTableOverall</span>, nonnormal = <span class='kw'>nonNormalVars</span>, minMax = <span class='fl'>TRUE</span>)
+</div><div class='output co'>#&gt;                            
 #&gt;                             Overall                   
 #&gt;   n                         418                       
 #&gt;   time (mean (SD))          1917.78 (1104.67)         
@@ -313,13 +321,14 @@
 #&gt;   platelet (mean (SD))       257.02 (98.33)           
 #&gt;   protime (median [range])    10.60 [9.00, 18.00]     </div><div class='input'>
 <span class='co'>## The table can be stratified by one or more variables</span>
-<span class='no'>contTableBySexTrt</span> <span class='kw'>&lt;-</span> <span class='fu'>CreateContTable</span>(<span class='kw'>vars</span> <span class='kw'>=</span> <span class='no'>contVars</span>,
-                                     <span class='kw'>strata</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"sex"</span>,<span class='st'>"trt"</span>), <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>pbc</span>)
+<span class='kw'>contTableBySexTrt</span> <span class='op'>&lt;-</span> <span class='fu'>CreateContTable</span>(vars = <span class='kw'>contVars</span>,
+                                     strata = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"sex"</span>,<span class='st'>"trt"</span>), data = <span class='kw'>pbc</span>)
 
 <span class='co'>## print now includes p-values which are by default calculated by oneway.test (t-test</span>
 <span class='co'>## equivalent in the two group case). It is formatted at the decimal place specified</span>
 <span class='co'>## by the pDigits argument (3 by default). It does &lt;0.001 for you.</span>
-<span class='no'>contTableBySexTrt</span></div><div class='output co'>#&gt;                       Stratified by sex:trt
+<span class='kw'>contTableBySexTrt</span>
+</div><div class='output co'>#&gt;                       Stratified by sex:trt
 #&gt;                        m:1               f:1               m:2              
 #&gt;   n                    21                137               15               
 #&gt;   time (mean (SD))     1793.48 (1244.70) 2049.67 (1070.20) 2156.33 (1428.56)
@@ -349,7 +358,8 @@
 #&gt;   protime (mean (SD))    10.75 (1.15)     0.137     </div><div class='input'>
 <span class='co'>## The nonnormal argument toggles the p-values to the nonparametric result from</span>
 <span class='co'>## kruskal.test (wilcox.test equivalent for the two group case).</span>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>contTableBySexTrt</span>, <span class='kw'>nonnormal</span> <span class='kw'>=</span> <span class='no'>nonNormalVars</span>)</div><div class='output co'>#&gt;                          Stratified by sex:trt
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='kw'>contTableBySexTrt</span>, nonnormal = <span class='kw'>nonNormalVars</span>)
+</div><div class='output co'>#&gt;                          Stratified by sex:trt
 #&gt;                           m:1                       f:1                      
 #&gt;   n                       21                        137                      
 #&gt;   time (mean (SD))        1793.48 (1244.70)         2049.67 (1070.20)        
@@ -392,7 +402,8 @@
 #&gt;   platelet (mean (SD))     0.362        
 #&gt;   protime (median [IQR])   0.081 nonnorm</div><div class='input'>
 <span class='co'>## summary now includes both types of p-values</span>
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>contTableBySexTrt</span>)</div><div class='output co'>#&gt; sex: m
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='kw'>contTableBySexTrt</span>)
+</div><div class='output co'>#&gt; sex: m
 #&gt; trt: 1
 #&gt;           n miss p.miss   mean      sd median   p25    p75   min     max   skew
 #&gt; time     21    0    0.0 1793.5 1244.70 1302.0 999.0 2386.0 140.0  4459.0  1.042
@@ -542,7 +553,8 @@
 <span class='co'>## If your work flow includes copying to Excel and Word when writing manuscripts,</span>
 <span class='co'>## you may benefit from the quote argument. This will quote everything so that</span>
 <span class='co'>## Excel does not mess up the cells.</span>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>contTableBySexTrt</span>, <span class='kw'>nonnormal</span> <span class='kw'>=</span> <span class='no'>nonNormalVars</span>, <span class='kw'>quote</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;                            "Stratified by sex:trt"
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='kw'>contTableBySexTrt</span>, nonnormal = <span class='kw'>nonNormalVars</span>, quote = <span class='fl'>TRUE</span>)
+</div><div class='output co'>#&gt;                            "Stratified by sex:trt"
 #&gt;  ""                         "m:1"                      
 #&gt;   "n"                       "21"                       
 #&gt;   "time (mean (SD))"        "1793.48 (1244.70)"        
@@ -599,7 +611,8 @@
 #&gt;   "platelet (mean (SD))"    " 267.95 (92.20)"           " 0.362" ""       
 #&gt;   "protime (median [IQR])"  "  10.60 [9.90, 11.25]"     " 0.081" "nonnorm"</div><div class='input'>
 <span class='co'>## If you want to center-align values in Word, use noSpaces option.</span>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>contTableBySexTrt</span>, <span class='kw'>nonnormal</span> <span class='kw'>=</span> <span class='no'>nonNormalVars</span>, <span class='kw'>quote</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>noSpaces</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;                            "Stratified by sex:trt"
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='kw'>contTableBySexTrt</span>, nonnormal = <span class='kw'>nonNormalVars</span>, quote = <span class='fl'>TRUE</span>, noSpaces = <span class='fl'>TRUE</span>)
+</div><div class='output co'>#&gt;                            "Stratified by sex:trt"
 #&gt;  ""                         "m:1"                      
 #&gt;   "n"                       "21"                       
 #&gt;   "time (mean (SD))"        "1793.48 (1244.70)"        
@@ -671,7 +684,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

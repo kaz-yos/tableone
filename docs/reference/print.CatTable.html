@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Format and print <code>CatTable</code> class objects — print.CatTable • tableone</title>
+<title>Format and print CatTable class objects — print.CatTable • tableone</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,7 @@
 
 
 
-<meta property="og:title" content="Format and print <code>CatTable</code> class objects — print.CatTable" />
+<meta property="og:title" content="Format and print CatTable class objects — print.CatTable" />
 <meta property="og:description" content="print method for the CatTable class objects created by CreateCatTable function." />
 
 
@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tableone</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.12.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.12.1</span>
       </span>
     </div>
 
@@ -134,24 +134,24 @@
 
     <pre class="usage"><span class='co'># S3 method for CatTable</span>
 <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(
-  <span class='no'>x</span>,
-  <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>pDigits</span> <span class='kw'>=</span> <span class='fl'>3</span>,
-  <span class='kw'>quote</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>missing</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>explain</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>printToggle</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>noSpaces</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>format</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"fp"</span>, <span class='st'>"f"</span>, <span class='st'>"p"</span>, <span class='st'>"pf"</span>)[<span class='fl'>1</span>],
-  <span class='kw'>showAllLevels</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>cramVars</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>dropEqual</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>test</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>exact</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>smd</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>CrossTable</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>formatOptions</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>scientific</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>),
-  <span class='no'>...</span>
+  <span class='kw'>x</span>,
+  digits = <span class='fl'>1</span>,
+  pDigits = <span class='fl'>3</span>,
+  quote = <span class='fl'>FALSE</span>,
+  missing = <span class='fl'>FALSE</span>,
+  explain = <span class='fl'>TRUE</span>,
+  printToggle = <span class='fl'>TRUE</span>,
+  noSpaces = <span class='fl'>FALSE</span>,
+  format = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"fp"</span>, <span class='st'>"f"</span>, <span class='st'>"p"</span>, <span class='st'>"pf"</span>)[<span class='fl'>1</span>],
+  showAllLevels = <span class='fl'>FALSE</span>,
+  cramVars = <span class='kw'>NULL</span>,
+  dropEqual = <span class='fl'>FALSE</span>,
+  test = <span class='fl'>TRUE</span>,
+  exact = <span class='kw'>NULL</span>,
+  smd = <span class='fl'>FALSE</span>,
+  CrossTable = <span class='fl'>FALSE</span>,
+  formatOptions = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(scientific = <span class='fl'>FALSE</span>),
+  <span class='kw'>...</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -237,17 +237,21 @@
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='CreateTableOne.html'>CreateTableOne</a></code>, <code><a href='CreateCatTable.html'>CreateCatTable</a></code>, <code><a href='summary.CatTable.html'>summary.CatTable</a></code></p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Kazuki Yoshida, Alexander Bartel</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'>## Load</span>
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>tableone</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://github.com/kaz-yos/tableone'>tableone</a></span>)
 
 <span class='co'>## Load Mayo Clinic Primary Biliary Cirrhosis Data</span>
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>survival</span>)
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>pbc</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://github.com/therneau/survival'>survival</a></span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='kw'>pbc</span>)
 <span class='co'>## Check variables</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>pbc</span>)</div><div class='output co'>#&gt;   id time status trt      age sex ascites hepato spiders edema bili chol
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='kw'>pbc</span>)
+</div><div class='output co'>#&gt;   id time status trt      age sex ascites hepato spiders edema bili chol
 #&gt; 1  1  400      2   1 58.76523   f       1      1       1   1.0 14.5  261
 #&gt; 2  2 4500      0   1 56.44627   f       0      1       1   0.0  1.1  302
 #&gt; 3  3 1012      2   1 70.07255   m       0      0       0   0.5  1.4  176
@@ -262,13 +266,14 @@
 #&gt; 5    3.53    143    671.0 113.15   72      136    10.9     3
 #&gt; 6    3.98     50    944.0  93.00   63       NA    11.0     3</div><div class='input'>
 <span class='co'>## Create an overall table for categorical variables</span>
-<span class='no'>catVars</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"status"</span>,<span class='st'>"ascites"</span>,<span class='st'>"hepato"</span>,<span class='st'>"spiders"</span>,<span class='st'>"edema"</span>,<span class='st'>"stage"</span>)
-<span class='no'>catTableOverall</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='CreateCatTable.html'>CreateCatTable</a></span>(<span class='kw'>vars</span> <span class='kw'>=</span> <span class='no'>catVars</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>pbc</span>)
+<span class='kw'>catVars</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"status"</span>,<span class='st'>"ascites"</span>,<span class='st'>"hepato"</span>,<span class='st'>"spiders"</span>,<span class='st'>"edema"</span>,<span class='st'>"stage"</span>)
+<span class='kw'>catTableOverall</span> <span class='op'>&lt;-</span> <span class='fu'><a href='CreateCatTable.html'>CreateCatTable</a></span>(vars = <span class='kw'>catVars</span>, data = <span class='kw'>pbc</span>)
 
 <span class='co'>## Simply typing the object name will invoke the print.CatTable method,</span>
 <span class='co'>## which will show the sample size, frequencies and percentages.</span>
 <span class='co'>## For 2-level variables, only the higher level is shown for simplicity.</span>
-<span class='no'>catTableOverall</span></div><div class='output co'>#&gt;                  
+<span class='kw'>catTableOverall</span>
+</div><div class='output co'>#&gt;                  
 #&gt;                   Overall    
 #&gt;   n               418        
 #&gt;   status (%)                 
@@ -288,7 +293,8 @@
 #&gt;      3            155 (37.6) 
 #&gt;      4            144 (35.0) </div><div class='input'>
 <span class='co'>## If you need to show both levels for some 2-level factors, use cramVars</span>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>catTableOverall</span>, <span class='kw'>cramVars</span> <span class='kw'>=</span> <span class='st'>"hepato"</span>)</div><div class='output co'>#&gt;                   
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='kw'>catTableOverall</span>, cramVars = <span class='st'>"hepato"</span>)
+</div><div class='output co'>#&gt;                   
 #&gt;                    Overall             
 #&gt;   n                418                 
 #&gt;   status (%)                           
@@ -308,7 +314,8 @@
 #&gt;      3                 155 (37.6)      
 #&gt;      4                 144 (35.0)      </div><div class='input'>
 <span class='co'>## Use the showAllLevels argument to see all levels for all variables.</span>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>catTableOverall</span>, <span class='kw'>showAllLevels</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;              
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='kw'>catTableOverall</span>, showAllLevels = <span class='fl'>TRUE</span>)
+</div><div class='output co'>#&gt;              
 #&gt;               level Overall    
 #&gt;   n                 418        
 #&gt;   status (%)  0     232 (55.5) 
@@ -329,7 +336,8 @@
 #&gt;               4     144 (35.0) </div><div class='input'>
 <span class='co'>## You can choose form frequencies ("f") and/or percentages ("p") or both.</span>
 <span class='co'>## "fp" frequency (percentage) is the default. Row names change accordingly.</span>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>catTableOverall</span>, <span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>"f"</span>)</div><div class='output co'>#&gt;              
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='kw'>catTableOverall</span>, format = <span class='st'>"f"</span>)
+</div><div class='output co'>#&gt;              
 #&gt;               Overall
 #&gt;   n           418    
 #&gt;   status             
@@ -347,7 +355,8 @@
 #&gt;      1         21    
 #&gt;      2         92    
 #&gt;      3        155    
-#&gt;      4        144    </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>catTableOverall</span>, <span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>"p"</span>)</div><div class='output co'>#&gt;                  
+#&gt;      4        144    </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='kw'>catTableOverall</span>, format = <span class='st'>"p"</span>)
+</div><div class='output co'>#&gt;                  
 #&gt;                   Overall
 #&gt;   n               418    
 #&gt;   status (%)             
@@ -368,7 +377,8 @@
 #&gt;      4            35.0   </div><div class='input'>
 <span class='co'>## To further examine the variables, use the summary.CatTable method,</span>
 <span class='co'>## which will show more details.</span>
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>catTableOverall</span>)</div><div class='output co'>#&gt; strata: Overall
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='kw'>catTableOverall</span>)
+</div><div class='output co'>#&gt; strata: Overall
 #&gt;      var   n miss p.miss level freq percent cum.percent
 #&gt;   status 418    0    0.0     0  232    55.5        55.5
 #&gt;                              1   25     6.0        61.5
@@ -393,13 +403,14 @@
 #&gt;                              4  144    35.0       100.0
 #&gt;                                                        </div><div class='input'>
 <span class='co'>## The table can be stratified by one or more variables</span>
-<span class='no'>catTableBySexTrt</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='CreateCatTable.html'>CreateCatTable</a></span>(<span class='kw'>vars</span> <span class='kw'>=</span> <span class='no'>catVars</span>,
-                                   <span class='kw'>strata</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"sex"</span>,<span class='st'>"trt"</span>), <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>pbc</span>)
+<span class='kw'>catTableBySexTrt</span> <span class='op'>&lt;-</span> <span class='fu'><a href='CreateCatTable.html'>CreateCatTable</a></span>(vars = <span class='kw'>catVars</span>,
+                                   strata = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"sex"</span>,<span class='st'>"trt"</span>), data = <span class='kw'>pbc</span>)
 
 <span class='co'>## print now includes p-values which are by default calculated by chisq.test.</span>
 <span class='co'>## It is formatted at the decimal place specified by the pDigits argument</span>
 <span class='co'>## (3 by default). It does &lt;0.001 for you.</span>
-<span class='no'>catTableBySexTrt</span></div><div class='output co'>#&gt;                  Stratified by sex:trt
+<span class='kw'>catTableBySexTrt</span>
+</div><div class='output co'>#&gt;                  Stratified by sex:trt
 #&gt;                   m:1        f:1         m:2        f:2         p      test
 #&gt;   n               21         137         15         139                    
 #&gt;   status (%)                                                     0.033     
@@ -420,7 +431,8 @@
 #&gt;      4             8 (38.1)   47 (34.3)   7 (46.7)   47 (33.8)             </div><div class='input'>
 <span class='co'>## The exact argument toggles the p-values to the exact test result from</span>
 <span class='co'>## fisher.test. It will show which ones are from exact tests.</span>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>catTableBySexTrt</span>, <span class='kw'>exact</span> <span class='kw'>=</span> <span class='st'>"ascites"</span>)</div><div class='output co'>#&gt;                  Stratified by sex:trt
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='kw'>catTableBySexTrt</span>, exact = <span class='st'>"ascites"</span>)
+</div><div class='output co'>#&gt;                  Stratified by sex:trt
 #&gt;                   m:1        f:1         m:2        f:2         p      test 
 #&gt;   n               21         137         15         139                     
 #&gt;   status (%)                                                     0.033      
@@ -440,7 +452,8 @@
 #&gt;      3             7 (33.3)   49 (35.8)   5 (33.3)   59 (42.4)              
 #&gt;      4             8 (38.1)   47 (34.3)   7 (46.7)   47 (33.8)              </div><div class='input'>
 <span class='co'>## summary now includes both types of p-values</span>
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>catTableBySexTrt</span>)</div><div class='output co'>#&gt; sex: m
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='kw'>catTableBySexTrt</span>)
+</div><div class='output co'>#&gt; sex: m
 #&gt; trt: 1
 #&gt;      var  n miss p.miss level freq percent cum.percent
 #&gt;   status 21    0    0.0     0    4    19.0        19.0
@@ -571,7 +584,8 @@
 <span class='co'>## If your work flow includes copying to Excel and Word when writing manuscripts,</span>
 <span class='co'>## you may benefit from the quote argument. This will quote everything so that</span>
 <span class='co'>## Excel does not mess up the cells.</span>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>catTableBySexTrt</span>, <span class='kw'>exact</span> <span class='kw'>=</span> <span class='st'>"ascites"</span>, <span class='kw'>quote</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;                    "Stratified by sex:trt"
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='kw'>catTableBySexTrt</span>, exact = <span class='st'>"ascites"</span>, quote = <span class='fl'>TRUE</span>)
+</div><div class='output co'>#&gt;                    "Stratified by sex:trt"
 #&gt;  ""                 "m:1"        "f:1"         "m:2"        "f:2"        
 #&gt;   "n"               "21"         "137"         "15"         "139"        
 #&gt;   "status (%)"      ""           ""            ""           ""           
@@ -610,7 +624,8 @@
 #&gt;   "   3"            ""       ""     
 #&gt;   "   4"            ""       ""     </div><div class='input'>
 <span class='co'>## If you want to center-align values in Word, use noSpaces option.</span>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>catTableBySexTrt</span>, <span class='kw'>exact</span> <span class='kw'>=</span> <span class='st'>"ascites"</span>, <span class='kw'>quote</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>noSpaces</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;                    "Stratified by sex:trt"
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='kw'>catTableBySexTrt</span>, exact = <span class='st'>"ascites"</span>, quote = <span class='fl'>TRUE</span>, noSpaces = <span class='fl'>TRUE</span>)
+</div><div class='output co'>#&gt;                    "Stratified by sex:trt"
 #&gt;  ""                 "m:1"       "f:1"        "m:2"       "f:2"        "p"    
 #&gt;   "n"               "21"        "137"        "15"        "139"        ""     
 #&gt;   "status (%)"      ""          ""           ""          ""           "0.033"
@@ -664,7 +679,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

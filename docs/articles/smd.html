@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tableone</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.12.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.12.1</span>
       </span>
     </div>
 
@@ -103,30 +103,35 @@
 <div id="load-packages" class="section level2">
 <h2 class="hasAnchor">
 <a href="#load-packages" class="anchor"></a>Load packages</h2>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="co">## tableone package itself</span>
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">tableone</span>)
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="co">## tableone package itself</span>
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://github.com/kaz-yos/tableone">tableone</a></span>)
 <span class="co">## PS matching</span>
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">Matching</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="http://sekhon.berkeley.edu/matching">Matching</a></span>)
 <span class="co">## Weighted analysis</span>
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">survey</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="http://r-survey.r-forge.r-project.org/survey">survey</a></span>)
 <span class="co">## Reorganizing data</span>
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">reshape2</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://github.com/hadley/reshape">reshape2</a></span>)
 <span class="co">## plotting</span>
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">ggplot2</span>)</pre></body></html></div>
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="http://ggplot2.tidyverse.org">ggplot2</a></span>)
+</pre></div>
 </div>
 <div id="load-data" class="section level2">
 <h2 class="hasAnchor">
 <a href="#load-data" class="anchor"></a>Load data</h2>
 <p>The right heart catheterization dataset is available at <a href="http://biostat.mc.vanderbilt.edu/wiki/Main/DataSets" class="uri">http://biostat.mc.vanderbilt.edu/wiki/Main/DataSets</a> . This dataset was originally used in Connors <em>et al</em>. JAMA 1996;276:889-897, and has been made publicly available.</p>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="co">## Right heart cath dataset</span>
-<span class="no">rhc</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span>(<span class="st">"http://biostat.mc.vanderbilt.edu/wiki/pub/Main/DataSets/rhc.csv"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb2"><pre class="downlit">
+<span class="co">## Right heart cath dataset</span>
+<span class="kw">rhc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span>(<span class="st">"http://biostat.mc.vanderbilt.edu/wiki/pub/Main/DataSets/rhc.csv"</span>)
+</pre></div>
 </div>
 <div id="unmatched-table" class="section level2">
 <h2 class="hasAnchor">
 <a href="#unmatched-table" class="anchor"></a>Unmatched table</h2>
 <p>Out of the 50 covariates, 32 have standardized mean differences of greater than 0.1, which is often considered the sign of important covariate imbalance (<a href="http://www.ncbi.nlm.nih.gov/pmc/articles/PMC3144483/#s11title" class="uri">http://www.ncbi.nlm.nih.gov/pmc/articles/PMC3144483/#s11title</a> ).</p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="co">## Covariates</span>
-<span class="no">vars</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"age"</span>,<span class="st">"sex"</span>,<span class="st">"race"</span>,<span class="st">"edu"</span>,<span class="st">"income"</span>,<span class="st">"ninsclas"</span>,<span class="st">"cat1"</span>,<span class="st">"das2d3pc"</span>,<span class="st">"dnr1"</span>,
+<div class="sourceCode" id="cb3"><pre class="downlit">
+<span class="co">## Covariates</span>
+<span class="kw">vars</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"age"</span>,<span class="st">"sex"</span>,<span class="st">"race"</span>,<span class="st">"edu"</span>,<span class="st">"income"</span>,<span class="st">"ninsclas"</span>,<span class="st">"cat1"</span>,<span class="st">"das2d3pc"</span>,<span class="st">"dnr1"</span>,
           <span class="st">"ca"</span>,<span class="st">"surv2md1"</span>,<span class="st">"aps1"</span>,<span class="st">"scoma1"</span>,<span class="st">"wtkilo1"</span>,<span class="st">"temp1"</span>,<span class="st">"meanbp1"</span>,<span class="st">"resp1"</span>,
           <span class="st">"hrt1"</span>,<span class="st">"pafi1"</span>,<span class="st">"paco21"</span>,<span class="st">"ph1"</span>,<span class="st">"wblc1"</span>,<span class="st">"hema1"</span>,<span class="st">"sod1"</span>,<span class="st">"pot1"</span>,<span class="st">"crea1"</span>,
           <span class="st">"bili1"</span>,<span class="st">"alb1"</span>,<span class="st">"resp"</span>,<span class="st">"card"</span>,<span class="st">"neuro"</span>,<span class="st">"gastr"</span>,<span class="st">"renal"</span>,<span class="st">"meta"</span>,<span class="st">"hema"</span>,
@@ -135,9 +140,10 @@
           <span class="st">"transhx"</span>,<span class="st">"amihx"</span>)
 
 <span class="co">## Construct a table</span>
-<span class="no">tabUnmatched</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/CreateTableOne.html">CreateTableOne</a></span>(<span class="kw">vars</span> <span class="kw">=</span> <span class="no">vars</span>, <span class="kw">strata</span> <span class="kw">=</span> <span class="st">"swang1"</span>, <span class="kw">data</span> <span class="kw">=</span> <span class="no">rhc</span>, <span class="kw">test</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
+<span class="kw">tabUnmatched</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/CreateTableOne.html">CreateTableOne</a></span>(vars = <span class="kw">vars</span>, strata = <span class="st">"swang1"</span>, data = <span class="kw">rhc</span>, test = <span class="fl">FALSE</span>)
 <span class="co">## Show table with SMD</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="no">tabUnmatched</span>, <span class="kw">smd</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="kw">tabUnmatched</span>, smd = <span class="fl">TRUE</span>)
+</pre></div>
 <pre><code>                        Stratified by swang1
                          No RHC          RHC             SMD   
   n                        3551            2184                
@@ -216,8 +222,10 @@
   immunhx (mean (SD))      0.26 (0.44)     0.29 (0.45)    0.080
   transhx (mean (SD))      0.09 (0.29)     0.15 (0.36)    0.170
   amihx (mean (SD))        0.03 (0.17)     0.04 (0.20)    0.074</code></pre>
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="co">## Count covariates with important imbalance</span>
-<span class="fu"><a href="https://rdrr.io/r/stats/addmargins.html">addmargins</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span>(<span class="fu"><a href="../reference/ExtractSmd.html">ExtractSmd</a></span>(<span class="no">tabUnmatched</span>) <span class="kw">&gt;</span> <span class="fl">0.1</span>))</pre></body></html></div>
+<div class="sourceCode" id="cb5"><pre class="downlit">
+<span class="co">## Count covariates with important imbalance</span>
+<span class="fu"><a href="https://rdrr.io/r/stats/addmargins.html">addmargins</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span>(<span class="fu"><a href="../reference/ExtractSmd.html">ExtractSmd</a></span>(<span class="kw">tabUnmatched</span>) <span class="op">&gt;</span> <span class="fl">0.1</span>))
+</pre></div>
 <pre><code>
 FALSE  TRUE   Sum 
    18    32    50 </code></pre>
@@ -225,134 +233,140 @@ FALSE  TRUE   Sum
 <div id="propensity-score-estimation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#propensity-score-estimation" class="anchor"></a>Propensity score estimation</h2>
-<p>Usually a logistic regression model is used to estimate individual propensity scores. The model here is taken from “How To Use Propensity Score Analysis” (<a href="http://www.mc.vanderbilt.edu/crc/workshop_files/2008-04-11.pdf" class="uri">http://www.mc.vanderbilt.edu/crc/workshop_files/2008-04-11.pdf</a> ). Predicted probabilities of being assigned to right heart catherterization, being assigned no right heart catherterization, being assigned to the true assignment, as well as the smaller of the probabilities of being assigned to right heart catherterization or no right heart catherterization are calculated for later use in propensity score matching and weighting.</p>
-<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">rhc</span>$<span class="no">swang1</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(<span class="no">rhc</span>$<span class="no">swang1</span>, <span class="kw">levels</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"No RHC"</span>, <span class="st">"RHC"</span>))
+<p>Usually a logistic regression model is used to estimate individual propensity scores. The model here is taken from “How To Use Propensity Score Analysis” (<a href="https://www.mc.vanderbilt.edu/crc/workshop_files/2008-04-11.pdf" class="uri">https://www.mc.vanderbilt.edu/crc/workshop_files/2008-04-11.pdf</a> ). Predicted probabilities of being assigned to right heart catherterization, being assigned no right heart catherterization, being assigned to the true assignment, as well as the smaller of the probabilities of being assigned to right heart catherterization or no right heart catherterization are calculated for later use in propensity score matching and weighting.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit">
+<span class="kw">rhc</span><span class="op">$</span><span class="kw">swang1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(<span class="kw">rhc</span><span class="op">$</span><span class="kw">swang1</span>, levels = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"No RHC"</span>, <span class="st">"RHC"</span>))
 <span class="co">## Fit model</span>
-<span class="no">psModel</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span>(<span class="kw">formula</span> <span class="kw">=</span> <span class="no">swang1</span> ~ <span class="no">age</span> + <span class="no">sex</span> + <span class="no">race</span> + <span class="no">edu</span> + <span class="no">income</span> + <span class="no">ninsclas</span> +
-                         <span class="no">cat1</span> + <span class="no">das2d3pc</span> + <span class="no">dnr1</span> + <span class="no">ca</span> + <span class="no">surv2md1</span> + <span class="no">aps1</span> + <span class="no">scoma1</span> +
-                         <span class="no">wtkilo1</span> + <span class="no">temp1</span> + <span class="no">meanbp1</span> + <span class="no">resp1</span> + <span class="no">hrt1</span> + <span class="no">pafi1</span> +
-                         <span class="no">paco21</span> + <span class="no">ph1</span> + <span class="no">wblc1</span> + <span class="no">hema1</span> + <span class="no">sod1</span> + <span class="no">pot1</span> + <span class="no">crea1</span> +
-                         <span class="no">bili1</span> + <span class="no">alb1</span> + <span class="no">resp</span> + <span class="no">card</span> + <span class="no">neuro</span> + <span class="no">gastr</span> + <span class="no">renal</span> +
-                         <span class="no">meta</span> + <span class="no">hema</span> + <span class="no">seps</span> + <span class="no">trauma</span> + <span class="no">ortho</span> + <span class="no">cardiohx</span> + <span class="no">chfhx</span> +
-                         <span class="no">dementhx</span> + <span class="no">psychhx</span> + <span class="no">chrpulhx</span> + <span class="no">renalhx</span> + <span class="no">liverhx</span> + <span class="no">gibledhx</span> +
-                         <span class="no">malighx</span> + <span class="no">immunhx</span> + <span class="no">transhx</span> + <span class="no">amihx</span>,
-               <span class="kw">family</span>  <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/family.html">binomial</a></span>(<span class="kw">link</span> <span class="kw">=</span> <span class="st">"logit"</span>),
-               <span class="kw">data</span>    <span class="kw">=</span> <span class="no">rhc</span>)
+<span class="kw">psModel</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span>(formula = <span class="kw">swang1</span> <span class="op">~</span> <span class="kw">age</span> <span class="op">+</span> <span class="kw">sex</span> <span class="op">+</span> <span class="kw">race</span> <span class="op">+</span> <span class="kw">edu</span> <span class="op">+</span> <span class="kw">income</span> <span class="op">+</span> <span class="kw">ninsclas</span> <span class="op">+</span>
+                         <span class="kw">cat1</span> <span class="op">+</span> <span class="kw">das2d3pc</span> <span class="op">+</span> <span class="kw">dnr1</span> <span class="op">+</span> <span class="kw">ca</span> <span class="op">+</span> <span class="kw">surv2md1</span> <span class="op">+</span> <span class="kw">aps1</span> <span class="op">+</span> <span class="kw">scoma1</span> <span class="op">+</span>
+                         <span class="kw">wtkilo1</span> <span class="op">+</span> <span class="kw">temp1</span> <span class="op">+</span> <span class="kw">meanbp1</span> <span class="op">+</span> <span class="kw">resp1</span> <span class="op">+</span> <span class="kw">hrt1</span> <span class="op">+</span> <span class="kw">pafi1</span> <span class="op">+</span>
+                         <span class="kw">paco21</span> <span class="op">+</span> <span class="kw">ph1</span> <span class="op">+</span> <span class="kw">wblc1</span> <span class="op">+</span> <span class="kw">hema1</span> <span class="op">+</span> <span class="kw">sod1</span> <span class="op">+</span> <span class="kw">pot1</span> <span class="op">+</span> <span class="kw">crea1</span> <span class="op">+</span>
+                         <span class="kw">bili1</span> <span class="op">+</span> <span class="kw">alb1</span> <span class="op">+</span> <span class="kw">resp</span> <span class="op">+</span> <span class="kw">card</span> <span class="op">+</span> <span class="kw">neuro</span> <span class="op">+</span> <span class="kw">gastr</span> <span class="op">+</span> <span class="kw">renal</span> <span class="op">+</span>
+                         <span class="kw">meta</span> <span class="op">+</span> <span class="kw">hema</span> <span class="op">+</span> <span class="kw">seps</span> <span class="op">+</span> <span class="kw">trauma</span> <span class="op">+</span> <span class="kw">ortho</span> <span class="op">+</span> <span class="kw">cardiohx</span> <span class="op">+</span> <span class="kw">chfhx</span> <span class="op">+</span>
+                         <span class="kw">dementhx</span> <span class="op">+</span> <span class="kw">psychhx</span> <span class="op">+</span> <span class="kw">chrpulhx</span> <span class="op">+</span> <span class="kw">renalhx</span> <span class="op">+</span> <span class="kw">liverhx</span> <span class="op">+</span> <span class="kw">gibledhx</span> <span class="op">+</span>
+                         <span class="kw">malighx</span> <span class="op">+</span> <span class="kw">immunhx</span> <span class="op">+</span> <span class="kw">transhx</span> <span class="op">+</span> <span class="kw">amihx</span>,
+               family  = <span class="fu"><a href="https://rdrr.io/r/stats/family.html">binomial</a></span>(link = <span class="st">"logit"</span>),
+               data    = <span class="kw">rhc</span>)
 
 <span class="co">## Predicted probability of being assigned to RHC</span>
-<span class="no">rhc</span>$<span class="no">pRhc</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span>(<span class="no">psModel</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">"response"</span>)
+<span class="kw">rhc</span><span class="op">$</span><span class="kw">pRhc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span>(<span class="kw">psModel</span>, type = <span class="st">"response"</span>)
 <span class="co">## Predicted probability of being assigned to no RHC</span>
-<span class="no">rhc</span>$<span class="no">pNoRhc</span> <span class="kw">&lt;-</span> <span class="fl">1</span> - <span class="no">rhc</span>$<span class="no">pRhc</span>
+<span class="kw">rhc</span><span class="op">$</span><span class="kw">pNoRhc</span> <span class="op">&lt;-</span> <span class="fl">1</span> <span class="op">-</span> <span class="kw">rhc</span><span class="op">$</span><span class="kw">pRhc</span>
 
 <span class="co">## Predicted probability of being assigned to the</span>
 <span class="co">## treatment actually assigned (either RHC or no RHC)</span>
-<span class="no">rhc</span>$<span class="no">pAssign</span> <span class="kw">&lt;-</span> <span class="fl">NA</span>
-<span class="no">rhc</span>$<span class="no">pAssign</span>[<span class="no">rhc</span>$<span class="no">swang1</span> <span class="kw">==</span> <span class="st">"RHC"</span>]    <span class="kw">&lt;-</span> <span class="no">rhc</span>$<span class="no">pRhc</span>[<span class="no">rhc</span>$<span class="no">swang1</span>   <span class="kw">==</span> <span class="st">"RHC"</span>]
-<span class="no">rhc</span>$<span class="no">pAssign</span>[<span class="no">rhc</span>$<span class="no">swang1</span> <span class="kw">==</span> <span class="st">"No RHC"</span>] <span class="kw">&lt;-</span> <span class="no">rhc</span>$<span class="no">pNoRhc</span>[<span class="no">rhc</span>$<span class="no">swang1</span> <span class="kw">==</span> <span class="st">"No RHC"</span>]
+<span class="kw">rhc</span><span class="op">$</span><span class="kw">pAssign</span> <span class="op">&lt;-</span> <span class="fl">NA</span>
+<span class="kw">rhc</span><span class="op">$</span><span class="kw">pAssign</span>[<span class="kw">rhc</span><span class="op">$</span><span class="kw">swang1</span> <span class="op">==</span> <span class="st">"RHC"</span>]    <span class="op">&lt;-</span> <span class="kw">rhc</span><span class="op">$</span><span class="kw">pRhc</span>[<span class="kw">rhc</span><span class="op">$</span><span class="kw">swang1</span>   <span class="op">==</span> <span class="st">"RHC"</span>]
+<span class="kw">rhc</span><span class="op">$</span><span class="kw">pAssign</span>[<span class="kw">rhc</span><span class="op">$</span><span class="kw">swang1</span> <span class="op">==</span> <span class="st">"No RHC"</span>] <span class="op">&lt;-</span> <span class="kw">rhc</span><span class="op">$</span><span class="kw">pNoRhc</span>[<span class="kw">rhc</span><span class="op">$</span><span class="kw">swang1</span> <span class="op">==</span> <span class="st">"No RHC"</span>]
 <span class="co">## Smaller of pRhc vs pNoRhc for matching weight</span>
-<span class="no">rhc</span>$<span class="no">pMin</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">pmin</a></span>(<span class="no">rhc</span>$<span class="no">pRhc</span>, <span class="no">rhc</span>$<span class="no">pNoRhc</span>)</pre></body></html></div>
+<span class="kw">rhc</span><span class="op">$</span><span class="kw">pMin</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">pmin</a></span>(<span class="kw">rhc</span><span class="op">$</span><span class="kw">pRhc</span>, <span class="kw">rhc</span><span class="op">$</span><span class="kw">pNoRhc</span>)
+</pre></div>
 </div>
 <div id="propensity-score-matching" class="section level2">
 <h2 class="hasAnchor">
 <a href="#propensity-score-matching" class="anchor"></a>Propensity score matching</h2>
 <p>The Matching package can be used for propensity score matching. The logit of propensity score is often used as the matching scale, and the matchign caliper is often 0.2 <span class="math inline">\(\times\)</span> SD(logit(PS)). See <a href="http://www.ncbi.nlm.nih.gov/pmc/articles/PMC3144483/#s5title" class="uri">http://www.ncbi.nlm.nih.gov/pmc/articles/PMC3144483/#s5title</a> for suggestions. After matching, all the standardized mean differences are below 0.1.</p>
-<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="no">listMatch</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/Matching/man/Match.html">Match</a></span>(<span class="kw">Tr</span>       <span class="kw">=</span> (<span class="no">rhc</span>$<span class="no">swang1</span> <span class="kw">==</span> <span class="st">"RHC"</span>),      <span class="co"># Need to be in 0,1</span>
+<div class="sourceCode" id="cb8"><pre class="downlit">
+<span class="kw">listMatch</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/Matching/man/Match.html">Match</a></span>(Tr       = (<span class="kw">rhc</span><span class="op">$</span><span class="kw">swang1</span> <span class="op">==</span> <span class="st">"RHC"</span>),      <span class="co"># Need to be in 0,1</span>
                    <span class="co">## logit of PS,i.e., log(PS/(1-PS)) as matching scale</span>
-                   <span class="kw">X</span>        <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span>(<span class="no">rhc</span>$<span class="no">pRhc</span> / <span class="no">rhc</span>$<span class="no">pNoRhc</span>),
+                   X        = <span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span>(<span class="kw">rhc</span><span class="op">$</span><span class="kw">pRhc</span> <span class="op">/</span> <span class="kw">rhc</span><span class="op">$</span><span class="kw">pNoRhc</span>),
                    <span class="co">## 1:1 matching</span>
-                   <span class="kw">M</span>        <span class="kw">=</span> <span class="fl">1</span>,
+                   M        = <span class="fl">1</span>,
                    <span class="co">## caliper = 0.2 * SD(logit(PS))</span>
-                   <span class="kw">caliper</span>  <span class="kw">=</span> <span class="fl">0.2</span>,
-                   <span class="kw">replace</span>  <span class="kw">=</span> <span class="fl">FALSE</span>,
-                   <span class="kw">ties</span>     <span class="kw">=</span> <span class="fl">TRUE</span>,
-                   <span class="kw">version</span>  <span class="kw">=</span> <span class="st">"fast"</span>)
+                   caliper  = <span class="fl">0.2</span>,
+                   replace  = <span class="fl">FALSE</span>,
+                   ties     = <span class="fl">TRUE</span>,
+                   version  = <span class="st">"fast"</span>)
 <span class="co">## Extract matched data</span>
-<span class="no">rhcMatched</span> <span class="kw">&lt;-</span> <span class="no">rhc</span>[<span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span>(<span class="no">listMatch</span>[<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"index.treated"</span>,<span class="st">"index.control"</span>)]), ]
+<span class="kw">rhcMatched</span> <span class="op">&lt;-</span> <span class="kw">rhc</span>[<span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span>(<span class="kw">listMatch</span>[<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"index.treated"</span>,<span class="st">"index.control"</span>)]), ]
 
 <span class="co">## Construct a table</span>
-<span class="no">tabMatched</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/CreateTableOne.html">CreateTableOne</a></span>(<span class="kw">vars</span> <span class="kw">=</span> <span class="no">vars</span>, <span class="kw">strata</span> <span class="kw">=</span> <span class="st">"swang1"</span>, <span class="kw">data</span> <span class="kw">=</span> <span class="no">rhcMatched</span>, <span class="kw">test</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
+<span class="kw">tabMatched</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/CreateTableOne.html">CreateTableOne</a></span>(vars = <span class="kw">vars</span>, strata = <span class="st">"swang1"</span>, data = <span class="kw">rhcMatched</span>, test = <span class="fl">FALSE</span>)
 <span class="co">## Show table with SMD</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="no">tabMatched</span>, <span class="kw">smd</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="kw">tabMatched</span>, smd = <span class="fl">TRUE</span>)
+</pre></div>
 <pre><code>                        Stratified by swang1
                          No RHC          RHC             SMD   
   n                        1563            1563                
-  age (mean (SD))         60.88 (17.24)   60.58 (15.72)   0.019
-  sex = Male (%)            884 (56.6)      892 (57.1)    0.010
-  race (%)                                                0.009
-     black                  242 (15.5)      247 (15.8)         
-     other                   99 ( 6.3)       99 ( 6.3)         
-     white                 1222 (78.2)     1217 (77.9)         
-  edu (mean (SD))         11.81 (3.14)    11.78 (3.16)    0.009
-  income (%)                                              0.039
+  age (mean (SD))         60.96 (17.29)   60.57 (15.71)   0.024
+  sex = Male (%)            878 (56.2)      893 (57.1)    0.019
+  race (%)                                                0.020
+     black                  236 (15.1)      247 (15.8)         
+     other                  101 ( 6.5)       99 ( 6.3)         
+     white                 1226 (78.4)     1217 (77.9)         
+  edu (mean (SD))         11.78 (3.24)    11.78 (3.16)    0.001
+  income (%)                                              0.030
      &gt; $50k                 136 ( 8.7)      124 ( 7.9)         
-     $11-$25k               323 (20.7)      337 (21.6)         
-     $25-$50k               251 (16.1)      262 (16.8)         
-     Under $11k             853 (54.6)      840 (53.7)         
-  ninsclas (%)                                            0.022
-     Medicaid               157 (10.0)      152 ( 9.7)         
-     Medicare               374 (23.9)      371 (23.7)         
-     Medicare &amp; Medicaid     94 ( 6.0)       94 ( 6.0)         
-     No insurance            82 ( 5.2)       89 ( 5.7)         
-     Private                499 (31.9)      498 (31.9)         
-     Private &amp; Medicare     357 (22.8)      359 (23.0)         
-  cat1 (%)                                                0.083
-     ARF                    734 (47.0)      679 (43.4)         
-     CHF                    169 (10.8)      175 (11.2)         
+     $11-$25k               330 (21.1)      336 (21.5)         
+     $25-$50k               255 (16.3)      262 (16.8)         
+     Under $11k             842 (53.9)      841 (53.8)         
+  ninsclas (%)                                            0.035
+     Medicaid               156 (10.0)      152 ( 9.7)         
+     Medicare               366 (23.4)      371 (23.7)         
+     Medicare &amp; Medicaid     89 ( 5.7)       94 ( 6.0)         
+     No insurance            79 ( 5.1)       89 ( 5.7)         
+     Private                509 (32.6)      498 (31.9)         
+     Private &amp; Medicare     364 (23.3)      359 (23.0)         
+  cat1 (%)                                                0.060
+     ARF                    707 (45.2)      679 (43.4)         
+     CHF                    172 (11.0)      176 (11.3)         
      Cirrhosis               45 ( 2.9)       47 ( 3.0)         
-     Colon Cancer             1 ( 0.1)        1 ( 0.1)         
-     Coma                    82 ( 5.2)       76 ( 4.9)         
+     Colon Cancer             2 ( 0.1)        1 ( 0.1)         
+     Coma                    83 ( 5.3)       76 ( 4.9)         
      COPD                    47 ( 3.0)       57 ( 3.6)         
      Lung Cancer              4 ( 0.3)        5 ( 0.3)         
-     MOSF w/Malignancy      116 ( 7.4)      128 ( 8.2)         
-     MOSF w/Sepsis          365 (23.4)      395 (25.3)         
-  das2d3pc (mean (SD))    20.51 (5.43)    20.58 (5.08)    0.013
-  dnr1 = Yes (%)            134 ( 8.6)      130 ( 8.3)    0.009
-  ca (%)                                                  0.009
-     Metastatic              98 ( 6.3)       98 ( 6.3)         
-     No                    1199 (76.7)     1194 (76.4)         
-     Yes                    266 (17.0)      271 (17.3)         
-  surv2md1 (mean (SD))     0.58 (0.20)     0.59 (0.20)    0.003
-  aps1 (mean (SD))        57.01 (19.83)   57.27 (19.66)   0.013
-  scoma1 (mean (SD))      18.72 (28.75)   18.85 (28.26)   0.005
-  wtkilo1 (mean (SD))     70.19 (26.33)   70.72 (27.19)   0.020
-  temp1 (mean (SD))       37.60 (1.89)    37.62 (1.74)    0.013
-  meanbp1 (mean (SD))     72.88 (34.92)   73.07 (35.74)   0.006
-  resp1 (mean (SD))       27.89 (13.76)   28.05 (14.15)   0.011
-  hrt1 (mean (SD))       116.00 (43.13)  117.77 (40.24)   0.042
-  pafi1 (mean (SD))      210.11 (106.12) 211.39 (108.01)  0.012
-  paco21 (mean (SD))      37.50 (10.46)   37.45 (11.56)   0.005
-  ph1 (mean (SD))          7.39 (0.11)     7.39 (0.11)    0.013
-  wblc1 (mean (SD))       15.76 (12.42)   15.92 (13.00)   0.013
-  hema1 (mean (SD))       30.86 (8.00)    30.91 (7.55)    0.006
-  sod1 (mean (SD))       136.56 (7.84)   136.64 (7.43)    0.010
-  pot1 (mean (SD))         4.04 (1.04)     4.05 (0.99)    0.007
-  crea1 (mean (SD))        2.30 (2.41)     2.28 (1.96)    0.009
-  bili1 (mean (SD))        2.54 (5.56)     2.55 (5.09)    0.002
-  alb1 (mean (SD))         3.03 (0.70)     3.04 (0.96)    0.009
+     MOSF w/Malignancy      127 ( 8.1)      128 ( 8.2)         
+     MOSF w/Sepsis          376 (24.1)      394 (25.2)         
+  das2d3pc (mean (SD))    20.52 (5.46)    20.58 (5.08)    0.011
+  dnr1 = Yes (%)            127 ( 8.1)      130 ( 8.3)    0.007
+  ca (%)                                                  0.011
+     Metastatic             102 ( 6.5)       98 ( 6.3)         
+     No                    1188 (76.0)     1194 (76.4)         
+     Yes                    273 (17.5)      271 (17.3)         
+  surv2md1 (mean (SD))     0.58 (0.20)     0.59 (0.20)    0.025
+  aps1 (mean (SD))        57.52 (19.49)   57.25 (19.68)   0.014
+  scoma1 (mean (SD))      19.02 (29.50)   18.83 (28.25)   0.007
+  wtkilo1 (mean (SD))     69.56 (26.09)   70.72 (27.19)   0.044
+  temp1 (mean (SD))       37.66 (1.89)    37.62 (1.74)    0.019
+  meanbp1 (mean (SD))     72.59 (34.94)   73.09 (35.73)   0.014
+  resp1 (mean (SD))       28.45 (13.84)   28.05 (14.15)   0.029
+  hrt1 (mean (SD))       116.66 (42.90)  117.73 (40.26)   0.026
+  pafi1 (mean (SD))      211.47 (109.22) 211.43 (107.97) &lt;0.001
+  paco21 (mean (SD))      37.21 (10.47)   37.42 (11.51)   0.019
+  ph1 (mean (SD))          7.39 (0.11)     7.39 (0.11)    0.011
+  wblc1 (mean (SD))       15.71 (11.89)   15.92 (13.00)   0.017
+  hema1 (mean (SD))       30.83 (8.03)    30.91 (7.55)    0.010
+  sod1 (mean (SD))       136.40 (7.86)   136.64 (7.43)    0.032
+  pot1 (mean (SD))         4.04 (1.03)     4.05 (0.99)    0.002
+  crea1 (mean (SD))        2.28 (2.31)     2.28 (1.96)    0.002
+  bili1 (mean (SD))        2.53 (5.48)     2.55 (5.09)    0.005
+  alb1 (mean (SD))         3.04 (0.70)     3.04 (0.96)    0.007
   resp = Yes (%)            533 (34.1)      519 (33.2)    0.019
-  card = Yes (%)            606 (38.8)      599 (38.3)    0.009
-  neuro = Yes (%)           109 ( 7.0)      109 ( 7.0)   &lt;0.001
+  card = Yes (%)            612 (39.2)      599 (38.3)    0.017
+  neuro = Yes (%)           102 ( 6.5)      109 ( 7.0)    0.018
   gastr = Yes (%)           278 (17.8)      291 (18.6)    0.022
-  renal = Yes (%)            90 ( 5.8)       94 ( 6.0)    0.011
-  meta = Yes (%)             65 ( 4.2)       74 ( 4.7)    0.028
-  hema = Yes (%)             88 ( 5.6)       97 ( 6.2)    0.024
-  seps = Yes (%)            322 (20.6)      332 (21.2)    0.016
+  renal = Yes (%)            92 ( 5.9)       94 ( 6.0)    0.005
+  meta = Yes (%)             70 ( 4.5)       74 ( 4.7)    0.012
+  hema = Yes (%)            103 ( 6.6)       97 ( 6.2)    0.016
+  seps = Yes (%)            328 (21.0)      332 (21.2)    0.006
   trauma = Yes (%)           15 ( 1.0)       12 ( 0.8)    0.021
-  ortho = Yes (%)             1 ( 0.1)        1 ( 0.1)   &lt;0.001
-  cardiohx (mean (SD))     0.21 (0.41)     0.20 (0.40)    0.024
-  chfhx (mean (SD))        0.20 (0.40)     0.20 (0.40)    0.006
-  dementhx (mean (SD))     0.09 (0.28)     0.07 (0.26)    0.040
-  psychhx (mean (SD))      0.06 (0.23)     0.05 (0.23)    0.011
-  chrpulhx (mean (SD))     0.15 (0.36)     0.15 (0.36)    0.007
-  renalhx (mean (SD))      0.05 (0.23)     0.05 (0.22)    0.020
-  liverhx (mean (SD))      0.07 (0.25)     0.07 (0.26)    0.013
+  ortho = Yes (%)             2 ( 0.1)        1 ( 0.1)    0.021
+  cardiohx (mean (SD))     0.21 (0.41)     0.20 (0.40)    0.021
+  chfhx (mean (SD))        0.20 (0.40)     0.20 (0.40)    0.011
+  dementhx (mean (SD))     0.08 (0.27)     0.07 (0.26)    0.015
+  psychhx (mean (SD))      0.06 (0.23)     0.05 (0.23)    0.017
+  chrpulhx (mean (SD))     0.15 (0.36)     0.15 (0.36)    0.014
+  renalhx (mean (SD))      0.05 (0.22)     0.05 (0.22)    0.012
+  liverhx (mean (SD))      0.07 (0.25)     0.07 (0.26)    0.010
   gibledhx (mean (SD))     0.03 (0.16)     0.03 (0.17)    0.023
-  malighx (mean (SD))      0.22 (0.42)     0.23 (0.42)    0.011
-  immunhx (mean (SD))      0.29 (0.45)     0.28 (0.45)    0.017
-  transhx (mean (SD))      0.12 (0.32)     0.12 (0.33)    0.010
-  amihx (mean (SD))        0.03 (0.18)     0.03 (0.17)    0.022</code></pre>
-<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="co">## Count covariates with important imbalance</span>
-<span class="fu"><a href="https://rdrr.io/r/stats/addmargins.html">addmargins</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span>(<span class="fu"><a href="../reference/ExtractSmd.html">ExtractSmd</a></span>(<span class="no">tabMatched</span>) <span class="kw">&gt;</span> <span class="fl">0.1</span>))</pre></body></html></div>
+  malighx (mean (SD))      0.23 (0.42)     0.23 (0.42)    0.008
+  immunhx (mean (SD))      0.29 (0.45)     0.28 (0.45)    0.028
+  transhx (mean (SD))      0.12 (0.33)     0.12 (0.33)    0.004
+  amihx (mean (SD))        0.03 (0.18)     0.03 (0.17)    0.007</code></pre>
+<div class="sourceCode" id="cb10"><pre class="downlit">
+<span class="co">## Count covariates with important imbalance</span>
+<span class="fu"><a href="https://rdrr.io/r/stats/addmargins.html">addmargins</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span>(<span class="fu"><a href="../reference/ExtractSmd.html">ExtractSmd</a></span>(<span class="kw">tabMatched</span>) <span class="op">&gt;</span> <span class="fl">0.1</span>))
+</pre></div>
 <pre><code>
 FALSE   Sum 
    50    50 </code></pre>
@@ -360,16 +374,18 @@ FALSE   Sum
 <div id="propensity-score-matching-weight" class="section level2">
 <h2 class="hasAnchor">
 <a href="#propensity-score-matching-weight" class="anchor"></a>Propensity score matching weight</h2>
-<p>The matching weight method is a weighting analogue to the 1:1 pairwise algorithmic matching (<a href="http://www.ncbi.nlm.nih.gov/pubmed/23902694" class="uri">http://www.ncbi.nlm.nih.gov/pubmed/23902694</a> ). The matching weight is defined as the smaller of the predicted probabilities of receiving or not receiving the treatment over the predicted probability of being assigned to the arm the patient is actually in. After weighting, all the standardized mean differences are below 0.1. The standardized mean differences in weighted data are explained in <a href="http://onlinelibrary.wiley.com/doi/10.1002/sim.6607/full" class="uri">http://onlinelibrary.wiley.com/doi/10.1002/sim.6607/full</a> .</p>
-<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="co">## Matching weight</span>
-<span class="no">rhc</span>$<span class="no">mw</span> <span class="kw">&lt;-</span> <span class="no">rhc</span>$<span class="no">pMin</span> / <span class="no">rhc</span>$<span class="no">pAssign</span>
+<p>The matching weight method is a weighting analogue to the 1:1 pairwise algorithmic matching (<a href="http://www.ncbi.nlm.nih.gov/pubmed/23902694" class="uri">http://www.ncbi.nlm.nih.gov/pubmed/23902694</a> ). The matching weight is defined as the smaller of the predicted probabilities of receiving or not receiving the treatment over the predicted probability of being assigned to the arm the patient is actually in. After weighting, all the standardized mean differences are below 0.1. The standardized mean differences in weighted data are explained in <a href="https://onlinelibrary.wiley.com/doi/10.1002/sim.6607/full" class="uri">https://onlinelibrary.wiley.com/doi/10.1002/sim.6607/full</a> .</p>
+<div class="sourceCode" id="cb12"><pre class="downlit">
+<span class="co">## Matching weight</span>
+<span class="kw">rhc</span><span class="op">$</span><span class="kw">mw</span> <span class="op">&lt;-</span> <span class="kw">rhc</span><span class="op">$</span><span class="kw">pMin</span> <span class="op">/</span> <span class="kw">rhc</span><span class="op">$</span><span class="kw">pAssign</span>
 <span class="co">## Weighted data</span>
-<span class="no">rhcSvy</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/survey/man/svydesign.html">svydesign</a></span>(<span class="kw">ids</span> <span class="kw">=</span> ~ <span class="fl">1</span>, <span class="kw">data</span> <span class="kw">=</span> <span class="no">rhc</span>, <span class="kw">weights</span> <span class="kw">=</span> ~ <span class="no">mw</span>)
+<span class="kw">rhcSvy</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/survey/man/svydesign.html">svydesign</a></span>(ids = <span class="op">~</span> <span class="fl">1</span>, data = <span class="kw">rhc</span>, weights = <span class="op">~</span> <span class="kw">mw</span>)
 
 <span class="co">## Construct a table (This is a bit slow.)</span>
-<span class="no">tabWeighted</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/svyCreateTableOne.html">svyCreateTableOne</a></span>(<span class="kw">vars</span> <span class="kw">=</span> <span class="no">vars</span>, <span class="kw">strata</span> <span class="kw">=</span> <span class="st">"swang1"</span>, <span class="kw">data</span> <span class="kw">=</span> <span class="no">rhcSvy</span>, <span class="kw">test</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
+<span class="kw">tabWeighted</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/svyCreateTableOne.html">svyCreateTableOne</a></span>(vars = <span class="kw">vars</span>, strata = <span class="st">"swang1"</span>, data = <span class="kw">rhcSvy</span>, test = <span class="fl">FALSE</span>)
 <span class="co">## Show table with SMD</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="no">tabWeighted</span>, <span class="kw">smd</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="kw">tabWeighted</span>, smd = <span class="fl">TRUE</span>)
+</pre></div>
 <pre><code>                        Stratified by swang1
                          No RHC           RHC              SMD   
   n                      1522.89          1520.27                
@@ -448,8 +464,10 @@ FALSE   Sum
   immunhx (mean (SD))       0.28 (0.45)      0.28 (0.45)   &lt;0.001
   transhx (mean (SD))       0.12 (0.33)      0.12 (0.33)    0.004
   amihx (mean (SD))         0.03 (0.18)      0.03 (0.18)    0.006</code></pre>
-<div class="sourceCode" id="cb14"><html><body><pre class="r"><span class="co">## Count covariates with important imbalance</span>
-<span class="fu"><a href="https://rdrr.io/r/stats/addmargins.html">addmargins</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span>(<span class="fu"><a href="../reference/ExtractSmd.html">ExtractSmd</a></span>(<span class="no">tabWeighted</span>) <span class="kw">&gt;</span> <span class="fl">0.1</span>))</pre></body></html></div>
+<div class="sourceCode" id="cb14"><pre class="downlit">
+<span class="co">## Count covariates with important imbalance</span>
+<span class="fu"><a href="https://rdrr.io/r/stats/addmargins.html">addmargins</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span>(<span class="fu"><a href="../reference/ExtractSmd.html">ExtractSmd</a></span>(<span class="kw">tabWeighted</span>) <span class="op">&gt;</span> <span class="fl">0.1</span>))
+</pre></div>
 <pre><code>
 FALSE   Sum 
    50    50 </code></pre>
@@ -458,15 +476,17 @@ FALSE   Sum
 <h2 class="hasAnchor">
 <a href="#propensity-score-overlap-weight" class="anchor"></a>Propensity score overlap weight</h2>
 <p>The overlap weight method is another alternative weighitng method (<a href="https://amstat.tandfonline.com/doi/abs/10.1080/01621459.2016.1260466" class="uri">https://amstat.tandfonline.com/doi/abs/10.1080/01621459.2016.1260466</a>). After weighting, all the standardized mean differences are below 0.1.</p>
-<div class="sourceCode" id="cb16"><html><body><pre class="r"><span class="co">## Overlap weight</span>
-<span class="no">rhc</span>$<span class="no">ow</span> <span class="kw">&lt;-</span> (<span class="no">rhc</span>$<span class="no">pAssign</span> * (<span class="fl">1</span> - <span class="no">rhc</span>$<span class="no">pAssign</span>)) / <span class="no">rhc</span>$<span class="no">pAssign</span>
+<div class="sourceCode" id="cb16"><pre class="downlit">
+<span class="co">## Overlap weight</span>
+<span class="kw">rhc</span><span class="op">$</span><span class="kw">ow</span> <span class="op">&lt;-</span> (<span class="kw">rhc</span><span class="op">$</span><span class="kw">pAssign</span> <span class="op">*</span> (<span class="fl">1</span> <span class="op">-</span> <span class="kw">rhc</span><span class="op">$</span><span class="kw">pAssign</span>)) <span class="op">/</span> <span class="kw">rhc</span><span class="op">$</span><span class="kw">pAssign</span>
 <span class="co">## Weighted data</span>
-<span class="no">rhcSvyOw</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/survey/man/svydesign.html">svydesign</a></span>(<span class="kw">ids</span> <span class="kw">=</span> ~ <span class="fl">1</span>, <span class="kw">data</span> <span class="kw">=</span> <span class="no">rhc</span>, <span class="kw">weights</span> <span class="kw">=</span> ~ <span class="no">ow</span>)
+<span class="kw">rhcSvyOw</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/survey/man/svydesign.html">svydesign</a></span>(ids = <span class="op">~</span> <span class="fl">1</span>, data = <span class="kw">rhc</span>, weights = <span class="op">~</span> <span class="kw">ow</span>)
 
 <span class="co">## Construct a table (This is a bit slow.)</span>
-<span class="no">tabWeightedOw</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/svyCreateTableOne.html">svyCreateTableOne</a></span>(<span class="kw">vars</span> <span class="kw">=</span> <span class="no">vars</span>, <span class="kw">strata</span> <span class="kw">=</span> <span class="st">"swang1"</span>, <span class="kw">data</span> <span class="kw">=</span> <span class="no">rhcSvyOw</span>, <span class="kw">test</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
+<span class="kw">tabWeightedOw</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/svyCreateTableOne.html">svyCreateTableOne</a></span>(vars = <span class="kw">vars</span>, strata = <span class="st">"swang1"</span>, data = <span class="kw">rhcSvyOw</span>, test = <span class="fl">FALSE</span>)
 <span class="co">## Show table with SMD</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="no">tabWeightedOw</span>, <span class="kw">smd</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="kw">tabWeightedOw</span>, smd = <span class="fl">TRUE</span>)
+</pre></div>
 <pre><code>                        Stratified by swang1
                          No RHC           RHC              SMD   
   n                      1005.82          1005.82                
@@ -545,8 +565,10 @@ FALSE   Sum
   immunhx (mean (SD))       0.28 (0.45)      0.28 (0.45)   &lt;0.001
   transhx (mean (SD))       0.12 (0.33)      0.12 (0.33)   &lt;0.001
   amihx (mean (SD))         0.03 (0.18)      0.03 (0.18)   &lt;0.001</code></pre>
-<div class="sourceCode" id="cb18"><html><body><pre class="r"><span class="co">## Count covariates with important imbalance</span>
-<span class="fu"><a href="https://rdrr.io/r/stats/addmargins.html">addmargins</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span>(<span class="fu"><a href="../reference/ExtractSmd.html">ExtractSmd</a></span>(<span class="no">tabWeightedOw</span>) <span class="kw">&gt;</span> <span class="fl">0.1</span>))</pre></body></html></div>
+<div class="sourceCode" id="cb18"><pre class="downlit">
+<span class="co">## Count covariates with important imbalance</span>
+<span class="fu"><a href="https://rdrr.io/r/stats/addmargins.html">addmargins</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span>(<span class="fu"><a href="../reference/ExtractSmd.html">ExtractSmd</a></span>(<span class="kw">tabWeightedOw</span>) <span class="op">&gt;</span> <span class="fl">0.1</span>))
+</pre></div>
 <pre><code>
 FALSE   Sum 
    50    50 </code></pre>
@@ -555,123 +577,127 @@ FALSE   Sum
 <h2 class="hasAnchor">
 <a href="#assessing-balance-before-and-after-matchingweighting" class="anchor"></a>Assessing balance before and after matching/weighting</h2>
 <p>A plot showing covariate balance is often constructed to demonstrate the balancing effect of matching and/or weighting. Given the same propensity score model, the matching weight method often achieves better covariate balance than matching.</p>
-<div class="sourceCode" id="cb20"><html><body><pre class="r"><span class="co">## Construct a data frame containing variable name and SMD from all methods</span>
-<span class="no">dataPlot</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="kw">variable</span>  <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span>(<span class="fu"><a href="../reference/ExtractSmd.html">ExtractSmd</a></span>(<span class="no">tabUnmatched</span>)),
-                       <span class="kw">Unmatched</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span>(<span class="fu"><a href="../reference/ExtractSmd.html">ExtractSmd</a></span>(<span class="no">tabUnmatched</span>)),
-                       <span class="kw">Matched</span>   <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span>(<span class="fu"><a href="../reference/ExtractSmd.html">ExtractSmd</a></span>(<span class="no">tabMatched</span>)),
-                       <span class="kw">Weighted</span>  <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span>(<span class="fu"><a href="../reference/ExtractSmd.html">ExtractSmd</a></span>(<span class="no">tabWeighted</span>)),
-                       <span class="kw">WeightedOw</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span>(<span class="fu"><a href="../reference/ExtractSmd.html">ExtractSmd</a></span>(<span class="no">tabWeightedOw</span>)))
+<div class="sourceCode" id="cb20"><pre class="downlit">
+<span class="co">## Construct a data frame containing variable name and SMD from all methods</span>
+<span class="kw">dataPlot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(variable  = <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span>(<span class="fu"><a href="../reference/ExtractSmd.html">ExtractSmd</a></span>(<span class="kw">tabUnmatched</span>)),
+                       Unmatched = <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span>(<span class="fu"><a href="../reference/ExtractSmd.html">ExtractSmd</a></span>(<span class="kw">tabUnmatched</span>)),
+                       Matched   = <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span>(<span class="fu"><a href="../reference/ExtractSmd.html">ExtractSmd</a></span>(<span class="kw">tabMatched</span>)),
+                       Weighted  = <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span>(<span class="fu"><a href="../reference/ExtractSmd.html">ExtractSmd</a></span>(<span class="kw">tabWeighted</span>)),
+                       WeightedOw = <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span>(<span class="fu"><a href="../reference/ExtractSmd.html">ExtractSmd</a></span>(<span class="kw">tabWeightedOw</span>)))
 
 <span class="co">## Create long-format data for ggplot2</span>
-<span class="no">dataPlotMelt</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/reshape2/man/melt.html">melt</a></span>(<span class="kw">data</span>          <span class="kw">=</span> <span class="no">dataPlot</span>,
-                     <span class="kw">id.vars</span>       <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"variable"</span>),
-                     <span class="kw">variable.name</span> <span class="kw">=</span> <span class="st">"Method"</span>,
-                     <span class="kw">value.name</span>    <span class="kw">=</span> <span class="st">"SMD"</span>)
+<span class="kw">dataPlotMelt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/reshape2/man/melt.html">melt</a></span>(data          = <span class="kw">dataPlot</span>,
+                     id.vars       = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"variable"</span>),
+                     variable.name = <span class="st">"Method"</span>,
+                     value.name    = <span class="st">"SMD"</span>)
 
 <span class="co">## Order variable names by magnitude of SMD</span>
-<span class="no">varNames</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span>(<span class="no">dataPlot</span>$<span class="no">variable</span>)[<span class="fu"><a href="https://rdrr.io/r/base/order.html">order</a></span>(<span class="no">dataPlot</span>$<span class="no">Unmatched</span>)]
+<span class="kw">varNames</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span>(<span class="kw">dataPlot</span><span class="op">$</span><span class="kw">variable</span>)[<span class="fu"><a href="https://rdrr.io/r/base/order.html">order</a></span>(<span class="kw">dataPlot</span><span class="op">$</span><span class="kw">Unmatched</span>)]
 
 <span class="co">## Order factor levels in the same order</span>
-<span class="no">dataPlotMelt</span>$<span class="no">variable</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(<span class="no">dataPlotMelt</span>$<span class="no">variable</span>,
-                                <span class="kw">levels</span> <span class="kw">=</span> <span class="no">varNames</span>)
+<span class="kw">dataPlotMelt</span><span class="op">$</span><span class="kw">variable</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(<span class="kw">dataPlotMelt</span><span class="op">$</span><span class="kw">variable</span>,
+                                levels = <span class="kw">varNames</span>)
 
 <span class="co">## Plot using ggplot2</span>
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(<span class="kw">data</span> <span class="kw">=</span> <span class="no">dataPlotMelt</span>,
-       <span class="kw">mapping</span> <span class="kw">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="kw">x</span> <span class="kw">=</span> <span class="no">variable</span>, <span class="kw">y</span> <span class="kw">=</span> <span class="no">SMD</span>, <span class="kw">group</span> <span class="kw">=</span> <span class="no">Method</span>, <span class="kw">color</span> <span class="kw">=</span> <span class="no">Method</span>)) +
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span>() +
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span>() +
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_hline</a></span>(<span class="kw">yintercept</span> <span class="kw">=</span> <span class="fl">0.1</span>, <span class="kw">color</span> <span class="kw">=</span> <span class="st">"black"</span>, <span class="kw">size</span> <span class="kw">=</span> <span class="fl">0.1</span>) +
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_flip.html">coord_flip</a></span>() +
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span>() + <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span>(<span class="kw">legend.key</span> <span class="kw">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span>())</pre></body></html></div>
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(data = <span class="kw">dataPlotMelt</span>,
+       mapping = <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(x = <span class="kw">variable</span>, y = <span class="kw">SMD</span>, group = <span class="kw">Method</span>, color = <span class="kw">Method</span>)) <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span>() <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span>() <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_hline</a></span>(yintercept = <span class="fl">0.1</span>, color = <span class="st">"black"</span>, size = <span class="fl">0.1</span>) <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_flip.html">coord_flip</a></span>() <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span>() <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span>(legend.key = <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span>())
+</pre></div>
 <p><img src="smd_files/figure-html/unnamed-chunk-9-1.png" width="960"></p>
 <p>To construct a side-by-side table, data can be extracted as a matrix and combined using the print() method, which actually invisibly returns a matrix.</p>
-<div class="sourceCode" id="cb21"><html><body><pre class="r"><span class="co">## Column bind tables</span>
-<span class="no">resCombo</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="no">tabUnmatched</span>, <span class="kw">printToggle</span> <span class="kw">=</span> <span class="fl">FALSE</span>),
-                  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="no">tabMatched</span>,   <span class="kw">printToggle</span> <span class="kw">=</span> <span class="fl">FALSE</span>),
-                  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="no">tabWeighted</span>,  <span class="kw">printToggle</span> <span class="kw">=</span> <span class="fl">FALSE</span>),
-                  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="no">tabWeightedOw</span>,  <span class="kw">printToggle</span> <span class="kw">=</span> <span class="fl">FALSE</span>))
+<div class="sourceCode" id="cb21"><pre class="downlit">
+<span class="co">## Column bind tables</span>
+<span class="kw">resCombo</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="kw">tabUnmatched</span>, printToggle = <span class="fl">FALSE</span>),
+                  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="kw">tabMatched</span>,   printToggle = <span class="fl">FALSE</span>),
+                  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="kw">tabWeighted</span>,  printToggle = <span class="fl">FALSE</span>),
+                  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="kw">tabWeightedOw</span>,  printToggle = <span class="fl">FALSE</span>))
 
 <span class="co">## Add group name row, and rewrite column names</span>
-<span class="no">resCombo</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span>(<span class="kw">Group</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"No RHC"</span>,<span class="st">"RHC"</span>), <span class="fl">3</span>), <span class="no">resCombo</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(<span class="no">resCombo</span>) <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Unmatched"</span>,<span class="st">""</span>,<span class="st">"Matched"</span>,<span class="st">""</span>,<span class="st">"MW"</span>,<span class="st">""</span>,<span class="st">"OW"</span>,<span class="st">""</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="no">resCombo</span>, <span class="kw">quote</span> <span class="kw">=</span> <span class="fl">FALSE</span>)</pre></body></html></div>
+<span class="kw">resCombo</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span>(Group = <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"No RHC"</span>,<span class="st">"RHC"</span>), <span class="fl">4</span>), <span class="kw">resCombo</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(<span class="kw">resCombo</span>) <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Unmatched"</span>,<span class="st">""</span>,<span class="st">"Matched"</span>,<span class="st">""</span>,<span class="st">"MW"</span>,<span class="st">""</span>,<span class="st">"OW"</span>,<span class="st">""</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="kw">resCombo</span>, quote = <span class="fl">FALSE</span>)
+</pre></div>
 <pre><code>                       Unmatched                       Matched                         MW                               
 Group                  No RHC          RHC             No RHC          RHC             No RHC           RHC             
 n                        3551            2184            1563            1563          1522.89          1520.27         
-age (mean (SD))         61.76 (17.29)   60.75 (15.63)   60.88 (17.24)   60.58 (15.72)    60.82 (17.16)    60.77 (15.79) 
-sex = Male (%)           1914 (53.9)     1278 (58.5)      884 (56.6)      892 (57.1)     875.8 (57.5)     872.3 (57.4)  
+age (mean (SD))         61.76 (17.29)   60.75 (15.63)   60.96 (17.29)   60.57 (15.71)    60.82 (17.16)    60.77 (15.79) 
+sex = Male (%)           1914 (53.9)     1278 (58.5)      878 (56.2)      893 (57.1)     875.8 (57.5)     872.3 (57.4)  
 race (%)                                                                                                                
-   black                  585 (16.5)      335 (15.3)      242 (15.5)      247 (15.8)     238.1 (15.6)     235.8 (15.5)  
-   other                  213 ( 6.0)      142 ( 6.5)       99 ( 6.3)       99 ( 6.3)      94.9 ( 6.2)      97.8 ( 6.4)  
-   white                 2753 (77.5)     1707 (78.2)     1222 (78.2)     1217 (77.9)    1189.9 (78.1)    1186.6 (78.1)  
-edu (mean (SD))         11.57 (3.13)    11.86 (3.16)    11.81 (3.14)    11.78 (3.16)     11.80 (3.17)     11.80 (3.09)  
+   black                  585 (16.5)      335 (15.3)      236 (15.1)      247 (15.8)     238.1 (15.6)     235.8 (15.5)  
+   other                  213 ( 6.0)      142 ( 6.5)      101 ( 6.5)       99 ( 6.3)      94.9 ( 6.2)      97.8 ( 6.4)  
+   white                 2753 (77.5)     1707 (78.2)     1226 (78.4)     1217 (77.9)    1189.9 (78.1)    1186.6 (78.1)  
+edu (mean (SD))         11.57 (3.13)    11.86 (3.16)    11.78 (3.24)    11.78 (3.16)     11.80 (3.17)     11.80 (3.09)  
 income (%)                                                                                                              
    &gt; $50k                 257 ( 7.2)      194 ( 8.9)      136 ( 8.7)      124 ( 7.9)     127.1 ( 8.3)     128.4 ( 8.4)  
-   $11-$25k               713 (20.1)      452 (20.7)      323 (20.7)      337 (21.6)     316.5 (20.8)     317.0 (20.9)  
-   $25-$50k               500 (14.1)      393 (18.0)      251 (16.1)      262 (16.8)     251.7 (16.5)     250.8 (16.5)  
-   Under $11k            2081 (58.6)     1145 (52.4)      853 (54.6)      840 (53.7)     827.6 (54.3)     824.1 (54.2)  
+   $11-$25k               713 (20.1)      452 (20.7)      330 (21.1)      336 (21.5)     316.5 (20.8)     317.0 (20.9)  
+   $25-$50k               500 (14.1)      393 (18.0)      255 (16.3)      262 (16.8)     251.7 (16.5)     250.8 (16.5)  
+   Under $11k            2081 (58.6)     1145 (52.4)      842 (53.9)      841 (53.8)     827.6 (54.3)     824.1 (54.2)  
 ninsclas (%)                                                                                                            
-   Medicaid               454 (12.8)      193 ( 8.8)      157 (10.0)      152 ( 9.7)     153.7 (10.1)     151.9 (10.0)  
-   Medicare               947 (26.7)      511 (23.4)      374 (23.9)      371 (23.7)     361.1 (23.7)     369.0 (24.3)  
-   Medicare &amp; Medicaid    251 ( 7.1)      123 ( 5.6)       94 ( 6.0)       94 ( 6.0)      91.5 ( 6.0)      91.2 ( 6.0)  
-   No insurance           186 ( 5.2)      136 ( 6.2)       82 ( 5.2)       89 ( 5.7)      85.8 ( 5.6)      86.6 ( 5.7)  
-   Private                967 (27.2)      731 (33.5)      499 (31.9)      498 (31.9)     487.0 (32.0)     482.2 (31.7)  
-   Private &amp; Medicare     746 (21.0)      490 (22.4)      357 (22.8)      359 (23.0)     343.7 (22.6)     339.3 (22.3)  
+   Medicaid               454 (12.8)      193 ( 8.8)      156 (10.0)      152 ( 9.7)     153.7 (10.1)     151.9 (10.0)  
+   Medicare               947 (26.7)      511 (23.4)      366 (23.4)      371 (23.7)     361.1 (23.7)     369.0 (24.3)  
+   Medicare &amp; Medicaid    251 ( 7.1)      123 ( 5.6)       89 ( 5.7)       94 ( 6.0)      91.5 ( 6.0)      91.2 ( 6.0)  
+   No insurance           186 ( 5.2)      136 ( 6.2)       79 ( 5.1)       89 ( 5.7)      85.8 ( 5.6)      86.6 ( 5.7)  
+   Private                967 (27.2)      731 (33.5)      509 (32.6)      498 (31.9)     487.0 (32.0)     482.2 (31.7)  
+   Private &amp; Medicare     746 (21.0)      490 (22.4)      364 (23.3)      359 (23.0)     343.7 (22.6)     339.3 (22.3)  
 cat1 (%)                                                                                                                
-   ARF                   1581 (44.5)      909 (41.6)      734 (47.0)      679 (43.4)     685.8 (45.0)     679.9 (44.7)  
-   CHF                    247 ( 7.0)      209 ( 9.6)      169 (10.8)      175 (11.2)     160.1 (10.5)     163.2 (10.7)  
+   ARF                   1581 (44.5)      909 (41.6)      707 (45.2)      679 (43.4)     685.8 (45.0)     679.9 (44.7)  
+   CHF                    247 ( 7.0)      209 ( 9.6)      172 (11.0)      176 (11.3)     160.1 (10.5)     163.2 (10.7)  
    Cirrhosis              175 ( 4.9)       49 ( 2.2)       45 ( 2.9)       47 ( 3.0)      45.0 ( 3.0)      47.0 ( 3.1)  
-   Colon Cancer             6 ( 0.2)        1 ( 0.0)        1 ( 0.1)        1 ( 0.1)       0.9 ( 0.1)       1.0 ( 0.1)  
-   Coma                   341 ( 9.6)       95 ( 4.3)       82 ( 5.2)       76 ( 4.9)      79.4 ( 5.2)      77.4 ( 5.1)  
+   Colon Cancer             6 ( 0.2)        1 ( 0.0)        2 ( 0.1)        1 ( 0.1)       0.9 ( 0.1)       1.0 ( 0.1)  
+   Coma                   341 ( 9.6)       95 ( 4.3)       83 ( 5.3)       76 ( 4.9)      79.4 ( 5.2)      77.4 ( 5.1)  
    COPD                   399 (11.2)       58 ( 2.7)       47 ( 3.0)       57 ( 3.6)      56.2 ( 3.7)      57.2 ( 3.8)  
    Lung Cancer             34 ( 1.0)        5 ( 0.2)        4 ( 0.3)        5 ( 0.3)       4.2 ( 0.3)       5.0 ( 0.3)  
-   MOSF w/Malignancy      241 ( 6.8)      158 ( 7.2)      116 ( 7.4)      128 ( 8.2)     122.4 ( 8.0)     121.5 ( 8.0)  
-   MOSF w/Sepsis          527 (14.8)      700 (32.1)      365 (23.4)      395 (25.3)     368.9 (24.2)     368.1 (24.2)  
-das2d3pc (mean (SD))    20.37 (5.48)    20.70 (5.03)    20.51 (5.43)    20.58 (5.08)     20.58 (5.45)     20.56 (5.05)  
-dnr1 = Yes (%)            499 (14.1)      155 ( 7.1)      134 ( 8.6)      130 ( 8.3)     131.5 ( 8.6)     129.2 ( 8.5)  
+   MOSF w/Malignancy      241 ( 6.8)      158 ( 7.2)      127 ( 8.1)      128 ( 8.2)     122.4 ( 8.0)     121.5 ( 8.0)  
+   MOSF w/Sepsis          527 (14.8)      700 (32.1)      376 (24.1)      394 (25.2)     368.9 (24.2)     368.1 (24.2)  
+das2d3pc (mean (SD))    20.37 (5.48)    20.70 (5.03)    20.52 (5.46)    20.58 (5.08)     20.58 (5.45)     20.56 (5.05)  
+dnr1 = Yes (%)            499 (14.1)      155 ( 7.1)      127 ( 8.1)      130 ( 8.3)     131.5 ( 8.6)     129.2 ( 8.5)  
 ca (%)                                                                                                                  
-   Metastatic             261 ( 7.4)      123 ( 5.6)       98 ( 6.3)       98 ( 6.3)      98.6 ( 6.5)      98.0 ( 6.4)  
-   No                    2652 (74.7)     1727 (79.1)     1199 (76.7)     1194 (76.4)    1160.5 (76.2)    1162.3 (76.5)  
-   Yes                    638 (18.0)      334 (15.3)      266 (17.0)      271 (17.3)     263.7 (17.3)     259.9 (17.1)  
+   Metastatic             261 ( 7.4)      123 ( 5.6)      102 ( 6.5)       98 ( 6.3)      98.6 ( 6.5)      98.0 ( 6.4)  
+   No                    2652 (74.7)     1727 (79.1)     1188 (76.0)     1194 (76.4)    1160.5 (76.2)    1162.3 (76.5)  
+   Yes                    638 (18.0)      334 (15.3)      273 (17.5)      271 (17.3)     263.7 (17.3)     259.9 (17.1)  
 surv2md1 (mean (SD))     0.61 (0.19)     0.57 (0.20)     0.58 (0.20)     0.59 (0.20)      0.58 (0.20)      0.58 (0.20)  
-aps1 (mean (SD))        50.93 (18.81)   60.74 (20.27)   57.01 (19.83)   57.27 (19.66)    57.30 (19.53)    57.13 (19.73) 
-scoma1 (mean (SD))      22.25 (31.37)   18.97 (28.26)   18.72 (28.75)   18.85 (28.26)    19.12 (29.10)    19.10 (28.51) 
-wtkilo1 (mean (SD))     65.04 (29.50)   72.36 (27.73)   70.19 (26.33)   70.72 (27.19)    70.19 (26.54)    70.19 (27.30) 
-temp1 (mean (SD))       37.63 (1.74)    37.59 (1.83)    37.60 (1.89)    37.62 (1.74)     37.63 (1.88)     37.64 (1.74)  
-meanbp1 (mean (SD))     84.87 (38.87)   68.20 (34.24)   72.88 (34.92)   73.07 (35.74)    73.18 (35.48)    73.22 (35.50) 
-resp1 (mean (SD))       28.98 (13.95)   26.65 (14.17)   27.89 (13.76)   28.05 (14.15)    28.16 (13.84)    28.10 (14.09) 
-hrt1 (mean (SD))       112.87 (40.94)  118.93 (41.47)  116.00 (43.13)  117.77 (40.24)   116.96 (42.74)   116.71 (40.28) 
-pafi1 (mean (SD))      240.63 (116.66) 192.43 (105.54) 210.11 (106.12) 211.39 (108.01)  209.93 (107.48)  210.31 (108.23)
-paco21 (mean (SD))      39.95 (14.24)   36.79 (10.97)   37.50 (10.46)   37.45 (11.56)    37.56 (10.80)    37.51 (11.59) 
+aps1 (mean (SD))        50.93 (18.81)   60.74 (20.27)   57.52 (19.49)   57.25 (19.68)    57.30 (19.53)    57.13 (19.73) 
+scoma1 (mean (SD))      22.25 (31.37)   18.97 (28.26)   19.02 (29.50)   18.83 (28.25)    19.12 (29.10)    19.10 (28.51) 
+wtkilo1 (mean (SD))     65.04 (29.50)   72.36 (27.73)   69.56 (26.09)   70.72 (27.19)    70.19 (26.54)    70.19 (27.30) 
+temp1 (mean (SD))       37.63 (1.74)    37.59 (1.83)    37.66 (1.89)    37.62 (1.74)     37.63 (1.88)     37.64 (1.74)  
+meanbp1 (mean (SD))     84.87 (38.87)   68.20 (34.24)   72.59 (34.94)   73.09 (35.73)    73.18 (35.48)    73.22 (35.50) 
+resp1 (mean (SD))       28.98 (13.95)   26.65 (14.17)   28.45 (13.84)   28.05 (14.15)    28.16 (13.84)    28.10 (14.09) 
+hrt1 (mean (SD))       112.87 (40.94)  118.93 (41.47)  116.66 (42.90)  117.73 (40.26)   116.96 (42.74)   116.71 (40.28) 
+pafi1 (mean (SD))      240.63 (116.66) 192.43 (105.54) 211.47 (109.22) 211.43 (107.97)  209.93 (107.48)  210.31 (108.23)
+paco21 (mean (SD))      39.95 (14.24)   36.79 (10.97)   37.21 (10.47)   37.42 (11.51)    37.56 (10.80)    37.51 (11.59) 
 ph1 (mean (SD))          7.39 (0.11)     7.38 (0.11)     7.39 (0.11)     7.39 (0.11)      7.39 (0.11)      7.39 (0.11)  
-wblc1 (mean (SD))       15.26 (11.41)   16.27 (12.55)   15.76 (12.42)   15.92 (13.00)    15.82 (12.03)    15.69 (12.69) 
-hema1 (mean (SD))       32.70 (8.79)    30.51 (7.42)    30.86 (8.00)    30.91 (7.55)     30.90 (8.10)     30.95 (7.57)  
-sod1 (mean (SD))       137.04 (7.68)   136.33 (7.60)   136.56 (7.84)   136.64 (7.43)    136.54 (7.86)    136.58 (7.38)  
-pot1 (mean (SD))         4.08 (1.04)     4.05 (1.01)     4.04 (1.04)     4.05 (0.99)      4.04 (1.04)      4.05 (0.99)  
-crea1 (mean (SD))        1.92 (2.03)     2.47 (2.05)     2.30 (2.41)     2.28 (1.96)      2.27 (2.31)      2.27 (1.95)  
-bili1 (mean (SD))        2.00 (4.43)     2.71 (5.33)     2.54 (5.56)     2.55 (5.09)      2.50 (5.37)      2.54 (5.15)  
-alb1 (mean (SD))         3.16 (0.67)     2.98 (0.93)     3.03 (0.70)     3.04 (0.96)      3.04 (0.70)      3.04 (0.97)  
+wblc1 (mean (SD))       15.26 (11.41)   16.27 (12.55)   15.71 (11.89)   15.92 (13.00)    15.82 (12.03)    15.69 (12.69) 
+hema1 (mean (SD))       32.70 (8.79)    30.51 (7.42)    30.83 (8.03)    30.91 (7.55)     30.90 (8.10)     30.95 (7.57)  
+sod1 (mean (SD))       137.04 (7.68)   136.33 (7.60)   136.40 (7.86)   136.64 (7.43)    136.54 (7.86)    136.58 (7.38)  
+pot1 (mean (SD))         4.08 (1.04)     4.05 (1.01)     4.04 (1.03)     4.05 (0.99)      4.04 (1.04)      4.05 (0.99)  
+crea1 (mean (SD))        1.92 (2.03)     2.47 (2.05)     2.28 (2.31)     2.28 (1.96)      2.27 (2.31)      2.27 (1.95)  
+bili1 (mean (SD))        2.00 (4.43)     2.71 (5.33)     2.53 (5.48)     2.55 (5.09)      2.50 (5.37)      2.54 (5.15)  
+alb1 (mean (SD))         3.16 (0.67)     2.98 (0.93)     3.04 (0.70)     3.04 (0.96)      3.04 (0.70)      3.04 (0.97)  
 resp = Yes (%)           1481 (41.7)      632 (28.9)      533 (34.1)      519 (33.2)     516.6 (33.9)     512.6 (33.7)  
-card = Yes (%)           1007 (28.4)      924 (42.3)      606 (38.8)      599 (38.3)     582.2 (38.2)     585.6 (38.5)  
-neuro = Yes (%)           575 (16.2)      118 ( 5.4)      109 ( 7.0)      109 ( 7.0)     109.6 ( 7.2)     109.0 ( 7.2)  
+card = Yes (%)           1007 (28.4)      924 (42.3)      612 (39.2)      599 (38.3)     582.2 (38.2)     585.6 (38.5)  
+neuro = Yes (%)           575 (16.2)      118 ( 5.4)      102 ( 6.5)      109 ( 7.0)     109.6 ( 7.2)     109.0 ( 7.2)  
 gastr = Yes (%)           522 (14.7)      420 (19.2)      278 (17.8)      291 (18.6)     270.3 (17.8)     272.7 (17.9)  
-renal = Yes (%)           147 ( 4.1)      148 ( 6.8)       90 ( 5.8)       94 ( 6.0)      89.5 ( 5.9)      90.7 ( 6.0)  
-meta = Yes (%)            172 ( 4.8)       93 ( 4.3)       65 ( 4.2)       74 ( 4.7)      70.0 ( 4.6)      70.2 ( 4.6)  
-hema = Yes (%)            239 ( 6.7)      115 ( 5.3)       88 ( 5.6)       97 ( 6.2)      93.5 ( 6.1)      95.0 ( 6.2)  
-seps = Yes (%)            515 (14.5)      516 (23.6)      322 (20.6)      332 (21.2)     325.5 (21.4)     322.0 (21.2)  
+renal = Yes (%)           147 ( 4.1)      148 ( 6.8)       92 ( 5.9)       94 ( 6.0)      89.5 ( 5.9)      90.7 ( 6.0)  
+meta = Yes (%)            172 ( 4.8)       93 ( 4.3)       70 ( 4.5)       74 ( 4.7)      70.0 ( 4.6)      70.2 ( 4.6)  
+hema = Yes (%)            239 ( 6.7)      115 ( 5.3)      103 ( 6.6)       97 ( 6.2)      93.5 ( 6.1)      95.0 ( 6.2)  
+seps = Yes (%)            515 (14.5)      516 (23.6)      328 (21.0)      332 (21.2)     325.5 (21.4)     322.0 (21.2)  
 trauma = Yes (%)           18 ( 0.5)       34 ( 1.6)       15 ( 1.0)       12 ( 0.8)      14.8 ( 1.0)      14.3 ( 0.9)  
-ortho = Yes (%)             3 ( 0.1)        4 ( 0.2)        1 ( 0.1)        1 ( 0.1)       1.0 ( 0.1)       0.9 ( 0.1)  
+ortho = Yes (%)             3 ( 0.1)        4 ( 0.2)        2 ( 0.1)        1 ( 0.1)       1.0 ( 0.1)       0.9 ( 0.1)  
 cardiohx (mean (SD))     0.16 (0.37)     0.20 (0.40)     0.21 (0.41)     0.20 (0.40)      0.20 (0.40)      0.20 (0.40)  
 chfhx (mean (SD))        0.17 (0.37)     0.19 (0.40)     0.20 (0.40)     0.20 (0.40)      0.20 (0.40)      0.20 (0.40)  
-dementhx (mean (SD))     0.12 (0.32)     0.07 (0.25)     0.09 (0.28)     0.07 (0.26)      0.08 (0.26)      0.08 (0.26)  
+dementhx (mean (SD))     0.12 (0.32)     0.07 (0.25)     0.08 (0.27)     0.07 (0.26)      0.08 (0.26)      0.08 (0.26)  
 psychhx (mean (SD))      0.08 (0.27)     0.05 (0.21)     0.06 (0.23)     0.05 (0.23)      0.05 (0.23)      0.05 (0.22)  
 chrpulhx (mean (SD))     0.22 (0.41)     0.14 (0.35)     0.15 (0.36)     0.15 (0.36)      0.16 (0.36)      0.16 (0.36)  
-renalhx (mean (SD))      0.04 (0.20)     0.05 (0.21)     0.05 (0.23)     0.05 (0.22)      0.05 (0.22)      0.05 (0.22)  
+renalhx (mean (SD))      0.04 (0.20)     0.05 (0.21)     0.05 (0.22)     0.05 (0.22)      0.05 (0.22)      0.05 (0.22)  
 liverhx (mean (SD))      0.07 (0.26)     0.06 (0.24)     0.07 (0.25)     0.07 (0.26)      0.07 (0.25)      0.07 (0.25)  
 gibledhx (mean (SD))     0.04 (0.19)     0.02 (0.16)     0.03 (0.16)     0.03 (0.17)      0.03 (0.17)      0.03 (0.17)  
-malighx (mean (SD))      0.25 (0.43)     0.20 (0.40)     0.22 (0.42)     0.23 (0.42)      0.23 (0.42)      0.23 (0.42)  
+malighx (mean (SD))      0.25 (0.43)     0.20 (0.40)     0.23 (0.42)     0.23 (0.42)      0.23 (0.42)      0.23 (0.42)  
 immunhx (mean (SD))      0.26 (0.44)     0.29 (0.45)     0.29 (0.45)     0.28 (0.45)      0.28 (0.45)      0.28 (0.45)  
-transhx (mean (SD))      0.09 (0.29)     0.15 (0.36)     0.12 (0.32)     0.12 (0.33)      0.12 (0.33)      0.12 (0.33)  
+transhx (mean (SD))      0.09 (0.29)     0.15 (0.36)     0.12 (0.33)     0.12 (0.33)      0.12 (0.33)      0.12 (0.33)  
 amihx (mean (SD))        0.03 (0.17)     0.04 (0.20)     0.03 (0.18)     0.03 (0.17)      0.03 (0.18)      0.03 (0.18)  
                        OW                               
 Group                  No RHC           RHC             
@@ -756,24 +782,26 @@ amihx (mean (SD))         0.03 (0.18)      0.03 (0.18)  </code></pre>
 <h2 class="hasAnchor">
 <a href="#outcome-analysis" class="anchor"></a>Outcome analysis</h2>
 <p>The final analysis can be conducted using matched and weighted data. The results from the matching and matching weight are similar. ShowRegTable() function may come in handly.</p>
-<div class="sourceCode" id="cb23"><html><body><pre class="r"><span class="co">## Unmatched model (unadjsuted)</span>
-<span class="no">glmUnmatched</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span>(<span class="kw">formula</span> <span class="kw">=</span> (<span class="no">death</span> <span class="kw">==</span> <span class="st">"Yes"</span>) ~ <span class="no">swang1</span>,
-                    <span class="kw">family</span>  <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/family.html">binomial</a></span>(<span class="kw">link</span> <span class="kw">=</span> <span class="st">"logit"</span>),
-                    <span class="kw">data</span>    <span class="kw">=</span> <span class="no">rhc</span>)
+<div class="sourceCode" id="cb23"><pre class="downlit">
+<span class="co">## Unmatched model (unadjsuted)</span>
+<span class="kw">glmUnmatched</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span>(formula = (<span class="kw">death</span> <span class="op">==</span> <span class="st">"Yes"</span>) <span class="op">~</span> <span class="kw">swang1</span>,
+                    family  = <span class="fu"><a href="https://rdrr.io/r/stats/family.html">binomial</a></span>(link = <span class="st">"logit"</span>),
+                    data    = <span class="kw">rhc</span>)
 <span class="co">## Matched model</span>
-<span class="no">glmMatched</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span>(<span class="kw">formula</span> <span class="kw">=</span> (<span class="no">death</span> <span class="kw">==</span> <span class="st">"Yes"</span>) ~ <span class="no">swang1</span>,
-                  <span class="kw">family</span>  <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/family.html">binomial</a></span>(<span class="kw">link</span> <span class="kw">=</span> <span class="st">"logit"</span>),
-                  <span class="kw">data</span>    <span class="kw">=</span> <span class="no">rhcMatched</span>)
+<span class="kw">glmMatched</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span>(formula = (<span class="kw">death</span> <span class="op">==</span> <span class="st">"Yes"</span>) <span class="op">~</span> <span class="kw">swang1</span>,
+                  family  = <span class="fu"><a href="https://rdrr.io/r/stats/family.html">binomial</a></span>(link = <span class="st">"logit"</span>),
+                  data    = <span class="kw">rhcMatched</span>)
 <span class="co">## Weighted model</span>
-<span class="no">glmWeighted</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/survey/man/svyglm.html">svyglm</a></span>(<span class="kw">formula</span> <span class="kw">=</span> (<span class="no">death</span> <span class="kw">==</span> <span class="st">"Yes"</span>) ~ <span class="no">swang1</span>,
-                      <span class="kw">family</span>  <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/family.html">binomial</a></span>(<span class="kw">link</span> <span class="kw">=</span> <span class="st">"logit"</span>),
-                      <span class="kw">design</span>    <span class="kw">=</span> <span class="no">rhcSvy</span>)
+<span class="kw">glmWeighted</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/survey/man/svyglm.html">svyglm</a></span>(formula = (<span class="kw">death</span> <span class="op">==</span> <span class="st">"Yes"</span>) <span class="op">~</span> <span class="kw">swang1</span>,
+                      family  = <span class="fu"><a href="https://rdrr.io/r/stats/family.html">binomial</a></span>(link = <span class="st">"logit"</span>),
+                      design    = <span class="kw">rhcSvy</span>)
 
 <span class="co">## Show results together</span>
-<span class="no">resTogether</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">Unmatched</span> <span class="kw">=</span> <span class="fu"><a href="../reference/ShowRegTable.html">ShowRegTable</a></span>(<span class="no">glmUnmatched</span>, <span class="kw">printToggle</span> <span class="kw">=</span> <span class="fl">FALSE</span>),
-                    <span class="kw">Matched</span>   <span class="kw">=</span> <span class="fu"><a href="../reference/ShowRegTable.html">ShowRegTable</a></span>(<span class="no">glmMatched</span>, <span class="kw">printToggle</span> <span class="kw">=</span> <span class="fl">FALSE</span>),
-                    <span class="kw">Weighted</span>  <span class="kw">=</span> <span class="fu"><a href="../reference/ShowRegTable.html">ShowRegTable</a></span>(<span class="no">glmWeighted</span>, <span class="kw">printToggle</span> <span class="kw">=</span> <span class="fl">FALSE</span>))
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="no">resTogether</span>, <span class="kw">quote</span> <span class="kw">=</span> <span class="fl">FALSE</span>)</pre></body></html></div>
+<span class="kw">resTogether</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(Unmatched = <span class="fu"><a href="../reference/ShowRegTable.html">ShowRegTable</a></span>(<span class="kw">glmUnmatched</span>, printToggle = <span class="fl">FALSE</span>),
+                    Matched   = <span class="fu"><a href="../reference/ShowRegTable.html">ShowRegTable</a></span>(<span class="kw">glmMatched</span>, printToggle = <span class="fl">FALSE</span>),
+                    Weighted  = <span class="fu"><a href="../reference/ShowRegTable.html">ShowRegTable</a></span>(<span class="kw">glmWeighted</span>, printToggle = <span class="fl">FALSE</span>))
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="kw">resTogether</span>, quote = <span class="fl">FALSE</span>)
+</pre></div>
 <pre><code>$Unmatched
             exp(coef) [confint] p     
 (Intercept) 1.70 [1.59, 1.82]   &lt;0.001
@@ -781,8 +809,8 @@ swang1RHC   1.25 [1.12, 1.40]   &lt;0.001
 
 $Matched
             exp(coef) [confint] p     
-(Intercept) 1.74 [1.57, 1.93]   &lt;0.001
-swang1RHC   1.29 [1.11, 1.50]    0.001
+(Intercept) 1.69 [1.52, 1.87]   &lt;0.001
+swang1RHC   1.34 [1.15, 1.55]   &lt;0.001
 
 $Weighted
             exp(coef) [confint] p     
@@ -814,7 +842,7 @@ swang1RHC   1.31 [1.14, 1.49]   &lt;0.001</code></pre>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>
