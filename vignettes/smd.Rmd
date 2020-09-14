@@ -18,7 +18,7 @@ showWarning <- FALSE
 set_alias(w = "fig.width", h = "fig.height", res = "results")
 opts_chunk$set(comment = "", error= TRUE, warning = showWarning, message = showMessage,
                tidy = FALSE, cache = F, echo = T,
-               fig.width = 10, fig.height = 10, dev.args = list(family = "sans"))
+               fig.width = 10, fig.height = 10)
 
 ## R configuration
 options(width = 130, scipen = 5)
