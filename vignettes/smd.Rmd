@@ -89,7 +89,7 @@ addmargins(table(ExtractSmd(tabUnmatched) > 0.1))
 
 ## Propensity score estimation
 
-Usually a logistic regression model is used to estimate individual propensity scores. The model here is taken from "How To Use Propensity Score Analysis" (http://www.mc.vanderbilt.edu/crc/workshop_files/2008-04-11.pdf ). Predicted probabilities of being assigned to right heart catherterization, being assigned no right heart catherterization, being assigned to the true assignment, as well as the smaller of the probabilities of being assigned to right heart catherterization or no right heart catherterization are calculated for later use in propensity score matching and weighting.
+Usually a logistic regression model is used to estimate individual propensity scores. The model here is taken from "How To Use Propensity Score Analysis" (https://www.mc.vanderbilt.edu/crc/workshop_files/2008-04-11.pdf ). Predicted probabilities of being assigned to right heart catherterization, being assigned no right heart catherterization, being assigned to the true assignment, as well as the smaller of the probabilities of being assigned to right heart catherterization or no right heart catherterization are calculated for later use in propensity score matching and weighting.
 
 ```{r}
 
@@ -153,7 +153,7 @@ addmargins(table(ExtractSmd(tabMatched) > 0.1))
 
 ## Propensity score matching weight
 
-The matching weight method is a weighting analogue to the 1:1 pairwise algorithmic matching (http://www.ncbi.nlm.nih.gov/pubmed/23902694 ). The matching weight is defined as the smaller of the predicted probabilities of receiving or not receiving the treatment over the predicted probability of being assigned to the arm the patient is actually in. After weighting, all the standardized mean differences are below 0.1. The standardized mean differences in weighted data are explained in http://onlinelibrary.wiley.com/doi/10.1002/sim.6607/full .
+The matching weight method is a weighting analogue to the 1:1 pairwise algorithmic matching (http://www.ncbi.nlm.nih.gov/pubmed/23902694 ). The matching weight is defined as the smaller of the predicted probabilities of receiving or not receiving the treatment over the predicted probability of being assigned to the arm the patient is actually in. After weighting, all the standardized mean differences are below 0.1. The standardized mean differences in weighted data are explained in https://onlinelibrary.wiley.com/doi/10.1002/sim.6607/full .
 
 ```{r}
 
