@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tableone</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.12.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.13.0</span>
       </span>
     </div>
 
@@ -80,7 +80,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -106,7 +106,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/kaz-yos/tableone/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -132,22 +132,22 @@
     <p>Create an object summarizing all baseline variables (both continuous and categorical) optionally stratifying by one or more startifying variables and performing statistical tests. The object gives a table that is easy to use in medical research papers.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>svyCreateTableOne</span>(
-  <span class='kw'>vars</span>,
-  <span class='kw'>strata</span>,
-  <span class='kw'>data</span>,
-  <span class='kw'>factorVars</span>,
-  includeNA = <span class='fl'>FALSE</span>,
-  test = <span class='fl'>TRUE</span>,
-  testApprox = <span class='kw'>svyTestChisq</span>,
-  argsApprox = <span class='kw'>NULL</span>,
-  testNormal = <span class='kw'>svyTestNormal</span>,
-  argsNormal = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(method = <span class='st'>"Wald"</span>),
-  testNonNormal = <span class='kw'>svyTestNonNormal</span>,
-  argsNonNormal = <span class='kw'>NULL</span>,
-  smd = <span class='fl'>TRUE</span>,
-  addOverall = <span class='fl'>FALSE</span>
-)</pre>
+    <pre class="usage"><span class='fu'>svyCreateTableOne</span><span class='op'>(</span>
+  <span class='va'>vars</span>,
+  <span class='va'>strata</span>,
+  <span class='va'>data</span>,
+  <span class='va'>factorVars</span>,
+  includeNA <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  test <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  testApprox <span class='op'>=</span> <span class='va'>svyTestChisq</span>,
+  argsApprox <span class='op'>=</span> <span class='cn'>NULL</span>,
+  testNormal <span class='op'>=</span> <span class='va'>svyTestNormal</span>,
+  argsNormal <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>method <span class='op'>=</span> <span class='st'>"Wald"</span><span class='op'>)</span>,
+  testNonNormal <span class='op'>=</span> <span class='va'>svyTestNonNormal</span>,
+  argsNonNormal <span class='op'>=</span> <span class='cn'>NULL</span>,
+  smd <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  addOverall <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -232,26 +232,26 @@
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'>## Load packages</span>
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://github.com/kaz-yos/tableone'>tableone</a></span>)
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='http://r-survey.r-forge.r-project.org/survey'>survey</a></span>)
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/kaz-yos/tableone'>tableone</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://r-survey.r-forge.r-project.org/survey/'>survey</a></span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'>Loading required package: grid</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: Matrix</span></div><div class='output co'>#&gt; <span class='message'></span>
 #&gt; <span class='message'>Attaching package: ‘survey’</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:graphics’:</span>
 #&gt; <span class='message'></span>
 #&gt; <span class='message'>    dotchart</span></div><div class='input'>
 <span class='co'>## Create a weighted survey design object</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='kw'>nhanes</span>)
-<span class='kw'>nhanesSvy</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/survey/man/svydesign.html'>svydesign</a></span>(ids = <span class='op'>~</span> <span class='kw'>SDMVPSU</span>, strata = <span class='op'>~</span> <span class='kw'>SDMVSTRA</span>, weights = <span class='op'>~</span> <span class='kw'>WTMEC2YR</span>,
-                       nest = <span class='fl'>TRUE</span>, data = <span class='kw'>nhanes</span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>nhanes</span><span class='op'>)</span>
+<span class='va'>nhanesSvy</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/survey/man/svydesign.html'>svydesign</a></span><span class='op'>(</span>ids <span class='op'>=</span> <span class='op'>~</span> <span class='va'>SDMVPSU</span>, strata <span class='op'>=</span> <span class='op'>~</span> <span class='va'>SDMVSTRA</span>, weights <span class='op'>=</span> <span class='op'>~</span> <span class='va'>WTMEC2YR</span>,
+                       nest <span class='op'>=</span> <span class='cn'>TRUE</span>, data <span class='op'>=</span> <span class='va'>nhanes</span><span class='op'>)</span>
 
 <span class='co'>## Create a table object</span>
 <span class='co'>## factorVars are converted to factors; no need for variables already factors</span>
 <span class='co'>## strata will stratify summaries; leave it unspecified for overall summaries</span>
-<span class='kw'>tab1</span> <span class='op'>&lt;-</span> <span class='fu'>svyCreateTableOne</span>(vars = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"HI_CHOL"</span>,<span class='st'>"race"</span>,<span class='st'>"agecat"</span>,<span class='st'>"RIAGENDR"</span>),
-                          strata = <span class='st'>"RIAGENDR"</span>, data = <span class='kw'>nhanesSvy</span>,
-                          factorVars = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"race"</span>,<span class='st'>"RIAGENDR"</span>))
+<span class='va'>tab1</span> <span class='op'>&lt;-</span> <span class='fu'>svyCreateTableOne</span><span class='op'>(</span>vars <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"HI_CHOL"</span>,<span class='st'>"race"</span>,<span class='st'>"agecat"</span>,<span class='st'>"RIAGENDR"</span><span class='op'>)</span>,
+                          strata <span class='op'>=</span> <span class='st'>"RIAGENDR"</span>, data <span class='op'>=</span> <span class='va'>nhanesSvy</span>,
+                          factorVars <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"race"</span>,<span class='st'>"RIAGENDR"</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'>## Detailed output</span>
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='kw'>tab1</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>tab1</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; 
 #&gt;      ### Summary of continuous variables ###
 #&gt; 
@@ -319,7 +319,7 @@
 #&gt; agecat   0.08873652
 #&gt; RIAGENDR        NaN</div><div class='input'>
 <span class='co'>## Default formatted printing</span>
-<span class='kw'>tab1</span>
+<span class='va'>tab1</span>
 </div><div class='output co'>#&gt;                      Stratified by RIAGENDR
 #&gt;                       1                    2                     p      test
 #&gt;   n                   134944553.92         141591892.00                     
@@ -336,8 +336,8 @@
 #&gt;      (59,Inf]           24093815.3 (17.9)    29983725.9 ( 21.2)             
 #&gt;   RIAGENDR = 2 (%)             0.0 ( 0.0)   141591892.0 (100.0)  &lt;0.001     </div><div class='input'>
 <span class='co'>## nonnormal specifies variables to be shown as median [IQR]</span>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='kw'>tab1</span>, nonnormal = <span class='st'>"HI_CHOL"</span>, contDigits = <span class='fl'>3</span>, catDigits = <span class='fl'>2</span>,
-      pDigits = <span class='fl'>4</span>, smd = <span class='fl'>TRUE</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>tab1</span>, nonnormal <span class='op'>=</span> <span class='st'>"HI_CHOL"</span>, contDigits <span class='op'>=</span> <span class='fl'>3</span>, catDigits <span class='op'>=</span> <span class='fl'>2</span>,
+      pDigits <span class='op'>=</span> <span class='fl'>4</span>, smd <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;                         Stratified by RIAGENDR
 #&gt;                          1                           
 #&gt;   n                      134944553.923               
@@ -369,8 +369,8 @@
 #&gt;      (59,Inf]              29983725.90 ( 21.18)                              
 #&gt;   RIAGENDR = 2 (%)        141591892.00 (100.00)       &lt;0.0001             NaN</div><div class='input'>
 <span class='co'>## minMax changes it to median [min, max]</span>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='kw'>tab1</span>, nonnormal = <span class='st'>"HI_CHOL"</span>, minMax = <span class='fl'>TRUE</span>, contDigits = <span class='fl'>3</span>,
-      catDigits = <span class='fl'>2</span>, pDigits = <span class='fl'>4</span>, smd = <span class='fl'>TRUE</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>tab1</span>, nonnormal <span class='op'>=</span> <span class='st'>"HI_CHOL"</span>, minMax <span class='op'>=</span> <span class='cn'>TRUE</span>, contDigits <span class='op'>=</span> <span class='fl'>3</span>,
+      catDigits <span class='op'>=</span> <span class='fl'>2</span>, pDigits <span class='op'>=</span> <span class='fl'>4</span>, smd <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;                           Stratified by RIAGENDR
 #&gt;                            1                           
 #&gt;   n                        134944553.923               
@@ -402,7 +402,7 @@
 #&gt;      (59,Inf]                29983725.90 ( 21.18)                              
 #&gt;   RIAGENDR = 2 (%)          141591892.00 (100.00)       &lt;0.0001             NaN</div><div class='input'>
 <span class='co'>## showAllLevels can be used tow show levels for all categorical variables</span>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='kw'>tab1</span>, showAllLevels = <span class='fl'>TRUE</span>, smd = <span class='fl'>TRUE</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>tab1</span>, showAllLevels <span class='op'>=</span> <span class='cn'>TRUE</span>, smd <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;                      Stratified by RIAGENDR
 #&gt;                       level    1                     2                    
 #&gt;   n                            134944553.92          141591892.00         
@@ -432,10 +432,10 @@
 #&gt;   RIAGENDR (%)        &lt;0.001         NaN
 #&gt;                                         </div><div class='input'>
 <span class='co'>## To see all printing options</span>
-<span class='op'>?</span><span class='kw'>print.TableOne</span>
+<span class='op'>?</span><span class='va'>print.TableOne</span>
 
 <span class='co'>## To examine categorical variables only</span>
-<span class='kw'>tab1</span><span class='op'>$</span><span class='kw'>CatTable</span>
+<span class='va'>tab1</span><span class='op'>$</span><span class='va'>CatTable</span>
 </div><div class='output co'>#&gt;                   Stratified by RIAGENDR
 #&gt;                    1                  2                    p      test
 #&gt;   n                134944553.9        141591892.0                     
@@ -451,13 +451,13 @@
 #&gt;      (59,Inf]      24093815.3 (17.9)   29983725.9 ( 21.2)             
 #&gt;   RIAGENDR = 2 (%)        0.0 ( 0.0)  141591892.0 (100.0)  &lt;0.001     </div><div class='input'>
 <span class='co'>## To examine continuous variables only</span>
-<span class='kw'>tab1</span><span class='op'>$</span><span class='kw'>ContTable</span>
+<span class='va'>tab1</span><span class='op'>$</span><span class='va'>ContTable</span>
 </div><div class='output co'>#&gt;                      Stratified by RIAGENDR
 #&gt;                       1            2            p      test
 #&gt;   n                   134944553.92 141591892.00            
 #&gt;   HI_CHOL (mean (SD)) 0.10 (0.30)  0.12 (0.33)   0.009     </div><div class='input'>
 <span class='co'>## If SMDs are needed as numericals, use ExtractSmd()</span>
-<span class='fu'><a href='ExtractSmd.html'>ExtractSmd</a></span>(<span class='kw'>tab1</span>)
+<span class='fu'><a href='ExtractSmd.html'>ExtractSmd</a></span><span class='op'>(</span><span class='va'>tab1</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;              1 vs 2
 #&gt; HI_CHOL  0.07093003
 #&gt; race     0.06878329
@@ -479,7 +479,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

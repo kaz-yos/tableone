@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tableone</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.12.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.13.0</span>
       </span>
     </div>
 
@@ -80,7 +80,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -106,7 +106,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/kaz-yos/tableone/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -132,18 +132,18 @@
     <p>Create an object summarizing continous variables optionally stratifying by one or more startifying variables and performing statistical tests. Usually, <code><a href='svyCreateTableOne.html'>svyCreateTableOne</a></code> should be used as the universal frontend for both continuous and categorical data.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>svyCreateContTable</span>(
-  <span class='kw'>vars</span>,
-  <span class='kw'>strata</span>,
-  <span class='kw'>data</span>,
-  test = <span class='fl'>TRUE</span>,
-  testNormal = <span class='kw'>svyTestNormal</span>,
-  argsNormal = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(method = <span class='st'>"Wald"</span>),
-  testNonNormal = <span class='kw'>svyTestNonNormal</span>,
-  argsNonNormal = <span class='kw'>NULL</span>,
-  smd = <span class='fl'>TRUE</span>,
-  addOverall = <span class='fl'>FALSE</span>
-)</pre>
+    <pre class="usage"><span class='fu'>svyCreateContTable</span><span class='op'>(</span>
+  <span class='va'>vars</span>,
+  <span class='va'>strata</span>,
+  <span class='va'>data</span>,
+  test <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  testNormal <span class='op'>=</span> <span class='va'>svyTestNormal</span>,
+  argsNormal <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>method <span class='op'>=</span> <span class='st'>"Wald"</span><span class='op'>)</span>,
+  testNonNormal <span class='op'>=</span> <span class='va'>svyTestNonNormal</span>,
+  argsNonNormal <span class='op'>=</span> <span class='cn'>NULL</span>,
+  smd <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  addOverall <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -220,7 +220,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

@@ -35,7 +35,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">tableone</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.12.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.13.0</span>
       </span>
     </div>
 
@@ -43,7 +43,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -69,7 +69,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/kaz-yos/tableone/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -104,54 +104,29 @@
 <h1 class="hasAnchor">
 <a href="#tableone-code-example" class="anchor"></a>tableone code example</h1>
 <p>In this table, continuous and categorical variables can be placed in any order. The p-valeus are from exact tests for pre-specified variables. For nonnormal variables, it shows median and IQR instead of mean and SD, and p-values are from nonparametric tests. Numerically coded categorical variables can be transformed on the fly with factorVars. SMD stands for standardized mean differences. For weighted data, first created a svydesign object, and use the svyCreateTableOne() function. Most other options remain the same.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co">## Load package</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="kw">library</span>(tableone)</span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="co">## Load data</span></span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="kw">data</span>(pbc, <span class="dt">package =</span> <span class="st">"survival"</span>)</span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="co"># drop ID from variable list</span></span>
-<span id="cb1-6"><a href="#cb1-6"></a>vars &lt;-<span class="st"> </span><span class="kw">names</span>(pbc)[<span class="op">-</span><span class="dv">1</span>]</span>
-<span id="cb1-7"><a href="#cb1-7"></a><span class="co">## Create Table 1 stratified by trt (can add more stratifying variables)</span></span>
-<span id="cb1-8"><a href="#cb1-8"></a>tableOne &lt;-<span class="st"> </span><span class="kw">CreateTableOne</span>(<span class="dt">vars =</span> vars, <span class="dt">strata =</span> <span class="kw">c</span>(<span class="st">"trt"</span>), <span class="dt">data =</span> pbc,</span>
-<span id="cb1-9"><a href="#cb1-9"></a>                            <span class="dt">factorVars =</span> <span class="kw">c</span>(<span class="st">"status"</span>,<span class="st">"edema"</span>,<span class="st">"stage"</span>))</span>
-<span id="cb1-10"><a href="#cb1-10"></a><span class="co">## Specifying nonnormal variables will show the variables appropriately,</span></span>
-<span id="cb1-11"><a href="#cb1-11"></a><span class="co">## and show nonparametric test p-values. Specify variables in the exact</span></span>
-<span id="cb1-12"><a href="#cb1-12"></a><span class="co">## argument to obtain the exact test p-values.</span></span>
-<span id="cb1-13"><a href="#cb1-13"></a><span class="kw">print</span>(tableOne, <span class="dt">nonnormal =</span> <span class="kw">c</span>(<span class="st">"bili"</span>,<span class="st">"chol"</span>,<span class="st">"copper"</span>,<span class="st">"alk.phos"</span>,<span class="st">"trig"</span>),</span>
-<span id="cb1-14"><a href="#cb1-14"></a>      <span class="dt">exact =</span> <span class="kw">c</span>(<span class="st">"status"</span>,<span class="st">"stage"</span>), <span class="dt">smd =</span> <span class="ot">TRUE</span>,</span>
-<span id="cb1-15"><a href="#cb1-15"></a>      <span class="dt">formatOptions =</span> <span class="kw">list</span>(<span class="dt">big.mark =</span> <span class="st">","</span>))</span>
-<span id="cb1-16"><a href="#cb1-16"></a></span>
-<span id="cb1-17"><a href="#cb1-17"></a><span class="co">##                          Stratified by trt</span></span>
-<span id="cb1-18"><a href="#cb1-18"></a><span class="co">##                           1                           2                           p      test    SMD   </span></span>
-<span id="cb1-19"><a href="#cb1-19"></a><span class="co">##   n                            158                         154                                         </span></span>
-<span id="cb1-20"><a href="#cb1-20"></a><span class="co">##   time (mean (SD))        2,015.62 (1,094.12)         1,996.86 (1,155.93)          0.883          0.017</span></span>
-<span id="cb1-21"><a href="#cb1-21"></a><span class="co">##   status (%)                                                                       0.884 exact    0.054</span></span>
-<span id="cb1-22"><a href="#cb1-22"></a><span class="co">##      0                          83 (52.5)                   85 (55.2)                                  </span></span>
-<span id="cb1-23"><a href="#cb1-23"></a><span class="co">##      1                          10 ( 6.3)                    9 ( 5.8)                                  </span></span>
-<span id="cb1-24"><a href="#cb1-24"></a><span class="co">##      2                          65 (41.1)                   60 (39.0)                                  </span></span>
-<span id="cb1-25"><a href="#cb1-25"></a><span class="co">##   trt (mean (SD))             1.00 (0.00)                 2.00 (0.00)             &lt;0.001            Inf</span></span>
-<span id="cb1-26"><a href="#cb1-26"></a><span class="co">##   age (mean (SD))            51.42 (11.01)               48.58 (9.96)              0.018          0.270</span></span>
-<span id="cb1-27"><a href="#cb1-27"></a><span class="co">##   sex = f (%)                  137 (86.7)                  139 (90.3)              0.421          0.111</span></span>
-<span id="cb1-28"><a href="#cb1-28"></a><span class="co">##   ascites (mean (SD))         0.09 (0.29)                 0.06 (0.25)              0.434          0.089</span></span>
-<span id="cb1-29"><a href="#cb1-29"></a><span class="co">##   hepato (mean (SD))          0.46 (0.50)                 0.56 (0.50)              0.069          0.206</span></span>
-<span id="cb1-30"><a href="#cb1-30"></a><span class="co">##   spiders (mean (SD))         0.28 (0.45)                 0.29 (0.46)              0.886          0.016</span></span>
-<span id="cb1-31"><a href="#cb1-31"></a><span class="co">##   edema (%)                                                                        0.877          0.058</span></span>
-<span id="cb1-32"><a href="#cb1-32"></a><span class="co">##      0                         132 (83.5)                  131 (85.1)                                  </span></span>
-<span id="cb1-33"><a href="#cb1-33"></a><span class="co">##      0.5                        16 (10.1)                   13 ( 8.4)                                  </span></span>
-<span id="cb1-34"><a href="#cb1-34"></a><span class="co">##      1                          10 ( 6.3)                   10 ( 6.5)                                  </span></span>
-<span id="cb1-35"><a href="#cb1-35"></a><span class="co">##   bili (median [IQR])         1.40 [0.80, 3.20]           1.30 [0.72, 3.60]        0.842 nonnorm  0.171</span></span>
-<span id="cb1-36"><a href="#cb1-36"></a><span class="co">##   chol (median [IQR])       315.50 [247.75, 417.00]     303.50 [254.25, 377.00]    0.544 nonnorm  0.038</span></span>
-<span id="cb1-37"><a href="#cb1-37"></a><span class="co">##   albumin (mean (SD))         3.52 (0.44)                 3.52 (0.40)              0.874          0.018</span></span>
-<span id="cb1-38"><a href="#cb1-38"></a><span class="co">##   copper (median [IQR])      73.00 [40.00, 121.00]       73.00 [43.00, 139.00]     0.717 nonnorm &lt;0.001</span></span>
-<span id="cb1-39"><a href="#cb1-39"></a><span class="co">##   alk.phos (median [IQR]) 1,214.50 [840.75, 2,028.00] 1,283.00 [922.50, 1,949.75]  0.812 nonnorm  0.037</span></span>
-<span id="cb1-40"><a href="#cb1-40"></a><span class="co">##   ast (mean (SD))           120.21 (54.52)              124.97 (58.93)             0.460          0.084</span></span>
-<span id="cb1-41"><a href="#cb1-41"></a><span class="co">##   trig (median [IQR])       106.00 [84.50, 146.00]      113.00 [84.50, 155.00]     0.370 nonnorm  0.017</span></span>
-<span id="cb1-42"><a href="#cb1-42"></a><span class="co">##   platelet (mean (SD))      258.75 (100.32)             265.20 (90.73)             0.555          0.067</span></span>
-<span id="cb1-43"><a href="#cb1-43"></a><span class="co">##   protime (mean (SD))        10.65 (0.85)                10.80 (1.14)              0.197          0.146</span></span>
-<span id="cb1-44"><a href="#cb1-44"></a><span class="co">##   stage (%)                                                                        0.205 exact    0.246</span></span>
-<span id="cb1-45"><a href="#cb1-45"></a><span class="co">##      1                          12 ( 7.6)                    4 ( 2.6)                                  </span></span>
-<span id="cb1-46"><a href="#cb1-46"></a><span class="co">##      2                          35 (22.2)                   32 (20.8)                                  </span></span>
-<span id="cb1-47"><a href="#cb1-47"></a><span class="co">##      3                          56 (35.4)                   64 (41.6)                                  </span></span>
-<span id="cb1-48"><a href="#cb1-48"></a><span class="co">##      4                          55 (34.8)                   54 (35.1)</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Load package</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tableone)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Error in library(tableone): there is no package called 'tableone'</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="do">## Load data</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(pbc, <span class="at">package =</span> <span class="st">"survival"</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># drop ID from variable list</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>vars <span class="ot">&lt;-</span> <span class="fu">names</span>(pbc)[<span class="sc">-</span><span class="dv">1</span>]</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="do">## Create Table 1 stratified by trt (can add more stratifying variables)</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>tableOne <span class="ot">&lt;-</span> <span class="fu">CreateTableOne</span>(<span class="at">vars =</span> vars, <span class="at">strata =</span> <span class="fu">c</span>(<span class="st">"trt"</span>), <span class="at">data =</span> pbc,</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>                            <span class="at">factorVars =</span> <span class="fu">c</span>(<span class="st">"status"</span>,<span class="st">"edema"</span>,<span class="st">"stage"</span>))</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="do">## Error in CreateTableOne(vars = vars, strata = c("trt"), data = pbc, factorVars = c("status", : could not find function "CreateTableOne"</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="do">## Specifying nonnormal variables will show the variables appropriately,</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="do">## and show nonparametric test p-values. Specify variables in the exact</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="do">## argument to obtain the exact test p-values.</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(tableOne, <span class="at">nonnormal =</span> <span class="fu">c</span>(<span class="st">"bili"</span>,<span class="st">"chol"</span>,<span class="st">"copper"</span>,<span class="st">"alk.phos"</span>,<span class="st">"trig"</span>),</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>      <span class="at">exact =</span> <span class="fu">c</span>(<span class="st">"status"</span>,<span class="st">"stage"</span>), <span class="at">smd =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>      <span class="at">formatOptions =</span> <span class="fu">list</span>(<span class="at">big.mark =</span> <span class="st">","</span>))</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="do">## Error in print(tableOne, nonnormal = c("bili", "chol", "copper", "alk.phos", : object 'tableOne' not found</span></span></code></pre></div>
 </div>
 <div id="installation" class="section level1">
 <h1 class="hasAnchor">
@@ -159,12 +134,12 @@
 <p>This version of tableone package for R is developmetal, and may not be available from the CRAN. You can install it using one of the following way.</p>
 <p><strong>Direct installation from github</strong></p>
 <p>You first need to install the devtools package to do the following. You can choose from the latest stable version and the latest development version.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co">## Install devtools (if you do not have it already)</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="kw">install.packages</span>(<span class="st">"devtools"</span>)</span>
-<span id="cb2-3"><a href="#cb2-3"></a><span class="co">## Install directly from github (develop branch)</span></span>
-<span id="cb2-4"><a href="#cb2-4"></a>devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="dt">repo =</span> <span class="st">"kaz-yos/tableone"</span>, <span class="dt">ref =</span> <span class="st">"develop"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Install devtools (if you do not have it already)</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"devtools"</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Install directly from github (develop branch)</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="at">repo =</span> <span class="st">"kaz-yos/tableone"</span>, <span class="at">ref =</span> <span class="st">"develop"</span>)</span></code></pre></div>
 <p>Using devtools may requires some preparation, please see the following link for information.</p>
-<p><a href="http://www.rstudio.com/projects/devtools/" class="uri">http://www.rstudio.com/projects/devtools/</a></p>
+<p><a href="https://www.rstudio.com/projects/devtools/" class="uri">https://www.rstudio.com/projects/devtools/</a></p>
 </div>
 <div id="contributors" class="section level1">
 <h1 class="hasAnchor">
@@ -195,7 +170,7 @@
 </li>
 <li>Gmisc: Descriptive Statistics, Transition Plots, and More. <a href="https://cran.r-project.org/web/packages/Gmisc/" class="uri">https://cran.r-project.org/web/packages/Gmisc/</a>
 </li>
-<li>Hmisc (summary.formula): Advanced table making and many more. <a href="http://biostat.mc.vanderbilt.edu/wiki/Main/Hmisc" class="uri">http://biostat.mc.vanderbilt.edu/wiki/Main/Hmisc</a>
+<li>Hmisc (summary.formula): Advanced table making and many more. <a href="https://github.com/harrelfe/Hmisc/" class="uri">https://github.com/harrelfe/Hmisc/</a>
 </li>
 <li>arsenal: An Arsenal of ‘R’ Functions for Large-Scale Statistical Summaries. <a href="https://github.com/eheinzen/arsenal" class="uri">https://github.com/eheinzen/arsenal</a>
 </li>
@@ -217,7 +192,7 @@
 </li>
 <li>kableExtra: Construct Complex Table with ‘kable’ and Pipe Syntax. <a href="https://github.com/haozhu233/kableExtra" class="uri">https://github.com/haozhu233/kableExtra</a>
 </li>
-<li>pander: An R Pandoc Writer. <a href="http://rapporter.github.io/pander/" class="uri">http://rapporter.github.io/pander/</a>
+<li>pander: An R Pandoc Writer. <a href="https://rapporter.github.io/pander/" class="uri">https://rapporter.github.io/pander/</a>
 </li>
 <li>pixiedust: Format models for console and to markdown, HTML, and LaTeX. <a href="https://github.com/nutterb/pixiedust" class="uri">https://github.com/nutterb/pixiedust</a>
 </li>
@@ -269,8 +244,8 @@
 <h2>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="https://travis-ci.org/kaz-yos/tableone"><img src="https://travis-ci.org/kaz-yos/tableone.svg?branch=develop" alt="Travis-CI Build Status"></a></li>
-<li><a href="http://www.r-pkg.org/pkg/tableone"><img src="http://www.r-pkg.org/badges/version/tableone"></a></li>
-<li><a href="http://www.r-pkg.org/pkg/tableone"><img src="http://cranlogs.r-pkg.org/badges/tableone" alt="CRAN RStudio mirror downloads"></a></li>
+<li><a href="https://www.r-pkg.org/pkg/tableone"><img src="https://www.r-pkg.org/badges/version/tableone"></a></li>
+<li><a href="https://www.r-pkg.org/pkg/tableone"><img src="https://cranlogs.r-pkg.org/badges/tableone" alt="CRAN RStudio mirror downloads"></a></li>
 </ul>
 </div>
 </div>
@@ -282,7 +257,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
