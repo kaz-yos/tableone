@@ -68,7 +68,6 @@ ModuleCreateStrataNames <- function(TableObject) {
 ModuleFormatNumericVector <- function(x, digits, formatOptions = NULL) {
 
     ## Reset decimal places
-    formatOptions$digits  <- digits
     formatOptions$nsmall  <- digits
     ## Only allow right justification
     formatOptions$justify <- "right"
