@@ -3,7 +3,7 @@ output: github_document
 ---
 
 ```{r, message = FALSE, tidy = FALSE, echo = F}
-## knitr configuration: http://yihui.name/knitr/options#chunk_options
+## knitr configuration: https://yihui.name/knitr/options#chunk_options
 library(knitr)
 showMessage <- FALSE
 showWarning <- TRUE
@@ -23,8 +23,8 @@ options(width = 116, scipen = 5)
 # tableone
 
 [![Travis-CI Build Status](https://travis-ci.org/kaz-yos/tableone.svg?branch=develop)](https://travis-ci.org/kaz-yos/tableone)
-[![](http://www.r-pkg.org/badges/version/tableone)](http://www.r-pkg.org/pkg/tableone)
-[![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/tableone)](http://www.r-pkg.org/pkg/tableone)
+[![](https://www.r-pkg.org/badges/version/tableone)](https://www.r-pkg.org/pkg/tableone)
+[![CRAN RStudio mirror downloads](https://cranlogs.r-pkg.org/badges/tableone)](https://www.r-pkg.org/pkg/tableone)
 
 **An R package to create "Table 1", description of baseline characteristics**
 
@@ -80,7 +80,7 @@ devtools::install_github(repo = "kaz-yos/tableone", ref = "develop")
 
 Using devtools may requires some preparation, please see the following link for information.
 
-http://www.rstudio.com/projects/devtools/
+https://www.rstudio.com/projects/devtools/
 
 
 # Contributors
@@ -102,7 +102,7 @@ There are multiple similar or complementary projects of interest.
 
 - DescTools: Tools for Descriptive Statistics. https://cran.r-project.org/web/packages/DescTools/index.html
 - Gmisc: Descriptive Statistics, Transition Plots, and More. https://cran.r-project.org/web/packages/Gmisc/
-- Hmisc (summary.formula): Advanced table making and many more. http://biostat.mc.vanderbilt.edu/wiki/Main/Hmisc
+- Hmisc (summary.formula): Advanced table making and many more. https://github.com/harrelfe/Hmisc/
 - arsenal: An Arsenal of 'R' Functions for Large-Scale Statistical Summaries. https://github.com/eheinzen/arsenal
 - atable: Create Tables for Reporting Clinical Trials. https://github.com/arminstroebel/atable
 - compareGroups: Descriptive Analysis by Groups. http://www.comparegroups.eu
@@ -113,7 +113,7 @@ There are multiple similar or complementary projects of interest.
 - gtsummary: Presentation-Ready Data Summary and Analytic Result Tables.  https://CRAN.R-project.org/package=gtsummary
 - htmlTable: An R package for generating advanced tables. https://github.com/gforge/htmlTable
 - kableExtra: Construct Complex Table with 'kable' and Pipe Syntax. https://github.com/haozhu233/kableExtra
-- pander: An R Pandoc Writer. http://rapporter.github.io/pander/
+- pander: An R Pandoc Writer. https://rapporter.github.io/pander/
 - pixiedust: Format models for console and to markdown, HTML, and LaTeX. https://github.com/nutterb/pixiedust
 - qwraps2: quickly placing data summaries and formatted regression results into .Rnw or .Rmd files. https://github.com/dewittpe/qwraps2/
 - stargazer: Well-Formatted Regression and Summary Statistics Tables. https://cran.r-project.org/web/packages/stargazer/index.html
