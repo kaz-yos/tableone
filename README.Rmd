@@ -22,7 +22,6 @@ options(width = 116, scipen = 5)
 
 # tableone
 
-[![Travis-CI Build Status](https://travis-ci.org/kaz-yos/tableone.svg?branch=develop)](https://travis-ci.org/kaz-yos/tableone)
 [![](https://www.r-pkg.org/badges/version/tableone)](https://www.r-pkg.org/pkg/tableone)
 [![CRAN RStudio mirror downloads](https://cranlogs.r-pkg.org/badges/tableone)](https://www.r-pkg.org/pkg/tableone)
 
