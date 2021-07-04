@@ -11,7 +11,7 @@ vignette: >
 
 ```{r, message = FALSE, tidy = FALSE, echo = F}
 ## Create a header using devtools::use_vignette("my-vignette")
-## knitr configuration: http://yihui.name/knitr/options#chunk_options
+## knitr configuration: https://yihui.name/knitr/options#chunk_options
 library(knitr)
 showMessage <- FALSE
 showWarning <- FALSE
@@ -26,7 +26,7 @@ options(width = 130, scipen = 5)
 
 ## Standardized mean difference
 
-The standardized (mean) difference is a measure of distance between two group means in terms of one or more variables. In practice it is often used as a balance measure of individual covariates before and after propensity score matching. As it is standardized, comparison across variables on different scales is possible. For definitions see http://www.ncbi.nlm.nih.gov/pmc/articles/PMC3144483/#s11title .
+The standardized (mean) difference is a measure of distance between two group means in terms of one or more variables. In practice it is often used as a balance measure of individual covariates before and after propensity score matching. As it is standardized, comparison across variables on different scales is possible. For definitions see https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3144483/#s11title .
 
 
 Standardized mean differences can be easily calculated with tableone. All standardized mean differences in this package are absolute values, thus, there is no directionality.
@@ -52,19 +52,19 @@ library(ggplot2)
 
 ## Load data
 
-The right heart catheterization dataset is available at http://biostat.mc.vanderbilt.edu/wiki/Main/DataSets . This dataset was originally used in Connors *et al*. JAMA 1996;276:889-897, and has been made publicly available.
+The right heart catheterization dataset is available at https://biostat.mc.vanderbilt.edu/wiki/Main/DataSets . This dataset was originally used in Connors *et al*. JAMA 1996;276:889-897, and has been made publicly available.
 
 ```{r}
 
 ## Right heart cath dataset
-rhc <- read.csv("http://biostat.mc.vanderbilt.edu/wiki/pub/Main/DataSets/rhc.csv")
+rhc <- read.csv("https://biostat.mc.vanderbilt.edu/wiki/pub/Main/DataSets/rhc.csv")
 
 ```
 
 
 ## Unmatched table
 
-Out of the 50 covariates, 32 have standardized mean differences of greater than 0.1, which is often considered the sign of important covariate imbalance (http://www.ncbi.nlm.nih.gov/pmc/articles/PMC3144483/#s11title ).
+Out of the 50 covariates, 32 have standardized mean differences of greater than 0.1, which is often considered the sign of important covariate imbalance (https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3144483/#s11title ).
 
 ```{r}
 
@@ -124,7 +124,7 @@ rhc$pMin <- pmin(rhc$pRhc, rhc$pNoRhc)
 
 ## Propensity score matching
 
-The Matching package can be used for propensity score matching. The logit of propensity score is often used as the matching scale, and the matchign caliper is often 0.2 $\times$ SD(logit(PS)). See http://www.ncbi.nlm.nih.gov/pmc/articles/PMC3144483/#s5title for suggestions. After matching, all the standardized mean differences are below 0.1.
+The Matching package can be used for propensity score matching. The logit of propensity score is often used as the matching scale, and the matchign caliper is often 0.2 $\times$ SD(logit(PS)). See https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3144483/#s5title for suggestions. After matching, all the standardized mean differences are below 0.1.
 
 ```{r}
 
@@ -153,7 +153,7 @@ addmargins(table(ExtractSmd(tabMatched) > 0.1))
 
 ## Propensity score matching weight
 
-The matching weight method is a weighting analogue to the 1:1 pairwise algorithmic matching (http://www.ncbi.nlm.nih.gov/pubmed/23902694 ). The matching weight is defined as the smaller of the predicted probabilities of receiving or not receiving the treatment over the predicted probability of being assigned to the arm the patient is actually in. After weighting, all the standardized mean differences are below 0.1. The standardized mean differences in weighted data are explained in https://onlinelibrary.wiley.com/doi/10.1002/sim.6607/full .
+The matching weight method is a weighting analogue to the 1:1 pairwise algorithmic matching (https://www.ncbi.nlm.nih.gov/pubmed/23902694 ). The matching weight is defined as the smaller of the predicted probabilities of receiving or not receiving the treatment over the predicted probability of being assigned to the arm the patient is actually in. After weighting, all the standardized mean differences are below 0.1. The standardized mean differences in weighted data are explained in https://onlinelibrary.wiley.com/doi/10.1002/sim.6607/full .
 
 ```{r}
 
