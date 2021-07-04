@@ -1,7 +1,6 @@
 # tableone
 
-[![Travis-CI Build
-Status](https://travis-ci.org/kaz-yos/tableone.svg?branch=develop)](https://travis-ci.org/kaz-yos/tableone)
+[![R-CMD-check](https://github.com/kaz-yos/tableone/workflows/R-CMD-check/badge.svg)](https://github.com/kaz-yos/tableone/actions)
 [![](https://www.r-pkg.org/badges/version/tableone)](https://www.r-pkg.org/pkg/tableone)
 [![CRAN RStudio mirror
 downloads](https://cranlogs.r-pkg.org/badges/tableone)](https://www.r-pkg.org/pkg/tableone)

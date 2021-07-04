@@ -118,7 +118,7 @@
 <div id="load-data" class="section level2">
 <h2 class="hasAnchor">
 <a href="#load-data" class="anchor"></a>Load data</h2>
-<p>The right heart catheterization dataset is available at <a href="https://biostat.mc.vanderbilt.edu/wiki/Main/DataSets" class="uri">https://biostat.mc.vanderbilt.edu/wiki/Main/DataSets</a> . This dataset was originally used in Connors <em>et al</em>. JAMA 1996;276:889-897, and has been made publicly available.</p>
+<p>The right heart catheterization dataset is available at <a href="https://biostat.app.vumc.org/wiki/Main/DataSets" class="uri">https://biostat.app.vumc.org/wiki/Main/DataSets</a> . This dataset was originally used in Connors <em>et al</em>. JAMA 1996;276:889-897, and has been made publicly available.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Right heart cath dataset</span>
 <span class="va">rhc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"https://biostat.mc.vanderbilt.edu/wiki/pub/Main/DataSets/rhc.csv"</span><span class="op">)</span></code></pre></div>
@@ -230,7 +230,7 @@
 <div id="propensity-score-matching-weight" class="section level2">
 <h2 class="hasAnchor">
 <a href="#propensity-score-matching-weight" class="anchor"></a>Propensity score matching weight</h2>
-<p>The matching weight method is a weighting analogue to the 1:1 pairwise algorithmic matching (<a href="https://www.ncbi.nlm.nih.gov/pubmed/23902694" class="uri">https://www.ncbi.nlm.nih.gov/pubmed/23902694</a> ). The matching weight is defined as the smaller of the predicted probabilities of receiving or not receiving the treatment over the predicted probability of being assigned to the arm the patient is actually in. After weighting, all the standardized mean differences are below 0.1. The standardized mean differences in weighted data are explained in <a href="https://onlinelibrary.wiley.com/doi/10.1002/sim.6607/full" class="uri">https://onlinelibrary.wiley.com/doi/10.1002/sim.6607/full</a> .</p>
+<p>The matching weight method is a weighting analogue to the 1:1 pairwise algorithmic matching (<a href="https://pubmed.ncbi.nlm.nih.gov/23902694/" class="uri">https://pubmed.ncbi.nlm.nih.gov/23902694/</a> ). The matching weight is defined as the smaller of the predicted probabilities of receiving or not receiving the treatment over the predicted probability of being assigned to the arm the patient is actually in. After weighting, all the standardized mean differences are below 0.1. The standardized mean differences in weighted data are explained in <a href="https://onlinelibrary.wiley.com/doi/full/10.1002/sim.6607" class="uri">https://onlinelibrary.wiley.com/doi/full/10.1002/sim.6607</a> .</p>
 <div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Matching weight</span>
 <span class="va">rhc</span><span class="op">$</span><span class="va">mw</span> <span class="op">&lt;-</span> <span class="va">rhc</span><span class="op">$</span><span class="va">pMin</span> <span class="op">/</span> <span class="va">rhc</span><span class="op">$</span><span class="va">pAssign</span></code></pre></div>
