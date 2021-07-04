@@ -52,7 +52,7 @@ library(ggplot2)
 
 ## Load data
 
-The right heart catheterization dataset is available at https://biostat.mc.vanderbilt.edu/wiki/Main/DataSets . This dataset was originally used in Connors *et al*. JAMA 1996;276:889-897, and has been made publicly available.
+The right heart catheterization dataset is available at https://biostat.app.vumc.org/wiki/Main/DataSets . This dataset was originally used in Connors *et al*. JAMA 1996;276:889-897, and has been made publicly available.
 
 ```{r}
 
@@ -153,7 +153,7 @@ addmargins(table(ExtractSmd(tabMatched) > 0.1))
 
 ## Propensity score matching weight
 
-The matching weight method is a weighting analogue to the 1:1 pairwise algorithmic matching (https://www.ncbi.nlm.nih.gov/pubmed/23902694 ). The matching weight is defined as the smaller of the predicted probabilities of receiving or not receiving the treatment over the predicted probability of being assigned to the arm the patient is actually in. After weighting, all the standardized mean differences are below 0.1. The standardized mean differences in weighted data are explained in https://onlinelibrary.wiley.com/doi/10.1002/sim.6607/full .
+The matching weight method is a weighting analogue to the 1:1 pairwise algorithmic matching (https://pubmed.ncbi.nlm.nih.gov/23902694/ ). The matching weight is defined as the smaller of the predicted probabilities of receiving or not receiving the treatment over the predicted probability of being assigned to the arm the patient is actually in. After weighting, all the standardized mean differences are below 0.1. The standardized mean differences in weighted data are explained in https://onlinelibrary.wiley.com/doi/full/10.1002/sim.6607 .
 
 ```{r}
 
