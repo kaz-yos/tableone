@@ -9,9 +9,9 @@
 ### References
 ################################################################################
 ## A unified approach to measuring the effect size between two groups using SAS
-## http://support.sas.com/resources/papers/proceedings12/335-2012.pdf
+## https://support.sas.com/resources/papers/proceedings12/335-2012.pdf
 ## R multinomial distribution variance
-## http://stackoverflow.com/questions/19960605/r-multinomial-distribution-variance
+## https://stackoverflow.com/questions/19960605/r-multinomial-distribution-variance
 
 
 ###
@@ -24,7 +24,7 @@ MultinomialMeans <- function(dummyMat, na.rm = TRUE) {
 }
 
 ## Proportions to variance-covariance matrix
-## http://stackoverflow.com/questions/19960605/r-multinomial-distribution-variance
+## https://stackoverflow.com/questions/19960605/r-multinomial-distribution-variance
 ## diagonal p_k(1-p_k); off-diagonal -1 * p_k * p_l
 MultinomialVar <- function(multinomialMeans) {
     ## Mean for each
@@ -43,7 +43,7 @@ MultinomialVar <- function(multinomialMeans) {
 StdDiffFromLstMeans <- function(lstMeans) {
 
     ## list of variance-covariance matrices
-    ## http://stackoverflow.com/questions/19960605/r-multinomial-distribution-variance
+    ## https://stackoverflow.com/questions/19960605/r-multinomial-distribution-variance
     ## diagonal p_k(1-p_k); off-diagonal -1 * p_k * p_l
     lstCovs <- lapply(lstMeans, MultinomialVar)
 

@@ -728,7 +728,7 @@ test_that("svyrep.design is allowed", {
 
 ###  Replication weight data
     ## http://www.ats.ucla.edu/stat/stata/library/replicate_weights.htm
-    ## http://r-survey.r-forge.r-project.org/survey/html/svrepdesign.html
+    ## https://r-survey.r-forge.r-project.org/survey/html/svrepdesign.html
 
     ## Survival in cardiac arrest (in survey)
     data(scd)
