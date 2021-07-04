@@ -22,6 +22,7 @@ options(width = 116, scipen = 5)
 
 # tableone
 
+[![R-CMD-check](https://github.com/kaz-yos/tableone/workflows/R-CMD-check/badge.svg)](https://github.com/kaz-yos/tableone/actions)
 [![](https://www.r-pkg.org/badges/version/tableone)](https://www.r-pkg.org/pkg/tableone)
 [![CRAN RStudio mirror downloads](https://cranlogs.r-pkg.org/badges/tableone)](https://www.r-pkg.org/pkg/tableone)
 
