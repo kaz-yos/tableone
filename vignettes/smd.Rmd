@@ -26,7 +26,7 @@ options(width = 130, scipen = 5)
 
 ## Standardized mean difference
 
-The standardized (mean) difference is a measure of distance between two group means in terms of one or more variables. In practice it is often used as a balance measure of individual covariates before and after propensity score matching. As it is standardized, comparison across variables on different scales is possible. For definitions see https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3144483/#s11title .
+The standardized (mean) difference is a measure of distance between two group means in terms of one or more variables. In practice it is often used as a balance measure of individual covariates before and after propensity score matching. As it is standardized, comparison across variables on different scales is possible. For definitions see https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3144483/#s11title.
 
 
 Standardized mean differences can be easily calculated with tableone. All standardized mean differences in this package are absolute values, thus, there is no directionality.
@@ -52,19 +52,19 @@ library(ggplot2)
 
 ## Load data
 
-The right heart catheterization dataset is available at https://biostat.app.vumc.org/wiki/Main/DataSets . This dataset was originally used in Connors *et al*. JAMA 1996;276:889-897, and has been made publicly available.
+The right heart catheterization dataset is available at https://biostat.app.vumc.org/wiki/Main/DataSets. This dataset was originally used in Connors *et al*. JAMA 1996;276:889-897, and has been made publicly available.
 
 ```{r}
 
 ## Right heart cath dataset
-rhc <- read.csv("https://biostat.mc.vanderbilt.edu/wiki/pub/Main/DataSets/rhc.csv")
+rhc <- read.csv("https://biostat.app.vumc.org/wiki/pub/Main/DataSets/rhc.csv")
 
 ```
 
 
 ## Unmatched table
 
-Out of the 50 covariates, 32 have standardized mean differences of greater than 0.1, which is often considered the sign of important covariate imbalance (https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3144483/#s11title ).
+Out of the 50 covariates, 32 have standardized mean differences of greater than 0.1, which is often considered the sign of important covariate imbalance (https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3144483/#s11title).
 
 ```{r}
 
@@ -89,7 +89,7 @@ addmargins(table(ExtractSmd(tabUnmatched) > 0.1))
 
 ## Propensity score estimation
 
-Usually a logistic regression model is used to estimate individual propensity scores. The model here is taken from "How To Use Propensity Score Analysis" (https://www.mc.vanderbilt.edu/crc/workshop_files/2008-04-11.pdf ). Predicted probabilities of being assigned to right heart catherterization, being assigned no right heart catherterization, being assigned to the true assignment, as well as the smaller of the probabilities of being assigned to right heart catherterization or no right heart catherterization are calculated for later use in propensity score matching and weighting.
+Usually a logistic regression model is used to estimate individual propensity scores. The model here is taken from ["How To Use Propensity Score Analysis"](https://www.mc.vanderbilt.edu/crc/workshop_files/2008-04-11.pdf). Predicted probabilities of being assigned to right heart catheterization, being assigned no right heart catheterization, being assigned to the true assignment, as well as the smaller of the probabilities of being assigned to right heart catheterization or no right heart catheterization are calculated for later use in propensity score matching and weighting.
 
 ```{r}
 
@@ -124,7 +124,7 @@ rhc$pMin <- pmin(rhc$pRhc, rhc$pNoRhc)
 
 ## Propensity score matching
 
-The Matching package can be used for propensity score matching. The logit of propensity score is often used as the matching scale, and the matchign caliper is often 0.2 $\times$ SD(logit(PS)). See https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3144483/#s5title for suggestions. After matching, all the standardized mean differences are below 0.1.
+The Matching package can be used for propensity score matching. The logit of the propensity score is often used as the matching scale, and the matching caliper is often 0.2 $\times$ SD(logit(PS)). See https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3144483/#s5title for suggestions. After matching, all the standardized mean differences are below 0.1.
 
 ```{r}
 
@@ -153,7 +153,7 @@ addmargins(table(ExtractSmd(tabMatched) > 0.1))
 
 ## Propensity score matching weight
 
-The matching weight method is a weighting analogue to the 1:1 pairwise algorithmic matching (https://pubmed.ncbi.nlm.nih.gov/23902694/ ). The matching weight is defined as the smaller of the predicted probabilities of receiving or not receiving the treatment over the predicted probability of being assigned to the arm the patient is actually in. After weighting, all the standardized mean differences are below 0.1. The standardized mean differences in weighted data are explained in https://onlinelibrary.wiley.com/doi/full/10.1002/sim.6607 .
+The matching weight method is a weighting analogue to the 1:1 pairwise algorithmic matching (https://pubmed.ncbi.nlm.nih.gov/23902694/). The matching weight is defined as the smaller of the predicted probabilities of receiving or not receiving the treatment over the predicted probability of being assigned to the arm the patient is actually in. After weighting, all the standardized mean differences are below 0.1. The standardized mean differences in weighted data are explained in https://onlinelibrary.wiley.com/doi/full/10.1002/sim.6607.
 
 ```{r}
 
@@ -174,7 +174,7 @@ addmargins(table(ExtractSmd(tabWeighted) > 0.1))
 
 ## Propensity score overlap weight
 
-The overlap weight method is another alternative weighitng method (https://amstat.tandfonline.com/doi/abs/10.1080/01621459.2016.1260466). After weighting, all the standardized mean differences are below 0.1.
+The overlap weight method is another alternative weighting method (https://amstat.tandfonline.com/doi/abs/10.1080/01621459.2016.1260466). After weighting, all the standardized mean differences are below 0.1.
 
 ```{r}
 
@@ -200,10 +200,10 @@ A plot showing covariate balance is often constructed to demonstrate the balanci
 ```{r}
 
 ## Construct a data frame containing variable name and SMD from all methods
-dataPlot <- data.frame(variable  = rownames(ExtractSmd(tabUnmatched)),
-                       Unmatched = as.numeric(ExtractSmd(tabUnmatched)),
-                       Matched   = as.numeric(ExtractSmd(tabMatched)),
-                       Weighted  = as.numeric(ExtractSmd(tabWeighted)),
+dataPlot <- data.frame(variable   = rownames(ExtractSmd(tabUnmatched)),
+                       Unmatched  = as.numeric(ExtractSmd(tabUnmatched)),
+                       Matched    = as.numeric(ExtractSmd(tabMatched)),
+                       Weighted   = as.numeric(ExtractSmd(tabWeighted)),
                        WeightedOw = as.numeric(ExtractSmd(tabWeightedOw)))
 
 ## Create long-format data for ggplot2
@@ -226,19 +226,20 @@ ggplot(data = dataPlotMelt,
     geom_point() +
     geom_hline(yintercept = 0.1, color = "black", size = 0.1) +
     coord_flip() +
-    theme_bw() + theme(legend.key = element_blank())
+    theme_bw() +
+    theme(legend.key = element_blank())
 
 ```
 
-To construct a side-by-side table, data can be extracted as a matrix and combined using the print() method, which actually invisibly returns a matrix.
+To construct a side-by-side table, data can be extracted as a matrix and combined using the `print()` method, which actually invisibly returns a matrix.
 
 ```{r}
 
 ## Column bind tables
-resCombo <- cbind(print(tabUnmatched, printToggle = FALSE),
-                  print(tabMatched,   printToggle = FALSE),
-                  print(tabWeighted,  printToggle = FALSE),
-                  print(tabWeightedOw,  printToggle = FALSE))
+resCombo <- cbind(print(tabUnmatched,  printToggle = FALSE),
+                  print(tabMatched,    printToggle = FALSE),
+                  print(tabWeighted,   printToggle = FALSE),
+                  print(tabWeightedOw, printToggle = FALSE))
 
 ## Add group name row, and rewrite column names
 resCombo <- rbind(Group = rep(c("No RHC","RHC"), 4), resCombo)
@@ -250,12 +251,12 @@ print(resCombo, quote = FALSE)
 
 ## Outcome analysis
 
-The final analysis can be conducted using matched and weighted data. The results from the matching and matching weight are similar. ShowRegTable() function may come in handly.
+The final analysis can be conducted using matched and weighted data. The results from the matching and matching weight are similar. The `ShowRegTable()` function may come in handy.
 
 
 ```{r}
 
-## Unmatched model (unadjsuted)
+## Unmatched model (unadjusted)
 glmUnmatched <- glm(formula = (death == "Yes") ~ swang1,
                     family  = binomial(link = "logit"),
                     data    = rhc)
@@ -266,7 +267,7 @@ glmMatched <- glm(formula = (death == "Yes") ~ swang1,
 ## Weighted model
 glmWeighted <- svyglm(formula = (death == "Yes") ~ swang1,
                       family  = binomial(link = "logit"),
-                      design    = rhcSvy)
+                      design  = rhcSvy)
 
 ## Show results together
 resTogether <- list(Unmatched = ShowRegTable(glmUnmatched, printToggle = FALSE),
