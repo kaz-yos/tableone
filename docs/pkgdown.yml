@@ -1,8 +1,8 @@
-pandoc: '2.13'
-pkgdown: 1.6.1
+pandoc: 2.11.1.1
+pkgdown: 2.0.2
 pkgdown_sha: ~
 articles:
   introduction: introduction.html
   smd: smd.html
-last_built: 2021-07-04T11:26Z
+last_built: 2022-03-27T19:27Z
 

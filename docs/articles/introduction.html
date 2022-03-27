@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,18 +33,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tableone</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.13.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.14.0</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -64,7 +60,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/kaz-yos/tableone/">
+  <a href="https://github.com/kaz-yos/tableone/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -79,42 +75,42 @@
 
       
 
-      </header><script src="introduction_files/header-attrs-2.9/header-attrs.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Introduction to tableone</h1>
-                        <h4 class="author">Kazuki Yoshida</h4>
+                        <h4 data-toc-skip class="author">Kazuki Yoshida</h4>
             
-            <h4 class="date">2020-07-25</h4>
+            <h4 data-toc-skip class="date">2020-07-25</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/kaz-yos/tableone/blob/master/vignettes/introduction.Rmd"><code>vignettes/introduction.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/kaz-yos/tableone/blob/HEAD/vignettes/introduction.Rmd" class="external-link"><code>vignettes/introduction.Rmd</code></a></small>
       <div class="hidden name"><code>introduction.Rmd</code></div>
 
     </div>
 
     
     
-<div id="what-is-tableone" class="section level2">
-<h2 class="hasAnchor">
-<a href="#what-is-tableone" class="anchor"></a>What is tableone?</h2>
+<div class="section level2">
+<h2 id="what-is-tableone">What is tableone?<a class="anchor" aria-label="anchor" href="#what-is-tableone"></a>
+</h2>
 <p>The tableone package is an R package that eases the construction of “Table 1”, <em>i.e.</em>, patient baseline characteristics table commonly found in biomedical research papers. The packages can summarize both continuous and categorical variables mixed within one table. Categorical variables can be summarized as counts and/or percentages. Continuous variables can be summarized in the “normal” way (means and standard deviations) or “nonnormal” way (medians and interquartile ranges).</p>
 </div>
-<div id="load-packages" class="section level2">
-<h2 class="hasAnchor">
-<a href="#load-packages" class="anchor"></a>Load packages</h2>
+<div class="section level2">
+<h2 id="load-packages">Load packages<a class="anchor" aria-label="anchor" href="#load-packages"></a>
+</h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## tableone package itself</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/kaz-yos/tableone">tableone</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/kaz-yos/tableone" class="external-link">tableone</a></span><span class="op">)</span>
 <span class="co">## survival package for Mayo Clinic's PBC data</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/therneau/survival">survival</a></span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">pbc</span><span class="op">)</span></code></pre></div>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/therneau/survival" class="external-link">survival</a></span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">pbc</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="single-group-summary" class="section level2">
-<h2 class="hasAnchor">
-<a href="#single-group-summary" class="anchor"></a>Single group summary</h2>
-<div id="simplest-use-case" class="section level3">
-<h3 class="hasAnchor">
-<a href="#simplest-use-case" class="anchor"></a>Simplest use case</h3>
+<div class="section level2">
+<h2 id="single-group-summary">Single group summary<a class="anchor" aria-label="anchor" href="#single-group-summary"></a>
+</h2>
+<div class="section level3">
+<h3 id="simplest-use-case">Simplest use case<a class="anchor" aria-label="anchor" href="#simplest-use-case"></a>
+</h3>
 <p>The simplest use case is summarizing the whole dataset. You can just feed in the data frame to the main workhorse function CreateTableOne(). You can see there are 418 patients in the dataset.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/CreateTableOne.html">CreateTableOne</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">pbc</span><span class="op">)</span></code></pre></div>
@@ -142,23 +138,23 @@
   protime (mean (SD))    10.73 (1.02)   
   stage (mean (SD))       3.02 (0.88)   </code></pre>
 </div>
-<div id="categorical-variable-conversion" class="section level3">
-<h3 class="hasAnchor">
-<a href="#categorical-variable-conversion" class="anchor"></a>Categorical variable conversion</h3>
+<div class="section level3">
+<h3 id="categorical-variable-conversion">Categorical variable conversion<a class="anchor" aria-label="anchor" href="#categorical-variable-conversion"></a>
+</h3>
 <p>Most of the categorical variables are coded numerically, so we either have to transform them to factors in the dataset or use factorVars argument to transform them on-the-fly. Also it’s a better practice to specify which variables to summarize by the vars argument, and exclude the ID variable(s). How do we know which ones are numerically-coded categorical variables? Please check your data dictionary (in this case help(pbc)). This time I am saving the result object in a variable.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Get variables names</span>
-<span class="fu"><a href="https://rdrr.io/r/base/dput.html">dput</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">pbc</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code><a href="https://rdrr.io/r/base/c.html">c("id", "time", "status", "trt", "age", "sex", "ascites", "hepato", 
-"spiders", "edema", "bili", "chol", "albumin", "copper", "alk.phos", 
-"ast", "trig", "platelet", "protime", "stage")</a></code></pre>
+<span class="fu"><a href="https://rdrr.io/r/base/dput.html" class="external-link">dput</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">pbc</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<pre><code><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"id"</span>, <span class="st">"time"</span>, <span class="st">"status"</span>, <span class="st">"trt"</span>, <span class="st">"age"</span>, <span class="st">"sex"</span>, <span class="st">"ascites"</span>, <span class="st">"hepato"</span>, 
+<span class="st">"spiders"</span>, <span class="st">"edema"</span>, <span class="st">"bili"</span>, <span class="st">"chol"</span>, <span class="st">"albumin"</span>, <span class="st">"copper"</span>, <span class="st">"alk.phos"</span>, 
+<span class="st">"ast"</span>, <span class="st">"trig"</span>, <span class="st">"platelet"</span>, <span class="st">"protime"</span>, <span class="st">"stage"</span><span class="op">)</span></code></pre>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Vector of variables to summarize</span>
-<span class="va">myVars</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"time"</span>, <span class="st">"status"</span>, <span class="st">"trt"</span>, <span class="st">"age"</span>, <span class="st">"sex"</span>, <span class="st">"ascites"</span>, <span class="st">"hepato"</span>,
+<span class="va">myVars</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"time"</span>, <span class="st">"status"</span>, <span class="st">"trt"</span>, <span class="st">"age"</span>, <span class="st">"sex"</span>, <span class="st">"ascites"</span>, <span class="st">"hepato"</span>,
           <span class="st">"spiders"</span>, <span class="st">"edema"</span>, <span class="st">"bili"</span>, <span class="st">"chol"</span>, <span class="st">"albumin"</span>, <span class="st">"copper"</span>, <span class="st">"alk.phos"</span>,
           <span class="st">"ast"</span>, <span class="st">"trig"</span>, <span class="st">"platelet"</span>, <span class="st">"protime"</span>, <span class="st">"stage"</span><span class="op">)</span>
 <span class="co">## Vector of categorical variables that need transformation</span>
-<span class="va">catVars</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"status"</span>, <span class="st">"trt"</span>, <span class="st">"ascites"</span>, <span class="st">"hepato"</span>,
+<span class="va">catVars</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"status"</span>, <span class="st">"trt"</span>, <span class="st">"ascites"</span>, <span class="st">"hepato"</span>,
              <span class="st">"spiders"</span>, <span class="st">"edema"</span>, <span class="st">"stage"</span><span class="op">)</span>
 <span class="co">## Create a TableOne object</span>
 <span class="va">tab2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/CreateTableOne.html">CreateTableOne</a></span><span class="op">(</span>vars <span class="op">=</span> <span class="va">myVars</span>, data <span class="op">=</span> <span class="va">pbc</span>, factorVars <span class="op">=</span> <span class="va">catVars</span><span class="op">)</span></code></pre></div>
@@ -198,12 +194,12 @@
      3                     155 (37.6)   
      4                     144 (35.0)   </code></pre>
 </div>
-<div id="showing-all-levels-for-categorical-variables" class="section level3">
-<h3 class="hasAnchor">
-<a href="#showing-all-levels-for-categorical-variables" class="anchor"></a>Showing all levels for categorical variables</h3>
+<div class="section level3">
+<h3 id="showing-all-levels-for-categorical-variables">Showing all levels for categorical variables<a class="anchor" aria-label="anchor" href="#showing-all-levels-for-categorical-variables"></a>
+</h3>
 <p>If you want to show all levels, you can use showAllLevels argument to the print() method.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">tab2</span>, showAllLevels <span class="op">=</span> <span class="cn">TRUE</span>, formatOptions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>big.mark <span class="op">=</span> <span class="st">","</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">tab2</span>, showAllLevels <span class="op">=</span> <span class="cn">TRUE</span>, formatOptions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>big.mark <span class="op">=</span> <span class="st">","</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>                      
                        level Overall            
   n                               418           
@@ -239,12 +235,12 @@
                        3          155 (37.6)    
                        4          144 (35.0)    </code></pre>
 </div>
-<div id="detailed-information-including-missingness" class="section level3">
-<h3 class="hasAnchor">
-<a href="#detailed-information-including-missingness" class="anchor"></a>Detailed information including missingness</h3>
+<div class="section level3">
+<h3 id="detailed-information-including-missingness">Detailed information including missingness<a class="anchor" aria-label="anchor" href="#detailed-information-including-missingness"></a>
+</h3>
 <p>If you need more detailed information including the number/proportion missing. Use the summary() method on the result object. The continuous variables are shown first, and the categorical variables are shown second.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">tab2</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">tab2</span><span class="op">)</span></code></pre></div>
 <pre><code>
      ### Summary of continuous variables ###
 
@@ -297,13 +293,13 @@ strata: Overall
                              4  144    35.0       100.0
                                                        </code></pre>
 </div>
-<div id="summarizing-nonnormal-variables" class="section level3">
-<h3 class="hasAnchor">
-<a href="#summarizing-nonnormal-variables" class="anchor"></a>Summarizing nonnormal variables</h3>
+<div class="section level3">
+<h3 id="summarizing-nonnormal-variables">Summarizing nonnormal variables<a class="anchor" aria-label="anchor" href="#summarizing-nonnormal-variables"></a>
+</h3>
 <p>It looks like most of the continuous variables are highly skewed except time, age, albumin, and platelet (biomarkers are usually distributed with strong positive skews). Summarizing them as such may please your future peer reviewer(s). Let’s do it with the nonnormal argument to the print() method. Can you see the difference. If you just say nonnormal = TRUE, all variables are summarized the “nonnormal” way.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">biomarkers</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"bili"</span>,<span class="st">"chol"</span>,<span class="st">"copper"</span>,<span class="st">"alk.phos"</span>,<span class="st">"ast"</span>,<span class="st">"trig"</span>,<span class="st">"protime"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">tab2</span>, nonnormal <span class="op">=</span> <span class="va">biomarkers</span>, formatOptions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>big.mark <span class="op">=</span> <span class="st">","</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="va">biomarkers</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"bili"</span>,<span class="st">"chol"</span>,<span class="st">"copper"</span>,<span class="st">"alk.phos"</span>,<span class="st">"ast"</span>,<span class="st">"trig"</span>,<span class="st">"protime"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">tab2</span>, nonnormal <span class="op">=</span> <span class="va">biomarkers</span>, formatOptions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>big.mark <span class="op">=</span> <span class="st">","</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>                         
                           Overall                    
   n                            418                   
@@ -337,19 +333,19 @@ strata: Overall
      3                         155 (37.6)            
      4                         144 (35.0)            </code></pre>
 </div>
-<div id="fine-tuning" class="section level3">
-<h3 class="hasAnchor">
-<a href="#fine-tuning" class="anchor"></a>Fine tuning</h3>
+<div class="section level3">
+<h3 id="fine-tuning">Fine tuning<a class="anchor" aria-label="anchor" href="#fine-tuning"></a>
+</h3>
 <p>If you want to fine tune the table further, please check out ?print.TableOne for the full list of options.</p>
 </div>
 </div>
-<div id="multiple-group-summary" class="section level2">
-<h2 class="hasAnchor">
-<a href="#multiple-group-summary" class="anchor"></a>Multiple group summary</h2>
+<div class="section level2">
+<h2 id="multiple-group-summary">Multiple group summary<a class="anchor" aria-label="anchor" href="#multiple-group-summary"></a>
+</h2>
 <p>Often you want to group patients and summarize group by group. It’s also pretty simple. Grouping by exposure categories is probably the most common way, so let’s do it by the treatment variable. According to ?pbc, it is coded as (1) D-penicillmain (it’s really “D-penicillamine”), (2) placebo, and (NA) not randomized. NA’s do not function as a grouping variable, so it is dropped. If you do want to show the result for the NA group, then you need to recoded it something other than NA.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">tab3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/CreateTableOne.html">CreateTableOne</a></span><span class="op">(</span>vars <span class="op">=</span> <span class="va">myVars</span>, strata <span class="op">=</span> <span class="st">"trt"</span> , data <span class="op">=</span> <span class="va">pbc</span>, factorVars <span class="op">=</span> <span class="va">catVars</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">tab3</span>, nonnormal <span class="op">=</span> <span class="va">biomarkers</span>, formatOptions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>big.mark <span class="op">=</span> <span class="st">","</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">tab3</span>, nonnormal <span class="op">=</span> <span class="va">biomarkers</span>, formatOptions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>big.mark <span class="op">=</span> <span class="st">","</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>                         Stratified by trt
                           1                           2                           p      test   
   n                            158                         154                                  
@@ -382,14 +378,14 @@ strata: Overall
      2                          35 (22.2)                   32 ( 20.8)                          
      3                          56 (35.4)                   64 ( 41.6)                          
      4                          55 (34.8)                   54 ( 35.1)                          </code></pre>
-<div id="testing" class="section level3">
-<h3 class="hasAnchor">
-<a href="#testing" class="anchor"></a>Testing</h3>
+<div class="section level3">
+<h3 id="testing">Testing<a class="anchor" aria-label="anchor" href="#testing"></a>
+</h3>
 <p>As you can see in the previous table, when there are two or more groups group comparison p-values are printed along with the table (well, let’s not argue the appropriateness of hypothesis testing for table 1 in an RCT for now.). Very small p-values are shown with the less than sign. The hypothesis test functions used by default are chisq.test() for categorical variables (with continuity correction) and oneway.test() for continous variables (with equal variance assumption, i.e., regular ANOVA). Two-group ANOVA is equivalent of t-test.</p>
 <p>You may be worried about the nonnormal variables and small cell counts in the stage variable. In such a situation, you can use the nonnormal argument like before as well as the exact (test) argument in the print() method. Now kruskal.test() is used for the nonnormal continous variables and fisher.test() is used for categorical variables specified in the exact argument. kruskal.test() is equivalent to wilcox.test() in the two-group case. The column named test is to indicate which p-values were calculated using the non-default tests.</p>
 <p>To also show standardized mean differences, use the smd option.</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">tab3</span>, nonnormal <span class="op">=</span> <span class="va">biomarkers</span>, exact <span class="op">=</span> <span class="st">"stage"</span>, smd <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">tab3</span>, nonnormal <span class="op">=</span> <span class="va">biomarkers</span>, exact <span class="op">=</span> <span class="st">"stage"</span>, smd <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <pre><code>                         Stratified by trt
                           1                         2                         p      test    SMD   
   n                           158                       154                                        
@@ -424,16 +420,16 @@ strata: Overall
      4                         55 (34.8)                 54 ( 35.1)                                </code></pre>
 </div>
 </div>
-<div id="exporting" class="section level2">
-<h2 class="hasAnchor">
-<a href="#exporting" class="anchor"></a>Exporting</h2>
+<div class="section level2">
+<h2 id="exporting">Exporting<a class="anchor" aria-label="anchor" href="#exporting"></a>
+</h2>
 <p>My typical next step is to export the table to Excel for editing, and then to Word (clinical medical journals usually do not offer LaTeX submission).</p>
-<div id="quick-and-dirty-way" class="section level3">
-<h3 class="hasAnchor">
-<a href="#quick-and-dirty-way" class="anchor"></a>Quick and dirty way</h3>
+<div class="section level3">
+<h3 id="quick-and-dirty-way">Quick and dirty way<a class="anchor" aria-label="anchor" href="#quick-and-dirty-way"></a>
+</h3>
 <p>The quick and dirty way that I used to do is copy and paste. Use the quote = TRUE argument to show the quotes and noSpaces = TRUE to remove spaces used to align text in the R console (the latter is optional). Now you can just copy and paste the whole thing to an Excel spread sheet. After pasting, click the small pasting icon to choose Use Text Import Wizard…, in the dialogue you can just click finish to fit the values in the appropriate cells. Then you can edit or re-align things as you like. I usualy center-align the group summaries, and right-aligh the p-values.</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">tab3</span>, nonnormal <span class="op">=</span> <span class="va">biomarkers</span>, exact <span class="op">=</span> <span class="st">"stage"</span>, quote <span class="op">=</span> <span class="cn">TRUE</span>, noSpaces <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">tab3</span>, nonnormal <span class="op">=</span> <span class="va">biomarkers</span>, exact <span class="op">=</span> <span class="st">"stage"</span>, quote <span class="op">=</span> <span class="cn">TRUE</span>, noSpaces <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <pre><code>                           "Stratified by trt"
  ""                         "1"                         "2"                         "p"      "test"   
   "n"                       "158"                       "154"                       ""       ""       
@@ -467,22 +463,22 @@ strata: Overall
   "   3"                    "56 (35.4)"                 "64 (41.6)"                 ""       ""       
   "   4"                    "55 (34.8)"                 "54 (35.1)"                 ""       ""       </code></pre>
 </div>
-<div id="real-export-way" class="section level3">
-<h3 class="hasAnchor">
-<a href="#real-export-way" class="anchor"></a>Real export way</h3>
+<div class="section level3">
+<h3 id="real-export-way">Real export way<a class="anchor" aria-label="anchor" href="#real-export-way"></a>
+</h3>
 <p>If you do not like the manual labor of copy-and-paste, you can potentially automate the task by the following way. The print() method for a TableOne object invisibly return a matrix identical to what you see. You can capture this by assignment to a variable (here tab3Mat). Do not use the quote argument in this case, the noSpaces argument is again optional. The self-contradictory printToggle = FALSE for the print() method avoids unnecessary printing if you wish. Then you can save the object to a CSV file. As it is a regular matrix object, you can save it to an Excel file using packages such as XLConnect.</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">tab3Mat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">tab3</span>, nonnormal <span class="op">=</span> <span class="va">biomarkers</span>, exact <span class="op">=</span> <span class="st">"stage"</span>, quote <span class="op">=</span> <span class="cn">FALSE</span>, noSpaces <span class="op">=</span> <span class="cn">TRUE</span>, printToggle <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">tab3Mat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">tab3</span>, nonnormal <span class="op">=</span> <span class="va">biomarkers</span>, exact <span class="op">=</span> <span class="st">"stage"</span>, quote <span class="op">=</span> <span class="cn">FALSE</span>, noSpaces <span class="op">=</span> <span class="cn">TRUE</span>, printToggle <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 <span class="co">## Save to a CSV file</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/write.table.html">write.csv</a></span><span class="op">(</span><span class="va">tab3Mat</span>, file <span class="op">=</span> <span class="st">"myTable.csv"</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/utils/write.table.html" class="external-link">write.csv</a></span><span class="op">(</span><span class="va">tab3Mat</span>, file <span class="op">=</span> <span class="st">"myTable.csv"</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
-<div id="miscellaneous" class="section level2">
-<h2 class="hasAnchor">
-<a href="#miscellaneous" class="anchor"></a>Miscellaneous</h2>
-<div id="categorical-or-continous-variables-only" class="section level3">
-<h3 class="hasAnchor">
-<a href="#categorical-or-continous-variables-only" class="anchor"></a>Categorical or continous variables-only</h3>
+<div class="section level2">
+<h2 id="miscellaneous">Miscellaneous<a class="anchor" aria-label="anchor" href="#miscellaneous"></a>
+</h2>
+<div class="section level3">
+<h3 id="categorical-or-continous-variables-only">Categorical or continous variables-only<a class="anchor" aria-label="anchor" href="#categorical-or-continous-variables-only"></a>
+</h3>
 <p>You may want to see the categorical or continous variables only. You can do this by accessing the CatTable part and ContTable part of the TableOne object as follows. summary() methods are defined for both as well as print() method with various arguments. Please see ?print.CatTable and ?print.ContTable for details.</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Categorical part only</span>
@@ -510,7 +506,7 @@ strata: Overall
      4             55 (34.8)   54 ( 35.1)             </code></pre>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Continous part only</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">tab3</span><span class="op">$</span><span class="va">ContTable</span>, nonnormal <span class="op">=</span> <span class="va">biomarkers</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">tab3</span><span class="op">$</span><span class="va">ContTable</span>, nonnormal <span class="op">=</span> <span class="va">biomarkers</span><span class="op">)</span></code></pre></div>
 <pre><code>                         Stratified by trt
                           1                         2                         p      test   
   n                       158                       154                                     
@@ -528,9 +524,9 @@ strata: Overall
 <hr>
 <ul>
 <li>Authored by Kazuki Yoshida</li>
-<li>CRAN page: <a href="https://cran.r-project.org/package=tableone" class="uri">https://cran.r-project.org/package=tableone</a>
+<li>CRAN page: <a href="https://cran.r-project.org/package=tableone" class="external-link uri">https://cran.r-project.org/package=tableone</a>
 </li>
-<li>github page: <a href="https://github.com/kaz-yos/tableone" class="uri">https://github.com/kaz-yos/tableone</a>
+<li>github page: <a href="https://github.com/kaz-yos/tableone" class="external-link uri">https://github.com/kaz-yos/tableone</a>
 </li>
 </ul>
 </div>
@@ -548,11 +544,13 @@ strata: Overall
 
 
       <footer><div class="copyright">
-  <p>Developed by Kazuki Yoshida, Alexander Bartel.</p>
+  <p></p>
+<p>Developed by Kazuki Yoshida, Alexander Bartel.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer>
@@ -560,6 +558,8 @@ strata: Overall
 
   
 
+
+  
 
   </body>
 </html>
