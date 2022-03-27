@@ -43,4 +43,4 @@ Suggests:
     rmarkdown
 URL: https://github.com/kaz-yos/tableone
 VignetteBuilder: knitr
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
