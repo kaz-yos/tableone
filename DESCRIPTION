@@ -1,8 +1,8 @@
 Package: tableone
 Type: Package
 Title: Create 'Table 1' to Describe Baseline Characteristics with or without Propensity Score Weights
-Version: 0.14.0
-Date: 2022-03-27
+Version: 0.13.2
+Date: 2022-04-15
 Authors@R: c(
     # http://r-pkgs.had.co.nz/description.html#author
     person('Kazuki', 'Yoshida', email = 'kazukiyoshida@mail.harvard.edu', role = c('cre','aut'), comment = c(ORCID = '0000-0002-2030-3549')),
