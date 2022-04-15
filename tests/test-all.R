@@ -10,4 +10,5 @@
 ### Run all tests
 ################################################################################
 library(testthat)
+Sys.setenv('TESTTHAT_MAX_FAILS' = Inf)
 test_check("tableone")
