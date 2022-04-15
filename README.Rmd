@@ -35,7 +35,7 @@ tableone was inspired by descriptive statistics functions in Deducer , a Java-ba
 
 # tableone in action
 
-![screencast](tableone.gif "screencast")
+![screencast](man/figures/tableone.gif "screencast")
 
 The code being executed can be found in the introduction vignette.
 
