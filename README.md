@@ -22,7 +22,7 @@ or Java, and intended for command-line users.
 tableone in action
 ==================
 
-![screencast](tableone.gif "screencast")
+![screencast](man/figures/tableone.gif "screencast")
 
 The code being executed can be found in the introduction vignette.
 
