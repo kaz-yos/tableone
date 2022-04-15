@@ -17,7 +17,7 @@
                 Stratified by E:C1
                  3:1             p      test SMD   
   n              50D00                             
-  E (mean (SD))   3D00 (0D00)        NA         Inf
+  E (mean (SD))   3D00 (0D00)    <0D001         Inf
   C (mean (SD))   3D20 (0D40)    <0D001       2D137
   Y = 1 (%)       37D0 (  74D0)  <0D001       0D731
   C1 = 1 (%)      50D0 (1,00D0)  <0D001         NaN
