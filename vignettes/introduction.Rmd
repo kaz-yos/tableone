@@ -82,7 +82,7 @@ print(tab2, showAllLevels = TRUE, formatOptions = list(big.mark = ","))
 
 ### Detailed information including missingness
 
-If you need more detailed information including the number/proportion missing. Use the summary() method on the result object. The continuous variables are shown first, and the categorical variables are shown second.
+If you need more detailed information including the number/proportion missing, use the summary() method on the result object. The continuous variables are shown first, and the categorical variables are shown second.
 
 ```{r}
 summary(tab2)
@@ -90,7 +90,7 @@ summary(tab2)
 
 ### Summarizing nonnormal variables
 
-It looks like most of the continuous variables are highly skewed except time, age, albumin, and platelet (biomarkers are usually distributed with strong positive skews). Summarizing them as such may please your future peer reviewer(s). Let's do it with the nonnormal argument to the print() method. Can you see the difference. If you just say nonnormal = TRUE, all variables are summarized the "nonnormal" way.
+It looks like most of the continuous variables are highly skewed except time, age, albumin, and platelet (biomarkers are usually distributed with strong positive skews). Summarizing them as such may please your future peer reviewer(s). Let's do it with the nonnormal argument to the print() method. Can you see the difference? If you just say nonnormal = TRUE, all variables are summarized the "nonnormal" way.
 
 ```{r}
 biomarkers <- c("bili","chol","copper","alk.phos","ast","trig","protime")
@@ -104,7 +104,7 @@ If you want to fine tune the table further, please check out ?print.TableOne for
 
 ## Multiple group summary
 
-Often you want to group patients and summarize group by group. It's also pretty simple. Grouping by exposure categories is probably the most common way, so let's do it by the treatment variable. According to ?pbc, it is coded as (1) D-penicillmain (it's really "D-penicillamine"), (2) placebo, and (NA) not randomized. NA's do not function as a grouping variable, so it is dropped. If you do want to show the result for the NA group, then you need to recoded it something other than NA.
+Often you want to group patients and summarize group by group. It's also pretty simple. Grouping by exposure categories is probably the most common way, so let's do it by the treatment variable. According to ?pbc, it is coded as (1) D-penicillmain (it's really "D-penicillamine"), (2) placebo, and (NA) not randomized. NA's do not function as a grouping variable, so it is dropped. If you do want to show the result for the NA group, then you need to recode it to something other than NA.
 
 ```{r}
 tab3 <- CreateTableOne(vars = myVars, strata = "trt" , data = pbc, factorVars = catVars)
@@ -113,9 +113,9 @@ print(tab3, nonnormal = biomarkers, formatOptions = list(big.mark = ","))
 
 ### Testing
 
-As you can see in the previous table, when there are two or more groups group comparison p-values are printed along with the table (well, let's not argue the appropriateness of hypothesis testing for table 1 in an RCT for now.). Very small p-values are shown with the less than sign. The hypothesis test functions used by default are chisq.test() for categorical variables (with continuity correction) and oneway.test() for continous variables (with equal variance assumption, i.e., regular ANOVA). Two-group ANOVA is equivalent of t-test.
+As you can see in the previous table, when there are two or more groups, group comparison p-values are printed along with the table (well, let's not argue the appropriateness of hypothesis testing for table 1 in an RCT for now.). Very small p-values are shown with the less than sign. The hypothesis test functions used by default are chisq.test() for categorical variables (with continuity correction) and oneway.test() for continuous variables (with equal variance assumption, i.e., regular ANOVA). Two-group ANOVA is equivalent of t-test.
 
-You may be worried about the nonnormal variables and small cell counts in the stage variable. In such a situation, you can use the nonnormal argument like before as well as the exact (test) argument in the print() method. Now kruskal.test() is used for the nonnormal continous variables and fisher.test() is used for categorical variables specified in the exact argument. kruskal.test() is equivalent to wilcox.test() in the two-group case. The column named test is to indicate which p-values were calculated using the non-default tests.
+You may be worried about the nonnormal variables and small cell counts in the stage variable. In such a situation, you can use the nonnormal argument like before as well as the exact (test) argument in the print() method. Now kruskal.test() is used for the nonnormal continuous variables and fisher.test() is used for categorical variables specified in the exact argument. kruskal.test() is equivalent to wilcox.test() in the two-group case. The column named test is to indicate which p-values were calculated using the non-default tests.
 
 To also show standardized mean differences, use the smd option.
 
@@ -148,14 +148,14 @@ write.csv(tab3Mat, file = "myTable.csv")
 
 ## Miscellaneous
 
-### Categorical or continous variables-only
+### Categorical or continuous variables-only
 
-You may want to see the categorical or continous variables only. You can do this by accessing the CatTable part and ContTable part of the TableOne object as follows. summary() methods are defined for both as well as print() method with various arguments. Please see ?print.CatTable and ?print.ContTable for details.
+You may want to see the categorical or continuous variables only. You can do this by accessing the CatTable part and ContTable part of the TableOne object as follows. summary() methods are defined for both as well as print() method with various arguments. Please see ?print.CatTable and ?print.ContTable for details.
 
 ```{r}
 ## Categorical part only
 tab3$CatTable
-## Continous part only
+## Continuous part only
 print(tab3$ContTable, nonnormal = biomarkers)
 ```
 
