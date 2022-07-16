@@ -117,7 +117,7 @@ svyQuant <- function(vars, design, q = 0.5) {
     res <- vector()
     for ( i in 1:length(vars)) {
       var    <- vars[i]
-      res[i] <- svyquantile(design$variables[var], design = design, quantiles = q[1], na.rm = TRUE)
+      res[i] <- svyquantile(design$variables[var], design = design, quantiles = q[1], na.rm = TRUE, ci = FALSE)
     }
     out <- as.vector(res)
     names(out) <- vars
