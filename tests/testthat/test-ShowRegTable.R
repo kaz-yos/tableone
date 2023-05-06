@@ -121,6 +121,7 @@ test_that("lm works", {
 ### Clustered data
 ################################################################################
 
+skip_if_not_installed("geepack")
 ## Ordinal Data from Koch
 data(koch, package = "geepack")
 
