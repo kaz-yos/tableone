@@ -182,82 +182,82 @@ test_that("nlme works", {
 
 ### lme4
 test_that("lme4 works", {
+    skip_if_not_installed("lme4")
 
-    cat("### The lme4 version is ", installed.packages()["lme4","Version"], "\n")
-
-    if (installed.packages()["lme4","Version"] == "1.1-14") {
-        cat("### Due to the issues with lme4 1.1-14. The relevant test are skipped.\n")
-    }
+    lme4_version <- packageVersion("lme4")
+    cat(sprintf("### The lme4 version is %s\n", lme4_version))
 
     ## Do not test in version 1.1-14 to avoid warnings.
     ## https://github.com/lme4/lme4/issues/440
-    if (installed.packages()["lme4","Version"] != "1.1-14") {
-        library(lme4)
-
-        ## Linear LME
-        lmer1 <- lmer(formula = y ~ trt + day + (1 | id),
-                      data = koch)
-
-        ciLmer1 <- tail(confint(lmer1), nrow(coef(summary(lmer1))))
-        summary(lmer1)
-
-        ## confint
-        ShowRegTable(lmer1, digits = 5, exp = FALSE)
-        expect_output(ShowRegTable(lmer1, digits = 5, exp = FALSE),
-                      sprintf("%.5f, %.5f",
-                              ciLmer1[2,1],
-                              ciLmer1[2,2]))
-
-        ## coef
-        expect_output(ShowRegTable(lmer1, digits = 5, exp = FALSE),
-                      sprintf("%.5f", coef(summary(lmer1))[2,1]))
-
-
-        ## For p-values
-        ## lmerTest::lmer() masks lme4::lmer()
-        library(lmerTest)
-
-        ## Linear LME
-        lmer2 <- lmer(formula = y ~ trt + day + (1 | id),
-                      data = koch)
-        summary(lmer2)
-
-        ciLmer2 <- tail(confint(lmer2), nrow(coef(summary(lmer2))))
-
-        ## confint
-        ShowRegTable(lmer2, digits = 5, exp = FALSE)
-        expect_output(ShowRegTable(lmer2, digits = 5, exp = FALSE),
-                      sprintf("%.5f, %.5f",
-                              ciLmer2[2,1],
-                              ciLmer2[2,2]))
-
-        ## coef
-        expect_output(ShowRegTable(lmer2, digits = 5, exp = FALSE),
-                      sprintf("%.5f", coef(summary(lmer2))[2,1]))
-
-        ## p-value
-        ## For some reason, need to specify summary explicitly.
-        expect_output(ShowRegTable(lmer2, pDigits = 5, exp = FALSE),
-                      sprintf("%.5f", coef(lmerTest_summary(lmer2))[2,5]))
-
-        ## GLMM
-        glmer1 <- glmer(formula = y ~ trt + day + (1 | id),
-                        data = koch,
-                        family = poisson(link = "log"))
-        summary(glmer1)
-        ## Last rows correspond to fixed effects
-        ciGlmer1 <- tail(confint(glmer1), nrow(coef(summary(glmer1))))
-
-        ## confint
-        ShowRegTable(glmer1, digits = 5, exp = TRUE)
-        expect_output(ShowRegTable(glmer1, digits = 5, exp = TRUE),
-                      sprintf("%.5f, %.5f",
-                              exp(ciGlmer1[2,1]),
-                              exp(ciGlmer1[2,2])))
-
-        ## coef
-        expect_output(ShowRegTable(glmer1, digits = 5, exp = TRUE),
-                      sprintf("%.5f", exp(coef(summary(glmer1)))[2,1]))
-
+    if (lme4_version == "1.1-14") {
+        skip("### Due to the issues with lme4 1.1-14, the relevant tests are skipped.")
     }
+
+    library(lme4)
+
+    ## Linear LME
+    lmer1 <- lmer(formula = y ~ trt + day + (1 | id),
+                  data = koch)
+
+    ciLmer1 <- tail(confint(lmer1), nrow(coef(summary(lmer1))))
+    summary(lmer1)
+
+    ## confint
+    ShowRegTable(lmer1, digits = 5, exp = FALSE)
+    expect_output(ShowRegTable(lmer1, digits = 5, exp = FALSE),
+                  sprintf("%.5f, %.5f",
+                          ciLmer1[2,1],
+                          ciLmer1[2,2]))
+
+    ## coef
+    expect_output(ShowRegTable(lmer1, digits = 5, exp = FALSE),
+                  sprintf("%.5f", coef(summary(lmer1))[2,1]))
+
+
+    ## For p-values
+    ## lmerTest::lmer() masks lme4::lmer()
+    skip_if_not_installed("lmerTest")
+    library(lmerTest)
+
+    ## Linear LME
+    lmer2 <- lmer(formula = y ~ trt + day + (1 | id),
+                  data = koch)
+    summary(lmer2)
+
+    ciLmer2 <- tail(confint(lmer2), nrow(coef(summary(lmer2))))
+
+    ## confint
+    ShowRegTable(lmer2, digits = 5, exp = FALSE)
+    expect_output(ShowRegTable(lmer2, digits = 5, exp = FALSE),
+                  sprintf("%.5f, %.5f",
+                          ciLmer2[2,1],
+                          ciLmer2[2,2]))
+
+    ## coef
+    expect_output(ShowRegTable(lmer2, digits = 5, exp = FALSE),
+                  sprintf("%.5f", coef(summary(lmer2))[2,1]))
+
+    ## p-value
+    ## For some reason, need to specify summary explicitly.
+    expect_output(ShowRegTable(lmer2, pDigits = 5, exp = FALSE),
+                  sprintf("%.5f", coef(lmerTest_summary(lmer2))[2,5]))
+
+    ## GLMM
+    glmer1 <- glmer(formula = y ~ trt + day + (1 | id),
+                    data = koch,
+                    family = poisson(link = "log"))
+    summary(glmer1)
+    ## Last rows correspond to fixed effects
+    ciGlmer1 <- tail(confint(glmer1), nrow(coef(summary(glmer1))))
+
+    ## confint
+    ShowRegTable(glmer1, digits = 5, exp = TRUE)
+    expect_output(ShowRegTable(glmer1, digits = 5, exp = TRUE),
+                  sprintf("%.5f, %.5f",
+                          exp(ciGlmer1[2,1]),
+                          exp(ciGlmer1[2,2])))
+
+    ## coef
+    expect_output(ShowRegTable(glmer1, digits = 5, exp = TRUE),
+                  sprintf("%.5f", exp(coef(summary(glmer1)))[2,1]))
 })
