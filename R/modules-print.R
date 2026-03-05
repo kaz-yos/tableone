@@ -250,13 +250,14 @@ ModuleConvertNormal <- function(rowMat, digits, formatOptions = NULL) {
     formatOptions$trim <- TRUE
 
     ## Create a DF with numeric mean column and character (SD) column
-    ## Turn off trim, TODO: maybe add decimal adjustment later
+    ## Turn off trim. SD is formatted with one extra decimal place (digits + 1)
+    ## to reflect its additional precision relative to the mean.
     ## No need to round col1, ModuleContFormatStrata should do this after
     ## stacking up means and medians.
     ## unname() not to leave mean as a data frame row name.
     data.frame(col1 = unname(rowMat[,"mean"]),
                col2 = paste0(" (",
-                             ModuleFormatNumericVector(rowMat[,"sd"], digits, formatOptions),
+                             ModuleFormatNumericVector(rowMat[,"sd"], digits + 1, formatOptions),
                              ")"),
                stringsAsFactors = FALSE)
 }

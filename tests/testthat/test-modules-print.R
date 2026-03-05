@@ -444,45 +444,47 @@ describe("ModuleConvertNormal", {
     it("returns a column of numeric mean and a formatted column of character (SD)", {
         ## Column names must be generic (col1, col2).
         ## Both mean (SD) and median [IQR] are stacked up together.
+        ## SD is formatted with digits + 1 decimal places.
         expect_equal(ModuleConvertNormal(eg_mat,
                                          digits = 0),
                      data.frame(col1 = eg_mean,
-                                col2 = " (2140)"))
+                                col2 = " (2140.4)"))
         expect_equal(ModuleConvertNormal(eg_mat,
                                          digits = 1),
                      data.frame(col1 = eg_mean,
-                                col2 = " (2140.4)"))
+                                col2 = " (2140.39)"))
         expect_equal(ModuleConvertNormal(eg_mat,
                                          digits = 2),
                      data.frame(col1 = eg_mean,
-                                col2 = " (2140.39)"))
+                                col2 = " (2140.389)"))
         expect_equal(ModuleConvertNormal(eg_mat,
                                          digits = 3),
                      data.frame(col1 = eg_mean,
-                                col2 = " (2140.389)"))
+                                col2 = " (2140.3890)"))
     })
 
     it("respects formatOptions", {
+        ## SD is formatted with digits + 1 decimal places.
         expect_equal(ModuleConvertNormal(eg_mat,
                                          digits = 0,
                                          formatOptions = list(big.mark = ",", decimal.mark = "D")),
                      data.frame(col1 = eg_mean,
-                                col2 = " (2,140)"))
+                                col2 = " (2,140D4)"))
         expect_equal(ModuleConvertNormal(eg_mat,
                                          digits = 1,
                                          formatOptions = list(big.mark = ",", decimal.mark = "D")),
                      data.frame(col1 = eg_mean,
-                                col2 = " (2,140D4)"))
+                                col2 = " (2,140D39)"))
         expect_equal(ModuleConvertNormal(eg_mat,
                                          digits = 2,
                                          formatOptions = list(big.mark = ",", decimal.mark = "D")),
                      data.frame(col1 = eg_mean,
-                                col2 = " (2,140D39)"))
+                                col2 = " (2,140D389)"))
         expect_equal(ModuleConvertNormal(eg_mat,
                                          digits = 3,
                                          formatOptions = list(big.mark = ",", decimal.mark = "D")),
                      data.frame(col1 = eg_mean,
-                                col2 = " (2,140D389)"))
+                                col2 = " (2,140D3890)"))
     })
 })
 
